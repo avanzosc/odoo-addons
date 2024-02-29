@@ -31,7 +31,13 @@
                          {'label': 'Scoring Success:', 'value': o.scoring_success},
                          {'label': 'Score:', 'value': o.scoring_percentage},
                          {'label': 'Partner:', 'value': o.partner_id.name},
-                         {'label': 'Email:', 'value': o.email}
+                         {'label': 'Email:', 'value': o.email},
+                         {'label': 'Building:', 'value': o.inspected_building_id},
+                         {'label': 'Building Type:', 'value': o.building_type_id},
+                         {'label': 'Building Section:', 'value': o.building_section_id},
+                         {'label': 'Risk Use:', 'value': o.risk_use},
+                         {'label': 'Area:', 'value': o.superficie},
+                         {'label': 'Create Date:', 'value': o.create_date},
                      ]"
                             />
                             <t t-foreach="survey_info" t-as="info">

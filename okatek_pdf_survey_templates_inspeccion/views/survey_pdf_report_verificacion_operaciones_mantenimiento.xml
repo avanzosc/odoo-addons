@@ -10,10 +10,12 @@
             <div class="o_survey_print container">
                 <div role="form">
                     <!-- Contenedor principal -->
-                    <div style="overflow: hidden; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;">
+                    <div
+                        style="overflow: hidden; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;">
 
                         <!-- Tabla Izquierda -->
-                        <table style="float: left; width: 60%; border-collapse: collapse; box-sizing: border-box; margin: 0; ">
+                        <table
+                            style="float: left; width: 60%; border-collapse: collapse; box-sizing: border-box; margin: 0; ">
                             <t t-set="left_table_info"
                                 t-value="[
                                     {'label': 'Survey Title:', 'value': o.survey_id.title},
@@ -23,18 +25,25 @@
                             />
                             <t t-foreach="left_table_info" t-as="info">
                                 <tr t-if="info.get('label') and info.get('value')">
-                                    <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    <td
+                                        style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
-                                            <label t-if="info.get('label')" for="survey_survey_title" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-esc="info['value']" style="font-size: 10px; color: #333;"></span>
+                                            <label t-if="info.get('label')"
+                                                for="survey_survey_title"
+                                                style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                <t t-esc="info['label']" />
+                                            </label>
+                                            <span t-if="info.get('value')" t-esc="info['value']"
+                                                style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
                             </t>
                         </table>
-                    
+
                         <!-- Tabla Derecha -->
-                        <table style="float: right; width: 30%; border-collapse: collapse; box-sizing: border-box; margin: 0; ">
+                        <table
+                            style="float: right; width: 30%; border-collapse: collapse; box-sizing: border-box; margin: 0; ">
                             <t t-set="right_table_info"
                                 t-value="[
                                     {'label': 'Survey Expediente:', 'value': o.file_number},
@@ -45,17 +54,23 @@
                             />
                             <t t-foreach="right_table_info" t-as="info">
                                 <tr t-if="info.get('label') and info.get('value')">
-                                    <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
+                                    <td
+                                        style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
-                                            <label t-if="info.get('label')" for="inspection_start_date" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-esc="info['value']" style="font-size: 10px; color: #333;"></span>
+                                            <label t-if="info.get('label')"
+                                                for="inspection_start_date"
+                                                style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                <t t-esc="info['label']" />
+                                            </label>
+                                            <span t-if="info.get('value')" t-esc="info['value']"
+                                                style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
                             </t>
                         </table>
                     </div>
-                                        
+
                 </div>
             </div>
         </div>
