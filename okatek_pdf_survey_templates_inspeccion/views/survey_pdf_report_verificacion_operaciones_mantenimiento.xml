@@ -17,9 +17,8 @@
                             <t t-set="left_table_info"
                                 t-value="[
                                     {'label': 'Survey Title:', 'value': o.survey_id.title},
-                                    {'label': 'Survey Expediente:', 'value': o.file_number},
-                                    {'label': 'Survey Acta:', 'value': o.act_number},
-                                    {'label': 'Survey Inspector:', 'value': o.inspector_id.name}
+                                    {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+                                    {'label': 'Inspection Type:', 'value': o.inspection_type}
                                 ]"
                             />
                             <t t-foreach="left_table_info" t-as="info">
@@ -27,7 +26,7 @@
                                     <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
                                             <label t-if="info.get('label')" for="survey_survey_title" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-field="info.get(value)" style="font-size: 10px; color: #333;"></span>
+                                            <span t-if="info.get('value')" t-esc="info['value']" style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
@@ -38,9 +37,10 @@
                         <table style="float: right; width: 30%; border-collapse: collapse; box-sizing: border-box; margin: 0; ">
                             <t t-set="right_table_info"
                                 t-value="[
+                                    {'label': 'Survey Expediente:', 'value': o.file_number},
+                                    {'label': 'Survey Acta:', 'value': o.act_number},
                                     {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
                                     {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-                                    {'label': 'Inspection Type:', 'value': o.inspection_type}
                                 ]"
                             />
                             <t t-foreach="right_table_info" t-as="info">
@@ -48,7 +48,7 @@
                                     <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
                                             <label t-if="info.get('label')" for="inspection_start_date" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-field="info.get('value')" style="font-size: 10px; color: #333;"></span>
+                                            <span t-if="info.get('value')" t-esc="info['value']" style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
