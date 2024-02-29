@@ -9,7 +9,7 @@
         "survey",
     ],
     "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
