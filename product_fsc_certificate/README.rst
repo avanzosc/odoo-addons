@@ -8,9 +8,10 @@ Product FSC certificate
 
 * Adds new product field "Is FSC" to click on products that contain this certificate.
 * Adds changes on reports to notice the certificate
-- Sale Order
-- Stock move
-- Invoice
+
+  - Sale Order
+  - Stock move
+  - Invoice
 
 
 Bug Tracker

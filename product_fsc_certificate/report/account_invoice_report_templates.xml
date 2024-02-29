@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <xpath expr="//td[@name='account_invoice_line_name']" position="inside">
+            <span class="ml-2" t-if="line.product_id.is_fsc_certificate"> *</span>
+        </xpath>
+        <xpath expr="//div[@id='qrcode']" position="before">
+            <div t-if="o.is_fsc_certificate">
+                [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
+            </div>
+        </xpath>
+    </template>
+</odoo>
