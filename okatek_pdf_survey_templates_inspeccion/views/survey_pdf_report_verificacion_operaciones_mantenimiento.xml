@@ -2,7 +2,7 @@
 <odoo>
     <!-- Agregar portada -->
     <template
-        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
+        id="report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover"
         name="Survey: Cover Page">
         <t t-set="survey_form_readonly" t-value="true" />
         <div class="wrap">
@@ -11,7 +11,7 @@
                     <!-- Contenedor principal -->
                     <div
                         style="overflow: hidden; clear: both; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;">
-
+                    
                         <!-- Table  -->
                         <table
                             style="float: left; width: 100%; border-collapse: collapse; box-sizing: border-box; margin: 0px;">
@@ -181,7 +181,7 @@
     </template>
 
 
-    <template id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
+    <template id="report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento"
         name="Survey: print page">
         <t t-if="not company">
             <!-- Multicompany -->
@@ -223,7 +223,7 @@
 
 
                                 <t
-                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
+                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover"
                                     t-lang="o.partner_id.lang" />
 
 
@@ -355,23 +355,23 @@
     </template>
 
 
-    <template id="report_survey_pdf_proteccion_activa">
+    <template id="report_survey_pdf_verificacion_operaciones_mantenimiento">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t
-                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
+                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento"
                     t-lang="o.partner_id.lang" />
             </t>
         </t>
     </template>
 
 
-    <record id="action_report_survey_print_proteccion_activa" model="ir.actions.report">
-        <field name="name">Print Survey PDF PROTECCIÓN ACTIVA</field>
+    <record id="action_report_survey_print_verificacion_operaciones_mantenimiento" model="ir.actions.report">
+        <field name="name">Print Survey PDF VERIFICACIÓN OPERACIONES MANTENIMIENTO</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
-        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
+        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
         <field name="print_report_name">'Printed Survey'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
