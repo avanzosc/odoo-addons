@@ -367,12 +367,12 @@
 
 
     <record id="action_report_survey_print_verificacion_operaciones_mantenimiento" model="ir.actions.report">
-        <field name="name">Print Survey PDF VERIFICACIÓN OPERACIONES MANTENIMIENTO</field>
+        <field name="name">Verificación operaciones mantenimiento</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
         <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
-        <field name="print_report_name">'Printed Survey VERIFICACIÓN OPERACIONES MANTENIMIENTO'</field>
+        <field name="print_report_name">'Printed Survey Verificación operaciones mantenimiento'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
     </record>
