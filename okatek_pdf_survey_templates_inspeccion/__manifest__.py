@@ -7,6 +7,8 @@
     "depends": [
         "base",
         "survey",
+        "res_partner_building_type_section",
+        "survey_building_type_section",
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
