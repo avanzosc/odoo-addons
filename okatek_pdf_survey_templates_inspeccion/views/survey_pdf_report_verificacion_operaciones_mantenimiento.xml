@@ -27,7 +27,7 @@
                                     <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
                                             <label t-if="info.get('label')" for="survey_survey_title" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-field="info['value']" style="font-size: 10px; color: #333;"></span>
+                                            <span t-if="info.get('value')" t-field="info.get(value)" style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
@@ -48,7 +48,7 @@
                                     <td style="border: 1px solid black; padding: 0; box-sizing: border-box;">
                                         <div style="text-align: left;">
                                             <label t-if="info.get('label')" for="inspection_start_date" style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"><t t-esc="info['label']" /></label>
-                                            <span t-if="info.get('value')" t-field="info['value']" style="font-size: 10px; color: #333;"></span>
+                                            <span t-if="info.get('value')" t-field="info.get('value')" style="font-size: 10px; color: #333;"></span>
                                         </div>
                                     </td>
                                 </tr>
