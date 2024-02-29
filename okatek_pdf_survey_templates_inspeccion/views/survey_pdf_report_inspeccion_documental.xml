@@ -24,7 +24,7 @@
                          {'label': 'Survey Title:', 'value': o.survey_id.title},
                          {'label': 'Survey Expediente:', 'value': o.file_number},
                          {'label': 'Survey Acta:', 'value': o.act_number},
-                         {'label': 'Survey Inspector:', 'value': o.inspector_id},
+                         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
                          {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
                          {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
                          {'label': 'Inspection Type:', 'value': o.inspection_type},
@@ -80,7 +80,7 @@
                                     t-as="item"
                                 >
                                     <li
-                                        style="margin-bottom: 5px; display: inline-block;"
+                                        style="margin: 5px; display: inline-block;"
                                     >
                                         <input
                                             type="checkbox"
