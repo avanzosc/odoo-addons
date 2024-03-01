@@ -16,7 +16,7 @@
                         <!-- Table  -->
                         <table
                             class="table table-borderless o_survey_question_matrix text-white text-center"
-                            style="float:right; display: inline-block; width: 40%; border-collapse: collapse; box-sizing: border-box; margin: 0 0 -1px 0; "
+                            style="float:right; width: 40%; border-collapse: collapse; box-sizing: border-box; margin: 0 0 -1px 0; "
                         >
                         <t
                         t-set="survey_info"
@@ -43,10 +43,10 @@
                             <t t-foreach="survey_info" t-as="info">
                                 <tr
                                     t-if="info.get('label') and info.get('value')"
-                                    style="padding: 0; margin: 0;  width: 100%; display: inline-block; "
+                                    style="padding: 0; margin: 0;  width: 100%;  "
                                     class="bg-white text-white">
                                     <td class="o_survey_matrix_btn text-primary position-relative"
-                                        style="border: 1px solid #ccc; padding: 0; width: 100%; display: inline-block; border-collapse: collapse;  margin-top: -1px;"
+                                        style="border: 1px solid #ccc; padding: 0; width: 100%; border-collapse: collapse;  margin-top: -1px;"
                                     >
                                         <div
                                             style="padding: 0; text-align: left; width: 100%"
