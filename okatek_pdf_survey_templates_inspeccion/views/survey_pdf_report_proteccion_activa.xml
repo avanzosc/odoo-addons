@@ -34,11 +34,10 @@
    {'label': 'Risk Use:', 'value': o.risk_use},
    {'label': 'Area:', 'value': o.superficie},
    {'label': 'Create Date:', 'value': o.create_date},
-]"
-            />
+]"/>
             <!-- Table  -->
             <table
-              class="table table-borderless o_survey_question_matrix text-white text-center mb-0">
+              class="table table-borderless o_survey_question_matrix text-white text-center" style="margin: 10px">
               <t t-set="counter" t-value="0" />
               <t t-set="pair_infos" t-value="[]" />
               <t t-foreach="survey_info" t-as="info">

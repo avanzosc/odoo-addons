@@ -11,42 +11,42 @@
                 <div role="form">
                     <!-- Contenedor principal -->
                     <div
-                        style="overflow: hidden; border: 1px solid black; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;"
+                        style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;"
                     >
                         <!-- Table  -->
                         <table
-                            style="float:right; display: inline-block; width: 60%; border-collapse: collapse; box-sizing: border-box; margin: 0 0 -1px 0; "
+                            class="table table-borderless o_survey_question_matrix text-white text-center"
+                            style="float:right; display: inline-block; width: 40%; border-collapse: collapse; box-sizing: border-box; margin: 0 0 -1px 0; "
                         >
-
-                            <t
-                                t-set="survey_info"
-                                t-value="[
-                         {'label': 'Survey Title:', 'value': o.survey_id.title},
-                         {'label': 'Survey Expediente:', 'value': o.file_number},
-                         {'label': 'Survey Acta:', 'value': o.act_number},
-                         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
-                         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-                         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-                         {'label': 'Inspection Type:', 'value': o.inspection_type},
-                         {'label': 'Scoring Success:', 'value': o.scoring_success},
-                         {'label': 'Score:', 'value': o.scoring_percentage},
-                         {'label': 'Partner:', 'value': o.partner_id.name},
-                         {'label': 'Email:', 'value': o.email},
-                         {'label': 'Building:', 'value': o.inspected_building_id},
-                         {'label': 'Building Type:', 'value': o.building_type_id},
-                         {'label': 'Building Section:', 'value': o.building_section_id},
-                         {'label': 'Risk Use:', 'value': o.risk_use},
-                         {'label': 'Area:', 'value': o.superficie},
-                         {'label': 'Create Date:', 'value': o.create_date},
-                     ]"
-                            />
+                        <t
+                        t-set="survey_info"
+                        t-value="[
+             {'label': 'Survey Title:', 'value': o.survey_id.title},
+             {'label': 'Survey Expediente:', 'value': o.file_number},
+             {'label': 'Survey Acta:', 'value': o.act_number},
+             {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+             {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+             {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+             {'label': 'Inspection Type:', 'value': o.inspection_type},
+             {'label': 'Scoring Success:', 'value': o.scoring_success},
+             {'label': 'Score:', 'value': o.scoring_percentage},
+             {'label': 'Partner:', 'value': o.partner_id.name},
+             {'label': 'Email:', 'value': o.email},
+             {'label': 'Building:', 'value': o.inspected_building_id.name},
+             {'label': 'Building Type:', 'value': o.building_type_id.name},
+             {'label': 'Building Section:', 'value': o.building_section_id.name},
+             {'label': 'Risk Use:', 'value': o.risk_use},
+             {'label': 'Area:', 'value': o.superficie},
+             {'label': 'Create Date:', 'value': o.create_date},
+          ]" />
+          
                             <t t-foreach="survey_info" t-as="info">
                                 <tr
                                     t-if="info.get('label') and info.get('value')"
                                     style="padding: 0; margin: 0;  width: 100%; display: inline-block; "
-                                >
-                                    <td
-                                        style="border: 1px solid black; padding: 0; width: 100%; display: inline-block; border-collapse: collapse;  margin-top: -1px;"
+                                    class="bg-white text-white">
+                                    <td class="o_survey_matrix_btn text-primary position-relative"
+                                        style="border: 1px solid #ccc; padding: 0; width: 100%; display: inline-block; border-collapse: collapse;  margin-top: -1px;"
                                     >
                                         <div
                                             style="padding: 0; text-align: left; width: 100%"
@@ -76,8 +76,10 @@
                             style="display: inline-block; width: 40%; margin: 0; padding: 10px; font-size: 10px; box-sizing: border-box;"
                         >
                             <p>De acuerdo con el Reglamento de instalaciones de protección
-                            contraincendios, las comprobaciones y controles se realizan en base al
-                            cumplimiento de las disposiciones: </p><ul
+                                contraincendios, las comprobaciones y controles se realizan en base
+                                al
+                                cumplimiento de las disposiciones: </p>
+                            <ul
                                 style="list-style: none; padding: 0; margin: 0;"
                             >
                                 <t
@@ -381,8 +383,10 @@
         <field name="name">Inspección Documental</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
-        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_name">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_file">
+            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
         <field name="print_report_name">'Printed Survey Inspección Documental'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
