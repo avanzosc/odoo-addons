@@ -777,8 +777,13 @@ class StockPickingBatch(models.Model):
             "account_id": self.account_id.id,
             "tag_ids": [(4, breeding_tag.id)],
             "batch_id": self.id,
-            "amount": sum(self.move_line_ids.filtered(
-                lambda c: c.move_type_id == meat_type).mapped("amount")),
+            "amount": sum(
+                self.move_line_ids.filtered(
+                    lambda c: c.move_type_id == meat_type and (
+                        c.location_id == self.location_id
+                    ) and c.picking_code == "outgoing"
+                ).mapped("amount")
+            ),
             "unit_amount": 1})
         self.env["account.analytic.line"].create({
             "name": "Gtos. Generales",
@@ -815,18 +820,35 @@ class StockPickingBatch(models.Model):
                 lambda c: c.move_type_id == drug_type and (
                     c.location_dest_id == self.location_id)).mapped("amount")),
             "unit_amount": 1})
+        lots = []
         feed_movelines = self.move_line_ids.filtered(
             lambda c: c.move_type_id == feed_type and c.state == "done"
         )
-        output_feed = feed_movelines.filtered(
-            lambda c: c.location_id == self.location_id
-        )
+        for line in feed_movelines:
+            if line.lot_id not in lots:
+                lots.append(line.lot_id)
+        amount = 0
+        for line in lots:
+            entry_lines = feed_movelines.filtered(
+                lambda c: c.location_dest_id == self.location_id and c.lot_id == line
+            )
+            out_lines = feed_movelines.filtered(
+                lambda c: c.location_id == self.location_id and c.lot_id == line
+            )
+            entry_qty = sum(entry_lines.mapped("qty_done"))
+            out_qty = sum(out_lines.mapped("qty_done"))
+            if entry_qty == out_qty:
+                amount += round(sum(entry_lines.mapped("amount")),2)
+            else:
+                entry_amount = round(sum(entry_lines.mapped("amount")),2)
+                out_amount = round(sum(out_lines.mapped("amount")),2)
+                amount += round(entry_amount + (out_amount - entry_amount),2)
         self.env["account.analytic.line"].create({
             "name": "Pienso",
             "account_id": self.account_id.id,
             "tag_ids": [(4, breeding_tag.id)],
             "batch_id": self.id,
-            "amount": (-1) * sum(output_feed.mapped("amount")),
+            "amount": (-1) * amount,
             "unit_amount": 1})
         self.env["account.analytic.line"].create({
             "name": "Pollito",
@@ -852,12 +874,21 @@ class StockPickingBatch(models.Model):
             raise ValidationError(
                 _("You must first enter the liquidation date."))
         tax = []
-        if self.tax_entity_id.property_account_position_id and self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
+        if self.tax_entity_id.property_account_position_id and (
+            self.tax_entity_id.property_account_position_id.tax_ids
+        ) and (
+            self.liquidation_contract_id.invoice_product_id.supplier_taxes_id
+        ):
             for sup_tax in self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
                 taxes = self.tax_entity_id.property_account_position_id.tax_ids.filtered(lambda c: c.tax_src_id.id == sup_tax.id)
-                for line in taxes:
-                    if line not in tax:
-                        tax.append(line.tax_dest_id.id)
+                if taxes:
+                    for line in taxes:
+                        if line not in tax:
+                            tax.append(line.tax_dest_id.id)
+                else:
+                    for line in self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
+                        if line not in tax:
+                            tax.append(line.id)
         else:
             for line in self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
                 if line not in tax:
