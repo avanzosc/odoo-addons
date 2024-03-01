@@ -7,9 +7,7 @@
     >
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
-        <div
-            style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 15px 0; display: block; width: 100%; padding: 0;"
-        >
+        <div style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 15px 0; display: -webkit-box; display: flex; width: 100%; padding: 0;">
 
             <t
                 t-set="survey_info"
@@ -33,22 +31,23 @@
          {'label': 'Create Date:', 'value': o.create_date},
       ]" />
 
+      <div style="-webkit-box-flex: 2; -ms-flex: 2; flex: 2; box-sizing: border-box;">
 
             <!-- Table  -->
             <table
                 class="table table-borderless o_survey_question_matrix text-white text-center"
-                style="float:right; width: 60%; border-collapse: collapse; box-sizing: border-box; margin: -1px; "
+                style="width: 60%; border-collapse: collapse; box-sizing: border-box; margin: -1px; "
             >
 
-                <t t-set="counter" t-value="0" />
+                <t t-set="display_counter" t-value="0" />
                 <t t-set="total_counter" t-value="0" />
                 <t t-set="pair_infos" t-value="[]" />
                 <t t-foreach="survey_info" t-as="info">
                     <t t-set="total_counter" t-value="total_counter+1" />
                     <t t-if="info['value']">
-                        <t t-set="counter" t-value="counter+1" />
+                        <t t-set="display_counter" t-value="display_counter+1" />
                         <t t-set="pair_infos" t-value="pair_infos + [info]" />
-                        <t t-if="counter % 2 == 0 or total_counter == len(survey_info)">
+                        <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
                             <tr class="bg-white text-white">
                                 <t t-foreach="pair_infos" t-as="pair_info">
                                     <td class="o_survey_matrix_btn text-primary position-relative"
@@ -71,11 +70,10 @@
                         </t>
                     </t>
                 </t>
-            </table>
+            </table></div>
 
             <!-- Contenedor izquierdo -->
-            <div
-                style="width: 40%; margin: 0 40px 0 0; padding: 10px; font-size: 10px; box-sizing: border-box;">
+            <div style="-webkit-box-flex: 1; -ms-flex: 1; flex: 1; margin: 0 40px 0 0; padding: 10px; font-size: 10px; box-sizing: border-box;">
                 <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
                     comprobaciones y controles se realizan en base al cumplimiento de las
                     disposiciones: </p>
