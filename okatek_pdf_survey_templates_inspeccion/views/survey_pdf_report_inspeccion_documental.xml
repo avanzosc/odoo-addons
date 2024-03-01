@@ -6,100 +6,97 @@
         name="Survey: Cover Page"
     >
         <t t-set="survey_form_readonly" t-value="true" />
-        <div class="wrap">
-            <div class="o_survey_print container">
-                <div role="form">
-                    <!-- Contenedor principal -->
-                    <div
-                        style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;"
-                    >
-                        <!-- Table  -->
-                        <table
-                            class="table table-borderless o_survey_question_matrix text-white text-center"
-                            style="float:right; width: 40%; border-collapse: collapse; box-sizing: border-box; margin: 0 0 -1px 0; "
-                        >
-                        <t
-                        t-set="survey_info"
-                        t-value="[
-             {'label': 'Survey Title:', 'value': o.survey_id.title},
-             {'label': 'Survey Expediente:', 'value': o.file_number},
-             {'label': 'Survey Acta:', 'value': o.act_number},
-             {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
-             {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-             {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-             {'label': 'Inspection Type:', 'value': o.inspection_type},
-             {'label': 'Scoring Success:', 'value': o.scoring_success},
-             {'label': 'Score:', 'value': o.scoring_percentage},
-             {'label': 'Partner:', 'value': o.partner_id.name},
-             {'label': 'Email:', 'value': o.email},
-             {'label': 'Building:', 'value': o.inspected_building_id.name},
-             {'label': 'Building Type:', 'value': o.building_type_id.name},
-             {'label': 'Building Section:', 'value': o.building_section_id.name},
-             {'label': 'Risk Use:', 'value': o.risk_use},
-             {'label': 'Area:', 'value': o.superficie},
-             {'label': 'Create Date:', 'value': o.create_date},
-          ]" />
-          
-                            <t t-foreach="survey_info" t-as="info">
-                                <tr
-                                    t-if="info.get('label') and info.get('value')"
-                                    style="padding: 0; margin: 0;  width: 100%;  "
-                                    class="bg-white text-white">
-                                    <td class="o_survey_matrix_btn text-primary position-relative"
-                                        style="border: 1px solid #ccc; padding: 0; width: 100%; border-collapse: collapse;  margin-top: -1px;"
-                                    >
-                                        <div
-                                            style="padding: 0; text-align: left; width: 100%"
-                                        >
-                                            <t t-if="info.get('label')">
-                                                <label
-                                                    style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;"
-                                                >
-                                                    <t t-esc="info['label']" />
-                                                </label>
-                                            </t>
-                                            <t t-if="info.get('value')">
-                                                <span
-                                                    style="font-size: 10px; color: #333; text-align: left; padding: 0;"
-                                                >
-                                                    <t t-esc="info['value']" />
-                                                </span>
-                                            </t>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </t>
-                        </table>
+        <!-- Contenedor principal -->
+        <div
+            style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;"
+        >
 
-                        <!-- Contenedor izquierdo -->
-                        <div
-                            style="display: inline-block; width: 40%; margin: 0; padding: 10px; font-size: 10px; box-sizing: border-box;"
-                        >
-                            <p>De acuerdo con el Reglamento de instalaciones de protección
-                                contraincendios, las comprobaciones y controles se realizan en base
-                                al
-                                cumplimiento de las disposiciones: </p>
-                            <ul
-                                style="list-style: none; padding: 0; margin: 0;"
-                            >
-                                <t
-                                    t-foreach="['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96']"
-                                    t-as="item"
-                                >
-                                    <li
-                                        style="margin: 5px; display: inline-block;"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            style="margin-right: 5px; vertical-align: middle; font-size: 9px;"
-                                        />
-                                        <t t-esc="item" />
-                                    </li>
+            <t
+                t-set="survey_info"
+                t-value="[
+         {'label': 'Survey Title:', 'value': o.survey_id.title},
+         {'label': 'Survey Expediente:', 'value': o.file_number},
+         {'label': 'Survey Acta:', 'value': o.act_number},
+         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+         {'label': 'Inspection Type:', 'value': o.inspection_type},
+         {'label': 'Scoring Success:', 'value': o.scoring_success},
+         {'label': 'Score:', 'value': o.scoring_percentage},
+         {'label': 'Partner:', 'value': o.partner_id.name},
+         {'label': 'Email:', 'value': o.email},
+         {'label': 'Building:', 'value': o.inspected_building_id.name},
+         {'label': 'Building Type:', 'value': o.building_type_id.name},
+         {'label': 'Building Section:', 'value': o.building_section_id.name},
+         {'label': 'Risk Use:', 'value': o.risk_use},
+         {'label': 'Area:', 'value': o.superficie},
+         {'label': 'Create Date:', 'value': o.create_date},
+      ]" />
+
+
+            <!-- Table  -->
+            <table
+                class="table table-borderless o_survey_question_matrix text-white text-center"
+                style="float:right; width: 60%; border-collapse: collapse; box-sizing: border-box; margin: -1px; "
+            >
+
+                <t t-set="counter" t-value="0" />
+                <t t-set="pair_infos" t-value="[]" />
+                <t t-foreach="survey_info" t-as="info">
+                    <t t-set="counter" t-value="counter+1" />
+                    <t t-set="pair_infos" t-value="pair_infos + [info]" />
+                    <t t-if="counter % 2 == 0 or counter == len(survey_info)">
+                        <tr class="bg-white text-white">
+                            <t t-foreach="pair_infos" t-as="pair_info">
+                                <td class="o_survey_matrix_btn text-primary position-relative">
+                                    <div style="text-align: left;">
+                                        <t t-if="pair_info.get('label')">
+                                            <label
+                                                style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                <t t-esc="pair_info['label']" />
+                                            </label>
+                                        </t>
+                                        <span style="font-size: 10px; color: #333;">
+                                            <t t-esc="pair_info['value']" />
+                                        </span>
+                                    </div>
+                                </td>
+                            </t>
+                        </tr>
+                        <t t-set="pair_infos" t-value="[]" />
+                    </t>
+                </t>
+            </table>
+
+            <!-- Contenedor izquierdo -->
+            <div
+                style="display: inline-block; width: 40%; margin: 0; padding: 10px; font-size: 10px; box-sizing: border-box;">
+                <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
+                    comprobaciones y controles se realizan en base al cumplimiento de las
+                    disposiciones: </p>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <t t-set="counter" t-value="0" />
+                    <t t-set="grouped_items" t-value="[]" />
+                    <t
+                        t-foreach="['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96']"
+                        t-as="item">
+                        <t t-set="counter" t-value="counter+1" />
+                        <t t-set="grouped_items" t-value="grouped_items + [item]" />
+                        <t
+                            t-if="counter % 3 == 0 or counter == len(['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96'])">
+                            <tr>
+                                <t t-foreach="grouped_items" t-as="grouped_item">
+                                    <td style="margin: 5px; padding: 5px; text-align: left;">
+                                        <input type="checkbox"
+                                            style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
+                                        <t t-esc="grouped_item" />
+                                    </td>
                                 </t>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                            </tr>
+                            <t t-set="grouped_items" t-value="[]" />
+                        </t>
+                    </t>
+                </table>
             </div>
         </div>
     </template>
