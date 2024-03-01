@@ -8,7 +8,7 @@
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
         <div
-            style="overflow: hidden; clear: both; border: box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;"
+            style="overflow: hidden; clear: both; box-sizing: border-box; margin-bottom: 5px;"
         >
 
             <t
@@ -35,7 +35,7 @@
             <!-- Table  -->
             <table
                 class="table table-borderless o_survey_question_matrix text-white text-center"
-                style="margin: 10px">
+                style="margin: 10px; background-color: #349; max-width: 300px;">
                 <t t-set="display_counter" t-value="0" />
                 <t t-set="total_counter" t-value="0" />
                 <t t-set="pair_infos" t-value="[]" />
@@ -68,45 +68,7 @@
                     </t>
                 </t>
             </table>
-
         </div>
-
-
-        <div
-            style="height: 500px; width: 500px; background-color: #ccc; display: -webkit-box;  -webkit-box-orient: vertical; -webkit-box-direction: normal; flex-direction: column;">
-
-            <header
-                style="background-color: #3400db; color: white; padding: 10px; text-align: center;">
-                <h1>Header</h1>
-            </header>
-
-            <div
-                style="display: -webkit-box; display: -webkit-flex;  -webkit-box-flex: 1; -webkit-flex: 1; position: relative;">
-
-                <main
-                    style="display: -webkit-box; display: -webkit-flex; -webkit-box-flex: 1; -webkit-flex: 1; padding: 20px; background-color: #ee0ff1; overflow: hidden;">
-                    <h2>Main Content</h2>
-                    <p>This is the main content area. It will expand to fill the available space.</p>
-                </main>
-
-
-                <aside
-                    style="max-width: 25%; background-color: #2ecc71; color: white; padding: 10px;">
-                    <h2>Aside</h2>
-                    <p>This is the aside content. It has a fixed width and will remain to the side
-                        of the main content.</p>
-                </aside>
-
-            </div>
-
-            <footer
-                style="background-color: #3498db; color: white; padding: 10px; text-align: center;">
-                <p>Footer</p>
-            </footer>
-
-        </div>
-
-
     </template>
 
 
