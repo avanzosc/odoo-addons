@@ -8,7 +8,7 @@
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
         <div
-            style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 5px 0; display: block; width: 100%; padding: 0;"
+            style="overflow: hidden; border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 15px 0; display: block; width: 100%; padding: 0;"
         >
 
             <t
@@ -70,11 +70,11 @@
 
             <!-- Contenedor izquierdo -->
             <div
-                style="display: inline-block; width: 40%; margin: 0; padding: 10px; font-size: 10px; box-sizing: border-box;">
+                style="width: 40%; margin: 0 40px 0 0; padding: 10px; font-size: 10px; box-sizing: border-box;">
                 <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
                     comprobaciones y controles se realizan en base al cumplimiento de las
                     disposiciones: </p>
-                <table style="width: 100%; border-collapse: collapse;">
+                <table style="width: 100%; border-collapse: collapse; border: none; border-color: transparent;  border-width: 0;">
                     <t t-set="counter" t-value="0" />
                     <t t-set="grouped_items" t-value="[]" />
                     <t
@@ -84,9 +84,10 @@
                         <t t-set="grouped_items" t-value="grouped_items + [item]" />
                         <t
                             t-if="counter % 3 == 0 or counter == len(['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96'])">
-                            <tr>
+                            <tr style="border: none; border-color: transparent;  border-width: 0; ">
                                 <t t-foreach="grouped_items" t-as="grouped_item">
-                                    <td style="margin: 5px; padding: 5px; text-align: left;">
+                                    <td
+                                        style="margin: 5px; padding: 5px; text-align: left; border: none; border-color: transparent;  border-width: 0;">
                                         <input type="checkbox"
                                             style="margin-right: 5px; vertical-align: middle; font-size: 9px;" />
                                         <t t-esc="grouped_item" />
