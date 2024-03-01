@@ -10,7 +10,7 @@ class AccountMoveLine(models.Model):
     name = fields.Char(string="Description")
     percentage = fields.Float(string="Percentage")
 
-    @api.onchange("percentage", "move_id", "move_id.invoicing_qty")
+    @api.onchange("percentage", "move_id")
     def onchange_invoicing_qty(self):
         if self.percentage and self.move_id.invoicing_qty:
             self.quantity = self.percentage * self.move_id.invoicing_qty / 100
