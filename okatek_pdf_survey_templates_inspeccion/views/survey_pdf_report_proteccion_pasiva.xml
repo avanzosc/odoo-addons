@@ -5,24 +5,39 @@
         id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
         name="Survey: Cover Page"
     >
-    <style>
-        * {
+        <style>
+            .contenedor {
+            overflow: hidden;
+            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            }
+            .contenedor * {
             margin: 0;
             padding: 0;
-        }
-    </style>
-        <t t-set="survey_form_readonly" t-value="true" />
-        <div class="wrap" style="border: 1px solid yellow;">
-            <div class="o_survey_print container" style="border: 1px solid green; padding: 0;">
-                <div role="form" style="border: 1px solid black; margin: 0; padding: 0;">
-                    <!-- Contenedor principal -->
-                    <div
-                        style="border: 1px solid blue; overflow: hidden; clear: both; border: box-sizing: border-box; border-collapse: collapse; margin-bottom: 5px;"
-                    >
+            }
 
-                        <t
-                            t-set="survey_info"
-                            t-value="[
+            .contenedor td{
+            text-align: left;
+            }
+            .contenedor label{
+            font-size: 10px;
+            font-weight: bold;
+            margin: 0;
+            padding: 0 2px;
+            white-space: nowrap;
+            }
+            .contenedor span{
+            font-size: 10px;
+            color: #333;
+            }
+        </style>
+        <t t-set="survey_form_readonly" t-value="true" />
+        <!-- Contenedor principal -->
+        <div class="contenedor">
+            <t
+                t-set="survey_info"
+                t-value="[
          {'label': 'Survey Title:', 'value': o.survey_id.title},
          {'label': 'Survey Expediente:', 'value': o.file_number},
          {'label': 'Survey Acta:', 'value': o.act_number},
@@ -41,45 +56,38 @@
          {'label': 'Area:', 'value': o.superficie},
          {'label': 'Create Date:', 'value': o.create_date},
       ]" />
-                        <!-- Table  -->
-                        <table
-                            class="table table-borderless o_survey_question_matrix text-white text-center"
-                            style="margin: 10px, border: 1px solid red;">
-                            <t t-set="counter" t-value="0" />
-                            <t t-set="pair_infos" t-value="[]" />
-                            <t t-foreach="survey_info" t-as="info">
-                                <t t-set="counter" t-value="counter+1" t-if="info['value']"
-                                />
-                                <t t-set="pair_infos" t-value="pair_infos + [info]"
-                                    t-if="info['value']"
-                                />
-                                <t t-if="counter % 6 == 0 or counter == len(survey_info)">
-                                    <tr class="bg-white text-white">
-                                        <t t-foreach="pair_infos" t-as="pair_info">
-                                            <td
-                                                class="o_survey_matrix_btn text-primary position-relative"
-                                                >
-                                                <div style="text-align: left;">
-                                                    <t t-if="pair_info.get('label')">
-                                                        <label
-                                                            style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
-                                                            <t t-esc="pair_info['label']" />
-                                                        </label>
-                                                    </t>
-                                                    <span style="font-size: 10px; color: #333;">
-                                                        <t t-esc="pair_info['value']" />
-                                                    </span>
-                                                </div>
-                                            </td>
-                                        </t>
-                                    </tr>
-                                    <t t-set="pair_infos" t-value="[]" />
-                                </t>
+            <!-- Table  -->
+            <table
+                class="table table-borderless o_survey_question_matrix text-white text-center">
+                <t t-set="counter" t-value="0" />
+                <t t-set="pair_infos" t-value="[]" />
+                <t t-foreach="survey_info" t-as="info">
+                    <t t-set="counter" t-value="counter+1" t-if="info['value']"
+                    />
+                    <t t-set="pair_infos" t-value="pair_infos + [info]"
+                        t-if="info['value']"
+                    />
+                    <t t-if="counter % 3 == 0 or counter == len(survey_info)">
+                        <tr class="bg-white text-white">
+                            <t t-foreach="pair_infos" t-as="pair_info">
+                                <td
+                                    class="o_survey_matrix_btn text-primary position-relative"
+                                >
+                                    <t t-if="pair_info.get('label')">
+                                        <label>
+                                            <t t-esc="pair_info['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="pair_info['value']" />
+                                    </span>
+                                </td>
                             </t>
-                        </table>
-                    </div>
-                </div>
-            </div>
+                        </tr>
+                        <t t-set="pair_infos" t-value="[]" />
+                    </t>
+                </t>
+            </table>
         </div>
     </template>
 
