@@ -4,54 +4,93 @@
     <template
         id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
         name="Survey: Cover Page"
-    >            <style>
-        table {
-            border: 3px solid #492;
-        }
-    </style>
+    >
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
         <div
-            style="width: 800px; display: -webkit-box; box-sizing: border-box; margin-bottom: 5px; background-color: #e76; border: 2px solid #9ff;"
+            style="width: 800px; display: -webkit-box; -webkit-box-pack: justify; box-sizing: border-box; margin-bottom: 12px; "
         >
 
+
             <t
-                t-set="survey_info"
+                t-set="left_table_top"
                 t-value="[
-   {'label': 'Survey Title:', 'value': o.survey_id.title},
-   {'label': 'Survey Expediente:', 'value': o.file_number},
-   {'label': 'Survey Acta:', 'value': o.act_number},
-   {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
-   {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-   {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-   {'label': 'Inspection Type:', 'value': o.inspection_type},
-   {'label': 'Scoring Success:', 'value': o.scoring_success},
-   {'label': 'Score:', 'value': o.scoring_percentage},
    {'label': 'Partner:', 'value': o.partner_id.name},
-   {'label': 'Email:', 'value': o.email},
    {'label': 'Building:', 'value': o.inspected_building_id.name},
    {'label': 'Building Type:', 'value': o.building_type_id.name},
    {'label': 'Building Section:', 'value': o.building_section_id.name},
-   {'label': 'Risk Use:', 'value': o.risk_use},
-   {'label': 'Area:', 'value': o.superficie},
-   {'label': 'Create Date:', 'value': o.create_date},
 ]" />
 
-            <div style="-webkit-box-flex: 1; width: 60%; margin:0; padding: 0;  box-sizing: border-box; ">
+<t
+t-set="left_table_bottom"
+t-value="[
+{'label': 'Survey Title:', 'value': o.survey_id.title},
+{'label': 'Survey Expediente:', 'value': o.file_number},
+{'label': 'Survey Acta:', 'value': o.act_number},
+{'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+{'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+{'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+{'label': 'Inspection Type:', 'value': o.inspection_type},
+{'label': 'Scoring Success:', 'value': o.scoring_success},
+{'label': 'Score:', 'value': o.scoring_percentage},
+{'label': 'Partner:', 'value': o.partner_id.name},
+{'label': 'Email:', 'value': o.email},
+{'label': 'Building:', 'value': o.inspected_building_id.name},
+{'label': 'Building Type:', 'value': o.building_type_id.name},
+{'label': 'Building Section:', 'value': o.building_section_id.name},
+{'label': 'Risk Use:', 'value': o.risk_use},
+{'label': 'Area:', 'value': o.superficie},
+{'label': 'Create Date:', 'value': o.create_date},
+]" />
 
-                <!-- Table  -->
+            <t
+                t-set="right_table"
+                t-value="[
+{'label': 'Survey Expediente:', 'value': o.file_number},
+{'label': 'Survey Acta:', 'value': o.act_number},
+{'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+{'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+{'label': 'Create Date:', 'value': o.create_date},
+]" />
+
+            <div
+                style="-webkit-box-flex: 9; margin:0; padding: 0;  box-sizing: border-box; margin-right: 5%; ">
+
                 <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center"
-                    style="margin: 0; background-color: #349;">
+                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="left_table_top" t-as="info">
+                        <t t-if="info['value']">
+                            <tr class="bg-white text-white">
+                                <td
+                                    class="o_survey_matrix_btn text-primary position-relative"
+                                    style="padding: 0; margin: 0;">
+                                    <div style="text-align: left;">
+                                        <t t-if="info.get('label')">
+                                            <label
+                                                style="font-size: 11px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                <t t-esc="info['label']" />
+                                            </label>
+                                        </t>
+                                        <span style="font-size: 11px; color: #333;">
+                                            <t t-esc="info['value']" />
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+
+                    <!-- From one td to to tds -->
+
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
                     <t t-set="pair_infos" t-value="[]" />
-                    <t t-foreach="survey_info" t-as="info">
+                    <t t-foreach="left_table_bottom" t-as="info">
                         <t t-set="total_counter" t-value="total_counter+1" />
                         <t t-if="info['value']">
                             <t t-set="display_counter" t-value="display_counter+1" />
                             <t t-set="pair_infos" t-value="pair_infos + [info]" />
-                            <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
+                            <t t-if="display_counter % 2 == 0 or total_counter == len(left_table_bottom)">
                                 <tr class="bg-white text-white">
                                     <t t-foreach="pair_infos" t-as="pair_info">
                                         <td
@@ -60,11 +99,11 @@
                                             <div style="text-align: left;">
                                                 <t t-if="pair_info.get('label')">
                                                     <label
-                                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                        style="font-size: 11px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
                                                         <t t-esc="pair_info['label']" />
                                                     </label>
                                                 </t>
-                                                <span style="font-size: 10px; color: #983;">
+                                                <span style="font-size: 11px; color: #333;">
                                                     <t t-esc="pair_info['value']" />
                                                 </span>
                                             </div>
@@ -79,41 +118,30 @@
             </div>
 
 
-            <div style="-webkit-box-flex: 1; width: 30%; margin: 0; padding: 0; box-sizing: border-box; ">
+            <div
+                style="-webkit-box-flex: 4; margin: 0; padding: 0; box-sizing: border-box;">
                 <!-- Table  -->
                 <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center"
-                    style="background-color: #349;">
-                    <t t-set="display_counter" t-value="0" />
-                    <t t-set="total_counter" t-value="0" />
-                    <t t-set="pair_infos" t-value="[]" />
-                    <t t-foreach="survey_info" t-as="info">
-                        <t t-set="total_counter" t-value="total_counter+1" />
+                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="right_table" t-as="info">
                         <t t-if="info['value']">
-                            <t t-set="display_counter" t-value="display_counter+1" />
-                            <t t-set="pair_infos" t-value="pair_infos + [info]" />
-                            <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
-                                <tr class="bg-white text-white">
-                                    <t t-foreach="pair_infos" t-as="pair_info">
-                                        <td
-                                            class="o_survey_matrix_btn text-primary position-relative"
-                                            style="padding: 0; margin: 0;">
-                                            <div style="text-align: left;">
-                                                <t t-if="pair_info.get('label')">
-                                                    <label
-                                                        style="font-size: 10px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
-                                                        <t t-esc="pair_info['label']" />
-                                                    </label>
-                                                </t>
-                                                <span style="font-size: 10px; color: #333;">
-                                                    <t t-esc="pair_info['value']" />
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <t t-set="pair_infos" t-value="[]" />
-                            </t>
+                            <tr class="bg-white text-white">
+                                <td
+                                    class="o_survey_matrix_btn text-primary position-relative"
+                                    style="padding: 0; margin: 0;">
+                                    <div style="text-align: left;">
+                                        <t t-if="info.get('label')">
+                                            <label
+                                                style="font-size: 11px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                <t t-esc="info['label']" />
+                                            </label>
+                                        </t>
+                                        <span style="font-size: 11px; color: #333;">
+                                            <t t-esc="info['value']" />
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
                         </t>
                     </t>
                 </table>
