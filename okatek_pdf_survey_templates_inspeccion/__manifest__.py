@@ -15,6 +15,7 @@
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
+        "views/import_custom_css.xml",
         "views/survey_pdf_report_inspeccion_documental.xml",
         "views/survey_pdf_report_proteccion_activa.xml",
         "views/survey_pdf_report_proteccion_pasiva.xml",
