@@ -192,6 +192,8 @@
             </t>
         </t>
         <t t-call="web.external_layout_striped">
+            <link href="/okatek_pdf_survey_templates_inspeccion/static/src/css/okatek_pdf_survey_templates_inspeccion.css" rel="stylesheet" />
+            
             <page>
                 <t t-if="o.survey_id.title">
                     <div
