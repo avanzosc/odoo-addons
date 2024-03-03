@@ -191,7 +191,7 @@
         </t>
         <t t-call="web.external_layout_striped">
             
-            <link href="/okatek_pdf_survey_templates_inspeccion/static/src/css/okatek_pdf_survey_templates_inspeccion.css" rel="stylesheet" />
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
 
             
             <page>
@@ -228,7 +228,7 @@
 
 
                                 <t
-                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover"
+                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover"
                                     t-lang="o.partner_id.lang"
                                 />
 
@@ -434,7 +434,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t
-                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento"
+                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento"
                     t-lang="o.partner_id.lang"
                 />
             </t>
@@ -452,11 +452,11 @@
         <field
             name="report_name"
         >
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
+            survey_user_input_report.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
         <field
             name="report_file"
         >
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
+            survey_user_input_report.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
         <field
             name="print_report_name"
         >'Printed Survey Verificación Operaciones Mantenimiento'</field>

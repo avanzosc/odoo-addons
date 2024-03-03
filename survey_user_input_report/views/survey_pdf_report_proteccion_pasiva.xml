@@ -2,178 +2,93 @@
 <odoo>
     <!-- Agregar portada -->
     <template
-        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
+        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
         name="Survey: Cover Page"
     >
-        <t
-            t-set="left_table_top"
-            t-value="[
-{'label': 'Partner:', 'value': o.partner_id.name},
-{'label': 'Building:', 'value': o.inspected_building_id.name},
-{'label': 'Building Type:', 'value': o.building_type_id.name},
-{'label': 'Building Section:', 'value': o.building_section_id.name},
-]" />
-
-        <t
-            t-set="left_table_bottom"
-            t-value="[
-{'label': 'Survey Title:', 'value': o.survey_id.title},
-{'label': 'Survey Expediente:', 'value': o.file_number},
-{'label': 'Survey Acta:', 'value': o.act_number},
-{'label': 'Survey Inspector:', 'value': o.inspector_id.name},
-{'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-{'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-{'label': 'Inspection Type:', 'value': o.inspection_type},
-{'label': 'Scoring Success:', 'value': o.scoring_success},
-{'label': 'Score:', 'value': o.scoring_percentage},
-{'label': 'Partner:', 'value': o.partner_id.name},
-{'label': 'Email:', 'value': o.email},
-{'label': 'Building:', 'value': o.inspected_building_id.name},
-{'label': 'Building Type:', 'value': o.building_type_id.name},
-{'label': 'Building Section:', 'value': o.building_section_id.name},
-{'label': 'Risk Use:', 'value': o.risk_use},
-{'label': 'Area:', 'value': o.superficie},
-{'label': 'Create Date:', 'value': o.create_date},
-]" />
-
-        <t
-            t-set="right_table"
-            t-value="[
-{'label': 'Survey Expediente:', 'value': o.file_number},
-{'label': 'Survey Acta:', 'value': o.act_number},
-{'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-{'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-{'label': 'Create Date:', 'value': o.create_date},
-]" />
-
         <style>
-
-            .contenedor{
-            width: 800px;
-            display: -webkit-box;
-            -webkit-box-pack: justify;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-            }
             .contenedor {
-            display: -webkit-box;
+            overflow: hidden;
+            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            }
+            .contenedor * {
+            margin: 0;
+            padding: 0;
             }
 
-            .contenedor > div:first-child {
-            -webkit-box-flex: 9;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            margin-right: 5%;
-            }
 
-            .contenedor > div:last-child {
-            -webkit-box-flex: 4;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            }
-            .contenedor table{
-            margin: 0;
-            padding: 0;
-            }
-            .contenedor label {
-            font-size: 11px;
+            .contenedor label{
+            font-size: 10px;
             font-weight: bold;
             margin: 0;
+            padding: 0 2px;
             white-space: nowrap;
             }
 
         </style>
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
-        <div
-            class="contenedor">
-
-            <div>
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
-                    <t t-foreach="left_table_top" t-as="info">
-                        <t t-if="info['value']">
-                            <tr class="bg-white text-white">
+        <div class="contenedor">
+            <t
+                t-set="survey_info"
+                t-value="[
+         {'label': 'Survey Title:', 'value': o.survey_id.title},
+         {'label': 'Survey Expediente:', 'value': o.file_number},
+         {'label': 'Survey Acta:', 'value': o.act_number},
+         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+         {'label': 'Inspection Type:', 'value': o.inspection_type},
+         {'label': 'Scoring Success:', 'value': o.scoring_success},
+         {'label': 'Score:', 'value': o.scoring_percentage},
+         {'label': 'Partner:', 'value': o.partner_id.name},
+         {'label': 'Email:', 'value': o.email},
+         {'label': 'Building:', 'value': o.inspected_building_id.name},
+         {'label': 'Building Type:', 'value': o.building_type_id.name},
+         {'label': 'Building Section:', 'value': o.building_section_id.name},
+         {'label': 'Risk Use:', 'value': o.risk_use},
+         {'label': 'Area:', 'value': o.superficie},
+         {'label': 'Create Date:', 'value': o.create_date},
+      ]" />
+            <!-- Table  -->
+            <table
+                class="table table-borderless o_survey_question_matrix text-white text-center">
+                <t t-set="counter" t-value="0" />
+                <t t-set="pair_infos" t-value="[]" />
+                <t t-foreach="survey_info" t-as="info">
+                    <t t-set="counter" t-value="counter+1" t-if="info['value']"
+                    />
+                    <t t-set="pair_infos" t-value="pair_infos + [info]"
+                        t-if="info['value']"
+                    />
+                    <t t-if="counter % 3 == 0 or counter == len(survey_info)">
+                        <tr class="bg-white text-white">
+                            <t t-foreach="pair_infos" t-as="pair_info">
                                 <td
-                                    class="o_survey_matrix_btn text-primary position-relative">
-                                    <t t-if="info.get('label')">
+                                    class="o_survey_matrix_btn text-primary position-relative"
+                                >
+                                    <t t-if="pair_info.get('label')">
                                         <label>
-                                            <t t-esc="info['label']" />
+                                            <t t-esc="pair_info['label']" />
                                         </label>
                                     </t>
                                     <span>
-                                        <t t-esc="info['value']" />
+                                        <t t-esc="pair_info['value']" />
                                     </span>
                                 </td>
-                            </tr>
-                        </t>
-                    </t>
-
-                    <!-- From one td to to tds -->
-
-                    <t t-set="display_counter" t-value="0" />
-                    <t t-set="total_counter" t-value="0" />
-                    <t t-set="pair_infos" t-value="[]" />
-                    <t t-foreach="left_table_bottom" t-as="info">
-                        <t t-set="total_counter" t-value="total_counter+1" />
-                        <t t-if="info['value']">
-                            <t t-set="display_counter" t-value="display_counter+1" />
-                            <t t-set="pair_infos" t-value="pair_infos + [info]" />
-                            <t
-                                t-if="display_counter % 2 == 0 or total_counter == len(left_table_bottom)">
-                                <tr class="bg-white text-white">
-                                    <t t-foreach="pair_infos" t-as="pair_info">
-                                        <td
-                                            class="o_survey_matrix_btn text-primary position-relative">
-                                            <t t-if="pair_info.get('label')">
-                                                <label>
-                                                    <t t-esc="pair_info['label']" />
-                                                </label>
-                                            </t>
-                                            <span>
-                                                <t t-esc="pair_info['value']" />
-                                            </span>
-                                        </td>
-                                    </t>
-                                </tr>
-                                <t t-set="pair_infos" t-value="[]" />
                             </t>
-                        </t>
+                        </tr>
+                        <t t-set="pair_infos" t-value="[]" />
                     </t>
-                </table>
-            </div>
-
-            <div>
-                <!-- Table  -->
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
-                    <t t-foreach="right_table" t-as="info">
-                        <t t-if="info['value']">
-                            <tr class="bg-white text-white">
-                                <td
-                                    class="o_survey_matrix_btn text-primary position-relative">
-                                    <t t-if="info.get('label')">
-                                        <label>
-                                            <t t-esc="info['label']" />
-                                        </label>
-                                    </t>
-                                    <span>
-                                        <t t-esc="info['value']" />
-                                    </span>
-                                </td>
-                            </tr>
-                        </t>
-                    </t>
-                </table>
-            </div>
+                </t>
+            </table>
         </div>
     </template>
 
 
     <template
-        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
+        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva"
         name="Survey: print page"
     >
         <t t-if="not company">
@@ -189,8 +104,9 @@
             </t>
         </t>
         <t t-call="web.external_layout_striped">
-            <link href="/okatek_pdf_survey_templates_inspeccion/static/src/css/okatek_pdf_survey_templates_inspeccion.css" rel="stylesheet" />
-            
+
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
+
             <page>
                 <t t-if="o.survey_id.title">
                     <div
@@ -225,7 +141,7 @@
 
 
                                 <t
-                                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa_cover"
+                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
                                     t-lang="o.partner_id.lang"
                                 />
 
@@ -427,11 +343,11 @@
     </template>
 
 
-    <template id="report_survey_pdf_proteccion_activa">
+    <template id="report_survey_pdf_proteccion_pasiva">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t
-                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_proteccion_activa"
+                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva"
                     t-lang="o.partner_id.lang"
                 />
             </t>
@@ -439,19 +355,19 @@
     </template>
 
 
-    <record id="action_report_survey_print_proteccion_activa" model="ir.actions.report">
-        <field name="name">Protección Activa</field>
+    <record id="action_report_survey_print_proteccion_pasiva" model="ir.actions.report">
+        <field name="name">Protección Pasiva</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
         <field
             name="report_name"
         >
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
+            survey_user_input_report.report_survey_pdf_proteccion_pasiva</field>
         <field
             name="report_file"
         >
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_proteccion_activa</field>
-        <field name="print_report_name">'Printed Survey Protección Activa'</field>
+            survey_user_input_report.report_survey_pdf_proteccion_pasiva</field>
+        <field name="print_report_name">'Printed Survey Protección Pasiva'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
     </record>

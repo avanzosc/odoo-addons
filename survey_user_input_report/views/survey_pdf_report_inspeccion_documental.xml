@@ -163,7 +163,7 @@
                 </t>
             </t>
             <t t-call="web.external_layout_standard">
-                <link href="/okatek_pdf_survey_templates_inspeccion/static/src/css/okatek_pdf_survey_templates_inspeccion.css" rel="stylesheet" />
+                <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
 
                 <page>
                     <t t-if="o.survey_id.title">
@@ -199,7 +199,7 @@
 
 
                                     <t
-                                        t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
+                                        t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
                                         t-lang="o.partner_id.lang"
                                     />
 
@@ -410,7 +410,7 @@
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t
-                    t-call="okatek_pdf_survey_templates_inspeccion.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
+                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
                     t-lang="o.partner_id.lang"
                 />
             </t>
@@ -425,8 +425,8 @@
         <field name="name">Inspección Documental</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
-        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
         <field name="print_report_name">'Printed Survey Inspección Documental'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
