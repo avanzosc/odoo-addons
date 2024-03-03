@@ -48,10 +48,6 @@
         border-color: transparent;  
         border-width: 0;
       }
-      .contenedor span {
-        font-size: 12px; 
-        color: #333;
-      }
 
 </style>
 
@@ -171,6 +167,8 @@
                 </t>
             </t>
             <t t-call="web.external_layout_standard">
+                <link href="/okatek_pdf_survey_templates_inspeccion/static/src/css/okatek_pdf_survey_templates_inspeccion.css" rel="stylesheet" />
+
                 <page>
                     <t t-if="o.survey_id.title">
                         <div
@@ -431,10 +429,8 @@
         <field name="name">Inspección Documental</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
-        <field name="report_file">
-            okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_name">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
+        <field name="report_file">okatek_pdf_survey_templates_inspeccion.report_survey_pdf_inspeccion_documental</field>
         <field name="print_report_name">'Printed Survey Inspección Documental'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
