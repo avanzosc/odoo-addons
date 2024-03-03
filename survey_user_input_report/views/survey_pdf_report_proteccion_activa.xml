@@ -73,16 +73,14 @@
             padding: 0;
             box-sizing: border-box;
             }
-            .contenedor table{
-            margin: 0;
-            padding: 0;
-            }
+
             .contenedor label {
             font-size: 11px;
             font-weight: bold;
             margin: 0;
             white-space: nowrap;
             }
+
 
         </style>
         <t t-set="survey_form_readonly" t-value="true" />
@@ -445,12 +443,10 @@
         <field name="report_type">qweb-pdf</field>
         <field
             name="report_name"
-        >
-            survey_user_input_report.report_survey_pdf_proteccion_activa</field>
+        >survey_user_input_report.report_survey_pdf_proteccion_activa</field>
         <field
             name="report_file"
-        >
-            survey_user_input_report.report_survey_pdf_proteccion_activa</field>
+        >survey_user_input_report.report_survey_pdf_proteccion_activa</field>
         <field name="print_report_name">'Printed Survey Protección Activa'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
