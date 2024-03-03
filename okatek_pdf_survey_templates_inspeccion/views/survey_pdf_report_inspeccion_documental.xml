@@ -5,6 +5,56 @@
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
         name="Survey: Cover Page"
     >
+<style>
+    .contenedor {
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+        border-collapse: collapse;
+        margin: 0 0 15px 0;
+        display: -webkit-box;
+        padding: 0;
+      }
+      
+      /* Estilos para el primer hijo de .contenedor */
+      .contenedor > :first-child {
+        -webkit-box-flex: 1;
+        padding: 10px;
+        font-size: 12px;
+        box-sizing: border-box;
+        max-width: 280px;
+      }
+      
+      /* Estilos para el último hijo de .contenedor */
+      .contenedor > :last-child {
+        -webkit-box-flex: 3;
+        box-sizing: border-box;
+        margin: 5px;
+      } 
+      .contenedor table {
+        border-collapse: collapse; 
+        border: none; 
+        border-color: transparent; 
+        border-width: 0;
+        box-sizing: border-box;
+      }
+      .contenedor td {
+        padding: 0;
+        margin: 0;
+        text-align: left;
+      }
+      .contenedor label {
+        border-collapse: collapse; 
+        border: none; 
+        border-color: transparent;  
+        border-width: 0;
+      }
+      .contenedor span {
+        font-size: 12px; 
+        color: #333;
+      }
+
+</style>
+
         <t t-set="survey_form_readonly" t-value="true" />
 
         <t
@@ -30,16 +80,13 @@
                 ]" />
 
         <!-- Contenedor principal -->
-        <div
-            style="border: 1px solid #ccc; box-sizing: border-box; border-collapse: collapse; margin: 0 0 15px 0; display: -webkit-box;  padding: 0;">
+        <div class="contenedor">
             <!-- Contenedor izquierdo -->
-            <div
-                style="-webkit-box-flex: 1; padding: 10px; font-size: 12px; box-sizing: border-box; max-width: 280px; ">
+            <div>
                 <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
                     comprobaciones y controles se realizan en base al cumplimiento de las
                     disposiciones: </p>
-                <table
-                    style="border-collapse: collapse; border: none; border-color: transparent;  border-width: 0;">
+                <table>
                     <t t-set="counter" t-value="0" />
                     <t t-set="grouped_items" t-value="[]" />
                     <t
@@ -65,15 +112,10 @@
                 </table>
             </div>
             <!-- Contenedor derecho -->
-            <div
-                style="-webkit-box-flex: 3; box-sizing: border-box; margin: 5px;">
+            <div>
 
                 <!-- Table  -->
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center"
-                    style="box-sizing: border-box;"
-                >
-
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
                     <t t-set="pair_infos" t-value="[]" />
@@ -85,17 +127,14 @@
                             <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
                                 <tr class="bg-white text-white">
                                     <t t-foreach="pair_infos" t-as="pair_info">
-                                        <td
-                                            class="o_survey_matrix_btn text-primary position-relative"
-                                            style="padding: 0; margin: 0;">
-                                            <div style="text-align: left;">
+                                        <td class="o_survey_matrix_btn text-primary position-relative">
+                                            <div>
                                                 <t t-if="pair_info.get('label')">
-                                                    <label
-                                                        style="font-size: 12px; font-weight: bold; margin: 0; padding: 0 2px; white-space: nowrap;">
+                                                    <label>
                                                         <t t-esc="pair_info['label']" />
                                                     </label>
                                                 </t>
-                                                <span style="font-size: 12px; color: #333;">
+                                                <span>
                                                     <t t-esc="pair_info['value']" />
                                                 </span>
                                             </div>
