@@ -3,7 +3,7 @@
     :alt: License: AGPL-3
 
 ========================
-Okatek PDF Survey Report
+Survey User Input Report
 ========================
 
 * Creates two survey templates. 
