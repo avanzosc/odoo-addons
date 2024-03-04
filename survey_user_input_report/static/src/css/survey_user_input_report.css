@@ -1,0 +1,56 @@
+.contenedor.contenedor_1,
+.contenedor.contenedor_2,
+.contenedor.contenedor_3,
+.contenedor.contenedor_4 {
+    display: -webkit-box;
+    padding: 10px;
+    -webkit-box-pack: justify;
+    margin-bottom: 12px;
+}
+
+.contenedor.contenedor_1 table,
+.contenedor.contenedor_2 table,
+.contenedor.contenedor_3 table,
+.contenedor.contenedor_4 table,
+.contenedor.contenedor_1 tr,
+.contenedor.contenedor_2 tr,
+.contenedor.contenedor_3 tr,
+.contenedor.contenedor_4 tr {
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor.contenedor_1 td,
+.contenedor.contenedor_2 td,
+.contenedor.contenedor_3 td,
+.contenedor.contenedor_4 td,
+.contenedor.contenedor_1 li,
+.contenedor.contenedor_2 li,
+.contenedor.contenedor_3 li,
+.contenedor.contenedor_4 li {
+    margin: 0;
+    padding: 2px 12px;
+    box-sizing: border-box;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.contenedor>div:first-child {
+    -webkit-box-flex: 9;
+    margin-right: 5%;
+}
+
+.contenedor>div:last-child {
+    -webkit-box-flex: 4;
+}
+
+.contenedor label {
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.contenedor span {
+    font-size: 11px;
+    color: #333;
+}
