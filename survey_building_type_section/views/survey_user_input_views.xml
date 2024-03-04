@@ -49,6 +49,10 @@
                     </group>
                 </group>
             </notebook>
+            <xpath expr="//field[@name='user_input_line_ids']/tree/field[@name='question_id']" position="after">
+                <field name="question_normative_id" optinal="show" />
+                <field name="notes" optinal="show" />
+            </xpath>
         </field>
     </record>
 
