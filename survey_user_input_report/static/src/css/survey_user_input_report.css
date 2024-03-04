@@ -4,40 +4,35 @@
 .contenedor.contenedor_4 {
     display: -webkit-box;
     padding: 10px;
+    text-align: left;
+    border-collapse: collapse;
+
+    & * {
+        margin: 100px;
+        padding: 0;
+        box-sizing: border-box;
+    }
 }
 
 .contenedor {
     width: 800px;
     display: -webkit-box;
     -webkit-box-pack: justify;
-    box-sizing: border-box;
     margin-bottom: 12px;
 }
 
 .contenedor>div:first-child {
     -webkit-box-flex: 9;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
     margin-right: 5%;
 }
 
 .contenedor>div:last-child {
     -webkit-box-flex: 4;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.contenedor table {
-    margin: 0;
-    padding: 0;
 }
 
 .contenedor label {
     font-size: 11px;
     font-weight: bold;
-    margin: 0;
     white-space: nowrap;
 }
 
