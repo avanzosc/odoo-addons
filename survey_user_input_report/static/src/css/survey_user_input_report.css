@@ -36,9 +36,11 @@
 }
 
 .contenedor>div:first-child {
-    -webkit-box-flex: 9;
+    -webkit-box-flex: 3;
     margin-right: 5%;
 }
+
+
 
 .contenedor>div:last-child {
     -webkit-box-flex: 4;
@@ -54,3 +56,20 @@
     font-size: 11px;
     color: #333;
 }
+
+.contenedor.contenedor_1>div:first-child {
+    -webkit-box-flex: 3 3 30%;
+    margin-right: 5%;
+    width: 300px;
+}
+
+.contenedor.contenedor_1>div:last-child {
+    -webkit-box-flex: 4 0 60%;
+}
+
+.contenedor.contenedor_1>div:first-child td {
+    padding: 2px 6px;
+} 
+.contenedor.contenedor_1>div:first-child td #cuadrado {
+    margin: 4px 10px;
+} 

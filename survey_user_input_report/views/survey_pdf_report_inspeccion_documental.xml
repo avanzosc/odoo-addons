@@ -80,7 +80,7 @@
                             <tr>
                                 <t t-foreach="grouped_items" t-as="grouped_item">
                                     <td>
-                                        <input type="checkbox" />
+                                        <input id="cuadrado" type="checkbox" />
                                         <t t-esc="grouped_item" />
                                     </td>
                                 </t>
