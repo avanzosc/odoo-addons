@@ -108,7 +108,7 @@
                                 <tr class="bg-white text-white">
                                     <t t-foreach="line_infos" t-as="pair_info">
                                         <td
-                                            class="o_survey_matrix_btn text-primary position-relative">
+                                            class="o_survey_matrix_btn text-dark position-relative">
                                             <div>
                                                 <t t-if="pair_info.get('label')">
                                                     <label>
@@ -142,7 +142,7 @@
                         <div class="row">
                             <t t-foreach="line_infos" t-as="pair_info">
                                 <div class="col">
-                                    <div class="o_survey_matrix_btn text-primary position-relative">
+                                    <div class="o_survey_matrix_btn text-dark position-relative">
                                         <t t-if="pair_info.get('label')">
                                             <label>
                                                 <t t-esc="pair_info['label']" />
