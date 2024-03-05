@@ -6,6 +6,7 @@
     padding: 10px;
     -webkit-box-pack: justify;
     margin: 20px 0px;
+    width: 100%;
 }
 
 .contenedor.contenedor_1 table,
@@ -102,12 +103,19 @@
 .contenedor_debajo .col:not(:first-child) {
     -webkit-box-flex: 1;
     width: calc(60% / (var(--col-count) - 1));
-}
+}   
 
 .contenedor .reglamento * {
     border: none;
 }
 
-.contenedor img {
-    width: 100%;
+.contenedor_2 * {
+    overflow: hidden;
+}
+
+img,
+#img_pasiva {
+    display: -webkit-box;
+    width: 1000px;
+    margin: 0 20px;
 }

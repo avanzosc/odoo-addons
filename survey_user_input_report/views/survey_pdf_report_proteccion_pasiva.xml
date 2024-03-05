@@ -5,11 +5,11 @@
         id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
         name="Survey: Cover Page"
     >
- 
+
         <t t-set="survey_form_readonly" t-value="true" />
 
         <!-- Contenedor principal -->
-        <div class="contenedor contenedor_3">
+        <div class="contenedor contenedor_3" style="border: 2px solid orange">
             <t
                 t-set="survey_info"
                 t-value="[
@@ -31,41 +31,45 @@
          {'label': 'Area:', 'value': o.superficie},
          {'label': 'Create Date:', 'value': o.create_date},
       ]" />
-            <!-- Table  -->
-            <table
-                class="table table-borderless o_survey_question_matrix text-white text-center">
-                <t t-set="counter" t-value="0" />
-                <t t-set="pair_infos" t-value="[]" />
-                <t t-foreach="survey_info" t-as="info">
-                    <t t-set="counter" t-value="counter+1" t-if="info['value']"
-                    />
-                    <t t-set="pair_infos" t-value="pair_infos + [info]"
-                        t-if="info['value']"
-                    />
-                    <t t-if="counter % 3 == 0 or counter == len(survey_info)">
-                        <tr class="bg-white text-white">
-                            <t t-foreach="pair_infos" t-as="pair_info">
-                                <td
-                                    class="o_survey_matrix_btn text-primary position-relative"
-                                >
-                                    <t t-if="pair_info.get('label')">
-                                        <label>
-                                            <t t-esc="pair_info['label']" />
-                                        </label>
-                                    </t>
-                                    <span>
-                                        <t t-esc="pair_info['value']" />
-                                    </span>
-                                </td>
-                            </t>
-                        </tr>
-                        <t t-set="pair_infos" t-value="[]" />
+            <div>
+                <!-- Table  -->
+                <table
+                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-set="counter" t-value="0" />
+                    <t t-set="pair_infos" t-value="[]" />
+                    <t t-foreach="survey_info" t-as="info">
+                        <t t-set="counter" t-value="counter+1" t-if="info['value']"
+                        />
+                        <t t-set="pair_infos" t-value="pair_infos + [info]"
+                            t-if="info['value']"
+                        />
+                        <t t-if="counter % 3 == 0 or counter == len(survey_info)">
+                            <tr class="bg-white text-white">
+                                <t t-foreach="pair_infos" t-as="pair_info">
+                                    <td
+                                        class="o_survey_matrix_btn text-primary position-relative"
+                                    >
+                                        <t t-if="pair_info.get('label')">
+                                            <label>
+                                                <t t-esc="pair_info['label']" />
+                                            </label>
+                                        </t>
+                                        <span>
+                                            <t t-esc="pair_info['value']" />
+                                        </span>
+                                    </td>
+                                </t>
+                            </tr>
+                            <t t-set="pair_infos" t-value="[]" />
+                        </t>
                     </t>
-                </t>
-            </table>
+                </table>
+            </div>
         </div>
 
-        <img src="/survey_user_input_report/static/src/img/Verificación operaciones mantenimiento.png" alt="Verificación operaciones mantenimiento" />
+        <img
+            src="/survey_user_input_report/static/src/img/Verificación_operaciones_mantenimiento.png"
+            alt="Verificación operaciones mantenimiento" id="img_pasiva" />
 
     </template>
 
@@ -88,7 +92,8 @@
         </t>
         <t t-call="web.external_layout_striped">
 
-            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
+                rel="stylesheet" />
 
             <page>
                 <t t-if="o.survey_id.title">
@@ -113,17 +118,13 @@
 
                 <t t-set="survey_form_readonly" t-value="true" />
                 <div class="wrap">
-
                     <div class="o_survey_print container">
                         <div role="form">
-
                             <fieldset disabled="disabled">
-
                                 <t
                                     t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
                                     t-lang="o.partner_id.lang"
                                 />
-
                                 <t
                                     t-set="questions_to_display"
                                     t-value="o._get_print_questions()"

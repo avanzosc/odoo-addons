@@ -131,9 +131,11 @@
             </div>
         </div>
 
-        <img src="/survey_user_input_report/static/src/img/Protección activa1.png" alt="Protección Activa" />
+        <img src="/survey_user_input_report/static/src/img/Protección_activa1.png"
+            alt="Protección Activa" />
 
-        <img src="/survey_user_input_report/static/src/img/Protección activa2.png" alt="Protección Activa" />
+        <img src="/survey_user_input_report/static/src/img/Protección_activa2.png"
+            alt="Protección Activa" />
 
 
     </template>
@@ -156,8 +158,9 @@
             </t>
         </t>
         <t t-call="web.external_layout_striped">
-            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
-            
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
+                rel="stylesheet" />
+
             <page>
                 <t t-if="o.survey_id.title">
                     <div
