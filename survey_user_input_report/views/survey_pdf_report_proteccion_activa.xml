@@ -46,25 +46,6 @@
 {'label': 'Create Date:', 'value': o.create_date},
 ]" />
 
-        <style>
-
-            .contenedor{
-                width: 800px;
-                -webkit-box-pack: justify;
-                margin-bottom: 12px;
-            }
-            .contenedor > div:first-child {
-                -webkit-box-flex: 9;
-                margin-right: 5%;
-            }
-
-            .contenedor label {
-            font-size: 11px;
-            font-weight: bold;
-            white-space: nowrap;
-            }
-
-        </style>
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
 

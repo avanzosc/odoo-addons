@@ -5,27 +5,7 @@
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
         name="Survey: Cover Page"
     >
-        <style>
-            .contenedor {
-            border: 1px solid #ccc;
-            border-collapse: collapse;
-            margin: 0 0 15px 0;
-            }
 
-            .contenedor table {
-            border: none;
-            border-color: transparent;
-            border-width: 0;
-            }
-
-            .contenedor label {
-            border: none;
-            border-color: transparent;
-            border-width: 0;
-            }
-
-
-        </style>
         <t t-set="survey_form_readonly" t-value="true" />
 
         <!-- <t
@@ -76,7 +56,7 @@
                     {'label': 'Inspector:', 'value': o.inspector_id.name},
                     {'label': 'Inspector NIF:', 'value': o.inspector_id.vat},
                     {'label': 'Inspector Phone:', 'value': o.inspector_id.phone},
-                   
+
                     {'label': 'Maintainer:', 'value': o.inspector_id.name},
                     {'label': 'Maintainer NIF:', 'value': o.inspector_id.vat},
                     {'label': 'Maintainer Phone:', 'value': o.inspector_id.phone},
@@ -89,7 +69,7 @@
                 <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
                     comprobaciones y controles se realizan en base al cumplimiento de las
                     disposiciones: </p>
-                <table>
+                <table class="reglamento">
                     <t t-set="counter" t-value="0" />
                     <t t-set="grouped_items" t-value="[]" />
                     <t
