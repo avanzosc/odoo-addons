@@ -20,3 +20,14 @@ class StockMoveLine(models.Model):
         store=True,
         related="lot_id.purchase_price",
     )
+
+    def _action_done(self):
+        result = super()._action_done()
+        for line in self.filtered(lambda ml: ml.lot_id and ml.move_id.purchase_line_id):
+            line.lot_id.write(
+                {
+                    "purchase_price": line.move_id.purchase_line_id.price_unit,
+                    "supplier_id": line.move_id.purchase_line_id.order_id.partner_id.id,
+                }
+            )
+        return result
