@@ -8,7 +8,6 @@
  
         <t t-set="survey_form_readonly" t-value="true" />
 
-
         <!-- Contenedor principal -->
         <div class="contenedor contenedor_3">
             <t
@@ -112,23 +111,18 @@
 
                 <t t-if="review" t-call="o.survey_id.survey_button_retake" />
 
-
                 <t t-set="survey_form_readonly" t-value="true" />
                 <div class="wrap">
-
 
                     <div class="o_survey_print container">
                         <div role="form">
 
-
                             <fieldset disabled="disabled">
-
 
                                 <t
                                     t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
                                     t-lang="o.partner_id.lang"
                                 />
-
 
                                 <t
                                     t-set="questions_to_display"
