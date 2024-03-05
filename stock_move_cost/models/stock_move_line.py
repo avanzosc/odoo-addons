@@ -34,8 +34,10 @@ class StockMoveLine(models.Model):
 
     def _action_done(self):
         result = super(StockMoveLine, self)._action_done()
-        for line in self.filtered:
-            line.cost = line.price_unit_cost * line.qty_done
+        for line in self:
+            cost = line.price_unit_cost * line.qty_done
+            if line.cost != cost:
+                line.cost = cost
         return result
 
     def _put_price_unit_cost_in_move_lines(self):
