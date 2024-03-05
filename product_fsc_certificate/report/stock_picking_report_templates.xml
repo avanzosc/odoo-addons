@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//span[@t-field='move_line.product_id']/.." position="inside">
+            <span class="ml-2" t-if="move_line.product_id.is_fsc_certificate"> *</span>
+        </xpath>
+        <xpath expr="//table[@t-if=&quot;o.move_line_ids and o.state=='done'&quot;]" position="after">
+            <div t-if="o.is_fsc_certificate">
+                [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_picking" inherit_id="stock.report_picking">
+        <span t-field="ml.product_id.description_picking" position="after">
+            <span class="ml-2" t-if="ml.product_id.is_fsc_certificate"> *</span>
+        </span>
+        <p t-field="o.note" position="after">
+            <div t-if="o.is_fsc_certificate">
+                [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
+            </div>
+        </p>
+    </template>
+</odoo>

@@ -1,25 +1,30 @@
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    is_fsc_certificate = fields.Boolean('FSC certificate', related="product_id.is_fsc_certificate")
+    is_fsc_certificate = fields.Boolean(
+        string="FSC certificate",
+        related="product_id.is_fsc_certificate",
+    )
 
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     is_fsc_certificate = fields.Boolean(
-        'Contains FSC certificate', compute="_compute_contains_fsc_products", store=True)
+        string="Contains FSC certificate",
+        compute="_compute_contains_fsc_products",
+        store=True,
+    )
 
+    @api.depends(
+        "order_line", "order_line.product_id",
+        "order_line.product_id.is_fsc_certificate")
     def _compute_contains_fsc_products(self):
         for record in self:
-            certificates = record.order_line.mapped('product_id').mapped('is_fsc_certificate')
-            record.is_fsc_certificate = (True in certificates)
+            record.is_fsc_certificate = any(
+                record.mapped("order_line.product_id.is_fsc_certificate"))
 
-    def recalc_fsc_certificated(self):
-        for record in self:
-            record._compute_contains_fsc_products()
-            record.invoice_ids.recalc_fsc_certificated()
