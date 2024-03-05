@@ -202,7 +202,6 @@ class StockMoveLine(models.Model):
 
     @api.onchange("batch_id", "location_id", "product_id")
     def onchange_lot_domain(self):
-        domain = {}
         self.ensure_one()
         if self.batch_id and self.location_id and self.product_id:
             quant = self.env["stock.quant"].search(
@@ -214,6 +213,9 @@ class StockMoveLine(models.Model):
                 if line.lot_id.id not in lot and line.lot_id.product_qty > 0:
                     lot.append(line.lot_id.id)
             domain = {"domain": {"lot_id": [("id", "in", lot)]}}
+        else:
+            lot = self.env["stock.production.lot"].search([("product_id", "=", self.product_id.id), ("company_id", "=", self.env.company.id)])
+            domain = {"domain": {"lot_id": [("id", "in", lot.ids)]}}
         return domain
 
     @api.onchange("batch_id")
