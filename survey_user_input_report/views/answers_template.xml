@@ -1,93 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<odoo>
-    <!-- Agregar portada -->
-    <template
-        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
-        name="Survey: Cover Page"
-    >
-        <style>
-            .contenedor {
-            overflow: hidden;
-            margin-bottom: 20px;
-            }
-
-            .contenedor label{
-            font-size: 10px;
-            font-weight: bold;
-            padding: 0 2px;
-            white-space: nowrap;
-            }
-
-        </style>
-        <t t-set="survey_form_readonly" t-value="true" />
-
-
-        <!-- Contenedor principal -->
-        <div class="contenedor contenedor_3">
-            <t
-                t-set="survey_info"
-                t-value="[
-         {'label': 'Survey Title:', 'value': o.survey_id.title},
-         {'label': 'Survey Expediente:', 'value': o.file_number},
-         {'label': 'Survey Acta:', 'value': o.act_number},
-         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
-         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
-         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-         {'label': 'Inspection Type:', 'value': o.inspection_type},
-         {'label': 'Scoring Success:', 'value': o.scoring_success},
-         {'label': 'Score:', 'value': o.scoring_percentage},
-         {'label': 'Partner:', 'value': o.partner_id.name},
-         {'label': 'Email:', 'value': o.email},
-         {'label': 'Building:', 'value': o.inspected_building_id.name},
-         {'label': 'Building Type:', 'value': o.building_type_id.name},
-         {'label': 'Building Section:', 'value': o.building_section_id.name},
-         {'label': 'Risk Use:', 'value': o.risk_use},
-         {'label': 'Area:', 'value': o.superficie},
-         {'label': 'Create Date:', 'value': o.create_date},
-      ]" />
-            <!-- Table  -->
-            <table
-                class="table table-borderless o_survey_question_matrix text-white text-center">
-                <t t-set="counter" t-value="0" />
-                <t t-set="pair_infos" t-value="[]" />
-                <t t-foreach="survey_info" t-as="info">
-                    <t t-set="counter" t-value="counter+1" t-if="info['value']"
-                    />
-                    <t t-set="pair_infos" t-value="pair_infos + [info]"
-                        t-if="info['value']"
-                    />
-                    <t t-if="counter % 3 == 0 or counter == len(survey_info)">
-                        <tr class="bg-white text-white">
-                            <t t-foreach="pair_infos" t-as="pair_info">
-                                <td
-                                    class="o_survey_matrix_btn text-primary position-relative"
-                                >
-                                    <t t-if="pair_info.get('label')">
-                                        <label>
-                                            <t t-esc="pair_info['label']" />
-                                        </label>
-                                    </t>
-                                    <span>
-                                        <t t-esc="pair_info['value']" />
-                                    </span>
-                                </td>
-                            </t>
-                        </tr>
-                        <t t-set="pair_infos" t-value="[]" />
-                    </t>
-                </t>
-            </table>
-        </div>
-
-        <img src="/survey_user_input_report/static/src/img/Verificación operaciones mantenimiento.png" alt="Verificación operaciones mantenimiento" />
-
-    </template>
-
-
-    <template
-        id="report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva"
-        name="Survey: print page"
-    >
+<template id="template_survey_answers_template" name="Survey Answers Template">
+    
+    <t t-call="web.external_layout">
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
@@ -100,10 +13,9 @@
                 <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="web.external_layout_striped">
-
-            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
-
+        <t t-call="web.external_layout_standard">
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
+                rel="stylesheet" />
             <page>
                 <t t-if="o.survey_id.title">
                     <div
@@ -115,34 +27,22 @@
                         />
                     </div>
                 </t>
-
                 <t t-if="o.survey_id.description">
                     <div
                         t-field="o.survey_id.description"
                         style="margin-bottom: 1.5rem;"
                     />
                 </t>
-
                 <t t-if="review" t-call="o.survey_id.survey_button_retake" />
-
-
                 <t t-set="survey_form_readonly" t-value="true" />
                 <div class="wrap">
-
-
                     <div class="o_survey_print container">
                         <div role="form">
-
-
                             <fieldset disabled="disabled">
-
-
                                 <t
-                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva_cover"
+                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
                                     t-lang="o.partner_id.lang"
                                 />
-
-
                                 <t
                                     t-set="questions_to_display"
                                     t-value="o._get_print_questions()"
@@ -249,7 +149,9 @@
                                                     t-call="survey.question_numerical_box"
                                                 />
                                             </t>
-                                            <t t-if="question.question_type == 'date'">
+                                            <t
+                                                t-if="question.question_type == 'date'"
+                                            >
                                                 <div
                                                     class="input-group o_survey_form_date"
                                                     t-attf-id="datetimepicker_#{question.id}"
@@ -322,7 +224,9 @@
                                             <t
                                                 t-if="question.question_type == 'matrix'"
                                             >
-                                                <t t-call="survey.question_matrix" />
+                                                <t
+                                                    t-call="survey.question_matrix"
+                                                />
                                             </t>
                                             <div
                                                 class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger"
@@ -337,33 +241,5 @@
                 </div>
             </page>
         </t>
-    </template>
-
-
-    <template id="report_survey_pdf_proteccion_pasiva">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t
-                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_proteccion_pasiva"
-                    t-lang="o.partner_id.lang"
-                />
-            </t>
-        </t>
-    </template>
-
-
-    <record id="action_report_survey_print_proteccion_pasiva" model="ir.actions.report">
-        <field name="name">Protección Pasiva</field>
-        <field name="model">survey.user_input</field>
-        <field name="report_type">qweb-pdf</field>
-        <field
-            name="report_name"
-        >survey_user_input_report.report_survey_pdf_proteccion_pasiva</field>
-        <field
-            name="report_file"
-        >survey_user_input_report.report_survey_pdf_proteccion_pasiva</field>
-        <field name="print_report_name">'Printed Survey Protección Pasiva'</field>
-        <field name="binding_model_id" ref="survey.model_survey_user_input" />
-        <field name="binding_type">report</field>
-    </record>
-</odoo>
+    </t>
+</template>
