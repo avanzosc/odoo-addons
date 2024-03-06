@@ -31,6 +31,7 @@
                         <field name="act_number" />
                         <field name="inspector_id" />
                         <field name="maintainer_id" />
+                        <field name="installer_id" />
                     </group>
                     <group>
                         <field name="inspection_start_date" />
@@ -63,6 +64,7 @@
                 <field name="inspection_end_date" optional="show" />
                 <field name="inspector_id" optional="show" />
                 <field name="maintainer_id" optional="show" />
+                <field name="installer_id" optional="show" />
                 <field name="inspection_type" optional="show" />
             </field>
         </field>
@@ -83,6 +85,7 @@
                 <field name="inspection_end_date" />
                 <field name="inspector_id" />
                 <field name="maintainer_id" />
+                <field name="installer_id" />
                 <field name="inspection_type" />
             </filter>
             <filter name="group_by_partner" position="after">
@@ -102,6 +105,8 @@
                     domain="[]" context="{'group_by': 'inspector_id'}" />
                 <filter string="Maintainer" name="group_by_inspector"
                     domain="[]" context="{'group_by': 'maintainer_id'}" />
+                <filter string="Installer" name="group_by_inspector"
+                    domain="[]" context="{'group_by': 'installer_id'}" />
                 <filter string="Inspection Type" name="group_by_insp_type"
                     domain="[]" context="{'group_by': 'inspection_type'}" />
             </filter>
