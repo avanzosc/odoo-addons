@@ -30,13 +30,9 @@ class StockMoveLine(models.Model):
                 price_unit = lot.purchase_price
             vals["price_unit_cost"] = price_unit
         result = super(StockMoveLine, self).write(vals)
-        return result
-
-    def _action_done(self):
-        result = super(StockMoveLine, self)._action_done()
         for line in self:
             cost = line.price_unit_cost * line.qty_done
-            if line.cost != cost:
+            if round(line.cost, 5) != round(cost, 5):
                 line.cost = cost
         return result
 
@@ -50,7 +46,7 @@ class StockMoveLine(models.Model):
                 vals["price_unit_cost"] = price_unit
             if line.state == "done":
                 cost = price_unit * line.qty_done
-                if line.cost != cost:
+                if round(line.cost, 5) != round(cost, 5):
                     vals["cost"] = cost
             if vals:
                 line.write(vals)
