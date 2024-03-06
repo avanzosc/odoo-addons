@@ -8,4 +8,4 @@ class ResPartner(models.Model):
 
     def _needs_ref(self, vals=None):
         res = super()._needs_ref(vals)
-        return self.create_uid == 1 and res
+        return self.create_uid == 2 and res
