@@ -23,7 +23,9 @@ class StockMoveLine(models.Model):
 
     def _action_done(self):
         result = super()._action_done()
-        for line in self.filtered(lambda ml: ml.lot_id and ml.move_id.purchase_line_id):
+        for line in self.exists().filtered(
+            lambda ml: ml.lot_id and ml.move_id.purchase_line_id
+        ):
             line.lot_id.write(
                 {
                     "purchase_price": line.move_id.purchase_line_id.price_unit,
