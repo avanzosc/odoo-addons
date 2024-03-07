@@ -7,6 +7,6 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     def _needs_ref(self, vals=None):
-        if self.create_uid == 1:
+        if self.create_uid.id == 1:
             return True
         return super()._needs_ref(vals)
