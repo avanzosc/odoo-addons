@@ -16,10 +16,8 @@
     "category": "Tools",
     "data": [
         "views/answers_template.xml",
-        "views/survey_pdf_report_inspeccion_documental.xml",
-        "views/survey_pdf_report_proteccion_activa.xml",
-        "views/survey_pdf_report_proteccion_pasiva.xml",
-        "views/survey_pdf_report_verificacion_operaciones_mantenimiento.xml",
+        "views/survey_pdf_report_inspeccion.xml",
+        "views/survey_pdf_report_verificacion.xml",
     ],
     "installable": True,
 }
