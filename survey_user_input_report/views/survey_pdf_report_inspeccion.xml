@@ -167,57 +167,47 @@
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
         name="Survey: print page"
     >
-        <t t-call="web.external_layout">
-            <t t-if="not company">
-                <!-- Multicompany -->
-                <t t-if="company_id">
-                    <t t-set="company" t-value="company_id" />
+    <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id" />
+        </t>
+        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+            <t t-set="company" t-value="o.company_id.sudo()" />
+        </t>
+        <t t-else="else">
+            <t t-set="company" t-value="res_company" />
+        </t>
+    </t>
+    <t t-call="web.external_layout_striped">
+        <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
+                rel="stylesheet" />
+            <page>
+                <t t-if="o.survey_id.title">
+                    <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
+                        <h1 t-field="o.survey_id.title"
+                            style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                    </div>
                 </t>
-                <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                    <t t-set="company" t-value="o.company_id.sudo()" />
+                <t t-if="o.survey_id.description">
+                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
                 </t>
-                <t t-else="else">
-                    <t t-set="company" t-value="res_company" />
-                </t>
-            </t>
-            <t t-call="web.external_layout_standard">
-                <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
-                    rel="stylesheet" />
-                <page>
-                    <t t-if="o.survey_id.title">
-                        <div
-                            style="text-align: center; padding: .6rem; margin: 0; padding: 0;"
-                        >
-                            <h1
-                                t-field="o.survey_id.title"
-                                style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;"
-                            />
-                        </div>
-                    </t>
-                    <t t-if="o.survey_id.description">
-                        <div
-                            t-field="o.survey_id.description"
-                            style="margin-bottom: 1.5rem;"
-                        />
-                    </t>
-                    <t t-if="review" t-call="o.survey_id.survey_button_retake" />
-                    <t t-set="survey_form_readonly" t-value="true" />
-                    <div class="wrap">
-                        <div class="o_survey_print container">
-                            <div role="form">
-                                <fieldset disabled="disabled">
-                                    <t
-                                        t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
-                                        t-lang="o.partner_id.lang"
-                                    />
-                                    <t
-                                        t-call="survey_user_input_report.template_survey_answers_template" />
-                                </fieldset>
-                            </div>
+                <t t-if="review" t-call="o.survey_id.survey_button_retake" />
+                <t t-set="survey_form_readonly" t-value="true" />
+                <div class="wrap">
+                    <div class="o_survey_print container">
+                        <div role="form">
+                            <fieldset disabled="disabled">
+                                <t
+                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
+                                    t-lang="o.partner_id.lang" />
+                                <t
+                                    t-call="survey_user_input_report.template_survey_answers_template" />
+                            </fieldset>
                         </div>
                     </div>
-                </page>
-            </t>
+                </div>
+            </page>
         </t>
     </template>
 
