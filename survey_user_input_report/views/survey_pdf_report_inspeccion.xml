@@ -3,7 +3,7 @@
     <!-- Agregar portada -->
     <template
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
-        name="Survey: Cover Page"
+        name="Survey: Inspección Segunda Vista"
     >
 
         <t t-set="survey_form_readonly" t-value="true" />
@@ -165,7 +165,7 @@
 
     <template
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
-        name="Survey: print page"
+        name="Survey: Inspección Primera Vista"
     >
     <t t-if="not company">
         <!-- Multicompany -->
