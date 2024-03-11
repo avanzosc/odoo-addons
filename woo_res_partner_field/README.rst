@@ -2,11 +2,14 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=============================
-Base Partner Sequence Odoobot
-=============================
+=====================
+Woo Res Partner Field
+=====================
 
-* Add new condition user_id = 1 (Odoobot) to add the new ref.
+* Create a new field in res.partner customer_from_woo. This field will be true 
+  for all res.partner imported from WooCommerce, even if the import was not done
+  directly from "Import Customers" and they were imported indirectly when 
+  importing orders.
 
 Bug Tracker
 ===========
