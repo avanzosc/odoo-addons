@@ -11,8 +11,11 @@ class ResPartner(models.Model):
     )
     
     def woo_create_contact_customer():
-        partners = super().woo_create_contact_customer()
-        for partner in partners: 
-            partner.customer_from_woo = True
-        
-        return partners
+        partner = super().woo_create_contact_customer()
+        partner.customer_from_woo = True    
+        return partner
+    
+    def woo_create_or_update_customer():
+        partner = super().woo_create_or_update_customer()
+        partner.customer_from_woo = True
+        return partner
