@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree string="Liquidation Line" editable="bottom">
                 <field name="batch_id" invisible="1"/>
-                <field name="product_id"/>
+                <field name="product_id" options="{'no_create': True}"/>
                 <field name="type"/>
                 <field name="unit"/>
                 <field name="quantity"/>
