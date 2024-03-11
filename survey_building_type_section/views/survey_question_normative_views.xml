@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="survey_question_normative_view_tree" model="ir.ui.view">
+        <field name="name">survey.question.normative.view.tree</field>
+        <field name="model">survey.question.normative</field>
+        <field name="arch" type="xml">
+            <tree string="Questions Normatives" editable="bottom" sample="1">
+                <field name="name"/>
+                <field name="error_text" />
+                <field name="description"/>
+                <field name="start_year"/>
+                <field name="end_year"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="survey_question_normative_view_search" model="ir.ui.view">
+            <field name="name">survey.question.normative.view.search</field>
+            <field name="model">survey.question.normative</field>
+            <field name="arch" type="xml">
+                <search string="Search Questions Normatives">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="start_year"/>
+                    <field name="end_year"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Start Year" name="groupstartyear" context="{'group_by': 'start_year'}"/>
+                        <filter string="End Year" name="groupendyear" context="{'group_by': 'end_year'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <record id="survey_question_normative_action" model="ir.actions.act_window">
+        <field name="name">Questions Normatives</field>
+        <field name="res_model">survey.question.normative</field>
+        <field name="view_id" ref="survey_question_normative_view_tree"/>
+    </record>
+
+    <menuitem id="menu_survey_question_normative"
+        name="Questions Normatives"
+        parent="survey.menu_surveys"
+        action="survey_building_type_section.survey_question_normative_action"
+        sequence="100"/>
+</odoo>
