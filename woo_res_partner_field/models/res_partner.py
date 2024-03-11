@@ -16,12 +16,12 @@ class ResPartner(models.Model):
     def woo_create_contact_customer(self, vals, instance=False):
         partner = super(ResPartner, self).woo_create_contact_customer(vals, instance)
         partner.write({'customer_from_woo': True})
-        _logger.info("\n\ncustomer_from_woo written in partner: %s\n", partner.id)
+        _logger.info("\n\ncustomer_from_woo written in partner: %s woo_create_contact_customer\n", partner.id)
         return partner
     
     @api.model
     def woo_create_or_update_customer(self, customer_val, instance, parent_id, partner_type, customer_id=False):
         partner = super(ResPartner, self).woo_create_or_update_customer(customer_val, instance, parent_id, partner_type, customer_id)
         partner.write({'customer_from_woo': True})
-        _logger.info("\n\ncustomer_from_woo written in partner: %s\n", partner.id)
+        _logger.info("\n\ncustomer_from_woo written in partner: %s woo_create_or_update_customer\n", partner.id)
         return partner
