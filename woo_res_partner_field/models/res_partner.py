@@ -12,10 +12,10 @@ class ResPartner(models.Model):
     
     def woo_create_contact_customer():
         partner = super().woo_create_contact_customer()
-        partner.customer_from_woo = True    
+        partner.write({'customer_from_woo': True})
         return partner
     
     def woo_create_or_update_customer():
         partner = super().woo_create_or_update_customer()
-        partner.customer_from_woo = True
+        partner.write({'customer_from_woo': True})
         return partner
