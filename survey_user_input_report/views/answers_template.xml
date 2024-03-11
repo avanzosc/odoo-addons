@@ -415,7 +415,7 @@
                                                 t-att-data-row-id="row_label.id"
                                                 t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"
                                                 class="o_survey_form_choice_item invisible" />
-                                            <i style="margin-left: -5px;"
+                                            <i style="margin: 0px 2px;"
                                                 t-att-class="'fa fa-%s position-relative'
                                                         % ('check-circle' if answer else 'circle-thin')"></i>
                                             <t t-call="survey.survey_selection_key">
