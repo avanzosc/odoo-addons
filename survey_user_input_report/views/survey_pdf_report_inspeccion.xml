@@ -94,7 +94,7 @@
             </div>
             <!-- Contenedor derecho -->
             <div>
-                <table
+                <!-- <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
@@ -124,6 +124,27 @@
                                 </tr>
                                 <t t-set="line_infos" t-value="[]" />
                             </t>
+                        </t>
+                    </t>
+                </table> -->
+                <!-- Table  -->
+                <table
+                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="survey_info" t-as="info">
+                        <t t-if="info['value']">
+                            <tr class="bg-white text-white">
+                                <td
+                                    class="o_survey_matrix_btn text-dark position-relative">
+                                    <t t-if="info.get('label')">
+                                        <label>
+                                            <t t-esc="info['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="info['value']" />
+                                    </span>
+                                </td>
+                            </tr>
                         </t>
                     </t>
                 </table>
