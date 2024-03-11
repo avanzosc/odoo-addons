@@ -309,10 +309,10 @@
                                                t-att-checked="'checked' if answer_line else None"
                                                t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/> -->
                                             
-                                            <div class="ms-2 text-break d-flex align-items-center">
-                                                <span t-field="label.value"/>
-                                                <i t-if="answer_line" class="position-relative d-inline fa fa-check-circle" style="margin-left: 5px;"/>
-                                                <i t-else="" class="position-relative d-inline fa fa-circle-thin" style="margin-left: 5px;"/>
+                                            <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
+                                                <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
+                                                <i t-if="answer_line" class="fa fa-check-circle" style="width: 100%;"/>
+                                                <i t-else="" class="fa fa-circle-thin" style="width: 100%;"/>
                                             </div>
                                         
                                             <t t-call="survey.question_suggested_value_image"/>
