@@ -196,25 +196,18 @@
                                     <t t-set="answer_class" t-elif="not is_correct"
                                         t-value="'bg-danger'" />
 
-                                    <label t-att-for="str(question.id) + '_' + str(label.id)"
-                                        t-att-class="'o_survey_choice_btn me-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
-                                        <t t-call="survey.survey_selection_key">
-                                            <t t-set="selection_key_class"
-                                                t-value="'position-relative o_survey_radio_btn float-start d-flex'" />
-                                        </t>
-                                        <span class="ms-2 text-break" t-field='label.value' />
-                                        <input t-att-id="str(question.id) + '_' + str(label.id)"
-                                            type="radio" t-att-value='label.id'
-                                            t-attf-class="o_survey_form_choice_item invisible position-absolute #{'o_survey_form_choice_item_selected' if answer_selected else ''}"
-                                            t-att-name='question.id'
-                                            t-att-checked="'checked' if answer_selected else None"
-                                            t-att-data-selection-key="letters[item_idx] if useKeySelection else ''" />
-                                        <i
-                                            t-att-class="'fa fa-%s float-end mt-1 position-relative %s'
-                                            % ('check-circle' if answer_selected else 'circle-thin', 'ml-0' if item_idx != 0 else '')"
-                                            style="margin-left: -6px;"></i>
-                                        <t t-call="survey.question_suggested_value_image" />
-                                    </label>
+                                        <label t-att-for="str(question.id) + '_' + str(label.id)" t-att-class="'o_survey_choice_btn me-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
+                                            <t t-call="survey.survey_selection_key">
+                                                <t t-set="selection_key_class" t-value="'position-relative o_survey_radio_btn float-start d-flex'"/>
+                                            </t>
+                                              <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
+                                                <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
+                                              <i style="width: 100%;" t-att-class="'fa fa-%s float-end mt-1 position-relative %s'                                             % ('check-circle' if answer_selected else 'circle-thin', 'ml-0' if item_idx != 0 else '')"/>
+                                                </div>
+    
+                                            <t t-call="survey.question_suggested_value_image"/>
+                                        </label>
+    
 
                                 </t>
                             </div>
