@@ -417,26 +417,6 @@ class SacaLine(models.Model):
                 self.sudo().purchase_order_id.picking_ids + (
                     self.sudo().sale_order_id.picking_ids))
             for picking in pickings:
-                for line in picking.move_line_ids_without_package:
-                    if not line.qty_done:
-                        line.qty_done = line.move_id.product_uom_qty
-                    if not line.lot_id and (picking.picking_type_code) == ("incoming"):
-                        name = "{}{}".format(
-                            line.saca_line_id.lot, line.saca_line_id.seq
-                        )
-                        lot = self.env["stock.production.lot"].search(
-                            [
-                                ("product_id", "=", line.product_id.id),
-                                ("name", "=", name),
-                                ("company_id", "=", picking.company_id.id),
-                            ],
-                            limit=1,
-                        )
-                        if not lot:
-                            lot = self.env["stock.production.lot"].action_create_lot(
-                                line.product_id, name, picking.company_id
-                            )
-                        line.lot_id = lot.id
                 if picking.state != "done":
                     if not picking.custom_date_done:
                         picking.custom_date_done = self.date + timedelta(days=1)
@@ -471,6 +451,26 @@ class SacaLine(models.Model):
                     picking.sudo().button_validate()
             for picking in self.purchase_order_id.picking_ids:
                 picking.custom_date_done = self.date + timedelta(days=1)
+                for line in picking.move_line_ids_without_package:
+                    if not line.qty_done:
+                        line.qty_done = line.move_id.product_uom_qty
+                    if picking.picking_type_code == "incoming":
+                        name = "{}{}".format(
+                            line.saca_line_id.lot, line.saca_line_id.seq
+                        )
+                        lot = self.env["stock.production.lot"].search(
+                            [
+                                ("product_id", "=", line.product_id.id),
+                                ("name", "=", name),
+                                ("company_id", "=", picking.company_id.id),
+                            ],
+                            limit=1,
+                        )
+                        if not lot:
+                            lot = self.env["stock.production.lot"].action_create_lot(
+                                line.product_id, name, picking.company_id
+                            )
+                        line.lot_id = lot.id
             self.sudo().sale_order_id.commitment_date = self.date + timedelta(days=1)
             self.purchase_order_id.date_planned = self.date + timedelta(days=1)
             self.write({"stage_id": stage_matanza.id})
