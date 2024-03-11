@@ -7,6 +7,6 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     def _needs_ref(self, vals=None):
-        if self.create_uid.id == 1:
+        if self.customer_from_woo:
             return True
         return super()._needs_ref(vals)
