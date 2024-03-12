@@ -49,6 +49,10 @@ class TransportCarrierLinesToInvoice(models.Model):
         comodel_name="res.company",
         related="transfer_id.company_id",
         store=True)
+    origin = fields.Char(
+        string="Origin",
+        related="transfer_id.origin",
+        store=True)
 
     def _compute_state(self):
         for line in self:
