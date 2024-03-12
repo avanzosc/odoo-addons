@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-24 11:17+0000\n"
-"PO-Revision-Date: 2023-08-24 11:17+0000\n"
+"POT-Creation-Date: 2024-03-12 11:22+0000\n"
+"PO-Revision-Date: 2024-03-12 11:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -53,7 +53,6 @@ msgstr ""
 
 #. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__date
-#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
 msgid "Date"
 msgstr ""
 
@@ -122,6 +121,12 @@ msgid "License Plate"
 msgstr ""
 
 #. module: purchase_order_shipping_method
+#: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__origin
+#: model_terms:ir.ui.view,arch_db:purchase_order_shipping_method.transport_carrier_lines_to_invoice_search_view
+msgid "Origin"
+msgstr ""
+
+#. module: purchase_order_shipping_method
 #: model:ir.model.fields,field_description:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__price_unit
 msgid "Price Unit"
 msgstr ""
@@ -150,6 +155,11 @@ msgstr ""
 #. module: purchase_order_shipping_method
 #: model:ir.model,name:purchase_order_shipping_method.model_purchase_order
 msgid "Purchase Order"
+msgstr ""
+
+#. module: purchase_order_shipping_method
+#: model:ir.model.fields,help:purchase_order_shipping_method.field_transport_carrier_lines_to_invoice__origin
+msgid "Reference of the document"
 msgstr ""
 
 #. module: purchase_order_shipping_method

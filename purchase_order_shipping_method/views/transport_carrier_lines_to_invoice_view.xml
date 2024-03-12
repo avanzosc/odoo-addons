@@ -11,6 +11,7 @@
                 <field name="transporter_id" optional="show"/>
                 <field name="shipping_method_id" optional="show"/>
                 <field name="transfer_id" optional="show"/>
+                <field name="origin" optional="show"/>
                 <field name="supplier_invoice_id" optional="show"/>
                 <field name="date" optional="show"/>
                 <field name="company_id" optional="show"/>
@@ -30,6 +31,7 @@
         <field name="arch" type="xml">
             <search string="Search Transpor Currency Lines to Invoice">
                 <field name="transporter_id" />
+                <field name="origin"/>
                 <field name="shipping_method_id"/>
                 <field name="transfer_id" />
                 <field name="supplier_invoice_id" />
@@ -43,7 +45,8 @@
                     <filter string="Supplier Invoice" name="supplier_invoice" domain="[]" context="{'group_by':'supplier_invoice_id'}"/>
                     <filter string="State" name="state" domain="[]" context="{'group_by':'state'}"/>
                     <filter string="Transfer" name="transfer" domain="[]" context="{'group_by':'transfer_id'}"/>
-                    <filter string="Date" name="date" domain="[]" context="{'group_by':'date'}"/>
+                    <filter string="Transfer" name="transfer" domain="[]" context="{'group_by':'transfer_id'}"/>
+                    <filter string="Origin" name="origin" domain="[]" context="{'group_by':'origin'}"/>
                 </group>
             </search>
         </field>
