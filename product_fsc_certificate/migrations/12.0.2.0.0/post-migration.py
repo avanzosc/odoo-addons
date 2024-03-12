@@ -25,25 +25,40 @@ def migrate(env, version):
     order_lines = env["sale.order.line"].search([
         ("product_id", "in", templates.mapped("product_variant_ids").ids),
     ])
-    openupgrade.logged_query(
-        env.cr,
-        """UPDATE sale_order SET is_fsc_certificate = True WHERE id IN (%s)""" %
-        ",".join(str(id) for id in order_lines.mapped("order_id").ids)
-    )
+    if order_lines:
+        openupgrade.logged_query(
+            env.cr,
+            """
+            UPDATE sale_order
+            SET is_fsc_certificate = True
+            WHERE id IN (%s)
+            """ %
+            ",".join(str(id) for id in order_lines.mapped("order_id").ids)
+        )
     stock_moves = env["stock.move"].search([
         ("product_id", "in", templates.mapped("product_variant_ids").ids),
     ])
-    openupgrade.logged_query(
-        env.cr,
-        """UPDATE stock_picking SET is_fsc_certificate = True WHERE id IN (%s)""" %
-        ",".join(str(id) for id in stock_moves.mapped("picking_id").ids)
-    )
+    if stock_moves:
+        openupgrade.logged_query(
+            env.cr,
+            """
+            UPDATE stock_picking
+            SET is_fsc_certificate = True
+            WHERE id IN (%s)
+            """ %
+            ",".join(str(id) for id in stock_moves.mapped("picking_id").ids)
+        )
     invoice_lines = env["account.invoice.line"].search([
         ("product_id", "in", templates.mapped("product_variant_ids").ids),
     ])
-    openupgrade.logged_query(
-        env.cr,
-        """UPDATE account_invoice SET is_fsc_certificate = True WHERE id IN (%s)""" %
-        ",".join(str(id) for id in invoice_lines.mapped("invoice_id").ids)
-    )
+    if invoice_lines:
+        openupgrade.logged_query(
+            env.cr,
+            """
+            UPDATE account_invoice
+            SET is_fsc_certificate = True
+            WHERE id IN (%s)
+            """ %
+            ",".join(str(id) for id in invoice_lines.mapped("invoice_id").ids)
+        )
 
