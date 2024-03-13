@@ -367,7 +367,7 @@
                         <t t-set="comment_line"
                             t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
                         <table
-                            class="table table-borderless o_survey_question_matrix text-white text-center mb-0"
+                            class="table table-borderless o_survey_question_matrix text-secondary text-center mb-0"
                             t-att-data-name="question.id"
                             t-att-data-question-type="question.question_type"
                             t-att-data-sub-questions="question.matrix_row_ids.ids">
@@ -386,7 +386,7 @@
                                 columns total options -->
                                 <t t-set="useKeySelection"
                                     t-value="useKeySelection and (len(question.suggested_answer_ids) * len(question.matrix_row_ids)) &lt; len(letters)" />
-                                <tr class="bg-white text-white" t-foreach="question.matrix_row_ids"
+                                <tr class="bg-white text-secondary" t-foreach="question.matrix_row_ids"
                                     t-as="row_label" t-att-id="row_label.id">
                                     <th class="fw-normal text-start">
                                         <span t-field="row_label.value" />
