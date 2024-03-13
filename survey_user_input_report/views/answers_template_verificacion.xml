@@ -36,7 +36,6 @@
                         t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
                         <t t-set="answer_lines"
                             t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
-                            <t t-esc="answer_lines"/>
                         <div class="js_question-wrapper" t-att-id="question.id"
                             style="overflow: hidden;">
                             <!-- <h3 style="margin: 2px; padding: 2px; font-size: 1.5em; display:
@@ -164,10 +163,8 @@
                                         <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
                                             <tr>
                                                 <td>
-                                                    <t t-esc="answer" />
                                                     <t t-esc="question.title" />
                                                 </td>
-
                                                 <td>
                                                     <t t-esc="row_label.notes" />
                                                 </td>
