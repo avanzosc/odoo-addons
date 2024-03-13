@@ -15,7 +15,8 @@
     "license": "AGPL-3",
     "category": "Tools",
     "data": [
-        "views/answers_template.xml",
+        "views/answers_template_inspeccion.xml",
+        "views/answers_template_verificacion.xml",
         "views/survey_pdf_report_inspeccion.xml",
         "views/survey_pdf_report_verificacion.xml",
     ],

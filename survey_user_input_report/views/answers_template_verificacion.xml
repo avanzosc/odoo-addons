@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="template_survey_answers_template_verificacion" name="Survey Answers Template">
+        <style>
+
+            td, th{
+            padding: 5px;
+            margin: 5px;
+            }
+            table{
+            margin: 10px;
+            width: 90%;
+            }
+        </style>
+        <t t-set="questions_to_display" t-value="o._get_print_questions()" />
+        <t t-set="scoring_display_correction" t-value="True" />
+
+        <table>
+            <thead>
+                <tr>
+                    <th>QUESTION</th>
+                    <th>NOTES</th>
+                    <th>VALUE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+                    <t
+                        t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
+                        <!-- <tr><td>
+                                    <t t-esc="question.title"/>
+                                    <t t-esc="question.description"/></td>
+                                </tr> -->
+                    </t>
+                    <t
+                        t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                        <t t-set="answer_lines"
+                            t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
+                        <div class="js_question-wrapper" t-att-id="question.id"
+                            style="overflow: hidden;">
+                            <!-- <h3 style="margin: 2px; padding: 2px; font-size: 1.5em; display:
+                            inline-block; font-size: 1em; ">
+                                <span t-field="question.title"/>
+                                <span t-if="question.constr_mandatory" class="text-danger">*</span>
+                                <span t-if="scoring_display_correction" class="badge badge-pill"
+                            t-att-data-score-question="question.id"/>
+                            </h3> -->
+
+
+                            <t t-if="question.description">
+                                <div class="text-muted oe_no_empty" t-field="question.description" />
+                            </t>
+                            <t t-if="question.question_type == 'text_box'">
+                            </t>
+                            <t t-if="question.question_type == 'char_box'">
+
+                            </t>
+                            <t t-if="question.question_type == 'numerical_box'">
+
+                            </t>
+                            <t t-if="question.question_type == 'date'">
+
+                            </t>
+                            <t t-if="question.question_type == 'datetime'">
+
+                            </t>
+                            <t t-if="question.question_type == 'simple_choice'">
+                                <!-- SIMPLE CHOICE -->
+                                <t t-set="answer_line"
+                                    t-value="answer_lines.filtered(lambda line: line.suggested_answer_id)" />
+                                <t t-set="comment_line"
+                                    t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
+                                <t t-set="item_idx" t-value="0" />
+                                <t t-set="has_correct_answer"
+                                    t-value="scoring_display_correction and any(label.is_correct for label in                             question.suggested_answer_ids)" />
+
+                                <t t-foreach="question.suggested_answer_ids" t-as="label">
+                                    <t t-set="item_idx" t-value="label_index" />
+                                    <t t-set="answer_selected"
+                                        t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
+                                    <t t-set="is_correct" t-value="label.is_correct" />
+
+                                    <t t-set="answer_class" t-if="not has_correct_answer"
+                                        t-value="''" />
+                                    <t t-set="answer_class" t-elif="is_correct"
+                                        t-value="'bg-success'" />
+                                    <t t-set="answer_class" t-elif="not is_correct"
+                                        t-value="'bg-danger'" />
+
+                                    <t t-if="not is_correct">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="question.title" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="label.notes" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="label.value" />
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </t>
+                            </t>
+                            <t t-if="question.question_type == 'multiple_choice'">
+                                <!-- MULTIPLE CHOICE -->
+                                <t t-set="comment_line"
+                                    t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
+                                <t t-set="item_idx" t-value="0" />
+                                <t t-set="has_correct_answer"
+                                    t-value="scoring_display_correction and any(label.is_correct for label in                             question.suggested_answer_ids)" />
+                                <t t-foreach="question.suggested_answer_ids" t-as="label">
+                                    <t t-set="item_idx" t-value="label_index" />
+
+                                    <t t-set="answer_line"
+                                        t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == label)" />
+                                    <t t-set="answer_selected"
+                                        t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
+                                    <t t-set="is_correct" t-value="label.is_correct" />
+
+                                    <t t-set="answer_class" t-if="not has_correct_answer"
+                                        t-value="''" />
+                                    <t t-set="answer_class" t-elif="is_correct"
+                                        t-value="'bg-success'" />
+                                    <t t-set="answer_class" t-elif="not is_correct"
+                                        t-value="'bg-danger'" />
+
+
+                                    <t t-if="not is_correct">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="question.title" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="label.notes" />
+                                            </td>
+                                            <td>
+                                                <t t-esc="label.value" />
+                                            </td>
+                                        </tr>
+                                    </t>
+
+                                </t>
+                            </t>
+                            <t t-if="question.question_type == 'matrix'">
+                                <!-- MATRIX -->
+
+                                <tbody>
+                                    <t t-set="item_idx" t-value="0" />
+                                    <!-- For matrix, we have an extra check because we have rows *
+                                    columns total options -->
+                                    <tr class="bg-white text-white" t-foreach="question.matrix_row_ids"
+                                        t-as="row_label" t-att-id="row_label.id">
+                                        <t t-foreach="question.suggested_answer_ids" t-as="col_label">
+                                            <t t-set="answer"
+                                                t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)" />
+                                            <td style="margin-left: -5px;"
+                                                t-att-class="'o_survey_matrix_btn text-primary position-relative %s'
+                                                        % ('o_survey_selected' if answer else '')">
+                                                <input
+                                                    t-att-type="'checkbox' if question.matrix_subtype == 'multiple' else 'radio'"
+                                                    t-att-name="'%s_%s' % (question.id, row_label.id)"
+                                                    t-att-value='col_label.id'
+                                                    t-att-checked="'checked' if answer else None"
+                                                    t-att-data-row-id="row_label.id"
+                                                    t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"
+                                                    class="o_survey_form_choice_item invisible" />
+                                                <i style="margin: 0px 2px;"
+                                                    t-att-class="'fa fa-%s position-relative'
+                                                            % ('check-circle' if answer else 'circle-thin')"></i>
+                                                <t t-call="survey.survey_selection_key">
+                                                    <t t-set="selection_key_class"
+                                                        t-value="'position-absolute float-end fw-bold %s' % ('o_survey_radio_btn' if question.matrix_subtype != 'multiple' else '')" />
+                                                </t>
+                                                <t t-set="item_idx" t-value="item_idx + 1" />
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </tbody>
+        </table>
+    </template>
+</odoo>

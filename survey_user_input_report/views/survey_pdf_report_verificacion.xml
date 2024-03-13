@@ -132,10 +132,6 @@
                 </table>
             </div>
         </div>
-        <img
-        src="/survey_user_input_report/static/src/img/Informe_de_inspección_establecimientos_no_industriales.png"
-        alt="Informe_de_inspección_establecimientos_no_industriales" id="img_pasiva" />
-
     </template>
 
 
@@ -186,7 +182,7 @@
                                     t-lang="o.partner_id.lang"
                                 />
                                 <t
-                                    t-call="survey_user_input_report.template_survey_answers_template" />
+                                    t-call="survey_user_input_report.template_survey_answers_template_verificacion" />
 
                             </fieldset>
                         </div>
