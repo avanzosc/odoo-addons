@@ -9,10 +9,11 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "sale",
+        "sale_stock",
+        "sale_order_return",
     ],
     "data": [
-        "views/sale_order_line_view.xml",
+        "views/sale_order_view.xml"
     ],
     "installable": True,
 }

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-07 09:22+0000\n"
-"PO-Revision-Date: 2024-03-07 09:22+0000\n"
+"POT-Creation-Date: 2024-03-14 09:46+0000\n"
+"PO-Revision-Date: 2024-03-14 09:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,21 +16,45 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_sale_order__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_sale_order__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__id
 msgid "ID"
 msgstr "Identificador"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_sale_order____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: custom_p
+#: model:ir.model,name:custom_p.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: custom_p
 #: model:ir.model,name:custom_p.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
+
+#. module: custom_p
+#: model_terms:ir.ui.view,arch_db:custom_p.view_order_form
+msgid "Sold in Last Month"
+msgstr "Vendido el último mes"
+
+#. module: custom_p
+#: code:addons/custom_p/models/sale_order.py:0
+#, python-format
+msgid "This sale has not partner."
+msgstr "No tiene cliente establecido."
+
+#. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_sale_order__update_line_qty
+msgid "Update Order Lines Qty"
+msgstr "Actualizar cantidades de las líneas"
