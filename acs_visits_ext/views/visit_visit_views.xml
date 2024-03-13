@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="visit_visit_list_view" model="ir.ui.view">
+        <field name="model">visit.visit</field>
+        <field name="inherit_id" ref="acs_visits.visit_visit_list_view"/>
+        <field name="arch" type="xml">
+            <field name="number" position="after">
+                <field name="visit_type_id" />
+            </field>
+            <field name="partner_id" position="after">
+                <field name="person_id" />
+                <field name="title_id" />
+                <field name="email" />
+                <field name="phone" />
+                <field name="mobile" />
+            </field>
+        </field>
+    </record>
+
+    <record id="visit_visit_form_view" model="ir.ui.view">
+        <field name="model">visit.visit</field>
+        <field name="inherit_id" ref="acs_visits.visit_visit_form_view"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="visit_type_id" />
+            </field>
+            <field name="partner_id" position="after">
+                <field name="person_id"
+                    domain="[('id', 'child_of', [partner_id]), ('parent_id', '!=', False),('is_company', '=', False)]"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="domain">[('is_company', '=', True)]</attribute>
+            </field>
+            <field name="note" position="before">
+                <group string="Person info" name="person-info">
+                    <group>
+                        <field name="title_id" />
+                        <field name="email" />
+                    </group>
+                    <group>
+                        <field name="phone" />
+                        <field name="mobile" />
+                    </group>
+                    <group colspan="4">
+                        <field name="comment" colspan="4" string="Notes"/>
+                    </group>
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record id="visit_search" model="ir.ui.view">
+        <field name="model">visit.visit</field>
+        <field name="inherit_id" ref="acs_visits.visit_search"/>
+        <field name="arch" type="xml">
+            <field name="user_id" position="before">
+                <field name="visit_type_id" />
+                <field name="partner_id"/>
+                <field name="person_id" />
+                <field name="title_id" />
+                <field name="email" />
+                <field name="phone" />
+                <field name="mobile" />
+            </field>
+            <filter name="groupby_user" position="before">
+                <filter string="Visit type" name="groupby_visit-type" domain="[]"
+                    context="{'group_by':'visit_type_id'}"/>
+                <filter string="Customer" name="groupby_customer" domain="[]"
+                    context="{'group_by':'partner_id'}"/>
+                <filter string="Person" name="groupby_person" domain="[]"
+                    context="{'group_by':'person_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
