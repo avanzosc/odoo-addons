@@ -146,38 +146,32 @@
                             <t t-if="question.question_type == 'matrix'">
                                 <!-- MATRIX -->
 
-                                <tbody>
-                                    <t t-set="item_idx" t-value="0" />
-                                    <!-- For matrix, we have an extra check because we have rows *
-                                    columns total options -->
-                                    <tr class="bg-white text-white" t-foreach="question.matrix_row_ids"
-                                        t-as="row_label" t-att-id="row_label.id">
-                                        <t t-foreach="question.suggested_answer_ids" t-as="col_label">
-                                            <t t-set="answer"
-                                                t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)" />
-                                            <td style="margin-left: -5px;"
-                                                t-att-class="'o_survey_matrix_btn text-primary position-relative %s'
-                                                        % ('o_survey_selected' if answer else '')">
-                                                <input
-                                                    t-att-type="'checkbox' if question.matrix_subtype == 'multiple' else 'radio'"
-                                                    t-att-name="'%s_%s' % (question.id, row_label.id)"
-                                                    t-att-value='col_label.id'
-                                                    t-att-checked="'checked' if answer else None"
-                                                    t-att-data-row-id="row_label.id"
-                                                    t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"
-                                                    class="o_survey_form_choice_item invisible" />
-                                                <i style="margin: 0px 2px;"
-                                                    t-att-class="'fa fa-%s position-relative'
-                                                            % ('check-circle' if answer else 'circle-thin')"></i>
-                                                <t t-call="survey.survey_selection_key">
-                                                    <t t-set="selection_key_class"
-                                                        t-value="'position-absolute float-end fw-bold %s' % ('o_survey_radio_btn' if question.matrix_subtype != 'multiple' else '')" />
-                                                </t>
-                                                <t t-set="item_idx" t-value="item_idx + 1" />
+                                <t t-foreach="question.matrix_row_ids" t-as="row_label">
+                                    <t t-foreach="question.suggested_answer_ids" t-as="col_label">
+                                        <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                                        <t t-set="answer_is_correct" t-value="any(answer.id == label for label in question.suggested_answer_ids if label.is_correct)"/>
+
+                                        <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
+<t t-esc="answer"/>
+                                        <t t-if="not answer_is_correct">
+                                            <tr>
+                                                                                          <td>
+                                                <t t-esc="question.title"/>
                                             </td>
+
+                                                <td>
+                                                    <t t-esc="row_label.notes"/>
+                                                </td>
+                                                <td>
+                                                    <t t-esc="col_label.value"/>
+                                                </td>
+                                            </tr>
                                         </t>
-                                    </tr>
-                                </tbody>
+                                        <t t-else="">
+                                          <p>T-ELSE</p>
+                                        </t>
+                                    </t>
+                                </t>
                             </t>
                         </div>
                     </t>
