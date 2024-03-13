@@ -46,21 +46,7 @@ class IrAttachment(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        if ("active_model" not in self.env.context and
-                "default_is_prl" not in self.env.context):
-            return super(IrAttachment, self).create(vals_list)
-        if ("active_model" in self.env.context and
-            self.env.context.get("active_model", "aa") ==
-                "account.analytic.line"):
-            if isinstance(vals_list, dict):
-                if ("res_model" in vals_list and
-                        vals_list.get("res_model", "aa") == "res.partner"):
-                    del vals_list["res.model"]
-            else:
-                for vals in vals_list:
-                    if ("res_model" in vals and
-                            vals.get("res_model", "aa") == "res.partner"):
-                        del vals["res.model"]
+        if "default_is_prl" not in self.env.context:
             return super(IrAttachment, self).create(vals_list)
         for vals in vals_list:
             vals["res_model"] = "res.partner"
