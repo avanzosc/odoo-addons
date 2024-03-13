@@ -1,11 +1,18 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import models
+from odoo import api, models
 
 
 class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
+
+    @api.model
+    def _prepare_stock_return_picking_line_vals_from_move(self, stock_move):
+        result = super(StockReturnPicking, self)._prepare_stock_return_picking_line_vals_from_move(stock_move)
+        if "quantity" in result and result["quantity"] < 0:
+            result["quantity"] = 0
+        return result
 
     def _prepare_move_default_values(self, return_line, new_picking):
         result = super(StockReturnPicking, self)._prepare_move_default_values(
@@ -37,33 +44,33 @@ class StockReturnPicking(models.TransientModel):
                 self.picking_id.picking_type_id.retun_picking_draft):
             for move in return_picking.move_ids_without_package:
                 move.state = "draft"
-        else:
-            return_picking.button_force_done_detailed_operations()
-            for line in self.picking_id.move_line_ids_without_package:
-                if line.lot_id:
-                    return_movelines = (
-                        return_picking.move_line_ids_without_package
-                    )
-                    return_line = (
-                        return_movelines.filtered(
-                            lambda c: c.product_id == line.product_id and not (
-                                c.lot_id
-                            )
+        return_picking.do_unreserve()
+        return_picking.button_force_done_detailed_operations()
+        for line in self.picking_id.move_line_ids_without_package:
+            if line.lot_id:
+                return_movelines = (
+                    return_picking.move_line_ids_without_package
+                )
+                return_line = (
+                    return_movelines.filtered(
+                        lambda c: c.product_id == line.product_id and not (
+                            c.lot_id
                         )
                     )
+                )
+                if return_line:
+                    return_line[:1].write({
+                        "lot_id": line.lot_id.id,
+                        "qty_done": line.qty_done,
+                    })
+                else:
+                    return_line = return_movelines.filtered(
+                        lambda c: c.product_id == line.product_id
+                    )
                     if return_line:
-                        return_line[:1].write({
+                        new_return_line = return_line[:1].copy()
+                        new_return_line.write({
                             "lot_id": line.lot_id.id,
                             "qty_done": line.qty_done,
                         })
-                    else:
-                        return_line = return_movelines.filtered(
-                            lambda c: c.product_id == line.product_id
-                        )
-                        if return_line:
-                            new_return_line = return_line[:1].copy()
-                            new_return_line.write({
-                                "lot_id": line.lot_id.id,
-                                "qty_done": line.qty_done,
-                            })
         return new_picking, picking_type_id
