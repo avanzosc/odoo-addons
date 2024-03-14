@@ -2,11 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==========================
-Account Move Import Wizard
-==========================
+===============================
+Account Move Line Import Wizard
+===============================
 
-It imports account moves.
+It imports account moves lines in a single account move.
 
 Bug Tracker
 ===========
