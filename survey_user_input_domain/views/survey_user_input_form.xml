@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="survey_user_input_line_view_form" model="ir.ui.view">
+            <field name="name">survey.user_input.line.view.form</field>
+            <field name="model">survey.user_input.line</field>
+            <field name="inherit_id" ref="survey.survey_user_input_line_view_form" />
+            <field name="arch" type="xml">
+                <data>
+                    <!-- Agregar un dominio al campo matrix_row_id -->
+                    <xpath expr="//field[@name='matrix_row_id']" position="attributes">
+                        <attribute name="domain">[('question_id', '=', 'calculated_matrix_question_id')]</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='suggested_answer_id']" position="attributes">
+                        <attribute name="domain">[('question_id', '=', 'calculated_suggested_answer_question_id')]</attribute>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>
