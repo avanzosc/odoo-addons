@@ -6,14 +6,13 @@
             <field name="model">survey.user_input.line</field>
             <field name="inherit_id" ref="survey.survey_user_input_line_view_form" />
             <field name="arch" type="xml">
-                <!-- Agregar un dominio al campo matrix_row_id -->
-                <xpath expr="//field[@name='matrix_row_id']" position="attributes">
-                    <attribute name="domain">[('question_id', '=', 'calculated_matrix_question_id')]</attribute>
-                </xpath>
-                <!-- Agregar un dominio al campo suggested_answer_id -->
-                <xpath expr="//field[@name='suggested_answer_id']" position="attributes">
-                    <attribute name="domain">[('question_id', '=', active_id)]</attribute>
-                </xpath>
+                <field name="suggested_answer_id" position="attributes">
+                    <attribute name="domain">"[('question_id', '=', record.suggested_answer_id.question_id)]"</attribute>
+                </field>
+                
+                <field name="matrix_row_id" position="attributes">
+                    <attribute name="domain">"[('question_id', '=', record.matrix_row_id.question_id)]"</attribute>
+                </field>
             </field>
         </record>
         <record id="survey_response_line_view_tree" model="ir.ui.view">
