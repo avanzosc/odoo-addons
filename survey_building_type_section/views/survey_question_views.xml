@@ -6,10 +6,17 @@
         <field name="arch" type="xml">
             <notebook position="before">
                 <group colspan="4">
-                    <field name="question_normative_ids" widget="many2many_tags" colspan="4"/>
+                    <field
+            name="question_normative_ids"
+            widget="many2many_tags"
+            colspan="4"
+          />
                 </group>
             </notebook>
-            <xpath expr="//field[@name='suggested_answer_ids']/tree/field[@name='value_image']" position="after">
+            <xpath
+        expr="//field[@name='suggested_answer_ids']/tree/field[@name='value_image']"
+        position="after"
+      >
                 <field name="notes" />
             </xpath>
         </field>
@@ -20,7 +27,11 @@
         <field name="inherit_id" ref="survey.survey_question_tree" />
         <field name="arch" type="xml">
             <field name="survey_id" position="after">
-                <field name="question_normative_ids" widget="many2many_tags" optional="show"/>
+                <field
+          name="question_normative_ids"
+          widget="many2many_tags"
+          optional="show"
+        />
             </field>
         </field>
     </record>
@@ -30,11 +41,15 @@
         <field name="inherit_id" ref="survey.survey_question_search" />
         <field name="arch" type="xml">
             <field name="survey_id" position="after">
-                <field name="question_normative_ids"/>
+                <field name="question_normative_ids" />
             </field>
             <filter name="group_by_survey" position="after">
-                <filter name="group_question_rormative" string="Question Normatives"
-                    domain="[]" context="{'group_by':'question_normative_ids'}"/>
+                <filter
+          name="group_question_rormative"
+          string="Question Normatives"
+          domain="[]"
+          context="{'group_by':'question_normative_ids'}"
+        />
             </filter>
         </field>
     </record>

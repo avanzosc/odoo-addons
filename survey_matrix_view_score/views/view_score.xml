@@ -4,14 +4,18 @@
     <record id="survey_question_inherit_view_tree" model="ir.ui.view">
         <field name="name">survey.question.inherit.view.tree</field>
         <field name="model">survey.question</field>
-        <field name="inherit_id" ref="survey.survey_question_form"/>
+        <field name="inherit_id" ref="survey.survey_question_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='is_correct']" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.scoring_type', '=', 'no_scoring')]}</attribute>
+                <attribute
+          name="attrs"
+        >{'column_invisible': [('parent.scoring_type', '=', 'no_scoring')]}</attribute>
             </xpath>
-            
+
             <xpath expr="//field[@name='answer_score']" position="attributes">
-                <attribute name="attrs">{'invisible': [('parent.scoring_type', '=', 'no_scoring')]}</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': [('parent.scoring_type', '=', 'no_scoring')]}</attribute>
             </xpath>
         </field>
     </record>

@@ -8,7 +8,7 @@
         "product_sale_configuration",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
         "wizard/wiz_change_product_category_sale_price_view.xml",

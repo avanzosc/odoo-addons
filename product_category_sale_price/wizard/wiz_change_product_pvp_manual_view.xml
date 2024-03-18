@@ -8,18 +8,33 @@
                         <field name="manual_pvp" />
                     </group>
                     <footer>
-                        <button string="Change manual PsP" name="button_change_manual_pvp"
-                            type="object" default_focus="1" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button
+              string="Change manual PsP"
+              name="button_change_manual_pvp"
+              type="object"
+              default_focus="1"
+              class="btn-primary"
+            />
+                        <button
+              string="Cancel"
+              class="btn-secondary"
+              special="cancel"
+            />
                     </footer>
                 </form>
             </field>
         </record>
-        <act_window id="action_wiz_change_product_pvp_manual_sale_price"
-            multi="False"
-            key2="client_action_multi" name="Change PsP manual in products"
-            res_model="wiz.change.product.pvp.manual" src_model="product.product"
-            view_mode="form" target="new" view_type="form"
-            groups="product_sale_configuration.allow_change_sale_price"/>
+        <act_window
+      id="action_wiz_change_product_pvp_manual_sale_price"
+      multi="False"
+      key2="client_action_multi"
+      name="Change PsP manual in products"
+      res_model="wiz.change.product.pvp.manual"
+      src_model="product.product"
+      view_mode="form"
+      target="new"
+      view_type="form"
+      groups="product_sale_configuration.allow_change_sale_price"
+    />
     </data>
 </odoo>
