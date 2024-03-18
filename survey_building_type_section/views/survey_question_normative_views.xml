@@ -5,10 +5,11 @@
         <field name="model">survey.question.normative</field>
         <field name="arch" type="xml">
             <tree string="Questions Normatives" editable="bottom" sample="1">
-                <field name="name" />
-                <field name="description" />
-                <field name="start_year" />
-                <field name="end_year" />
+                <field name="name"/>
+                <field name="error_text" />
+                <field name="description"/>
+                <field name="start_year"/>
+                <field name="end_year"/>
             </tree>
         </field>
     </record>

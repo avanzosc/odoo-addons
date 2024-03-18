@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-31 11:35+0000\n"
-"PO-Revision-Date: 2024-01-31 11:35+0000\n"
+"POT-Creation-Date: 2024-02-14 17:08+0000\n"
+"PO-Revision-Date: 2024-02-14 17:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,14 +27,37 @@ msgid "Building Section/Area"
 msgstr ""
 
 #. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_invite__building_to_inspect_id
+msgid "Building to inspect"
+msgstr ""
+
+#. module: survey_building_type_section
 #: model:ir.model.fields,field_description:survey_building_type_section.field_survey_user_input__building_type_id
 #: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_user_input_view_search
 msgid "Building type"
 msgstr ""
 
 #. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_invite__building_with_activation_date
+msgid "Building with activation date"
+msgstr ""
+
+#. module: survey_building_type_section
 #: model:ir.model,name:survey_building_type_section.model_res_partner
 msgid "Contact"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_invite_view_form
+msgid "Create Survey"
+msgstr ""
+
+#. module: survey_building_type_section
+#. odoo-python
+#: code:addons/survey_building_type_section/models/survey_survey.py:0
+#: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_survey_view_form
+#, python-format
+msgid "Create Survey to Building"
 msgstr ""
 
 #. module: survey_building_type_section
@@ -61,6 +84,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:survey_building_type_section.field_survey_question_normative__end_year
 #: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_question_normative_view_search
 msgid "End Year"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_question_normative__error_text
+#: model:ir.model.fields,help:survey_building_type_section.field_survey_question_answer__notes
+#: model:ir.model.fields,help:survey_building_type_section.field_survey_user_input_line__notes
+msgid "Error Text"
 msgstr ""
 
 #. module: survey_building_type_section
@@ -136,7 +166,14 @@ msgid "Name"
 msgstr ""
 
 #. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_question_answer__notes
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_user_input_line__notes
+msgid "Note"
+msgstr ""
+
+#. module: survey_building_type_section
 #. odoo-python
+#: code:addons/survey_building_type_section/models/survey_user_input.py:0
 #: code:addons/survey_building_type_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_type_section.selection__survey_user_input__inspection_type__periodic
 #, python-format
@@ -144,9 +181,22 @@ msgid "Periodic"
 msgstr ""
 
 #. module: survey_building_type_section
-#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_question__question_normative_id
-#: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_question_search
+#. odoo-python
+#: code:addons/survey_building_type_section/wizard/survey_invite.py:0
+#, python-format
+msgid "Please enter at least one valid recipient."
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_user_input_line__question_normative_id
+#: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_user_input_line_view_search
 msgid "Question Normative"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_question__question_normative_ids
+#: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_question_search
+msgid "Question Normatives"
 msgstr ""
 
 #. module: survey_building_type_section
@@ -154,6 +204,11 @@ msgstr ""
 #: model:ir.ui.menu,name:survey_building_type_section.menu_survey_question_normative
 #: model_terms:ir.ui.view,arch_db:survey_building_type_section.survey_question_normative_view_tree
 msgid "Questions Normatives"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_invite__partner_id
+msgid "Recipient"
 msgstr ""
 
 #. module: survey_building_type_section
@@ -179,6 +234,21 @@ msgid "Superficie"
 msgstr ""
 
 #. module: survey_building_type_section
+#: model:ir.model,name:survey_building_type_section.model_survey_survey
+msgid "Survey"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model,name:survey_building_type_section.model_survey_invite
+msgid "Survey Invitation Wizard"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model,name:survey_building_type_section.model_survey_question_answer
+msgid "Survey Label"
+msgstr ""
+
+#. module: survey_building_type_section
 #: model:ir.model,name:survey_building_type_section.model_survey_question
 msgid "Survey Question"
 msgstr ""
@@ -194,9 +264,20 @@ msgid "Survey User Input"
 msgstr ""
 
 #. module: survey_building_type_section
+#: model:ir.model,name:survey_building_type_section.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr ""
+
+#. module: survey_building_type_section
 #. odoo-python
+#: code:addons/survey_building_type_section/models/survey_user_input.py:0
 #: code:addons/survey_building_type_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_type_section.selection__survey_user_input__inspection_type__volunteer
 #, python-format
 msgid "Volunteer"
+msgstr ""
+
+#. module: survey_building_type_section
+#: model:ir.model.fields,field_description:survey_building_type_section.field_survey_invite__building_activation_date
+msgid "building activation date"
 msgstr ""
