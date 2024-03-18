@@ -3,7 +3,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from odoo.addons import decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
@@ -54,14 +53,14 @@ class ProductTemplate(models.Model):
         string="Total cost (base + extra)",
         default=1.0,
         copy=False,
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         help="Price at which the product is sold to customers.",
     )
     my_list_price = fields.Float(
         string="Sales Price",
         default=1.0,
         copy=False,
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         help="Price at which the product is sold to customers.",
     )
     separator_1 = fields.Char(string="||", default="||")
@@ -77,13 +76,13 @@ class ProductTemplate(models.Model):
     )
     new_sale_price = fields.Float(
         string="New sale price",
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         default=0.0,
         copy=False,
     )
     my_new_sale_price = fields.Float(
         string="New sale price",
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         default=0.0,
         copy=False,
     )
@@ -114,7 +113,6 @@ class ProductTemplate(models.Model):
         for template in self:
             template.template_attributes_count = 0
 
-    @api.multi
     def _compute_only_read_prices(self):
         group = self.env.ref(
             "product_sale_configuration.allow_change_sale_price", False
@@ -254,7 +252,6 @@ class ProductTemplate(models.Model):
             template.put_template_info_in_product()
         return template
 
-    @api.multi
     def write(self, values):
         keys = values.keys()
         if (
@@ -301,7 +298,6 @@ class ProductTemplate(models.Model):
                     template.put_template_info_in_product()
         return result
 
-    @api.multi
     def _get_combination_info(
         self,
         combination=False,
@@ -408,11 +404,9 @@ class ProductProduct(models.Model):
                 product.product_tmpl_id.attribute_line_ids
             )
 
-    @api.multi
     def _inverse_product_lst_price(self):
         pass
 
-    @api.multi
     @api.depends("fix_price")
     def _compute_lst_price(self):
         uom_model = self.env["uom.uom"]
@@ -424,7 +418,6 @@ class ProductProduct(models.Model):
                 )
             product.lst_price = price
 
-    @api.multi
     def _compute_list_price(self):
         uom_model = self.env["uom.uom"]
         for product in self:
