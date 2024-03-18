@@ -6,7 +6,6 @@ from odoo import fields, models
 class SurveyQuestion(models.Model):
     _inherit = "survey.question"
 
-
     question_normative_ids = fields.Many2many(
         string="Question Normatives", comodel_name="survey.question.normative",
         copy=False,
