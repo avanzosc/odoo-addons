@@ -1,0 +1,102 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sale_stock_location_oin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-03 08:18+0000\n"
+"PO-Revision-Date: 2020-06-03 08:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_stock_location_oin
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_stock_location__eligible_for_sales
+#: model_terms:ir.ui.view,arch_db:sale_stock_location_oin.view_location_search
+msgid "Eligible for sales"
+msgstr "Elegible en ventas"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_stock_location
+msgid "Inventory Locations"
+msgstr "Ubicaciones de inventario"
+
+#. module: sale_stock_location_oin
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_sale_order_line__location_id
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_sale_order_type__location_id
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: sale_stock_location_oin
+#: model_terms:ir.ui.view,arch_db:sale_stock_location_oin.view_location_search
+msgid "No eligible for sales"
+msgstr "No elegible en ventas"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: sale_stock_location_oin
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_sale_order_line__sale_type_id
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_stock_picking__sale_type_id
+msgid "Sale type"
+msgstr "Tipo de venta"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: sale_stock_location_oin
+#: model:ir.model.fields,field_description:sale_stock_location_oin.field_sale_order_type__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de Stock"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_stock_rule
+msgid "Stock Rule"
+msgstr "Regla de Inventario"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: sale_stock_location_oin
+#: model:ir.model,name:sale_stock_location_oin.model_sale_order_type
+msgid "Type of sale order"
+msgstr "Tipo de pedido de venta"
+
+#. module: sale_stock_location_oin
+#: code:addons/sale_stock_location_oin/models/sale.py:44
+#, python-format
+msgid "You cannot add same product %s with\n"
+"                            the same location %s ."
+msgstr "Usted no puede añadir el mismo producto %s con\n"
+"                            la misma ubicación %s ."
+
+#. module: sale_stock_location_oin
+#: code:addons/sale_stock_location_oin/models/sale.py:67
+#, python-format
+msgid "You cannot add same product %s with\n"
+"                            the same location %s and sale type %s."
+msgstr "Usted no puede añadir el mismo producto %s con\n"
+"                            la misma ubicación %s y tipo de venta %s."
+
+#. module: sale_stock_location_oin
+#: code:addons/sale_stock_location_oin/models/sale.py:41
+#, python-format
+msgid "You plan to sell %s %s of %s but you only have %s %s available in location %s."
+msgstr "Usted planea vender %s %s de %s pero usted solo tiene %s %s disponible en la ubicación %s."
+
