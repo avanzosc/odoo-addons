@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchaseorder_operation_label_document">
+        <t t-call="intecpla_reports.external_layout_operation_labels">
+            <t t-set="line" t-value="line.with_context(lang=o.partner_id.lang)"/>
+            <div class="page">
+                <div class="oe_structure"/>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <img t-if="line.company_id.logo" t-att-src="image_data_uri(line.company_id.logo)" class="float-center" style="width:250px;height:55px;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <span t-esc="line.company_id.partner_id.name.upper()" />
+                    </div>
+                </div>
+                <br/>
+                <table class="table table-sm o_main_table col-xs-12" style="font-size: 30px !important;">
+                    <tbody>
+                        <tr style="height:100px !important;">
+                            <td style="background-color:white; border-right: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black; border-top: 1px solid black !important;">
+                               <strong><span style="margin-left:15px; margin-right:15px !important;"> - CODE:</span></strong>
+                               <br/>
+                               <span style="font-size: 35px; margin-left:15px; margin-right:15px !important;"
+                               		t-if="line.product_id.default_code" t-field="line.product_id.default_code" />
+                            </td>
+                        </tr>
+                        <tr style="height:100px !important;">
+                            <td style="background-color:white; border-right: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black; border-top: 1px solid black !important;">
+                                <strong><span style="margin-left:15px; margin-right:15px !important;"> - TOTAL UNITS:</span></strong>
+                                <br/>
+                                <span style="font-size: 35px; margin-left:15px; margin-right:15px !important;" t-field="line.product_qty" />
+                            </td>
+                        </tr>
+                        <tr style="height:340px !important;">
+                            <td style="background-color:white; border-right: 1px solid black; border-bottom: 1px solid black; border-left: 1px solid black; border-top: 1px solid black !important;">
+                                <strong><span style="margin-left:15px; margin-right:15px !important;"> - OPERATION:</span></strong>
+                                <br/>
+                                <span style="font-size: 35px; margin-left:15px; margin-right:15px !important;"
+                                    t-if="line.product_id.name2" t-field="line.product_id.name2" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="oe_structure"/>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_purchaseorder_operation_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-foreach="o.order_line" t-as="line">
+                    <t t-call="intecpla_reports.report_purchaseorder_operation_label_document" t-lang="o.partner_id.lang"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report id="action_report_purchase_order_operation_label"
+            string="Operation labels" 
+            model="purchase.order" 
+            report_type="qweb-pdf"
+            name="intecpla_reports.report_purchaseorder_operation_label" 
+            file="intecpla_reports.report_purchaseorder_operation_label"
+            print_report_name="
+                ('Operation Labels - %s' % (object.name))" />
+
+    <record id="action_report_purchase_order_operation_label" model="ir.actions.report">
+        <field name="paperformat_id" ref="intecpla_reports.report_paperformat_purchaseorder_operation_labels"/>
+    </record>
+</odoo>

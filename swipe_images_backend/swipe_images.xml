@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2020 Shurshilov Artem <shurshilov.a@yandex.ru> -->
+<odoo>
+    <data>
+        <!-- BACKEND swipe images -->
+        <template id="assets_backend" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                    <link rel="stylesheet" href="/swipe_images_backend/static/src/libs/jQuery.Brazzers-Carousel.css" />
+                    <script type="text/javascript" src="/swipe_images_backend/static/src/libs/jQuery.Brazzers-Carousel.js"/>
+                    <script type="text/javascript" src="/swipe_images_backend/static/src/js/swipe_images_backend.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

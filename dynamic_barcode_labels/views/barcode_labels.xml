@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<openerp>
+    <data>
+
+        <report
+            id="barcodelabels"
+            string="Print Delivery Labels"
+            model="product.product"
+            report_type="qweb-pdf"
+            name="dynamic_barcode_labels.report_barcode_labels"
+            file="dynamic_barcode_labels.report_barcode_labels"
+         />
+
+        <record id="paperformat_dynamic_barcodelabels" model="report.paperformat">
+            <field name="name">Dynamic Label Paper Format</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">30</field>
+            <field name="page_width">43</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">4</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+            <field name="report_ids" eval="[(6,0,[ref('dynamic_barcode_labels.barcodelabels')])]"/>
+        </record>
+
+    </data>
+</openerp>

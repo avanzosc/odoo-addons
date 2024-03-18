@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_change_standard_price" model="ir.ui.view">
+            <field name="model">stock.change.standard.price</field>
+            <field name="inherit_id" ref="stock_account.view_change_standard_price"/>
+            <field name="arch" type="xml">
+                <field name="new_price" position="attributes">
+                    <attribute name="string">Base cost</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

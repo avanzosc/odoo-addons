@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License MIT (https://opensource.org/licenses/MIT). -->
+<odoo>
+    <!-- Grant access to Demo User to don't break CI of other modules -->
+    <record id="group_show_settings_menu" model="res.groups">
+        <field name="users" eval="[(4, ref('base.user_demo'))]" />
+    </record>
+</odoo>

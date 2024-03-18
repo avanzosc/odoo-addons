@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="dynamic_barcode_labels_layout">
+		<!-- Multicompany -->
+		<t t-if="o and 'company_id' in o">
+			<t t-set="company" t-value="o.company_id" />
+		</t>
+		<t t-if="not o or not 'company_id' in o">
+			<t t-set="company" t-value="res_company" />
+		</t>
+		<div class="article">
+			<t t-raw="0" />
+		</div>
+	</template>
+
+	<template id="report_barcode_labels">
+		<t t-call="dynamic_barcode_labels.dynamic_barcode_labels_layout">
+			<t t-foreach="docs" t-as="product">
+			<t t-call="web.html_container">
+					<div class="page" align="center">
+						<!-- Product Name -->
+						<div t-if="config.product_name" align="center"
+							t-attf-style="color:black;font-weight: bold;font-size:{{config.product_name_size or '7'}}px">
+							<span t-field="product[0].name" />
+						</div>
+
+						<!-- Product Attributes -->
+						<div t-if="config.product_variant" align="center"
+							t-attf-style="color:black;font-weight: bold;font-size:{{config.product_variant_size or '7'}}px">
+							<span
+								t-esc="', '.join(map(lambda x: x.name, product[0].attribute_value_ids))" />
+						</div>
+
+						<!-- Product Lot -->
+						<div t-if="config.lot" align="center"
+							style="color:black;font-size:10px;">
+							<span t-raw="product[1]" />
+						</div>
+
+						<!-- Product Default Code -->
+						<div t-if="config.product_code" align="center"
+							t-attf-style="color:black;font-weight: bold;font-size:{{config.product_code_size or '7'}}px">
+							<span t-field="product[0].default_code" />
+						</div>
+
+						<!-- Barcode -->
+						<t t-if="config.barcode">
+							<span t-raw="get_barcode_string(product[0], data)" />
+							<!-- img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=%s'%(data['form']['barcode_type'], get_barcode_value(product[0], data), int(data['form']['display_width']),int(data['form']['display_height']), is_humanreadable(data))"/ -->
+						</t>
+
+						<!-- Product Barcode Number -->
+						<div t-if="config.product_barcode_no" align="center"
+							t-attf-style="color:black;font-size:{{config.product_barcode_no_size or '7'}}px">
+							<span t-field="product[0].barcode" />
+						</div>
+
+						<!-- Price -->
+						<div t-if="config.price_display" align="center"
+							t-attf-style="color:black;font-weight: bold;font-size:{{config.price_display_size or '14'}}px">
+							<t t-if="data['form']['currency_position'] == 'before'">
+								<t t-if="data['form'].get('symbol')">
+									<span t-esc="data['form']['symbol']" />
+								</t>
+							</t>
+
+							<span
+								t-esc="('%.2f'% product[0].lst_price)" />
+							<t t-if="data['form']['currency_position'] == 'after'">
+								<t t-if="data['form'].get('symbol')">
+									<span t-esc="data['form']['symbol']" />
+								</t>
+							</t>
+						</div>
+					</div>
+					<p style="page-break-before:always;"/>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

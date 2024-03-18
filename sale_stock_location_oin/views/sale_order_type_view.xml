@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sot_sale_order_type_tree_view" model="ir.ui.view">
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="sequence" widget="handle" />
+            </field>
+            <field name="sequence_id" position="after">
+                <field name="location_id" />
+            </field>
+        </field>
+    </record>
+    <record id="sot_sale_order_type_form_view" model="ir.ui.view">
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view" />
+        <field name="arch" type="xml">
+            <field name="warehouse_id" position="before">
+                <field name="sequence" required="1"/>
+            </field>
+            <field name="sequence_id" position="after">
+                <field name="location_id" required="1"
+                        domain="[('eligible_for_sales', '=', True)]"/>
+            </field>
+        </field>
+    </record>
+</odoo>

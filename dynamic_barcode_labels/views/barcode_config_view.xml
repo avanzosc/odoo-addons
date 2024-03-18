@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="barcode_config_view" model="ir.ui.view">
+            <field name="name">Barcode Configuration</field>
+            <field name="model">barcode.configuration</field>
+            <field name="arch" type="xml">
+                <form string="Barcode Configuration" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="apply" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                    <group>
+                        <group string="Dimensions">
+                            <field name="label_width" />
+                            <field name="label_height" />
+                        </group>
+                        <group string="Display" attrs="{'invisible': [('price_display', '=', False)]}">
+                            <field name="currency" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                            <field name="currency_position" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Attributes To Print">
+                            <group>
+                                <group string="Display Fields Configuration">
+                                    <field name="product_name" />
+                                    <field name="price_display" />
+                                    <field name="product_variant" />
+                                    <field name="product_barcode_no" />
+                                    <field name="product_code" />
+                                    <field name="lot" invisible="1"/>
+                                </group>
+                                <group string="Font Size Configuration">
+                                    <field name="product_name_size" />
+                                    <field name="price_display_size" />
+                                    <field name="product_variant_size" />
+                                    <field name="product_barcode_no_size" />
+                                    <field name="product_code_size" />
+                                </group>
+                                <group string="Barcode Configuration" attrs="{'invisible': [('barcode', '=', False)]}">
+                                    <field name="barcode" />
+                                    <field name="barcode_type" attrs="{'required': [('barcode', '=', True)]}" />
+                                    <field name="barcode_field" attrs="{'required': [('barcode', '=', True)]}" />
+                                    <field name="humanreadable" />
+                                    <field name="display_width" string="Barcode Width"/>
+                                    <field name="display_height" string="Barcode Height"/>
+                                    <field name="barcode_width" string="BarLines Quality(Width)"/>
+                                    <field name="barcode_height" string="BarLines Quality(Height)"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Margins">
+                            <group>
+                                <group>
+                                    <field name="margin_top" />
+                                    <field name="margin_bottom" />
+                                    <field name="dpi" />
+                                </group>
+                                <group>
+                                    <field name="margin_left" />
+                                    <field name="margin_right" />
+                                    <field name="header_spacing" invisible="1"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_barcode_config" model="ir.actions.act_window">
+            <field name="name">Barcode Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barcode.configuration</field>
+            <field name="res_id" ref="dynamic_barcode_labels.default_barcode_configuration"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</openerp>

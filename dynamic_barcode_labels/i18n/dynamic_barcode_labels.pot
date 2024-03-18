@@ -1,0 +1,468 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* dynamic_barcode_labels
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-30 02:51+0000\n"
+"PO-Revision-Date: 2017-10-30 02:51+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: dynamic_barcode_labels
+#: code:addons/dynamic_barcode_labels/wizard/barcode_labels.py:88
+#: code:addons/dynamic_barcode_labels/wizard/barcode_labels.py:131
+#, python-format
+msgid " Please configure barcode data from configuration menu"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: code:addons/dynamic_barcode_labels/wizard/barcode_labels.py:128
+#, python-format
+msgid " There is no product lines to print."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,currency_position:0
+msgid "After Amount"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model,name:dynamic_barcode_labels.model_report_paperformat
+msgid "Allows customization of a report."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Apply"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_product_variant
+msgid "Attributes"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Attributes To Print"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Barcode"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.menu,name:dynamic_barcode_labels.menu_barcode_configuration
+msgid "Barcode Config"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.actions.act_window,name:dynamic_barcode_labels.action_barcode_config
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Barcode Configuration"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_barcode_field
+msgid "Barcode Field"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Barcode Height"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_barcode
+msgid "Barcode Label"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model,name:dynamic_barcode_labels.model_barcode_labels
+#: model:ir.ui.menu,name:dynamic_barcode_labels.menu_main_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "Barcode Labels"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_qty
+msgid "Barcode Labels Qty"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.actions.act_window,name:dynamic_barcode_labels.act_barcode_labels
+#: model:ir.actions.act_window,name:dynamic_barcode_labels.action_barcode_labels
+#: model:ir.ui.menu,name:dynamic_barcode_labels.menu_action_barcode_labels
+msgid "Barcode Product Labels"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Barcode Width"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,currency_position:0
+msgid "Before Amount"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "Cancel"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "Codabar"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "Code11"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "Code128"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_create_uid
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_create_uid
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_create_date
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_create_date
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_create_date
+msgid "Created on"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_currency
+msgid "Currency"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_dpi
+msgid "DPI"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_currency_position
+msgid "Determines where the currency symbol should be placed after or before the amount."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Dimensions"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Display"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Display Attributes Into Labels"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_display_height
+msgid "Display Height (px)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_display_name
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_display_name
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_display_name
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_report_dynamic_barcode_labels_report_barcode_labels_display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_display_width
+msgid "Display Width (px)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "EAN13"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "EAN8"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "Extended39"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "Extended93"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: code:addons/dynamic_barcode_labels/report/barcode_labels.py:18
+#, python-format
+msgid "Form content is missing, this report cannot be printed."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_header_spacing
+msgid "Header Spacing"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_barcode_height
+msgid "Height"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_barcode_height
+msgid "Height of barcode."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_humanreadable
+msgid "Humanreadable"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "I2of5"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_id
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_id
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_id
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_report_dynamic_barcode_labels_report_barcode_labels_id
+msgid "ID"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_label_height
+msgid "Label Height(MM)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_label_width
+msgid "Label Width(MM)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration___last_update
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels___last_update
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines___last_update
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_report_dynamic_barcode_labels_report_barcode_labels___last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_write_uid
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_write_uid
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_write_date
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_write_date
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_margin_bottom
+msgid "Margin(Bottom)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_margin_left
+msgid "Margin(Left)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_margin_right
+msgid "Margin(Right)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_margin_top
+msgid "Margin(Top)"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.barcode_config_view
+msgid "Margins"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "More information about barcode configuration data, please navigate to inventory > barcode labels > barcode config menu."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_label_height
+msgid "Page Height"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_label_width
+msgid "Page Width"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: code:addons/dynamic_barcode_labels/wizard/barcode_labels.py:173
+#, python-format
+msgid "Please define barcode for %s!"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_price_display
+msgid "Price"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "Print"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.actions.report,name:dynamic_barcode_labels.barcodelabels
+msgid "Print Delivery Labels"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_product_id
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "Product"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:res.groups,name:dynamic_barcode_labels.group_barcode_labels
+msgid "Product Barcode Labels"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_product_code
+msgid "Product Default Code"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_product_name
+msgid "Product Name"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_lot
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_lot_id
+msgid "Production Lot"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_labels_product_get_ids
+msgid "Products"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "Products To Print"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "QR"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_currency_position
+msgid "Symbol Position"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_report_paperformat_custom_report
+msgid "Temp Formats"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_display_height
+msgid "This height will required for display barcode in label."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_display_width
+msgid "This width will required for display barcode in label."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_barcode_type
+msgid "Type"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "UPCA"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: selection:barcode.configuration,barcode_type:0
+msgid "USPS_4State"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_configuration_barcode_width
+msgid "Width"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,help:dynamic_barcode_labels.field_barcode_configuration_barcode_width
+msgid "Width of barcode."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model.fields,field_description:dynamic_barcode_labels.field_barcode_product_lines_wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: code:addons/dynamic_barcode_labels/wizard/barcode_labels.py:124
+#, python-format
+msgid "You have not enough rights to access this document.\n"
+" Please contact administrator to access this document."
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model,name:dynamic_barcode_labels.model_barcode_configuration
+msgid "barcode.configuration"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model,name:dynamic_barcode_labels.model_barcode_product_lines
+msgid "barcode.product.lines"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.ui.view,arch_db:dynamic_barcode_labels.view_barcode_labels
+msgid "or"
+msgstr ""
+
+#. module: dynamic_barcode_labels
+#: model:ir.model,name:dynamic_barcode_labels.model_report_dynamic_barcode_labels_report_barcode_labels
+msgid "report.dynamic_barcode_labels.report_barcode_labels"
+msgstr ""
+

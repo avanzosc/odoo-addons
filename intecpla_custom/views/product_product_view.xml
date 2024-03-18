@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr='//field[@name="description"]/..' position='before'>
+                <group string="Notes for calculating Target Cost and Sale Price">
+                    <field name="notes_for_cost_sale_price" nolabel="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_product_view_from_product_editable" model="ir.actions.act_window">
+        <field name="name">Product Variants</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <record id="product_product_last_purchase_info_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="purchase_last_price_info.product_product_last_purchase_info_form_view" />
+        <field name="arch" type="xml">
+            <group name="last_purchase_info" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </group>
+        </field>
+    </record>
+
+    <record id="product_search_form_view_inh_intecpla" model="ir.ui.view">
+        <field name="name">product.search.form.view.inh.intecpla</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product_sale_configuration.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <filter name="filter-manual-pvp" position="before">
+                <filter string="Line in green" name="filter_product_green" domain="[('product_color','=','green')]"/>
+                <filter string="Line in orange" name="filter_product_orange" domain="[('product_color','=','orange')]"/>
+                <filter string="Line in red" name="filter_product_red" domain="[('product_color','=','red')]"/>
+                <filter string="Line without color" name="filter_product_withoout_color" domain="[('product_color','=','none')]"/>
+                <separator/>
+            </filter>
+            <filter name="group-manual_pvp" position="after">
+                <filter string="Line color" name="group-line-color" domain="[]" context="{'group_by':'product_color'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="product_normal_editable_tree_view_intecpla" model="ir.ui.view">
+        <field name="name">product.normal.editable.tree.view.intecpla</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <tree name="product_editable_tree_view_intecpla" create="0" delete="0" 
+                    string="Product Variants" editable="bottom"
+                    decoration-danger="product_color == 'red'"
+                    decoration-warning="product_color == 'orange'"
+                    decoration-success="product_color == 'green'">
+                <field name="price_cost_changed" invisible="1"/>
+                <field name="default_code" readonly="1"/>
+                <field name="name" />
+                <field name="attribute_value_ids" readonly="1" widget="many2many_tags" groups="product.group_product_variant"/>
+                <field name="alternative_sales_code" readonly="1"/>
+                <field name="base_cost" readonly="1"/>
+                <field name="extra_cost" />
+                <field name="standard_price" readonly="1"/>
+                <field name="last_purchase_price" readonly="1"/>
+                <field name="last_supplier_invoice_price" readonly="1" />
+                <field name="target_cost"/>
+                <field name="percentage_between_costs" />
+                <field name="manual_pvp" readonly="1" context="{'change_manual_pvp': True}"/>
+                <field name="product_category_sale_price_id" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="lst_price" attrs="{'readonly': [('manual_pvp', '=', False)]}"/>
+                <field name="separator_1" readonly="1"/>
+                <field name="new_extra_cost" />
+                <field name="last_change_date_new_extra_cost" readonly="1"/>
+                <field name="new_target_cost" context="{'change_new_target_data': True}"/>
+                <field name="new_product_category_sale_price_id" context="{'change_new_target_data': True}"
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="new_sale_price" attrs="{'readonly': [('manual_pvp', '=', False)]}" />
+                <field name="my_new_sale_price" invisible="1" />
+                <field name="my_standard_price" invisible="1" />
+                <field name="my_list_price" invisible="1" />
+                <field name="last_new_sale_price_change_date" readonly="1"/>
+                <field name="separator_2" readonly="1"/>
+                <field name="description_sale_cat" />
+                <field name="description_sale_es" />
+                <field name="description_sale_en" />
+                <field name="product_color" invisible="1"/>
+                <button name="button_view_product_from_product_editable_tree"
+                    type="object" icon="fa-info-circle" aria-label="Valuation" title="View Form" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_product_normal_editable_tree_view_intecpla" model="ir.actions.act_window">
+        <field name="name">Product Variant Maintenance</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="intecpla_custom.product_normal_editable_tree_view_intecpla" />
+        <field name="context">{'search_default_group-line-color': True}</field>
+    </record>
+
+    <menuitem  id="menu_action_product_normal_editable_tree_view_intecpla"
+        action="action_product_normal_editable_tree_view_intecpla"
+        parent="stock.menu_stock_inventory_control"
+        groups="sales_team.group_sale_manager"
+        sequence="110"/>
+</odoo>

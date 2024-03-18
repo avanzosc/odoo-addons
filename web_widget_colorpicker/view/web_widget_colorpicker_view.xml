@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="assets_backend" name="web_widget_time_delta assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/web_widget_colorpicker/static/src/css/widget.css"/>
+
+            <link rel="stylesheet" href="/web_widget_colorpicker/static/src/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css"/>
+
+
+
+            <script type="text/javascript" src="/web_widget_colorpicker/static/src/js/widget.js"></script>
+            <script type="text/javascript" src="/web_widget_colorpicker/static/src/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+
+
+        </xpath>
+    </template>
+</odoo>

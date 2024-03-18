@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<openerp>
+    <data>
+
+        <act_window id="act_template_bar_labels" name="Barcode Product Labels"
+            key2="client_print_multi" res_model="barcode.labels"
+            src_model="product.template" view_mode="form" target="new"
+            view_type="form" />
+
+        <act_window id="act_barcode_labels" name="Barcode Product Labels"
+            key2="client_print_multi" res_model="barcode.labels"
+            src_model="product.product" view_mode="form" target="new"
+            view_type="form" />
+
+        <act_window id="act_purchase_bar_labels" name="Barcode Product Labels"
+            key2="client_print_multi" res_model="barcode.labels"
+            src_model="purchase.order" view_mode="form" target="new"
+            view_type="form" />
+
+        <act_window id="act_picking_bar_labels" name="Barcode Product Labels"
+            key2="client_print_multi" res_model="barcode.labels"
+            src_model="stock.picking" view_mode="form" target="new"
+            view_type="form" />
+
+        <menuitem id="menu_main_barcode_labels" name="Barcode Labels"
+            parent="stock.menu_stock_root" sequence="5" groups="dynamic_barcode_labels.group_barcode_labels"/>
+
+        <menuitem action="action_barcode_labels" id="menu_action_barcode_labels"
+            parent="menu_main_barcode_labels" sequence="10" groups="dynamic_barcode_labels.group_barcode_labels"/>
+
+        <menuitem id="menu_barcode_configuration" name="Barcode Config"
+            action="action_barcode_config" parent="menu_main_barcode_labels"
+            sequence="20" groups="dynamic_barcode_labels.group_barcode_labels"/>
+
+    </data>
+</openerp>

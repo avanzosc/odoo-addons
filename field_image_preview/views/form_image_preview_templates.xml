@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="assets_editor" inherit_id="web.assets_backend" name="Form Image Preview Assests">
+    <xpath expr="." position="inside">
+	    <link rel="stylesheet" href="/field_image_preview/static/src/css/lightbox.css" />
+        <script type="text/javascript" src="/field_image_preview/static/src/js/form_image_preview.js"></script>
+	   </xpath>
+</template>
+
+</data>
+</openerp>

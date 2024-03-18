@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="rreport_invoice_document_inh_sale_inh_intecpla" inherit_id="sale.report_invoice_document_inherit_sale">
+        <t t-if="o.partner_shipping_id and (o.partner_shipping_id != o.partner_id)" position="replace">
+            <t t-set="information_block">
+                <div>
+                    <strong t-field="o.company_id.partner_id.name"/>
+                </div>
+                VAT: <span t-field="o.company_id.partner_id.vat" />
+                <br/>
+                <span t-field="o.company_id.partner_id.street" />
+                <br/>
+                <span t-field="o.company_id.partner_id.zip" />
+                <span t-field="o.company_id.partner_id.city" />
+                <span t-esc="o.company_id.partner_id.get_state_name()"/>
+                <br/>
+                <span t-field="o.company_id.partner_id.country_id.name" />
+                <br/>
+                Phone: <span t-field="o.company_id.partner_id.phone" />
+                <br/>
+                <span t-field="o.company_id.partner_id.email" />
+                <br/>
+                <span t-field="o.company_id.partner_id.website" />
+            </t>
+        </t>
+        <div t-field="o.partner_id" position="replace" >
+            <br/>
+            <br/>
+            <div>
+                <strong t-field="o.partner_id.name"/>
+            </div>
+            <span t-field="o.partner_id.street" />
+            <br/>
+            <span t-field="o.partner_id.zip" />
+            <span t-field="o.partner_id.city" />
+            <span t-esc="o.partner_id.get_state_name()"/>
+            <br/>
+            <span t-field="o.partner_id.country_id.name" />
+        </div>
+    </template>
+
+    <template id="report_invoice_document_inh_intecpla" inherit_id="account.report_invoice_document">
+        <t t-call="web.external_layout" position="attributes">
+            <attribute name="t-call">intecpla_reports.external_layout_invoice</attribute>
+        </t>
+        <div t-if="o.partner_id.vat" position="replace" />
+        <div t-if="o.name" position="replace" />
+        <h2 position="replace" />
+        <div name="invoice_date" position="replace">
+             <div class="col-auto mw-100 mb-2" t-if="o.date_invoice" name="invoice_date">
+                 <strong>Date:</strong>
+                 <p class="m-0" t-field="o.date_invoice"/>
+             </div>
+        </div>
+        <div name="origin" position="replace" />
+        <div name="reference" position="replace" />
+        <div name="due_date" position="after">
+            <div name="reference" class="col-auto mw-100 mb-2" t-if="o.number">
+                <strong>Invoice:</strong>
+                <p class="m-0" t-field="o.number"/>
+            </div>
+        </div>
+        <div name="due_date" position="replace">
+             <div class="col-auto mw-100 mb-2" t-if="o.type == 'out_invoice'" name="partner_vat">
+                 <strong>VAT:</strong>
+                 <p class="m-0" t-field="o.partner_id.vat"/>
+                 <p class="m-0" t-field="o.date_due" t-if="not o.company_id"/>
+             </div>
+        </div>
+        <div name="customer_code" position="replace">
+             <div class="col-auto mw-100 mb-2" t-if="o.partner_id.ref" name="customer_code">
+                 <strong>Customer:</strong>
+                 <p class="m-0" t-field="o.partner_id.ref"/>
+             </div>
+        </div>
+        <p name="payment_term" position="attributes">
+            <attribute name="t-if">o.payment_term_id and o.type == 'in_invoice'</attribute>
+        </p>
+        <p name="payment_term" position="after">
+           <p t-if="o.expiration_dates" name="expiration_dates">
+               <strong>
+               Expiration dates:
+               </strong>
+               <span t-field="o.expiration_dates"/>
+           </p>
+        </p>
+        <div id="informations" position="after">
+            <div id="informations2" class="row mt32 mb32" t-if="o.origin">
+                <div class="col-auto mw-100 mb-2" name="origin">
+                    <strong>Source:</strong>
+                    <p class="m-0" t-field="o.origin"/>
+                </div>
+            </div>
+        </div>
+        <p t-if="o.reference" position="replace">
+           <p t-if="o.number and o.payment_mode_id and o.payment_mode_id.print_reference_to_payment">
+               Please use the following communication for your payment : <b><span t-field="o.number"/></b>
+           </p>
+        </p>
+        <th name="th_description" position="before">
+            <th name="th_code" t-if="o.type == 'out_invoice'" class="text-left"><span>Code</span></th>
+        </th>
+        <th name="th_description" position="after">
+            <th name="th_lots" t-if="o.have_lots" class="text-left"><span>Serial numbers</span></th>
+        </th>
+        <th name="th_taxes" position="replace" />
+        <th name="th_price_unit" position="attributes">
+            <attribute name="t-if"></attribute>
+        </th>
+        <t t-if="not line.display_type" position="replace" >
+            <t t-if="not line.display_type" name="account_invoice_line_accountable">
+                <td name="td_product_code" t-if="o.type == 'out_invoice'" class="text-left" style="font-size: 13px;">
+                    <span t-if="line.product_id.alternative_sales_code">
+                        <span t-field="line.product_id.alternative_sales_code"/>
+                    </span>
+                    <span t-if="not line.product_id.alternative_sales_code and line.product_id.default_code">
+                        <span t-field="line.product_id.default_code"/>
+                    </span>
+                </td>
+                <td name="account_invoice_line_name"  t-if="o.type != 'out_invoice'" style="font-size: 13px;">
+                    <span t-field="line.product_id"/>
+                </td>
+                <td name="account_invoice_line_name"  t-if="o.type == 'out_invoice'" style="font-size: 13px;">
+                    <span t-if="line.product_id.name2">
+                        <span t-field="line.product_id.name2"/>
+                    </span>
+                    <span t-if="not line.product_id.name2">
+                        <span t-field="line.product_id.name"/>
+                    </span>
+                </td>
+                <td name="td_lots" t-if="o.have_lots" class="text-left" style="font-size: 15px;">
+                    <span t-field="line.lots_description"/>
+                </td>
+                <td class="d-none" style="font-size: 13px;"><span t-field="line.origin"/></td>
+                <td class="text-right" style="font-size: 13px;">
+                    <span t-field="line.quantity"/>
+                    <span t-field="line.uom_id"  groups="uom.group_uom"/>
+                </td>
+                <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" style="font-size: 13px;">
+                    <span t-field="line.price_unit"/>
+                </td>
+                <td t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}" style="font-size: 13px;">
+                    <span t-field="line.discount"/>
+                </td>
+                <td class="text-right o_price_total" style="font-size: 13px;">
+                    <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                    <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                </td>
+            </t>
+        </t>
+
+        <t t-if="line.display_type == 'line_section'" position="replace">
+            <t t-if="line.display_type == 'line_section'">
+                <td colspan="99" style="font-size: 13px;">
+                    <span t-field="line.name"/>
+                </td>
+                <t t-set="current_section" t-value="line"/>
+                <t t-set="current_subtotal" t-value="0"/>
+            </t>
+        </t>
+
+        <t t-if="line.display_type == 'line_note'" position="replace">
+            <t t-if="line.display_type == 'line_note'">
+                <td colspan="99" style="font-size: 13px;">
+                    <span t-field="line.name"/>
+                </td>
+            </t>
+        </t>
+
+        <tr class="is-subtotal text-right" position="attributes">
+            <attribute name="t-if">not current_section.with_sale_order_section</attribute>
+        </tr>
+    </template>
+
+</odoo>
