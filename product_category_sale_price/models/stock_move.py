@@ -6,7 +6,6 @@ from odoo import api, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    @api.multi
     def product_price_update_before_done(self, forced_qty=None):
         return super(
             StockMove, self.with_context(update_base_cost=True)

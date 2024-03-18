@@ -7,7 +7,6 @@ class WizRecalculateProductSalePrice(models.TransientModel):
     _name = "wiz.recalculate.product.sale.price"
     _description = "Wizard for recalculate product sale_price"
 
-    @api.multi
     def button_recalculate_product_sale_price(self):
         context = dict(self._context or {})
         active_ids = context.get("active_ids", []) or []

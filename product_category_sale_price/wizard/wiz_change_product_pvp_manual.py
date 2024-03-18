@@ -9,7 +9,6 @@ class WizChangeProductPvpManual(models.TransientModel):
 
     manual_pvp = fields.Boolean(string="Manual PSP", value=False)
 
-    @api.multi
     def button_change_manual_pvp(self):
         context = dict(self._context or {})
         active_ids = context.get("active_ids", []) or []

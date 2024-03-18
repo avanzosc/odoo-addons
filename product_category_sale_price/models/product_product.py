@@ -3,7 +3,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-from odoo.addons import decimal_precision as dp
 
 
 class ProductProduct(models.Model):
@@ -23,13 +22,13 @@ class ProductProduct(models.Model):
     my_standard_price = fields.Float(
         string="Total cost (base + extra)",
         default=1.0,
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         help="Price at which the product is sold to customers.",
     )
     my_list_price = fields.Float(
         string="Sales Price",
         default=1.0,
-        digits=dp.get_precision("Product Price"),
+        digits="Product Price",
         help="Price at which the product is sold to customers.",
     )
     standard_price = fields.Float(string="Total cost (base + extra)")
@@ -61,10 +60,10 @@ class ProductProduct(models.Model):
         copy=False,
     )
     new_sale_price = fields.Float(
-        string="New sale price", digits=dp.get_precision("Product Price"), default=0.0
+        string="New sale price", digits="Product Price", default=0.0
     )
     my_new_sale_price = fields.Float(
-        string="New sale price", digits=dp.get_precision("Product Price"), default=0.0
+        string="New sale price", digits="Product Price", default=0.0
     )
     last_new_sale_price_change_date = fields.Date(
         string="Last change date new sale price"
@@ -81,7 +80,6 @@ class ProductProduct(models.Model):
                 ) * 100
             template.percentage_between_costs = percentage_between_costs
 
-    @api.multi
     def _compute_only_read_prices(self):
         group = self.env.ref(
             "product_sale_configuration.allow_change_sale_price", False
@@ -220,7 +218,6 @@ class ProductProduct(models.Model):
                 product.put_product_info_in_template()
         return product
 
-    @api.multi
     def write(self, values):
         keys = values.keys()
         if (

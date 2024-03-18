@@ -11,7 +11,6 @@ class WizChangeProductCategorySalePrice(models.TransientModel):
         string="Product category sale price", comodel_name="product.category.sale.price"
     )
 
-    @api.multi
     def button_change_category(self):
         context = dict(self._context or {})
         active_ids = context.get("active_ids", []) or []
