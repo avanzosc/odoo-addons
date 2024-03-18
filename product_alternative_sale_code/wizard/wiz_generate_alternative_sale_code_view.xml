@@ -5,21 +5,37 @@
             <field name="arch" type="xml">
                 <form string="Generate alternative sale code">
                     <group colspan="4">
-                        <string>You are going to generate alternative sale code in selected products. Are you sure? </string>
+                        <string
+            >You are going to generate alternative sale code in selected products. Are you sure? </string>
                     </group>
                     <footer>
-                        <button string="Generate alternative sale code" name="button_generate_alternative_sale_code"
-                            type="object" default_focus="1" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button
+              string="Generate alternative sale code"
+              name="button_generate_alternative_sale_code"
+              type="object"
+              default_focus="1"
+              class="btn-primary"
+            />
+                        <button
+              string="Cancel"
+              class="btn-secondary"
+              special="cancel"
+            />
                     </footer>
                 </form>
             </field>
         </record>
-        <act_window id="action_wiz_generate_alternative_sale_code"
-            multi="False"
-            key2="client_action_multi" name="Generate alternative sale code"
-            res_model="wiz.generate.alternative.sale.code" src_model="product.product"
-            view_mode="form" target="new" view_type="form"
-            groups="product_sale_configuration.allow_change_sale_price"/>
+        <act_window
+      id="action_wiz_generate_alternative_sale_code"
+      multi="False"
+      key2="client_action_multi"
+      name="Generate alternative sale code"
+      res_model="wiz.generate.alternative.sale.code"
+      src_model="product.product"
+      view_mode="form"
+      target="new"
+      view_type="form"
+      groups="product_sale_configuration.allow_change_sale_price"
+    />
     </data>
 </odoo>

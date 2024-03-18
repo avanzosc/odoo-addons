@@ -1,6 +1,6 @@
 # Copyright 2020 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import models, api
+from odoo import api, models
 
 
 class WizGenerateAlternativeSaleCode(models.TransientModel):
@@ -10,8 +10,8 @@ class WizGenerateAlternativeSaleCode(models.TransientModel):
     @api.multi
     def button_generate_alternative_sale_code(self):
         context = dict(self._context or {})
-        active_ids = context.get('active_ids', []) or []
-        products = self.env['product.product'].browse(active_ids)
+        active_ids = context.get("active_ids", []) or []
+        products = self.env["product.product"].browse(active_ids)
         if products:
             products.button_generate_alternative_sale_code()
-        return {'type': 'ir.actions.act_window_close'}
+        return {"type": "ir.actions.act_window_close"}

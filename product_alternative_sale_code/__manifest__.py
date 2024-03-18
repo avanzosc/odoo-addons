@@ -4,12 +4,9 @@
     "name": "Product Alternative Sale Code",
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
-    "depends": [
-        "product_sequence_by_category",
-        "product_sale_configuration"
-    ],
+    "depends": ["product_sequence_by_category", "product_sale_configuration"],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
         "data/ir_sequence_data.xml",

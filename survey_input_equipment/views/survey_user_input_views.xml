@@ -2,15 +2,15 @@
 <odoo>
     <record id="survey_user_input_view_form" model="ir.ui.view">
         <field name="model">survey.user_input</field>
-        <field name="inherit_id" ref="survey.survey_user_input_view_form"/>
+        <field name="inherit_id" ref="survey.survey_user_input_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='user_input_line_ids']/.." position="after">
                 <page string="Equipments" name="equipments">
                     <field name="equipment_ids">
                         <tree string="Equipments" editable="bottom" multi_edit="1">
-                            <field name="survey_user_input_id" invisible="1"/>
-                            <field name="equipment_id"/>
-                            <field name="equipment_category_id" readonly="1"/>
+                            <field name="survey_user_input_id" invisible="1" />
+                            <field name="equipment_id" />
+                            <field name="equipment_category_id" readonly="1" />
                         </tree>
                     </field>
                 </page>
@@ -20,10 +20,14 @@
 
     <record id="survey_user_input_view_search" model="ir.ui.view">
         <field name="model">survey.user_input</field>
-        <field name="inherit_id" ref="survey.survey_user_input_view_search"/>
+        <field name="inherit_id" ref="survey.survey_user_input_view_search" />
         <field name="arch" type="xml">
             <field name="survey_id" position="after">
-                <field name="equipment_ids" string="Equipment" filter_domain="[('equipment_ids.equipment_id', 'ilike', self)]"/>
+                <field
+          name="equipment_ids"
+          string="Equipment"
+          filter_domain="[('equipment_ids.equipment_id', 'ilike', self)]"
+        />
             </field>
         </field>
     </record>
