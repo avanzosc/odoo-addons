@@ -7,7 +7,6 @@ class WizGenerateAlternativeSaleCode(models.TransientModel):
     _name = "wiz.generate.alternative.sale.code"
     _description = "Wizard for generate alternative sale code in products"
 
-    @api.multi
     def button_generate_alternative_sale_code(self):
         context = dict(self._context or {})
         active_ids = context.get("active_ids", []) or []

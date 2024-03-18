@@ -11,7 +11,6 @@ class ProductProduct(models.Model):
     alternative_sales_code = fields.Char(string="Alternative sales code", copy=False)
     default_code = fields.Char(copy=False)
 
-    @api.multi
     def button_generate_alternative_sale_code(self):
         sequence = self.env.ref(
             "product_alternative_sale_code.seq_alternative_sale_code", False
@@ -124,7 +123,6 @@ class ProductProduct(models.Model):
             product.default_code = product.barcode
         return product
 
-    @api.multi
     def write(self, values):
         result = super().write(values)
         if "from_my_write" not in self.env.context:
