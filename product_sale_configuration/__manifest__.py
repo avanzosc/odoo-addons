@@ -8,10 +8,10 @@
         "sale",
         "stock_account",
         "purchase_last_price_info",
-        "invoice_supplier_last_price_info"
+        "invoice_supplier_last_price_info",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
         "security/product_sale_configuration_data.xml",

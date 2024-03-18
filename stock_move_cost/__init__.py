@@ -13,8 +13,9 @@ def _post_install_put_cost_in_move_lines(cr, registry):
             SET price_unit_cost = %s
             WHERE product_id = %s;
             """,
-            (product.standard_price,
-             product.id,
+            (
+                product.standard_price,
+                product.id,
             ),
         )
     cr.execute(

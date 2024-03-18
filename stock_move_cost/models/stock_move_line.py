@@ -9,13 +9,11 @@ class StockMoveLine(models.Model):
     price_unit_cost = fields.Float(
         string="Cost Unit Price", digits="Product Price", copy=False
     )
-    cost = fields.Float(
-        string="Cost", digits="Product Price", copy=False
-    )
+    cost = fields.Float(string="Cost", digits="Product Price", copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):
-        lines = super(StockMoveLine, self).create(vals_list)
+        lines = super().create(vals_list)
         lines._put_price_unit_cost_in_move_lines()
         return lines
 
@@ -29,7 +27,7 @@ class StockMoveLine(models.Model):
             if lot.purchase_price:
                 price_unit = lot.purchase_price
             vals["price_unit_cost"] = price_unit
-        result = super(StockMoveLine, self).write(vals)
+        result = super().write(vals)
         for line in self:
             cost = line.price_unit_cost * line.qty_done
             if round(line.cost, 5) != round(cost, 5):

@@ -25,22 +25,30 @@
             <form>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="button_show_products" type="object"
-                                class="oe_stat_button" icon="fa-th-list">
-                            <field name="count_products" string="Products" widget="o_stat_value"/>
+                        <button
+              name="button_show_products"
+              type="object"
+              class="oe_stat_button"
+              icon="fa-th-list"
+            >
+                            <field
+                name="count_products"
+                string="Products"
+                widget="o_stat_value"
+              />
                         </button>
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" required="1" nolabel="1"/>
+                            <field name="name" required="1" nolabel="1" />
                         </h1>
                     </div>
                     <group name="group1" colspan="4">
                         <group>
-                            <field name="percentage" required="1"/>
+                            <field name="percentage" required="1" />
                         </group>
                         <group>
-                            <field name="fixed_amount" required="1"/>
+                            <field name="fixed_amount" required="1" />
                         </group>
                     </group>
                 </sheet>
@@ -54,9 +62,11 @@
         <field name="view_mode">form,tree</field>
         <field name="view_id" ref="product_category_sale_price_view_tree" />
     </record>
-    <menuitem id="product_category_sale_price_group_view"
-            name="Product categories sale price"
-            action="action_product_category_sale_price"
-            parent="sale.prod_config_main"
-            groups="product_sale_configuration.allow_change_sale_price"/>
+    <menuitem
+    id="product_category_sale_price_group_view"
+    name="Product categories sale price"
+    action="action_product_category_sale_price"
+    parent="sale.prod_config_main"
+    groups="product_sale_configuration.allow_change_sale_price"
+  />
 </odoo>
