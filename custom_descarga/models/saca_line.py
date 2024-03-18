@@ -322,13 +322,13 @@ class SacaLine(models.Model):
 
     @api.depends(
         "purchase_order_id",
-        "purchase_order_id.price_subtotal_received",
+        "purchase_order_id.amount_untaxed",
     )
     def _compute_puchase_price(self):
         for line in self:
             if line.purchase_order_id:
                 line.purchase_price = (
-                    line.purchase_order_id.price_subtotal_received)
+                    line.purchase_order_id.amount_untaxed)
 
     def write(self, values):
         result = super().write(values)
