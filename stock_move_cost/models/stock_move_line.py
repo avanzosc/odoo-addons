@@ -9,42 +9,46 @@ class StockMoveLine(models.Model):
     price_unit_cost = fields.Float(
         string="Cost Unit Price", digits="Product Price", copy=False
     )
-    cost = fields.Float(string="Cost", digits="Product Price", copy=False)
+    cost = fields.Float(
+        string="Cost", digits="Product Price", copy=False, store=True,
+        compute="_compute_cost"
+    )
+
+    @api.depends("qty_done", "price_unit_cost")
+    def _compute_cost(self):
+        for line in self:
+            line.cost = line.qty_done * line.price_unit_cost
+
+    @api.onchange("product_id", "product_uom_id")
+    def _onchange_product_id(self):
+        if self.product_id and self.product_id.standard_price:
+            self.price_unit_cost = self.product_id.standard_price
+        return super(StockMoveLine, self)._onchange_product_id()
+
+    @api.onchange("lot_name", "lot_id")
+    def _onchange_serial_number(self):
+        result = super(StockMoveLine, self)._onchange_serial_number()
+        if self.lot_id and self.lot_id.purchase_price:
+            self.price_unit_cost = self.lot_id.purchase_price
+        return result
 
     @api.model_create_multi
     def create(self, vals_list):
-        lines = super().create(vals_list)
-        lines._put_price_unit_cost_in_move_lines()
+        lines = super(StockMoveLine, self).create(vals_list)
+        for line in lines.filtered(lambda x: not x.price_unit_cost):
+            line._put_price_unit_cost_in_line()
         return lines
 
     def write(self, vals):
-        if "lot_id" in vals and vals.get("lot_id", False):
-            if isinstance(vals.get("lot_id"), int):
-                lot = self.env["stock.lot"].browse(vals.get("lot_id"))
-            else:
-                lot = vals.get("lot_id")
-            price_unit = self.product_id.standard_price
-            if lot.purchase_price:
-                price_unit = lot.purchase_price
-            vals["price_unit_cost"] = price_unit
-        result = super().write(vals)
-        for line in self:
-            cost = line.price_unit_cost * line.qty_done
-            if round(line.cost, 5) != round(cost, 5):
-                line.cost = cost
+        result = super(StockMoveLine, self).write(vals)
+        if "price_unit_cost" not in vals:
+            for line in self:
+                line._put_price_unit_cost_in_line()
         return result
 
-    def _put_price_unit_cost_in_move_lines(self):
-        for line in self:
-            price_unit = line.product_id.standard_price
-            if line.lot_id and line.lot_id.purchase_price:
-                price_unit = line.lot_id.purchase_price
-            vals = {}
-            if line.price_unit_cost != price_unit:
-                vals["price_unit_cost"] = price_unit
-            if line.state == "done":
-                cost = price_unit * line.qty_done
-                if round(line.cost, 5) != round(cost, 5):
-                    vals["cost"] = cost
-            if vals:
-                line.write(vals)
+    def _put_price_unit_cost_in_line(self):
+        if self.lot_id and self.lot_id.purchase_price:
+            self._onchange_serial_number()
+        else:
+            if self.price_unit_cost == 0 and self.product_id.standard_price:
+                self._onchange_product_id()
