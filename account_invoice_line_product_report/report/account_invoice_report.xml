@@ -2,20 +2,16 @@
 <odoo>
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <th name="th_description" position="before">
-            <th
-        name="th_product"
-        t-if="o.move_type in ('out_invoice', 'out_refund')"
-        class="text-start"
-      >
+            <th name="th_product"
+                    t-if="o.move_type in ('out_invoice', 'out_refund')"
+                    class="text-start">
                 <span>Product</span>
             </th>
         </th>
         <td name="account_invoice_line_name" position="before">
-            <td
-        name="product_name"
-        t-if="line.move_id.move_type in ('out_invoice', 'out_refund')"
-      >
-                <span t-field="line.product_id" />
+            <td name="product_name"
+                    t-if="line.move_id.move_type in ('out_invoice', 'out_refund')">
+                <span t-field="line.product_id"/>
             </td>
         </td>
     </template>

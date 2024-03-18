@@ -6,7 +6,7 @@
     "category": "Custom Module",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/odoo-addons",
+    "website": "http://www.avanzosc.es",
     "depends": [
         "maintenance",
         "survey",
