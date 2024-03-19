@@ -1,19 +1,22 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import models, api
+from odoo import api, models
 
 
 class IrTranslation(models.Model):
-    _inherit = 'ir.translation'
+    _inherit = "ir.translation"
 
     @api.multi
     def write(self, values):
-        result = super(IrTranslation, self).write(values)
-        if ("language_description" not in self.env.context and
-                "value" in values and values.get("value", False)):
+        result = super().write(values)
+        if (
+            "language_description" not in self.env.context
+            and "value" in values
+            and values.get("value", False)
+        ):
             for translation in self.filtered(
-                lambda x: x.name in ("product.template,name2",
-                                     "product.product,name2")):
+                lambda x: x.name in ("product.template,name2", "product.product,name2")
+            ):
                 translation.new_name2_tranlation_to_fields()
         return result
 

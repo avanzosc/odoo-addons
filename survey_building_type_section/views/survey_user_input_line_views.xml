@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="survey.survey_user_input_line_view_form" />
         <field name="arch" type="xml">
             <field name="create_date" position="after">
-                <field name="question_normative_id"/>
+                <field name="question_normative_id" />
                 <field name="notes" />
             </field>
         </field>
@@ -16,8 +16,8 @@
         <field name="inherit_id" ref="survey.survey_response_line_view_tree" />
         <field name="arch" type="xml">
             <field name="question_id" position="after">
-                <field name="question_normative_id" optional="show"/>
-                <field name="notes" optional="show"/>
+                <field name="question_normative_id" optional="show" />
+                <field name="notes" optional="show" />
             </field>
         </field>
     </record>
@@ -27,11 +27,15 @@
         <field name="inherit_id" ref="survey.survey_user_input_line_view_search" />
         <field name="arch" type="xml">
             <field name="survey_id" position="after">
-                <field name="question_normative_id"/>
+                <field name="question_normative_id" />
             </field>
             <filter name="group_by_survey" position="after">
-                <filter name="group_question_rormative" string="Question Normative"
-                    domain="[]" context="{'group_by':'question_normative_id'}"/>
+                <filter
+          name="group_question_rormative"
+          string="Question Normative"
+          domain="[]"
+          context="{'group_by':'question_normative_id'}"
+        />
             </filter>
         </field>
     </record>
