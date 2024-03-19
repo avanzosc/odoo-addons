@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="sale_order_view_form">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <field name="payment_term_id" position="after">
+                 <field name="is_fsc_certificate"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="sale_order_view_search">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <filter name="activities_my" position="before">
+                <filter name="is_fsc_certificate" string="FSC certificated"
+                        domain="[('is_fsc_certificate','=', True)]"/>
+                <separator />
+            </filter>
+        </field>
+    </record>
+</odoo>

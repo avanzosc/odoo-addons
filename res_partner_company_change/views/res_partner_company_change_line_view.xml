@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_company_change_line_view_search" model="ir.ui.view">
+        <field name="model">res.partner.company.change.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="action"/>
+                <field name="partner_id"/>
+                <field name="log_info"/>
+                <separator />
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="Update"
+          name="update"
+          domain="[('action', '=', 'update')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_partner"
+            string="Contact"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                    <filter
+            string="Log Info"
+            name="log_info_group"
+            domain="[]"
+            context="{'group_by':'log_info'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_line_view_form" model="ir.ui.view">
+        <field name="model">res.partner.company.change.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="customer_payment_mode_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="supplier_payment_mode_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="property_delivery_carrier_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="property_payment_term_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="property_supplier_payment_term_id" options="{'no_create': True, 'no_open': True}"/>
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_line_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.company.change.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field name="action"/>
+                <field name="partner_id"/>
+                <field name="customer_payment_mode_id"/>
+                <field name="supplier_payment_mode_id"/>
+                <field name="property_delivery_carrier_id"/>
+                <field name="property_payment_term_id"/>
+                <field name="property_supplier_payment_term_id"/>
+                <field name="state"/>
+                <field name="log_info"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_line_action" model="ir.actions.act_window">
+        <field name="name">Res Partner Company Change Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.company.change.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_partner_company_change_line_view_tree" />
+    </record>
+
+    <record id="action_validate_line" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field name="model_id" ref="res_partner_company_change.model_res_partner_company_change_line"/>
+        <field name="binding_model_id" ref="res_partner_company_change.model_res_partner_company_change_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.button_validate()
+        </field>
+    </record>
+
+    <record id="action_process_line" model="ir.actions.server">
+        <field name="name">Process</field>
+        <field name="model_id" ref="res_partner_company_change.model_res_partner_company_change_line"/>
+        <field name="binding_model_id" ref="res_partner_company_change.model_res_partner_company_change_line"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.button_process()
+        </field>
+    </record>
+</odoo>

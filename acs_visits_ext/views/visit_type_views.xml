@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="visit_type_tree_view" model="ir.ui.view">
+        <field name="name">visit.type.tree.view</field>
+        <field name="model">visit.type</field>
+        <field name="arch" type="xml">
+            <tree string="Visit types" editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="visit_type_search_view" model="ir.ui.view">
+        <field name="name">visit.type.search.view</field>
+        <field name="model">visit.type</field>
+        <field name="arch" type="xml">
+            <search string="Search visit types">
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+
+    <record id="action_visit_type" model="ir.actions.act_window">
+        <field name="name">Visit types</field>
+        <field name="res_model">visit.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="visit_type_tree_view"/>
+        <field name="search_view_id" ref="visit_type_search_view"/>
+    </record>
+
+    <menuitem id="menu_visit_billing_type"
+        name="Visit types"
+        sequence="20"
+        action="action_visit_type"
+        parent="acs_visits.menu_visit_visit"
+        groups="acs_visits.group_visit_manager"/>
+</odoo>
