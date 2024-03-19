@@ -12,7 +12,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "views/building_type_views.xml",
+        "views/building_use_views.xml",
         "views/building_section_views.xml",
         "views/res_partner_views.xml",
     ],

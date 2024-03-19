@@ -8,7 +8,7 @@
                 <page name="customer_building" string="Building">
                     <group>
                         <group>
-                            <field name="building_type_id" />
+                            <field name="building_use_id" />
                         </group>
                         <group>
                             <field name="service_start_date" />
@@ -18,7 +18,8 @@
                         <tree string="Building Sections/Areas" editable="bottom" sample="1">
                             <field name="partner_id" invisible="1"/>
                             <field name="name"/>
-                            <field name="risk_use" />
+                            <field name="risk" />
+                            <field name="section_use" />
                             <field name="superficie" />
                         </tree>
                     </field>
@@ -33,7 +34,7 @@
         <field name="arch" type="xml">
             <field name="phone" position="before">
                 <field name="service_start_date" optional="show"/>
-                <field name="building_type_id" optional="show"/>
+                <field name="building_use_id" optional="show"/>
                 <field name="building_section_ids" optional="show"
                         widget="many2many_tags"/>
             </field>
@@ -46,12 +47,12 @@
         <field name="arch" type="xml">
             <field name="user_id" position="after">
                 <field name="service_start_date" />
-                <field name="building_type_id"/>
+                <field name="building_use_id"/>
                 <field name="building_section_ids"/>
             </field>
             <filter name="group_country" position="after">
-                <filter name="group_building_type" string="Building type"
-                    context="{'group_by': 'building_type_id'}"/>
+                <filter name="group_building_use" string="Building type"
+                    context="{'group_by': 'building_use_id'}"/>
                 <filter name="group_service_start_date" string="Service Start Date"
                     context="{'group_by': 'service_start_date'}"/>
             </filter>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="building_type_view_tree" model="ir.ui.view">
-        <field name="name">building.type.view.tree</field>
-        <field name="model">building.type</field>
+    <record id="building_use_view_tree" model="ir.ui.view">
+        <field name="name">building.use.view.tree</field>
+        <field name="model">building.use</field>
         <field name="arch" type="xml">
             <tree string="Building types" editable="bottom" sample="1">
                 <field name="name"/>
@@ -10,19 +10,19 @@
         </field>
     </record>
 
-    <record id="building_type_action" model="ir.actions.act_window">
+    <record id="building_use_action" model="ir.actions.act_window">
         <field name="name">Building types</field>
-        <field name="res_model">building.type</field>
-        <field name="view_id" ref="building_type_view_tree"/>
+        <field name="res_model">building.use</field>
+        <field name="view_id" ref="building_use_view_tree"/>
     </record>
 
     <menuitem id="menu_customer_building"
                 sequence="70"
                 parent="contacts.res_partner_menu_config"
                 name="Buildings">
-        <menuitem id="menu_customer_building_type"
+        <menuitem id="menu_customer_building_use"
             name="Building types"
-            action="res_partner_building_type_section.building_type_action"
+            action="res_partner_building_use_section.building_use_action"
             sequence="10"/>
     </menuitem>
 

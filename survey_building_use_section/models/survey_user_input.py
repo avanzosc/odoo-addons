@@ -18,13 +18,13 @@ class SurveyUserInput(models.Model):
         comodel_name="building.section", copy=False,
         related="inspected_building_id.building_section_ids"
     )
-    building_type_id = fields.Many2one(
-        string="Building type", comodel_name="building.type",
-        related="inspected_building_id.building_type_id", store=True,
+    building_use_id = fields.Many2one(
+        string="Building type", comodel_name="building.use",
+        related="inspected_building_id.building_use_id", store=True,
         copy=False,
     )
-    risk_use = fields.Char(
-        string="Risk/User", related="building_section_id.risk_use",
+    risk = fields.Char(
+        string="Risk", related="building_section_id.risk",
         store=True, copy=False
     )
     superficie = fields.Float(

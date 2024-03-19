@@ -7,8 +7,10 @@
             <tree string="Building Sections/Areas" editable="bottom" sample="1">
                 <field name="partner_id" />
                 <field name="name"/>
-                <field name="risk_use" />
+                <field name="risk" />
                 <field name="superficie" />
+                <field name="evacuation_height" />
+                <field name="section_use" />
             </tree>
         </field>
     </record>
@@ -20,12 +22,12 @@
             <search string="Search Building Sections/Areas">
                 <field name="partner_id" />
                 <field name="name"/>
-                <field name="risk_use"/>
+                <field name="risk"/>
                 <group expand="0" string="Group By">
                     <filter string="Contact" name="groupcontact" domain="[]"
                         context="{'group_by': 'partner_id'}"/>
                     <filter string="Risk/User" name="groupriskuser" domain="[]"
-                        context="{'group_by': 'risk_use'}"/>
+                        context="{'group_by': 'risk'}"/>
                 </group>
             </search>
         </field>
@@ -39,7 +41,7 @@
 
     <menuitem id="menu_customer_building_section"
         name="Building Sections/Areas"
-        parent="res_partner_building_type_section.menu_customer_building"
-        action="res_partner_building_type_section.building_section_action"
+        parent="res_partner_building_use_section.menu_customer_building"
+        action="res_partner_building_use_section.building_section_action"
         sequence="20"/>
 </odoo>
