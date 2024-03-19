@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 09:43+0000\n"
-"PO-Revision-Date: 2023-11-06 09:43+0000\n"
+"POT-Creation-Date: 2024-03-19 12:38+0000\n"
+"PO-Revision-Date: 2024-03-19 12:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -195,10 +195,22 @@ msgid "Owner"
 msgstr "Propietario"
 
 #. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__partner_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__picking_id
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Picking"
 msgstr "Albarán"
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__picking_type_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Picking Type"
+msgstr "Tipo de operación"
 
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__product_id
@@ -226,6 +238,12 @@ msgstr "Ubicación de producción"
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
 msgid "Qty"
 msgstr "Cantidad"
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__ref
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Reference"
+msgstr "Referencia"
 
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__type_id
