@@ -127,7 +127,6 @@ class ProductProduct(models.Model):
             else:
                 translation.write(vals)
 
-    @api.multi
     def write(self, values):
         if "from_cron" in self.env.context:
             return super().write(values)

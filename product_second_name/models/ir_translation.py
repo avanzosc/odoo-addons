@@ -6,7 +6,6 @@ from odoo import api, models
 class IrTranslation(models.Model):
     _inherit = "ir.translation"
 
-    @api.multi
     def write(self, values):
         result = super().write(values)
         if (

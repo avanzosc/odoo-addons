@@ -127,7 +127,6 @@ class ProductTemplate(models.Model):
             else:
                 translation.write(vals)
 
-    @api.multi
     def write(self, values):
         if "product_created_from_template" in self.env.context:
             return True
