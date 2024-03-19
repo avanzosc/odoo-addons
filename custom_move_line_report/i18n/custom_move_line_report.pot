@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-06 09:43+0000\n"
-"PO-Revision-Date: 2023-11-06 09:43+0000\n"
+"POT-Creation-Date: 2024-03-19 12:37+0000\n"
+"PO-Revision-Date: 2024-03-19 12:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -195,9 +195,21 @@ msgid "Owner"
 msgstr ""
 
 #. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__partner_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Partner"
+msgstr ""
+
+#. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__picking_id
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Picking"
+msgstr ""
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__picking_type_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Picking Type"
 msgstr ""
 
 #. module: custom_move_line_report
@@ -225,6 +237,12 @@ msgstr ""
 #. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
 msgid "Qty"
+msgstr ""
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__ref
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Reference"
 msgstr ""
 
 #. module: custom_move_line_report
