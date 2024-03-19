@@ -7,8 +7,11 @@
         <field name="arch" type="xml">
             <tree string="Movement Analysis">
                 <field name="date"/>
+                <field name="ref"/>
                 <field name="picking_id"/>
+                <field name="partner_id"/>
                 <field name="production_id"/>
+                <field name="picking_type_id"/>
                 <field name="location_id"/>
                 <field name="type_id"/>
                 <field name="move_type_id"/>
@@ -45,6 +48,7 @@
                             <field name="batch_id"/>
                         </group>
                         <group string="Type">
+                            <field name="picking_type_id"/>
                             <field name="type_id"/>
                             <field name="move_type_id"/>
                             <field name="type_category_id"/>
@@ -54,8 +58,10 @@
                             <field name="lot_id"/>
                         </group>
                         <group string="Origin">
+                            <field name="ref"/>
                             <field name="production_id"/>
                             <field name="picking_id"/>
+                            <field name="partner_id"/>
                             <field name="move_line_id"/>
                             <field name="move_id"/>
                         </group>
@@ -131,6 +137,8 @@
                 <separator/>
                 <filter name="filter_date" date="date"/>
                 <group expand="0" string="Group By">
+                    <filter name="groupby_ref" string="Reference"
+                            context="{'group_by':'ref'}" />
                     <filter name="groupby_product" string="Product"
                             context="{'group_by':'product_id'}" />
                     <filter name="groupby_lot" string="Lot/Serial Number"
@@ -147,10 +155,14 @@
                             context="{'group_by':'type_category_id'}" />
                     <filter name="groupby_picking" string="Picking"
                             context="{'group_by':'picking_id'}" />
+                    <filter name="groupby_picking_type" string="Picking Type"
+                            context="{'group_by':'picking_type_id'}" />
                     <filter name="groupby_batch" string="Egg Mother"
                             context="{'group_by':'batch_id'}" />
                     <filter name="groupby_production" string="Production"
                             context="{'group_by':'production_id'}" />
+                    <filter name="groupby_partner" string="Partner"
+                            context="{'group_by':'partner_id'}" />
                 </group>
             </search>
         </field>

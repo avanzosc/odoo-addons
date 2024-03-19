@@ -28,8 +28,7 @@ class StockMoveLineReport(models.Model):
         comodel_name="move.type")
     type_category_id = fields.Many2one(
         string="Type Category",
-        comodel_name="stock.picking.type.category",
-        )
+        comodel_name="stock.picking.type.category")
     batch_id = fields.Many2one(
         string="Egg Mother",
         comodel_name="stock.picking.batch")
@@ -77,6 +76,14 @@ class StockMoveLineReport(models.Model):
     usage = fields.Selection(
         string="Usage",
         selection="_get_usage_selection")
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner")
+    picking_type_id = fields.Many2one(
+        string="Picking Type",
+        comodel_name="stock.picking.type")
+    ref = fields.Char(
+        string="Reference")
 
     @api.model
     def _get_usage_selection(self):
@@ -93,7 +100,10 @@ class StockMoveLineReport(models.Model):
                     line.move_line_id,
                     line.move_id,
                     line.picking_id,
+                    line.picking_type_id,
+                    line.ref,
                     line.production_id,
+                    line.partner_id,
                     line.product_id,
                     line.egg,
                     line.lot_id,
@@ -120,8 +130,11 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.id AS move_line_id,
                             stock_move_line.move_id AS move_id,
                             stock_move_line.picking_id AS picking_id,
+                            stock_move_line.picking_type_id AS picking_type_id,
+                            stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
                             stock_move_line.lot_id AS lot_id,
@@ -156,8 +169,11 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.id AS move_line_id,
                             stock_move_line.move_id AS move_id,
                             stock_move_line.picking_id AS picking_id,
+                            stock_move_line.picking_type_id AS picking_type_id,
+                            stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
                             stock_move_line.lot_id AS lot_id,
@@ -192,8 +208,11 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.id AS move_line_id,
                             stock_move_line.move_id AS move_id,
                             stock_move_line.picking_id AS picking_id,
+                            stock_move_line.picking_type_id AS picking_type_id,
+                            stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
                             stock_move_line.lot_id AS lot_id,
@@ -231,8 +250,11 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.id AS move_line_id,
                             stock_move_line.move_id AS move_id,
                             stock_move_line.picking_id AS picking_id,
+                            stock_move_line.picking_type_id AS picking_type_id,
                             stock_move_line.production_id AS production_id,
+                            stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
                             stock_move_line.lot_id AS lot_id,
