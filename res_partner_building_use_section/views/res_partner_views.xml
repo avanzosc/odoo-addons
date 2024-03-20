@@ -9,14 +9,18 @@
                     <group>
                         <group>
                             <field name="building_use_id" />
+                            <field name="service_start_date" />
+
                         </group>
                         <group>
-                            <field name="service_start_date" />
+                            <field name="administrator_id" />
+                            <field name="installer_id" />
+                            <field name="maintainer_id" />
                         </group>
                     </group>
                     <field name="building_section_ids">
                         <tree string="Building Sections/Areas" editable="bottom" sample="1">
-                            <field name="partner_id" />
+                            <field name="partner_id" invisible="1" />
                             <field name="name" />
                             <field name="risk" />
                             <field name="superficie" />
