@@ -9,6 +9,10 @@ class SurveyUserInput(models.Model):
     inspected_building_id = fields.Many2one(
         string="Inspected Building", comodel_name="res.partner", copy=False,
     )
+    maintainer_id = fields.Many2one(related='inspected_building_id.maintainer_id', string='Maintainer', comodel_name='res.partner')
+    installer_id = fields.Many2one(related='inspected_building_id.installer_id', string='Installer', comodel_name='res.partner')
+    administrator_id = fields.Many2one(related='inspected_building_id.administrator_id', string='Administrator', comodel_name='res.partner')
+
     building_section_id = fields.Many2one(
         string="Building Section/Area", comodel_name="building.section",
         copy=False,
