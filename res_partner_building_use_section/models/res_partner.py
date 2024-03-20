@@ -17,7 +17,7 @@ class ResPartner(models.Model):
         string="Service Start Date", copy=False,
     )
     
-    maintainer_id = fields.Many2one('res.users', string='Maintainer')
-    installer_id = fields.Many2one('res.users', string='Installer')
-    administrator_id = fields.Many2one('res.users', string='Administrator')
+    maintainer_id = fields.Many2one('res.partner', string='Maintainer')
+    installer_id = fields.Many2one('res.partner', string='Installer')
+    administrator_id = fields.Many2one('res.partner', string='Administrator')
     
