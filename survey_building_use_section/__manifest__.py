@@ -1,7 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
-    "name": "Survey Building Type Section",
+    "name": "Survey Building Use Section",
     "version": "16.0.1.1.0",
     "category": "Marketing/Surveys",
     "license": "AGPL-3",

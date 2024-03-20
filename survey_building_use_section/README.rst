@@ -2,14 +2,14 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-============================
-Survey building type section
-============================
+===========================
+Survey Building Use Section
+===========================
 
 * New object "Survey Question Normative".
 * In Survey Question object new field "Question Normatives".
 * In Survey User Input new fields: Inspected Building", "Building Section/Area",
-  "Building type", "Inspector", "Inspection Type", and other fields.
+  "Building Use", "Inspector", "Inspection Use", and other fields.
 * In Survey User Input Line new field: "Question Normative".
 
 
