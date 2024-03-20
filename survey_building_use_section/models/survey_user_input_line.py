@@ -1,6 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SurveyUserInputLine(models.Model):
@@ -16,7 +17,7 @@ class SurveyUserInputLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        lines = super(SurveyUserInputLine, self).create(vals_list)
+        lines = self._filter_questions_of_normative(vals_list)
         lines_to_treat = lines.filtered(lambda x: x.question_id)
         if lines_to_treat:
             lines_to_treat._put_normative_in_line()
@@ -52,3 +53,17 @@ class SurveyUserInputLine(models.Model):
             if notes:
                 vals["notes"] = notes
             line.write(vals)
+
+    def _filter_questions_of_normative(self, vals):
+        if 'question_normative_id' in vals:
+            question_normative_id = vals.get('question_normative_id')
+            if not self._is_normative_valid(question_normative_id):
+                raise ValidationError("La normativa seleccionada no es válida para el edificio inspeccionado.")
+        return super(SurveyUserInputLine, self).create(vals)
+
+    def _is_normative_valid(self, question_normative_id):
+        user_input = self.env.context.get('user_input_id', False)
+        if user_input:
+            inspected_building = self.env['survey.user_input'].browse(user_input).inspected_building_id
+            return question_normative_id in inspected_building.normativas_ids.ids
+        return False
