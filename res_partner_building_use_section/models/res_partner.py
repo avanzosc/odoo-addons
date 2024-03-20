@@ -7,7 +7,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     building_use_id = fields.Many2one(
-        string="Building type", comodel_name="building.use", copy=False,
+        string="Building use", comodel_name="building.use", copy=False,
     )
     building_section_ids = fields.One2many(
         string="Building Section/Area", comodel_name="building.section",

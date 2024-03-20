@@ -4,14 +4,14 @@
         <field name="name">building.use.view.tree</field>
         <field name="model">building.use</field>
         <field name="arch" type="xml">
-            <tree string="Building types" editable="bottom" sample="1">
+            <tree string="Building uses" editable="bottom" sample="1">
                 <field name="name"/>
             </tree>
         </field>
     </record>
 
     <record id="building_use_action" model="ir.actions.act_window">
-        <field name="name">Building types</field>
+        <field name="name">Building uses</field>
         <field name="res_model">building.use</field>
         <field name="view_id" ref="building_use_view_tree"/>
     </record>
@@ -21,7 +21,7 @@
                 parent="contacts.res_partner_menu_config"
                 name="Buildings">
         <menuitem id="menu_customer_building_use"
-            name="Building types"
+            name="Building uses"
             action="res_partner_building_use_section.building_use_action"
             sequence="10"/>
     </menuitem>
