@@ -6,7 +6,7 @@ from odoo import _, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    file_number = fields.Char(
+    file_number = fields.Char( # Número de Expediente
         string="File Number",
         copy=False,
     )
