@@ -10,3 +10,4 @@ class BuildingUse(models.Model):
     name = fields.Char(
         string="Description", required=True, copy=False
     )
+    is_industrial = fields.Boolean(string="Industrial")

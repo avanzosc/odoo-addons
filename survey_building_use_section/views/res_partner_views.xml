@@ -4,11 +4,6 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="res_partner_building_use_section.view_partner_form" />
         <field name="arch" type="xml">
-
-            <field name="building_use_id" position="before">
-                <field name="is_industrial" />
-            </field>
-
             <field name="service_start_date" position="after">
                 <field name="file_number" />
                 <field name="certification_text" />

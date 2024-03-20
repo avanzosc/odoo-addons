@@ -11,6 +11,5 @@ class ResPartner(models.Model):
         copy=False,
     )
     building_use_id = fields.Many2one("building.use", string="Building Use")
-    is_industrial = fields.Boolean(string="Industrial")
     certification_text = fields.Text(string="Certification Text")
     
