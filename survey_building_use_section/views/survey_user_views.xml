@@ -6,8 +6,10 @@
         <field name="inherit_id" ref="survey.survey_user_input_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_resend']" position="after">
-                <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
-                    attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
+                <button string="Start Survey" type="object" class="oe_link" icon="fa-external-link"
+                    attrs="{'invisible': [('state', '=', 'done')]}">
+                    <a t-attf-href="/survey/start/{{ record.access_token }}">Start Survey</a>
+                </button>
             </xpath>
         </field>
     </record>
