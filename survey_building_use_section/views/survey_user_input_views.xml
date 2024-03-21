@@ -45,6 +45,13 @@
                 <field name="question_normative_id" optinal="show" />
                 <field name="notes" optinal="show" />
             </xpath>
+            <xpath expr="//button[@name='action_resend']" position="after">
+                <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="editable">true</attribute>
+            </xpath>    
         </field>
     </record>
 

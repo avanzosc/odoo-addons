@@ -19,7 +19,6 @@
         "views/survey_user_input_views.xml",
         "views/survey_user_input_line_views.xml",
         "views/survey_survey_views.xml",
-        "views/survey_user_views.xml",
         "views/res_partner_views.xml",
     ],
     "installable": True,
