@@ -90,3 +90,10 @@ class SurveyUserInput(models.Model):
             if "building" in self.env.context:
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
+    
+    def action_start_survey(self, answer=None):
+        """ Open the website page with the survey form """
+        self.ensure_one()
+        self.env['survey.survey'].action_start_survey()
+
+
