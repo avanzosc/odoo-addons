@@ -16,47 +16,71 @@ class SurveyUserInputLine(models.Model):
     notes = fields.Text(
         string="Note", help="Error Text", copy=False,
     )
-
+    
     @api.model_create_multi
     def create(self, vals_list):
         _logger.info("2024okdeb - Creating Survey User Input Lines with values: %s", vals_list)
 
-        lines = super(SurveyUserInputLine, self).create(vals_list)
-        _logger.info("2024okdeb - Creating Survey User Input Lines with lines: %s", lines)
+        # Filtrar vals_list para crear solo las líneas que cumplen con los criterios de tratamiento
+        treated_vals_list = []
+        for vals in vals_list:
+            line = self.new(vals)
+            if line.question_id and line.user_input_id.inspected_building_id.service_start_date and any(
+                normative.start_year <= int(line.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
+                for normative in line.question_id.question_normative_ids
+            ):
+                treated_vals_list.append(vals)
 
-
-        # Paso 1: Filtrar líneas con question_id existente
-        lines_filtered_question = lines.filtered(lambda x: x.question_id)
-        _logger.info("2024okdeb - Filtered lines with existing question_id: %s", lines_filtered_question)
-
-        # Paso 2: Filtrar líneas con service_start_date en inspected_building_id
-        lines_with_service_start_date = lines_filtered_question.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
-        _logger.info("2024okdeb - Lines with service_start_date in inspected_building_id: %s", lines_with_service_start_date)
-
-        # Verificar si hay service_start_date presente en cada línea
-        lines_filtered_service_date = lines_with_service_start_date.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
-        _logger.info("2024okdeb - Filtered lines with service_start_date in inspected_building_id: %s", lines_filtered_service_date)
-
-        # Paso 3: Filtrar líneas con al menos una normativa que cumpla con la condición
-        lines_filtered_normatives = lines_filtered_service_date.filtered(lambda x: any(
-            normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
-            for normative in x.question_id.question_normative_ids
-        ))
-        _logger.info("2024okdeb - Filtered lines with at least one matching normative: %s", lines_filtered_normatives)
-
-        # Paso 4: Asignar líneas filtradas para tratar
-        lines_to_treat = lines_filtered_normatives
-        _logger.info("2024okdeb - Final lines to treat: %s", lines_to_treat)
-
-
+        lines_to_treat = super(SurveyUserInputLine, self).create(treated_vals_list)
         _logger.info("2024okdeb - Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
-
 
         if lines_to_treat:
             _logger.info("2024okdeb - Processing lines_to_treat: %s", lines_to_treat)
-
             lines_to_treat._put_normative_in_line()
+
         return lines_to_treat
+
+
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     _logger.info("2024okdeb - Creating Survey User Input Lines with values: %s", vals_list)
+
+    #     lines = super(SurveyUserInputLine, self).create(vals_list)
+    #     _logger.info("2024okdeb - Creating Survey User Input Lines with lines: %s", lines)
+
+
+    #     # Paso 1: Filtrar líneas con question_id existente
+    #     lines_filtered_question = lines.filtered(lambda x: x.question_id)
+    #     _logger.info("2024okdeb - Filtered lines with existing question_id: %s", lines_filtered_question)
+
+    #     # Paso 2: Filtrar líneas con service_start_date en inspected_building_id
+    #     lines_with_service_start_date = lines_filtered_question.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
+    #     _logger.info("2024okdeb - Lines with service_start_date in inspected_building_id: %s", lines_with_service_start_date)
+
+    #     # Verificar si hay service_start_date presente en cada línea
+    #     lines_filtered_service_date = lines_with_service_start_date.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
+    #     _logger.info("2024okdeb - Filtered lines with service_start_date in inspected_building_id: %s", lines_filtered_service_date)
+
+    #     # Paso 3: Filtrar líneas con al menos una normativa que cumpla con la condición
+    #     lines_filtered_normatives = lines_filtered_service_date.filtered(lambda x: any(
+    #         normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
+    #         for normative in x.question_id.question_normative_ids
+    #     ))
+    #     _logger.info("2024okdeb - Filtered lines with at least one matching normative: %s", lines_filtered_normatives)
+
+    #     # Paso 4: Asignar líneas filtradas para tratar
+    #     lines_to_treat = lines_filtered_normatives
+    #     _logger.info("2024okdeb - Final lines to treat: %s", lines_to_treat)
+
+
+    #     _logger.info("2024okdeb - Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
+
+
+    #     if lines_to_treat:
+    #         _logger.info("2024okdeb - Processing lines_to_treat: %s", lines_to_treat)
+
+    #         lines_to_treat._put_normative_in_line()
+    #     return lines_to_treat
 
     def _put_normative_in_line(self):
         for line in self:
