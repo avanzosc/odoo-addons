@@ -24,8 +24,15 @@ class SurveyUserInputLine(models.Model):
         lines = super(SurveyUserInputLine, self).create(vals_list)
         _logger.info("2024okdeb - Creating Survey User Input Lines with lines: %s", lines)
 
-        lines_to_treat = lines.filtered(lambda x: x.question_id)
+        lines_to_treat = lines.filtered(
+            lambda x: x.question_id and 
+            x.user_input_id.inspected_building_id.service_start_date and 
+            any(normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
+            for normative in x.question_id.question_normative_ids)
+        )
+
         _logger.info("2024okdeb - Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
+
 
         if lines_to_treat:
             _logger.info("2024okdeb - Processing lines_to_treat: %s", lines_to_treat)
