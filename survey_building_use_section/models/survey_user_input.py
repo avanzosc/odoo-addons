@@ -2,6 +2,9 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
@@ -91,8 +94,13 @@ class SurveyUserInput(models.Model):
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
     
-    def action_start_survey(self, answer=None):
-        """ Open the website page with the survey form """
-        survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
-        if survey:
-            survey.action_start_survey()
+def action_start_survey(self, answer=None):
+    """ Open the website page with the survey form """
+    _logger.info("2024okdeb - Starting action_start_survey method.")
+    _logger.info("2024okdeb - Survey ID: %s", self.survey_id)
+    survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
+    if survey:
+        _logger.info("2024okdeb - Found survey: %s", survey)
+        survey.action_start_survey()
+    else:
+        _logger.warning("2024okdeb - No survey found.")
