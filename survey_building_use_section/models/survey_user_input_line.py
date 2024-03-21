@@ -24,24 +24,25 @@ class SurveyUserInputLine(models.Model):
         lines = super(SurveyUserInputLine, self).create(vals_list)
         _logger.info("2024okdeb - Creating Survey User Input Lines with lines: %s", lines)
 
+
         # Paso 1: Filtrar líneas con question_id existente
         lines_filtered_question = lines.filtered(lambda x: x.question_id)
-        _logger.info("Filtered lines with existing question_id: %s", lines_filtered_question)
+        _logger.info("2024okdeb - Filtered lines with existing question_id: %s", lines_filtered_question)
 
         # Paso 2: Filtrar líneas con service_start_date en inspected_building_id
         lines_filtered_service_date = lines_filtered_question.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
-        _logger.info("Filtered lines with service_start_date in inspected_building_id: %s", lines_filtered_service_date)
+        _logger.info("2024okdeb - Filtered lines with service_start_date in inspected_building_id: %s", lines_filtered_service_date)
 
         # Paso 3: Filtrar líneas con al menos una normativa que cumpla con la condición
         lines_filtered_normatives = lines_filtered_service_date.filtered(lambda x: any(
             normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
             for normative in x.question_id.question_normative_ids
         ))
-        _logger.info("Filtered lines with at least one matching normative: %s", lines_filtered_normatives)
+        _logger.info("2024okdeb - Filtered lines with at least one matching normative: %s", lines_filtered_normatives)
 
         # Paso 4: Asignar líneas filtradas para tratar
         lines_to_treat = lines_filtered_normatives
-        _logger.info("Final lines to treat: %s", lines_to_treat)
+        _logger.info("2024okdeb - Final lines to treat: %s", lines_to_treat)
 
 
         _logger.info("2024okdeb - Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
