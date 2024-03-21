@@ -95,6 +95,9 @@ class SurveyUserInput(models.Model):
         return inputs
     
     def action_start_survey(self):
+        
+        self.partner_id = self.env.user.id
+        
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         survey_id = self.survey_id
         access_token = survey_id.access_token

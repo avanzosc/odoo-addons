@@ -49,9 +49,6 @@
                 <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
                     attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
             </xpath>
-            <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="readonly">0</attribute>
-            </xpath>    
         </field>
     </record>
 
