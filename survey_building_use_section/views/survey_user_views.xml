@@ -8,6 +8,8 @@
                 attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}"
                 string="Start Survey"
                 groups="base.group_user" />
+        </xpath>
+        <xpath expr="//button[@name='action_start_survey']" position="after">
             <button name="action_start_survey" type="object" class="oe_highlight"
                 attrs="{'invisible': ['|', ('state', '!=', 'new'), ('state', '!=', 'in_progress'), ('partner_id', '=', False)]}"
                 string="Continue Survey"
