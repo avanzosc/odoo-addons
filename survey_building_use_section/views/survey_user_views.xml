@@ -5,12 +5,9 @@
     <field name="arch" type="xml">
         <xpath expr="//button[@name='action_resend']" position="after">
             <button name="action_start_survey" type="object" class="oe_highlight"
-                attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}"
-                string="Start Survey"
+                attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)], 'string': 'Start Survey' if state == 'new' else 'Continue Survey'}"
                 groups="base.group_user"
-                groups="base.group_user"
-                attrs="{'string': 'Start Survey' if state == 'new' else 'Continue Survey'}"
-            />
+                />
         </xpath>
     </field>
 </record>
