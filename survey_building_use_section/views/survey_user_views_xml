@@ -2,6 +2,6 @@
 <odoo>
     <button name="action_resend" position="after">
         <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
-            attrs="{'invisible': ['|', ('state', '=', 'done'), '&amp;', ('partner_id', '=', False)]}" />
+            attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
     </button>
 </odoo>
