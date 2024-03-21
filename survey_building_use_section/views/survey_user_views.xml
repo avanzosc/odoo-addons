@@ -1,13 +1,14 @@
-<record id="survey_user_input_view_form_inherit" model="ir.ui.view">
-    <field name="name">survey.user_input.view.form.inherit</field>
-    <field name="model">survey.user_input</field>
-    <field name="inherit_id" ref="survey.survey_user_input_view_form" />
-    <field name="arch" type="xml">
-        <xpath expr="//button[@name='action_resend']" position="after">
-            <button name="action_start_survey" type="object" class="oe_highlight"
-                attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)], 'string': 'Start Survey' if state == 'new' else 'Continue Survey'}"
-                groups="base.group_user"
-                />
-        </xpath>
-    </field>
-</record>
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="survey_user_input_view_form_inherit" model="ir.ui.view">
+        <field name="name">survey.user_input.view.form.inherit</field>
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_resend']" position="after">
+                <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
+                    attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
