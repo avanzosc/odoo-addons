@@ -96,8 +96,12 @@ class SurveyUserInput(models.Model):
     
     def action_start_survey(self):
         
-        self.partner_id = self.env.user.id
-        
+        # Obtener el usuario administrador del sistema
+        admin_user = self.env.ref('base.user_root')  # Esto asume que 'base.user_root' es el identificador del usuario administrador
+
+        # Asignar el id del usuario administrador al partner_id del survey_user_input
+        self.partner_id = admin_user.partner_id.id
+            
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         survey_id = self.survey_id
         access_token = survey_id.access_token
