@@ -19,6 +19,6 @@ class StockProductionLot(models.Model):
                 ("lot_id", "=", lot.id),
                 ("picking_code", "=", "incoming"),
                 ("state", "=", "done")])
-            if lines:
+            if lines and sum(lines.mapped("qty_done")) != 0:
                 cost = sum(lines.mapped("amount")) / sum(lines.mapped("qty_done"))
             lot.purchase_cost = cost
