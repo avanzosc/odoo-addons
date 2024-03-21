@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-29 11:25+0000\n"
-"PO-Revision-Date: 2024-01-29 11:25+0000\n"
+"POT-Creation-Date: 2024-03-21 11:55+0000\n"
+"PO-Revision-Date: 2024-03-21 11:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__module_count
-msgid "# Module Lines"
+msgid "# Modules"
 msgstr ""
 
 #. module: ir_module_compare_wizard
@@ -116,6 +116,12 @@ msgstr ""
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_management_menu
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_menu
 msgid "Compare Module to Install"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.actions.act_window,name:ir_module_compare_wizard.ir_module_import_line_action
+#: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_line_menu
+msgid "Compare Module to Install Lines"
 msgstr ""
 
 #. module: ir_module_compare_wizard
@@ -265,6 +271,7 @@ msgstr ""
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__import_id
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_view_search
 msgid "Import Wizard"
 msgstr ""
 
@@ -274,8 +281,8 @@ msgid "Imported Lines"
 msgstr ""
 
 #. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__install_module
 #: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import_line__action__install
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_base_view_tree
 msgid "Install"
 msgstr ""
 
@@ -425,6 +432,11 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__install_module
+msgid "Review"
+msgstr ""
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__split_size
 msgid "Split Size"
 msgstr ""
@@ -463,10 +475,12 @@ msgstr ""
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import_line__action__update
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_base_view_tree
 msgid "Update"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_base_view_tree
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
 msgid "Validate"
