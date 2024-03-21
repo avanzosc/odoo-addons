@@ -94,13 +94,13 @@ class SurveyUserInput(models.Model):
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
     
-def action_start_survey(self, answer=None):
-    """ Open the website page with the survey form """
-    _logger.info("2024okdeb - Starting action_start_survey method.")
-    _logger.info("2024okdeb - Survey ID: %s", self.survey_id)
-    survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
-    if survey:
-        _logger.info("2024okdeb - Found survey: %s", survey)
-        survey.action_start_survey()
-    else:
-        _logger.warning("2024okdeb - No survey found.")
+    def action_start_survey(self, answer=None):
+        """ Open the website page with the survey form """
+        _logger.info("2024okdeb - Starting action_start_survey method.")
+        _logger.info("2024okdeb - Survey ID: %s", self.survey_id)
+        survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
+        if survey:
+            _logger.info("2024okdeb - Found survey: %s", survey)
+            survey.action_start_survey()
+        else:
+            _logger.warning("2024okdeb - No survey found.")
