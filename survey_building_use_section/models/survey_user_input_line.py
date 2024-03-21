@@ -22,10 +22,10 @@ class SurveyUserInputLine(models.Model):
         _logger.info("Creating Survey User Input Lines with values: %s", vals_list)
 
         lines = super(SurveyUserInputLine, self).create(vals_list)
-        _logger.info("Creating Survey User Input Lines with lines: %s", lines)
+        _logger.debug("Creating Survey User Input Lines with lines: %s", lines)
 
         lines_to_treat = lines.filtered(lambda x: x.question_id)
-        _logger.info("Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
+        _logger.debug("Creating Survey User Input Lines with lines_to_treat: %s", lines_to_treat)
 
         if lines_to_treat:
             _logger.debug("Processing lines_to_treat: %s", lines_to_treat)
