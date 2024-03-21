@@ -1,6 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+_logger = logging.getLogger(__name__)
 
 
 class SurveyUserInputLine(models.Model):
@@ -16,15 +17,22 @@ class SurveyUserInputLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
+        _logger.info("Creating Survey User Input Lines with values: %s", vals_list)
+
         lines = super(SurveyUserInputLine, self).create(vals_list)
         lines_to_treat = lines.filtered(lambda x: x.question_id)
         if lines_to_treat:
+            _logger.debug("Processing lines_to_treat: %s", lines_to_treat)
+
             lines_to_treat._put_normative_in_line()
         return lines
 
     def _put_normative_in_line(self):
         for line in self:
+            _logger.debug("Processing Survey User Input Line: %s", line)
+
             normatives = line.question_id.question_normative_ids
+            _logger.debug("Normatives for the question: %s", normatives)
             question_normative = False
             if len(normatives) == 1:
                 question_normative = normatives[0]
@@ -40,6 +48,9 @@ class SurveyUserInputLine(models.Model):
                 vals = {"question_normative_id": False}
             else:
                 vals = {"question_normative_id": question_normative.id}
+
+            _logger.debug("Values to be written: %s", vals)
+
             notes = ""
             if not line.answer_is_correct:
                 if question_normative and question_normative.error_text:
