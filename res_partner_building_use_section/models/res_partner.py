@@ -21,6 +21,10 @@ class ResPartner(models.Model):
         string="Service Start Date",
         copy=False,
     )
+    service_end_date = fields.Date(
+        string="Service End Date",
+        copy=False,
+    )
 
     maintainer_id = fields.Many2one("res.partner", string="Maintainer")
     installer_id = fields.Many2one("res.partner", string="Installer")

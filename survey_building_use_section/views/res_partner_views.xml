@@ -4,7 +4,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="res_partner_building_use_section.view_partner_form" />
         <field name="arch" type="xml">
-            <field name="service_start_date" position="after">
+            <field name="service_end_date" position="after">
                 <field name="file_number" />
                 <field name="certification_text" />
             </field>
@@ -15,7 +15,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="res_partner_building_use_section.view_partner_tree" />
         <field name="arch" type="xml">
-            <field name="service_start_date" position="after">
+            <field name="service_end_date" position="after">
                 <field name="file_number" optional="show" />
             </field>
         </field>
@@ -25,7 +25,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="res_partner_building_use_section.view_res_partner_filter" />
         <field name="arch" type="xml">
-            <field name="service_start_date" position="after">
+            <field name="service_end_date" position="after">
                 <field name="file_number" />
             </field>
         </field>

@@ -10,7 +10,7 @@
                         <group>
                             <field name="building_use_id" />
                             <field name="service_start_date" />
-                        </group>
+                            <field name="service_end_date" />                        </group>
                         <group>
                             <field name="administrator_id" />
                             <field name="installer_id" />
@@ -38,6 +38,7 @@
         <field name="arch" type="xml">
             <field name="phone" position="before">
                 <field name="service_start_date" optional="show" />
+                <field name="service_end_date" optional="show" />
                 <field name="building_use_id" optional="show" />
                 <field name="building_section_ids" optional="show"
                     widget="many2many_tags" />
@@ -51,6 +52,7 @@
         <field name="arch" type="xml">
             <field name="user_id" position="after">
                 <field name="service_start_date" />
+                <field name="service_end_date" />
                 <field name="building_use_id" />
                 <field name="building_section_ids" />
             </field>
@@ -59,6 +61,9 @@
                     context="{'group_by': 'building_use_id'}" />
                 <filter name="group_service_start_date" string="Service Start Date"
                     context="{'group_by': 'service_start_date'}" />
+                    <filter name="group_service_end_date" string="Service End Date"
+                    context="{'group_by': 'service_end_date'}" />
+
             </filter>
         </field>
     </record>
