@@ -94,7 +94,6 @@ class SurveyUserInput(models.Model):
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
     
-    @api.multi
     def action_start_survey(self):
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         survey_id = self.survey_id
