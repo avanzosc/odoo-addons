@@ -42,6 +42,7 @@ class SurveyUserInputLine(models.Model):
             question_normative = False
             if len(normatives) == 1:
                 question_normative = normatives[0]
+                _logger.info("2024okdeb - Single normative found: %s", question_normative)
             if (len(normatives) > 1 and
                     line.user_input_id.inspected_building_id.service_start_date):
                 year = int(
@@ -50,10 +51,14 @@ class SurveyUserInputLine(models.Model):
                     if (norvative.start_year <= year and
                             norvative.end_year > year):
                         question_normative = norvative
+                        _logger.info("2024okdeb - Normative found within year range: %s", question_normative)
+            _logger.info("2024okdeb - Question normative determined: %s", question_normative)
             if not question_normative:
                 vals = {"question_normative_id": False}
+                _logger.info("2024okdeb - No question normative found.")
             else:
                 vals = {"question_normative_id": question_normative.id}
+                _logger.info("2024okdeb - Question normative ID to be written: %s", question_normative.id)
 
             _logger.info("2024okdeb - Values to be written: %s", vals)
 
@@ -61,14 +66,20 @@ class SurveyUserInputLine(models.Model):
             if not line.answer_is_correct:
                 if question_normative and question_normative.error_text:
                     notes = question_normative.error_text
+                    _logger.info("2024okdeb - Error text found for question normative: %s", notes)
                 if line.matrix_row_id and line.matrix_row_id.notes:
                     notes = (
                         line.matrix_row_id.notes if not notes else
                         u"{} / {}".format(notes, line.matrix_row_id.notes)
                     )
+                    _logger.info("2024okdeb - Notes found for matrix row: %s", line.matrix_row_id.notes)
+            _logger.info("2024okdeb - Notes to be written: %s", notes)
             if notes:
                 vals["notes"] = notes
             line.write(vals)
+            _logger.info("2024okdeb - Line write operation complete.")
+
+        _logger.info("2024okdeb - All lines processed.")
 
 
 
