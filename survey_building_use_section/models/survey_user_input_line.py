@@ -38,7 +38,7 @@ class SurveyUserInputLine(models.Model):
             _logger.info("2024okdeb - Processing lines_to_treat: %s", lines_to_treat)
 
             lines_to_treat._put_normative_in_line()
-        return lines
+        return lines_to_treat
 
     def _put_normative_in_line(self):
         for line in self:
