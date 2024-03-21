@@ -5,12 +5,10 @@
         <field name="model">survey.user_input</field>
         <field name="inherit_id" ref="survey.survey_user_input_view_form" />
         <field name="arch" type="xml">
-
-            <button name="action_resend" position="after">
-                <button name="action_start_survey" string="Start Survey" type="object"
-                    class="oe_highlight"
+            <xpath expr="//button[@name='action_resend']" position="after">
+                <button name="action_start_survey" string="Start Survey" type="object" class="oe_highlight"
                     attrs="{'invisible': ['|', ('state', '=', 'done'), ('partner_id', '=', False)]}" />
-            </button>
+            </xpath>
         </field>
     </record>
 </odoo>
