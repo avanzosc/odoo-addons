@@ -47,12 +47,6 @@ class SurveyUserInput(models.Model):
     inspector_id = fields.Many2one(
         string="Inspector", comodel_name="res.partner", copy=False,
     )
-    maintainer_id = fields.Many2one(
-        string="Maintainer", comodel_name="res.partner", copy=False,
-    )
-    installer_id = fields.Many2one(
-        string="Installer", comodel_name="res.partner", copy=False,
-    )
     inspection_type = fields.Selection(
         selection=[
             ("periodic", _("Periodic")),
