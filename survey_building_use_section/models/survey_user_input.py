@@ -93,6 +93,6 @@ class SurveyUserInput(models.Model):
     
     def action_start_survey(self, answer=None):
         """ Open the website page with the survey form """
-        self.env['survey.survey'].action_start_survey()
-
-
+        survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
+        if survey:
+            survey.action_start_survey()
