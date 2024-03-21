@@ -57,7 +57,10 @@
 
                     <notebook>
                         <page string="Imported Lines">
-                            <field name="import_line_ids" />
+                            <field
+                name="import_line_ids"
+                context="{'tree_view_ref': 'ir_module_compare_wizard.ir_module_import_line_base_view_tree'}"
+              />
                         </page>
                         <page
               string="Error Log"
