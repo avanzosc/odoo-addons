@@ -15,17 +15,5 @@
                 </field>
             </field>
         </record>
-        <record id="survey_response_line_view_tree" model="ir.ui.view">
-            <field name="name">survey.user_input.line.view.tree</field>
-            <field name="model">survey.user_input.line</field>
-            <field name="arch" type="xml">
-                <tree string="Survey Answer Line" create="false">
-                    <field name="question_id">
-                        <field name="calculated_matrix_question_id" />
-                        <field name="calculated_suggested_answer_question_id" />
-                    </field>
-                </tree>
-            </field>
-        </record>
     </data>
 </odoo>
