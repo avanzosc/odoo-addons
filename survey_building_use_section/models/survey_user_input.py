@@ -97,7 +97,7 @@ class SurveyUserInput(models.Model):
     def action_start_survey(self):
         
         # Obtener el ID del partner con nombre "admin"
-        admin_partner = self.env['res.partner'].search([('name', '=', 'admin')], limit=1)
+        admin_partner = self.env['res.partner'].search([('name', '=', 'Administrator')], limit=1)
 
         if admin_partner:
             # Asignar el ID del partner con nombre "admin" al partner_id del survey_user_input
