@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="survey.survey_user_input_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_resend']" position="after">
-                    <a t-attf-href="/survey/start/{{ record.access_token }}">Start Survey</a>
             </xpath>
         </field>
     </record>
