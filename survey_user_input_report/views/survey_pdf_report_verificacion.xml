@@ -11,7 +11,7 @@
             t-value="[
         {'label': 'Partner:', 'value': o.partner_id.name},
         {'label': 'Building:', 'value': o.inspected_building_id.name},
-        {'label': 'Building Type:', 'value': o.building_type_id.name},
+        {'label': 'Building Type:', 'value': o.building_use_id.name},
         {'label': 'Building Section:', 'value': o.building_section_id.name},
         ]" />
 
@@ -30,7 +30,7 @@
         {'label': 'Partner:', 'value': o.partner_id.name},
         {'label': 'Email:', 'value': o.email},
         {'label': 'Building:', 'value': o.inspected_building_id.name},
-        {'label': 'Building Type:', 'value': o.building_type_id.name},
+        {'label': 'Building Type:', 'value': o.building_use_id.name},
         {'label': 'Building Section:', 'value': o.building_section_id.name},
         {'label': 'Risk Use:', 'value': o.risk_use},
         {'label': 'Area:', 'value': o.superficie},
