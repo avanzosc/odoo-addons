@@ -6,6 +6,9 @@
         <field name="inherit_id" ref="survey.survey_user_input_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_resend']" position="after">
+                <button name="action_start_survey" string="Start Survey"
+                    type="object" class="oe_highlight" />
+
             </xpath>
         </field>
     </record>

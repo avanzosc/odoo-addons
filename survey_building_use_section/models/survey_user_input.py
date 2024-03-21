@@ -94,13 +94,15 @@ class SurveyUserInput(models.Model):
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
     
-    def action_start_survey(self, answer=None):
-        """ Open the website page with the survey form """
-        _logger.info("2024okdeb - Starting action_start_survey method.")
-        _logger.info("2024okdeb - Survey ID: %s", self.survey_id)
-        survey = self.env['survey.survey'].search([('id', '=', self.survey_id.id)], limit=1)
-        if survey:
-            _logger.info("2024okdeb - Found survey: %s", survey)
-            survey.action_start_survey()
-        else:
-            _logger.warning("2024okdeb - No survey found.")
+    @api.multi
+    def action_start_survey(self):
+        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        survey_id = self.survey_id
+        access_token = survey_id.access_token
+        answer_token = self.access_token
+        url = "{}/survey/start/{}?answer_token={}".format(base_url, access_token, answer_token)
+        return {
+            'type': 'ir.actions.act_url',
+            'url': url,
+            'target': 'self',
+        }
