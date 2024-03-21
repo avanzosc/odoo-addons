@@ -30,7 +30,11 @@ class SurveyUserInputLine(models.Model):
         _logger.info("2024okdeb - Filtered lines with existing question_id: %s", lines_filtered_question)
 
         # Paso 2: Filtrar líneas con service_start_date en inspected_building_id
-        lines_filtered_service_date = lines_filtered_question.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
+        lines_with_service_start_date = lines_filtered_question.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
+        _logger.info("2024okdeb - Lines with service_start_date in inspected_building_id: %s", lines_with_service_start_date)
+
+        # Verificar si hay service_start_date presente en cada línea
+        lines_filtered_service_date = lines_with_service_start_date.filtered(lambda x: x.user_input_id.inspected_building_id.service_start_date)
         _logger.info("2024okdeb - Filtered lines with service_start_date in inspected_building_id: %s", lines_filtered_service_date)
 
         # Paso 3: Filtrar líneas con al menos una normativa que cumpla con la condición
@@ -101,65 +105,3 @@ class SurveyUserInputLine(models.Model):
             _logger.info("2024okdeb - Line write operation complete.")
 
         _logger.info("2024okdeb - All lines processed.")
-
-
-
-    # @api.model_create_multi
-    # def create(self, vals_list):
-    #     lines = self._filter_questions_of_normative(vals_list)
-    #     lines_to_treat = lines.filtered(lambda x: x.question_id)
-    #     if lines_to_treat:
-    #         lines_to_treat._put_normative_in_line()
-    #     return lines
-
-    # def _put_normative_in_line(self):
-    #     for line in self:
-    #         normatives = line.question_id.question_normative_ids
-    #         question_normative = False
-    #         if len(normatives) == 1:
-    #             question_normative = normatives[0]
-    #         if (
-    #             len(normatives) > 1
-    #             and line.user_input_id.inspected_building_id.service_start_date
-    #         ):
-    #             year = int(
-    #                 line.user_input_id.inspected_building_id.service_start_date.year
-    #             )
-    #             for norvative in normatives:
-    #                 if norvative.start_year <= year and norvative.end_year > year:
-    #                     question_normative = norvative
-    #         if not question_normative:
-    #             vals = {"question_normative_id": False}
-    #         else:
-    #             vals = {"question_normative_id": question_normative.id}
-    #         notes = ""
-    #         if not line.answer_is_correct:
-    #             if question_normative and question_normative.error_text:
-    #                 notes = question_normative.error_text
-    #             if line.matrix_row_id and line.matrix_row_id.notes:
-    #                 notes = (
-    #                     line.matrix_row_id.notes
-    #                     if not notes
-    #                     else "{} / {}".format(notes, line.matrix_row_id.notes)
-    #                 )
-    #         if notes:
-    #             vals["notes"] = notes
-    #         line.write(vals)
-
-    # def _filter_questions_of_normative(self, vals):
-    #     if "question_normative_id" in vals:
-    #         question_normative_id = vals.get("question_normative_id")
-    #         if not self._is_normative_valid(question_normative_id):
-    #             raise ValidationError(
-    #                 "La normativa seleccionada no es válida para el edificio inspeccionado."
-    #             )
-    #     return super(SurveyUserInputLine, self).create(vals)
-
-    # def _is_normative_valid(self, question_normative_id):
-    #     user_input = self.env.context.get("user_input_id", False)
-    #     if user_input:
-    #         inspected_building = (
-    #             self.env["survey.user_input"].browse(user_input).inspected_building_id
-    #         )
-    #         return question_normative_id in inspected_building.normativas_ids.ids
-    #     return False
