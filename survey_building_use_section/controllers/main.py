@@ -46,7 +46,7 @@ class Survey(Survey):
         access_data['survey_sudo'].question_and_page_ids = [(6, 0, filtered_questions)]
 
         # Log para registrar las preguntas filtradas
-        filtered_question_titles = [question.title for question in filtered_questions]
+        filtered_question_titles = [request.env['survey.question'].browse(question_id).title for question_id in filtered_question_ids]
         _logger.info("2024okdeb - Preguntas filtradas en survey_sudo: %s", filtered_question_titles)
 
         return request.render('survey.survey_page_fill',
