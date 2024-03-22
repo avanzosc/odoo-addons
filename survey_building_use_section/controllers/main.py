@@ -17,24 +17,30 @@ class Survey(Survey):
             answer_sudo._mark_done()
 
         # Filtrar los IDs de las preguntas para obtener solo aquellos que cumplen con los criterios de tratamiento
-        filtered_question_ids = []
+        filtered_questions = []
         for question_id in answer_sudo.predefined_question_ids.ids:
             question = request.env['survey.question'].browse(question_id)
             if question and answer_sudo.inspected_building_id.service_start_date and any(
                 normative.start_year <= int(answer_sudo.inspected_building_id.service_start_date.year) < normative.end_year 
                 for normative in question.question_normative_ids
             ):
-                filtered_question_ids.append(question_id)
+                filtered_questions.append(question)
 
-        # Si no hay preguntas que pasen el filtro, mantén al menos una pregunta en predefined_question_ids
-        if not filtered_question_ids:
-            filtered_question_ids = [answer_sudo.predefined_question_ids.ids[0]]
+        # Si no hay preguntas que pasen el filtro, mantén al menos una pregunta
+        if not filtered_questions:
+            filtered_questions = [answer_sudo.predefined_question_ids[0]]
+
+        # Obtener los títulos de las preguntas filtradas
+        filtered_question_titles = [question.title for question in filtered_questions]
+
+        # Log para registrar los títulos de las preguntas filtradas
+        _logger.info("2024okdeb - Preguntas filtradas: %s", filtered_question_titles)
+
+        # Obtener los IDs de las preguntas filtradas
+        filtered_question_ids = [question.id for question in filtered_questions]
 
         # Actualizar el campo predefined_question_ids del answer_sudo con los IDs filtrados
         answer_sudo.predefined_question_ids = [(6, 0, filtered_question_ids)]
-
-        # Log para registrar las preguntas filtradas
-        _logger.info("2024okdeb - Preguntas filtradas: %s", filtered_question_ids)
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(access_data['survey_sudo'], answer_sudo, **post))
