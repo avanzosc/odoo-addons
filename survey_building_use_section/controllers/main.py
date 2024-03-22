@@ -40,10 +40,10 @@ class Survey(Survey):
                 normative.start_year <= int(answer_sudo.inspected_building_id.service_start_date.year) < normative.end_year 
                 for normative in question.question_normative_ids
             ):
-                filtered_questions.append(question)
+                filtered_questions.append(question.id)  # Solo almacenar los IDs de las preguntas filtradas
 
-        # Actualizar question_and_page_ids de survey_sudo con las preguntas filtradas
-        access_data['survey_sudo'].question_and_page_ids = filtered_questions
+        # Actualizar question_and_page_ids de survey_sudo con los IDs de las preguntas filtradas
+        access_data['survey_sudo'].question_and_page_ids = [(6, 0, filtered_questions)]
 
         # Log para registrar las preguntas filtradas
         filtered_question_titles = [question.title for question in filtered_questions]
