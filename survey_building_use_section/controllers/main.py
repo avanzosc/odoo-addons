@@ -1,3 +1,6 @@
+import logging
+_logger = logging.getLogger(__name__)
+
 from odoo import http
 from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey
@@ -12,7 +15,6 @@ class Survey(Survey):
         answer_sudo = access_data['answer_sudo']
         if answer_sudo.state != 'done' and answer_sudo.survey_time_limit_reached:
             answer_sudo._mark_done()
-
 
         # Filtrar los IDs de las preguntas para obtener solo aquellos que cumplen con los criterios de tratamiento
         filtered_question_ids = []
@@ -31,8 +33,8 @@ class Survey(Survey):
         # Actualizar el campo predefined_question_ids del answer_sudo con los IDs filtrados
         answer_sudo.predefined_question_ids = [(6, 0, filtered_question_ids)]
 
-
+        # Log para registrar las preguntas filtradas
+        _logger.info("2024okdeb - Preguntas filtradas: %s", filtered_question_ids)
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(access_data['survey_sudo'], answer_sudo, **post))
-
