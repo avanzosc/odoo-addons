@@ -16,23 +16,6 @@ class Survey(Survey):
         if answer_sudo.state != 'done' and answer_sudo.survey_time_limit_reached:
             answer_sudo._mark_done()
 
-        # Filtrar los IDs de las preguntas para obtener solo aquellos que cumplen con los criterios de tratamiento
-        filtered_question_ids = []
-        for question_id in answer_sudo.predefined_question_ids.ids:
-            question = request.env['survey.question'].browse(question_id)
-            if question and answer_sudo.inspected_building_id.service_start_date and any(
-                normative.start_year <= int(answer_sudo.inspected_building_id.service_start_date.year) < normative.end_year 
-                for normative in question.question_normative_ids
-            ):
-                filtered_question_ids.append(question_id)
-
-        # Si no hay preguntas que pasen el filtro, mantén al menos una pregunta en predefined_question_ids
-        if not filtered_question_ids:
-            filtered_question_ids = [answer_sudo.predefined_question_ids.ids[0]]
-
-        # Actualizar el campo predefined_question_ids del answer_sudo con los IDs filtrados
-        answer_sudo.predefined_question_ids = [(6, 0, filtered_question_ids)]
-
         # Filtrar los objetos de preguntas en survey_sudo
         filtered_questions = []
         for question in access_data['survey_sudo'].question_and_page_ids:
@@ -40,7 +23,7 @@ class Survey(Survey):
                 normative.start_year <= int(answer_sudo.inspected_building_id.service_start_date.year) < normative.end_year 
                 for normative in question.question_normative_ids
             ):
-                filtered_questions.append(question.id)  # Solo almacenar los IDs de las preguntas filtradas
+                filtered_questions.append(question.id) 
 
         # Actualizar question_and_page_ids de survey_sudo con los IDs de las preguntas filtradas
         access_data['survey_sudo'].question_and_page_ids = [(6, 0, filtered_questions)]
