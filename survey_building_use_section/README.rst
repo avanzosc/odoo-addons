@@ -28,5 +28,6 @@ Contributors
 ------------
 * Ana Juaristi <ajuaristio@gmail.com>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Unai Beristain <unaiberistain@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.
