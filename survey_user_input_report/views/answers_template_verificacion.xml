@@ -11,10 +11,11 @@
             margin: 10px;
             width: 90%;
             }
+            
         </style>
         <t t-set="questions_to_display" t-value="o._get_print_questions()" />
         <t t-set="scoring_display_correction" t-value="True" />
-        <div id="container_verificacion">
+        <div id="table_verificacion">
             <table>
                 <thead>
                     <tr>
@@ -110,7 +111,6 @@
                                                         <t t-esc="normative.name" />: <t
                                                         t-esc="normative.description" /><br />
                                             </t>
-
 
                                                 </td>
                                                 <td>
