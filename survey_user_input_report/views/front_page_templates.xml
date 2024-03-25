@@ -49,17 +49,17 @@
                     {'label': 'NIF:', 'value': o.inspected_building_id.vat},
                     {'label': 'Phone:', 'value': o.inspected_building_id.phone},
 
-                    {'label': 'Site:', 'value': o.inspected_building_id.street},
-                    {'label': 'Population:', 'value': o.inspected_building_id.city},
-                    {'label': 'Zip:', 'value': o.inspected_building_id.zip},
+                    {'label': 'Site:', 'value': o.maintainer_id.street},
+                    {'label': 'Population:', 'value': o.maintainer_id.city},
+                    {'label': 'Zip:', 'value': o.maintainer_id.zip},
 
-                    {'label': 'Inspector:', 'value': o.inspector_id.name},
-                    {'label': 'Inspector NIF:', 'value': o.inspector_id.vat},
-                    {'label': 'Inspector Phone:', 'value': o.inspector_id.phone},
+                    {'label': 'Inspector:', 'value': o.installer_id.name},
+                    {'label': 'Inspector NIF:', 'value': o.installer_id.vat},
+                    {'label': 'Inspector Phone:', 'value': o.installer_id.phone},
 
-                    {'label': 'Maintainer:', 'value': o.maintainer_id.name},
-                    {'label': 'Maintainer NIF:', 'value': o.maintainer_id.vat},
-                    {'label': 'Maintainer Phone:', 'value': o.maintainer_id.phone},
+                    {'label': 'Maintainer:', 'value': o.inspector_id.name},
+                    {'label': 'Maintainer NIF:', 'value': o.inspector_id.vat},
+                    {'label': 'Maintainer Phone:', 'value': o.inspector_id.phone},
 ]" />
 
         <!-- Contenedor principal -->
