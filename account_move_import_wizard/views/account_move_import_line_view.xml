@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_import_line_view_search" model="ir.ui.view">
+        <field name="model">account.move.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account_code"/>
+                <field name="account_name"/>
+                <field name="product_code"/>
+                <field name="partner_name"/>
+                <separator/>
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="Create"
+          name="create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_account_id"
+            string="Account"
+            context="{'group_by': 'account_id'}"
+          />
+                    <filter
+            name="group_partner"
+            string="Partner"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <filter
+            name="group_account_move"
+            string="Account Move"
+            context="{'group_by': 'account_move_id'}"
+          />
+                    <separator/>
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                    <filter
+            string="Action"
+            name="action_group"
+            domain="[]"
+            context="{'group_by':'action'}"
+          />
+                    <filter
+            string="Log Info"
+            name="log_info_group"
+            domain="[]"
+            context="{'group_by':'log_info'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="account_move_import_line_view_form" model="ir.ui.view">
+        <field name="model">account.move.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error,pass"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="error,pass"
+          />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="account_move_ref"/>
+                            <field name="partner_code"/>
+                            <field name="partner_name"/>
+                            <field name="date"/>
+                            <field name="start_date_period"/>
+                            <field name="end_date_period"/>
+                            <field name="product_code"/>
+                            <field name="product_name"/>
+                            <field name="account_code"/>
+                            <field name="account_name"/>
+                            <field name="description"/>
+                            <field name="quantity"/>
+                            <field name="price_unit"/>
+                        </group>
+                        <group>
+                            <field
+                name="partner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="account_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="account_move_id"
+                options="{'no_create': True, 'no_open': True}"
+                readonly="1"
+              />
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_move_import_line_view_tree" model="ir.ui.view">
+        <field name="model">account.move.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-info="action == 'create'"
+        />
+                <field name="import_id" invisible="1"/>
+                <field name="account_move_ref"/>
+                <field name="partner_code"/>
+                <field name="partner_name"/>
+                <field name="partner_id" optional="hide"/>
+                <field name="date"/>
+                <field name="start_date_period"/>
+                <field name="end_date_period"/>
+                <field name="product_code"/>
+                <field name="product_name"/>
+                <field name="product_id" optional="hide"/>
+                <field name="account_code" optional="hide"/>
+                <field name="account_name" optional="hide"/>
+                <field name="account_id" optional="hide"/>
+                <field name="description" optional="hide"/>
+                <field name="quantity"/>
+                <field name="price_unit"/>
+                <field name="account_move_id" optional="hide" readonly="1"/>
+                <field name="state" optional="show"/>
+                <field name="action" optional="hide"/>
+                <field name="log_info" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_move_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Account Move Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.move.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_move_import_line_view_tree" />
+    </record>
+</odoo>
