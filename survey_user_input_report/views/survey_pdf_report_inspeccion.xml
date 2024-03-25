@@ -72,22 +72,33 @@
                 <table class="reglamento">
                     <t t-set="counter" t-value="0" />
                     <t t-set="grouped_items" t-value="[]" />
-                    <t
-                        t-foreach="['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96']"
-                        t-as="item">
-                        <t t-set="counter" t-value="counter+1" />
-                        <t t-set="grouped_items" t-value="grouped_items + [item]" />
+
+                    <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])" />
+
+                    <!-- Filtrar las normativas basadas en el año de inicio y fin -->
+                    <t t-set="current_question_print_normatives"
+                        t-value="all_normatives.filtered(lambda norm: 
+                        norm.start_year &lt;= o.inspected_building_id.service_start_date.year and
+                        norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                    )" />
+                    <t t-if="current_question_print_normatives">
                         <t
-                            t-if="counter % 2 == 0 or counter == len(['R.D. 2267/2004', 'R.D. 513/2017', 'R.D. 1942/1993', 'CTE:DB-SI', 'NBE-CPI-96'])">
-                            <tr>
-                                <t t-foreach="grouped_items" t-as="grouped_item">
-                                    <td>
-                                        <input id="cuadrado" type="checkbox" />
-                                        <t t-esc="grouped_item" />
-                                    </td>
-                                </t>
-                            </tr>
-                            <t t-set="grouped_items" t-value="[]" />
+                            t-foreach="current_question_print_normatives"
+                            t-as="item">
+                            <t t-set="counter" t-value="counter+1" />
+                            <t t-set="grouped_items" t-value="grouped_items + [item]" />
+                            <t
+                                t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
+                                <tr>
+                                    <t t-foreach="grouped_items" t-as="grouped_item">
+                                        <td>
+                                            <input id="cuadrado" type="checkbox" />
+                                            <t t-esc="grouped_item.name" />
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-set="grouped_items" t-value="[]" />
+                            </t>
                         </t>
                     </t>
                 </table>
@@ -188,20 +199,20 @@
         id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
         name="Survey: Inspección Primera Vista"
     >
-    <t t-if="not company">
-        <!-- Multicompany -->
-        <t t-if="company_id">
-            <t t-set="company" t-value="company_id" />
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
         </t>
-        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-            <t t-set="company" t-value="o.company_id.sudo()" />
-        </t>
-        <t t-else="else">
-            <t t-set="company" t-value="res_company" />
-        </t>
-    </t>
-    <t t-call="web.external_layout_striped">
-        <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
+        <t t-call="web.external_layout_striped">
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
                 rel="stylesheet" />
             <page>
                 <t t-if="o.survey_id.title">
