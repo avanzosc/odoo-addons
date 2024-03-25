@@ -11,7 +11,6 @@
         "purchase_order_line_packaging_qty",
         "stock_move_qty_by_packaging",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }

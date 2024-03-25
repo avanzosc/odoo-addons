@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Payment Usbaility",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "website": "http://www.avanzosc.es",
@@ -15,5 +15,5 @@
         "views/account_payment_view.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

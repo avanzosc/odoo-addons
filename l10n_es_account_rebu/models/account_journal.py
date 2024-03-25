@@ -6,6 +6,4 @@ from odoo import fields, models
 class AccountJournal(models.Model):
     _inherit = "account.journal"
 
-    is_rebu = fields.Boolean(
-        string="Is Rebu", default=False, copy=False
-        )
+    is_rebu = fields.Boolean(string="Is Rebu", default=False, copy=False)

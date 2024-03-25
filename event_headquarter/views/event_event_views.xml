@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_form" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <field name="organizer_id" position="attributes">
                 <attribute name="string">Headquarter</attribute>
@@ -11,7 +11,7 @@
     </record>
     <record id="view_event_tree" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_tree"/>
+        <field name="inherit_id" ref="event.view_event_tree" />
         <field name="arch" type="xml">
             <field name="organizer_id" position="attributes">
                 <attribute name="string">Headquarter</attribute>
@@ -20,13 +20,17 @@
     </record>
     <record id="view_event_search" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="inherit_id" ref="event.view_event_search" />
         <field name="arch" type="xml">
             <field name="user_id" position="after">
                 <field name="organizer_id" string="Headquarter" />
             </field>
             <filter name="responsible" position="after">
-                <filter string="Headquarter" name="headquarter" context="{'group_by': 'organizer_id'}"/>
+                <filter
+          string="Headquarter"
+          name="headquarter"
+          context="{'group_by': 'organizer_id'}"
+        />
             </filter>
         </field>
     </record>

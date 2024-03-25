@@ -12,11 +12,19 @@
 
     <record id="view_picking_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock_picking_package_usability.view_picking_form" />
+        <field
+      name="inherit_id"
+      ref="stock_picking_package_usability.view_picking_form"
+    />
         <field name="arch" type="xml">
             <button name="action_view_package" position="before">
-                <button class="oe_stat_button" icon="fa-cubes" type="object" name="button_num_boxes">
-                    <field string="Boxes" name="num_boxes" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          icon="fa-cubes"
+          type="object"
+          name="button_num_boxes"
+        >
+                    <field string="Boxes" name="num_boxes" widget="statinfo" />
                 </button>
             </button>
         </field>

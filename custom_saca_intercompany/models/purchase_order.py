@@ -7,9 +7,8 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     total_qty = fields.Float(
-        string="Total Qty",
-        compute="_compute_total_qty",
-        store=True)
+        string="Total Qty", compute="_compute_total_qty", store=True
+    )
 
     @api.depends("order_line", "order_line.qty_received")
     def _compute_total_qty(self):
@@ -20,13 +19,19 @@ class PurchaseOrder(models.Model):
             purchase.total_qty = total_qty
 
     def _prepare_sale_order_data(
-            self, name, partner, dest_company, direct_delivery_address):
-        result = super(PurchaseOrder, self)._prepare_sale_order_data(
-            name, partner, dest_company, direct_delivery_address)
+        self, name, partner, dest_company, direct_delivery_address
+    ):
+        result = super()._prepare_sale_order_data(
+            name, partner, dest_company, direct_delivery_address
+        )
         if self.saca_line_id:
             result.update({"saca_line_id": self.saca_line_id.id})
             if self.saca_line_id.breeding_id.location_id.warehouse_id:
-                result.update({"warehouse_id": (
-                    self.saca_line_id.breeding_id.location_id.warehouse_id.id)}
+                result.update(
+                    {
+                        "warehouse_id": (
+                            self.saca_line_id.breeding_id.location_id.warehouse_id.id
+                        )
+                    }
                 )
         return result

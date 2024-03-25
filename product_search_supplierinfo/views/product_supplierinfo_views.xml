@@ -2,24 +2,36 @@
 <odoo>
         <record model="ir.ui.view" id="product_supplierinfo_search_view">
             <field name="model">product.supplierinfo</field>
-            <field name="inherit_id" ref="product.product_supplierinfo_search_view"/>
+            <field name="inherit_id" ref="product.product_supplierinfo_search_view" />
             <field name="arch" type="xml">
                 <field name="product_tmpl_id" position="after">
-                    <field name="product_id" string="Product Variant"/>
-                    <field name="product_name" string="Vendor Product Name"/>
-                    <field name="product_code" string="Vendor Product Code"/>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
+                    <field name="product_id" string="Product Variant" />
+                    <field name="product_name" string="Vendor Product Name" />
+                    <field name="product_code" string="Vendor Product Code" />
+                    <field name="date_start" />
+                    <field name="date_end" />
                 </field>
                 <filter name="groupby_product" position="after">
-                    <filter string="Product Variant" name="group-product" domain="[]"
-                        context="{'group_by':'product_id'}"/>
+                    <filter
+          string="Product Variant"
+          name="group-product"
+          domain="[]"
+          context="{'group_by':'product_id'}"
+        />
                 </filter>
                 <filter name="groupby_vendor" position="after">
-                    <filter string="Start Date" name="group-date_start" domain="[]"
-                        context="{'group_by':'date_start'}"/>
-                    <filter string="End Date" name="group-date_end" domain="[]"
-                        context="{'group_by':'date_end'}"/>
+                    <filter
+          string="Start Date"
+          name="group-date_start"
+          domain="[]"
+          context="{'group_by':'date_start'}"
+        />
+                    <filter
+          string="End Date"
+          name="group-date_end"
+          domain="[]"
+          context="{'group_by':'date_end'}"
+        />
                 </filter>
             </field>
         </record>

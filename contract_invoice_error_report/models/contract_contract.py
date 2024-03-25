@@ -7,9 +7,8 @@ class ContractContract(models.Model):
     _inherit = "contract.contract"
 
     with_invoice_generation_error = fields.Boolean(
-        string="With invoice generation error", default=False,
-        copy=False
-        )
+        string="With invoice generation error", default=False, copy=False
+    )
     invoice_generation_error = fields.Char(
         string="Invoice generation error", copy=False
-        )
+    )

@@ -1,6 +1,6 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class SacaLine(models.Model):
@@ -10,33 +10,29 @@ class SacaLine(models.Model):
         string="Sale Order",
         comodel_name="sale.order",
         related="sale_order_line_ids.order_id",
-        store=True)
+        store=True,
+    )
     sale_order_line_ids = fields.One2many(
         string="Sale Orden Line",
         comodel_name="sale.order.line",
-        inverse_name="saca_line_id")
+        inverse_name="saca_line_id",
+    )
     stock_move_ids = fields.One2many(
-        string="Stock Move",
-        comodel_name="stock.move",
-        inverse_name="saca_line_id")
+        string="Stock Move", comodel_name="stock.move", inverse_name="saca_line_id"
+    )
     move_line_ids = fields.One2many(
-        string="Move Line",
-        comodel_name="stock.move.line",
-        inverse_name="saca_line_id")
+        string="Move Line", comodel_name="stock.move.line", inverse_name="saca_line_id"
+    )
     picking_ids = fields.One2many(
-        string="Pickings",
-        comodel_name="stock.picking",
-        compute="_compute_picking_ids")
+        string="Pickings", comodel_name="stock.picking", compute="_compute_picking_ids"
+    )
     sale_ids = fields.One2many(
-        string="Sale Order",
-        comodel_name="sale.order",
-        compute="_compute_sale_ids")
+        string="Sale Order", comodel_name="sale.order", compute="_compute_sale_ids"
+    )
     count_picking = fields.Integer(
-        string="Count Pickings",
-        compute="_compute_count_picking")
-    count_sale = fields.Integer(
-        string="Count Salses",
-        compute="_compute_count_sale")
+        string="Count Pickings", compute="_compute_count_picking"
+    )
+    count_sale = fields.Integer(string="Count Salses", compute="_compute_count_sale")
 
     def _compute_count_sale(self):
         for line in self:
@@ -69,7 +65,7 @@ class SacaLine(models.Model):
             "res_model": "stock.picking",
             "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_sale_ids(self):
@@ -80,5 +76,5 @@ class SacaLine(models.Model):
             "res_model": "sale.order",
             "domain": [("id", "in", self.sale_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }

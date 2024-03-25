@@ -17,12 +17,12 @@ class RepairFee(models.Model):
 
     @api.model
     def create(self, vals):
-        repair_fees = super(RepairFee, self).create(vals)
+        repair_fees = super().create(vals)
         repair_fees._put_amount_untaxed_in_price_in_sale_budget()
         return repair_fees
 
     def write(self, vals):
-        res = super(RepairFee, self).write(vals)
+        res = super().write(vals)
         if "product_uom_qty" in vals or "price_unit" in vals:
             self._put_amount_untaxed_in_price_in_sale_budget()
         return res

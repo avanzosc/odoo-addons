@@ -8,16 +8,23 @@
                 <field name="shipment_date" />
             </field>
             <xpath expr="//field[@name='allowed_picking_ids']/.." position="after">
-                <page name="partners-information" string="Consignee/Forwarder/Delivery Address Information">
+                <page
+          name="partners-information"
+          string="Consignee/Forwarder/Delivery Address Information"
+        >
                     <group>
                         <group>
                             <field name="consignee_id" />
                         </group>
                         <group>
-                            <field name="contact_person1_id"
-                                domain="[('parent_id', '=', consignee_id)]"/>
-                            <field name="contact_person2_id"
-                                domain="[('parent_id', '=', consignee_id)]"/>
+                            <field
+                name="contact_person1_id"
+                domain="[('parent_id', '=', consignee_id)]"
+              />
+                            <field
+                name="contact_person2_id"
+                domain="[('parent_id', '=', consignee_id)]"
+              />
                         </group>
                     </group>
                     <group>
@@ -28,7 +35,7 @@
                             <field name="delivery_addrress_id" />
                         </group>
                     </group>
-                    <separator string="Type of shipment" colspan="4"/>
+                    <separator string="Type of shipment" colspan="4" />
                     <group>
                         <group>
                             <field name="incoterm_id" />
@@ -41,9 +48,12 @@
                     </group>
                 </page>
 
-                <page name="print-custom-packages" string="Customization boxes for report with packages and invoices">
+                <page
+          name="print-custom-packages"
+          string="Customization boxes for report with packages and invoices"
+        >
                     <group>
-                       <separator string="Totals customization" colspan="4"/>
+                       <separator string="Totals customization" colspan="4" />
                         <group>
                             <field name="total_gross_volume_m3" />
                         </group>
@@ -52,20 +62,27 @@
                         </group>
                     </group>
                     <group>
-                        <separator string="Boxes name customization" colspan="4"/>
-                        <button name="catch_boxes_to_customized"
-                            colspan="4" type="object" string="Catch boxes to customized" />
-                        <field name="stock_picking_batch_custom_package_ids" nolabel="1">
+                        <separator string="Boxes name customization" colspan="4" />
+                        <button
+              name="catch_boxes_to_customized"
+              colspan="4"
+              type="object"
+              string="Catch boxes to customized"
+            />
+                        <field
+              name="stock_picking_batch_custom_package_ids"
+              nolabel="1"
+            >
                             <tree editable="top" create="false" delete="false">
-                                <field name="picking_batch_id" invisible="1"/>
-                                <field name="name" readonly="1"/>
-                                <field name="box_new_name" readnly="0"/>
+                                <field name="picking_batch_id" invisible="1" />
+                                <field name="name" readonly="1" />
+                                <field name="box_new_name" readnly="0" />
                             </tree>
                         </field>
-                        <separator string="Total Boxes customization" colspan="4"/>
+                        <separator string="Total Boxes customization" colspan="4" />
                         <field name="stock_picking_batch_total_box_ids" nolabel="1">
                             <tree editable="bottom">
-                                <field name="picking_batch_id" invisible="1"/>
+                                <field name="picking_batch_id" invisible="1" />
                                 <field name="boxes_number" />
                                 <field name="dimensions" />
                             </tree>
@@ -78,15 +95,28 @@
 
     <record id="stock_picking_batch_form2" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
-        <field name="inherit_id" ref="stock_picking_batch_invoice_rel.stock_picking_batch_form" />
+        <field
+      name="inherit_id"
+      ref="stock_picking_batch_invoice_rel.stock_picking_batch_form"
+    />
         <field name="arch" type="xml">
             <button name="action_view_invoice" position="before">
-                <button name="button_num_boxes" type="object" class="oe_stat_button"
-                        icon="fa-globe icon" attrs="{'invisible': [('num_boxes', '=', 0)]}" >
+                <button
+          name="button_num_boxes"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-globe icon"
+          attrs="{'invisible': [('num_boxes', '=', 0)]}"
+        >
                     <field name="num_boxes" widget="statinfo" string="Boxes" />
                 </button>
-                <button name="action_view_packages" type="object" class="oe_stat_button"
-                        icon="fa-globe icon" attrs="{'invisible': [('invoice_count', '=', 0)]}" >
+                <button
+          name="action_view_packages"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-globe icon"
+          attrs="{'invisible': [('invoice_count', '=', 0)]}"
+        >
                     <field name="count_packages" widget="statinfo" string="Packages" />
                 </button>
             </button>
@@ -121,11 +151,36 @@
                 <field name="delivery_addrress_id" />
             </field>
             <filter name="user" position="after">
-                <filter string="Shipment date" name="group-shipment-date" domain="[]" context="{'group_by': 'shipment_date'}"/>
-                <filter string="Incoterm" name="group-incoterm" domain="[]" context="{'group_by': 'incoterm_id'}"/>
-                <filter string="Consignee" name="group-consignee" domain="[]" context="{'group_by': 'consignee_id'}"/>
-                <filter string="Forwarder" name="group-forwarder" domain="[]" context="{'group_by': 'forwarder_id'}"/>
-                <filter string="Delivery Address" name="group-delivery-address" domain="[]" context="{'group_by': 'delivery_addrress_id'}"/>
+                <filter
+          string="Shipment date"
+          name="group-shipment-date"
+          domain="[]"
+          context="{'group_by': 'shipment_date'}"
+        />
+                <filter
+          string="Incoterm"
+          name="group-incoterm"
+          domain="[]"
+          context="{'group_by': 'incoterm_id'}"
+        />
+                <filter
+          string="Consignee"
+          name="group-consignee"
+          domain="[]"
+          context="{'group_by': 'consignee_id'}"
+        />
+                <filter
+          string="Forwarder"
+          name="group-forwarder"
+          domain="[]"
+          context="{'group_by': 'forwarder_id'}"
+        />
+                <filter
+          string="Delivery Address"
+          name="group-delivery-address"
+          domain="[]"
+          context="{'group_by': 'delivery_addrress_id'}"
+        />
             </filter>
         </field>
     </record>

@@ -33,11 +33,23 @@
                 <field name="lineal_id" />
             </field>
             <filter name="group_by_product_id" position="before">
-                <filter string="Create date" name="group_by_create_date" context="{'group_by': 'create_date_without_hour'}"/>
+                <filter
+          string="Create date"
+          name="group_by_create_date"
+          context="{'group_by': 'create_date_without_hour'}"
+        />
             </filter>
             <filter name="group_by_product_id" position="after">
-                <filter string="Product category" name="group_by_categ_id" context="{'group_by': 'categ_id'}"/>
-                <filter string="Lineal" name="group_by_lineal_id" context="{'group_by': 'lineal_id'}"/>
+                <filter
+          string="Product category"
+          name="group_by_categ_id"
+          context="{'group_by': 'categ_id'}"
+        />
+                <filter
+          string="Lineal"
+          name="group_by_lineal_id"
+          context="{'group_by': 'lineal_id'}"
+        />
             </filter>
         </field>
     </record>

@@ -7,7 +7,7 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     def write(self, vals):
-        result = super(StockMove, self).write(vals)
+        result = super().write(vals)
         if "state" in vals and vals.get("state") == "done":
             moves = self.filtered(lambda x: x.production_id)
             if moves:

@@ -32,7 +32,7 @@ class StockPicking(models.Model):
             picking.repairs_count = len(picking.created_repair_ids)
 
     def button_validate(self):
-        result = super(StockPicking, self).button_validate()
+        result = super().button_validate()
         pickings = self.filtered(lambda x: x.state == "done")
         if pickings:
             in_pickings = pickings.filtered(

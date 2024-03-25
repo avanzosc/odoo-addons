@@ -8,7 +8,11 @@
                 <attribute name="delete">1</attribute>
             </kanban>
             <xpath expr="//kanban/templates/t/div/strong" position="before">
-                <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                <a
+          t-if="! read_only_mode"
+          type="delete"
+          style="position: absolute; right: 0; padding: 4px; diplay: inline-block"
+        >X</a>
             </xpath>
         </field>
     </record>

@@ -1,10 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="action_repair_lot_location" model="ir.actions.server">
         <field name="name">Repair Lot Location</field>
-        <field name="model_id" ref="stock_quant_create_fix.model_stock_production_lot"/>
-        <field name="binding_model_id" ref="stock_quant_create_fix.model_stock_production_lot"/>
+        <field
+      name="model_id"
+      ref="stock_quant_create_fix.model_stock_production_lot"
+    />
+        <field
+      name="binding_model_id"
+      ref="stock_quant_create_fix.model_stock_production_lot"
+    />
         <field name="state">code</field>
         <field name="code">
             for record in records:

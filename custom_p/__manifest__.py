@@ -12,8 +12,6 @@
         "sale_stock",
         "sale_order_return",
     ],
-    "data": [
-        "views/sale_order_view.xml"
-    ],
+    "data": ["views/sale_order_view.xml"],
     "installable": True,
 }

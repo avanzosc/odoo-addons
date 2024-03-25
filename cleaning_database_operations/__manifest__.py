@@ -16,11 +16,11 @@
         "mrp",
         "purchase_order_shipping_method",
         "account_payment_order",
-        "stock_location_warehouse"
+        "stock_location_warehouse",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/cleaning_database_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

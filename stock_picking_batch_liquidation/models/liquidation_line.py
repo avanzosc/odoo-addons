@@ -1,46 +1,36 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
-from itertools import product
 
 
 class LiquidationLine(models.Model):
     _name = "liquidation.line"
     _description = "Liquidation Line"
 
-    batch_id = fields.Many2one(
-        string="Batch",
-        comodel_name="stock.picking.batch")
+    batch_id = fields.Many2one(string="Batch", comodel_name="stock.picking.batch")
     product_id = fields.Many2one(
-        string="Product",
-        comodel_name="product.product",
-        required=True)
-    unit = fields.Float(
-        string="Units")
-    quantity = fields.Float(
-        string="Quantity")
-    price = fields.Float(
-        string="Price",
-        digits="Standard Cost Decimal Precision")
-    amount = fields.Float(
-        string="Amount")
-    amount_charge = fields.Float(
-        string="Amount Charge")
-    amount_pay = fields.Float(
-        string="Amount Pay")
+        string="Product", comodel_name="product.product", required=True
+    )
+    unit = fields.Float(string="Units")
+    quantity = fields.Float(string="Quantity")
+    price = fields.Float(string="Price", digits="Standard Cost Decimal Precision")
+    amount = fields.Float(string="Amount")
+    amount_charge = fields.Float(string="Amount Charge")
+    amount_pay = fields.Float(string="Amount Pay")
     type = fields.Selection(
         string="Type",
-        selection=[("charge", "Charge"),
-                   ("pay", "Pay"),
-                   ("variable", "Variable")])
+        selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
+    )
 
     @api.onchange("batch_id")
     def onchange_product_domain(self):
         domain = {}
         self.ensure_one()
-        if self.batch_id and (
-            self.batch_id.liquidation_contract_id) and (
-                self.batch_id.liquidation_contract_id.contract_line_ids):
+        if (
+            self.batch_id
+            and (self.batch_id.liquidation_contract_id)
+            and (self.batch_id.liquidation_contract_id.contract_line_ids)
+        ):
             product = []
             done_product = []
             done_lines = self.batch_id.liquidation_line_ids
@@ -48,9 +38,10 @@ class LiquidationLine(models.Model):
                 if done.product_id.id not in done_product:
                     done_product.append(done.product_id.id)
             for line in self.batch_id.liquidation_contract_id.contract_line_ids:
-                if line.product_id.id not in (
-                    product) and (
-                        line.product_id.id) not in done_product:
+                if (
+                    line.product_id.id not in (product)
+                    and (line.product_id.id) not in done_product
+                ):
                     product.append(line.product_id.id)
             domain = {"domain": {"product_id": [("id", "in", product)]}}
         return domain
@@ -66,10 +57,13 @@ class LiquidationLine(models.Model):
             n = 1
             contract = self.batch_id.liquidation_contract_id
             contract_line = contract.contract_line_ids.filtered(
-                lambda c: c.product_id == self.product_id)
+                lambda c: c.product_id == self.product_id
+            )
             if len(contract_line) == 1:
                 movelines = self.batch_id.move_line_ids.filtered(
-                    lambda c: c.move_type_id == contract_line.move_type_id and c.state == "done")
+                    lambda c: c.move_type_id == contract_line.move_type_id
+                    and c.state == "done"
+                )
                 if contract_line.quantity_type == "unit" and movelines:
                     unit = sum(movelines.mapped("download_unit"))
                 if contract_line.quantity_type == "kg" and movelines:
@@ -82,11 +76,14 @@ class LiquidationLine(models.Model):
                     price = self.batch_id.amount
                 if contract_line.price_type == "contract":
                     price = contract_line.price
-                if contract_line.price_type == "average" and (
-                    movelines) and sum(
-                        movelines.mapped("qty_done")) != 0:
+                if (
+                    contract_line.price_type == "average"
+                    and (movelines)
+                    and sum(movelines.mapped("qty_done")) != 0
+                ):
                     price = sum(movelines.mapped("amount")) / sum(
-                        movelines.mapped("qty_done"))
+                        movelines.mapped("qty_done")
+                    )
                 if contract_line.type == "charge":
                     n = -1
                 if contract_line.type == "variable":

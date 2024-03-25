@@ -8,7 +8,9 @@
                 <attribute name="attrs" />
             </field>
             <group name="expiry_and_lots" position="attributes">
-                <attribute name="attrs">{'invisible': [('use_expiration_date', '=', False)]}</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': [('use_expiration_date', '=', False)]}</attribute>
             </group>
         </field>
     </record>
@@ -19,11 +21,31 @@
         <field name="groups_id" eval="[(4, ref('stock.group_production_lot'))]" />
         <field name="arch" type="xml">
             <field name="active" position="before">
-                <field name="use_expiration_date" optional="hide" attrs="{'invisible': [('type', '=', 'consu')]}" />
-                <field name="expiration_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
-                <field name="use_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
-                <field name="removal_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
-                <field name="alert_time" optional="hide" attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}" />
+                <field
+          name="use_expiration_date"
+          optional="hide"
+          attrs="{'invisible': [('type', '=', 'consu')]}"
+        />
+                <field
+          name="expiration_time"
+          optional="hide"
+          attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}"
+        />
+                <field
+          name="use_time"
+          optional="hide"
+          attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}"
+        />
+                <field
+          name="removal_time"
+          optional="hide"
+          attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}"
+        />
+                <field
+          name="alert_time"
+          optional="hide"
+          attrs="{'invisible': ['|',('type', '=', 'consu'),('use_expiration_date', '=', False)]}"
+        />
             </field>
         </field>
     </record>

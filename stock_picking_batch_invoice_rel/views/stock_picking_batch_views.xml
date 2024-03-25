@@ -6,9 +6,18 @@
         <field name="arch" type="xml">
             <div class="oe_title" position="before">
                 <div class="oe_button_box" name="button_box">
-                    <button name="action_view_invoice" type="object" class="oe_stat_button"
-                            icon="fa-pencil-square-o" attrs="{'invisible': [('invoice_count', '=', 0)]}">
-                        <field name="invoice_count" widget="statinfo" string="Invoices" />
+                    <button
+            name="action_view_invoice"
+            type="object"
+            class="oe_stat_button"
+            icon="fa-pencil-square-o"
+            attrs="{'invisible': [('invoice_count', '=', 0)]}"
+          >
+                        <field
+              name="invoice_count"
+              widget="statinfo"
+              string="Invoices"
+            />
                     </button>
                 </div>
             </div>

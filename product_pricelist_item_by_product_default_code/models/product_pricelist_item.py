@@ -9,11 +9,17 @@ class ProductPricelistItem(models.Model):
 
     product_default_code = fields.Char(
         string="Product Internal Reference",
-        compute="_compute_product_default_code", store=True, copy=False
+        compute="_compute_product_default_code",
+        store=True,
+        copy=False,
     )
 
-    @api.depends("product_tmpl_id", "product_tmpl_id.default_code",
-                 "product_id", "product_id.default_code")
+    @api.depends(
+        "product_tmpl_id",
+        "product_tmpl_id.default_code",
+        "product_id",
+        "product_id.default_code",
+    )
     def _compute_product_default_code(self):
         for item in self:
             product_default_code = ""

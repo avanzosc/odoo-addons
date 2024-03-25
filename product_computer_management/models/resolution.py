@@ -8,7 +8,4 @@ class Resolution(models.Model):
     _name = "resolution"
     _description = "Resolution"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

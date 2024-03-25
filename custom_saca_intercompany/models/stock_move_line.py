@@ -7,12 +7,11 @@ class SaleMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     saca_id = fields.Many2one(
-        string="Saca",
-        comodel_name="saca",
-        related="move_id.saca_id",
-        store=True)
+        string="Saca", comodel_name="saca", related="move_id.saca_id", store=True
+    )
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line",
         related="move_id.saca_line_id",
-        store=True)
+        store=True,
+    )

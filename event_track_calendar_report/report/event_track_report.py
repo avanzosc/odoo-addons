@@ -1,24 +1,23 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import models, fields
-from odoo import tools
 from psycopg2 import sql
+
+from odoo import fields, models, tools
 
 
 class EventTrackReport(models.Model):
-    _name = 'event.track.report'
+    _name = "event.track.report"
     _auto = False
-    _description = 'Meetings and tracks in one calendar'
+    _description = "Meetings and tracks in one calendar"
 
-    meeting_id = fields.Many2one(
-        string='Meeting', comodel_name='calendar.event')
-    track_id = fields.Many2one(string='Track', comodel_name='event.track')
-    name = fields.Char(string='Name')
-    allday = fields.Boolean(string='All day', default=False)
-    start = fields.Datetime(string='Start date')
-    stop = fields.Datetime(string='Stop date')
-    duration = fields.Float(string='Duration')
-    user_id = fields.Many2one(string='Responsible', comodel_name='res.users')
+    meeting_id = fields.Many2one(string="Meeting", comodel_name="calendar.event")
+    track_id = fields.Many2one(string="Track", comodel_name="event.track")
+    name = fields.Char(string="Name")
+    allday = fields.Boolean(string="All day", default=False)
+    start = fields.Datetime(string="Start date")
+    stop = fields.Datetime(string="Stop date")
+    duration = fields.Float(string="Duration")
+    user_id = fields.Many2one(string="Responsible", comodel_name="res.users")
 
     def init(self):
         query = """
@@ -53,6 +52,6 @@ UNION ALL (
         tools.drop_view_if_exists(self._cr, self._table)
         self._cr.execute(
             sql.SQL("""CREATE or REPLACE VIEW {} as ({})""").format(
-                sql.Identifier(self._table),
-                sql.SQL(query)
-            ))
+                sql.Identifier(self._table), sql.SQL(query)
+            )
+        )

@@ -8,12 +8,12 @@ class RepairLine(models.Model):
 
     @api.model
     def create(self, vals):
-        repair_lines = super(RepairLine, self).create(vals)
+        repair_lines = super().create(vals)
         repair_lines._put_amount_untaxed_in_price_in_sale_budget()
         return repair_lines
 
     def write(self, vals):
-        res = super(RepairLine, self).write(vals)
+        res = super().write(vals)
         if "product_uom_qty" in vals or "price_unit" in vals:
             self._put_amount_untaxed_in_price_in_sale_budget()
         return res

@@ -10,4 +10,5 @@ class StockMove(models.Model):
         string="Move Type",
         comodel_name="move.type",
         related="product_id.categ_id.move_type_id",
-        store=True)
+        store=True,
+    )

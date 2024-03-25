@@ -1,14 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
      <record model="ir.ui.view" id="view_move_form">
          <field name="model">account.move</field>
          <field name="inherit_id" ref="account.view_move_form" />
          <field name="arch" type="xml">
             <header position="inside">
-                <button name="action_generate_partner_ref" string="Generate Ref" class="oe_highlight" type="object" groups="account.group_account_invoice" attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'draft'), ('move_type', '!=', 'in_invoice'), ('partner_id', '=', False), ('ref', '!=', False)]}"/>
+                <button
+          name="action_generate_partner_ref"
+          string="Generate Ref"
+          class="oe_highlight"
+          type="object"
+          groups="account.group_account_invoice"
+          attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'draft'), ('move_type', '!=', 'in_invoice'), ('partner_id', '=', False), ('ref', '!=', False)]}"
+        />
             </header>
             <field name="partner_id" position="after">
-                <field name="partner_account_seq_id" invisible="1"/>
+                <field name="partner_account_seq_id" invisible="1" />
             </field>
          </field>
      </record>
