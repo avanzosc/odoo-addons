@@ -20,6 +20,7 @@
                 <tr>
                     <th>QUESTION</th>
                     <th>NOTES</th>
+                    <th>NORMATIVE NOTES</th>
                     <th>VALUE</th>
                 </tr>
             </thead>
@@ -96,6 +97,19 @@
                                                 <t t-esc="label.notes" />
                                             </td>
                                             <td>
+
+                                                <t t-set="current_question_print_normatives"
+                                                    t-value="question.question_normative_ids.filtered(
+                                                lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
+                                                &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                )" />
+                                                <t t-foreach="current_question_print_normatives"
+                                                    t-as="normative">
+                                                    <t t-esc="normative.description" />
+                                                    <br />
+                                                </t>
+                                            </td>
+                                            <td>
                                                 <t t-esc="label.value" />
                                             </td>
                                         </tr>
@@ -136,6 +150,19 @@
                                                 <t t-esc="label.notes" />
                                             </td>
                                             <td>
+
+                                                <t t-set="current_question_print_normatives"
+                                                    t-value="question.question_normative_ids.filtered(
+                                                lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
+                                                &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                )" />
+                                                <t t-foreach="current_question_print_normatives"
+                                                    t-as="normative">
+                                                    <t t-esc="normative.description" />
+                                                    <br />
+                                                </t>
+                                            </td>
+                                            <td>
                                                 <t t-esc="label.value" />
                                             </td>
                                         </tr>
@@ -150,23 +177,41 @@
                                     <t t-foreach="question.suggested_answer_ids" t-as="col_label">
                                         <t t-set="has_correct_answer"
                                             t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
-                                        
-                                            <t t-set="is_correct" t-value="col_label.is_correct" />
+
+                                        <t t-set="is_correct" t-value="col_label.is_correct" />
 
                                         <t t-set="answer"
                                             t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)" />
 
-                                        <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                            <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
+                                        <t
+                                            t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                            <t t-set="incorrect_answer_label"
+                                                t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)" />
                                         </t>
 
-                                        <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                        <t
+                                            t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
                                             <tr>
                                                 <td>
                                                     <t t-esc="question.title" />
                                                 </td>
                                                 <td>
+
+
                                                     <t t-esc="row_label.notes" />
+                                                </td>
+                                                <td>
+
+                                                    <t t-set="current_question_print_normatives"
+                                                        t-value="question.question_normative_ids.filtered(
+                                                    lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
+                                                    &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                    )" />
+                                                    <t t-foreach="current_question_print_normatives"
+                                                        t-as="normative">
+                                                        <t t-esc="normative.description" />
+                                                        <br />
+                                                    </t>
                                                 </td>
                                                 <td>
                                                     <t t-esc="col_label.value" />
