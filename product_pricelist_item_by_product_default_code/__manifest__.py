@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "Product Pricelist Item By Product Default Code",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Sales/Sales",
     "author": "AvanzOSC",
     "license": "AGPL-3",
@@ -12,7 +12,8 @@
         "product_pricelist_item_menu"
     ],
     "data": [
-        "views/product_pricelist_item_views.xml"
+        "views/product_pricelist_item_views.xml",
+        "views/product_pricelist_views.xml"
     ],
     "installable": True,
 }
