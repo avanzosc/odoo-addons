@@ -98,16 +98,16 @@
                                             </td>
                                             <td>
 
-                                                <t t-set="current_question_print_normatives"
-                                                    t-value="question.question_normative_ids.filtered(
-                                                lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
-                                                &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
-                                                )" />
-                                                <t t-foreach="current_question_print_normatives"
-                                                    t-as="normative">
-                                                    <t t-esc="normative.description" />
-                                                    <br />
-                                                </t>
+                                                <t t-set="current_question_print_normatives" 
+                                                t-value="question.question_normative_ids.filtered(
+                                                         lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
+                                                                       and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                         )" />
+                                            <t t-foreach="current_question_print_normatives" t-as="normative">
+                                                <t t-esc="normative.description" /><br />
+                                            </t>
+                                            
+
                                             </td>
                                             <td>
                                                 <t t-esc="label.value" />
@@ -151,16 +151,15 @@
                                             </td>
                                             <td>
 
-                                                <t t-set="current_question_print_normatives"
-                                                    t-value="question.question_normative_ids.filtered(
-                                                lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
-                                                &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
-                                                )" />
-                                                <t t-foreach="current_question_print_normatives"
-                                                    t-as="normative">
-                                                    <t t-esc="normative.description" />
-                                                    <br />
-                                                </t>
+                                                <t t-set="current_question_print_normatives" 
+                                                t-value="question.question_normative_ids.filtered(
+                                                         lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
+                                                                       and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                         )" />
+                                            <t t-foreach="current_question_print_normatives" t-as="normative">
+                                                <t t-esc="normative.description" /><br />
+                                            </t>
+                                            
                                             </td>
                                             <td>
                                                 <t t-esc="label.value" />
@@ -196,23 +195,19 @@
                                                     <t t-esc="question.title" />
                                                 </td>
                                                 <td>
-
-
                                                     <t t-esc="row_label.notes" />
                                                 </td>
                                                 <td>
 
-                                                    <t t-set="current_question_print_normatives"
-                                                        t-value="question.question_normative_ids.filtered(
-                                                    lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year
-                                                    &amp;&amp; norm.end_year &gt;= o.inspected_building_id.service_start_date.year
-                                                    )" />
-                                                    <t t-foreach="current_question_print_normatives"
-                                                        t-as="normative">
-                                                        <t t-esc="normative.description" />
-                                                        <br />
-                                                    </t>
-                                                </td>
+                                                    <t t-set="current_question_print_normatives" 
+                                                    t-value="question.question_normative_ids.filtered(
+                                                             lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
+                                                                           and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                             )" />
+                                                <t t-foreach="current_question_print_normatives" t-as="normative">
+                                                    <t t-esc="normative.description" /><br />
+                                                </t>
+                                                                                                </td>
                                                 <td>
                                                     <t t-esc="col_label.value" />
                                                 </td>
