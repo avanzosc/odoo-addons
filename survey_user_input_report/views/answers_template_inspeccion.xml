@@ -191,10 +191,10 @@
                                     for print mode with corrections -->
                                     <t t-set="answer_class" t-if="not has_correct_answer"
                                         t-value="''" />
-                                    <t t-set="answer_class" t-elif="is_correct"
+                                    <!-- <t t-set="answer_class" t-elif="is_correct"
                                         t-value="'bg-success'" />
                                     <t t-set="answer_class" t-elif="not is_correct"
-                                        t-value="'bg-danger'" />
+                                        t-value="'bg-danger'" /> -->
 
                                         <label t-att-for="str(question.id) + '_' + str(label.id)" t-att-class="'o_survey_choice_btn me-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
                                             <t t-call="survey.survey_selection_key">
@@ -207,8 +207,6 @@
     
                                             <t t-call="survey.question_suggested_value_image"/>
                                         </label>
-    
-
                                 </t>
                             </div>
                             <div
@@ -262,7 +260,6 @@
                     >
                         <!-- MULTIPLE CHOICE -->
 
-
                         <t t-set="comment_line"
                             t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
                         <div class="row o_survey_form_choice o_survey_question_multiple_choice"
@@ -286,11 +283,10 @@
                                     for print mode with corrections -->
                                     <t t-set="answer_class" t-if="not has_correct_answer"
                                         t-value="''" />
-                                    <t t-set="answer_class" t-elif="is_correct"
+                                    <!-- <t t-set="answer_class" t-elif="is_correct"
                                         t-value="'bg-success'" />
                                     <t t-set="answer_class" t-elif="not is_correct"
-                                        t-value="'bg-danger'" />
-
+                                        t-value="'bg-danger'" /> -->
 
                                         <label t-att-class="'o_survey_choice_btn form-label me-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_line else '')">
                                             <t t-call="survey.survey_selection_key">
