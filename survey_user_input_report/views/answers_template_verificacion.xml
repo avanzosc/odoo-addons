@@ -107,9 +107,9 @@
                                                          )" />
                                                     <t t-foreach="current_question_print_normatives"
                                                         t-as="normative">
-                                                        <t t-esc="normative.description" />: <t
-                                                            t-esc="normative.name" /><br />
-                                                    </t>
+                                                        <t t-esc="normative.name" />: <t
+                                                        t-esc="normative.description" /><br />
+                                            </t>
 
 
                                                 </td>
@@ -161,9 +161,9 @@
                                                          )" />
                                                     <t t-foreach="current_question_print_normatives"
                                                         t-as="normative">
-                                                        <t t-esc="normative.description" />: <t
-                                                            t-esc="normative.name" /><br />
-                                                    </t>
+                                                        <t t-esc="normative.name" />: <t
+                                                        t-esc="normative.description" /><br />
+                                            </t>
 
                                                 </td>
                                                 <td>
@@ -212,8 +212,8 @@
                                                         <t
                                                             t-foreach="current_question_print_normatives"
                                                             t-as="normative">
-                                                            <t t-esc="normative.description" />: <t
-                                                                t-esc="normative.name" /><br />
+                                                            <t t-esc="normative.name" />: <t
+                                                                t-esc="normative.description" /><br />
                                                         </t>
                                                     </td>
                                                     <td>
