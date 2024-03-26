@@ -7,59 +7,52 @@
     >
 
 
-    <style>
+        <style>
 
 
-
-
-        /* Estilos para el contenedor principal */
-        .contenedor_debajo {
+            /* Estilos para el contenedor principal */
+            .contenedor_debajo {
             --col-count: 3;
-        }
-        
-        /* Estilos para las filas */
-        .contenedor_debajo .row {
+            }
+
+            /* Estilos para las filas */
+            .contenedor_debajo .row {
             display: -webkit-flex;
             display: flex;
             -webkit-flex-wrap: wrap;
             flex-wrap: wrap;
             margin-right: calc(var(--bs-gutter-x) * -1);
             margin-left: calc(var(--bs-gutter-x) * -1);
-        }
-        
-        /* Estilos para las columnas */
-        .contenedor_debajo .col {
+            }
+
+            /* Estilos para las columnas */
+            .contenedor_debajo .col {
             -webkit-flex: 1;
             flex: 1;
             padding-right: calc(var(--bs-gutter-x) * 0.5);
             padding-left: calc(var(--bs-gutter-x) * 0.5);
-        }
-        
-        /* Estilos para los botones de la matriz */
-        .contenedor_debajo .o_survey_matrix_btn {
+            }
+
+            /* Estilos para los botones de la matriz */
+            .contenedor_debajo .o_survey_matrix_btn {
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             padding: 10px;
             width: 100%; /* Asegurar que los botones ocupen todo el ancho de la columna */
-        }
-        
-        /* Estilos para el texto oscuro */
-        .contenedor_debajo .text-dark {
-            color: #343a40;
-        }
-        
-        /* Estilos para la posición relativa */
-        .contenedor_debajo .position-relative {
-            position: relative;
-        }
-        
-        
-        
-        
-        
-        
-        </style>
+            }
 
+            /* Estilos para el texto oscuro */
+            .contenedor_debajo .text-dark {
+            color: #343a40;
+            }
+
+            /* Estilos para la posición relativa */
+            .contenedor_debajo .position-relative {
+            position: relative;
+            }
+
+
+        </style>
 
 
         <t t-set="survey_form_readonly" t-value="true" />
@@ -255,7 +248,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
+                            <t
+                                t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
                                 <div class="col-6">
                                     <div class="o_survey_matrix_btn bg-white rounded p-1">
                                         <t t-if="line_infos[total_counter-1].get('label')">
@@ -274,7 +268,7 @@
                 </t>
             </t>
         </div>
-        
+
     </template>
 
     <!-- Agregar portada -->
@@ -284,9 +278,9 @@
     >
 
 
-    <t
-    t-set="all_values"
-    t-value="[
+        <t
+            t-set="all_values"
+            t-value="[
     {'label': 'Building:', 'value': o.inspected_building_id.name},
     {'label': 'Building Type:', 'value': o.building_use_id.name},
     {'label': 'Building Section:', 'value': o.building_section_id.name},
@@ -315,7 +309,6 @@
     {'label': 'Area:', 'value': o.superficie},
 
     ]" />
-
 
 
         <t
@@ -365,7 +358,7 @@
         <div
             class="contenedor contenedor_4">
 
-           <!-- <div id="left_div">
+            <!-- <div id="left_div">
                 <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="left_table_top" t-as="info">
@@ -442,22 +435,27 @@
                 </table>
             </div> -->
             <div class="contenedor_debajo">
-                <div class="row">
-                    <t t-set="column_counter" t-value="0" />
-                    <t t-foreach="all_values" t-as="value">
-                        <t t-set="column_counter" t-value="column_counter + 1" />
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label"><t t-esc="value['label']" /></label>
-                                <p class="form-control-static"><t t-esc="value['value']" /></p>
-                            </div>
+                <t t-set="column_counter" t-value="0" />
+                <t t-set="temp_values" t-value="[]" />
+                <t t-foreach="all_values" t-as="value">
+                    <t t-set="column_counter" t-value="column_counter + 1" />
+                    <t t-set="temp_values" t-value="temp_values + [value]" />
+                    <t t-if="column_counter % 2 == 0 or column_counter == len(all_values)">
+                        <div class="row">
+                            <t t-foreach="temp_values" t-as="temp_value">
+                                <div class="col-6">
+                                    <label class="form-label">
+                                        <t t-esc="temp_value['label']" />
+                                    </label>
+                                    <span class="form-control-static">
+                                        <t t-esc="temp_value['value']" />
+                                    </span>
+                                </div>
+                            </t>
                         </div>
-                        <t t-if="column_counter % 2 == 0">
-                            </div>
-                            <div class="row">
-                        </t>
+                        <t t-set="temp_values" t-value="[]" />
                     </t>
-                </div>
+                </t>
             </div>
         </div>
     </template>
