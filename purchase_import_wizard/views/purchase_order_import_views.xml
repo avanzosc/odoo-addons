@@ -99,18 +99,18 @@
                                         <li><code>NombreProveedor</code>: this will fill <b
                       >Supplier</b></li>
                                         <li><code>FechaCreada</code>: this will fill <b
-                      >Date Order</b></li>
+                      >Purchase Order Date</b></li>
                                         <li><code>FechaConfirmada</code>: this will fill <b
-                      >Date Confirm</b></li>
+                      >Purchase Approve Date</b></li>
                                         <li><code>Entrada</code>: this will fill <b
                       >Partner Ref</b></li>
                                         <li><code>CodigoProducto</code>: this will fill <b
                       >Product</b></li>
                                         <li><code>NombreProducto</code>: this will fill <b
                       >Product</b></li>
-                                        <li><code>KgProveedor</code>: this will fill <b
+                                        <li><code>CantidadPedida</code>: this will fill <b
                       >Product Quantity</b></li>
-                                        <li><code>KgNeto</code>: this will fill <b
+                                        <li><code>CantidadRecibida</code>: this will fill <b
                       >Quantity Received</b></li>
                                         
                                         <li><code>PrecioUnitario</code>: this will fill <b
@@ -177,17 +177,16 @@
     </record>
 
     <menuitem
-    id="purchase_order_import_menu"
-    action="purchase_order_import_action"
-    parent="base_import_wizard.base_import_menu"
-    sequence="10"
-  />
+        id="purchase_order_import_menu_config"
+        action="purchase_order_import_action"
+        parent="base_import_wizard.base_import_menu"
+        sequence="30"/>
 
     <menuitem
-    id="purchase_order_import_menu"
-    action="purchase_order_import_action"
-    parent="purchase.menu_purchase_config"
-    sequence="5"
+        id="purchase_order_import_menu"
+        action="purchase_order_import_action"
+        parent="purchase.menu_purchase_config"
+        sequence="5"
   />
 
 </odoo>

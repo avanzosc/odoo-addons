@@ -124,25 +124,25 @@
       >
                 <field name="action"/>
                 <field name="purchase_order_id" invisible="1"/>
-                <field name="purchase_supplier_code" optional="hide" readonly="1"/>
+                <field name="purchase_supplier_code" readonly="1"/>
                 <field name="purchase_supplier_name" readonly="1"/>
-                <field name="purchase_supplier_id" optional="hide"/>
+                <field name="purchase_supplier_id"/>
                 <field name="purchase_create_date" readonly="1"/>
                 <field name="purchase_date_confirm" readonly="1"/>
                 <field name="purchase_origin" readonly="1"/>
-                <field name="purchase_product_code" readonly="1" optional="hide"/>
+                <field name="purchase_product_code" readonly="1"/>
                 <field name="purchase_product_name" readonly="1"/>
-                <field name="purchase_product_id" optional="hide"/>
+                <field name="purchase_product_id"/>
                 <field name="purchase_ordered_qty" readonly="1"/>
                 <field name="purchase_qty_done" readonly="1"/>
                 <field name="purchase_price_unit" readonly="1"/>
                 <field name="purchase_discount" readonly="1"/>
                 <field name="purchase_warehouse" readonly="1"/>
-                <field name="purchase_warehouse_id" optional="hide"/>
-                <field name="purchase_picking_type_id" optional="hide"/>
+                <field name="purchase_warehouse_id"/>
+                <field name="purchase_picking_type_id"/>
                 <field name="purchase_state"/>
-                <field name="state" optional="hide"/>
-                <field name="log_info" optional="show"/>
+                <field name="state" invisible="1"/>
+                <field name="log_info"/>
             </tree>
         </field>
     </record>

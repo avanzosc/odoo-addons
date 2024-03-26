@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* purchase_import_wizard
+#	* purchase_import_wizard
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 08:30+0000\n"
-"PO-Revision-Date: 2023-03-23 08:30+0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-03-26 10:39+0000\n"
+"PO-Revision-Date: 2024-03-26 10:39+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,6 +18,16 @@ msgstr ""
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__purchase_order_count
 msgid "# Purchase Orders"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
+msgid "<code>CantidadPedida</code>: this will fill <b>Product Quantity</b>"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
+msgid "<code>CantidadRecibida</code>: this will fill <b>Quantity Received</b>"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -52,22 +62,12 @@ msgstr ""
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>FechaConfirmada</code>: this will fill <b>Date Confirm</b>"
+msgid "<code>FechaConfirmada</code>: this will fill <b>Purchase Approve Date</b>"
 msgstr ""
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>FechaCreada</code>: this will fill <b>Date Order</b>"
-msgstr ""
-
-#. module: purchase_import_wizard
-#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>KgNeto</code>: this will fill <b>Quantity Received</b>"
-msgstr ""
-
-#. module: purchase_import_wizard
-#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>KgProveedor</code>: this will fill <b>Product Quantity</b>"
+msgid "<code>FechaCreada</code>: this will fill <b>Purchase Order Date</b>"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -101,18 +101,8 @@ msgid "Activities"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_exception_decoration
-msgid "Activity Exception Decoration"
-msgstr ""
-
-#. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_state
 msgid "Activity State"
-msgstr ""
-
-#. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_type_icon
-msgid "Activity Type Icon"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -126,7 +116,7 @@ msgid "Company"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields.selection,name:purchase_import_wizard.selection__purchase_order_import_line__action__create
+#: selection:purchase.order.import.line,action:0
 msgid "Create"
 msgstr ""
 
@@ -169,7 +159,15 @@ msgid "Done"
 msgstr ""
 
 #. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_search
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
 msgid "Error"
 msgstr ""
 
@@ -179,64 +177,63 @@ msgid "Error Log"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:442
 #, python-format
 msgid "Error: More than one picking type with warehouse {} found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:395
 #, python-format
 msgid "Error: More than one product with the same name or code found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:355
 #, python-format
 msgid "Error: More than one supplier found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:420
 #, python-format
 msgid "Error: More than one warehouse with name {} found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:439
 #, python-format
 msgid "Error: No picking type found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:385
 #, python-format
 msgid "Error: No product found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:345
 #, python-format
 msgid "Error: No supplier found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:417
 #, python-format
 msgid "Error: No warehouse found."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:322
 #, python-format
 msgid "Error: Previously uploaded order."
 msgstr ""
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:277
 #, python-format
-msgid ""
-"Error: There is another line with the same origin document with some errors."
+msgid "Error: There is another line with the same origin document with some errors."
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -270,11 +267,6 @@ msgid "Followers (Partners)"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_type_icon
-msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
-
-#. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_search
 msgid "Group By"
@@ -297,18 +289,12 @@ msgid "ID"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_exception_icon
-msgid "Icon"
-msgstr ""
-
-#. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_exception_icon
-msgid "Icon to indicate an exception activity."
+#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_unread
+msgid "If checked new messages require your attention."
 msgstr ""
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_needaction
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -340,6 +326,7 @@ msgstr ""
 #. module: purchase_import_wizard
 #: model:ir.actions.act_window,name:purchase_import_wizard.purchase_order_import_action
 #: model:ir.ui.menu,name:purchase_import_wizard.purchase_order_import_menu
+#: model:ir.ui.menu,name:purchase_import_wizard.purchase_order_import_menu_config
 msgid "Import Purchase Orders"
 msgstr ""
 
@@ -403,11 +390,6 @@ msgid "Messages"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr ""
-
-#. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__name
 msgid "Name"
 msgstr ""
@@ -428,7 +410,7 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields.selection,name:purchase_import_wizard.selection__purchase_order_import_line__action__nothing
+#: selection:purchase.order.import.line,action:0
 msgid "Nothing"
 msgstr ""
 
@@ -439,7 +421,7 @@ msgstr ""
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_has_error_counter
-msgid "Number of errors"
+msgid "Number of error"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -468,6 +450,11 @@ msgid "Origin"
 msgstr ""
 
 #. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_search
 msgid "Pending"
 msgstr ""
@@ -475,6 +462,11 @@ msgstr ""
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_picking_type_id
 msgid "Picking Type"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Planned"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -486,6 +478,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "Process"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Processed"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -520,6 +518,11 @@ msgid "Responsible User"
 msgstr ""
 
 #. module: purchase_import_wizard
+#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__split_size
+msgid "Split Size"
+msgstr ""
+
+#. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_state
 msgid "State"
 msgstr ""
@@ -534,8 +537,7 @@ msgstr ""
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_state
-msgid ""
-"Status based on activities\n"
+msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
@@ -563,8 +565,14 @@ msgid "To Create"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_exception_decoration
-msgid "Type of the exception activity on record."
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "To validate"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Today"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -581,6 +589,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "Validate"
+msgstr ""
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Validated"
 msgstr ""
 
 #. module: purchase_import_wizard
@@ -615,3 +629,4 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "You must use this column names in order to fill the table:"
 msgstr ""
+

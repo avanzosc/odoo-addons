@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* purchase_import_wizard
+#	* purchase_import_wizard
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-23 08:30+0000\n"
-"PO-Revision-Date: 2023-03-23 08:30+0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2024-03-26 10:40+0000\n"
+"PO-Revision-Date: 2024-03-26 10:40+0000\n"
+"Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,6 +19,16 @@ msgstr ""
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__purchase_order_count
 msgid "# Purchase Orders"
 msgstr "# Pedidos de compra"
+
+#. module: purchase_import_wizard
+#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
+msgid "<code>CantidadPedida</code>: this will fill <b>Product Quantity</b>"
+msgstr "<code>CantidadPedida</code>: esto rellenará la <b>Cantidad del predido</b>"
+
+#. module: purchase_import_wizard
+#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
+msgid "<code>CantidadRecibida</code>: this will fill <b>Quantity Received</b>"
+msgstr "<code>CantidadRecibida</code>: esto rellenará la <b>Cantidad del albarán</b>"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
@@ -43,8 +53,7 @@ msgstr "<code>Descuento</code>: esto rellenará el <b>Descuento</b>"
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "<code>Entrada</code>: this will fill <b>Partner Ref</b>"
-msgstr ""
-"<code>Entrada</code>: esto rellenará la <b>Referencia de proveedor</b>"
+msgstr "<code>Entrada</code>: esto rellenará la <b>Referencia de proveedor</b>"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
@@ -53,25 +62,13 @@ msgstr "<code>Estado</code>: esto rellenará el <b>Estado</b>"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>FechaConfirmada</code>: this will fill <b>Date Confirm</b>"
-msgstr ""
-"<code>FechaConfirmada</code>: esto rellenará la <b>Fecha Confirmación</b>"
+msgid "<code>FechaConfirmada</code>: this will fill <b>Purchase Approve Date</b>"
+msgstr "<code>FechaConfirmada</code>: esto rellenará la <b>Fecha de aprobación del pedido</b>"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>FechaCreada</code>: this will fill <b>Date Order</b>"
-msgstr ""
-"<code>FechaCreada</code>: esto rellenará la <b>Fecha límite de pedido</b>"
-
-#. module: purchase_import_wizard
-#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>KgNeto</code>: this will fill <b>Quantity Received</b>"
-msgstr "<code>KgNeto</code>: esto rellenará la <b>Cantiad recivida</b>"
-
-#. module: purchase_import_wizard
-#: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
-msgid "<code>KgProveedor</code>: this will fill <b>Product Quantity</b>"
-msgstr "<code>KgProveedor</code>: esto rellenará la <b>Cantidad</b>"
+msgid "<code>FechaCreada</code>: this will fill <b>Purchase Order Date</b>"
+msgstr "<code>FechaCreada</code>: esto rellenará la <b>Fecha de pedido</b>"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
@@ -96,7 +93,7 @@ msgstr "Acción"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_needaction
 msgid "Action Needed"
-msgstr "Acción requerida"
+msgstr "Acción Necesaria"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_ids
@@ -104,24 +101,14 @@ msgid "Activities"
 msgstr "Actividades"
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_exception_decoration
-msgid "Activity Exception Decoration"
-msgstr "Actividad decoración de excepción"
-
-#. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_state
 msgid "Activity State"
 msgstr "Estado de la actividad"
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_type_icon
-msgid "Activity Type Icon"
-msgstr "Icono de tipo de actividad"
-
-#. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_attachment_count
 msgid "Attachment Count"
-msgstr "Recuento de anexos"
+msgstr "Conteo de archivos adjuntos"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__company_id
@@ -129,9 +116,9 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields.selection,name:purchase_import_wizard.selection__purchase_order_import_line__action__create
+#: selection:purchase.order.import.line,action:0
 msgid "Create"
-msgstr "Creart"
+msgstr "Crear"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_create_date
@@ -172,7 +159,15 @@ msgid "Done"
 msgstr "Hecho"
 
 #. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_search
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
 msgid "Error"
 msgstr ""
 
@@ -182,68 +177,64 @@ msgid "Error Log"
 msgstr "Registro de errores"
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:442
 #, python-format
 msgid "Error: More than one picking type with warehouse {} found."
-msgstr ""
-"Error: Se ha encontrado más de un tipo de operación encontradi con almacén "
-"{}."
+msgstr "Error: Se ha encontrado más de un tipo de operación encontradi con almacén {}."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:395
 #, python-format
 msgid "Error: More than one product with the same name or code found."
 msgstr "Error: Más de un producto encontrado."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:355
 #, python-format
 msgid "Error: More than one supplier found."
 msgstr "Error: Más de un proveedor encontrado."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:420
 #, python-format
 msgid "Error: More than one warehouse with name {} found."
 msgstr "Error: Más de un almacén encontrado con el nombre {}."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:439
 #, python-format
 msgid "Error: No picking type found."
 msgstr "Error: No se ha encontrado el tipo de operación."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:385
 #, python-format
 msgid "Error: No product found."
-msgstr "Error: No se ha encontrado el producto."
+msgstr "Error: Producto no encontrado."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:345
 #, python-format
 msgid "Error: No supplier found."
 msgstr "Error: No se ha encontrado el proveedor."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:417
 #, python-format
 msgid "Error: No warehouse found."
 msgstr "Error: No se ha encontrado el almacén."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:322
 #, python-format
 msgid "Error: Previously uploaded order."
 msgstr "Error: Pedido previamente cargado."
 
 #. module: purchase_import_wizard
-#: code:addons/purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/purchase_import_wizard/models/purchase_order_import.py:277
 #, python-format
-msgid ""
-"Error: There is another line with the same origin document with some errors."
-msgstr ""
-"Error: Hay otra línea con el mismo documento de origen con algunos errores."
+msgid "Error: There is another line with the same origin document with some errors."
+msgstr "Error: Hay otra línea con el mismo documento origen con errores."
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_search
@@ -258,7 +249,7 @@ msgstr "Archivo"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__filename
 msgid "Filename"
-msgstr "Nombre del archivo"
+msgstr "Nombre de archivo"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_follower_ids
@@ -268,17 +259,12 @@ msgstr "Seguidores"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_channel_ids
 msgid "Followers (Channels)"
-msgstr "Seguidores (canales)"
+msgstr "Seguidores (Canales)"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (contactos)"
-
-#. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_type_icon
-msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Icono de la fuente, por ejemplo, fa-tasks"
+msgstr "Seguidores (Empresas)"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_search
@@ -294,7 +280,7 @@ msgstr "Ayuda"
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "Help with Excel column names"
-msgstr "Ayuda con los nombres de las columnas de Excel"
+msgstr "Asistencia con nombres de columnas de Excel"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__id
@@ -303,25 +289,19 @@ msgid "ID"
 msgstr ""
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_exception_icon
-msgid "Icon"
-msgstr "Icono"
-
-#. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_exception_icon
-msgid "Icon to indicate an exception activity."
-msgstr "Icono para indicar una actividad de excepción."
+#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_needaction
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_unread
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcada, los nuevos mensajes requieren su atención."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
@@ -346,6 +326,7 @@ msgstr "Líneas de pedido de compra importadas"
 #. module: purchase_import_wizard
 #: model:ir.actions.act_window,name:purchase_import_wizard.purchase_order_import_action
 #: model:ir.ui.menu,name:purchase_import_wizard.purchase_order_import_menu
+#: model:ir.ui.menu,name:purchase_import_wizard.purchase_order_import_menu_config
 msgid "Import Purchase Orders"
 msgstr "Importar pedidos de compra"
 
@@ -362,56 +343,51 @@ msgstr "Líneas importadas"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_is_follower
 msgid "Is Follower"
-msgstr "Es seguidor"
+msgstr "Es un seguidor"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import____last_update
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line____last_update
 msgid "Last Modified on"
-msgstr "Última modificación el"
+msgstr "Última modificación en"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__write_uid
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__write_uid
 msgid "Last Updated by"
-msgstr "Actualizado por"
+msgstr "Última actualización por"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__write_date
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__write_date
 msgid "Last Updated on"
-msgstr "Actualizado el"
+msgstr "Última actualización el"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__import_line_ids
 msgid "Lines to Import"
-msgstr "Líneas para importar"
+msgstr "Líneas a importar"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__log_info
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__log_info
 msgid "Log Info"
-msgstr "Información de registro"
+msgstr "Informe de errores"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_main_attachment_id
 msgid "Main Attachment"
-msgstr "Adjunto principal"
+msgstr "Adjuntos principales"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_has_error
 msgid "Message Delivery error"
-msgstr "Error en la entrega del mensaje"
+msgstr "Error de Envío de Mensaje"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_ids
 msgid "Messages"
 msgstr "Mensajes"
-
-#. module: purchase_import_wizard
-#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__my_activity_date_deadline
-msgid "My Activity Deadline"
-msgstr "Mi plazo de actividad"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__name
@@ -421,7 +397,7 @@ msgstr "Nombre"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Plazo de la próxima actividad"
+msgstr "Siguiente plazo de actividad"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_summary
@@ -434,7 +410,7 @@ msgid "Next Activity Type"
 msgstr "Siguiente tipo de actividad"
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields.selection,name:purchase_import_wizard.selection__purchase_order_import_line__action__nothing
+#: selection:purchase.order.import.line,action:0
 msgid "Nothing"
 msgstr "Nada"
 
@@ -445,8 +421,8 @@ msgstr "Número de acciones"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_has_error_counter
-msgid "Number of errors"
-msgstr "Número de errores"
+msgid "Number of error"
+msgstr "Número de error"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_needaction_counter
@@ -456,12 +432,12 @@ msgstr "Número de mensajes que requieren una acción"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Número de mensajes con error de entrega"
+msgstr "Número de mensajes con error de envío"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__message_unread_counter
 msgid "Number of unread messages"
-msgstr "Número de mensajes no leídos"
+msgstr "Número de mensajes no leidos"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_ordered_qty
@@ -474,6 +450,11 @@ msgid "Origin"
 msgstr "Origen"
 
 #. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Overdue"
+msgstr "Atrasado"
+
+#. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_search
 msgid "Pending"
 msgstr "Pendiente"
@@ -481,18 +462,29 @@ msgstr "Pendiente"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_picking_type_id
 msgid "Picking Type"
-msgstr "Tipo de operación"
+msgstr "Tipo de albarán"
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Planned"
+msgstr "Planificado"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_price_unit
 msgid "Price Unit"
-msgstr "Precio unitario"
+msgstr "Precio unidad"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "Process"
 msgstr "Procesar"
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Processed"
+msgstr "Procesado"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_product_id
@@ -513,17 +505,22 @@ msgstr "Nombre producto"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_order_id
 msgid "Purchase Order"
-msgstr "Pedido"
+msgstr "Pedido de compra"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_qty_done
 msgid "Qty Done"
-msgstr "Cantidad hecha"
+msgstr "Cantidad realizada"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
+
+#. module: purchase_import_wizard
+#: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__split_size
+msgid "Split Size"
+msgstr "Tamaño de la división"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_state
@@ -540,16 +537,14 @@ msgstr "Estado"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_state
-msgid ""
-"Status based on activities\n"
+msgid "Status based on activities\n"
 "Overdue: Due date is already passed\n"
 "Today: Activity date is today\n"
 "Planned: Future activities."
-msgstr ""
-"Estado basado en actividades\n"
-"Atrasado: La fecha de vencimiento ya ha pasado\n"
-"Hoy: La fecha de la actividad es hoy\n"
-"Planificado: Actividades futuras"
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import_line__purchase_supplier_id
@@ -573,25 +568,37 @@ msgid "To Create"
 msgstr "Para crear"
 
 #. module: purchase_import_wizard
-#: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__activity_exception_decoration
-msgid "Type of the exception activity on record."
-msgstr "Tipo de la actividad de excepción registrada."
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "To validate"
+msgstr "Para validar"
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,activity_state:0
+msgid "Today"
+msgstr "Hoy"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_unread
 msgid "Unread Messages"
-msgstr "Mensajes no leídos"
+msgstr "Mensajes por leer"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr "Contador de mensajes no leídos"
+msgstr "Contador de mensajes sin leer"
 
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "Validate"
 msgstr "Validar"
+
+#. module: purchase_import_wizard
+#: selection:purchase.order.import,state:0
+#: selection:purchase.order.import.line,state:0
+msgid "Validated"
+msgstr "Validado"
 
 #. module: purchase_import_wizard
 #: model:ir.model.fields,field_description:purchase_import_wizard.field_purchase_order_import__warehouse_id
@@ -609,7 +616,7 @@ msgstr "Mensajes del sitio web"
 #. module: purchase_import_wizard
 #: model:ir.model.fields,help:purchase_import_wizard.field_purchase_order_import__website_message_ids
 msgid "Website communication history"
-msgstr "Historia de la comunicación en la web"
+msgstr "Historial de comunicaciones del sitio web"
 
 #. module: purchase_import_wizard
 #: model:ir.model,name:purchase_import_wizard.model_purchase_order_import_line
@@ -624,4 +631,5 @@ msgstr "Asistente para la importación de pedidos de compra"
 #. module: purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:purchase_import_wizard.purchase_order_import_view_form
 msgid "You must use this column names in order to fill the table:"
-msgstr "Debe utilizar estos nombres de columna para rellenar la tabla:"
+msgstr "Debe usar los siguientes nombres de columnas para rellenar la tabla:"
+
