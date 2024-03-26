@@ -43,7 +43,7 @@
                 ]" />
 
         <t
-            t-set="survey_info2"
+            t-set="survey_info_debajo"
             t-value="[
                     {'label': 'Building:', 'value': o.inspected_building_id.name},
                     {'label': 'NIF:', 'value': o.inspected_building_id.vat},
@@ -104,8 +104,8 @@
                 </table>
             </div>
             <!-- Contenedor derecho -->
-            <div>
-                <!-- <table
+            <!-- <div>
+                <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
@@ -137,8 +137,7 @@
                             </t>
                         </t>
                     </t>
-                </table> -->
-                <!-- Table  -->
+                </table> 
                 <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="survey_info" t-as="info">
@@ -159,35 +158,66 @@
                         </t>
                     </t>
                 </table>
-            </div>
+            </div> -->
         </div>
 
         <!-- Contenedor debajo -->
         <div class="contenedor_debajo" style="--col-count: 3;">
             <t t-set="total_counter" t-value="0" />
             <t t-set="line_infos" t-value="[]" />
-            <t t-foreach="survey_info2" t-as="info">
-                <t t-set="total_counter" t-value="total_counter+1" />
-                <t t-if="info['value']">
+            <t t-foreach="survey_info_debajo" t-as="info">
+                <t t-if="info['value'] and info['label']">
+                    <t t-set="total_counter" t-value="total_counter+1" />
                     <t t-set="line_infos" t-value="line_infos + [info]" />
-                    <t t-if="total_counter % 3 == 0 or total_counter == len(survey_info)">
+                    <t t-if="total_counter % 3 == 1">
                         <div class="row">
-                            <t t-foreach="line_infos" t-as="pair_info">
+                            <div class="col" style="width: 100%">
+                                <div class="o_survey_matrix_btn text-dark position-relative"
+                                    style="width: 100%">
+                                    <t t-if="line_infos[total_counter-1].get('label')">
+                                        <label>
+                                            <t t-esc="line_infos[total_counter-1]['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-1]['value']" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
+                        <div class="row">
+
+                            <div class="col">
+                                <div class="o_survey_matrix_btn text-dark position-relative">
+                                    <t t-if="line_infos[total_counter-2].get('label')">
+                                        <label>
+                                            <t t-esc="line_infos[total_counter-2]['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-2]['value']" />
+                                    </span>
+                                </div>
+                            </div>
+                            <t
+                                t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
                                 <div class="col">
                                     <div class="o_survey_matrix_btn text-dark position-relative">
-                                        <t t-if="pair_info.get('label')">
+                                        <t t-if="line_infos[total_counter-1].get('label')">
                                             <label>
-                                                <t t-esc="pair_info['label']" />
+                                                <t t-esc="line_infos[total_counter-1]['label']" />
                                             </label>
                                         </t>
                                         <span>
-                                            <t t-esc="pair_info['value']" />
+                                            <t t-esc="line_infos[total_counter-1]['value']" />
                                         </span>
                                     </div>
                                 </div>
                             </t>
                         </div>
-                        <t t-set="line_infos" t-value="[]" />
                     </t>
                 </t>
             </t>
