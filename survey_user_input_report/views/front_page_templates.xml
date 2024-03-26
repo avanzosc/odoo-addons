@@ -6,6 +6,62 @@
         name="Survey: Inspección Segunda Vista"
     >
 
+
+    <style>
+
+
+
+
+        /* Estilos para el contenedor principal */
+        .contenedor_debajo {
+            --col-count: 3;
+        }
+        
+        /* Estilos para las filas */
+        .contenedor_debajo .row {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: calc(var(--bs-gutter-x) * -1);
+            margin-left: calc(var(--bs-gutter-x) * -1);
+        }
+        
+        /* Estilos para las columnas */
+        .contenedor_debajo .col {
+            -webkit-flex: 1;
+            flex: 1;
+            padding-right: calc(var(--bs-gutter-x) * 0.5);
+            padding-left: calc(var(--bs-gutter-x) * 0.5);
+        }
+        
+        /* Estilos para los botones de la matriz */
+        .contenedor_debajo .o_survey_matrix_btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%; /* Asegurar que los botones ocupen todo el ancho de la columna */
+        }
+        
+        /* Estilos para el texto oscuro */
+        .contenedor_debajo .text-dark {
+            color: #343a40;
+        }
+        
+        /* Estilos para la posición relativa */
+        .contenedor_debajo .position-relative {
+            position: relative;
+        }
+        
+        
+        
+        
+        
+        
+        </style>
+
+
+
         <t t-set="survey_form_readonly" t-value="true" />
 
         <!-- <t
@@ -162,7 +218,7 @@
         </div>
 
         <!-- Contenedor debajo -->
-        <div class="contenedor_debajo" style="--col-count: 3;">
+        <div class="contenedor_debajo bg-light rounded" style="--col-count: 3;">
             <t t-set="total_counter" t-value="0" />
             <t t-set="line_infos" t-value="[]" />
             <t t-foreach="survey_info_debajo" t-as="info">
@@ -171,9 +227,8 @@
                     <t t-set="line_infos" t-value="line_infos + [info]" />
                     <t t-if="total_counter % 3 == 1">
                         <div class="row">
-                            <div class="col" style="width: 100%">
-                                <div class="o_survey_matrix_btn text-dark position-relative"
-                                    style="width: 100%">
+                            <div class="col-12">
+                                <div class="o_survey_matrix_btn bg-white rounded p-1">
                                     <t t-if="line_infos[total_counter-1].get('label')">
                                         <label>
                                             <t t-esc="line_infos[total_counter-1]['label']" />
@@ -186,12 +241,10 @@
                             </div>
                         </div>
                     </t>
-
                     <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
                         <div class="row">
-
-                            <div class="col">
-                                <div class="o_survey_matrix_btn text-dark position-relative">
+                            <div class="col-6">
+                                <div class="o_survey_matrix_btn bg-white rounded p-1">
                                     <t t-if="line_infos[total_counter-2].get('label')">
                                         <label>
                                             <t t-esc="line_infos[total_counter-2]['label']" />
@@ -202,10 +255,9 @@
                                     </span>
                                 </div>
                             </div>
-                            <t
-                                t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
-                                <div class="col">
-                                    <div class="o_survey_matrix_btn text-dark position-relative">
+                            <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
+                                <div class="col-6">
+                                    <div class="o_survey_matrix_btn bg-white rounded p-1">
                                         <t t-if="line_infos[total_counter-1].get('label')">
                                             <label>
                                                 <t t-esc="line_infos[total_counter-1]['label']" />
@@ -222,6 +274,7 @@
                 </t>
             </t>
         </div>
+        
     </template>
 
     <!-- Agregar portada -->
