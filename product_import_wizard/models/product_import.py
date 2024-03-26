@@ -172,7 +172,7 @@ class ProductImportLine(models.Model):
         if not log_info:
             uom, log_info = self._check_uom()
         state = "error" if log_info else "pass"
-        line_values.append({
+        line_values.update({
             "product_id": product.id,
             "category_id": category and category.id,
             "product_uom_id": uom and uom.id,
@@ -185,7 +185,7 @@ class ProductImportLine(models.Model):
         line_values = super()._action_process()
         product, log_info = self._create_product()
         state = "error" if log_info else "done"
-        line_values.append({
+        line_values.update({
             "product_id": product.id,
             "log_info": log_info,
             "state": state,
