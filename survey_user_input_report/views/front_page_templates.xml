@@ -283,6 +283,41 @@
         name="Survey: Inspección Segunda Vista"
     >
 
+
+    <t
+    t-set="all_values"
+    t-value="[
+    {'label': 'Building:', 'value': o.inspected_building_id.name},
+    {'label': 'Building Type:', 'value': o.building_use_id.name},
+    {'label': 'Building Section:', 'value': o.building_section_id.name},
+
+    {'label': 'Survey Expediente:', 'value': o.file_number},
+    {'label': 'Survey Acta:', 'value': o.act_number},
+    {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+    {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+    {'label': 'Create Date:', 'value': o.create_date},
+
+    {'label': 'Survey Title:', 'value': o.survey_id.title},
+    {'label': 'Survey Expediente:', 'value': o.file_number},
+    {'label': 'Survey Acta:', 'value': o.act_number},
+    {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+    {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+    {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+    {'label': 'Inspection Type:', 'value': o.inspection_type},
+    {'label': 'Scoring Success:', 'value': o.scoring_success},
+    {'label': 'Score:', 'value': o.scoring_percentage},
+    {'label': 'Partner:', 'value': o.partner_id.name},
+    {'label': 'Email:', 'value': o.email},
+    {'label': 'Building:', 'value': o.inspected_building_id.name},
+    {'label': 'Building Type:', 'value': o.building_use_id.name},
+    {'label': 'Building Section:', 'value': o.building_section_id.name},
+    {'label': 'Risk Use:', 'value': o.risk},
+    {'label': 'Area:', 'value': o.superficie},
+
+    ]" />
+
+
+
         <t
             t-set="left_table_top"
             t-value="[
@@ -330,7 +365,7 @@
         <div
             class="contenedor contenedor_4">
 
-            <div>
+           <!-- <div id="left_div">
                 <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="left_table_top" t-as="info">
@@ -351,7 +386,6 @@
                         </t>
                     </t>
 
-                    <!-- From one td to to tds -->
 
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
@@ -383,10 +417,9 @@
                         </t>
                     </t>
                 </table>
-            </div>
+            </div> -->
 
-            <div id="table_derecha" style="margin-left: 50px;">
-                <!-- Table  -->
+            <!-- <div id="table_derecha" style="margin-left: 50px;">
                 <table
                     class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="right_table" t-as="info">
@@ -407,6 +440,24 @@
                         </t>
                     </t>
                 </table>
+            </div> -->
+            <div class="contenedor_debajo">
+                <div class="row">
+                    <t t-set="column_counter" t-value="0" />
+                    <t t-foreach="all_values" t-as="value">
+                        <t t-set="column_counter" t-value="column_counter + 1" />
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label"><t t-esc="value['label']" /></label>
+                                <p class="form-control-static"><t t-esc="value['value']" /></p>
+                            </div>
+                        </div>
+                        <t t-if="column_counter % 2 == 0">
+                            </div>
+                            <div class="row">
+                        </t>
+                    </t>
+                </div>
             </div>
         </div>
     </template>
