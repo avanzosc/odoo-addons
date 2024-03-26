@@ -133,61 +133,85 @@
         </field>
     </record>
 
-    <record id="res_partner_import_line_view_tree" model="ir.ui.view">
+    <record id="res_partner_import_line_base_view_tree" model="ir.ui.view">
         <field name="model">res.partner.import.line</field>
         <field name="arch" type="xml">
             <tree
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-it="log_info"
-        editable="top"
       >
                 <field name="action" />
                 <field name="partner_ref" />
                 <field name="partner_name" />
                 <field name="partner_comercial" />
                 <field name="partner_company_type" />
-                <field name="partner_comercial" />
                 <field name="partner_vat" />
-                <field name="partner_id" />
                 <field name="partner_type" />
                 <field name="partner_parent_name" string="Related Company" />
-                <field
-          name="partner_parent_id"
-          options="{'no_create': True}"
-        />
                 <field name="partner_function" />
                 <field name="partner_street" />
                 <field name="partner_street2" />
                 <field name="partner_zip" />
-                <field
-          name="partner_zip_id"
-          options="{'no_create': True, 'no_open': True}"
-        />
                 <field name="partner_city" string="City" />
-                <field
-          name="partner_city_id"
-          options="{'no_create': True, 'no_open': True}"
-          context="{'show_country_state': True}"
-        />
                 <field name="partner_state" string="State" />
-                <field
-          name="partner_state_id"
-          options="{'no_create': True, 'no_open': True}"
-        />
                 <field name="partner_country" string="Country" />
-                <field
-          name="partner_country_id"
-          options="{'no_create': True, 'no_open': True}"
-        />
                 <field name="partner_phone" />
                 <field name="partner_mobile" />
                 <field name="partner_email" />
                 <field name="partner_website" />
                 <field name="partner_comment" />
                 <field name="state" />
-                <field name="log_info" />
+                <field name="log_info" invisible="1" />
             </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_import_line_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.import.line</field>
+        <field name="inherit_id" ref="res_partner_import_line_base_view_tree" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="editable">top</attribute>
+            </tree>
+            <field name="partner_vat" position="after">
+                <field name="partner_id" />
+            </field>
+            <field name="partner_parent_name" position="after">
+                <field
+          name="partner_parent_id"
+          options="{'no_create': True}"
+        />
+            </field>
+            <field name="partner_zip" position="after">
+                <field
+          name="partner_zip_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+            </field>
+            <field name="partner_city" position="after">
+                <field
+          name="partner_city_id"
+          options="{'no_create': True, 'no_open': True}"
+          context="{'show_country_state': True}"
+        />
+            </field>
+            <field name="partner_state" position="after">
+                <field
+          name="partner_state_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+            </field>
+            <field name="partner_country" position="after">
+                <field
+          name="partner_country_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                </field>
+            <field name="log_info" position="attributes">
+                <attribute name="invisible" />
+            </field>
         </field>
     </record>
 

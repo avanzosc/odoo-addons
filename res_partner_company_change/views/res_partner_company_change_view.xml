@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_company_change_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.company.change</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+                <field name="name"/>
+                <field name="file_date"/>
+                <field name="company_origin_id" groups="base.group_multi_company"/>
+                <field name="company_dest_id" groups="base.group_multi_company"/>
+                <field name="country_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_view_form" model="ir.ui.view">
+        <field name="model">res.partner.company.change</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_read_only"
+            states="draft,2validate,pass,error"
+          />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error,pass"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass,error"
+          />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+                        <button
+              string="Contacts"
+              type="object"
+              name="button_open_partner"
+              attrs="{'invisible':[('contact_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-refresh"
+            >
+                            <field name="contact_count"/>
+            </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="file_date"/>
+                        </group>
+                        <group>
+                            <field name="country_id"/>
+                            <field
+                name="company_origin_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
+                            <field
+                name="company_dest_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
+                            <field name="property_account_position_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Imported Lines">
+                            <field name="import_line_ids" />
+                        </page>
+                        <page
+              string="Error Log"
+              attrs="{'invisible':[('log_info','=','')]}"
+            >
+                            <field name="log_info" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_view_search" model="ir.ui.view">
+        <field name="model">res.partner.company.change</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="file_date" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_company_change_action" model="ir.actions.act_window">
+        <field name="name">Contacts Company Change</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.company.change</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_partner_company_change_view_tree" />
+    </record>
+
+    <menuitem
+    id="contacts_company_change_menu"
+    action="res_partner_company_change_action"
+    parent="contacts.menu_contacts"
+    sequence="10"
+  />
+
+</odoo>
