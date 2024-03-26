@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 12:36+0000\n"
-"PO-Revision-Date: 2024-03-20 12:36+0000\n"
+"POT-Creation-Date: 2024-03-26 14:49+0000\n"
+"PO-Revision-Date: 2024-03-26 14:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,17 @@ msgid "Act Number"
 msgstr "Número de Acta"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__administrator_id
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_section_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 msgid "Building Section/Area"
 msgstr "Sección/Área del Edificio"
 
 #. module: survey_building_use_section
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_location__building_use_id
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_person__building_use_id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__building_use_id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__building_use_id
 msgid "Building Use"
@@ -51,8 +54,6 @@ msgid "Building with activation date"
 msgstr "Edificio con fecha de activación"
 
 #. module: survey_building_use_section
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_location__certification_text
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_person__certification_text
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__certification_text
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__certification_text
 msgid "Certification Text"
@@ -71,6 +72,7 @@ msgstr "Crear Encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_survey_view_form
 #, python-format
 msgid "Create Survey to Building"
@@ -110,8 +112,6 @@ msgid "Error Text"
 msgstr "Texto de Error"
 
 #. module: survey_building_use_section
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_location__file_number
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_person__file_number
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__file_number
 #: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__file_number
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__file_number
@@ -129,14 +129,6 @@ msgid "ID"
 msgstr "ID"
 
 #. module: survey_building_use_section
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_location__is_industrial
-#: model:ir.model.fields,field_description:survey_building_use_section.field_fsm_person__is_industrial
-#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__is_industrial
-#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__is_industrial
-msgid "Industrial"
-msgstr "Industrial"
-
-#. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspected_building_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 msgid "Inspected Building"
@@ -145,7 +137,7 @@ msgstr "Edificio Inspeccionado"
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__section_ids
 msgid "Inspected Building Section/Area"
-msgstr "Sección/ÁreaInspeccionada del Edificio"
+msgstr "Sección/Área Inspeccionada del Edificio"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_end_date
@@ -172,6 +164,11 @@ msgid "Inspector"
 msgstr "Inspector"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installer_id
+msgid "Installer"
+msgstr "Instalador"
+
+#. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative____last_update
 msgid "Last Modified on"
 msgstr "Última Modificación el"
@@ -187,6 +184,11 @@ msgid "Last Updated on"
 msgstr "Última Actualización el"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__maintainer_id
+msgid "Maintainer"
+msgstr "Mantenedor"
+
+#. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__name
 msgid "Name"
 msgstr "Nombre"
@@ -200,17 +202,19 @@ msgstr "Nota"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__periodic
 #, python-format
 msgid "Periodic"
-msgstr "Periódica"
+msgstr "Periódico"
 
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/wizard/survey_invite.py:0
+#: code:addons/temp-addons/survey_building_use_section/wizard/survey_invite.py:0
 #, python-format
 msgid "Please enter at least one valid recipient."
-msgstr "Por favor ingresa al menos un destinatario válido."
+msgstr "Por favor, ingresa al menos un destinatario válido."
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__question_normative_id
@@ -238,18 +242,19 @@ msgstr "Destinatario"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__risk
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 msgid "Risk"
 msgstr "Riesgo"
-
-#. module: survey_building_use_section
-#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
-msgid "Risk/User"
-msgstr "Riesgo/Usuario"
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 msgid "Search Questions Normatives"
 msgstr "Buscar Normativas de Preguntas"
+
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
+msgid "Start Survey"
+msgstr "Iniciar Encuesta"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__start_year
@@ -300,6 +305,7 @@ msgstr "Línea de Entrada de Usuario de la Encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__volunteer
 #, python-format
 msgid "Volunteer"
@@ -309,4 +315,3 @@ msgstr "Voluntario"
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__building_activation_date
 msgid "building activation date"
 msgstr "fecha de activación del edificio"
-
