@@ -343,6 +343,7 @@ class SacaLine(models.Model):
                 line.product_uom_qty = self.net_origin
             for line in self.sudo().move_line_ids:
                 line.qty_done = self.net_origin
+                line.amount = line.qty_done * line.standard_price
             for line in self.sudo().purchase_order_line_ids:
                 line.product_qty = self.net_origin
         return result
@@ -451,6 +452,7 @@ class SacaLine(models.Model):
                     picking.sudo().button_validate()
             for picking in self.purchase_order_id.picking_ids:
                 picking.custom_date_done = self.date + timedelta(days=1)
+                picking.button_force_done_detailed_operations()
                 for line in picking.move_line_ids_without_package:
                     if not line.qty_done:
                         line.qty_done = line.move_id.product_uom_qty
@@ -471,6 +473,7 @@ class SacaLine(models.Model):
                                 line.product_id, name, picking.company_id
                             )
                         line.lot_id = lot.id
+                picking.sudo().button_validate()
             self.sudo().sale_order_id.commitment_date = self.date + timedelta(days=1)
             self.purchase_order_id.date_planned = self.date + timedelta(days=1)
             self.write({"stage_id": stage_matanza.id})
@@ -492,6 +495,11 @@ class SacaLine(models.Model):
                 self.sale_order_id.sudo().type_id = type_normal.id
             for line in self.sale_order_id.picking_ids:
                 line.sudo().batch_id = self.breeding_id.id
+            if self.download_unit:
+                for line in self.stock_move_ids.sudo():
+                    line.sudo().download_unit = self.download_unit
+                for line in self.move_line_ids.sudo():
+                    line.sudo().download_unit = self.download_unit
             vals = {"stage_id": stage_descarga.id}
             if not self.unload_date:
                 date = self.date
