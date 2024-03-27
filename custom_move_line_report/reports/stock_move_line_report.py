@@ -10,80 +10,111 @@ class StockMoveLineReport(models.Model):
     _auto = False
 
     date = fields.Datetime(
-        string="Date")
+        string="Date", readonly=True)
     product_id = fields.Many2one(
         string="Product",
-        comodel_name="product.product")
+        comodel_name="product.product",
+        readonly=True)
     lot_id = fields.Many2one(
         string="Lot/Serial Number",
-        comodel_name="stock.production.lot")
+        comodel_name="stock.production.lot",
+        readonly=True)
     location_id = fields.Many2one(
         string="Location",
-        comodel_name="stock.location")
+        comodel_name="stock.location",
+        readonly=True)
     type_id = fields.Many2one(
-        string="Section",
-        comodel_name="category.type")
+        string="Location Section",
+        comodel_name="category.type",
+        readonly=True)
+    product_category_type_id = fields.Many2one(
+        string="Product Category Section",
+        comodel_name="category.type",
+        readonly=True)
     move_type_id = fields.Many2one(
         string="Move Type",
-        comodel_name="move.type")
+        comodel_name="move.type",
+        readonly=True)
     type_category_id = fields.Many2one(
         string="Type Category",
-        comodel_name="stock.picking.type.category")
+        comodel_name="stock.picking.type.category",
+        readonly=True)
     batch_id = fields.Many2one(
         string="Egg Mother",
-        comodel_name="stock.picking.batch")
+        comodel_name="stock.picking.batch",
+        readonly=True)
     warehouse_id = fields.Many2one(
         string="Warehouse",
-        comodel_name="stock.warehouse")
+        comodel_name="stock.warehouse",
+        readonly=True)
     company_id = fields.Many2one(
         string="Company",
-        comodel_name="res.company")
+        comodel_name="res.company",
+        readonly=True)
     qty_done = fields.Float(
-        string="Difference")
+        string="Difference",
+        readonly=True)
     entry_qty = fields.Float(
-        string="Entries")
+        string="Entries",
+        readonly=True)
     output_qty = fields.Float(
-        string="Outputs")
+        string="Outputs",
+        readonly=True)
     amount = fields.Float(
-        string="Amount Difference")
+        string="Amount Difference",
+        readonly=True)
     entry_amount = fields.Float(
-        string="Entries Amount")
+        string="Entries Amount",
+        readonly=True)
     output_amount = fields.Float(
-        string="Outputs Amount")
+        string="Outputs Amount",
+        readonly=True)
     owner_id = fields.Many2one(
         string="Owner",
-        comodel_name="res.partner")
+        comodel_name="res.partner",
+        readonly=True)
     move_line_id = fields.Many2one(
         string="Move Line",
-        comodel_name="stock.move.line")
+        comodel_name="stock.move.line",
+        readonly=True)
     move_id = fields.Many2one(
         string="Move",
-        comodel_name="stock.move")
+        comodel_name="stock.move",
+        readonly=True)
     picking_id = fields.Many2one(
         string="Picking",
-        comodel_name="stock.picking")
+        comodel_name="stock.picking",
+        readonly=True)
     production_id = fields.Many2one(
         string="Production",
-        comodel_name="mrp.production")
+        comodel_name="mrp.production",
+        readonly=True)
     egg = fields.Boolean(
-        string="Egg")
+        string="Egg",
+        readonly=True)
     batch_location_id = fields.Many2one(
         string="Mother Location",
-        comodel_name="stock.location")
+        comodel_name="stock.location",
+        readonly=True)
     batch_category_type_id = fields.Many2one(
         string="Batch Section",
-        comodel_name="category.type")
+        comodel_name="category.type",
+        readonly=True)
     usage = fields.Selection(
         string="Usage",
-        selection="_get_usage_selection")
+        selection="_get_usage_selection",
+        readonly=True)
     partner_id = fields.Many2one(
         string="Partner",
-        comodel_name="res.partner")
+        comodel_name="res.partner",
+        readonly=True)
     picking_type_id = fields.Many2one(
         string="Picking Type",
-        comodel_name="stock.picking.type")
+        comodel_name="stock.picking.type",
+        readonly=True)
     ref = fields.Char(
-        string="Reference")
+        string="Reference",
+        readonly=True)
 
     @api.model
     def _get_usage_selection(self):
@@ -105,6 +136,7 @@ class StockMoveLineReport(models.Model):
                     line.production_id,
                     line.partner_id,
                     line.product_id,
+                    line.product_category_type_id,
                     line.egg,
                     line.lot_id,
                     line.location_id,
@@ -134,6 +166,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.product_category_type_id AS product_category_type_id,
                             stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
@@ -156,6 +189,7 @@ class StockMoveLineReport(models.Model):
                             0 AS entry_amount,
                             stock_move_line.amount * (-1) AS output_amount,
                             stock_move_line.state AS state,
+                            stock_move_line.show_in_report AS show_in_report,
                             stock_move_line.company_id AS company_id
                         FROM
                         stock_move_line
@@ -173,6 +207,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.product_category_type_id AS product_category_type_id,
                             stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
@@ -195,6 +230,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.amount AS entry_amount,
                             0 AS output_amount,
                             stock_move_line.state AS state,
+                            stock_move_line.show_in_report AS show_in_report,
                             stock_move_line.company_id AS company_id
                         FROM
                         stock_move_line
@@ -212,6 +248,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.production_id AS production_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.product_category_type_id AS product_category_type_id,
                             stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
@@ -234,6 +271,7 @@ class StockMoveLineReport(models.Model):
                             0 AS entry_amount,
                             stock_move_line.amount * (-1) AS output_amount,
                             stock_move_line.state AS state,
+                            stock_move_line.show_in_report AS show_in_report,
                             stock_move_line.company_id AS company_id
                         FROM
                         stock_move_line
@@ -254,6 +292,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.production_id AS production_id,
                             stock_move_line.picking_partner_id AS partner_id,
                             stock_move_line.product_id AS product_id,
+                            stock_move_line.product_category_type_id AS product_category_type_id,
                             stock_move_line.reference AS ref,
                             stock_move_line.egg AS egg,
                             stock_move_line.date AS date,
@@ -276,6 +315,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.amount AS entry_amount,
                             0 AS output_amount,
                             stock_move_line.state AS state,
+                            stock_move_line.show_in_report AS show_in_report,
                             stock_move_line.company_id AS company_id
                         FROM
                         stock_move_line
@@ -290,6 +330,7 @@ class StockMoveLineReport(models.Model):
                     ) AS line
                     WHERE
                         line.state = 'done' AND
-                        line.qty_done IS NOT NULL
+                        line.qty_done IS NOT NULL AND
+                        (line.show_in_report IS TRUE OR line.picking_id IS NULL)
             )
         """)
