@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 07:18+0000\n"
-"PO-Revision-Date: 2023-10-26 07:18+0000\n"
+"POT-Creation-Date: 2024-03-27 11:20+0000\n"
+"PO-Revision-Date: 2024-03-27 11:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -176,6 +176,11 @@ msgid "Download Unit"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.ui.menu,name:custom_descarga.drivers_menu
+msgid "Drivers"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__waiting_reason__failure
 msgid "Failure"
 msgstr ""
@@ -337,7 +342,7 @@ msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__kilo_discount
-msgid "Kilo discount"
+msgid "Kilo Discount"
 msgstr ""
 
 #. module: custom_descarga
@@ -357,8 +362,8 @@ msgid "Last Modified on"
 msgstr ""
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_product_product__list_price
-msgid "List Price"
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_view_search
+msgid "Last Week"
 msgstr ""
 
 #. module: custom_descarga
@@ -441,6 +446,7 @@ msgid "Por descargar"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,help:custom_descarga.field_product_product__list_price
 #: model:ir.model.fields,help:custom_descarga.field_product_template__list_price
 msgid "Price at which the product is sold to customers."
 msgstr ""
@@ -458,6 +464,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_product_template
 msgid "Product Template"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_product__lst_price
+msgid "Public Price"
 msgstr ""
 
 #. module: custom_descarga
@@ -485,12 +496,19 @@ msgid "Saca Line"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.actions.act_window,name:custom_descarga.action_saca_line_driver
+#: model:ir.ui.menu,name:custom_descarga.menu_driver_saca_lines
+msgid "Saca Lines"
+msgstr ""
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Saca Order"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_product_product__list_price
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__list_price
 msgid "Sales Price"
 msgstr ""
@@ -563,7 +581,14 @@ msgstr ""
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__tara_origin
-msgid "Tara Oringin"
+msgid "Tara Origin"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,help:custom_descarga.field_product_product__lst_price
+msgid ""
+"The sale price is managed from the product template. Click on the 'Configure"
+" Variants' button to set the extra attribute prices."
 msgstr ""
 
 #. module: custom_descarga
