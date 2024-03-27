@@ -292,6 +292,9 @@
             <field name="saca_id" position="after">
                 <field name="stage_id"/>
             </field>
+            <filter name="unload_date_filter" position="after">
+                <filter string="Last Week" name="last_week_saca" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+            </filter>
             <filter name="saca" position="after">
                 <filter string="Stage" name="stage" context="{'group_by':'stage_id'}"/>
             </filter>
@@ -357,6 +360,19 @@
         <field name="view_id" ref="custom_descarga.saca_line_descarga_tree_view"/>
         <field name="domain">['|', ('is_killing', '=', True), ('is_classified', '=', True), ('is_historic', '=', False)]</field>
     </record>
+
+    <record id="action_saca_line_driver" model="ir.actions.act_window">
+        <field name="name">Saca Lines</field>
+        <field name="res_model">saca.line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_historic', '=', False), ('is_canceled', '=', False), ('is_presaca', '=', False), ('is_saca', '=', False)]</field>
+        <field name="context">{"search_default_last_week_saca": 1, "search_default_saca": 1}</field>
+    </record>
+
+    <menuitem name="Drivers" id="drivers_menu" sequence="130" web_icon="custom_descarga,static/description/chofer.jpg"/>
+
+    <menuitem action="action_saca_line_driver" name="Saca Lines" id="menu_driver_saca_lines" parent="drivers_menu" sequence="5"/>
 
     <menuitem name="Descarga" id="stage_descarga_menu" sequence="116" web_icon="custom_descarga,static/description/descarga.png"/>
 
