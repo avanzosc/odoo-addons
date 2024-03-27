@@ -14,6 +14,7 @@
                 <field name="picking_type_id"/>
                 <field name="location_id"/>
                 <field name="type_id"/>
+                <field name="product_category_type_id"/>
                 <field name="move_type_id"/>
                 <field name="type_category_id"/>
                 <field name="batch_id"/>
@@ -50,6 +51,7 @@
                         <group string="Type">
                             <field name="picking_type_id"/>
                             <field name="type_id"/>
+                            <field name="product_category_type_id"/>
                             <field name="move_type_id"/>
                             <field name="type_category_id"/>
                         </group>
@@ -119,6 +121,7 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <search>
+                <field name="ref"/>
                 <field name="product_id"/>
                 <field name="lot_id"/>
                 <field name="location_id"/>
@@ -126,6 +129,7 @@
                 <field name="move_type_id"/>
                 <field name="type_category_id"/>
                 <field name="type_id"/>
+                <field name="product_category_type_id"/>
                 <field name="picking_id"/>
                 <field name="batch_id"/>
                 <field name="production_id"/>
@@ -147,8 +151,10 @@
                             context="{'group_by':'location_id'}" />
                     <filter name="groupby_warehouse" string="Warehouse"
                             context="{'group_by':'warehouse_id'}" />
-                    <filter name="groupby_section" string="Section"
+                    <filter name="groupby_section" string="Location Section"
                             context="{'group_by':'type_id'}" />
+                    <filter name="groupby_product_section" string="Product Category Section"
+                            context="{'group_by':'product_category_type_id'}" />
                     <filter name="groupby_move_type" string="Move Type"
                             context="{'group_by':'move_type_id'}" />
                     <filter name="groupby_type_category" string="Type Category"
@@ -173,6 +179,7 @@
         <field name="res_model">stock.move.line.report</field>
         <field name="view_mode">pivot,tree,form</field>
         <field name="view_id" ref="view_stock_move_line_report_pivot"></field>
+        <field name="context">{"search_default_internal": 1}</field>
     </record>
 
     <record id="egg_move_line_report_action" model="ir.actions.act_window">

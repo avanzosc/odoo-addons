@@ -20,3 +20,14 @@ class StockMoveLine(models.Model):
         comodel_name="category.type",
         related="batch_location_id.type_id",
         store=True)
+    product_category_type_id = fields.Many2one(
+        string="Product Category Section",
+        comodel_name="category.type",
+        related="product_category_id.type_id",
+        store=True
+    )
+    show_in_report = fields.Boolean(
+        string="Show in Report",
+        related="picking_id.show_in_report",
+        store=True
+        )
