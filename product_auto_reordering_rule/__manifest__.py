@@ -8,7 +8,7 @@
         "stock",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
         "wizard/wiz_create_auto_reordering_rule_view.xml",
