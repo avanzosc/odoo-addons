@@ -6,6 +6,7 @@
     "license": "AGPL-3",
     "depends": [
         "sale",
+        "stock",
         "stock_account",
         "purchase_last_price_info",
         "invoice_supplier_last_price_info",
