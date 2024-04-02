@@ -23,7 +23,7 @@
             </field>
             <field name="standard_price" position="after">
                 <field name="last_purchase_price" />
-                <field name="last_supplier_invoice_price" />
+                <!-- <field name="last_supplier_invoice_price" /> -->
                 <field name="target_cost" />
                 <field name="percentage_between_costs" />
                 <field name="manual_pvp" />
@@ -49,7 +49,7 @@
         </field>
     </record>
 
-    <record id="product_product_tree_view_inh_invoice_supplier" model="ir.ui.view">
+    <!-- <record id="product_product_tree_view_inh_invoice_supplier" model="ir.ui.view">
         <field name="model">product.product</field>
         <field
       name="inherit_id"
@@ -60,7 +60,7 @@
                 <attribute name="invisible">1</attribute>
             </field>
         </field>
-    </record>
+    </record> -->
 
     <record id="product_search_form_view" model="ir.ui.view">
         <field name="model">product.product</field>
@@ -70,19 +70,7 @@
                 <field name="product_category_sale_price_id" />
                 <field name="target_cost" />
             </field>
-            <field name="pricelist_id" position="after">
-                <separator />
-                <filter
-          string="Manual PSP"
-          name="filter-manual-pvp"
-          domain="[('manual_pvp', '=', True)]"
-        />
-                <filter
-          string="NO Manual PSP"
-          name="filter-no-manual-pvp"
-          domain="[('manual_pvp', '=', False)]"
-        />
-            </field>
+          
             <filter name="activities_upcoming_all" position="after">
                 <group expand="0" string="Group By">
                     <filter
