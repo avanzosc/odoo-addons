@@ -6,7 +6,6 @@ from odoo import api, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    @api.multi
     def write(self, values):
         result = super().write(values)
         if "price_unit" in values and values.get("price_unit", False):
