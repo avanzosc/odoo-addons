@@ -134,8 +134,8 @@ class StockMove(models.Model):
         return result
 
 
-class StockInventoryLine(models.Model):
-    _inherit = "stock.inventory.line"
+class StockScrap(models.Model):
+    _inherit = "stock.scrap"
 
     informative_location = fields.Text(
         string="Informative locations", compute="_compute_informative_locations"
