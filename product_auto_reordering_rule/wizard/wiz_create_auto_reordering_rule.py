@@ -25,7 +25,6 @@ class WizCreateAutoReorderingRule(models.TransientModel):
             result["line_ids"] = vals
         return result
 
-    @api.multi
     def button_create_reordering_rules(self):
         context = dict(self._context or {})
         active_ids = context.get("active_ids", []) or []

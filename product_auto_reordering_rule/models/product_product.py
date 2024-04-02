@@ -12,7 +12,6 @@ class ProductProduct(models.Model):
         product._create_reordering_rule()
         return product
 
-    @api.multi
     def _create_reordering_rule(self, default_locations=False):
         orderpoint_obj = self.env["stock.warehouse.orderpoint"]
         location_obj = self.env["stock.location"]
