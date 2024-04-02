@@ -7,5 +7,7 @@ class SurveyQuestionAnswer(models.Model):
     _inherit = "survey.question.answer"
 
     notes = fields.Text(
-        string="Note", help="Error Text", copy=False,
+        string="Note",
+        help="Error Text",
+        copy=False,
     )

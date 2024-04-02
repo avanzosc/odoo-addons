@@ -8,10 +8,10 @@ class PurchaseOrderLine(models.Model):
 
     @api.multi
     def write(self, values):
-        result = super(PurchaseOrderLine, self).write(values)
+        result = super().write(values)
         if "price_unit" in values and values.get("price_unit", False):
             for line in self:
-                product = line.mapped('product_id')
+                product = line.mapped("product_id")
                 if line.state in ("draft", "cancel"):
                     product.set_product_last_purchase()
                 else:

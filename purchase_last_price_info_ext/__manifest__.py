@@ -11,8 +11,7 @@
         "purchase_last_price_info",
     ],
     "excludes": [],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
     "auto_install": False,
 }
