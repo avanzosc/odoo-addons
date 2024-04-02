@@ -135,18 +135,23 @@ class ReportMotherLineageRelationXlsx(models.AbstractModel):
             n, 9, sum(objects.mapped("output_units")), int_format)
         cancellation = (sum(objects.mapped("chick_entry_qty")) - sum(
             objects.mapped("output_units"))) * 100 / sum(
-                objects.mapped("chick_entry_qty"))
+                objects.mapped("chick_entry_qty")) if sum(
+                objects.mapped("chick_entry_qty")) else 0
         worksheet.write(n, 10, round(cancellation, 2), two_decimal_format)
         density = sum(objects.mapped("chick_entry_qty")) / sum(
             objects.mapped("warehouse_area"))
         worksheet.write(n, 11, round(density, 2), two_decimal_format)
         average_age = sum(objects.mapped("age_output")) / sum(
-            objects.mapped("output_units"))
+            objects.mapped("output_units")) if sum(
+                objects.mapped("output_units")
+            ) else 0
         growth_speed = sum(objects.mapped("meat_kilos")) / sum(
-            objects.mapped("output_units")) / average_age * 1000
+            objects.mapped("output_units")) / average_age * 1000 if sum(
+            objects.mapped("output_units")) and average_age else 0
         worksheet.write(n, 12, round(growth_speed, 2), two_decimal_format)
         conversion = sum(objects.mapped("consume_feed")) / sum(
-            objects.mapped("meat_kilos"))
+            objects.mapped("meat_kilos")) if sum(
+                objects.mapped("meat_kilos")) else 0
         feep = growth_speed * (100 - cancellation) / (10 * conversion) if conversion != 0 else 0
         worksheet.write(n, 13, feep, int_format)
         worksheet.write(n, 14, sum(objects.mapped("meat_kilos")), int_format)
@@ -161,7 +166,8 @@ class ReportMotherLineageRelationXlsx(models.AbstractModel):
         worksheet.write(
             n, 21, sum(objects.mapped("farm_day"))/(n-1), int_format)
         average_weight = sum(objects.mapped("meat_kilos")) / sum(
-            objects.mapped("output_units"))
+            objects.mapped("output_units")) if sum(
+            objects.mapped("output_units")) else 0
         worksheet.write(n, 22, round(average_weight, 3), three_decimal_format)
         worksheet.write(n, 23, round(conversion, 3), three_decimal_format)
         worksheet.write(
