@@ -107,7 +107,6 @@ class StockMove(models.Model):
                 )
         return move
 
-    @api.multi
     def write(self, vals):
         result = super().write(vals)
         if (
