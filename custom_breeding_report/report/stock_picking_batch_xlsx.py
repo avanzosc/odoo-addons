@@ -124,18 +124,22 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         worksheet.write(n, 6, sum(objects.mapped("output_units")), int_format)
         cancellation = (sum(objects.mapped("chick_entry_qty")) - sum(
             objects.mapped("output_units"))) * 100 / sum(
-                objects.mapped("chick_entry_qty"))
+                objects.mapped("chick_entry_qty")) if sum(
+                objects.mapped("chick_entry_qty")) else 0
         worksheet.write(n, 7, round(cancellation, 2), two_decimal_format)
         density = sum(objects.mapped("chick_entry_qty")) / sum(
             objects.mapped("warehouse_area"))
         worksheet.write(n, 8, round(density, 2), two_decimal_format)
         average_age = sum(objects.mapped("age_output")) / sum(
-            objects.mapped("output_units"))
+            objects.mapped("output_units")) if sum(
+            objects.mapped("output_units")) else 0
         growth_speed = sum(objects.mapped("meat_kilos")) / sum(
-            objects.mapped("output_units")) / average_age * 1000
+            objects.mapped("output_units")) / average_age * 1000 if sum(
+            objects.mapped("output_units")) and average_age else 0
         worksheet.write(n, 9, round(growth_speed, 2), two_decimal_format)
         conversion = sum(objects.mapped("consume_feed")) / sum(
-            objects.mapped("meat_kilos"))
+            objects.mapped("meat_kilos")) if sum(
+            objects.mapped("meat_kilos")) else 0
         feep = growth_speed * (100 - cancellation) / (10 * conversion) if conversion != 0 else 0
         worksheet.write(n, 10, int(feep), int_format)
         worksheet.write(n, 11, sum(objects.mapped("meat_kilos")), int_format)
@@ -150,16 +154,19 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         worksheet.write(n, 18, int(
             sum(objects.mapped("farm_day"))/(n-1)), int_format)
         average_weight = sum(objects.mapped("meat_kilos")) / sum(
-            objects.mapped("output_units"))
+            objects.mapped("output_units")) if sum(
+            objects.mapped("output_units")) else 0
         worksheet.write(n, 19, round(average_weight, 3), three_decimal_format)
         worksheet.write(n, 20, round(conversion, 3), three_decimal_format)
         worksheet.write(n, 21, round(
             average_weight - conversion, 3), three_decimal_format)
         worksheet.write(n, 22, round(
             sum(objects.mapped("liquidation_amount")), 2), two_decimal_format)
-        worksheet.write(n, 23, round(sum(objects.mapped(
+        average = sum(objects.mapped(
             "liquidation_amount")) / sum(
-                objects.mapped("output_units")), 8), eight_decimal_format)
+                objects.mapped("output_units")) if sum(
+                objects.mapped("output_units")) else 0
+        worksheet.write(n, 23, round(average, 8), eight_decimal_format)
         worksheet.write(n, 24, round(sum(objects.mapped(
             "liquidation_amount")) / sum(
                 objects.mapped("warehouse_area")), 8), eight_decimal_format)
