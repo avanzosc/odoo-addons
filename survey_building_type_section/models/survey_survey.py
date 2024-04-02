@@ -7,6 +7,6 @@ class SurveySurvey(models.Model):
     _inherit = "survey.survey"
 
     def action_send_survey(self):
-        result = super(SurveySurvey, self).action_send_survey()
+        result = super().action_send_survey()
         result["name"] = _("Create Survey to Building")
         return result

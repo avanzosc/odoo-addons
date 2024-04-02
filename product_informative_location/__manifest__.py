@@ -8,7 +8,7 @@
         "stock",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Warehouse",
     "data": [
         "security/ir.model.access.csv",
