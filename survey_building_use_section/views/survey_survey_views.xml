@@ -7,6 +7,11 @@
             <button name="action_send_survey" position="attributes">
                 <attribute name="string">Create Survey to Building</attribute>
             </button>
+            <field name="title" position="after">
+                <field name="question_normative_id" />
+            </field>
+
         </field>
     </record>
+
 </odoo>
