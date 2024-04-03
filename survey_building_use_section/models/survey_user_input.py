@@ -121,6 +121,7 @@ class SurveyUserInput(models.Model):
         else:
             # Handle the case where dot or slash is not found
             base_url = full_url
+            
         if not base_url:
             base_url = self.env['ir.config_parameter'].get_param('web.base.url')
             

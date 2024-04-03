@@ -8,5 +8,4 @@ class SurveyQuestion(models.Model):
 
     question_normative_ids = fields.Many2many(
         string="Question Normatives", comodel_name="survey.question.normative",
-        copy=False,
     )
