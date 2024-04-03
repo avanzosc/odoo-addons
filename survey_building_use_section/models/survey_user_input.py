@@ -97,13 +97,14 @@ class SurveyUserInput(models.Model):
     def action_start_survey(self):
         
         # Obtener el ID del partner con nombre "admin"
-        admin_partner = self.env['res.partner'].search([('name', '=', 'Administrator')], limit=1)
+        current_user_partner = self.env.user.partner_id
 
-        if admin_partner:
-            # Asignar el ID del partner con nombre "admin" al partner_id del survey_user_input
-            self.partner_id = admin_partner.id
-            
-        self.partner_id = 2
+        if current_user_partner:
+            # Asignar el ID del socio asociado con el usuario actual al partner_id del survey_user_input
+            self.partner_id = current_user_partner.id
+        else:
+            # Usuario administrador es id = 3
+            self.partner_id = 3
             
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         survey_id = self.survey_id
