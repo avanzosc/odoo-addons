@@ -8,11 +8,9 @@ class StockMoveLine(models.Model):
 
     def _default_standard_price(self):
         result = 0
-        if self.move_id.sale_line_id and self.move_id.sale_line_id.price_unit:
+        if self.move_id.sale_line_id:
             result = self.move_id.sale_line_id.price_unit
-        elif (
-            self.move_id.purchase_line_id) and (
-                self.move_id.purchase_line_id.price_unit):
+        elif self.move_id.purchase_line_id:
             result = self.move_id.purchase_line_id.price_unit
         elif self.product_id:
             result = self.product_id.standard_price
@@ -25,11 +23,9 @@ class StockMoveLine(models.Model):
     @api.onchange('product_id', 'product_uom_id')
     def _onchange_product_id(self):
         res = super()._onchange_product_id()
-        if self.move_id.sale_line_id and self.move_id.sale_line_id.price_unit:
+        if self.move_id.sale_line_id:
             self.standard_price = self.move_id.sale_line_id.price_unit
-        elif (
-            self.move_id.purchase_line_id) and (
-                self.move_id.purchase_line_id.price_unit):
+        elif self.move_id.purchase_line_id:
             self.standard_price = self.move_id.purchase_line_id.price_unit
         elif self.product_id and self.product_id.standard_price:
             self.standard_price = self.product_id.standard_price
