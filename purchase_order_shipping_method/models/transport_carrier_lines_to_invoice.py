@@ -69,6 +69,7 @@ class TransportCarrierLinesToInvoice(models.Model):
                 transporters.append(record.transporter_id)
                 today = fields.Date.today()
                 vals = {'partner_id': record.transporter_id.id,
+                        'fiscal_position_id': record.transporter_id.property_account_position_id.id or False,
                         'invoice_date': today,
                         'journal_id': self.env['account.journal'].search(
                             [('type', '=', 'purchase')], limit=1).id,
@@ -94,9 +95,7 @@ class TransportCarrierLinesToInvoice(models.Model):
                                      'quantity': line.product_qty,
                                      'product_uom_id': line.product_uom_id.id,
                                      'price_unit': line.price_unit,
-                                     'move_id': account_move.id,
-                                     'tax_ids': self.env['account.tax'].search(
-                                         [('id', '=', 9)]).ids,
+                                     'move_id': account_move.id
                                      }
                         if line.product_id.property_account_expense_id:
                             move_line.update(
@@ -106,4 +105,15 @@ class TransportCarrierLinesToInvoice(models.Model):
                             move_line.update(
                                 {'account_id': (
                                     line.product_id.categ_id.property_account_expense_categ_id.id)})
+                        before_lines = account_move.invoice_line_ids
                         account_move.invoice_line_ids = [(0, 0, move_line)]
+                        after_lines = account_move.invoice_line_ids
+                        new_lines = after_lines - before_lines
+                        for new in new_lines:
+                            taxes = new._get_computed_taxes()
+                            print(taxes)
+                            if taxes and account_move.fiscal_position_id:
+                                taxes = account_move.fiscal_position_id.map_tax(
+                                    taxes, partner=account_move.partner_id
+                                )
+                            new.tax_ids = taxes
