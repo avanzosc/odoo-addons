@@ -8,7 +8,7 @@
                 <attribute name="string">Create Survey to Building</attribute>
             </button>
             <field name="title" position="after">
-                <field name="question_normative_ids" />
+                <field name="question_normative_ids" widget="many2many_tags" optional="show"/>
             </field>
 
         </field>
