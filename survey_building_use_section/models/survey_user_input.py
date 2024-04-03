@@ -108,7 +108,19 @@ class SurveyUserInput(models.Model):
             self.partner_id = 3
             
         
-        base_url = request.httprequest.base_url
+        # Get the full URL of the current request
+        full_url = request.httprequest.url
+
+        # Find the index of the first dot and the first slash after that dot
+        dot_index = full_url.find('.')
+        slash_index = full_url.find('/', dot_index)
+
+        # Extract the base URL
+        if dot_index != -1 and slash_index != -1:
+            base_url = full_url[:slash_index]
+        else:
+            # Handle the case where dot or slash is not found
+            base_url = full_url
         if not base_url:
             base_url = self.env['ir.config_parameter'].get_param('web.base.url')
             
