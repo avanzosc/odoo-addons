@@ -106,7 +106,11 @@ class SurveyUserInput(models.Model):
             # Usuario administrador es id = 3
             self.partner_id = 3
             
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        
+        base_url = request.httprequest.base_url
+        if not base_url:
+            base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+            
         survey_id = self.survey_id
         access_token = survey_id.access_token
         answer_token = self.access_token
