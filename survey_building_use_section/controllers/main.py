@@ -41,6 +41,24 @@ class Survey(Survey):
         survey_data = self._prepare_survey_data(survey_sudo, answer_sudo, **post)
 
         _logger.info("2024okdeb - Contenido de survey_data: %s", survey_data)
+        
+
+        _logger.info("2024okdeb - Contenido detallado de survey_data:")
+        _logger.info("2024okdeb - is_html_empty: %s", survey_data['is_html_empty'])
+        _logger.info("2024okdeb - survey: %s", survey_data['survey'])
+        _logger.info("2024okdeb - answer: %s", survey_data['answer'])
+        _logger.info("2024okdeb - breadcrumb_pages: %s", survey_data['breadcrumb_pages'])
+        _logger.info("2024okdeb - format_datetime: %s", survey_data['format_datetime'])
+        _logger.info("2024okdeb - format_date: %s", survey_data['format_date'])
+        _logger.info("2024okdeb - triggering_answer_by_question: %s", survey_data['triggering_answer_by_question'])
+        _logger.info("2024okdeb - triggered_questions_by_answer: %s", survey_data['triggered_questions_by_answer'])
+        _logger.info("2024okdeb - selected_answers: %s", survey_data['selected_answers'])
+        _logger.info("2024okdeb - survey_last: %s", survey_data['survey_last'])
+        _logger.info("2024okdeb - page: %s", survey_data['page'])
+        _logger.info("2024okdeb - has_answered: %s", survey_data['has_answered'])
+        _logger.info("2024okdeb - can_go_back: %s", survey_data['can_go_back'])
+        _logger.info("2024okdeb - previous_page_id: %s", survey_data['previous_page_id'])
+
 
         if answer_sudo.state == 'done':
             survey_content = request.env['ir.qweb']._render('survey.survey_fill_form_done', survey_data)
