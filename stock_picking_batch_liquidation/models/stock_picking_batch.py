@@ -626,16 +626,24 @@ class StockPickingBatch(models.Model):
 
     @api.depends("move_line_ids", "move_line_ids.move_type_id",
                   "move_line_ids.location_dest_id", "move_line_ids.amount",
-                  "location_id", "move_line_ids.state")
+                  "location_id", "move_line_ids.state",
+                  "move_line_ids.picking_id", "move_line_ids.location_id")
     def _compute_entry_chicken_amount(self):
         chick_type = self.env.ref("stock_picking_batch_liquidation.move_type1")
         for batch in self:
             amount = 0
             if batch.move_line_ids:
-                amount = sum(batch.move_line_ids.filtered(
+                entry_line = batch.move_line_ids.filtered(
                     lambda c: c.move_type_id == chick_type and (
-                        c.location_dest_id == batch.location_id and (
-                            c.state) == "done")).mapped("amount"))
+                        c.location_dest_id == batch.location_id
+                    ) and c.state == "done")
+                dev_lines = batch.move_line_ids.filtered(
+                    lambda c: c.move_type_id == chick_type and (
+                        c.location_id == batch.location_id
+                    ) and c.state == "done" and c.picking_id)
+                amount = sum(
+                    entry_line.mapped("amount")
+                ) - sum(dev_lines.mapped("amount"))
             batch.entry_chicken_amount = amount
 
     @api.onchange("warehouse_id")
@@ -832,15 +840,18 @@ class StockPickingBatch(models.Model):
             entry_lines = feed_movelines.filtered(
                 lambda c: c.location_dest_id == self.location_id and c.lot_id == line
             )
-            out_lines = feed_movelines.filtered(
-                lambda c: c.location_id == self.location_id and c.lot_id == line
+            dev_lines = feed_movelines.filtered(
+                lambda c: c.location_id == self.location_id and c.lot_id == line and c.picking_id
             )
-            entry_qty = sum(entry_lines.mapped("qty_done"))
+            out_lines = feed_movelines.filtered(
+                lambda c: c.location_id == self.location_id and c.lot_id == line and not c.picking_id
+            )
+            entry_qty = sum(entry_lines.mapped("qty_done")) - sum(dev_lines.mapped("qty_done"))
             out_qty = sum(out_lines.mapped("qty_done"))
             if entry_qty == out_qty:
-                amount += round(sum(entry_lines.mapped("amount")),2)
+                amount += round(sum(entry_lines.mapped("amount")),2) - round(sum(dev_lines.mapped("amount")),2)
             else:
-                entry_amount = round(sum(entry_lines.mapped("amount")),2)
+                entry_amount = round(sum(entry_lines.mapped("amount")),2) - round(sum(dev_lines.mapped("amount")),2)
                 out_amount = round(sum(out_lines.mapped("amount")),2)
                 amount += round(entry_amount + (out_amount - entry_amount),2)
         self.env["account.analytic.line"].create({
