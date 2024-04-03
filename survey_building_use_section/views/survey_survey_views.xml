@@ -7,11 +7,9 @@
             <button name="action_send_survey" position="attributes">
                 <attribute name="string">Create Survey to Building</attribute>
             </button>
-            <field name="title" position="after">
+            <!-- <xpath expr="//field[@name='question_and_page_ids']//field[@name='title']">
                 <field name="question_normative_ids" widget="many2many_tags" optional="show"/>
-            </field>
-
+            </xpath> -->
         </field>
     </record>
-
 </odoo>
