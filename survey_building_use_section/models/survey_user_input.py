@@ -103,6 +103,8 @@ class SurveyUserInput(models.Model):
             # Asignar el ID del partner con nombre "admin" al partner_id del survey_user_input
             self.partner_id = admin_partner.id
             
+        self.partner_id = 2
+            
         base_url = self.env['ir.config_parameter'].get_param('web.base.url')
         survey_id = self.survey_id
         access_token = survey_id.access_token
