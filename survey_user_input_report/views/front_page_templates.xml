@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Agregar portada -->
-    <template
-        id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
-        name="Survey: Inspección Segunda Vista"
-    >
+    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" name="Survey: Inspección Segunda Vista">
 
 
         <style>
@@ -57,9 +54,7 @@
 
         <t t-set="survey_form_readonly" t-value="true" />
 
-        <!-- <t
-            t-set="survey_info"
-            t-value="[
+        <!-- <t t-set="survey_info" t-value="[
                 {'label': 'Survey Title:', 'value': o.survey_id.title},
                 {'label': 'Survey Expediente:', 'value': o.file_number},
                 {'label': 'Survey Acta:', 'value': o.act_number},
@@ -79,9 +74,7 @@
                 {'label': 'Create Date:', 'value': o.create_date},
                 ]" /> -->
 
-        <t
-            t-set="survey_info"
-            t-value="[
+        <t t-set="survey_info" t-value="[
                 {'label': 'Survey Expediente:', 'value': o.file_number},
                 {'label': 'Survey Acta:', 'value': o.act_number},
                 {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
@@ -91,9 +84,7 @@
                 {'label': 'Partner:', 'value': o.partner_id.name},
                 ]" />
 
-        <t
-            t-set="survey_info_debajo"
-            t-value="[
+        <t t-set="survey_info_debajo" t-value="[
                     {'label': 'Building:', 'value': o.inspected_building_id.name},
                     {'label': 'NIF:', 'value': o.inspected_building_id.vat},
                     {'label': 'Phone:', 'value': o.inspected_building_id.phone},
@@ -125,19 +116,15 @@
                     <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])" />
 
                     <!-- Filtrar las normativas basadas en el año de inicio y fin -->
-                    <t t-set="current_question_print_normatives"
-                        t-value="all_normatives.filtered(lambda norm: 
+                    <t t-set="current_question_print_normatives" t-value="all_normatives.filtered(lambda norm: 
                         norm.start_year &lt;= o.inspected_building_id.service_start_date.year and
                         norm.end_year &gt;= o.inspected_building_id.service_start_date.year
                     )" />
                     <t t-if="current_question_print_normatives">
-                        <t
-                            t-foreach="current_question_print_normatives"
-                            t-as="item">
+                        <t t-foreach="current_question_print_normatives" t-as="item">
                             <t t-set="counter" t-value="counter+1" />
                             <t t-set="grouped_items" t-value="grouped_items + [item]" />
-                            <t
-                                t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
+                            <t t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
                                 <tr>
                                     <t t-foreach="grouped_items" t-as="grouped_item">
                                         <td>
@@ -154,8 +141,7 @@
             </div>
             <!-- Contenedor derecho -->
             <!-- <div>
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
                     <t t-set="line_infos" t-value="[]" />
@@ -167,8 +153,7 @@
                             <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
                                 <tr class="bg-white text-white">
                                     <t t-foreach="line_infos" t-as="pair_info">
-                                        <td
-                                            class="o_survey_matrix_btn text-dark position-relative">
+                                        <td class="o_survey_matrix_btn text-dark position-relative">
                                             <div>
                                                 <t t-if="pair_info.get('label')">
                                                     <label>
@@ -187,13 +172,11 @@
                         </t>
                     </t>
                 </table> 
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="survey_info" t-as="info">
                         <t t-if="info['value']">
                             <tr class="bg-white text-white">
-                                <td
-                                    class="o_survey_matrix_btn text-dark position-relative">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
                                     <t t-if="info.get('label')">
                                         <label>
                                             <t t-esc="info['label']" />
@@ -221,8 +204,7 @@
                     <t t-if="total_counter % 3 == 1">
                         <div class="row" style="margin: 0 -1px;">
                             <div class="col-12">
-                                <div
-                                    class="o_survey_matrix_btn text-dark position-relative border p-1">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-1">
                                     <t t-if="line_infos[total_counter-1].get('label')">
                                         <label>
                                             <t t-esc="line_infos[total_counter-1]['label']" />
@@ -239,9 +221,7 @@
                     <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
                         <div class="row" style="margin: -1px;">
                             <div class="col-6">
-                                <div
-                                    class="o_survey_matrix_btn text-dark position-relative border p-1"
-                                    style="margin: 0 -1px 0 0">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: 0 -1px 0 0">
                                     <t t-if="line_infos[total_counter-2].get('label')">
                                         <label>
                                             <t t-esc="line_infos[total_counter-2]['label']" />
@@ -252,12 +232,9 @@
                                     </span>
                                 </div>
                             </div>
-                            <t
-                                t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
+                            <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
                                 <div class="col-6">
-                                    <div
-                                        class="o_survey_matrix_btn text-dark position-relative border p-1"
-                                        style="margin: -1px -1px 0 0">
+                                    <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px -1px 0 0">
                                         <t t-if="line_infos[total_counter-1].get('label')">
                                             <label>
                                                 <t t-esc="line_infos[total_counter-1]['label']" />
@@ -277,15 +254,10 @@
     </template>
 
     <!-- Agregar portada -->
-    <template
-        id="report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover"
-        name="Survey: Inspección Segunda Vista"
-    >
+    <template id="report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover" name="Survey: Inspección Segunda Vista">
 
 
-        <t
-            t-set="all_values"
-            t-value="[
+        <t t-set="all_values" t-value="[
     {'label': 'Building:', 'value': o.inspected_building_id.name},
     {'label': 'Building Type:', 'value': o.building_use_id.name},
     {'label': 'Building Section:', 'value': o.building_section_id.name},
@@ -316,18 +288,14 @@
     ]" />
 
 
-        <t
-            t-set="left_table_top"
-            t-value="[
+        <t t-set="left_table_top" t-value="[
         {'label': 'Partner:', 'value': o.partner_id.name},
         {'label': 'Building:', 'value': o.inspected_building_id.name},
         {'label': 'Building Type:', 'value': o.building_use_id.name},
         {'label': 'Building Section:', 'value': o.building_section_id.name},
         ]" />
 
-        <t
-            t-set="left_table_bottom"
-            t-value="[
+        <t t-set="left_table_bottom" t-value="[
         {'label': 'Survey Title:', 'value': o.survey_id.title},
         {'label': 'Survey Expediente:', 'value': o.file_number},
         {'label': 'Survey Acta:', 'value': o.act_number},
@@ -347,9 +315,7 @@
         {'label': 'Create Date:', 'value': o.create_date},
         ]" />
 
-        <t
-            t-set="right_table"
-            t-value="[
+        <t t-set="right_table" t-value="[
         {'label': 'Survey Expediente:', 'value': o.file_number},
         {'label': 'Survey Acta:', 'value': o.act_number},
         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
@@ -360,17 +326,14 @@
 
         <t t-set="survey_form_readonly" t-value="true" />
         <!-- Contenedor principal -->
-        <div
-            class="contenedor contenedor_4">
+        <div class="contenedor contenedor_4">
 
             <!-- <div id="left_div">
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="left_table_top" t-as="info">
                         <t t-if="info['value']">
                             <tr class="bg-white text-white">
-                                <td
-                                    class="o_survey_matrix_btn text-dark position-relative">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
                                     <t t-if="info.get('label')">
                                         <label>
                                             <t t-esc="info['label']" />
@@ -393,12 +356,10 @@
                         <t t-if="info['value']">
                             <t t-set="display_counter" t-value="display_counter+1" />
                             <t t-set="pair_infos" t-value="pair_infos + [info]" />
-                            <t
-                                t-if="display_counter % 2 == 0 or total_counter == len(left_table_bottom)">
+                            <t t-if="display_counter % 2 == 0 or total_counter == len(left_table_bottom)">
                                 <tr class="bg-white text-white">
                                     <t t-foreach="pair_infos" t-as="pair_info">
-                                        <td
-                                            class="o_survey_matrix_btn text-dark position-relative">
+                                        <td class="o_survey_matrix_btn text-dark position-relative">
                                             <t t-if="pair_info.get('label')">
                                                 <label>
                                                     <t t-esc="pair_info['label']" />
@@ -418,13 +379,11 @@
             </div> -->
 
             <!-- <div id="table_derecha" style="margin-left: 50px;">
-                <table
-                    class="table table-borderless o_survey_question_matrix text-white text-center">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-foreach="right_table" t-as="info">
                         <t t-if="info['value']">
                             <tr class="bg-white text-white">
-                                <td
-                                    class="o_survey_matrix_btn text-dark position-relative">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
                                     <t t-if="info.get('label')">
                                         <label>
                                             <t t-esc="info['label']" />

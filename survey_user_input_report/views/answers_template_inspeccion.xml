@@ -71,22 +71,20 @@
                                     <!--Used
                                     for print mode with corrections -->
                                     <t t-set="answer_class" t-if="not has_correct_answer" t-value="''"/>
-                                    <!-- <t t-set="answer_class" t-elif="is_correct"
-                                        t-value="'bg-success'" />
-                                    <t t-set="answer_class" t-elif="not is_correct"
-                                        t-value="'bg-danger'" /> -->
+                                    <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
+                                    <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" /> -->
 
-                                        <label t-att-for="str(question.id) + '_' + str(label.id)" t-att-class="'o_survey_choice_btn me-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
-                                            <t t-call="survey.survey_selection_key">
-                                                <t t-set="selection_key_class" t-value="'position-relative o_survey_radio_btn float-start d-flex'"/>
-                                            </t>
-                                              <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
-                                                <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
-                                              <i style="width: 100%;" t-att-class="'fa fa-%s float-end mt-1 position-relative %s'                                             % ('check-circle' if answer_selected else 'circle-thin', 'ml-0' if item_idx != 0 else '')"/>
-                                                </div>
-    
-                                            <t t-call="survey.question_suggested_value_image"/>
-                                        </label>
+                                    <label t-att-for="str(question.id) + '_' + str(label.id)" t-att-class="'o_survey_choice_btn me-2 mb-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_selected else '')">
+                                        <t t-call="survey.survey_selection_key">
+                                            <t t-set="selection_key_class" t-value="'position-relative o_survey_radio_btn float-start d-flex'"/>
+                                        </t>
+                                        <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
+                                            <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
+                                            <i style="width: 100%;" t-att-class="'fa fa-%s float-end mt-1 position-relative %s'                                             % ('check-circle' if answer_selected else 'circle-thin', 'ml-0' if item_idx != 0 else '')"/>
+                                        </div>
+
+                                        <t t-call="survey.question_suggested_value_image"/>
+                                    </label>
                                 </t>
                             </div>
                             <div t-if="question.comments_allowed and question.comment_count_as_answer" class="js_comments col-lg-12">
@@ -134,29 +132,23 @@
                                     <!--Used
                                     for print mode with corrections -->
                                     <t t-set="answer_class" t-if="not has_correct_answer" t-value="''"/>
-                                    <!-- <t t-set="answer_class" t-elif="is_correct"
-                                        t-value="'bg-success'" />
-                                    <t t-set="answer_class" t-elif="not is_correct"
-                                        t-value="'bg-danger'" /> -->
+                                    <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
+                                    <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" /> -->
 
-                                        <label t-att-class="'o_survey_choice_btn form-label me-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_line else '')">
-                                            <t t-call="survey.survey_selection_key">
-                                                <t t-set="selection_key_class" t-value="'position-relative float-start d-flex'"/>
-                                            </t>
-                                            <!-- <input type="checkbox" t-att-value='label.id'
-                                            class="o_survey_form_choice_item "
-                                               t-att-name="question.id"
-                                               t-att-checked="'checked' if answer_line else None"
-                                               t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/> -->
-                                            
-                                            <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
-                                                <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
-                                                <i t-if="answer_line" class="fa fa-check-circle" style="width: 100%;"/>
-                                                <i t-else="" class="fa fa-circle-thin" style="width: 100%;"/>
-                                            </div>
-                                        
-                                            <t t-call="survey.question_suggested_value_image"/>
-                                        </label>
+                                    <label t-att-class="'o_survey_choice_btn form-label me-2 py-1 px-3 rounded %s %s' % (answer_class, 'o_survey_selected' if answer_line else '')">
+                                        <t t-call="survey.survey_selection_key">
+                                            <t t-set="selection_key_class" t-value="'position-relative float-start d-flex'"/>
+                                        </t>
+                                        <!-- <input type="checkbox" t-att-value='label.id' class="o_survey_form_choice_item " t-att-name="question.id" t-att-checked="'checked' if answer_line else None" t-att-data-selection-key="letters[item_idx] if useKeySelection else ''"/> -->
+
+                                        <div class="ms-2 text-break" style="display: -webkit-box; -webkit-box-orient: vertical; text-align: center;">
+                                            <span t-field="label.value" style="-webkit-box-flex: 1; width: 100%;"/>
+                                            <i t-if="answer_line" class="fa fa-check-circle" style="width: 100%;"/>
+                                            <i t-else="" class="fa fa-circle-thin" style="width: 100%;"/>
+                                        </div>
+
+                                        <t t-call="survey.question_suggested_value_image"/>
+                                    </label>
 
                                 </t>
                             </div>
@@ -193,7 +185,7 @@
                         <table class="table table-borderless o_survey_question_matrix text-secondary text-center mb-0" t-att-data-name="question.id" t-att-data-question-type="question.question_type" t-att-data-sub-questions="question.matrix_row_ids.ids">
                             <thead>
                                 <tr>
-                                    <th> </th>
+                                    <th></th>
                                     <th class="fw-normal" t-foreach="question.suggested_answer_ids" t-as="col_label">
                                         <span t-field="col_label.value"/>
                                     </th>
@@ -232,11 +224,10 @@
                 </div>
             </t>
         </t>
-  
+
     </template>
 
-    <!-- <template id="template_survey_user_input_answers_filter"
-    inherit_id="survey.survey_user_input_answers_filter" name="Template Name">
+    <!-- <template id="template_survey_user_input_answers_filter" inherit_id="survey.survey_user_input_answers_filter" name="Template Name">
         
     </template> -->
 </odoo>

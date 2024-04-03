@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template
-        id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
-        name="Survey: Inspección Primera Vista"
-    >
+    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental" name="Survey: Inspección Primera Vista">
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
@@ -17,13 +14,11 @@
             </t>
         </t>
         <t t-call="web.external_layout_striped">
-            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css"
-                rel="stylesheet" />
+            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
             <page>
                 <t t-if="o.survey_id.title">
                     <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                        <h1 t-field="o.survey_id.title"
-                            style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
                     </div>
                 </t>
                 <t t-if="o.survey_id.description">
@@ -35,11 +30,8 @@
                     <div class="o_survey_print container">
                         <div role="form">
                             <fieldset disabled="disabled">
-                                <t
-                                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover"
-                                    t-lang="o.partner_id.lang" />
-                                <t
-                                    t-call="survey_user_input_report.template_survey_answers_template_inspeccion" />
+                                <t t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" t-lang="o.partner_id.lang" />
+                                <t t-call="survey_user_input_report.template_survey_answers_template_inspeccion" />
                             </fieldset>
                         </div>
                     </div>
@@ -52,19 +44,13 @@
     <template id="report_survey_pdf_inspeccion_documental">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t
-                    t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental"
-                    t-lang="o.partner_id.lang"
-                />
+                <t t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
             </t>
         </t>
     </template>
 
 
-    <record
-        id="action_report_survey_print_inspeccion_documental"
-        model="ir.actions.report"
-    >
+    <record id="action_report_survey_print_inspeccion_documental" model="ir.actions.report">
         <field name="name">Inspección</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
