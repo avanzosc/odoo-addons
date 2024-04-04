@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_stock_by_breeding_xlsx" model="ir.actions.report">
+        <field name="name">Stock By Breeding XLSX</field>
+        <field name="model">stock.by.breeding.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">stock_by_breeding_xlsx</field>
+        <field name="report_file">stock_by_breeding_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
