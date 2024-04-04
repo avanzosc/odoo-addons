@@ -18,6 +18,7 @@ class SurveySurvey(models.Model):
                 normative_filter_question = self.env['survey.question'].create({
                     'survey_id': survey.id,
                     'title': 'NORMATIVE FILTER',
+                    'question_type': 'multiple_choice',
                     'description': 'Question needed to trigger normative questions and filter questions by normative',
                     'is_normative_filter': True,
                     'sequence': 1
