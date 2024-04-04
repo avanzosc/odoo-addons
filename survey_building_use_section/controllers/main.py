@@ -19,8 +19,7 @@ class Survey(Survey):
             ):
                 filtered_questions.append(question.id) 
 
-        # Actualizar question_and_page_ids de survey_sudo con los IDs de las preguntas filtradas
-        res.qcontext['survey'].question_and_page_ids = [(6, 0, filtered_questions)]
+        # res.qcontext['survey'].question_and_page_ids = [(6, 0, filtered_questions)]
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(res.qcontext['survey'], res.qcontext['answer'], **post))
