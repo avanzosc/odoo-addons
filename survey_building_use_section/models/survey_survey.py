@@ -33,24 +33,9 @@ class SurveySurvey(models.Model):
                         'sequence': normative.id,
                         'notes': normative.description
                     })
-                triggering_question_id = normative_filter_question.id
+            #     triggering_question_id = normative_filter_question.id
 
-            else:
-                triggering_question_id = existing_normative_filter.id
+            # else:
+            #     triggering_question_id = existing_normative_filter.id
 
-            for question in survey.question_and_page_ids:
-                if question.sequence > triggering_question_id:
-                    triggering_question = question
-                    for answer in triggering_question.suggested_answer_ids:
-                        if any(normative.start_year <= answer.inspected_building_id.service_start_date.year < normative.end_year
-                            for normative in answer.question_id.question_normative_ids):
-                            matched_normatives = [normative for normative in answer.question_id.question_normative_ids if normative.start_year <= answer.inspected_building_id.service_start_date.year < normative.end_year]
-                            matching_normative_names = [normative.name for normative in matched_normatives]
-                            triggering_question_obj = self.env['survey.question'].browse(triggering_question_id)
-                            matched_answers = [ans for ans in triggering_question_obj.suggested_answer_ids if ans.value.get('en_US') in matching_normative_names]
-                            if matched_answers:
-                                triggering_answer = next((ans for ans in triggering_question_obj.suggested_answer_ids if ans.value.get('en_US') == matched_answers[0].value.get('en_US')), False)
-                                if triggering_answer:
-                                    triggering_question.write({'triggering_question_id': triggering_question_id,
-                                                            'triggering_answer_id': triggering_answer.id})
-                                    break
+

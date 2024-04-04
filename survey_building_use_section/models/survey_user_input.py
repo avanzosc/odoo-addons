@@ -97,7 +97,6 @@ class SurveyUserInput(models.Model):
     
     def action_start_survey(self):
         
-        # Obtener el ID del partner con nombre "admin"
         current_user_partner = self.env.user.partner_id
 
         if current_user_partner:
