@@ -10,18 +10,7 @@ class Survey(Survey):
     def survey_display_page(self, survey_token, answer_token, **post):
         res = super().survey_display_page(survey_token, answer_token, **post)
         
-        # filtered_questions = []
-        # for question in res.qcontext['survey'].question_and_page_ids:
-        #     if question and res.qcontext['answer'].inspected_building_id.service_start_date and any(
-        #         normative.start_year <= int(res.qcontext['answer'].inspected_building_id.service_start_date.year) < normative.end_year 
-        #         for normative in question.question_normative_ids
-        #     ):
-        #         filtered_questions.append(question.id)
-        
-        # res.qcontext['survey'].question_and_page_ids = [(6, 0, filtered_questions)]
-
         triggering_question_id = request.env['survey.question'].search([('survey_id', '=', res.qcontext['survey'].id), ('is_normative_filter', '=', True)], limit=1).id
-
         
         if triggering_question_id:
             triggering_question_obj = request.env['survey.question'].browse(triggering_question_id)
@@ -66,11 +55,15 @@ class Survey(Survey):
             all_normatives = request.env['survey.question.normative'].search([])
 
             for answer in triggering_question_obj.suggested_answer_ids:                
-                # Verificar si alguna de las normativas cumple con la condición
                 for normative in all_normatives:
+                    # Verificar si alguna de las normativas cumple con la condición
                     if (normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
                         and not answer in selected_answers 
                         and answer.value in normative.name):
+                        
+                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - name: {normative.name}")
+
+                        
                         # Crear un registro para survey.user_input_line
                         user_input_line = request.env['survey.user_input.line'].create({
                             'survey_id': res.qcontext['survey'].id,
@@ -79,6 +72,9 @@ class Survey(Survey):
                             'suggested_answer_id': answer.id,
                             'user_input_id': res.qcontext['answer'].id
                         })
+                        
+                        _logger.info(f"2024okdeb - Created survey.user_input.line with id {user_input_line.id}")
+
                         
                         selected_answers.append(answer)                        
 
