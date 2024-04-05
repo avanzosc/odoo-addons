@@ -65,7 +65,7 @@ class Survey(Survey):
 
                         
                         # Verificar si ya existe un registro para estas condiciones
-                        existing_user_input_line = self.env['survey.user_input.line'].search([
+                        existing_user_input_line = request.env['survey.user_input.line'].search([
                             ('survey_id', '=', res.qcontext['survey'].id),
                             ('question_id', '=', triggering_question_obj.id),
                             ('answer_type', '=', 'suggestion'),
