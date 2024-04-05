@@ -98,5 +98,5 @@ class Survey(Survey):
 
     def _prepare_survey_data(self, survey_sudo, answer_sudo, **post):
         res = super()._prepare_survey_data(survey_sudo, answer_sudo, **post)
-        _logger.debug("Contenido de res: %s", res)
+        _logger.info(f"\n\n 2024okdeb -Contenido de res: {res}")
         return res
