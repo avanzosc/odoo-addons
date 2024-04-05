@@ -95,3 +95,8 @@ class Survey(Survey):
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(res.qcontext['survey'], res.qcontext['answer'], **post))
+
+    def _prepare_survey_data(self, survey_sudo, answer_sudo, **post):
+        res = super()._prepare_survey_data(survey_sudo, answer_sudo, **post)
+        _logger.debug("Contenido de res: %s", res)
+        return res
