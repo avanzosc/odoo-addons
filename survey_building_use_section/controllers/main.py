@@ -101,5 +101,5 @@ class Survey(Survey):
     def _prepare_survey_data(self, survey_sudo, answer_sudo, **post):
         res = super()._prepare_survey_data(survey_sudo, answer_sudo, **post)
         pprint_string = pprint.pformat(res, indent=4)
-        _logger.info(f"\n\nContenido de res:\n{pprint_string}")
+        _logger.info(f"\n\n2024okdeb - Contenido de res:\n{pprint_string}")
         return res
