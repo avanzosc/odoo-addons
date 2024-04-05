@@ -64,16 +64,31 @@ class Survey(Survey):
                         _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - name: {normative.name}")
 
                         
-                        # Crear un registro para survey.user_input_line
-                        user_input_line = request.env['survey.user_input.line'].create({
-                            'survey_id': res.qcontext['survey'].id,
-                            'question_id': triggering_question_obj.id,
-                            'answer_type': 'suggestion',
-                            'suggested_answer_id': answer.id,
-                            'user_input_id': res.qcontext['answer'].id
-                        })
+                        # Verificar si ya existe un registro para estas condiciones
+                        existing_user_input_line = self.env['survey.user_input.line'].search([
+                            ('survey_id', '=', res.qcontext['survey'].id),
+                            ('question_id', '=', triggering_question_obj.id),
+                            ('answer_type', '=', 'suggestion'),
+                            ('suggested_answer_id', '=', answer.id),
+                            ('user_input_id', '=', res.qcontext['answer'].id)
+                        ])
+
+                        if not existing_user_input_line:
+                            # Logging the condition evaluation
+
+                            # Create a record for survey.user_input_line
+                            user_input_line = self.env['survey.user_input.line'].create({
+                                'survey_id': res.qcontext['survey'].id,
+                                'question_id': triggering_question_obj.id,
+                                'answer_type': 'suggestion',
+                                'suggested_answer_id': answer.id,
+                                'user_input_id': res.qcontext['answer'].id
+                            })
                         
-                        _logger.info(f"2024okdeb - Created survey.user_input.line with id {user_input_line.id}")
+                            _logger.info(f"2024okdeb - Created survey.user_input.line with id {user_input_line.id}")
+
+                        else:
+                            _logger.info(f"2024okdeb - Survey exists: {existing_user_input_line}")
 
                         
                         selected_answers.append(answer)                        
