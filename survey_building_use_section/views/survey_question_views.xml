@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="survey.survey_question_form" />
         <field name="arch" type="xml">
             <notebook position="before">
-                <group colspan="4">
+                <group colspan="2">
                     <field name="question_normative_ids" widget="many2many_tags" colspan="2"/>
                 </group>
             </notebook>
