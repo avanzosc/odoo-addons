@@ -646,8 +646,6 @@ class ProductImportLine(models.Model):
             "uom_po_id": self.purchase_uom_id.id or self.product_uom_id.id,
             "sale_ok": self.sale_ok,
             "purchase_ok": self.purchase_ok,
-            "list_price": self.list_price,
-            "standard_price": self.standard_price,
             "invoice_policy": self.invoice_policy,
             "categ_id": self.category_id.id,
             "type": self.product_type,
@@ -666,6 +664,18 @@ class ProductImportLine(models.Model):
             values.update(
                 {
                     "taxes_id": [(4, self.customer_tax_id.id)],
+                }
+            )
+        if self.list_price > 0:
+            values.update(
+                {
+                    "list_price": self.list_price,
+                }
+            )
+        if self.standard_price > 0:
+            values.update(
+                {
+                    "standard_price": self.standard_price,
                 }
             )
         return values
