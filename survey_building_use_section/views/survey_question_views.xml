@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <notebook position="before">
                 <group colspan="4">
-                    <field name="question_normative_ids" widget="many2many_tags" colspan="4"/>
+                    <field name="question_normative_ids" widget="many2many_tags" colspan="2"/>
                 </group>
             </notebook>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
