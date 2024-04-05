@@ -77,7 +77,7 @@ class Survey(Survey):
                             # Logging the condition evaluation
 
                             # Create a record for survey.user_input_line
-                            user_input_line = self.env['survey.user_input.line'].create({
+                            user_input_line = request.env['survey.user_input.line'].create({
                                 'survey_id': res.qcontext['survey'].id,
                                 'question_id': triggering_question_obj.id,
                                 'answer_type': 'suggestion',
