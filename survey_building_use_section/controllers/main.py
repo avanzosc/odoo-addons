@@ -60,7 +60,7 @@ class Survey(Survey):
                 for normative in all_normatives:
                     # Verificar si alguna de las normativas cumple con la condición
                     if (normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
-                        and not answer in selected_answers 
+                        and answer not in selected_answers 
                         and answer.value in normative.name):
                         
                         _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - name: {normative.name}")
