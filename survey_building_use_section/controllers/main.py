@@ -1,3 +1,5 @@
+from odoo.tools import format_datetime, format_date, is_html_empty
+
 import pprint
 import logging
 
