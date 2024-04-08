@@ -10,6 +10,8 @@ from odoo import http
 from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey
 from odoo.addons.survey.controllers.survey_session_manage import UserInputSession
+from odoo.odoo.addons.base.models.ir_qweb import IrQWeb
+
 
 
 class Survey(Survey):
@@ -166,12 +168,6 @@ class Survey(Survey):
         _logger.info(f"2024okdeb - Answer sudo input line.ids: {answer_sudo.user_input_line_ids}")
 
 
-        if not hasattr(answer_sudo, 'user_input_line_ids'):
-            UserInputLine = request.env['survey.user_input.line']
-            new_line = UserInputLine.create({})  # Create a new empty record
-            answer_sudo.user_input_line_ids = [(4, new_line.id)]  # Add the new empty record to user_input_line_ids
-
-
         data = {
             'is_html_empty': is_html_empty,
             'survey': survey_sudo,
@@ -252,3 +248,41 @@ class Survey(Survey):
             return self._prepare_survey_finished_values(survey_sudo, answer_sudo)
 
         return data
+
+class IrQWeb(IrQWeb):
+    def _render(self, template, values=None, **options):
+        """ render(template, values, **options)
+
+        Render the template specified by the given name.
+
+        :param template: etree, xml_id, template name (see _get_template)
+            * Call the method ``load`` is not an etree.
+        :param dict values: template values to be used for rendering
+        :param options: used to compile the template
+            Options will be add into the IrQweb.env.context for the rendering.
+            * ``lang`` (str) used language to render the template
+            * ``inherit_branding`` (bool) add the tag node branding
+            * ``inherit_branding_auto`` (bool) add the branding on fields
+            * ``minimal_qcontext``(bool) To use the minimum context and options
+                from ``_prepare_environment``
+
+        :returns: bytes marked as markup-safe (decode to :class:`markupsafe.Markup`
+                  instead of `str`)
+        :rtype: MarkupSafe
+        """
+        values = values.copy() if values else {}
+        if T_CALL_SLOT in values:
+            raise ValueError(f'values[{T_CALL_SLOT}] should be unset when call the _render method and only set into the template.')
+
+        irQweb = self.with_context(**options)._prepare_environment(values)
+
+        safe_eval.check_values(values)
+
+        template_functions, def_name = irQweb._compile(template)
+        render_template = template_functions[def_name]
+        rendering = render_template(irQweb, values)
+        _logger.info(f"2024okdeb - Contenido de rendering:{rendering}")
+
+        result = ''.join(rendering)
+
+        return Markup(result)
