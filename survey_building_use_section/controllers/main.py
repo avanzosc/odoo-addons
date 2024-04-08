@@ -61,9 +61,9 @@ class Survey(Survey):
                     # Verificar si alguna de las normativas cumple con la condición
                     if (normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
                         and answer not in selected_answers 
-                        and answer.value in normative.name):
+                        and answer.value == normative.name):
                         
-                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - name: {normative.name}")
+                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - Normative name: {normative.name} - Answer value: {answer.value}")
 
                         
                         # Verificar si ya existe un registro para estas condiciones
