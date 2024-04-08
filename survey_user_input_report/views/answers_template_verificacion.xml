@@ -47,10 +47,11 @@
                             </h3> -->
 
 
-                                    <t t-if="question.description">
+                                    <!-- <t t-if="question.description">
                                         <div class="text-muted oe_no_empty" t-field="question.description" />
-                                    </t>
+                                    </t> -->
                                     <t t-if="question.question_type == 'text_box'">
+                                    
                                     </t>
                                     <t t-if="question.question_type == 'char_box'">
 
