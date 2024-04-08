@@ -112,11 +112,13 @@ class Survey(Survey):
         pprint_string = pprint.pformat(res, indent=4)
         _logger.info(f"\n\n2024okdeb - Contenido de res2 pprint:\n{pprint_string}")
         _logger.info(f"\n\n2024okdeb - Contenido de res2:\n{res}")
+        _logger.info(f"\n\n2024okdeb - Contenido de res2 survey_sudo:\n{survey_sudo}")
+        _logger.info(f"\n\n2024okdeb - Contenido de res2 answer_sudo:\n{answer_sudo}")
         return res
 
 
-
 class UserInputSession(UserInputSession):
+    @http.route()
     def survey_session_next_question(self, survey_token, go_back=False, **kwargs):
         res = super.survey_session_next_question(survey_token, go_back, **kwargs)
         pprint_string = pprint.pformat(res, indent=4)
