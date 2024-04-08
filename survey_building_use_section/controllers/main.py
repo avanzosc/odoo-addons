@@ -249,12 +249,12 @@ class Survey(Survey):
         :param check_partner: Whether we must check that the partner associated to the target
           answer corresponds to the active user.
         """
-        survey_sudo, answer_sudo = self._fetch_from_access_token("e7e1fd5a-fb85-458d-93fb-aca9868b190b", "335f429f-d3f0-450e-a4ad-5637753724fd")
+        survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
 
-        _logger.info(f"\n\n2024okdeb - Contenido de survey_sudo:\n{survey_sudo}")
-        _logger.info(f"\n\n2024okdeb - Contenido de survey_token:\n{survey_token}")
-        _logger.info(f"\n\n2024okdeb - Contenido de answer_sudo:\n{answer_sudo}")
-        _logger.info(f"\n\n2024okdeb - Contenido de answer_token:\n{answer_token}")
+        _logger.info(f"2024okdeb - Contenido de survey_sudo:{survey_sudo}")
+        _logger.info(f"2024okdeb - Contenido de survey_token:{survey_token}")
+        _logger.info(f"2024okdeb - Contenido de answer_sudo:{answer_sudo}")
+        _logger.info(f"2024okdeb - Contenido de answer_token:{answer_token}")
 
 
         if not survey_sudo.exists():
