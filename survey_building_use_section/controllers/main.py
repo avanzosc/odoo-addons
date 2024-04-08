@@ -252,7 +252,9 @@ class Survey(Survey):
         survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
 
         _logger.info(f"\n\n2024okdeb - Contenido de survey_sudo:\n{survey_sudo}")
+        _logger.info(f"\n\n2024okdeb - Contenido de survey_token:\n{survey_token}")
         _logger.info(f"\n\n2024okdeb - Contenido de answer_sudo:\n{answer_sudo}")
+        _logger.info(f"\n\n2024okdeb - Contenido de answer_token:\n{answer_token}")
 
 
         if not survey_sudo.exists():
