@@ -163,6 +163,9 @@ class Survey(Survey):
                                      to be the previous ones. """
         _logger.info(f"2024okdeb - Answer sudo _prepare_survey_data: {answer_sudo}")
 
+        _logger.info(f"2024okdeb - Answer sudo input line.ids: {answer_sudo.user_input_line_ids}")
+
+
         if not hasattr(answer_sudo, 'user_input_line_ids'):
             UserInputLine = request.env['survey.user_input.line']
             new_line = UserInputLine.create({})  # Create a new empty record
