@@ -108,12 +108,10 @@ class Survey(Survey):
         return res
 
     def _prepare_question_html(self, survey_sudo, answer_sudo, **post):
-        res = super()._prepare_question_html(survey_sudo, answer_sudo, **post)
-        pprint_string = pprint.pformat(res, indent=4)
-        _logger.info(f"\n\n2024okdeb - Contenido de res2 pprint:\n{pprint_string}")
-        _logger.info(f"\n\n2024okdeb - Contenido de res2:\n{res}")
         _logger.info(f"\n\n2024okdeb - Contenido de res2 survey_sudo:\n{survey_sudo}")
         _logger.info(f"\n\n2024okdeb - Contenido de res2 answer_sudo:\n{answer_sudo}")
+        res = super()._prepare_question_html(survey_sudo, answer_sudo, **post)
+        _logger.info(f"\n\n2024okdeb - Contenido de res2:\n{res}")
         return res
 
 
