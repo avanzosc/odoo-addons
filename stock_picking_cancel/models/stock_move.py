@@ -15,4 +15,4 @@ class StockMove(models.Model):
             move.move_line_ids.unlink()
         # If stock_account is installed, drop the stock_valuation_layer_ids
         if "stock_valuation_layer_ids" in self._fields:
-            move.sudo().stock_valuation_layer_ids.unlink()
+            self.sudo().stock_valuation_layer_ids.unlink()
