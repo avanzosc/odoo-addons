@@ -1,4 +1,4 @@
-odoo.define('survey.form.custom', function (require) {
+odoo.define('survey_building_use_section.custom_survey_form', function (require) {
     'use strict';
 
     var SurveyFormWidget = require('survey.form');
