@@ -10,6 +10,7 @@
     "depends": [
         "res_partner_building_use_section",
         "survey",
+        "web",
     ],
     "data": [
         "security/ir.model.access.csv",
