@@ -103,15 +103,15 @@ class Survey(Survey):
     def _prepare_survey_data(self, survey_sudo, answer_sudo, **post):
         res = super()._prepare_survey_data(survey_sudo, answer_sudo, **post)
         pprint_string = pprint.pformat(res, indent=4)
-        _logger.info(f"\n\n2024okdeb - Contenido de res pprint:\n{pprint_string}")
-        _logger.info(f"\n\n2024okdeb - Contenido de res:\n{res}")
+        _logger.info(f"2024okdeb - Contenido de res pprint:{pprint_string}")
+        _logger.info(f"2024okdeb - Contenido de res:{res}")
         return res
 
     def _prepare_question_html(self, survey_sudo, answer_sudo, **post):
-        _logger.info(f"\n\n2024okdeb - Contenido de res2 survey_sudo:\n{survey_sudo}")
-        _logger.info(f"\n\n2024okdeb - Contenido de res2 answer_sudo:\n{answer_sudo}")
+        _logger.info(f"2024okdeb - Contenido de res2 survey_sudo:{survey_sudo}")
+        _logger.info(f"2024okdeb - Contenido de res2 answer_sudo:{answer_sudo}")
         res = super()._prepare_question_html(survey_sudo, answer_sudo, **post)
-        _logger.info(f"\n\n2024okdeb - Contenido de res2:\n{res}")
+        _logger.info(f"2024okdeb - Contenido de res2:{res}")
         return res
 
     def survey_submit(self, survey_token, answer_token, **post):
@@ -125,8 +125,8 @@ class Survey(Survey):
             return {'error': access_data['validity_code']}
         survey_sudo, answer_sudo = access_data['survey_sudo'], access_data['answer_sudo']
 
-        _logger.info(f"\n\n2024okdeb - survey_sudo:\n{survey_sudo}")
-        _logger.info(f"\n\n2024okdeb - answer_sudo:\n{answer_sudo}")
+        _logger.info(f"2024okdeb - survey_sudo:{survey_sudo}")
+        _logger.info(f"2024okdeb - answer_sudo:{answer_sudo}")
 
         if answer_sudo.state == 'done':
             return {'error': 'unauthorized'}
@@ -184,8 +184,8 @@ class Survey(Survey):
 
             answer_sudo.write({'last_displayed_page_id': page_or_question_id})
 
-        _logger.info(f"\n\n2024okdeb - Contenido de res2 survey_sudo:\n{survey_sudo}")
-        _logger.info(f"\n\n2024okdeb - Contenido de res2 answer_sudo:\n{answer_sudo}")
+        _logger.info(f"2024okdeb - Contenido de res2 survey_sudo:{survey_sudo}")
+        _logger.info(f"2024okdeb - Contenido de res2 answer_sudo:{answer_sudo}")
 
 
         return self._prepare_question_html(survey_sudo, answer_sudo)
@@ -204,7 +204,7 @@ class Survey(Survey):
 
         validity_code = self._check_validity(survey_token, answer_token, ensure_token=ensure_token, check_partner=check_partner)
         
-        _logger.info(f"\n\n2024okdeb - Contenido de validity_code:\n{validity_code}")
+        _logger.info(f"2024okdeb - Contenido de validity_code:{validity_code}")
 
         if validity_code != 'survey_wrong':
             survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
