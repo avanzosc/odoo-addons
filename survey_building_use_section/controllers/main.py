@@ -128,7 +128,6 @@ class Survey(Survey):
         _logger.info(f"\n\n2024okdeb - survey_sudo:\n{survey_sudo}")
         _logger.info(f"\n\n2024okdeb - answer_sudo:\n{answer_sudo}")
 
-
         if answer_sudo.state == 'done':
             return {'error': 'unauthorized'}
 
@@ -193,11 +192,38 @@ class Survey(Survey):
 
 
 
-# class UserInputSession(UserInputSession):
-#     @http.route()
-#     def survey_session_next_question(self, survey_token, go_back=False, **kwargs):
-#         res = super.survey_session_next_question(survey_token, go_back, **kwargs)
-#         pprint_string = pprint.pformat(res, indent=4)
-#         _logger.info(f"\n\n2024okdeb - Contenido de res3 pprint:\n{pprint_string}")
-#         _logger.info(f"\n\n2024okdeb - Contenido de res3:\n{res}")
-#         return res
+    def _get_access_data(self, survey_token, answer_token, ensure_token=True, check_partner=True):
+        """ Get back data related to survey and user input, given the ID and access
+        token provided by the route.
+
+         : param ensure_token: whether user input existence should be enforced or not(see ``_check_validity``)
+         : param check_partner: whether the partner of the target answer should be checked (see ``_check_validity``)
+        """
+        survey_sudo, answer_sudo = request.env['survey.survey'].sudo(), request.env['survey.user_input'].sudo()
+        has_survey_access, can_answer = False, False
+
+        validity_code = self._check_validity(survey_token, answer_token, ensure_token=ensure_token, check_partner=check_partner)
+        
+        _logger.info(f"\n\n2024okdeb - Contenido de validity_code:\n{validity_code}")
+
+        if validity_code != 'survey_wrong':
+            survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
+            try:
+                survey_user = survey_sudo.with_user(request.env.user)
+                survey_user.check_access_rights(self, 'read', raise_exception=True)
+                survey_user.check_access_rule(self, 'read')
+            except:
+                pass
+            else:
+                has_survey_access = True
+            can_answer = bool(answer_sudo)
+            if not can_answer:
+                can_answer = survey_sudo.access_mode == 'public'
+
+        return {
+            'survey_sudo': survey_sudo,
+            'answer_sudo': answer_sudo,
+            'has_survey_access': has_survey_access,
+            'can_answer': can_answer,
+            'validity_code': validity_code,
+        }
