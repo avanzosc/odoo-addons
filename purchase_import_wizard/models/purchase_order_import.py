@@ -448,6 +448,8 @@ class PurchaseOrderImportLine(models.Model):
         purchase_order_obj = self.env["purchase.order"]
         values = self._purchase_order_values()
         purchase = purchase_order_obj.create(values)
+        for onchange_method in purchase._onchange_methods["partner_id"]:
+            onchange_method(purchase)
         return purchase
 
     def _create_purchase_order_line(self, purchase_order=False):
