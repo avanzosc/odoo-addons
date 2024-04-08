@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Definir una plantilla de activos para el módulo survey_building_use_section -->
+        <template id="assets_survey_building_use_section" name="survey_building_use_section assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <!-- Agregar el archivo JavaScript surveyform.js -->
+                <script type="text/javascript" src="/survey_building_use_section/static/src/js/surveyform.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>
