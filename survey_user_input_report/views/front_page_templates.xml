@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <!-- Agregar portada -->
-    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" name="Survey: Inspección Segunda Vista">
+    <template id="report_front_page_mantenimiento" name="Survey: Portada Mantenimiento">
         <style>
 
             /* Estilos para el contenedor principal */
@@ -246,7 +246,7 @@
     </template>
 
     <!-- Agregar portada -->
-    <template id="report_evaluation_certification_printing_report_survey_pdf_verificacion_operaciones_mantenimiento_cover" name="Survey: Inspección Segunda Vista">
+    <template id="report_front_page_verificacion" name="Survey: Portada Verificación">
 
 
         <t t-set="all_values" t-value="[

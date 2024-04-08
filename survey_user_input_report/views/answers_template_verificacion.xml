@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="template_survey_answers_template_verificacion" name="Survey Answers Template">
+    <template id="answers_template_verificacion" name="Survey Answers Template">
         <style>
 
             td, th{
@@ -51,7 +51,7 @@
                                         <div class="text-muted oe_no_empty" t-field="question.description" />
                                     </t> -->
                                     <t t-if="question.question_type == 'text_box'">
-                                    
+
                                     </t>
                                     <t t-if="question.question_type == 'char_box'">
 

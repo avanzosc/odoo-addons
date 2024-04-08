@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental" name="Survey: Inspección Primera Vista">
+    <template id="survey_pdf_inspeccion_documental" name="Survey: Inspección Primera Vista">
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
@@ -30,8 +30,8 @@
                     <div class="o_survey_print container">
                         <div role="form">
                             <fieldset disabled="disabled">
-                                <t t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" t-lang="o.partner_id.lang" />
-                                <t t-call="survey_user_input_report.template_survey_answers_template_inspeccion" />
+                                <t t-call="survey_user_input_report.report_front_page_mantenimiento" t-lang="o.partner_id.lang" />
+                                <t t-call="survey_user_input_report.answers_template_inspeccion" />
                             </fieldset>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
     <template id="report_survey_pdf_inspeccion_documental">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
+                <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
             </t>
         </t>
     </template>
