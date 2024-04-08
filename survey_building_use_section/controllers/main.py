@@ -125,6 +125,10 @@ class Survey(Survey):
             return {'error': access_data['validity_code']}
         survey_sudo, answer_sudo = access_data['survey_sudo'], access_data['answer_sudo']
 
+        _logger.info(f"\n\n2024okdeb - survey_sudo:\n{survey_sudo}")
+        _logger.info(f"\n\n2024okdeb - answer_sudo:\n{answer_sudo}")
+
+
         if answer_sudo.state == 'done':
             return {'error': 'unauthorized'}
 
