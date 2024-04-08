@@ -2,10 +2,7 @@
 <odoo>
     <!-- Agregar portada -->
     <template id="report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover" name="Survey: Inspección Segunda Vista">
-
-
         <style>
-
 
             /* Estilos para el contenedor principal */
             .contenedor_debajo {
@@ -48,12 +45,14 @@
             position: relative;
             }
 
+            .reglamento {
+            width: 100%;
+            }
+
 
         </style>
 
-
         <t t-set="survey_form_readonly" t-value="true" />
-
         <!-- <t t-set="survey_info" t-value="[
                 {'label': 'Survey Title:', 'value': o.survey_id.title},
                 {'label': 'Survey Expediente:', 'value': o.file_number},
