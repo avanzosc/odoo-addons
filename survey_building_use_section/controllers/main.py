@@ -249,7 +249,7 @@ class Survey(Survey):
         :param check_partner: Whether we must check that the partner associated to the target
           answer corresponds to the active user.
         """
-        survey_sudo, answer_sudo = self._fetch_from_access_token(survey_token, answer_token)
+        survey_sudo, answer_sudo = self._fetch_from_access_token("e7e1fd5a-fb85-458d-93fb-aca9868b190b", "335f429f-d3f0-450e-a4ad-5637753724fd")
 
         _logger.info(f"\n\n2024okdeb - Contenido de survey_sudo:\n{survey_sudo}")
         _logger.info(f"\n\n2024okdeb - Contenido de survey_token:\n{survey_token}")
@@ -289,3 +289,18 @@ class Survey(Survey):
             return 'answer_deadline'
 
         return True
+
+
+    def _fetch_from_access_token(self, survey_token, answer_token):
+        """ Check that given token matches an answer from the given survey_id.
+        Returns a sudo-ed browse record of survey in order to avoid access rights
+        issues now that access is granted through token. """
+        survey_sudo = request.env['survey.survey'].with_context(active_test=False).sudo().search([('access_token', '=', survey_token)])
+        if not answer_token:
+            answer_sudo = request.env['survey.user_input'].sudo()
+        else:
+            answer_sudo = request.env['survey.user_input'].sudo().search([
+                ('survey_id', '=', survey_sudo.id),
+                ('access_token', '=', answer_token)
+            ], limit=1)
+        return survey_sudo, answer_sudo
