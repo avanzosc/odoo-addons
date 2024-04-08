@@ -1,3 +1,4 @@
+# Necesario para pruebas
 from odoo.tools import format_datetime, format_date, is_html_empty
 
 import pprint
@@ -161,6 +162,12 @@ class Survey(Survey):
                 - previous_page_id : come from the breadcrumb or the back button and force the next questions to load
                                      to be the previous ones. """
         _logger.info(f"2024okdeb - Answer sudo _prepare_survey_data: {answer_sudo}")
+
+        if not hasattr(answer_sudo, 'user_input_line_ids'):
+            UserInputLine = request.env['survey.user_input.line']
+            new_line = UserInputLine.create({})  # Create a new empty record
+            answer_sudo.user_input_line_ids = [(4, new_line.id)]  # Add the new empty record to user_input_line_ids
+
 
         data = {
             'is_html_empty': is_html_empty,
