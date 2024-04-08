@@ -1,28 +1,63 @@
-# Translation of Odoo Server.
-# This file contains the translation of the following modules:
-# 	* survey_pdf_report
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-23 09:57+0000\n"
-"PO-Revision-Date: 2024-02-23 11:01+0100\n"
+"POT-Creation-Date: 2024-04-08 12:15+0000\n"
+"PO-Revision-Date: 2024-04-08 12:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
 
-#. module: survey_pdf_report
-#: model:ir.actions.report,print_report_name:survey_pdf_report.action_report_survey_print
-msgid "'Printed Survey'"
-msgstr "'Encuesta Imprimida'"
+#. module: survey_user_input_report
+#: model:ir.actions.report,print_report_name:survey_user_input_report.action_report_survey_print_inspeccion_documental
+msgid "'Printed Survey Inspección'"
+msgstr "'Encuesta Impresa Inspección'"
 
-#. module: survey_pdf_report
-#: model:ir.actions.report,name:survey_pdf_report.action_report_survey_print
-msgid "Print Survey PDF"
-msgstr "Imprimir Encuesta PDF"
+#. module: survey_user_input_report
+#: model:ir.actions.report,print_report_name:survey_user_input_report.action_report_survey_print_verificacion_operaciones_mantenimiento
+msgid "'Printed Survey Verificación'"
+msgstr "'Encuesta Impresa Verificación'"
+
+#. module: survey_user_input_report
+#: model_terms:ir.ui.view,arch_db:survey_user_input_report.report_evaluation_certification_printing_report_survey_pdf_inspeccion_documental_cover
+msgid ""
+"De acuerdo con el Reglamento de instalaciones de protección contraincendios, las\n"
+"                    comprobaciones y controles se realizan en base al cumplimiento de las\n"
+"                    disposiciones:"
+msgstr ""
+"De acuerdo con el Reglamento de instalaciones de protección contra incendios, las\n"
+"                    comprobaciones y controles se realizan en base al cumplimiento de las\n"
+"                    disposiciones:"
+
+#. module: survey_user_input_report
+#: model:ir.actions.report,name:survey_user_input_report.action_report_survey_print_inspeccion_documental
+msgid "Inspección"
+msgstr "Inspección"
+
+#. module: survey_user_input_report
+#: model_terms:ir.ui.view,arch_db:survey_user_input_report.template_survey_answers_template_verificacion
+msgid "NORMATIVE NOTES"
+msgstr "NOTAS NORMATIVAS"
+
+#. module: survey_user_input_report
+#: model_terms:ir.ui.view,arch_db:survey_user_input_report.template_survey_answers_template_verificacion
+msgid "NOTES"
+msgstr "NOTAS"
+
+#. module: survey_user_input_report
+#: model_terms:ir.ui.view,arch_db:survey_user_input_report.template_survey_answers_template_verificacion
+msgid "QUESTION"
+msgstr "PREGUNTA"
+
+#. module: survey_user_input_report
+#: model_terms:ir.ui.view,arch_db:survey_user_input_report.template_survey_answers_template_verificacion
+msgid "VALUE"
+msgstr "VALOR"
+
+#. module: survey_user_input_report
+#: model:ir.actions.report,name:survey_user_input_report.action_report_survey_print_verificacion_operaciones_mantenimiento
+msgid "Verificación"
+msgstr "Verificación"
