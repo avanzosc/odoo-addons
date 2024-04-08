@@ -111,3 +111,12 @@ class Survey(Survey):
         _logger.info(f"\n\n2024okdeb - Contenido de res2 pprint:\n{pprint_string}")
         _logger.info(f"\n\n2024okdeb - Contenido de res2:\n{res}")
         return res
+
+
+    def survey_session_next_question(self, survey_token, go_back=False, **kwargs):
+        res = super.survey_session_next_question(survey_token, go_back=False, **kwargs)
+        pprint_string = pprint.pformat(res, indent=4)
+        _logger.info(f"\n\n2024okdeb - Contenido de res3 pprint:\n{pprint_string}")
+        _logger.info(f"\n\n2024okdeb - Contenido de res3:\n{res}")
+        return res
+
