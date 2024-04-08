@@ -3,6 +3,9 @@ odoo.define('survey_building_use_section.custom_survey_form', function (require)
 
     var SurveyFormWidget = require('survey.form');
 
+    var _t = core._t;
+
+
     var _validateForm = function ($form, formData) {
         var self = this;
         var errors = {};
