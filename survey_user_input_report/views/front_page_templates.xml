@@ -193,54 +193,47 @@
         </div>
 
         <!-- Contenedor debajo -->
-        <div class="contenedor_debajo" style="--col-count: 3;">
-            <t t-set="total_counter" t-value="0" />
-            <t t-set="line_infos" t-value="[]" />
+        <div class="contenedor_debajo" style="margin: 0 auto 40px;">
+            <t t-set="total_counter" t-value="0"/>
+            <t t-set="line_infos" t-value="[]"/>
             <t t-foreach="survey_info_debajo" t-as="info">
                 <t t-if="info['value'] and info['label']">
-                    <t t-set="total_counter" t-value="total_counter+1" />
-                    <t t-set="line_infos" t-value="line_infos + [info]" />
+                    <t t-set="total_counter" t-value="total_counter+1"/>
+                    <t t-set="line_infos" t-value="line_infos + [info]"/>
                     <t t-if="total_counter % 3 == 1">
-                        <div class="row" style="margin: 0 -1px;">
+                        <div class="row" style="margin-bottom: -1px;">
                             <div class="col-12">
-                                <div class="o_survey_matrix_btn text-dark position-relative border p-1">
-                                    <t t-if="line_infos[total_counter-1].get('label')">
-                                        <label>
-                                            <t t-esc="line_infos[total_counter-1]['label']" />
-                                        </label>
-                                    </t>
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px 0 0 0; width: 795px;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-1]['label']"/>
+                                    </label>
                                     <span>
-                                        <t t-esc="line_infos[total_counter-1]['value']" />
+                                        <t t-esc="line_infos[total_counter-1]['value']"/>
                                     </span>
                                 </div>
                             </div>
                         </div>
                     </t>
-
                     <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
-                        <div class="row" style="margin: -1px;">
+                        <div class="row" style="margin-bottom: -1px;">
                             <div class="col-6">
-                                <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: 0 -1px 0 0">
-                                    <t t-if="line_infos[total_counter-2].get('label')">
-                                        <label>
-                                            <t t-esc="line_infos[total_counter-2]['label']" />
-                                        </label>
-                                    </t>
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px -1px 0 0;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-2]['label']"/>
+                                    </label>
                                     <span>
-                                        <t t-esc="line_infos[total_counter-2]['value']" />
+                                        <t t-esc="line_infos[total_counter-2]['value']"/>
                                     </span>
                                 </div>
                             </div>
                             <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
                                 <div class="col-6">
-                                    <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px -1px 0 0">
-                                        <t t-if="line_infos[total_counter-1].get('label')">
-                                            <label>
-                                                <t t-esc="line_infos[total_counter-1]['label']" />
-                                            </label>
-                                        </t>
+                                    <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px 0 0 -1px;">
+                                        <label style="font-weight: bold;">
+                                            <t t-esc="line_infos[total_counter-1]['label']"/>
+                                        </label>
                                         <span>
-                                            <t t-esc="line_infos[total_counter-1]['value']" />
+                                            <t t-esc="line_infos[total_counter-1]['value']"/>
                                         </span>
                                     </div>
                                 </div>
