@@ -6,6 +6,8 @@ _logger = logging.getLogger(__name__)
 from odoo import http
 from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey
+from odoo.addons.survey.controllers.survey_session_manage import UserInputSession
+
 
 class Survey(Survey):
     @http.route()
@@ -113,10 +115,11 @@ class Survey(Survey):
         return res
 
 
+
+class UserInputSession(UserInputSession):
     def survey_session_next_question(self, survey_token, go_back=False, **kwargs):
-        res = super.survey_session_next_question(survey_token, go_back=False, **kwargs)
+        res = super.survey_session_next_question(survey_token, go_back, **kwargs)
         pprint_string = pprint.pformat(res, indent=4)
         _logger.info(f"\n\n2024okdeb - Contenido de res3 pprint:\n{pprint_string}")
         _logger.info(f"\n\n2024okdeb - Contenido de res3:\n{res}")
         return res
-
