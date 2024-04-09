@@ -24,6 +24,8 @@ class Survey(Survey):
             triggering_question_obj = request.env['survey.question'].browse(triggering_question_id)
 
             for question in res.qcontext['survey'].question_and_page_ids:
+                _logger.info(f"2024okdeb - in for:  {res.qcontext['survey'].question_and_page_ids}")
+
                 if question.sequence > triggering_question_obj.sequence:                        
                     triggered_question = question
                     
