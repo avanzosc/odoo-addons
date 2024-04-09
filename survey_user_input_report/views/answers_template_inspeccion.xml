@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="answers_template_inspeccion" name="Survey Answers Template">
+    <template id="answers_template_inspeccion" name="Inspección Answers Template">
         <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
         <t t-set="scoring_display_correction" t-value="True"/>
         <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
