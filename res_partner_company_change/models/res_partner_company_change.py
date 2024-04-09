@@ -14,6 +14,7 @@ class ResPartnerCompanyChange(models.Model):
 
     import_line_ids = fields.One2many(
         comodel_name="res.partner.company.change.line",
+        copy=True,
     )
     contact_count = fields.Integer(
         string="# Conatcts",
