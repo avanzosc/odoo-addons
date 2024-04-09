@@ -28,7 +28,8 @@ class Survey(Survey):
 
                 if question.sequence > triggering_question_obj.sequence:                        
                     triggered_question = question
-                    
+                    _logger.info(f"2024okdeb - in question.sequence > triggering_question_obj.sequence:  {triggered_question}")
+
                     # If a question has no normative show it no matter the normative and
                     # remove the is conditional filter
                     if not triggered_question.question_normative_ids:
