@@ -33,7 +33,7 @@ class Survey(Survey):
                         triggered_question.write({
                             'is_conditional': False,
                         })
-                        _logger.info(f"2024okdeb - 'is_conditional': False,: {triggered_question.start_year}")
+                        _logger.info(f"2024okdeb - 'is_conditional': False,: {triggered_question}")
                         break
                     
                     # All other questions must be conditional. If they are not conditional they will display 
