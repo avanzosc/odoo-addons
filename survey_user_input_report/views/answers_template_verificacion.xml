@@ -80,8 +80,7 @@
 
                                             <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
                                             <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
-                                        <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />
- -->
+                                            <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />-->
                                             <t t-if="not is_correct and answer_selected">
                                                 <tr>
                                                     <td>
@@ -91,7 +90,6 @@
                                                         <t t-esc="label.notes" />
                                                     </td>
                                                     <td>
-
                                                         <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
                                                          lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
                                                                        and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
@@ -101,14 +99,12 @@
 :                                                            <t t-esc="normative.description" />
                                                             <br />
                                                         </t>
-
                                                     </td>
                                                     <td>
                                                         <t t-esc="label.value" />
                                                     </td>
                                                 </tr>
                                             </t>
-
                                         </t>
                                     </t>
                                     <t t-if="question.question_type == 'multiple_choice'">
@@ -118,15 +114,12 @@
                                         <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
                                         <t t-foreach="question.suggested_answer_ids" t-as="label">
                                             <t t-set="item_idx" t-value="label_index" />
-
                                             <t t-set="answer_line" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == label)" />
                                             <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
                                             <t t-set="is_correct" t-value="label.is_correct" />
-
                                             <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
                                             <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
                                         <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" /> -->
-
 
                                             <t t-if="not is_correct and answer_selected">
                                                 <tr>
@@ -146,7 +139,6 @@
 :                                                            <t t-esc="normative.description" />
                                                             <br />
                                                         </t>
-
                                                     </td>
                                                     <td>
                                                         <t t-esc="label.value" />
@@ -157,19 +149,14 @@
                                     </t>
                                     <t t-if="question.question_type == 'matrix'">
                                         <!-- MATRIX -->
-
                                         <t t-foreach="question.matrix_row_ids" t-as="row_label">
                                             <t t-foreach="question.suggested_answer_ids" t-as="col_label">
                                                 <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
-
                                                 <t t-set="is_correct" t-value="col_label.is_correct" />
-
                                                 <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)" />
-
                                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
                                                     <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)" />
                                                 </t>
-
                                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
                                                     <tr>
                                                         <td>
@@ -179,7 +166,6 @@
                                                             <t t-esc="row_label.notes" />
                                                         </td>
                                                         <td>
-
                                                             <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
                                                              lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
                                                                            and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
