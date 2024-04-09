@@ -33,6 +33,7 @@ class Survey(Survey):
                         triggered_question.write({
                             'is_conditional': False,
                         })
+                        _logger.info(f"2024okdeb - 'is_conditional': False,: {triggered_question.start_year}")
                         break
                     
                     # All other questions must be conditional. If they are not conditional they will display 
@@ -64,7 +65,7 @@ class Survey(Survey):
                         'triggering_answer_id': triggering_answer.id,
                     })
 
-            # Create automatic responses of the normative filter,
+            # Create automatic responses of the normative filter question (1st question),
             # Generate the responses of the first question that is activated when pressing
             # ADD NORMATIVE FILTER
 
