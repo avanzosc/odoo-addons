@@ -216,6 +216,7 @@ class ResPartnerCompanyChangeLine(models.Model):
         update_values = super()._action_process()
         state = self.state
         if self.action == "update":
+            self = self.with_context(force_company_id=self.import_id.company_dest_id.id)
             self._update_company()
             self._update_values()
             state = "done"
