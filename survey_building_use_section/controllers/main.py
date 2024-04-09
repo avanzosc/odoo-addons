@@ -1,7 +1,6 @@
-# Necesario para pruebas
-from odoo.tools import format_datetime, format_date, is_html_empty
+# Copyright 2024 Unai Beristain, Ana Juaristi - AvanzOSC
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import pprint
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -9,9 +8,6 @@ _logger = logging.getLogger(__name__)
 from odoo import http
 from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey
-from odoo.addons.survey.controllers.survey_session_manage import UserInputSession
-
-
 
 class Survey(Survey):
     @http.route()
@@ -65,7 +61,7 @@ class Survey(Survey):
 
             # Create automatic responses of the normative filter question (1st question),
             # Generate the responses of the first question that is activated when pressing
-            # ADD NORMATIVE FILTER
+            # "Add Normative Filter"
 
             # Select answers based on the given logic
             selected_answers = []
@@ -92,8 +88,6 @@ class Survey(Survey):
                         ])
 
                         if not existing_user_input_line:
-                            # Logging the condition evaluation
-
                             # Create a record for survey.user_input_line
                             user_input_line = request.env['survey.user_input.line'].create({
                                 'survey_id': res.qcontext['survey'].id,
@@ -106,7 +100,7 @@ class Survey(Survey):
                             _logger.info(f"2024okdeb - Created survey.user_input.line with id {user_input_line.id}")
 
                         else:
-                            _logger.info(f"2024okdeb - Survey exists: {existing_user_input_line}")
+                            _logger.info(f"2024okdeb - Survey user input line exists: {existing_user_input_line}")
 
                         selected_answers.append(answer)                        
 
