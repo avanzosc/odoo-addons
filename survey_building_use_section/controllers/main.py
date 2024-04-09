@@ -24,9 +24,18 @@ class Survey(Survey):
             triggering_question_obj = request.env['survey.question'].browse(triggering_question_id)
 
             for question in res.qcontext['survey'].question_and_page_ids:
-                if question.sequence > triggering_question_obj.sequence:
-                    triggered_question = question                
-                    # All the questions must be conditional. If they are not conditional they will display 
+                if question.sequence > triggering_question_obj.sequence:                        
+                    triggered_question = question
+                    
+                    # If a question has no normative show it no matter the normative and
+                    # remove the is conditional filter
+                    if not triggered_question.question_normative_ids:
+                        triggered_question.write({
+                            'is_conditional': False,
+                        })
+                        break
+                    
+                    # All other questions must be conditional. If they are not conditional they will display 
                     # no matter the condition
                     triggered_question.write({
                         'is_conditional': True,
@@ -55,16 +64,19 @@ class Survey(Survey):
                         'triggering_answer_id': triggering_answer.id,
                     })
 
+            # Create automatic responses of the normative filter,
+            # Generate the responses of the first question that is activated when pressing
+            # ADD NORMATIVE FILTER
 
-            # Seleccionar las respuestas basadas en la lógica dada
+            # Select answers based on the given logic
             selected_answers = []
 
-            # Obtener todas las normativas de la tabla survey.question.normative
+            # Get all normatives from the survey.question.normative table
             all_normatives = request.env['survey.question.normative'].search([])
 
             for answer in triggering_question_obj.suggested_answer_ids:                
                 for normative in all_normatives:
-                    # Verificar si alguna de las normativas cumple con la condición
+                    # Check if any of the normatives meet the condition
                     if (normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
                         and answer not in selected_answers 
                         and answer.value == normative.name):
@@ -72,7 +84,7 @@ class Survey(Survey):
                         _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - Normative name: {normative.name} - Answer value: {answer.value}")
 
                         
-                        # Verificar si ya existe un registro para estas condiciones
+                        # Check if a record already exists for these conditions
                         existing_user_input_line = request.env['survey.user_input.line'].search([
                             ('survey_id', '=', res.qcontext['survey'].id),
                             ('question_id', '=', triggering_question_obj.id),
@@ -103,6 +115,8 @@ class Survey(Survey):
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(res.qcontext['survey'], res.qcontext['answer'], **post))
+
+
 
     def _prepare_survey_data(self, survey_sudo, answer_sudo, **post):
         res = super()._prepare_survey_data(survey_sudo, answer_sudo, **post)
