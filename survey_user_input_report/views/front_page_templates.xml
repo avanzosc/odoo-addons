@@ -4,51 +4,41 @@
     <template id="report_front_page_mantenimiento" name="Survey: Portada Mantenimiento">
         <style>
 
-            /* Estilos para el contenedor principal */
             .contenedor_debajo {
             --col-count: 3;
+            margin-bottom: 20px;
             }
 
-            /* Estilos para las filas */
             .contenedor_debajo .row {
             display: -webkit-flex;
-            display: flex;
             -webkit-flex-wrap: wrap;
-            flex-wrap: wrap;
-            margin-right: calc(var(--bs-gutter-x) * -1);
-            margin-left: calc(var(--bs-gutter-x) * -1);
             }
 
-            /* Estilos para las columnas */
             .contenedor_debajo .col {
             -webkit-flex: 1;
-            flex: 1;
-            padding-right: calc(var(--bs-gutter-x) * 0.5);
-            padding-left: calc(var(--bs-gutter-x) * 0.5);
             }
 
-            /* Estilos para los botones de la matriz */
             .contenedor_debajo .o_survey_matrix_btn {
             background-color: #f0f0f0;
             border: 1px solid #ccc;
             padding: 10px;
-            width: 100%; /* Asegurar que los botones ocupen todo el ancho de la columna */
+            width: 100%; 
             }
 
-            /* Estilos para el texto oscuro */
             .contenedor_debajo .text-dark {
             color: #343a40;
             }
 
-            /* Estilos para la posición relativa */
             .contenedor_debajo .position-relative {
             position: relative;
             }
-
+            
             .reglamento {
             width: 100%;
             }
+            td {
 
+            }
 
         </style>
 
@@ -391,25 +381,25 @@
                 </table>
             </div> -->
             <div class="contenedor_debajo">
-                <t t-set="column_counter" t-value="0" />
-                <t t-set="temp_values" t-value="[]" />
+                <t t-set="column_counter" t-value="0"/>
+                <t t-set="temp_values" t-value="[]"/>
                 <t t-foreach="all_values" t-as="value">
-                    <t t-set="column_counter" t-value="column_counter + 1" />
-                    <t t-set="temp_values" t-value="temp_values + [value]" />
+                    <t t-set="column_counter" t-value="column_counter + 1"/>
+                    <t t-set="temp_values" t-value="temp_values + [value]"/>
                     <t t-if="column_counter % 2 == 0 or column_counter == len(all_values)">
                         <div class="row">
                             <t t-foreach="temp_values" t-as="temp_value">
-                                <div class="col-6">
-                                    <label class="form-label">
-                                        <t t-esc="temp_value['label']" />
+                                <div class="col-6 px-1">
+                                    <label class="form-label small-font">
+                                        <t t-esc="temp_value['label']"/>
                                     </label>
-                                    <span class="form-control-static">
-                                        <t t-esc="temp_value['value']" />
+                                    <span class="form-control-static small-font">
+                                        <t t-esc="temp_value['value']"/>
                                     </span>
                                 </div>
                             </t>
                         </div>
-                        <t t-set="temp_values" t-value="[]" />
+                        <t t-set="temp_values" t-value="[]"/>
                     </t>
                 </t>
             </div>
