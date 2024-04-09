@@ -52,7 +52,7 @@ class Survey(Survey):
                                 
                 # Write a value in triggering_answer_id not to be null
                 # Get the first normative of the question. This answer will not trigger the question 
-                # so id does not matter if it is the first or the last
+                # so it does not matter if it is the first or the last
                 triggering_answer = next((ans for ans in triggering_question_obj.suggested_answer_ids if ans.value in [normative.name for normative in question.question_normative_ids]), False)
                 if not question.triggering_answer_id and triggering_answer and question.is_conditional:
                     question.write({
@@ -102,7 +102,8 @@ class Survey(Survey):
                         else:
                             _logger.info(f"2024okdeb - Survey user input line exists: {existing_user_input_line}")
 
-                        selected_answers.append(answer)                        
+                        # Dont compare this questions again because they are already selected
+                        selected_answers.append(answer)
 
         return request.render('survey.survey_page_fill',
             self._prepare_survey_data(res.qcontext['survey'], res.qcontext['answer'], **post))
