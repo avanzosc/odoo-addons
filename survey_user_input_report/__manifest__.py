@@ -17,7 +17,8 @@
     "data": [
         "views/answers_template_inspeccion.xml",
         "views/answers_template_verificacion.xml",
-        "views/front_page_templates.xml",
+        "views/front_page_inspeccion.xml",
+        "views/front_page_verificacion.xml",
         "views/survey_pdf_report_inspeccion.xml",
         "views/survey_pdf_report_verificacion.xml",
     ],

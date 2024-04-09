@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Agregar portada -->
+    <template id="report_front_page_inspeccion" name="Survey: Portada Inspeccion">
+        <style>
+            .contenedor_debajo {
+            --col-count: 3;
+            margin-bottom: 20px;
+            }
+
+            .contenedor_debajo .row {
+            display: -webkit-flex;
+            -webkit-flex-wrap: wrap;
+            }
+
+            .contenedor_debajo .col {
+            -webkit-flex: 1;
+            }
+
+            .contenedor_debajo .o_survey_matrix_btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 100%; 
+            }
+
+            .contenedor_debajo .text-dark {
+            color: #343a40;
+            }
+
+            .contenedor_debajo .position-relative {
+            position: relative;
+            }
+            
+            .reglamento {
+            width: 100%;
+            }
+            
+            td {
+            padding: 5px;
+            }
+
+
+        </style>
+
+
+        <t t-set="survey_form_readonly" t-value="true"/>
+
+        <!-- <t t-set="survey_info" t-value="[
+                {'label': 'Survey Title:', 'value': o.survey_id.title},
+                {'label': 'Survey Expediente:', 'value': o.file_number},
+                {'label': 'Survey Acta:', 'value': o.act_number},
+                {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+                {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+                {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+                {'label': 'Inspection Type:', 'value': o.inspection_type},
+                {'label': 'Scoring Success:', 'value': o.scoring_success},
+                {'label': 'Score:', 'value': o.scoring_percentage},
+                {'label': 'Partner:', 'value': o.partner_id.name},
+                {'label': 'Email:', 'value': o.email},
+                {'label': 'Building:', 'value': o.inspected_building_id.name},
+                {'label': 'Building Type:', 'value': o.building_use_id.name},
+                {'label': 'Building Section:', 'value': o.building_section_id.name},
+                {'label': 'Risk Use:', 'value': o.risk},
+                {'label': 'Area:', 'value': o.superficie},
+                {'label': 'Create Date:', 'value': o.create_date},
+                ]" /> -->
+
+        <t t-set="survey_info" t-value="[                 {'label': 'Survey Expediente:', 'value': o.file_number},                 {'label': 'Survey Acta:', 'value': o.act_number},                 {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},                 {'label': 'Inspection End Date:', 'value': o.inspection_end_date},                 {'label': 'Survey Inspector:', 'value': o.inspector_id.name},                 {'label': 'Inspection Type:', 'value': o.inspection_type},                 {'label': 'Partner:', 'value': o.partner_id.name},                 ]"/>
+
+        <t t-set="survey_info_debajo" t-value="[                     {'label': 'Building:', 'value': o.inspected_building_id.name},                     {'label': 'NIF:', 'value': o.inspected_building_id.vat},                     {'label': 'Phone:', 'value': o.inspected_building_id.phone},                      {'label': 'Maintainer:', 'value': o.maintainer_id.name},                     {'label': 'Maintainer NIF:', 'value': o.maintainer_id.vat},                     {'label': 'Maintainer Phone:', 'value': o.maintainer_id.phone},                      {'label': 'Installer:', 'value': o.installer_id.name},                     {'label': 'Installer NIF:', 'value': o.installer_id.vat},                     {'label': 'Installer Phone:', 'value': o.installer_id.phone},                      {'label': 'Administrator:', 'value': o.administrator_id.name},                     {'label': 'Administrator NIF:', 'value': o.administrator_id.vat},                     {'label': 'Administrator Phone:', 'value': o.administrator_id.phone}, ]"/>
+
+        <!-- Contenedor principal -->
+        <div class="contenedor contenedor_1">
+            <!-- Contenedor izquierdo -->
+            <div class="w-100 m-0 p-0 mx-auto">
+                <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
+                    comprobaciones y controles se realizan en base al cumplimiento de las
+                    disposiciones: </p>
+                <table class="reglamento w-100">
+                    <t t-set="counter" t-value="0"/>
+                    <t t-set="grouped_items" t-value="[]"/>
+
+                    <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])"/>
+
+                    <!-- Filtrar las normativas basadas en el año de inicio y fin -->
+                    <t t-set="current_question_print_normatives" t-value="all_normatives.filtered(lambda norm:                          norm.start_year &lt;= o.inspected_building_id.service_start_date.year and                         norm.end_year &gt;= o.inspected_building_id.service_start_date.year                     )"/>
+                    <t t-if="current_question_print_normatives">
+                        <t t-foreach="current_question_print_normatives" t-as="item">
+                            <t t-set="counter" t-value="counter+1"/>
+                            <t t-set="grouped_items" t-value="grouped_items + [item]"/>
+                            <t t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
+                                <tr>
+                                    <t t-foreach="grouped_items" t-as="grouped_item">
+                                        <td class="w-50">
+                                            <input id="cuadrado" type="checkbox"/>
+                                            <t t-esc="grouped_item.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-set="grouped_items" t-value="[]"/>
+                            </t>
+                        </t>
+                    </t>
+                </table>
+            </div>
+            <!-- Contenedor derecho -->
+            <!-- <div>
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-set="display_counter" t-value="0" />
+                    <t t-set="total_counter" t-value="0" />
+                    <t t-set="line_infos" t-value="[]" />
+                    <t t-foreach="survey_info" t-as="info">
+                        <t t-set="total_counter" t-value="total_counter+1" />
+                        <t t-if="info['value']">
+                            <t t-set="display_counter" t-value="display_counter+1" />
+                            <t t-set="line_infos" t-value="line_infos + [info]" />
+                            <t t-if="display_counter % 2 == 0 or total_counter == len(survey_info)">
+                                <tr class="bg-white text-white">
+                                    <t t-foreach="line_infos" t-as="pair_info">
+                                        <td class="o_survey_matrix_btn text-dark position-relative">
+                                            <div>
+                                                <t t-if="pair_info.get('label')">
+                                                    <label>
+                                                        <t t-esc="pair_info['label']" />
+                                                    </label>
+                                                </t>
+                                                <span>
+                                                    <t t-esc="pair_info['value']" />
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-set="line_infos" t-value="[]" />
+                            </t>
+                        </t>
+                    </t>
+                </table> 
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="survey_info" t-as="info">
+                        <t t-if="info['value']">
+                            <tr class="bg-white text-white">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
+                                    <t t-if="info.get('label')">
+                                        <label>
+                                            <t t-esc="info['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="info['value']" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </div> -->
+        </div>
+
+        <div class="contenedor_debajo" style="margin: 0 auto 40px;">
+            <t t-set="total_counter" t-value="0"/>
+            <t t-set="line_infos" t-value="[]"/>
+            <t t-foreach="survey_info_debajo" t-as="info">
+                <t t-if="info['value'] and info['label']">
+                    <t t-set="total_counter" t-value="total_counter+1"/>
+                    <t t-set="line_infos" t-value="line_infos + [info]"/>
+                    <t t-if="total_counter % 3 == 1">
+                        <div class="row" style="margin-bottom: -1px;">
+                            <div class="col-12">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px 0 0 0; width: 795px;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-1]['label']"/>
+                                    </label>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-1]['value']"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
+                        <div class="row" style="margin-bottom: -1px;">
+                            <div class="col-6">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px -1px 0 0;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-2]['label']"/>
+                                    </label>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-2]['value']"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
+                                <div class="col-6">
+                                    <div class="o_survey_matrix_btn text-dark position-relative border p-2" style="margin: -1px 0 0 -1px;">
+                                        <label style="font-weight: bold;">
+                                            <t t-esc="line_infos[total_counter-1]['label']"/>
+                                        </label>
+                                        <span>
+                                            <t t-esc="line_infos[total_counter-1]['value']"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </div>
+    </template>
+
+</odoo>

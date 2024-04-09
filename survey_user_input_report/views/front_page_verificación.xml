@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Agregar portada -->
+    <template id="report_front_page_verificacion" name="Survey: Portada Verificación">
+
+
+        <t t-set="all_values" t-value="[
+    {'label': 'Building:', 'value': o.inspected_building_id.name},
+    {'label': 'Building Type:', 'value': o.building_use_id.name},
+    {'label': 'Building Section:', 'value': o.building_section_id.name},
+
+    {'label': 'Survey Expediente:', 'value': o.file_number},
+    {'label': 'Survey Acta:', 'value': o.act_number},
+    {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+    {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+    {'label': 'Create Date:', 'value': o.create_date},
+
+    {'label': 'Survey Title:', 'value': o.survey_id.title},
+    {'label': 'Survey Expediente:', 'value': o.file_number},
+    {'label': 'Survey Acta:', 'value': o.act_number},
+    {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+    {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+    {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+    {'label': 'Inspection Type:', 'value': o.inspection_type},
+    {'label': 'Scoring Success:', 'value': o.scoring_success},
+    {'label': 'Score:', 'value': o.scoring_percentage},
+    {'label': 'Partner:', 'value': o.partner_id.name},
+    {'label': 'Email:', 'value': o.email},
+    {'label': 'Building:', 'value': o.inspected_building_id.name},
+    {'label': 'Building Type:', 'value': o.building_use_id.name},
+    {'label': 'Building Section:', 'value': o.building_section_id.name},
+    {'label': 'Risk Use:', 'value': o.risk},
+    {'label': 'Area:', 'value': o.superficie},
+
+    ]" />
+
+
+        <t t-set="left_table_top" t-value="[
+        {'label': 'Partner:', 'value': o.partner_id.name},
+        {'label': 'Building:', 'value': o.inspected_building_id.name},
+        {'label': 'Building Type:', 'value': o.building_use_id.name},
+        {'label': 'Building Section:', 'value': o.building_section_id.name},
+        ]" />
+
+        <t t-set="left_table_bottom" t-value="[
+        {'label': 'Survey Title:', 'value': o.survey_id.title},
+        {'label': 'Survey Expediente:', 'value': o.file_number},
+        {'label': 'Survey Acta:', 'value': o.act_number},
+        {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
+        {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+        {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+        {'label': 'Inspection Type:', 'value': o.inspection_type},
+        {'label': 'Scoring Success:', 'value': o.scoring_success},
+        {'label': 'Score:', 'value': o.scoring_percentage},
+        {'label': 'Partner:', 'value': o.partner_id.name},
+        {'label': 'Email:', 'value': o.email},
+        {'label': 'Building:', 'value': o.inspected_building_id.name},
+        {'label': 'Building Type:', 'value': o.building_use_id.name},
+        {'label': 'Building Section:', 'value': o.building_section_id.name},
+        {'label': 'Risk Use:', 'value': o.risk},
+        {'label': 'Area:', 'value': o.superficie},
+        {'label': 'Create Date:', 'value': o.create_date},
+        ]" />
+
+        <t t-set="right_table" t-value="[
+        {'label': 'Survey Expediente:', 'value': o.file_number},
+        {'label': 'Survey Acta:', 'value': o.act_number},
+        {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
+        {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
+        {'label': 'Create Date:', 'value': o.create_date},
+        ]" />
+
+
+        <t t-set="survey_form_readonly" t-value="true" />
+        <!-- Contenedor principal -->
+        <div class="contenedor contenedor_4">
+
+            <!-- <div id="left_div">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="left_table_top" t-as="info">
+                        <t t-if="info['value']">
+                            <tr class="bg-white text-white">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
+                                    <t t-if="info.get('label')">
+                                        <label>
+                                            <t t-esc="info['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="info['value']" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+
+
+                    <t t-set="display_counter" t-value="0" />
+                    <t t-set="total_counter" t-value="0" />
+                    <t t-set="pair_infos" t-value="[]" />
+                    <t t-foreach="left_table_bottom" t-as="info">
+                        <t t-set="total_counter" t-value="total_counter+1" />
+                        <t t-if="info['value']">
+                            <t t-set="display_counter" t-value="display_counter+1" />
+                            <t t-set="pair_infos" t-value="pair_infos + [info]" />
+                            <t t-if="display_counter % 2 == 0 or total_counter == len(left_table_bottom)">
+                                <tr class="bg-white text-white">
+                                    <t t-foreach="pair_infos" t-as="pair_info">
+                                        <td class="o_survey_matrix_btn text-dark position-relative">
+                                            <t t-if="pair_info.get('label')">
+                                                <label>
+                                                    <t t-esc="pair_info['label']" />
+                                                </label>
+                                            </t>
+                                            <span>
+                                                <t t-esc="pair_info['value']" />
+                                            </span>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-set="pair_infos" t-value="[]" />
+                            </t>
+                        </t>
+                    </t>
+                </table>
+            </div> -->
+
+            <!-- <div id="table_derecha" style="margin-left: 50px;">
+                <table class="table table-borderless o_survey_question_matrix text-white text-center">
+                    <t t-foreach="right_table" t-as="info">
+                        <t t-if="info['value']">
+                            <tr class="bg-white text-white">
+                                <td class="o_survey_matrix_btn text-dark position-relative">
+                                    <t t-if="info.get('label')">
+                                        <label>
+                                            <t t-esc="info['label']" />
+                                        </label>
+                                    </t>
+                                    <span>
+                                        <t t-esc="info['value']" />
+                                    </span>
+                                </td>
+                            </tr>
+                        </t>
+                    </t>
+                </table>
+            </div> -->
+            <div class="contenedor_debajo">
+                <t t-set="column_counter" t-value="0"/>
+                <t t-set="temp_values" t-value="[]"/>
+                <t t-foreach="all_values" t-as="value">
+                    <t t-set="column_counter" t-value="column_counter + 1"/>
+                    <t t-set="temp_values" t-value="temp_values + [value]"/>
+                    <t t-if="column_counter % 2 == 0 or column_counter == len(all_values)">
+                        <div class="row">
+                            <t t-foreach="temp_values" t-as="temp_value">
+                                <div class="col-6 px-1">
+                                    <label class="form-label small-font">
+                                        <t t-esc="temp_value['label']"/>
+                                    </label>
+                                    <span class="form-control-static small-font">
+                                        <t t-esc="temp_value['value']"/>
+                                    </span>
+                                </div>
+                            </t>
+                        </div>
+                        <t t-set="temp_values" t-value="[]"/>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </template>
+</odoo>
