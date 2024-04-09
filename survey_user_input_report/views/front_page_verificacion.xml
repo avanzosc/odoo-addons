@@ -2,14 +2,60 @@
 <odoo>
     <!-- Agregar portada -->
     <template id="report_front_page_verificacion" name="Verificación Portada ">
+        <t t-set="all_values" t-value="[
+            {'label': 'Edificio:', 'value': o.inspected_building_id.name},
+            {'label': 'Tipo de Edificio:', 'value': o.building_use_id.name},
+            {'label': 'Sección del Edificio:', 'value': o.building_section_id.name},
+            {'label': 'Fecha de Inicio de Inspección:', 'value': o.inspection_start_date},
+            {'label': 'Fecha de Fin de Inspección:', 'value': o.inspection_end_date},
+            {'label': 'Fecha de Creación:', 'value': o.create_date},
+            {'label': 'Título de la Encuesta:', 'value': o.survey_id.title},
+            {'label': 'Expediente de la Encuesta:', 'value': o.file_number},
+            {'label': 'Acta de la Encuesta:', 'value': o.act_number},
+            {'label': 'Inspector de la Encuesta:', 'value': o.inspector_id.name},
+            {'label': 'Tipo de Inspección:', 'value': o.inspection_type},
+            {'label': 'Éxito de la Puntuación:', 'value': o.scoring_success},
+            {'label': 'Puntuación:', 'value': o.scoring_percentage},
+            {'label': 'Socio:', 'value': o.partner_id.name},
+            {'label': 'Correo Electrónico:', 'value': o.email},
+            {'label': 'Uso de Riesgo:', 'value': o.risk},
+            {'label': 'Área:', 'value': o.superficie},
+        ]"/>
 
-        <t t-set="all_values" t-value="[         {'label': 'Building:', 'value': o.inspected_building_id.name},         {'label': 'Building Type:', 'value': o.building_use_id.name},         {'label': 'Building Section:', 'value': o.building_section_id.name},     {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},         {'label': 'Create Date:', 'value': o.create_date},          {'label': 'Survey Title:', 'value': o.survey_id.title},         {'label': 'Survey Expediente:', 'value': o.file_number},         {'label': 'Survey Acta:', 'value': o.act_number},         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},         {'label': 'Inspection Type:', 'value': o.inspection_type},         {'label': 'Scoring Success:', 'value': o.scoring_success},         {'label': 'Score:', 'value': o.scoring_percentage},         {'label': 'Partner:', 'value': o.partner_id.name},         {'label': 'Email:', 'value': o.email},         {'label': 'Building:', 'value': o.inspected_building_id.name},         {'label': 'Building Type:', 'value': o.building_use_id.name},         {'label': 'Building Section:', 'value': o.building_section_id.name},         {'label': 'Risk Use:', 'value': o.risk},         {'label': 'Area:', 'value': o.superficie},          ]"/>
+        <t t-set="left_table_top" t-value="[
+            {'label': 'Socio:', 'value': o.partner_id.name},
+            {'label': 'Edificio:', 'value': o.inspected_building_id.name},
+            {'label': 'Tipo de Edificio:', 'value': o.building_use_id.name},
+            {'label': 'Sección del Edificio:', 'value': o.building_section_id.name},
+        ]"/>
 
-        <t t-set="left_table_top" t-value="[         {'label': 'Partner:', 'value': o.partner_id.name},         {'label': 'Building:', 'value': o.inspected_building_id.name},         {'label': 'Building Type:', 'value': o.building_use_id.name},         {'label': 'Building Section:', 'value': o.building_section_id.name},         ]"/>
+        <t t-set="left_table_bottom" t-value="[
+            {'label': 'Título de la Encuesta:', 'value': o.survey_id.title},
+            {'label': 'Expediente de la Encuesta:', 'value': o.file_number},
+            {'label': 'Acta de la Encuesta:', 'value': o.act_number},
+            {'label': 'Inspector de la Encuesta:', 'value': o.inspector_id.name},
+            {'label': 'Fecha de Inicio de Inspección:', 'value': o.inspection_start_date},
+            {'label': 'Fecha de Fin de Inspección:', 'value': o.inspection_end_date},
+            {'label': 'Tipo de Inspección:', 'value': o.inspection_type},
+            {'label': 'Éxito de la Puntuación:', 'value': o.scoring_success},
+            {'label': 'Puntuación:', 'value': o.scoring_percentage},
+            {'label': 'Socio:', 'value': o.partner_id.name},
+            {'label': 'Correo Electrónico:', 'value': o.email},
+            {'label': 'Edificio:', 'value': o.inspected_building_id.name},
+            {'label': 'Tipo de Edificio:', 'value': o.building_use_id.name},
+            {'label': 'Sección del Edificio:', 'value': o.building_section_id.name},
+            {'label': 'Uso de Riesgo:', 'value': o.risk},
+            {'label': 'Área:', 'value': o.superficie},
+            {'label': 'Fecha de Creación:', 'value': o.create_date},
+        ]"/>
 
-        <t t-set="left_table_bottom" t-value="[         {'label': 'Survey Title:', 'value': o.survey_id.title},         {'label': 'Survey Expediente:', 'value': o.file_number},         {'label': 'Survey Acta:', 'value': o.act_number},         {'label': 'Survey Inspector:', 'value': o.inspector_id.name},         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},         {'label': 'Inspection Type:', 'value': o.inspection_type},         {'label': 'Scoring Success:', 'value': o.scoring_success},         {'label': 'Score:', 'value': o.scoring_percentage},         {'label': 'Partner:', 'value': o.partner_id.name},         {'label': 'Email:', 'value': o.email},         {'label': 'Building:', 'value': o.inspected_building_id.name},         {'label': 'Building Type:', 'value': o.building_use_id.name},         {'label': 'Building Section:', 'value': o.building_section_id.name},         {'label': 'Risk Use:', 'value': o.risk},         {'label': 'Area:', 'value': o.superficie},         {'label': 'Create Date:', 'value': o.create_date},         ]"/>
-
-        <t t-set="right_table" t-value="[         {'label': 'Survey Expediente:', 'value': o.file_number},         {'label': 'Survey Acta:', 'value': o.act_number},         {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},         {'label': 'Inspection End Date:', 'value': o.inspection_end_date},         {'label': 'Create Date:', 'value': o.create_date},         ]"/>
+        <t t-set="right_table" t-value="[
+            {'label': 'Expediente de la Encuesta:', 'value': o.file_number},
+            {'label': 'Acta de la Encuesta:', 'value': o.act_number},
+            {'label': 'Fecha de Inicio de Inspección:', 'value': o.inspection_start_date},
+            {'label': 'Fecha de Fin de Inspección:', 'value': o.inspection_end_date},
+            {'label': 'Fecha de Creación:', 'value': o.create_date},
+        ]"/>
 
         <t t-set="survey_form_readonly" t-value="true"/>
         <!-- Contenedor principal -->
