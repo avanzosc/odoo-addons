@@ -81,7 +81,7 @@
                                             <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
                                         <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />
  -->
-                                            <t t-if="not is_correct">
+                                            <t t-if="not is_correct and answer_selected">
                                                 <tr>
                                                     <td>
                                                         <t t-esc="question.title" />
@@ -127,7 +127,7 @@
                                         <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" /> -->
 
 
-                                            <t t-if="not is_correct">
+                                            <t t-if="not is_correct and answer_selected">
                                                 <tr>
                                                     <td>
                                                         <t t-esc="question.title" />
