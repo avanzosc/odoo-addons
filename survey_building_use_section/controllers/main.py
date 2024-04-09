@@ -23,7 +23,7 @@ class Survey(Survey):
                 if question.sequence > triggering_question_obj.sequence:
                     triggered_question = question
                     
-                    triggering_question_before = request.env['survey.question'].browse(triggered_question.triggering_question_id)
+                    triggering_question_before = request.env['survey.question'].browse(triggered_question.triggering_question_id.id)
                     
                     # If a question has a triggering_question_id, dont change it to be activated with the normative filter
                     # Only change the first question that needs no activation, and filter it regarding normative
