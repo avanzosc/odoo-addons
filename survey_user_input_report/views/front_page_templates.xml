@@ -95,7 +95,7 @@
                             <t t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
                                 <tr>
                                     <t t-foreach="grouped_items" t-as="grouped_item">
-                                        <td>
+                                        <td class="w-50">
                                             <input id="cuadrado" type="checkbox"/>
                                             <t t-esc="grouped_item.name"/>
                                         </td>
