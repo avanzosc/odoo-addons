@@ -37,33 +37,34 @@ class Survey(Survey):
                             'is_conditional': False,
                         })
                         _logger.info(f"2024okdeb - 'is_conditional': False,: {triggered_question}")
-                        break
-                    
-                    # All other questions must be conditional. If they are not conditional they will display 
-                    # no matter the condition
-                    triggered_question.write({
-                        'is_conditional': True,
-                        'triggering_question_id': triggering_question_id,
-                        'triggering_answer_id': False,
-                    })
+                        
+                    else:
+                        
+                        # All other questions must be conditional. If they are not conditional they will display 
+                        # no matter the condition
+                        triggered_question.write({
+                            'is_conditional': True,
+                            'triggering_question_id': triggering_question_id,
+                            'triggering_answer_id': False,
+                        })
 
-                    if any(normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
-                        for normative in question.question_normative_ids):
-                        matched_normatives = [normative for normative in question.question_normative_ids if normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year]
-                        matching_normative_names = [normative.name for normative in matched_normatives]
-                        matched_answers = [ans for ans in triggering_question_obj.suggested_answer_ids if ans.value in matching_normative_names]
-                        if matched_answers:
-                            triggering_answer = next((ans for ans in triggering_question_obj.suggested_answer_ids if ans.value == matched_answers[0].value), False)
-                            if triggering_answer:
-                                triggered_question.write({
-                                    'triggering_answer_id': triggering_answer.id,
-                                })
+                        if any(normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
+                            for normative in question.question_normative_ids):
+                            matched_normatives = [normative for normative in question.question_normative_ids if normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year]
+                            matching_normative_names = [normative.name for normative in matched_normatives]
+                            matched_answers = [ans for ans in triggering_question_obj.suggested_answer_ids if ans.value in matching_normative_names]
+                            if matched_answers:
+                                triggering_answer = next((ans for ans in triggering_question_obj.suggested_answer_ids if ans.value == matched_answers[0].value), False)
+                                if triggering_answer:
+                                    triggered_question.write({
+                                        'triggering_answer_id': triggering_answer.id,
+                                    })
                                 
                 # Write a value in triggering_answer_id not to be null
                 # Get the first normative of the question. This answer will not trigger the question 
                 # so id does not matter if it is the first or the last
                 triggering_answer = next((ans for ans in triggering_question_obj.suggested_answer_ids if ans.value in [normative.name for normative in question.question_normative_ids]), False)
-                if not question.triggering_answer_id and triggering_answer:
+                if not question.triggering_answer_id and triggering_answer and question.is_conditional:
                     question.write({
                         'triggering_answer_id': triggering_answer.id,
                     })
