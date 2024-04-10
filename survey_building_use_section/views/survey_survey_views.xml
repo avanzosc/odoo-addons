@@ -10,11 +10,10 @@
             <button name="action_send_survey" position="after">
                 <button name="add_normative_filter" string="Add Normative Filter" type="object" class="oe_highlight" attrs="{'invisible': [('user_id', '=', False)]}" />
             </button>
-
-            <!-- <xpath expr="//field[@name='question_and_page_ids']//field[@name='title']">
+            <xpath expr="//field[@name='question_and_page_ids']//field[@name='title']" position="after">
                 <field name="question_normative_ids" widget="many2many_tags" optional="show"/>
                 <field name="is_conditional" optional="hide"/>
-            </xpath> -->
+            </xpath>
         </field>
     </record>
 </odoo>
