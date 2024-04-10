@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_final_price_by_pricelist_report_view_tree" model="ir.ui.view">
+        <field name="model">product.final.price.by.pricelist.report</field>
+        <field
+      name="inherit_id"
+      ref="product_final_price_by_pricelist.product_final_price_by_pricelist_report_view_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="description_sale_es" />
+                <field name="description_sale_cat" />
+                <field name="description_sale_en" />
+            </field>
+        </field>
+    </record>
+</odoo>

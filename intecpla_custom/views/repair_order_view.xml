@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_repair_order_tree" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="before">
+                <field name="employee_id" />
+                <field name="date_repair" />
+                <field name="duration" widget="float_time" />
+                <field name="expected_repair_date" />
+            </field>
+            <field name="state" position="before">
+                <field name="task_state" />
+            </field>
+        </field>
+    </record>
+    <record id="view_repair_order_form_filter" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="employee_id" />
+                <field name="expected_repair_date" />
+            </field>
+            <filter name="partner" position="after">
+                <filter
+          string="Employee"
+          name="employee-filter"
+          domain="[]"
+          context="{'group_by':'employee_id'}"
+        />
+            </filter>
+            <filter name="company" position="after">
+                <filter
+          string="Expected repair date"
+          name="expected-repair-date-filter"
+          domain="[]"
+          context="{'group_by':'expected_repair_date'}"
+        />
+            </filter>
+        </field>
+    </record>
+    <record id="view_repair_order_form_filter2" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair_validate.view_repair_order_form_filter" />
+        <field name="arch" type="xml">
+            <filter name="finished-task" position="before">
+                <filter
+          string="Task Uninitiated"
+          name="task-uninitiated"
+          domain="[('task_state','=','uninitiated')]"
+        />
+                <filter
+          string="Task In progress"
+          name="task-in-progress"
+          domain="[('task_state','=','in_progress')]"
+        />
+                <filter
+          string="Task Finished"
+          name="task-finished"
+          domain="[('task_state','=','finished')]"
+        />
+            </filter>
+            <filter name="filter-finished-task" position="after">
+                <filter
+          string="Task state"
+          name="filter-task-state"
+          domain="[]"
+          context="{'group_by':'task_state'}"
+        />
+            </filter>
+            <filter name="finished-task" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+            <filter name="not-finished-task" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+            <filter name="filter-finished-task" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </filter>
+        </field>
+    </record>
+    <record id="view_repair_order_form" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <field name="location_id" position="before">
+                <field name="only_read" invisible="1" />
+                <field name="show_button_repair_start_intecpla" invisible="1" />
+            </field>
+            <field name="address_id" position="before">
+                <field
+          name="employee_id"
+          attrs="{'readonly':[('only_read','=',True)]}"
+        />
+                <field
+          name="expected_repair_date"
+          attrs="{'readonly':[('only_read','=',True)]}"
+        />
+            </field>
+            <field name="fees_lines" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="operations" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="lot_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'required': [('tracking', '!=', 'none')], 'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <button name="action_repair_start" position="attributes">
+                <attribute name="string">Start Task</attribute>
+            </button>
+            <button name="action_repair_start" position="after">
+                <button
+          name="action_repair_start_intecpla"
+          attrs="{'invisible': [('show_button_repair_start_intecpla','=',False)]}"
+          type="object"
+          string="Start Task"
+          class="oe_highlight"
+        />
+            </button>
+            <field name="partner_invoice_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'invisible':[('invoice_method','=', 'none')],'required':[('invoice_method','!=','none')],'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="pricelist_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'invisible':[('invoice_method','=', 'none')], 'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="internal_notes" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="quotation_notes" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="partner_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="address_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="guarantee_limit" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="name" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="state" position="after">
+                <field
+          name="task_state"
+          widget="statusbar"
+          statusbar_visible="uninitiated,in_progress,finished"
+        />
+            </field>
+        </field>
+    </record>
+    <record id="view_repair_order_form2" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="priority" eval="20" />
+        <field name="arch" type="xml">
+            <button name="action_task_end" position="attributes">
+                <attribute name="groups" />
+            </button>
+        </field>
+    </record>
+    <record id="view_repair_order_calendar" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field
+      name="inherit_id"
+      ref="repair_calendar_view.view_repair_order_calendar"
+    />
+        <field name="arch" type="xml">
+            <calendar position="attributes">
+                <attribute name="color">employee_id</attribute>
+            </calendar>
+        </field>
+    </record>
+    <record id="view_repair_order_calendar_form" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field
+      name="inherit_id"
+      ref="repair_calendar_view.view_repair_order_calendar_form"
+    />
+        <field name="arch" type="xml">
+            <field name="duration" position="attributes">
+                <attribute name="widget">float_time</attribute>
+                <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="user_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="date_repair" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="view_repair_order_form3" model="ir.ui.view">
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair_refurbish.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <field name="to_refurbish" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="refurbish_product_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'required': [('to_refurbish', '=', True)], 'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="refurbish_lot_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+            <field name="refurbish_location_dest_id" position="attributes">
+                 <attribute
+          name="attrs"
+        >{'required': [('to_refurbish', '=', True)], 'readonly': [('only_read', '=', True)]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
