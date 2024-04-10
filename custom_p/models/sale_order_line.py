@@ -1,11 +1,15 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
+
+    order_partner_id = fields.Many2one(
+        depends=["product_id", "order_id", "order_id.partner_id"]
+    )
 
     @api.depends("move_ids.state", "move_ids.scrapped",
                  "move_ids.product_uom_qty", "move_ids.product_uom")
