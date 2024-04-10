@@ -1,0 +1,428 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* intecpla_custom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-28 11:08+0000\n"
+"PO-Revision-Date: 2023-03-28 11:08+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/repair_order.py:23
+#: selection:repair.order,task_state:0
+#, python-format
+msgid " Task Finished"
+msgstr "Tarea finalizada"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/repair_order.py:22
+#: selection:repair.order,task_state:0
+#, python-format
+msgid " Task In progress"
+msgstr "Tarea en progreso"
+
+#. module: intecpla_custom
+#: model:ir.actions.server,name:intecpla_custom.ir_cron_fix_invoice_line_section_ir_actions_server
+#: model:ir.cron,cron_name:intecpla_custom.ir_cron_fix_invoice_line_section
+#: model:ir.cron,name:intecpla_custom.ir_cron_fix_invoice_line_section
+msgid "Arreglar secciones en lineas de factura"
+msgstr ""
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_product__description
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_template__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_picking_internal_search
+msgid "Destination location"
+msgstr "Ubicación destino"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__employee_id
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__expected_repair_date
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter
+msgid "Expected repair date"
+msgstr "Fecha prevista reparación"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/product_product.py:20
+#: selection:product.product,product_color:0
+#, python-format
+msgid "Green"
+msgstr "Verde"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__id
+msgid "ID"
+msgstr ""
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Linea de Factura"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_product_supplier_inherit
+msgid "Last invoice Info"
+msgstr "Información última factura"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_search_form_view_inh_intecpla
+msgid "Line color"
+msgstr "Color línea"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_search_form_view_inh_intecpla
+msgid "Line in green"
+msgstr "Línea en verde"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_search_form_view_inh_intecpla
+msgid "Line in orange"
+msgstr "Línea en naranja"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_search_form_view_inh_intecpla
+msgid "Line in red"
+msgstr "Línea en rojo"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_search_form_view_inh_intecpla
+msgid "Line without color"
+msgstr "Línea sin color"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_picking_internal_search
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_product__max_threshold_percentage_between_costs_id
+msgid "Max. Threshold percentage between costs"
+msgstr "Max. Umbral porcentaje entre costes"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_product__min_threshold_percentage_between_costs_id
+msgid "Min. Threshold percentage between costs"
+msgstr "Min. Umbral procentaje entre costes"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_final_price_by_pricelist_report__description_sale_cat
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_price_by_pricelist__description_sale_cat
+msgid "Name of the product in sales (Catalan)"
+msgstr "Nombre del producto en ventas (Catalán)"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_final_price_by_pricelist_report__description_sale_en
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_price_by_pricelist__description_sale_en
+msgid "Name of the product in sales (English)"
+msgstr "Nombre del producto en ventas (Inglés)"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_final_price_by_pricelist_report__description_sale_es
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_price_by_pricelist__description_sale_es
+msgid "Name of the product in sales (Spanish)"
+msgstr "Nombre del producto en ventas (Español)"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_product__notes_for_cost_sale_price
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_normal_form_view
+msgid "Notes for calculating Target Cost and Sale Price"
+msgstr "Notas para cálculo de Coste objetivo y Precio de venta"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/account_invoice.py:180
+#: code:addons/intecpla_custom/models/account_invoice.py:183
+#: code:addons/intecpla_custom/models/account_invoice.py:205
+#: code:addons/intecpla_custom/models/account_invoice.py:208
+#, python-format
+msgid "Notes: {}"
+msgstr "Notas: {}"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__only_read
+msgid "Only read"
+msgstr "Solo lectura"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__fees_lines
+msgid "Operations"
+msgstr "Operaciones"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/product_product.py:22
+#: selection:product.product,product_color:0
+#, python-format
+msgid "Orange"
+msgstr "Naranja"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/account_invoice.py:129
+#: code:addons/intecpla_custom/models/account_invoice.py:228
+#, python-format
+msgid "Order: {}, date: {}"
+msgstr "Pedido: {}, fecha: {}"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__operations
+msgid "Parts"
+msgstr "Piezas"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Métodos de pago"
+
+#. module: intecpla_custom
+#: model:ir.actions.server,name:intecpla_custom.ir_cron_fix_english_translation_in_product_ir_actions_server
+#: model:ir.cron,cron_name:intecpla_custom.ir_cron_fix_english_translation_in_product
+#: model:ir.cron,name:intecpla_custom.ir_cron_fix_english_translation_in_product
+msgid "Poner en ingles productos"
+msgstr ""
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_account_payment_mode__print_reference_to_payment
+msgid "Print reference to make payment on customer invoices"
+msgstr "Imprimir referencia para ralizar el pago en facturas clientes"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_stock_move__product_code
+msgid "Product Code"
+msgstr "Código producto"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: intecpla_custom
+#: model:ir.actions.act_window,name:intecpla_custom.action_product_normal_editable_tree_view_intecpla
+#: model:ir.ui.menu,name:intecpla_custom.menu_action_product_normal_editable_tree_view_intecpla
+msgid "Product Variant Maintenance"
+msgstr "Mantenimiento variantes productos"
+
+#. module: intecpla_custom
+#: model:ir.actions.act_window,name:intecpla_custom.action_product_view_from_product_editable
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_normal_editable_tree_view_intecpla
+msgid "Product Variants"
+msgstr "Variantes de producto"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_purchase_order_line__product_code
+msgid "Product code"
+msgstr "Código producto"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_product__product_color
+msgid "Product color"
+msgstr "Color línea"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_product_final_price_by_pricelist_report
+msgid "Product final price by pricelist List"
+msgstr "Lista precio producto final por tarifa"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_product_price_by_pricelist
+msgid "Product price by pricelist"
+msgstr "Precio producto por tarifa"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_product_supplier_inherit
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/product_product.py:21
+#: selection:product.product,product_color:0
+#, python-format
+msgid "Red"
+msgstr "Rojo"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_repair_order
+msgid "Repair Order"
+msgstr "Orden de reparación"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_account_invoice_line__repair_order_section
+msgid "Repair order section"
+msgstr "Sección orden reparación"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/account_invoice.py:167
+#: code:addons/intecpla_custom/models/account_invoice.py:263
+#, python-format
+msgid "Repair: {}, date: {}"
+msgstr "Reparación: {}, fecha: {}"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_account_invoice_line__sale_order_section
+msgid "Sale order section"
+msgstr "Sección pedido venta"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__show_button_repair_start_intecpla
+msgid "Show button repair start intecpla"
+msgstr "Mostrar botón iniciar reparación intecpla"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form
+msgid "Start Task"
+msgstr "Iniciar tarea"
+
+#. module: intecpla_custom
+#: model:ir.model,name:intecpla_custom.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter2
+msgid "Task Finished"
+msgstr "Tarea finalizada"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter2
+msgid "Task In progress"
+msgstr "Tarea en progreso"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/repair_order.py:21
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter2
+#: selection:repair.order,task_state:0
+#, python-format
+msgid "Task Uninitiated"
+msgstr "Tarea NO iniciada"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_repair_order__task_state
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.view_repair_order_form_filter2
+msgid "Task state"
+msgstr "Estado tarea"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/account_invoice.py:28
+#, python-format
+msgid "The invoice already exists: %s, for the supplier: %s, with supplier reference: %s, and date %s."
+msgstr "Ya exite la factura: %s, para el proveedor: %s, con referencia de proveedor: %s, y fecha: %s."
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__threshold_percentage
+msgid "Threshold (in %)"
+msgstr "Umbral entre costes (En %)"
+
+#. module: intecpla_custom
+#: model:ir.actions.act_window,name:intecpla_custom.action_threshold_percentage_between
+#: model:ir.model,name:intecpla_custom.model_threshold_percentage_between_costs
+#: model:ir.ui.menu,name:intecpla_custom.menu_action_threshold_percentage_between
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.threshold_percentage_between_costs_editable_tree_view
+msgid "Threshold percentage between costs"
+msgstr "Umbral porcentaje entre costes"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_normal_editable_tree_view_intecpla
+msgid "Valuation"
+msgstr "Valoración"
+
+#. module: intecpla_custom
+#: model_terms:ir.ui.view,arch_db:intecpla_custom.product_normal_editable_tree_view_intecpla
+msgid "View Form"
+msgstr "Vista formulario"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_account_invoice_line__with_repair_order_section
+msgid "With repair order section"
+msgstr "Con sección order reparación"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_account_invoice_line__with_sale_order_section
+msgid "With sale order section"
+msgstr "Con sección pedido venta"
+
+#. module: intecpla_custom
+#: code:addons/intecpla_custom/models/product_product.py:19
+#: selection:product.product,product_color:0
+#, python-format
+msgid "Without color"
+msgstr "Sin color"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_threshold_percentage_between_costs__name
+msgid "description"
+msgstr "Descripción"
+
+#. module: intecpla_custom
+#: model:ir.model.fields,field_description:intecpla_custom.field_product_supplierinfo__price_with_discount
+msgid "Price with discount"
+msgstr "Precio con descuento"
+

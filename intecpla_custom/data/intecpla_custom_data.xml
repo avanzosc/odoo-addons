@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record
+    id="minimum_threshold_percentage_between_costs"
+    model="threshold.percentage.between.costs"
+  >
+        <field name="name">Mínimo</field>
+        <field name="threshold_percentage">0.0</field>
+    </record>
+    <record
+    id="maximum_threshold_percentage_between_costs"
+    model="threshold.percentage.between.costs"
+  >
+        <field name="name">Máximo</field>
+        <field name="threshold_percentage">0.0</field>
+    </record>
+</odoo>
