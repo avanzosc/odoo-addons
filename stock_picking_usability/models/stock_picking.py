@@ -14,12 +14,10 @@ class StockPicking(models.Model):
             )
             if moves:
                 for move in moves:
-                    warning_text = _(
-                        "Product: %(product_name)s, quantity not send: %(pending_qty)s"
-                    ) % {
-                        "product_name": move.product_id.name,
-                        "pending_qty": str(move.product_uom_qty - move.quantity_done),
-                    }
+                    warning_text = _("Product: {}, quantity not send: {}").format(
+                        move.product_id.name,
+                        str(move.product_uom_qty - move.quantity_done),
+                    )
                     warning = (
                         warning_text
                         if not warning

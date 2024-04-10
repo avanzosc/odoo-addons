@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-18 07:43+0000\n"
-"PO-Revision-Date: 2024-07-18 07:43+0000\n"
+"POT-Creation-Date: 2023-03-03 09:56+0000\n"
+"PO-Revision-Date: 2023-03-03 09:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,39 +24,17 @@ msgstr ""
 #. module: stock_move_qty_by_packaging
 #: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__boxes_sacks
 #: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__boxes_sacks
-msgid "Boxes/Sacks"
+msgid "Packages"
 msgstr ""
 
 #. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__palet_qty
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__palet_qty
-msgid "Contained Palet Quantity"
+#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__demand_product_packaging_qty
+msgid "Packages (Demand)"
 msgstr ""
 
 #. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__gross_weight
-msgid "Gross Weight"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__no_update_palet_qty
-msgid "No update palet_qty"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__product_packaging_id
-msgid "Packaging"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__product_packaging_qty
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__product_packaging_qty
-msgid "Packaging Quantity"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move_line__palet_id
-msgid "Palet"
+#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__done_product_packaging_qty
+msgid "Packages (Done)"
 msgstr ""
 
 #. module: stock_move_qty_by_packaging
@@ -65,26 +43,6 @@ msgid "Product Moves (Stock Move Line)"
 msgstr ""
 
 #. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__demand_product_packaging_qty
-msgid "Product packaging qty (Demand)"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model.fields,field_description:stock_move_qty_by_packaging.field_stock_move__done_product_packaging_qty
-msgid "Product packaging qty (Done)"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model,name:stock_move_qty_by_packaging.model_sale_order
-msgid "Sales Order"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
 #: model:ir.model,name:stock_move_qty_by_packaging.model_stock_move
 msgid "Stock Move"
-msgstr ""
-
-#. module: stock_move_qty_by_packaging
-#: model:ir.model,name:stock_move_qty_by_packaging.model_stock_picking
-msgid "Transfer"
 msgstr ""

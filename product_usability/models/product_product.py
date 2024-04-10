@@ -23,18 +23,6 @@ class ProductProduct(models.Model):
     months_with_stock = fields.Integer(
         string="Months with stock", compute="_compute_months_with_stock"
     )
-    root_category_id = fields.Many2one(
-        comodel_name="product.category",
-        string="Root Category",
-        related="categ_id.root_category_id",
-        store=True,
-    )
-    parent_category_id = fields.Many2one(
-        comodel_name="product.category",
-        string="Parent Category",
-        related="categ_id.parent_id",
-        store=True,
-    )
 
     def _compute_consumed_last_twelve_months(self):
         date_from = fields.Datetime.to_string(

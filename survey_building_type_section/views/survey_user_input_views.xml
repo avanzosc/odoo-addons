@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="survey_user_input_view_form" model="ir.ui.view">
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_view_form" />
+        <field name="arch" type="xml">
+            <field name="user_input_line_ids" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </field>
+            <notebook position="before">
+                <group>
+                    <group>
+                        <field name="inspected_building_id"/>
+                        <field name="building_type_id" readonly="1"
+                            attrs="{'invisible':[('inspected_building_id', '=', False)]}"/>
+                        <field name="section_ids" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="building_section_id"
+                            attrs="{'invisible':[('inspected_building_id', '=', False)]}"
+                            domain="[('id', 'in', section_ids)]"/>
+                        <field name="risk_use" readonly="1"
+                            attrs="{'invisible':[('building_section_id', '=', False)]}"/>
+                        <field name="superficie" readonly="1"
+                            attrs="{'invisible':[('building_section_id', '=', False)]}"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="file_number"/>
+                        <field name="act_number" />
+                        <field name="inspector_id" />
+                    </group>
+                    <group>
+                        <field name="inspection_start_date"/>
+                        <field name="inspection_end_date" />
+                        <field name="inspection_type" />
+                    </group>
+                </group>
+            </notebook>
+            <xpath expr="//field[@name='user_input_line_ids']/tree/field[@name='question_id']" position="after">
+                <field name="question_normative_id" optinal="show" />
+                <field name="notes" optinal="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="survey_user_input_view_tree" model="ir.ui.view">
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="survey_id" position="after">
+                <field name="inspected_building_id" optional="show"/>
+                <field name="building_type_id" optional="show"/>
+                <field name="building_section_id" optional="show"/>
+                <field name="risk_use" optional="show"/>
+                <field name="superficie" optional="show"/>
+                <field name="file_number" optional="hide"/>
+                <field name="act_number" optional="hide"/>
+                <field name="inspection_start_date" optional="show"/>
+                <field name="inspection_end_date" optional="show"/>
+                <field name="inspector_id" optional="show"/>
+                <field name="inspection_type" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="survey_user_input_view_search" model="ir.ui.view">
+        <field name="model">survey.user_input</field>
+        <field name="inherit_id" ref="survey.survey_user_input_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="completed" position="after">
+                <field name="inspected_building_id"/>
+                <field name="building_type_id"/>
+                <field name="building_section_id" />
+                <field name="risk_use"/>
+                <field name="file_number"/>
+                <field name="act_number"/>
+                <field name="inspection_start_date"/>
+                <field name="inspection_end_date"/>
+                <field name="inspector_id"/>
+                <field name="inspection_type"/>
+            </filter>
+            <filter name="group_by_partner" position="after">
+                <filter string="Inspected Building" name="group_by_inspected_building"
+                    domain="[]" context="{'group_by': 'inspected_building_id'}"/>
+                <filter string="Building type" name="group_by_building_type"
+                    domain="[]" context="{'group_by': 'building_type_id'}"/>
+                <filter string="Building Section/Area" name="group_by_building_section"
+                    domain="[]" context="{'group_by': 'building_section_id'}"/>
+                <filter string="Risk/User" name="group_by_risk_use"
+                    domain="[]" context="{'group_by': 'risk_use'}"/>
+                <filter string="Inspection Start Date" name="group_by_insp_start_date"
+                    domain="[]" context="{'group_by': 'inspection_start_date'}"/>
+                <filter string="Inspection End Date" name="group_by_insp_end_date"
+                    domain="[]" context="{'group_by': 'inspection_end_date'}"/>
+                <filter string="Inspector" name="group_by_inspector"
+                    domain="[]" context="{'group_by': 'inspector_id'}"/>
+                <filter string="Inspection Type" name="group_by_insp_type"
+                                    domain="[]" context="{'group_by': 'inspection_type'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

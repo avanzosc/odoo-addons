@@ -53,10 +53,6 @@
                 <field name="main_seller_id" optional="show" />
                 <field name="main_seller_price" optional="show" />
             </field>
-            <field name="categ_id" position="after">
-                <field name="parent_category_id" optional="hide" />
-                <field name="root_category_id" optional="hide" />
-            </field>
         </field>
     </record>
 
@@ -68,16 +64,6 @@
                 <field name="main_seller_id" />
             </field>
             <filter name="categ_id" position="after">
-                <filter
-          string="Parent Category"
-          name="parent_categ"
-          context="{'group_by':'parent_category_id'}"
-        />
-                <filter
-          string="Root Category"
-          name="root_category"
-          context="{'group_by':'root_category_id'}"
-        />
                 <filter
           string="Main Seller"
           name="main_seller"

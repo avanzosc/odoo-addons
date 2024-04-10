@@ -1,33 +1,43 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-    :alt: License: AGPL-3
-
 ===========================
 Stock move qty by packaging
 ===========================
 
-* In stock move, and stock move line, new field "Boxes/Sacks".
-* New fields in move and move lines: Product Packaging, Packaging quantity,
-  palet, palet quantity and gross weight.
-* When confirming the sale order, it going to take packaging, palet and their
-  quantities to the picking move lines.
+.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
+
+|badge1|
+
+In stock move, and stock move line, new field "Boxes/Sacks".
+
+-  If you archive a country it's states will be archived.
+-  If you unarchive a state it will unarchive it's country.
+
+**Table of contents**
+
+.. contents::
+   :local:
 
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues
-<https://github.com/avanzosc/odoo-addons/issues>`_. In case of trouble,
-please check there if your issue has already been reported. If you spotted
-it first, help us smash it by providing detailed and welcomed feedback.
+Bugs are tracked on `GitHub Issues <https://github.com/avanzosc/odoo-addons/issues>`_.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us smashing it by providing a detailed and welcomed
+`feedback <https://github.com/avanzosc/odoo-addons/issues/new?body=module:%20res_country_state_usability%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
 Credits
 =======
 
-Contributors
-------------
+Authors
+~~~~~~~
 
-* Berezi Amubieta <bereziamubieta@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Avanzosc
+
+Contributors
+~~~~~~~~~~~~
+
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

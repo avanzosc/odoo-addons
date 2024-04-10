@@ -12,7 +12,6 @@ Module that improves usability related to products.
 * Show in product form and tree views, the fields: "Outgoing Qty",
   "Incoming Qty", "Consumed last twelve months", "Months with stock",
   "principal seller", "principal seller price".
-* Compute field in product categories, root category.
 
 Bug Tracker
 ===========

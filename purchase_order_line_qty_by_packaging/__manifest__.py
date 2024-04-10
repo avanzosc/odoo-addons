@@ -5,10 +5,10 @@
     "version": "16.0.1.1.0",
     "category": "Inventory/Purchase",
     "license": "AGPL-3",
-    "author": "AvanzOSC",
+    "author": "https://github.com/avanzosc/odoo-addons",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "purchase_stock",
+        "purchase",
     ],
     "data": [
         "views/purchase_order_views.xml",

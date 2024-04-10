@@ -34,15 +34,17 @@ class StockMoveLine(models.Model):
             for move_line in self.filtered(
                 lambda x: x.move_id and x.qty_done and x.move_id.sale_line_id
             ):
-                line_key = self._generate_keys_to_found()
-                if line_key in clave:
+                line_key = self._generate_key_to_found()
+                if line_key == clave:
                     price_unit = 0
                     if move_line.move_id.sale_line_id:
                         price_unit = move_line.move_id.sale_line_id.price_unit
                     if move_line.move_id.purchase_line_id:
                         price_unit = move_line.move_id.purchae_line_id.price_unit
-                    result[clave]["price_unit"] = price_unit
-                    result[clave]["move_line_amount"] = move_line.qty_done * price_unit
+                    result[line_key]["price_unit"] = price_unit
+                    result[line_key]["move_line_amount"] = (
+                        move_line.qty_done * price_unit
+                    )
         return result
 
     def _generate_keys_to_found(self):

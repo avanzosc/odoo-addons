@@ -6,11 +6,8 @@ from odoo import fields, models
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    country_id = fields.Many2one(
-        string="Origin",
-        comodel_name="res.country",
-    )
-    global_gap = fields.Char()
+    country_id = fields.Many2one(string="Origin", comodel_name="res.country")
+    global_gap = fields.Char(string="Global Gap")
     lot_country_id = fields.Many2one(
         string="Lot Origin",
         comodel_name="res.country",
@@ -19,18 +16,13 @@ class StockMoveLine(models.Model):
         related="lot_id.country_id",
     )
     lot_global_gap = fields.Char(
-        string="Lot Global Gap",
-        related="lot_id.ref",
-        copy=False,
-        store=True,
+        string="Lot Global Gap", related="lot_id.ref", copy=False, store=True
     )
     lot_country_to_print = fields.Text(
-        string="Lot Origin OF",
-        compute="_compute_country_global_gap_to_print",
+        string="Lot Origin OF", compute="_compute_country_global_gap_to_print"
     )
     lot_global_gap_to_print = fields.Text(
-        string="Lot Global Gap OF",
-        compute="_compute_country_global_gap_to_print",
+        string="Lot Global Gap OF", compute="_compute_country_global_gap_to_print"
     )
     lot_country_gloval_gap_of = fields.Text(
         string="Lot Origin/Global Gap OF",

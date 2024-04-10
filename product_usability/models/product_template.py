@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
         compute="_compute_consumed_last_twelve_months",
     )
     months_with_stock = fields.Integer(
-        compute="_compute_months_with_stock",
+        string="Months with stock", compute="_compute_months_with_stock"
     )
     main_seller_id = fields.Many2one(
         string="Main Seller",
@@ -21,21 +21,10 @@ class ProductTemplate(models.Model):
         copy=False,
     )
     main_seller_price = fields.Float(
+        string="Main Seller Price",
         compute="_compute_main_seller",
         store=True,
         copy=False,
-    )
-    root_category_id = fields.Many2one(
-        comodel_name="product.category",
-        string="Root Category",
-        related="categ_id.root_category_id",
-        store=True,
-    )
-    parent_category_id = fields.Many2one(
-        comodel_name="product.category",
-        string="Parent Category",
-        related="categ_id.parent_id",
-        store=True,
     )
 
     def _compute_consumed_last_twelve_months(self):

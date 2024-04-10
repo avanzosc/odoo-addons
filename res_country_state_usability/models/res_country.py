@@ -8,6 +8,7 @@ class ResCountry(models.Model):
     _inherit = "res.country"
 
     active = fields.Boolean(
+        string="Active",
         default=True,
         help="Set active to false to hide the country without removing it.",
     )

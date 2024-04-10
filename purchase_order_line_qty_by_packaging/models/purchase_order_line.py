@@ -35,23 +35,9 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange("product_id")
     def onchange_product_id(self):
-        res = super().onchange_product_id()
+        result = super().onchange_product_id()
         if self.product_id and self.product_id.packaging_ids:
             packagings = self.product_id.packaging_ids.filtered(lambda x: x.purchase)
             if packagings:
                 self.product_packaging_id = packagings[0].id
-        return res
-
-    def _prepare_stock_move_vals(
-        self, picking, price_unit, product_uom_qty, product_uom
-    ):
-        res = super()._prepare_stock_move_vals(
-            picking, price_unit, product_uom_qty, product_uom
-        )
-        if self.product_packaging_id:
-            res.update(
-                {
-                    "product_packaging_id": self.product_packaging_id.id,
-                }
-            )
-        return res
+        return result
