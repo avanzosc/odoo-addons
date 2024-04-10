@@ -51,7 +51,7 @@
                 {'label': 'Survey Inspector:', 'value': o.inspector_id.name},
                 {'label': 'Inspection Start Date:', 'value': o.inspection_start_date},
                 {'label': 'Inspection End Date:', 'value': o.inspection_end_date},
-                {'label': 'Inspection Type:', 'value': o.inspection_type},
+                {'label': 'Inspection Type:', 'value': dict(o._fields['inspection_type'].selection).get(o.inspection_type, '')},
                 {'label': 'Scoring Success:', 'value': o.scoring_success},
                 {'label': 'Score:', 'value': o.scoring_percentage},
                 {'label': 'Partner:', 'value': o.partner_id.name},
@@ -70,7 +70,7 @@
             {'label': 'Fecha de Inicio de Inspección:', 'value': o.inspection_start_date},
             {'label': 'Fecha de Fin de Inspección:', 'value': o.inspection_end_date},
             {'label': 'Inspector de la Encuesta:', 'value': o.inspector_id.name},
-            {'label': 'Tipo de Inspección:', 'value': o.inspection_type},
+            {'label': 'Tipo de Inspección:', 'value': dict(o._fields['inspection_type'].selection).get(o.inspection_type, '')},
             {'label': 'Socio:', 'value': o.partner_id.name},
         ]"/>
 
