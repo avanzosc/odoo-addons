@@ -1,0 +1,34 @@
+<odoo>
+  <data>
+    <record id="wiz_product_product_recalculate_bom_cost_view_form" model="ir.ui.view">
+      <field name="name">wiz.product.product.recalculate.bom.cost.form</field>
+      <field name="model">wiz.product.product.recalculate.bom.cost</field>
+      <field name="arch" type="xml">
+        <form string="Recalculate BoM cost in products">
+          <header>
+            <group colspan="4">
+              <span name="message" string="You are going to recalculate base cost from the BoM. Are you sure?"/>
+            </group>
+          </header>
+          <footer>
+            <button string="Recalculate BoM cost" name="button_recalculate_bom_cost" type="object" default_focus="1" class="btn-primary"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <record id="action_wiz_recalculate_product_product_sale_price" model="ir.actions.act_window">
+      <field name="name">Compute base cost from BoM</field>
+      <field name="res_model">wiz.product.product.recalculate.bom.cost</field>
+      <field name="view_mode">form</field>
+      <field name="target">new</field>
+      <field name="binding_model_id" ref="model_product_product"/>
+      <!-- Utiliza binding_model_id -->
+      <field name="groups_id" eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]"/>
+      <!-- Utiliza groups_id -->
+    </record>
+
+    <delete model="ir.actions.server" id="mrp_bom_cost.action_compute_price_bom_product"/>
+  </data>
+</odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_product_view_form_normal_inherit_extended" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field
+      name="inherit_id"
+      ref="mrp_account.product_product_view_form_normal_inherit_extended"
+    />
+        <field name="arch" type="xml">
+            <button name="button_bom_cost" position="replace" />
+            <field name="standard_price" position="after">
+                <button
+          name="button_call_wizard_calculate_bom_cost"
+          string="Compute cost from BoM"
+          type="object"
+          attrs="{'invisible': [('cost_method', '=', 'fifo')]}"
+          help="Compute the price of the product using products and operations of related bill of materials, for manufactured products only."
+          class="oe_link oe_read_only"
+          colspan="2"
+          groups="product_sale_configuration.allow_change_sale_price"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
