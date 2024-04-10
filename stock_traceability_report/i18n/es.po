@@ -1,0 +1,146 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_traceability_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-06-14 15:22+0000\n"
+"PO-Revision-Date: 2023-06-14 15:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_traceability_report
+#: model:ir.actions.report,print_report_name:stock_traceability_report.action_report_lot_traceability
+msgid "'Lot traceability - %s' % (object.name)"
+msgstr "'Trazabilidad lote - %s' % (object.name)"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "<b class=\"text-center\">PRODUCT:</b>"
+msgstr "<b class=\"text-center\">PRODUCTO:</b>"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "<b>Total:</b>"
+msgstr ""
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid ""
+"<br/>\n"
+"                          <b class=\"text-center\">DATE:</b>"
+msgstr ""
+"<br/>\n"
+"                          <b class=\"text-center\">FECHA:</b>"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid ""
+"<br/>\n"
+"                          <b class=\"text-center\">LOT:</b>"
+msgstr ""
+"<br/>\n"
+"                          <b class=\"text-center\">LOTE:</b>"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid ""
+"<br/>\n"
+"                          <b class=\"text-center\">QUANTITY:</b>"
+msgstr ""
+"<br/>\n"
+"                          <b class=\"text-center\">CANTIDAD:</b>"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid ""
+"<br/>\n"
+"                          <b class=\"text-center\">SUPPLIER:</b>"
+msgstr ""
+"<br/>\n"
+"                          <b class=\"text-center\">PROVEEDOR:</b>"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Client / Supplier"
+msgstr "Cliente / Proveedor"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Entry qty"
+msgstr "Cdad. entrada"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Finished product lot"
+msgstr "Lote producto terminado"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Lot Traceability Report"
+msgstr "Informe de trazabilidad Lote"
+
+#. module: stock_traceability_report
+#: model:ir.model,name:stock_traceability_report.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Move"
+msgstr "Movimiento"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Outgoing qty"
+msgstr "Cdad. salida"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_stock_inventory
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: stock_traceability_report
+#: model:ir.model.fields,field_description:stock_traceability_report.field_stock_lot__stock_move_line_ids
+msgid "Product Moves"
+msgstr "Movimientos de stock"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.report_lot_traceability_document
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: stock_traceability_report
+#. odoo-python
+#: code:addons/stock_traceability_report/models/stock_lot.py:0
+#: code:addons/stock_traceability_report/models/stock_lot.py:0
+#, python-format
+msgid "Stock Move Lines"
+msgstr "Líneas de movimiento stock"
+
+#. module: stock_traceability_report
+#: model:ir.model.fields,field_description:stock_traceability_report.field_stock_lot__stock_move_ids
+msgid "Stock Moves"
+msgstr "Movimientos de stock"
+
+#. module: stock_traceability_report
+#: model_terms:ir.ui.view,arch_db:stock_traceability_report.view_production_lot_form
+msgid "Stock move lines"
+msgstr "Líneas de movimientos stock"
+
+#. module: stock_traceability_report
+#: model:ir.actions.report,name:stock_traceability_report.action_report_lot_traceability
+#: model:ir.model,name:stock_traceability_report.model_stock_traceability_report
+msgid "Traceability Report"
+msgstr "Informe de trazabilidad"

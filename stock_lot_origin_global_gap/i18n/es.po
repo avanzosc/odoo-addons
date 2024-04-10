@@ -1,0 +1,123 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_lot_origin_global_gap
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-15 12:49+0000\n"
+"PO-Revision-Date: 2023-03-15 12:49+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_lot_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_picking_inh_origin_global_gap
+msgid "<strong>Global Gap</strong>"
+msgstr ""
+
+#. module: stock_lot_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_picking_inh_origin_global_gap
+msgid "<strong>Origin</strong>"
+msgstr "<strong>Origen</strong>"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_lot__ref
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_delivery_document_inh_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_package_barcode_inh_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.view_production_lot_tree
+msgid "Global Gap"
+msgstr ""
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,help:stock_lot_origin_global_gap.field_stock_lot__ref
+#: model:ir.model.fields,help:stock_lot_origin_global_gap.field_stock_move_line__lot_global_gap
+msgid ""
+"Internal reference number in case it differs from the manufacturer's "
+"lot/serial number"
+msgstr ""
+"Número de referencia interno en caso de que difiera del fabricante número de"
+" lote/serie"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__lot_global_gap
+msgid "Lot Global Gap"
+msgstr "Global Gap Lote"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_lot__lot_global_gap_of
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__lot_global_gap_to_print
+msgid "Lot Global Gap OF"
+msgstr "Lote Global Gap OF"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__lot_country_id
+msgid "Lot Origin"
+msgstr "Origen lote"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_lot__lot_country_of
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__lot_country_to_print
+msgid "Lot Origin OF"
+msgstr "Lote Origen OF"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_lot__lot_country_gloval_gap_of
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__lot_country_gloval_gap_of
+msgid "Lot Origin/Global Gap OF"
+msgstr "lote Origen/Global Gap OF"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model,name:stock_lot_origin_global_gap.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Lote/Número de serie"
+
+#. module: stock_lot_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.product_template_search_view
+msgid "NO SHOW Origin/Glogal Gap in documents"
+msgstr "NO MOSTRAR Origen/Global Gap en documentos"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_lot__country_id
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_move_line__country_id
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_delivery_document_inh_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.report_package_barcode_inh_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.search_product_lot_filter
+msgid "Origin"
+msgstr "Origen"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model,name:stock_lot_origin_global_gap.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model,name:stock_lot_origin_global_gap.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_lot_origin_global_gap
+#: model_terms:ir.ui.view,arch_db:stock_lot_origin_global_gap.product_template_search_view
+msgid "SHOW Origin/Glogal Gap in documents"
+msgstr "MOSTRAR Origen/Global Gap en documentos"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_product_product__show_origin_global_gap_in_documents
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_product_template__show_origin_global_gap_in_documents
+msgid "Show Origin/Glogal Gap in documents"
+msgstr "Mostrar Origen/Global Gap en documentos"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model,name:stock_lot_origin_global_gap.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: stock_lot_origin_global_gap
+#: model:ir.model.fields,field_description:stock_lot_origin_global_gap.field_stock_picking__with_origin_global_gap
+msgid "With Origin/Global Gap"
+msgstr "Con Origen Global Gap"

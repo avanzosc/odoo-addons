@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_picking_inh_origin_global_gap"
+    inherit_id="stock.report_picking"
+  >
+        <th name="th_serial_number" position="after">
+            <th
+        name="th_origin"
+        class="text-center"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >
+               <strong>Origin</strong>
+            </th>
+            <th
+        name="th_global_gap"
+        class="text-center"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >
+               <strong>Global Gap</strong>
+            </th>
+        </th>
+        <td t-if="has_serial_number" position="after">
+            <td
+        class=" text-center h6"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >
+                <div
+          t-if="ml.product_id.show_origin_global_gap_in_documents and ml.lot_country_to_print"
+          t-field="ml.lot_country_to_print"
+        />
+            </td>
+            <td
+        class=" text-center h6"
+        t-if="has_serial_number and o.with_origin_global_gap"
+        style="background-color: white !important;"
+      >
+                <div
+          t-if="ml.product_id.show_origin_global_gap_in_documents and ml.lot_global_gap_to_print"
+          t-field="ml.lot_global_gap_to_print"
+        />
+            </td>
+        </td>
+    </template>
+</odoo>

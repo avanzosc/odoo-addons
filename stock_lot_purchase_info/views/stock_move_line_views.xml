@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_move_line_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree" />
+        <field name="arch" type="xml">
+            <field name="package_id" position="before">
+                <field name="supplier_id" optional="show" />
+                <field name="purchase_price" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field
+      name="inherit_id"
+      ref="stock.view_stock_move_line_detailed_operation_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="is_initial_demand_editable" position="before">
+                <field name="supplier_id" optional="show" />
+                <field name="purchase_price" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_form" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form" />
+        <field name="arch" type="xml">
+            <field name="package_id" position="before">
+                <field name="supplier_id" />
+                <field name="purchase_price" />
+            </field>
+        </field>
+    </record>
+
+    <record id="stock_move_line_view_search" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search" />
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="supplier_id" />
+            </field>
+            <filter name="groupby_product_id" position="after">
+                <filter
+          string="Supplier"
+          name="groupby_supplier_id"
+          domain="[]"
+          context="{'group_by': 'supplier_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

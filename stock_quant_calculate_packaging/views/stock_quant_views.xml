@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_quant_tree_inventory_editable" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable" />
+        <field name="arch" type="xml">
+            <field name="last_count_date" position="after">
+                <field name="product_packaging_id" readonly="1" optional="show" />
+                <field name="product_packaging_qty" readonly="1" optional="show" />
+            </field>
+            <field name="inventory_quantity" position="before">
+                <field
+          name="new_product_packaging_id"
+          optional="show"
+          domain="[('product_id', '=', product_id)]"
+        />
+                <field name="new_product_packaging_qty" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="quant_search_view" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <field name="product_tmpl_id" position="after">
+                <field name="product_packaging_id" />
+            </field>
+            <filter name="package" position="before">
+                <filter
+          string="Packaging"
+          name="packaging"
+          domain="[]"
+          context="{'group_by': 'product_packaging_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

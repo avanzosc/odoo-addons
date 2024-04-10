@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_delivery_document_inh_origin_global_gap"
+    inherit_id="stock.report_delivery_document"
+  >
+        <t name="lot_serial" position="after">
+            <t name="lot_origin" t-if="has_serial_number and o.with_origin_global_gap">
+                <th>
+                    Origin
+                </th>
+            </t>
+            <t
+        name="lot_global_gap"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >
+                <th>
+                    Global Gap
+                </th>
+            </t>
+        </t>
+    </template>
+
+    <template
+    id="stock_report_delivery_has_serial_move_line_inh_origin_global_gap"
+    inherit_id="stock.stock_report_delivery_has_serial_move_line"
+  >
+        <t name="move_line_lot" position="after">
+            <t
+        t-if="has_serial_number and o.with_origin_global_gap"
+        name="move_line_lot_origin"
+      >
+                <td class="text-left">
+                    <span
+            t-if="move_line.product_id.show_origin_global_gap_in_documents and move_line.lot_country_to_print"
+            t-field="move_line.lot_country_to_print"
+          />
+                </td>
+            </t>
+            <t
+        t-if="has_serial_number and o.with_origin_global_gap"
+        name="move_line_lot_global_gap"
+      >
+                <td class="text-left">
+                    <span
+            t-if="move_line.product_id.show_origin_global_gap_in_documents and move_line.lot_global_gap_to_print"
+            t-field="move_line.lot_global_gap_to_print"
+          />
+                </td>
+            </t>
+         </t>
+    </template>
+</odoo>

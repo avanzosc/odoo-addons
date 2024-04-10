@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_production_lot_form" model="ir.ui.view">
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
+        <field name="arch" type="xml">
+            <field name="ref" position="before">
+                <field name="country_id" />
+            </field>
+            <xpath expr="//group[@name='main_group']/group[1]" position="after">
+                <group>
+                    <field name="lot_country_gloval_gap_of" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_production_lot_tree" model="ir.ui.view">
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree" />
+        <field name="arch" type="xml">
+            <field name="ref" position="before">
+                <field name="country_id" optional="show" />
+            </field>
+            <field name="ref" position="attributes">
+                <attribute name="string">Global Gap</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="search_product_lot_filter" model="ir.ui.view">
+        <field name="model">stock.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="country_id" />
+                <field name="ref" />
+            </field>
+            <filter name="group_by_product" position="after">
+                <filter
+          name="group_by_country"
+          string="Origin"
+          domain="[]"
+          context="{'group_by': 'country_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

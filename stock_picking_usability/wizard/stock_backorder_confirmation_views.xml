@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_backorder_confirmation" model="ir.ui.view">
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation" />
+        <field name="arch" type="xml">
+            <xpath expr="//p[@name='explanation-text']" position="after">
+                <div colspan="2">
+                    <field name="warning_not_all_send" nolabel="1" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

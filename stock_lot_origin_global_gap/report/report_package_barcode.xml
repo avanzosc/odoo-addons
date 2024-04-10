@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_package_barcode_inh_origin_global_gap"
+    inherit_id="stock.report_package_barcode"
+  >
+        <th name="th_serial" position="after">
+            <th
+        name="th_lot_origin"
+        class="text-end"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >Origin</th>
+            <th
+        name="th_lot_global_gap"
+        class="text-end"
+        t-if="has_serial_number and o.with_origin_global_gap"
+      >Global Gap</th>
+        </th>
+        <td t-if="has_serial_number" position="after">
+            <td
+        class="text-end"
+        t-if="has_serial_number and l.product_id.show_origin_global_gap_in_documents"
+      >
+                <t t-if="l.lot_id and l.lot_id.country_id">
+                    <span t-field="l.lot_id.country_id.name" />
+                </t>
+            </td>
+            <td
+        class="text-end"
+        t-if="has_serial_number and l.product_id.show_origin_global_gap_in_documents"
+      >
+                <t t-if="l.lot_id and l.lot_id.ref">
+                    <span t-field="l.lot_id.ref" />
+                </t>
+            </td>
+        </td>
+    </template>
+</odoo>

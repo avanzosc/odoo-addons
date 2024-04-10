@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_report_delivery_price" model="ir.actions.report">
+        <field name="name">Delivery Slip With Price</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_price_report.report_deliveryslip_price</field>
+        <field
+      name="report_file"
+    >stock_picking_price_report.report_deliveryslip_price</field>
+        <field
+      name="print_report_name"
+    >'Delivery Slip With Price - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <t t-set="lines" position="before">
+            <t t-set="total_amount" t-value="0" />
+        </t>
+        <th name="th_sm_quantity" position="after">
+            <th class="text-right" t-if="print_with_amounts" name="th_price_unit">
+                <strong>Price unit</strong>
+            </th>
+            <th class="text-right" t-if="print_with_amounts" name="th_amount">
+                <strong>Amount</strong>
+            </th>
+        </th>
+        <xpath
+      expr="//table[@name='stock_move_table']//span[@t-field='move.quantity_done']/.."
+      position="after"
+    >
+            <td
+        class="text-right"
+        t-if="print_with_amounts and (move.sale_line_id or move.purchase_line_id)"
+      >
+                <t
+          t-set="currency"
+          t-if="move.sale_line_id"
+          t-value="move.sale_line_id.currency_id"
+        />
+                <span
+          t-if="move.sale_line_id"
+          t-field="move.sale_line_id.price_unit"
+          t-options='{"widget": "monetary", "display_currency": move.sale_line_id.currency_id}'
+        />
+                <t
+          t-set="currency"
+          t-if="move.purchase_line_id"
+          t-value="move.purchase_line_id.currency_id"
+        />
+                <span
+          t-if="move.purchase_line_id"
+          t-field="move.purchase_line_id.price_unit"
+          t-options='{"widget": "monetary", "display_currency": move.purchase_line_id.currency_id}'
+        />
+            </td>
+            <td
+        class="text-right"
+        t-if="print_with_amounts and (move.sale_line_id or move.purchase_line_id)"
+      >
+                <t t-set="total_amount" t-value="total_amount + move.move_amount" />
+                <span
+          t-if="move.sale_line_id"
+          t-esc="move.move_amount"
+          t-options='{"widget": "monetary", "display_currency": move.sale_line_id.currency_id}'
+        />
+                <span
+          t-if="move.purchase_line_id"
+          t-esc="move.move_amount"
+          t-options='{"widget": "monetary", "display_currency": move.purchase_line_id.currency_id}'
+        />
+            </td>
+        </xpath>
+        <th name="th_sml_quantity" position="after">
+            <th class="text-right" t-if="print_with_amounts" name="th_sml_price_unit">
+                <strong>Price unit</strong>
+            </th>
+            <th class="text-right" t-if="print_with_amounts" name="th_sml_amount">
+                <strong>Amount</strong>
+            </th>
+        </th>
+        <xpath expr="//table[@name='stock_move_table']/tbody" position="after">
+            <tfoot>
+                <tr t-if="print_with_amounts">
+                    <td t-if="o.picking_type_id.code == 'outgoing'" />
+                    <td />
+                    <td />
+                    <td name="total-total-amount1">
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-right">
+                        <span
+              t-esc="total_amount"
+              t-options="{'widget': 'monetary', 'display_currency': currency}"
+            />
+                    </td>
+                </tr>
+            </tfoot>
+        </xpath>
+        <xpath expr="//table[@name='stock_move_line_table']/tbody" position="after">
+            <tfoot>
+                <tr t-if="print_with_amounts">
+                    <td t-if="o.picking_type_id.code == 'outgoing'" />
+                    <td />
+                    <td />
+                    <td name="total-total-amount2">
+                        <strong>Total</strong>
+                    </td>
+                    <td class="text-right">
+                        <span t-field="o.amount_total" />
+                    </td>
+                </tr>
+            </tfoot>
+        </xpath>
+    </template>
+
+    <template
+    id="stock_report_delivery_has_serial_move_line"
+    inherit_id="stock.stock_report_delivery_has_serial_move_line"
+  >
+        <td name="move_line_lot_qty_done" position="after">
+            <td
+        class="text-right"
+        t-if="print_with_amounts and move_line.move_id and (move_line.move_id.sale_line_id or move_line.move_id.purchase_line_id)"
+      >
+                <span
+          t-if="move_line.move_id.sale_line_id"
+          t-field="move_line.move_id.sale_line_id.price_unit"
+          t-options='{"widget": "monetary", "display_currency": move_line.move_id.sale_line_id.currency_id}'
+        />
+                <span
+          t-if="move_line.move_id.purchase_line_id"
+          t-field="move_line.move_id.purchase_line_id.price_unit"
+          t-options='{"widget": "monetary", "display_currency": move_line.move_id.purchase_line_id.currency_id}'
+        />
+            </td>
+            <td
+        class="text-right"
+        t-if="print_with_amounts and move_line.move_id and (move_line.move_id.sale_line_id or move_line.move_id.purchase_line_id)"
+      >
+                <span
+          t-if="move_line.move_id.sale_line_id"
+          t-esc="move_line.move_line_amount"
+          t-options='{"widget": "monetary", "display_currency": move_line.move_id.sale_line_id.currency_id}'
+        />
+                <span
+          t-if="move_line.move_id.purchase_line_id"
+          t-esc="move_line.move_line_amount"
+          t-options='{"widget": "monetary", "display_currency": move_line.move_id.purchase_line_id.currency_id}'
+        />
+            </td>
+        </td>
+    </template>
+
+    <template
+    id="stock_report_delivery_aggregated_move_lines"
+    inherit_id="stock.stock_report_delivery_aggregated_move_lines"
+  >
+        <td name="move_line_aggregated_qty_done" position="after">
+            <td class="text-right" name="move_line_aggregated_price_unit">
+                <t t-if="'price_unit' in aggregated_lines[line]">
+                    <span t-esc="aggregated_lines[line]['price_unit']" />
+                </t>
+            </td>
+            <td class="text-right" name="move_line_aggregated_amount">
+                <t t-if="'move_line_amount' in aggregated_lines[line]">
+                    <span t-esc="aggregated_lines[line]['move_line_amount']" />
+                </t>
+            </td>
+        </td>
+    </template>
+
+    <template id="report_deliveryslip_price">
+        <t t-foreach="docs" t-as="o">
+            <t t-set="print_with_amounts" t-value="True" />
+            <t t-call="stock.report_delivery_document" t-lang="o.partner_id.lang" />
+        </t>
+    </template>
+
+</odoo>
