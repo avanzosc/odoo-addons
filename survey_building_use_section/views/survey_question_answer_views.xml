@@ -9,12 +9,6 @@
                     <field name="question_article_ids" widget="many2many_tags" colspan="2"/>
                 </group>
             </sheet>
-            <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
-                <field name="notes" />
-            </xpath>
-            <xpath expr="//field[@name='suggested_answer_ids']/tree/field[@name='value_image']" position="after">
-                <field name="notes" />
-            </xpath>
         </field>
     </record>
 
