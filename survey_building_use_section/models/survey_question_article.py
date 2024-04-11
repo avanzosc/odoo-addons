@@ -16,6 +16,6 @@ class SurveyQuestionArticle(models.Model):
     error_text = fields.Text(
         string="Error Text", copy=False,
     )
-    normative = fields.Many2one(
+    question_normative_id = fields.Many2one(
         "survey.question.normative"
     )

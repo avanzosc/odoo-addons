@@ -8,23 +8,36 @@ class SurveyQuestionNormative(models.Model):
     _description = "Survey Question Normative"
 
     name = fields.Char(
-        string="Name", required=True, copy=False,
+        string="Name",
+        required=True,
+        copy=False,
     )
     description = fields.Char(
-        string="Description", copy=False,
+        string="Description",
+        copy=False,
     )
     start_year = fields.Integer(
-        string="Start Year", copy=False,
+        string="Start Year",
+        copy=False,
     )
     end_year = fields.Integer(
-        string="End Year", copy=False,
+        string="End Year",
+        copy=False,
     )
     start_date = fields.Date(
-        string="Start Year", copy=False,
+        string="Start Year",
+        copy=False,
     )
     end_date = fields.Date(
-        string="End Year", copy=False,
+        string="End Year",
+        copy=False,
     )
     error_text = fields.Text(
-        string="Error Text", copy=False,
+        string="Error Text",
+        copy=False,
+    )
+    question_article_ids = fields.One2many(
+        "survey.question.article",
+        inverse_name="question_normative_id",
+        string="Question Articles",
     )
