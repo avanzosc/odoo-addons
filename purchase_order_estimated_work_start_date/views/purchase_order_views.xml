@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <field name="date_order" position="before">
+                <field name="estimated_work_start_date" />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_tree" />
+        <field name="arch" type="xml">
+            <field name="date_approve" position="after">
+                <field name="estimated_work_start_date"
+                    widget="date" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree" />
+        <field name="arch" type="xml">
+            <field name="date_approve" position="after">
+                <field name="estimated_work_start_date"
+                    widget="date" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_kpis_tree" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+        <field name="arch" type="xml">
+            <field name="date_order" position="after">
+                <field name="estimated_work_start_date"
+                    widget="date" optional="show"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_filter" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="estimated_work_start_date"/>
+            </field>
+            <filter name="order_date" position="after">
+                <filter name="estimated_work_start_date"
+                    string="Estimated start date of work"
+                    date="estimated_work_start_date"/>
+            </filter>
+            <filter name="representative" position="after">
+                <filter name="estimated_work_start_date"
+                    string="Estimated start date of work"
+                    domain="[]" context="{'group_by': 'estimated_work_start_date'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_search" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="estimated_work_start_date"/>
+            </field>
+            <filter name="order_date" position="after">
+                <filter name="estimated_work_start_date"
+                    string="Estimated start date of work"
+                    date="estimated_work_start_date"/>
+            </filter>
+            <filter name="representative" position="after">
+                <filter name="estimated_work_start_date"
+                    string="Estimated start date of work"
+                    domain="[]" context="{'group_by': 'estimated_work_start_date'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
