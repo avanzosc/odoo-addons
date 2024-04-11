@@ -14,7 +14,7 @@
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
             <field name="question_id" invisible="1" />
-<field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('id', 'in', self.env['survey.question'].browse(question_id).question_normative_ids.mapped('normative_question_article_ids').ids)]" />
+<field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('id', 'in', request.env['survey.question'].browse(question_id).question_normative_ids.mapped('normative_question_article_ids').ids)]" />
                 <field name="notes" />
             </xpath>
         </field>
