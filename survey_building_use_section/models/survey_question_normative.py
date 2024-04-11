@@ -1,5 +1,9 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+import logging
+
+_logger = logging.getLogger(__name__)
+
 from odoo import fields, models, api
 
 
@@ -52,9 +56,13 @@ class SurveyQuestionNormative(models.Model):
         for record in self:
             if not record.start_date and record.start_year:
                 record.start_date = fields.Date.from_string(str(record.start_year) + '-01-01')
+                _logger.info('2024okdeb - Calculating start date for record %s', record.id)
+
 
     @api.depends('start_year', 'end_year')
     def _compute_end_date(self):
         for record in self:
             if not record.end_date and record.end_year:
                 record.end_date = fields.Date.from_string(str(record.end_year) + '-12-31')
+                _logger.info('2024okdeb - Calculating start date for record %s', record.id)
+
