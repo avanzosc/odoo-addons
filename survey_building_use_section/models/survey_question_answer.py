@@ -9,3 +9,6 @@ class SurveyQuestionAnswer(models.Model):
     notes = fields.Text(
         string="Note", help="Error Text", copy=False,
     )
+    question_article_id = fields.Many2many(
+        'survey.question.article', string='Articles'
+    )

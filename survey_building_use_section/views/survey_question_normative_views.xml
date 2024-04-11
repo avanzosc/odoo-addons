@@ -8,8 +8,8 @@
                 <field name="name"/>
                 <field name="error_text" />
                 <field name="description"/>
-                <field name="start_year"/>
-                <field name="end_year"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
             </tree>
         </field>
     </record>
@@ -21,11 +21,11 @@
                 <search string="Search Questions Normatives">
                     <field name="name"/>
                     <field name="description"/>
-                    <field name="start_year"/>
-                    <field name="end_year"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
                     <group expand="0" string="Group By">
-                        <filter string="Start Year" name="groupstartyear" context="{'group_by': 'start_year'}"/>
-                        <filter string="End Year" name="groupendyear" context="{'group_by': 'end_year'}"/>
+                        <filter string="Start Year" name="groupstartyear" context="{'group_by': 'start_date'}"/>
+                        <filter string="End Year" name="groupendyear" context="{'group_by': 'end_date'}"/>
                     </group>
                 </search>
             </field>

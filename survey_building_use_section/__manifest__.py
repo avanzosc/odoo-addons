@@ -15,6 +15,9 @@
     "data": [
         "security/ir.model.access.csv",
         "wizard/survey_invite_views.xml",
+    
+        "views/survey_question_answer_views.xml",
+        "views/survey_question_article_views.xml",
         "views/survey_question_normative_views.xml",
         "views/survey_question_views.xml",
         "views/survey_user_input_views.xml",
