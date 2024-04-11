@@ -17,15 +17,9 @@ class SurveyQuestionNormative(models.Model):
         string="Description",
         copy=False,
     )
-    
     error_text = fields.Text(
         string="Error Text",
         copy=False,
-    )
-    normative_question_article_ids = fields.Many2many(
-        "survey.question.article",
-        inverse_name="question_normative_id",
-        string="Question Articles",
     )
     start_date = fields.Date(
         string="Start Date",
