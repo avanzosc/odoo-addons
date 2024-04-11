@@ -16,22 +16,7 @@ class SurveyQuestionNormative(models.Model):
         string="Description",
         copy=False,
     )
-    start_year = fields.Integer(
-        string="Start Year",
-        copy=False,
-    )
-    end_year = fields.Integer(
-        string="End Year",
-        copy=False,
-    )
-    start_date = fields.Date(
-        string="Start Year",
-        copy=False,
-    )
-    end_date = fields.Date(
-        string="End Year",
-        copy=False,
-    )
+    
     error_text = fields.Text(
         string="Error Text",
         copy=False,
@@ -41,3 +26,36 @@ class SurveyQuestionNormative(models.Model):
         inverse_name="question_normative_id",
         string="Question Articles",
     )
+
+    start_year = fields.Integer(
+        string="Start Year",
+        copy=False,
+    )
+    end_year = fields.Integer(
+        string="End Year",
+        copy=False,
+    )
+    start_date = fields.Date(
+        string="Start Date",
+        compute="_compute_start_date",
+        store=True,  # Para almacenar el valor calculado en la base de datos
+        copy=False,
+    )
+    end_date = fields.Date(
+        string="End Date",
+        compute="_compute_end_date",
+        store=True,  # Para almacenar el valor calculado en la base de datos
+        copy=False,
+    )
+
+    @api.depends('start_year')
+    def _compute_start_date(self):
+        for record in self:
+            if record.start_year:
+                record.start_date = fields.Date.from_string(str(record.start_year) + '-01-01')
+
+    @api.depends('end_year')
+    def _compute_end_date(self):
+        for record in self:
+            if record.end_year:
+                record.end_date = fields.Date.from_string(str(record.end_year) + '-12-31')
