@@ -13,6 +13,7 @@
                 <field name="notes" />
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
+                <field name="question_normative_ids" invisible="1" />
                 <field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('question_normative_id', 'in', question_normative_ids)]" />
                 <field name="notes" />
             </xpath>
@@ -37,8 +38,7 @@
                 <field name="question_normative_ids"/>
             </field>
             <filter name="group_by_survey" position="after">
-                <filter name="group_question_rormative" string="Question Normatives"
-                    domain="[]" context="{'group_by':'question_normative_ids'}"/>
+                <filter name="group_question_rormative" string="Question Normatives" domain="[]" context="{'group_by':'question_normative_ids'}"/>
             </filter>
         </field>
     </record>
