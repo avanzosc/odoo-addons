@@ -52,9 +52,8 @@ class SurveyQuestionNormative(models.Model):
             end_year = values['end_year']
             end_date = fields.Date.from_string(str(end_year) + '-12-31')
             values['end_date'] = end_date
-        return super(SurveyQuestionNormative, self).write(values)
+        return super().write(values)
 
-    @api.model
     def create(self, values):
         if 'start_year' in values:
             start_year = values['start_year']
@@ -64,4 +63,4 @@ class SurveyQuestionNormative(models.Model):
             end_year = values['end_year']
             end_date = fields.Date.from_string(str(end_year) + '-12-31')
             values['end_date'] = end_date
-        return super(SurveyQuestionNormative, self).create(values)
+        return super().create(values)
