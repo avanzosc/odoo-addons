@@ -22,7 +22,7 @@ class SurveyQuestionNormative(models.Model):
         string="Error Text",
         copy=False,
     )
-    normative_question_article_ids = fields.One2many(
+    normative_question_article_ids = fields.Many2many(
         "survey.question.article",
         inverse_name="question_normative_id",
         string="Question Articles",
