@@ -13,8 +13,7 @@
                 <field name="notes" />
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
-            <field name="question_id" invisible="1" />
-<field name="question_article_ids" widget="many2many_tags" width="100px" />
+                <field name="question_article_ids" widget="many2many_tags" width="100px" />
                 <field name="notes" />
             </xpath>
         </field>
