@@ -14,7 +14,7 @@
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
                 <field name="notes" />
-                <field name="question_article_ids" widget="many2many_tags" />
+                <field name="question_article_ids" widget="many2many_tags" colspan="2" />
             </xpath>
         </field>
     </record>
