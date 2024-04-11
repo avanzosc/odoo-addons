@@ -14,7 +14,7 @@
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
                 <field name="related_article_ids" invisible="1" />
-                <field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('id', 'in', related_article_ids)]" />
+                <field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('id.question_normative_id', 'in', related_normative_ids)]" />
                 <field name="notes" />
             </xpath>
         </field>
