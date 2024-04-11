@@ -13,13 +13,11 @@
                 <field name="notes" />
             </xpath>
             <xpath expr="//field[@name='matrix_row_ids']/tree/field[@name='value']" position="after">
+                <field name="question_article_ids" widget="many2many_tags" width="100px" />
                 <field name="notes" />
-                <field name="question_article_ids" widget="many2many_tags" colspan="2" />
             </xpath>
         </field>
     </record>
-
- 
 
     <record id="survey_question_tree" model="ir.ui.view">
         <field name="model">survey.question</field>
