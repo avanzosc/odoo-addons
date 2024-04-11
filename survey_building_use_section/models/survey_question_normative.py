@@ -22,11 +22,11 @@ class SurveyQuestionNormative(models.Model):
         string="Error Text",
         copy=False,
     )
-    # normative_question_article_ids = fields.One2many(
-    #     "survey.question.article",
-    #     inverse_name="question_normative_id",
-    #     string="Question Articles",
-    # )
+    normative_question_article_ids = fields.One2many(
+        "survey.question.article",
+        inverse_name="question_normative_id",
+        string="Question Articles",
+    )
     start_date = fields.Date(
         string="Start Date",
         copy=False,
