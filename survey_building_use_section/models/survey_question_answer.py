@@ -10,8 +10,7 @@ class SurveyQuestionAnswer(models.Model):
         string="Note", help="Error Text", copy=False,
     )
     question_article_ids = fields.Many2many(
-        'survey.question.article', string='Articles',
-        store=True
+        'survey.question.article', string='Articles'
     )
 
     related_article_ids = fields.Many2many(
