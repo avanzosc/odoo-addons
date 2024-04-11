@@ -13,9 +13,8 @@ class SurveyQuestionAnswer(models.Model):
         'survey.question.article', string='Articles',
         store=True
     )
-    
+
     related_article_ids = fields.Many2many(
         'survey.question.article', string='Related Articles',
         related='question_id.question_normative_ids.normative_question_article_ids',
-        store=True
     )
