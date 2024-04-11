@@ -32,12 +32,10 @@ class SurveyQuestionNormative(models.Model):
     )
     start_date = fields.Date(
         string="Start Date",
-        store=True,
         copy=False,
     )
     end_date = fields.Date(
         string="End Date",
-        store=True,
         copy=False,
     )
 
