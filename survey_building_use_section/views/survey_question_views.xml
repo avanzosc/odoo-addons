@@ -24,7 +24,7 @@
         <field name="inherit_id" ref="survey.survey_question_tree" />
         <field name="arch" type="xml">
             <field name="survey_id" position="after">
-<field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('question_normative_id', 'in', question_normative_ids.ids)]" />
+            <field name="question_article_ids" widget="many2many_tags" width="100px" domain="[('question_normative_id', 'in', question_normative_ids.ids)]" />
             </field>
         </field>
     </record>
