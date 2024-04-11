@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-26 14:49+0000\n"
-"PO-Revision-Date: 2024-03-26 14:49+0000\n"
+"POT-Creation-Date: 2024-04-11 12:19+0000\n"
+"PO-Revision-Date: 2024-04-11 12:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,19 @@ msgid "Act Number"
 msgstr "Número de Acta"
 
 #. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_survey_view_form
+msgid "Add Normative Filter"
+msgstr ""
+
+#. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__administrator_id
 msgid "Administrator"
 msgstr "Administrador"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__question_article_ids
+msgid "Articles"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_section_id
@@ -62,7 +72,7 @@ msgstr "Texto de Certificación"
 #. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_res_partner
 msgid "Contact"
-msgstr "Contacto"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_invite_view_form
@@ -79,32 +89,42 @@ msgid "Create Survey to Building"
 msgstr "Crear Encuesta para Edificio"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_date
 msgid "Created on"
 msgstr "Creado el"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__description
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__description
 msgid "Description"
 msgstr "Descripción"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__display_name
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__display_name
 msgid "Display Name"
 msgstr "Nombre a Mostrar"
 
 #. module: survey_building_use_section
-#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__end_year
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
+msgid "End Date"
+msgstr ""
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__end_date
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__end_year
 msgid "End Year"
 msgstr "Año Final"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__error_text
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__error_text
 #: model:ir.model.fields,help:survey_building_use_section.field_survey_question_answer__notes
 #: model:ir.model.fields,help:survey_building_use_section.field_survey_user_input_line__notes
@@ -124,9 +144,10 @@ msgid "Group By"
 msgstr "Agrupar Por"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspected_building_id
@@ -161,7 +182,7 @@ msgstr "Tipo de Inspección"
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspector_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 msgid "Inspector"
-msgstr "Inspector"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installer_id
@@ -169,16 +190,19 @@ msgid "Installer"
 msgstr "Instalador"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article____last_update
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative____last_update
 msgid "Last Modified on"
 msgstr "Última Modificación el"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_uid
 msgid "Last Updated by"
 msgstr "Última Actualización por"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_date
 msgid "Last Updated on"
 msgstr "Última Actualización el"
@@ -189,9 +213,15 @@ msgid "Maintainer"
 msgstr "Mantenedor"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__name
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__name
 msgid "Name"
 msgstr "Nombre"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__is_normative_filter
+msgid "Normative Filter"
+msgstr "Filtro Normativo"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__notes
@@ -217,6 +247,12 @@ msgid "Please enter at least one valid recipient."
 msgstr "Por favor, ingresa al menos un destinatario válido."
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__normative_question_article_ids
+msgid "Question Articles"
+msgstr "Artículos de Pregunta"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__question_normative_id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__question_normative_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_line_view_search
 msgid "Question Normative"
@@ -227,6 +263,13 @@ msgstr "Normativa de Pregunta"
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_search
 msgid "Question Normatives"
 msgstr "Normativas de Preguntas"
+
+#. module: survey_building_use_section
+#: model:ir.actions.act_window,name:survey_building_use_section.survey_question_article_action
+#: model:ir.ui.menu,name:survey_building_use_section.menu_survey_question_article
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_tree
+msgid "Questions Articles"
+msgstr "Artículos de Preguntas"
 
 #. module: survey_building_use_section
 #: model:ir.actions.act_window,name:survey_building_use_section.survey_question_normative_action
@@ -247,9 +290,19 @@ msgid "Risk"
 msgstr "Riesgo"
 
 #. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+msgid "Search Questions Articles"
+msgstr "Buscar artículos de pregunta"
+
+#. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 msgid "Search Questions Normatives"
 msgstr "Buscar Normativas de Preguntas"
+
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
+msgid "Start Date"
+msgstr "Fecha de Inicio"
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
@@ -257,18 +310,19 @@ msgid "Start Survey"
 msgstr "Iniciar Encuesta"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__start_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__start_year
-#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 msgid "Start Year"
 msgstr "Año de Inicio"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__superficie
 msgid "Superficie"
-msgstr "Superficie"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_survey_survey
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_answer_view_search
 msgid "Survey"
 msgstr "Encuesta"
 
@@ -288,6 +342,11 @@ msgid "Survey Question"
 msgstr "Pregunta de la Encuesta"
 
 #. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_question_article
+msgid "Survey Question Article"
+msgstr "Artículo de pregunta de encuesta"
+
+#. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_survey_question_normative
 msgid "Survey Question Normative"
 msgstr "Normativa de Pregunta de la Encuesta"
@@ -301,6 +360,22 @@ msgstr "Entrada de Usuario de la Encuesta"
 #: model:ir.model,name:survey_building_use_section.model_survey_user_input_line
 msgid "Survey User Input Line"
 msgstr "Línea de Entrada de Usuario de la Encuesta"
+
+#. module: survey_building_use_section
+#. odoo-javascript
+#: code:addons/survey_building_use_section/static/src/js/surveyform.js:0
+#: code:addons/temp-addons/survey_building_use_section/static/src/js/surveyform.js:0
+#, python-format
+msgid "This answer must be an email address."
+msgstr "Esta respuesta tiene que se un email"
+
+#. module: survey_building_use_section
+#. odoo-javascript
+#: code:addons/survey_building_use_section/static/src/js/surveyform.js:0
+#: code:addons/temp-addons/survey_building_use_section/static/src/js/surveyform.js:0
+#, python-format
+msgid "This is not a date"
+msgstr "Esto no es una fecha"
 
 #. module: survey_building_use_section
 #. odoo-python
