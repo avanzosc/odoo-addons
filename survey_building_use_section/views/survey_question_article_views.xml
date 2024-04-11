@@ -8,6 +8,7 @@
                 <field name="name"/>
                 <field name="error_text" />
                 <field name="description"/>
+                <field name="normative"/>
             </tree>
         </field>
     </record>
@@ -18,7 +19,9 @@
             <field name="arch" type="xml">
                 <search string="Search Questions Articles">
                     <field name="name"/>
+                    <field name="error_text"/>
                     <field name="description"/>
+                    <field name="normative"/>
                 </search>
             </field>
         </record>
