@@ -38,23 +38,17 @@ class SurveyQuestionNormative(models.Model):
     start_date = fields.Date(
         string="Start Date",
         compute="_compute_start_date",
-        store=True,  # Para almacenar el valor calculado en la base de datos
-        copy=False,
     )
     end_date = fields.Date(
         string="End Date",
         compute="_compute_end_date",
-        store=True,  # Para almacenar el valor calculado en la base de datos
-        copy=False,
     )
 
-    @api.depends('start_year')
     def _compute_start_date(self):
         for record in self:
             if record.start_year:
                 record.start_date = fields.Date.from_string(str(record.start_year) + '-01-01')
 
-    @api.depends('end_year')
     def _compute_end_date(self):
         for record in self:
             if record.end_year:
