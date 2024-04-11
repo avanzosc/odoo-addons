@@ -12,7 +12,3 @@ class SurveyQuestionAnswer(models.Model):
     question_article_ids = fields.Many2many(
         'survey.question.article', string='Articles'
     )
-    related_normative_ids = fields.Many2many(
-        'survey.question.normative', string='Related Normatives',
-        related='question_id.question_normative_ids',
-    )
