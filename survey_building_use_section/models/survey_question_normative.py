@@ -51,18 +51,11 @@ class SurveyQuestionNormative(models.Model):
         copy=False,
     )
 
-    @api.depends('start_year', 'end_year')
-    def _compute_start_date(self):
-        for record in self:
-            if not record.start_date and record.start_year:
+    def init(self):
+        super(SurveyQuestionNormative, self).init()
+        for record in self.search([]):
+            if record.start_year and not record.start_date:
                 record.start_date = fields.Date.from_string(str(record.start_year) + '-01-01')
-                _logger.info('2024okdeb - Calculating start date for record %s', record.id)
-
-
-    @api.depends('start_year', 'end_year')
-    def _compute_end_date(self):
-        for record in self:
-            if not record.end_date and record.end_year:
+            if record.end_year and not record.end_date:
                 record.end_date = fields.Date.from_string(str(record.end_year) + '-12-31')
-                _logger.info('2024okdeb - Calculating start date for record %s', record.id)
 
