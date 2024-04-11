@@ -50,11 +50,11 @@ class SurveyQuestionNormative(models.Model):
     @api.depends('start_year', 'end_year')
     def _compute_start_date(self):
         for record in self:
-            if record.start_year and not record.start_date:
+            if not record.start_date and record.start_year:
                 record.start_date = fields.Date.from_string(str(record.start_year) + '-01-01')
 
     @api.depends('start_year', 'end_year')
     def _compute_end_date(self):
         for record in self:
-            if record.end_year and not record.end_date:
+            if not record.end_date and record.end_year:
                 record.end_date = fields.Date.from_string(str(record.end_year) + '-12-31')
