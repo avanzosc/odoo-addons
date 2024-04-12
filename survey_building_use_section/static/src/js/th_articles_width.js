@@ -1,8 +1,9 @@
+import { surveyForm } from 'survey.form'; // Importar el módulo survey.form
+
 odoo.define('survey_building_use_section.th_articles_width', function (require) {
     "use strict";
 
     var core = require('web.core');
-    var SurveyForm = require('survey.form'); // Importar el módulo survey.form
 
     // Función para verificar si la URL contiene el parámetro model=survey
     function checkURLParameter() {
