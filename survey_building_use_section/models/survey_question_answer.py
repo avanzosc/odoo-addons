@@ -34,5 +34,5 @@ class SurveyQuestionAnswer(models.Model):
     def _compute_related_article_filter_ids(self):
         for record in self:
             related_articles = record.question_id.question_normative_ids.mapped('related_article_ids')
-            record.related_article_filter_ids = related_articles.ids
+            record.related_article_filter_ids = [(6, 0, related_articles.ids)]
             _logger.info("2024okdeb - Computed related articles for record with ID %s", record.id)
