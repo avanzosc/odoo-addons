@@ -50,7 +50,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
     window.onWindowClicked = onWindowClicked;
 
     // Add event listener to detect click events
-    window.addEventListener('click', onWindowClicked);
+    window.addEventListener('DOMContentLoaded', onWindowClicked);
 
     // Return an empty object as the module export
     return {};
