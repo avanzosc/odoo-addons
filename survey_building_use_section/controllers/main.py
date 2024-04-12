@@ -44,7 +44,7 @@ class Survey(Survey):
                                 'triggering_answer_id': False,
                             })
 
-                            if any(normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date.< normative.end_date
+                            if any(normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date
                                 for normative in question.question_normative_ids):
                                 matched_normatives = [normative for normative in question.question_normative_ids if normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date]
                                 matching_normative_names = [normative.name for normative in matched_normatives]
