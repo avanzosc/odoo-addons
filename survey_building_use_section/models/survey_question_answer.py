@@ -2,10 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models, api
 
-import logging
-
-_logger = logging.getLogger(__name__)
-
 
 class SurveyQuestionAnswer(models.Model):
     _inherit = "survey.question.answer"
@@ -32,6 +28,3 @@ class SurveyQuestionAnswer(models.Model):
         for record in self:
             related_articles = record.matrix_question_id.question_normative_ids.mapped('related_article_ids')
             record.related_article_filter_ids = [(6, 0, related_articles.ids)]
-            
-            _logger.info(f"2024okdeb - {record.id} {record.related_article_filter_ids} {normative_ids} {question_ids} {related_articles}")
-            _logger.info(f"2024okdeb - Se calcularon los artículos relacionados para el registro con ID {record.id} {record.value} {record} ",)
