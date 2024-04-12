@@ -28,10 +28,13 @@
         <field name="arch" type="xml">
             <field name="question_id" position="after">
                 <field name="survey_id"/>
+                <field name="matrix_survey_id"/>
             </field>
             <filter name="group_by_question" position="after">
                 <filter name="group_by_survey" string="Survey"
                     domain="[]" context="{'group_by':'survey_id'}"/>
+                <filter name="group_by_matrix_survey" string="Matrix Survey"
+                    domain="[]" context="{'group_by':'matrix_survey_id'}"/>
             </filter>
         </field>
     </record>

@@ -9,6 +9,14 @@ class SurveyQuestionAnswer(models.Model):
     notes = fields.Text(
         string="Note", help="Error Text", copy=False,
     )
+    survey_id = fields.Many2one(
+        'survey.survey',
+        related="question_id.survey_id"
+    )
+    matrix_survey_id = fields.Many2one(
+        'survey.survey',
+        related="matrix_question_id.survey_id"
+    )
     question_article_ids = fields.Many2many(
         'survey.question.article', 
         string='Articles',
