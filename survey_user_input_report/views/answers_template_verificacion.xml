@@ -91,8 +91,8 @@
                                                     </td>
                                                     <td>
                                                         <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
-                                                         lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
-                                                                       and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                         lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
+                                                                       and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                          )" />
                                                         <t t-foreach="current_question_print_normatives" t-as="normative">
                                                             <t t-esc="normative.name" />
@@ -131,8 +131,8 @@
                                                     </td>
                                                     <td>
                                                         <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
-                                                         lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
-                                                                       and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                         lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
+                                                                       and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                          )" />
                                                         <t t-foreach="current_question_print_normatives" t-as="normative">
                                                             <t t-esc="normative.name" />
@@ -167,8 +167,8 @@
                                                         </td>
                                                         <td>
                                                             <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
-                                                             lambda norm: norm.start_year &lt;= o.inspected_building_id.service_start_date.year 
-                                                                           and norm.end_year &gt;= o.inspected_building_id.service_start_date.year
+                                                             lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
+                                                                           and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                              )" />
                                                             <t t-foreach="current_question_print_normatives" t-as="normative">
                                                                 <t t-esc="normative.name" />
