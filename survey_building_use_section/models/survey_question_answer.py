@@ -13,16 +13,13 @@ class SurveyQuestionAnswer(models.Model):
     notes = fields.Text(
         string="Note", help="Error Text", copy=False,
     )
-    
-    # Definir una nueva tabla de relación para este campo
     question_article_ids = fields.Many2many(
         'survey.question.article', 
         string='Articles',
-        relation='survey_question_answer_article_rel',  # Nombre de la nueva tabla de relación
-        column1='question_answer_id',  # Columna que almacena el ID de la respuesta
-        column2='article_id'  # Columna que almacena el ID del artículo
+        relation='survey_question_answer_article_rel', 
+        column1='question_answer_id', 
+        column2='article_id'  
     )
-    
     related_article_filter_ids = fields.Many2many(
         'survey.question.article',
         string="Related Articles",
@@ -46,4 +43,4 @@ class SurveyQuestionAnswer(models.Model):
             record.related_article_filter_ids = [(6, 0, related_articles.ids)]
             _logger.info("2024okdeb - Se asignaron los IDs de artículos relacionados para el registro con ID %s", record.related_article_filter_ids)
             
-            _logger.info("2024okdeb - Se calcularon los artículos relacionados para el registro con ID %s", record.id)
+            _logger.info(f"2024okdeb - Se calcularon los artículos relacionados para el registro con ID {record.id} {record.value} {record} ",)
