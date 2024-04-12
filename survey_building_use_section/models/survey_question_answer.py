@@ -27,7 +27,7 @@ class SurveyQuestionAnswer(models.Model):
         store=True
     )
 
-    @api.depends('question_id.question_normative_ids.related_article_ids')
+    @api.depends('matrix_question_id.question_normative_ids.related_article_ids')
     def _compute_related_article_filter_ids(self):
         for record in self:
             question_ids = record.question_id
