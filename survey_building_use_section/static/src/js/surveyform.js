@@ -1,7 +1,7 @@
 odoo.define('survey_building_use_section.custom_survey_form', function (require) {
     'use strict';
 
-    var SurveyFormWidget = require('survey.form');
+    // var SurveyFormWidget = require('survey.form');
 
     var core = require('web.core');
     var _t = core._t;
