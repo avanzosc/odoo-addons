@@ -44,9 +44,9 @@ class Survey(Survey):
                                 'triggering_answer_id': False,
                             })
 
-                            if any(normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
+                            if any(normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date.< normative.end_date
                                 for normative in question.question_normative_ids):
-                                matched_normatives = [normative for normative in question.question_normative_ids if normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year]
+                                matched_normatives = [normative for normative in question.question_normative_ids if normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date]
                                 matching_normative_names = [normative.name for normative in matched_normatives]
                                 matched_answers = [ans for ans in triggering_question_obj.suggested_answer_ids if ans.value in matching_normative_names]
                                 if matched_answers:
@@ -78,11 +78,11 @@ class Survey(Survey):
             for answer in triggering_question_obj.suggested_answer_ids:                
                 for normative in all_normatives:
                     # Check if any of the normatives meet the condition
-                    if (normative.start_year <= res.qcontext['answer'].inspected_building_id.service_start_date.year < normative.end_year
+                    if (normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date
                         and answer not in selected_answers 
                         and answer.value == normative.name):
 
-                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_year} <= {res.qcontext['answer'].inspected_building_id.service_start_date.year} < {normative.end_year} - Normative name: {normative.name} - Answer value: {answer.value}")
+                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_date} <= {res.qcontext['answer'].inspected_building_id.service_start_date} < {normative.end_date} - Normative name: {normative.name} - Answer value: {answer.value}")
 
                         # Check if a record already exists for these conditions
                         existing_user_input_line = request.env['survey.user_input.line'].search([
