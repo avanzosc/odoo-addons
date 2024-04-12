@@ -9,9 +9,16 @@ class SurveyQuestionAnswer(models.Model):
     notes = fields.Text(
         string="Note", help="Error Text", copy=False,
     )
+    
+    # Definir una nueva tabla de relación para este campo
     question_article_ids = fields.Many2many(
-        'survey.question.article', string='Articles'
+        'survey.question.article', 
+        string='Articles',
+        relation='survey_question_answer_article_rel',  # Nombre de la nueva tabla de relación
+        column1='question_answer_id',  # Columna que almacena el ID de la respuesta
+        column2='article_id'  # Columna que almacena el ID del artículo
     )
+    
     related_article_filter_ids = fields.Many2many(
         'survey.question.article',
         string="Related Articles",
