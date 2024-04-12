@@ -30,17 +30,13 @@ class SurveyQuestionAnswer(models.Model):
     @api.depends('question_id.question_normative_ids.related_article_ids')
     def _compute_related_article_filter_ids(self):
         for record in self:
-            _logger.info("2024okdeb - Comenzando a calcular artículos relacionados para el registro con ID %s", record.id)
             question_ids = record.question_id
-            _logger.info("2024okdeb - Se obtuvieron los IDs de pregunta para el registro con ID %s", question_ids)
             
             normative_ids = question_ids.question_normative_ids
-            _logger.info("2024okdeb - Se obtuvieron los IDs normativos para el registro con ID %s", normative_ids)
             
             related_articles = normative_ids.mapped('related_article_ids')
-            _logger.info("2024okdeb - Se mapearon los IDs de artículos relacionados para el registro con ID %s", related_articles)
             
             record.related_article_filter_ids = [(6, 0, related_articles.ids)]
-            _logger.info("2024okdeb - Se asignaron los IDs de artículos relacionados para el registro con ID %s", record.related_article_filter_ids)
+            _logger.info(f"2024okdeb - {record.id} {record.related_article_filter_ids} {normative_ids} {question_ids} {related_articles}")
             
             _logger.info(f"2024okdeb - Se calcularon los artículos relacionados para el registro con ID {record.id} {record.value} {record} ",)
