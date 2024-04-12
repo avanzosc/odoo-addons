@@ -56,7 +56,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
     // Execute onWindowEvent asynchronously every 2 seconds
     function runEveryTwoSeconds() {
         setTimeout(() => {
-            onWindowEvent();
+            onWindowClicked();
             runEveryTwoSeconds(); // Call the function recursively to repeat every 2 seconds
         }, 2000);
     }
