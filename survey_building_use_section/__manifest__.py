@@ -28,7 +28,7 @@
     ],
     "installable": True,
     "assets": {
-        "web.assets_frontend": [
+        "web.assets_backend": [
             "survey_building_use_section/static/src/js/surveyform.js",
             "survey_building_use_section/static/src/js/th_articles_width.js",
         ],
