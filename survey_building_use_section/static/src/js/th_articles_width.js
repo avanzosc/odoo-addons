@@ -10,19 +10,19 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
     // Define the onWindowClicked function
     function onWindowClicked(ev) {
         console.log('Window click event occurred:', ev);
-        
+
         // Check if window location hash contains 'model=survey.'
         var hash = window.location.hash;
         console.log('Hash:', hash);
-        
+
         if (hash.includes('model=survey.')) {
             console.log('Hash contains "model=survey."');
-            
+
             // Your custom logic here
             // For example, adjust the width of table elements
             var thElements = document.getElementsByTagName('th');
             console.log('Total th elements:', thElements.length);
-            
+
             for (var i = 0; i < thElements.length; i++) {
                 if (thElements[i].getAttribute('data-name') === "question_article_ids") {
                     var currentStyle = thElements[i].getAttribute('style');
@@ -35,7 +35,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
 
                     var currentStyle = thElements[i].getAttribute('style');
                     thElements[i].style.width = '200px';
-  
+
                     console.log('Adjusted width of value');
                 }
             }
@@ -51,7 +51,17 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
 
     // Add event listener to detect click events
     window.addEventListener('click', onWindowClicked);
-    window.addEventListener('scroll', onWindowClicked);
+
+
+    // Execute onWindowEvent asynchronously every 2 seconds
+    function runEveryTwoSeconds() {
+        setTimeout(() => {
+            onWindowEvent();
+            runEveryTwoSeconds(); // Call the function recursively to repeat every 2 seconds
+        }, 2000);
+    }
+
+    runEveryTwoSeconds(); // Start the recursive function call
 
 
     // Return an empty object as the module export
