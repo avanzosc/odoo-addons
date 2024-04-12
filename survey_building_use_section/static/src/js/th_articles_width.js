@@ -31,7 +31,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
                             thElements[i].style.width = (parseInt(thElements[i].style.width) + 500) + 'px';
                         } else {
                             // Si el estilo no está definido, establecer un nuevo estilo con 500px de ancho
-                            thElements[i].setAttribute('style', 'width: 876px;');
+                            thElements[i].style.width = parseInt(500) + 'px';
                         }
                     } else if (thElements[i].getAttribute('data-name') === "value") {
                         // Obtener el estilo actual del elemento th
@@ -42,7 +42,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
                             thElements[i].style.width = (parseInt(thElements[i].style.width) - 400) + 'px';
                         } else {
                             // Si el estilo no está definido, establecer un nuevo estilo con 400px menos de ancho
-                            thElements[i].setAttribute('style', 'width: 353px;');
+                            thElements[i].style.width = parseInt(500) + 'px';
                         }
                     }
                 }
