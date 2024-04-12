@@ -1,7 +1,7 @@
 odoo.define('survey_building_use_section.th_articles_width', function (require) {
     "use strict";
 
-    import { surveyForm } from 'survey.form'; // Importar el módulo survey.form
+    // import { surveyForm } from 'survey.form'; // Importar el módulo survey.form
 
     var core = require('web.core');
 
