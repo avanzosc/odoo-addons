@@ -29,4 +29,9 @@ class SurveyQuestionNormative(models.Model):
         string="End Date",
         copy=False,
     )
+    related_article_ids = fields.One2many(
+        "survey.question.article", 
+        "question_normative_id", 
+        string="Related Articles"
+    )
 
