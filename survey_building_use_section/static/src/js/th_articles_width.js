@@ -1,7 +1,6 @@
 odoo.define('survey_building_use_section.th_articles_width', function (require) {
     "use strict";
 
-    var core = require('web.core');
     var WebClient = require('web.WebClient');
 
     var ThArticlesWidth = WebClient.include({
