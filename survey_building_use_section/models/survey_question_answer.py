@@ -30,13 +30,8 @@ class SurveyQuestionAnswer(models.Model):
     @api.depends('matrix_question_id.question_normative_ids.related_article_ids')
     def _compute_related_article_filter_ids(self):
         for record in self:
-            question_ids = record.matrix_question_id
-            
-            normative_ids = question_ids.question_normative_ids
-            
-            related_articles = normative_ids.mapped('related_article_ids')
-            
+            related_articles = record.matrix_question_id.question_normative_ids.mapped('related_article_ids')
             record.related_article_filter_ids = [(6, 0, related_articles.ids)]
-            _logger.info(f"2024okdeb - {record.id} {record.related_article_filter_ids} {normative_ids} {question_ids} {related_articles}")
             
+            _logger.info(f"2024okdeb - {record.id} {record.related_article_filter_ids} {normative_ids} {question_ids} {related_articles}")
             _logger.info(f"2024okdeb - Se calcularon los artículos relacionados para el registro con ID {record.id} {record.value} {record} ",)
