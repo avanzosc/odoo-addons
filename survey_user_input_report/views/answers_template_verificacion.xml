@@ -176,6 +176,17 @@
                                                                 <br />
                                                             </t>
                                                         </td>
+
+                                                        <td>
+                                                            <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids" />
+                                                            <t t-foreach="current_matrix_line_print_articles" t-as="article">
+                                                                <t t-esc="article.name" /><span>: </span>
+                                                                <t t-esc="article.description" /><span> </span>
+                                                                <t t-esc="article.error_text" />
+                                                                <br />
+                                                            </t>
+                                                        </td>
+
                                                         <td>
                                                             <t t-esc="col_label.value" />
                                                         </td>
