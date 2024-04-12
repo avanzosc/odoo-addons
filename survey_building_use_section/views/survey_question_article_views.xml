@@ -22,6 +22,12 @@
                 <field name="error_text"/>
                 <field name="description"/>
                 <field name="question_normative_id"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_name" string="Name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter name="error_text" string="Error" domain="[]" context="{'group_by':'error_text'}"/>
+                    <filter name="description" string="Description" domain="[]" context="{'group_by':'description'}"/>
+                    <filter name="question_normative_id" string="Normative" domain="[]" context="{'group_by':'question_normative_id'}"/>
+                </group>
             </search>
         </field>
     </record>
