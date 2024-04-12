@@ -15,7 +15,6 @@
     "data": [
         "security/ir.model.access.csv",
         "wizard/survey_invite_views.xml",
-
         "views/survey_question_answer_views.xml",
         "views/survey_question_article_views.xml",
         "views/survey_question_normative_views.xml",
@@ -29,7 +28,6 @@
     "installable": True,
     "assets": {
         "web.assets_backend": [
-            "survey_building_use_section/static/src/js/surveyform.js",
             "survey_building_use_section/static/src/js/th_articles_width.js",
         ],
     },
