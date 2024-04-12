@@ -123,8 +123,8 @@ odoo.define('survey_building_use_section.custom_survey_form', function (require)
         return true;
     };
 
-    SurveyFormWidget.include({
-        _validateForm: _validateForm,
-    });
+    // SurveyFormWidget.include({
+    //     _validateForm: _validateForm,
+    // });
 
 });
