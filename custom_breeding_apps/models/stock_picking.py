@@ -93,7 +93,7 @@ class StockPicking(models.Model):
     @api.depends("birth_estimate_date")
     def _compute_date_birth_week(self):
         for line in self:
-            line.date_birth_week = 0
+            date_birth_week = 0
             if line.birth_estimate_date:
                 start_date = datetime(
                     line.birth_estimate_date.year, 1, 1, 0, 0).date()
@@ -108,12 +108,13 @@ class StockPicking(models.Model):
                 week = line.weeks_between(start_date, end_date)
                 if week == 53:
                     week = 1
-                line.date_birth_week = week
+                date_birth_week = week
+            line.date_birth_week = date_birth_week
 
     @api.depends("custom_date_done")
     def _compute_date_done_week(self):
         for line in self:
-            line.date_done_week = 0
+            date_done_week = 0
             if line.custom_date_done:
                 start_date = datetime(
                     line.custom_date_done.year, 1, 1, 0, 0)
@@ -128,7 +129,8 @@ class StockPicking(models.Model):
                 week = line.weeks_between(start_date, end_date)
                 if week == 53:
                     week = 1
-                line.date_done_week = week
+                date_done_week = week
+            line.date_done_week = date_done_week
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
@@ -137,11 +139,11 @@ class StockPicking(models.Model):
     @api.depends("category_type_id", "dest_category_type_id")
     def _compute_type(self):
         for line in self:
-            line.is_incubator = False
-            line.is_integration = False
-            line.is_reproductor = False
-            line.is_feed_flour = False
-            line.is_medicine = False
+            is_incubator = False
+            is_integration = False
+            is_reproductor = False
+            is_feed_flour = False
+            is_medicine = False
             reproductor = self.env.ref("stock_warehouse_farm.categ_type1")
             integration = self.env.ref("stock_warehouse_farm.categ_type2")
             medicine = self.env.ref("stock_warehouse_farm.categ_type3")
@@ -151,23 +153,28 @@ class StockPicking(models.Model):
             if (
                 line.category_type_id == reproductor) or (
                     line.dest_category_type_id == reproductor):
-                line.is_reproductor = True
+                is_reproductor = True
             if (
                 line.category_type_id == integration) or (
                     line.dest_category_type_id == integration):
-                line.is_integration = True
+                is_integration = True
             if (
                 line.category_type_id == medicine) or (
                     line.dest_category_type_id == medicine):
-                line.is_medicine = True
+                is_medicine = True
             if (
                 line.category_type_id in (feed, flour)) or (
                     line.dest_category_type_id in (feed, flour)):
-                line.is_feed_flour = True
+                is_feed_flour = True
             if (
                 line.category_type_id == incubator) or (
                     line.dest_category_type_id == incubator):
-                line.is_incubator = True
+                is_incubator = True
+            line.is_incubator = is_incubator
+            line.is_integration = is_integration
+            line.is_reproductor = is_reproductor
+            line.is_feed_flour = is_feed_flour
+            line.is_medicine = is_medicine
 
     @api.onchange("custom_date_done")
     def onchange_custom_date_done(self):
@@ -210,6 +217,17 @@ class StockPicking(models.Model):
             return start_date - timedelta(days=weekday)
         else:
             return start_date + timedelta(days=(7-weekday))
+
+    def button_force_done_detailed_operations(self):
+        result = super(
+            StockPicking, self
+        ).button_force_done_detailed_operations()
+        unit = self.env.ref("uom.product_uom_unit")
+        for picking in self:
+            for line in picking.move_line_ids_without_package:
+                if line.product_uom_id == unit:
+                    line.download_unit = line.qty_done
+        return result
 
     def button_validate(self):
         for picking in self:

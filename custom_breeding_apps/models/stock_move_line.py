@@ -99,10 +99,11 @@ class StockMoveLine(models.Model):
     @api.depends("estimate_birth", "download_unit")
     def compute_birth_estimate_qty(self):
         for line in self:
-            line.birth_estimate_qty = 0
+            birth_estimate_qty = 0
             if line.estimate_birth and line.download_unit:
-                line.birth_estimate_qty = (
+                birth_estimate_qty = (
                     line.estimate_birth * line.download_unit / 100)
+            line.birth_estimate_qty = birth_estimate_qty
 
     def calculate_weeks_start(self, start_date):
         self.ensure_one()
@@ -115,7 +116,7 @@ class StockMoveLine(models.Model):
     @api.depends("date")
     def _compute_date_week(self):
         for line in self:
-            line.date_week = 0
+            date_week = 0
             if line.date:
                 start_date = datetime(
                     line.date.year, 1, 1, 0, 0).date()
@@ -130,21 +131,22 @@ class StockMoveLine(models.Model):
                 week = line.weeks_between(start_date, end_date)
                 if week == 53:
                     week = 1
-                line.date_week = week
+                date_week = week
+            line.date_week = date_week
 
     def _compute_stock(self):
         for line in self:
-            line.stock = 0
+            stock = 0
             product = self.env["product.product"].search(
                 [("is_hen", "=", True)], limit=1)
             if product:
                 stock = line.batch_id.location_id.quant_ids.filtered(
                     lambda x: x.product_id == product)
                 stock = sum(stock.mapped("available_quantity"))
-                if stock:
-                    line.stock = stock
+            line.stock = stock
 
-    @api.depends("product_id", "location_id", "lot_id", "owner_id", "package_id")
+    @api.depends("product_id", "location_id", "lot_id", "owner_id",
+                 "package_id")
     def _compute_rest(self):
         for line in self:
             rest = 0
@@ -168,37 +170,43 @@ class StockMoveLine(models.Model):
     @api.depends("batch_id", "batch_id.start_laying_date", "date")
     def _compute_laying_week(self):
         for line in self:
-            line.laying_week = 0
+            laying_week = 0
             if line.batch_id.start_laying_date:
                 start_date = line.batch_id.start_laying_date
                 end_date = line.date.date()
-                line.laying_week = (
+                laying_week = (
                     line.weeks_between(start_date, end_date))
+            line.laying_week = laying_week
 
     @api.depends("stock", "qty_done")
     def _compute_real_percentage(self):
         for line in self:
+            real_percentage = 0
             if line.stock != 0:
-                line.real_percentage = line.qty_done * 100 / line.stock
+                real_percentage = line.qty_done * 100 / line.stock
+            line.real_percentage = real_percentage
 
     @api.depends("batch_id", "batch_id.laying_rate_ids",
                  "batch_id.laying_rate_ids.week", "laying_week")
     def _compute_estimate_laying(self):
         for line in self:
-            line.estimate_laying = 0
-            line.forecast = 0
+            estimate_laying = 0
+            forecast = 0
             if line.laying_week and line.batch_id.laying_rate_ids:
                 rate = line.batch_id.laying_rate_ids.filtered(
                     lambda x: x.week == line.laying_week)
                 if rate and rate.percentage_laying and rate.estimate_laying:
-                    line.estimate_laying = rate.percentage_laying
-                    line.forecast = rate.estimate_laying / 7
+                    estimate_laying = rate.percentage_laying
+                    forecast = rate.estimate_laying / 7
+            line.estimate_laying = estimate_laying
+            line.forecast = forecast
 
     def _compute_difference(self):
         for line in self:
-            line.difference = 0
+            difference = 0
             if line.forecast and line.qty_done:
-                line.difference = line.forecast - line.qty_done
+                difference = line.forecast - line.qty_done
+            line.difference = difference
 
     @api.onchange("batch_id", "location_id", "product_id")
     def onchange_lot_domain(self):
