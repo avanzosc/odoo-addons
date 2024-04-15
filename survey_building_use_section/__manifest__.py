@@ -24,6 +24,7 @@
         "views/survey_survey_views.xml",
         "views/res_partner_views.xml",
         "views/remove_retake_option.xml",
+        "views/add_matrix_article_filter.xml",
     ],
     "installable": True,
     "assets": {
