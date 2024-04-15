@@ -12,6 +12,7 @@
         "stock_warehouse_farm",
         "stock_picking_batch_liquidation",
         "custom_breeding_apps",
+        "sale_picking_return_containers",
     ],
     "data": [
         "security/ir.model.access.csv",
