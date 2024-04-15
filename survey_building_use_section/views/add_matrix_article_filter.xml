@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="add_matrix_article_filter" priority="1" inherit_id="survey.question_matrix">
-
         <xpath expr="//tr[@t-foreach='question.matrix_row_ids']" position="replace">
             <t t-foreach="question.matrix_row_ids" t-as="row_label">
-                <t t-if="row_label.question_article_ids.question_normative_id.start_date &lt;= answer_lines.user_input_id.inspected_building_id.service_start_date and answer_lines.user_input_id.inspected_building_id.service_start_date &lt; row_label.question_article_ids.question_normative_id.end_date">
+                <t t-if="row_label.question_article_ids.question_normative_id.start_date.to_date() &lt;= answer_lines.user_input_id.inspected_building_id.service_start_date.to_date() and answer_lines.user_input_id.inspected_building_id.service_start_date.to_date() &lt; row_label.question_article_ids.question_normative_id.end_date.to_date()">
                     <tr class="bg-white text-white" t-att-id="row_label.id">
                         <th class="fw-normal text-start">
                             <span t-field="row_label.value" />
@@ -29,7 +28,6 @@
                     </tr>
                 </t>
             </t>
-
         </xpath>
     </template>
 </odoo> 
