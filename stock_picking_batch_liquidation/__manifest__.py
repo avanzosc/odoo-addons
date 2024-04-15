@@ -18,6 +18,8 @@
         "custom_breeding_apps",
         "stock_inventory_at_date",
         "account_move_partner_sequence",
+        "sale_order_type",
+        "account_due_list",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -40,6 +42,8 @@
         "views/liquidation_line_view.xml",
         "views/account_move_view.xml",
         "views/account_analytic_line_view.xml",
+        "views/stock_quant_view.xml",
+        "views/account_move_line_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

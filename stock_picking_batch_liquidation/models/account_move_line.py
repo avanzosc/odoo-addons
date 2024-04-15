@@ -9,6 +9,12 @@ class AccountMoveLine(models.Model):
     price_unit = fields.Float(digits="Account Line Price Decimal Precision")
     name = fields.Char(string="Description")
     percentage = fields.Float(string="Percentage")
+    sale_type_id = fields.Many2one(
+        string="Sale Type",
+        comodel_name="sale.order.type",
+        related="move_id.sale_type_id",
+        store=True
+    )
 
     @api.onchange("percentage", "move_id")
     def onchange_invoicing_qty(self):

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-02 13:09+0000\n"
-"PO-Revision-Date: 2023-11-02 13:09+0000\n"
+"POT-Creation-Date: 2024-04-15 14:11+0000\n"
+"PO-Revision-Date: 2024-04-15 14:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -275,23 +275,9 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: stock_picking_batch_liquidation
-#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
-msgid "Date"
-msgstr "Fecha"
-
-#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_inventory__accounting_date_week
 msgid "Date Weeks"
 msgstr "Semanas"
-
-#. module: stock_picking_batch_liquidation
-#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_stock_inventory__accounting_date
-msgid ""
-"Date at which the accounting entries will be created in case of automated "
-"inventory valuation. If empty, the inventory date will be used."
-msgstr ""
-"Fecha en la que se crearán los asientos contables en caso de valoración de "
-"inventario automatizada. Si está vacío, se usará la fecha de inventario."
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__days
@@ -335,6 +321,7 @@ msgstr "Diferencia Abono/Cargo"
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_quant__display_name
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__display_name
 msgid "Display Name"
 msgstr "Mostrar nombre"
@@ -475,6 +462,7 @@ msgstr "Velocidad de crecimiento"
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_quant__id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__id
 msgid "ID"
 msgstr "Identificador"
@@ -577,6 +565,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_quant____last_update
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
@@ -718,6 +707,7 @@ msgid "Min. to be Liquidated per Chicken"
 msgstr "Mínimo a liquidar x pollo"
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__mother_id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__mother_id
 msgid "Mother"
 msgstr "Madre"
@@ -729,8 +719,10 @@ msgstr "Madre"
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_product_category__move_type_id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move__move_type_id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__move_type_id
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_quant__move_type_id
 #: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_view_move_type
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.move_type_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.quant_search_view
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_search
 msgid "Move Type"
@@ -914,6 +906,11 @@ msgid "Quantity Type"
 msgstr "Tipo cantidad"
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model,name:stock_picking_batch_liquidation.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
@@ -927,6 +924,12 @@ msgstr "Resultado"
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_liquidation_contract__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "Error de entrega de SMS"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__sale_type_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_payments_filter
+msgid "Sale Type"
+msgstr "Tipo de venta"
 
 #. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
@@ -950,6 +953,11 @@ msgstr ""
 #: model:ir.model,name:stock_picking_batch_liquidation.model_stock_move
 msgid "Stock Move"
 msgstr "Operaciones"
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__move_line_ids
+msgid "Stock move lines"
+msgstr "Líneas de movimiento disponibles"
 
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
