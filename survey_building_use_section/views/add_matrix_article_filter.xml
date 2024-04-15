@@ -6,9 +6,11 @@
                 <p>Start date: 
                     <t t-esc="row_label.question_article_ids.question_normative_id.start_date" />
                 </p>
-                <p>End date:  <t t-esc="row_label.question_article_ids.question_normative_id.end_date" />
+                <p>End date:  
+                    <t t-esc="row_label.question_article_ids.question_normative_id.end_date" />
                 </p>
-                <p>Service Start Date   <t t-esc="answer_lines.user_input_id.inspected_building_id.service_start_date" />
+                <p>Service Start Date   
+                    <t t-esc="answer.user_input_id.inspected_building_id.service_start_date" />
                 </p>
                 <t t-if="row_label.question_article_ids.question_normative_id.start_date and answer_lines.user_input_id.inspected_building_id.service_start_date and row_label.question_article_ids.question_normative_id.end_date">
                     <t t-if="row_label.question_article_ids.question_normative_id.start_date &lt; answer_lines.user_input_id.inspected_building_id.service_start_date and answer_lines.user_input_id.inspected_building_id.service_start_date &lt; row_label.question_article_ids.question_normative_id.end_date">
