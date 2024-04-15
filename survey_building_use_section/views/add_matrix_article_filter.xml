@@ -5,7 +5,7 @@
         <xpath expr="//tr[@t-foreach='question.matrix_row_ids']" position="replace">
             <t t-foreach="question.matrix_row_ids" t-as="row_label">
                 <t t-if="row_label.question_article_ids.question_normative_id.start_date 
-                &lt;= answer_lines..inspected_building_id.service_start-date 
+                &lt;= answer_lines.user_input_id.inspected_building_id.service_start-date 
                 &lt; row_label.question_article_ids.question_normative_id.start_date">
                     <tr class="bg-white text-white" t-att-id="row_label.id">
                         <th class="fw-normal text-start">
