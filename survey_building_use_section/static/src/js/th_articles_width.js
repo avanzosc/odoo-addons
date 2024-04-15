@@ -18,14 +18,12 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
         if (hash.includes('model=survey.')) {
             console.log('Hash contains "model=survey."');
 
-            // Your custom logic here
-            // For example, adjust the width of table elements
             var thElements = document.getElementsByTagName('th');
             console.log('Total th elements:', thElements.length);
 
             for (var i = 0; i < thElements.length; i++) {
                 if (thElements[i].getAttribute('data-name') === "question_article_ids") {
-                    thElements[i].style.width = '500px';
+                    thElements[i].style.width = '350px';
 
                     console.log('Adjusted width of question_article_ids');
                 } else if (thElements[i].getAttribute('data-name') === "value") {
@@ -50,8 +48,6 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
         } else {
             console.log('Hash does not contain "model=survey."');
         }
-
-        // Your custom logic here
     }
 
     // Attach the onWindowClicked function to the window object to make it globally accessible
@@ -65,7 +61,7 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
     function runEveryTwoSeconds() {
         setTimeout(() => {
             onWindowClicked();
-            runEveryTwoSeconds(); // Call the function recursively to repeat every 2 seconds
+            runEveryTwoSeconds(); 
         }, 2000);
     }
 
