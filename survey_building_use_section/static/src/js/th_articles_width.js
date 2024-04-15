@@ -25,18 +25,26 @@ odoo.define('survey_building_use_section.th_articles_width', function (require) 
 
             for (var i = 0; i < thElements.length; i++) {
                 if (thElements[i].getAttribute('data-name') === "question_article_ids") {
-                    var currentStyle = thElements[i].getAttribute('style');
                     thElements[i].style.width = '500px';
 
                     console.log('Adjusted width of question_article_ids');
                 } else if (thElements[i].getAttribute('data-name') === "value") {
-                    var prevSibling = thElements[i].previousElementSibling;
-                    prevSibling.style.width = '33px';
+                    var sibling = thElements[i].previousElementSibling;
+                    while (sibling) {
+                        if (sibling.getAttribute('data-name') === "sequence") {
+                            // Found the sibling with data-name="sequence"
+                            break;
+                        }
+                        sibling = sibling.previousElementSibling;
+                    }
 
-                    var currentStyle = thElements[i].getAttribute('style');
-                    thElements[i].style.width = '200px';
-
-                    console.log('Adjusted width of value');
+                    if (sibling) {
+                        sibling.style.width = '33px';
+                        thElements[i].style.width = '200px';
+                        console.log('Adjusted width of value');
+                    } else {
+                        console.log('Sibling with data-name="sequence" not found.');
+                    }
                 }
             }
         } else {
