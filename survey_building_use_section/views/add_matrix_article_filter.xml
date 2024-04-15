@@ -3,9 +3,13 @@
     <template id="add_matrix_article_filter" priority="1" inherit_id="survey.question_matrix">
         <xpath expr="//tr[@t-foreach='question.matrix_row_ids']" position="replace">
             <t t-foreach="question.matrix_row_ids" t-as="row_label">
-                <t t-esc="row_label.question_article_ids.question_normative_id.start_date" />
-                <t t-esc="row_label.question_article_ids.question_normative_id.end_date" />
-                <t t-esc="answer_lines.user_input_id.inspected_building_id.service_start_date" />
+                <p>Start date: 
+                    <t t-esc="row_label.question_article_ids.question_normative_id.start_date" />
+                </p>
+                <p>End date:  <t t-esc="row_label.question_article_ids.question_normative_id.end_date" />
+                </p>
+                <p>Service Start Date   <t t-esc="answer_lines.user_input_id.inspected_building_id.service_start_date" />
+                </p>
                 <t t-if="row_label.question_article_ids.question_normative_id.start_date and answer_lines.user_input_id.inspected_building_id.service_start_date and row_label.question_article_ids.question_normative_id.end_date">
                     <t t-if="row_label.question_article_ids.question_normative_id.start_date &lt; answer_lines.user_input_id.inspected_building_id.service_start_date and answer_lines.user_input_id.inspected_building_id.service_start_date &lt; row_label.question_article_ids.question_normative_id.end_date">
                         <tr class="bg-white text-white" t-att-id="row_label.id">
