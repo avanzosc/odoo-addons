@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_payments_filter" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account_due_list.view_payments_filter" />
+        <field name="arch" type="xml">
+            <filter name="group_by_salesperson" position="after">
+                <filter string="Sale Type" name="sale_type" context="{'group_by':'sale_type_id'}"/>
+            </filter>
+        </field>
+    </record>
+</odoo>
