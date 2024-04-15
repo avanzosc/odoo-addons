@@ -20,7 +20,7 @@
             <field name="res_model">wiz.generate.alternative.sale.code</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
-            <field name="groups" eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]" />
+            <!-- <field name="groups" eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]" /> -->
             <field name="binding_model_id" ref="model_product_product"/>
             <field name="view_id" ref="wiz_generate_alternative_sale_code_view_form"/>
         </record>
