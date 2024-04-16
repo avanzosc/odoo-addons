@@ -136,7 +136,7 @@ class ProductProduct(models.Model):
         if name2_values:
             for lang in name2_values:
                 query = """
-                    UPDATE product_template
+                    UPDATE product_product
                     SET name2 = jsonb_set(
                         COALESCE(name2, '{}'),
                         ARRAY[%s],
@@ -146,7 +146,7 @@ class ProductProduct(models.Model):
                     WHERE id = %s
                 """
                 self.env.cr.execute(query, (
-                    lang,  # Change this dynamically as per your requirement
+                    lang,  
                     json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
                     self.id
                 ))
@@ -171,7 +171,7 @@ class ProductProduct(models.Model):
                 if name2_values:
                     for lang in name2_values:
                         query = """
-                            UPDATE product_product
+                            UPDATE product_template
                             SET name2 = jsonb_set(
                                 COALESCE(name2, '{}'),
                                 ARRAY[%s],
@@ -181,7 +181,7 @@ class ProductProduct(models.Model):
                             WHERE id = %s
                         """
                         self.env.cr.execute(query, (
-                            lang,  # Change this dynamically as per your requirement
+                            lang,
                             json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
                             product.product_tmpl_id.id
                         ))

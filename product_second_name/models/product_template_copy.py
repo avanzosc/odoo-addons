@@ -147,7 +147,7 @@ class ProductTemplate(models.Model):
                     WHERE id = %s
                 """
                 self.env.cr.execute(query, (
-                    lang,  # Change this dynamically as per your requirement
+                    lang, 
                     json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
                     self.id
                 ))
@@ -182,12 +182,11 @@ class ProductTemplate(models.Model):
                             WHERE id = %s
                         """
                         self.env.cr.execute(query, (
-                            lang,  # Change this dynamically as per your requirement
+                            lang, 
                             json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
                             template.product_variant_ids[0].id
                         ))
 
-        
         return result
 
 
