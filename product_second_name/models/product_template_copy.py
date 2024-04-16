@@ -83,6 +83,7 @@ class ProductTemplate(models.Model):
         else:
             if values.get("name2") == "*****":
                 values["name2"] = values.get("description_sale_cat")
+
         template = super(
             ProductTemplate,
             self.with_context(
@@ -125,28 +126,34 @@ class ProductTemplate(models.Model):
 
         if "description_sale_es" in values:
             name2_values["es_ES"] = values.get("description_sale_es")
-            super(
-                ProductTemplate,
-                self.with_context(lang="es_ES", language_description=True),
-            ).write({"name2": values.get("description_sale_es")})
-        
+
         if "description_sale_cat" in values:
             name2_values["ca_ES"] = values.get("description_sale_cat")
-            super(
-                ProductTemplate,
-                self.with_context(lang="ca_ES", language_description=True),
-            ).write({"name2": values.get("description_sale_cat")})
 
         if "description_sale_en" in values:
             name2_values["en_US"] = values.get("description_sale_en")
-            super(
-                ProductTemplate,
-                self.with_context(lang="en_US", language_description=True),
-            ).write({"name2": values.get("description_sale_en")})
 
-        if not ("description_sale_en" in values or "description_sale_cat" in values or "description_sale_es" in values):
-            result = super().write(values)
+        # Update name2 with the accumulated translation values using SQL
+        if name2_values:
+            for lang in name2_values:
+                query = """
+                    UPDATE product_template
+                    SET name2 = jsonb_set(
+                        COALESCE(name2, '{}'),
+                        ARRAY[%s],
+                        %s::jsonb,
+                        true
+                    )
+                    WHERE id = %s
+                """
+                self.env.cr.execute(query, (
+                    lang,  # Change this dynamically as per your requirement
+                    json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
+                    self.id
+                ))
 
+        result = super().write(values)
+        
         # If name2 or any of the translation fields is updated, propagate the changes to product variant
         if "update_name2_data_from_product" not in self.env.context and (
             "name2" in values
@@ -159,6 +166,27 @@ class ProductTemplate(models.Model):
                 template.product_variant_ids[0].with_context(
                     update_name2_data_from_template=True
                 ).write(values)
+                
+                
+                # Update name2 with the accumulated translation values using SQL
+                if name2_values:
+                    for lang in name2_values:
+                        query = """
+                            UPDATE product_product
+                            SET name2 = jsonb_set(
+                                COALESCE(name2, '{}'),
+                                ARRAY[%s],
+                                %s::jsonb,
+                                true
+                            )
+                            WHERE id = %s
+                        """
+                        self.env.cr.execute(query, (
+                            lang,  # Change this dynamically as per your requirement
+                            json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
+                            template.product_variant_ids[0].id
+                        ))
+
         
         return result
 
