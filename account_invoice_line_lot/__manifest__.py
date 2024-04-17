@@ -7,11 +7,8 @@
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "sale_management",
-        "stock_account"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["sale_management", "stock_account"],
     "data": [
         "views/account_invoice_view.xml",
     ],

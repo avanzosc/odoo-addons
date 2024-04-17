@@ -4,7 +4,10 @@
             <field name="inherit_id" ref="account.invoice_form" />
             <field name="model">account.invoice</field>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                <xpath
+        expr="//field[@name='invoice_line_ids']/tree/field[@name='name']"
+        position="after"
+      >
                     <field name="lot_ids" widget="many2many_tags" />
                 </xpath>
             </field>
