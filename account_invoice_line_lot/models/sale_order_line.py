@@ -6,7 +6,6 @@ from odoo import api, models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    @api.multi
     def _prepare_invoice_line(self, qty):
         values = super()._prepare_invoice_line(qty)
         cond = [("sale_line_id", "=", self.id)]
