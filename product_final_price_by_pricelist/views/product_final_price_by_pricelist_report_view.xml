@@ -3,7 +3,7 @@
     <record id="product_final_price_by_pricelist_report_view_tree" model="ir.ui.view">
         <field name="model">product.final.price.by.pricelist.report</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="Product Final Pricelist" editable="bottom" sample="1">
                 <field name="product_final_id" />
                 <field name="pricelist_id" />
                 <field name="product_id" />
