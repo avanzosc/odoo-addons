@@ -4,7 +4,7 @@ from odoo import fields, models
 
 
 class AccountInvoiceLine(models.Model):
-    _inherit = "account.invoice.line"
+    _inherit = "account.move.line"
 
     lot_ids = fields.Many2many(
         comodel_name="stock.production.lot",
