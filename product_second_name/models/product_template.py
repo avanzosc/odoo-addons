@@ -1,6 +1,11 @@
 # Copyright 2020 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from odoo import api, fields, models
+import json
+
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class ProductTemplate(models.Model):
@@ -78,6 +83,7 @@ class ProductTemplate(models.Model):
         else:
             if values.get("name2") == "*****":
                 values["name2"] = values.get("description_sale_cat")
+
         template = super(
             ProductTemplate,
             self.with_context(
@@ -91,86 +97,64 @@ class ProductTemplate(models.Model):
         return template
 
     def create_translations(self):
-        translation_obj = self.env["ir.translation"]
         cond = [("active", "=", True)]
         langs = self.env["res.lang"].search(cond)
         for lang in langs:
-            cond = [
-                ("name", "=", "product.template,name2"),
-                ("type", "=", "model"),
-                ("res_id", "=", self.id),
-                ("lang", "=", lang.code),
-            ]
-            translation = translation_obj.search(cond, limit=1)
             vals = {}
             if lang.code == "es_ES":
-                vals["value"] = self.description_sale_es
-            if lang.code == "ca_ES":
-                vals["value"] = self.description_sale_cat
-            if lang.code == "en_US":
-                vals["value"] = self.description_sale_en
-            if vals.get("value") == "*****":
-                vals["state"] = "to_translate"
-            else:
-                vals["state"] = "translated"
-            if not translation:
-                vals.update(
-                    {
-                        "name": "product.template,name2",
-                        "type": "model",
-                        "res_id": self.id,
-                        "lang": lang.code,
-                        "scr": self.name2,
-                    }
-                )
-                translation_obj.create(vals)
-            else:
-                translation.write(vals)
+                vals["description_sale_es"] = self.description_sale_es
+            elif lang.code == "ca_ES":
+                vals["description_sale_cat"] = self.description_sale_cat
+            elif lang.code == "en_US":
+                vals["description_sale_en"] = self.description_sale_en
+
+            # Check if the translation field is empty for the current language
+            if isinstance(self.name2, dict) and not self.name2.get(lang.code):
+                    vals[lang.code] = "to_translate" if not vals else "translated"
+
+            # Update or create the translation for the current language
+            self.write(vals)
+
 
     def write(self, values):
         if "product_created_from_template" in self.env.context:
             return True
         if "from_cron" in self.env.context:
             return super().write(values)
-        translation_obj = self.env["ir.translation"]
+        
+        name2_values = {}
+
         if "description_sale_es" in values:
-            super(
-                ProductTemplate,
-                self.with_context(lang="es_ES", language_description=True),
-            ).write({"name2": values.get("description_sale_es")})
+            name2_values["es_ES"] = values.get("description_sale_es")
+
         if "description_sale_cat" in values:
-            super(ProductTemplate, self.with_context(lang="ca_ES")).write(
-                {"name2": values.get("description_sale_cat")}
-            )
+            name2_values["ca_ES"] = values.get("description_sale_cat")
+
         if "description_sale_en" in values:
-            for template in self:
-                cond = [
-                    ("name", "=", "product.template,name2"),
-                    ("type", "=", "model"),
-                    ("res_id", "=", template.id),
-                    ("lang", "=", "en_US"),
-                    ("state", "=", "to_translate"),
-                ]
-                translation = translation_obj.search(cond, limit=1)
-                if not translation:
-                    cond = [
-                        ("name", "=", "product.template,name2"),
-                        ("type", "=", "model"),
-                        ("res_id", "=", template.id),
-                        ("lang", "=", "en_US"),
-                        ("state", "=", "translated"),
-                    ]
-                    translation = translation_obj.search(cond, limit=1)
-                if translation:
-                    translation_vals = {
-                        "state": "translated",
-                        "src": values.get("description_sale_en"),
-                        "value": values.get("description_sale_en"),
-                    }
-                    translation.sudo().with_context(language_description=True).write(
-                        translation_vals
+            name2_values["en_US"] = values.get("description_sale_en")
+
+        # Update name2 with the accumulated translation values using SQL
+        if name2_values:
+            for lang in name2_values:
+                query = """
+                    UPDATE product_template
+                    SET name2 = jsonb_set(
+                        COALESCE(name2, '{}'),
+                        ARRAY[%s],
+                        %s::jsonb,
+                        true
                     )
+                    WHERE id = %s
+                """
+                self.env.cr.execute(query, (
+                    lang, 
+                    json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
+                    self.id
+                ))
+
         result = super().write(values)
+        
+        # If name2 or any of the translation fields is updated, propagate the changes to product variant
         if "update_name2_data_from_product" not in self.env.context and (
             "name2" in values
             or "description_sale_es" in values
@@ -178,197 +162,50 @@ class ProductTemplate(models.Model):
             or "description_sale_en" in values
         ):
             for template in self.filtered(lambda x: x.product_variant_count == 1):
-                if "name2" in values:
-                    template.product_variant_ids[0].with_context(
-                        update_name2_data_from_template=True
-                    ).write({"name2": values.get("name2")})
-                if "description_sale_es" in values:
-                    template.product_variant_ids[0].with_context(
-                        update_name2_data_from_template=True
-                    ).write({"description_sale_es": values.get("description_sale_es")})
-                if "description_sale_cat" in values:
-                    template.product_variant_ids[0].with_context(
-                        update_name2_data_from_template=True
-                    ).write(
-                        {"description_sale_cat": values.get("description_sale_cat")}
-                    )
-                if "description_sale_en" in values:
-                    template.product_variant_ids[0].with_context(
-                        update_name2_data_from_template=True
-                    ).write({"description_sale_en": values.get("description_sale_en")})
+                # Update the corresponding fields in the product variant with the same values
+                template.product_variant_ids[0].with_context(
+                    update_name2_data_from_template=True
+                ).write(values)
+                
+                
+                # Update name2 with the accumulated translation values using SQL
+                if name2_values:
+                    for lang in name2_values:
+                        query = """
+                            UPDATE product_product
+                            SET name2 = jsonb_set(
+                                COALESCE(name2, '{}'),
+                                ARRAY[%s],
+                                %s::jsonb,
+                                true
+                            )
+                            WHERE id = %s
+                        """
+                        self.env.cr.execute(query, (
+                            lang, 
+                            json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
+                            template.product_variant_ids[0].id
+                        ))
+
         return result
 
+
     def put_description_sale_lang(self):
-        for template in self:
-            description_sale_es = False
-            cond = [
-                ("name", "=", "product.template,name2"),
-                ("type", "=", "model"),
-                ("res_id", "=", template.id),
-                ("lang", "=", "es_ES"),
-                ("state", "in", ("translated", "to_translate")),
-            ]
-            translation = self.env["ir.translation"].search(cond, limit=1)
-            if translation:
-                if not translation.value or translation.value == "*****":
-                    translation.with_context(language_description=True).write(
-                        {"src": "*****", "value": "*****", "state": "to_translate"}
-                    )
-                description_sale_es = translation.value or "*****"
+        for prod_template in self:
+            description_sale_es = prod_template.name2.get("es_ES", False)
             if not description_sale_es:
-                cond = [
-                    ("name", "=", "product.template,name2"),
-                    ("type", "=", "model"),
-                    ("res_id", "=", template.id),
-                ]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "src": "*****",
-                            "lang": "es_ES",
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_es = "*****"
-            if not description_sale_es:
-                cond = [("name", "=", "product.template,name2"), ("type", "=", "model")]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "res_id": template.id,
-                            "lang": "es_ES",
-                            "src": "*****",
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_es = "*****"
-            if description_sale_es:
-                template.with_context(
-                    from_cron=True
-                ).description_sale_es = description_sale_es
-
-            description_sale_cat = False
-            cond = [
-                ("name", "=", "product.template,name2"),
-                ("type", "=", "model"),
-                ("res_id", "=", template.id),
-                ("lang", "=", "ca_ES"),
-                ("state", "in", ("translated", "to_translate")),
-            ]
-            translation = self.env["ir.translation"].search(cond, limit=1)
-            if translation:
-                if not translation.value or translation.value == "*****":
-                    translation.with_context(language_description=True).write(
-                        {
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                else:
-                    if translation.value and translation.src != description_sale_es:
-                        translation.with_context(language_description=True).write(
-                            {"state": "translated", "src": description_sale_es}
-                        )
-                description_sale_cat = translation.value or "*****"
+                description_sale_es = "*****"
+            
+            description_sale_cat = prod_template.name2.get("ca_ES", False)
             if not description_sale_cat:
-                cond = [
-                    ("name", "=", "product.template,name2"),
-                    ("type", "=", "model"),
-                    ("res_id", "=", template.id),
-                    ("lang", "=", "es_ES"),
-                ]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "lang": "ca_ES",
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_cat = "*****"
-            if not description_sale_cat:
-                cond = [("name", "=", "product.template,name2"), ("type", "=", "model")]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "res_id": template.id,
-                            "lang": "ca_ES",
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_cat = "*****"
-            if description_sale_cat:
-                template.with_context(
-                    from_cron=True
-                ).description_sale_cat = description_sale_cat
-
-            description_sale_en = False
-            cond = [
-                ("name", "=", "product.template,name2"),
-                ("type", "=", "model"),
-                ("res_id", "=", template.id),
-                ("lang", "=", "en_US"),
-                ("state", "in", ("translated", "to_translate")),
-            ]
-            translation = self.env["ir.translation"].search(cond, limit=1)
-            if translation:
-                if not translation.value or translation.value == "*****":
-                    translation.with_context(language_description=True).write(
-                        {
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                else:
-                    if translation.value and translation.src != description_sale_es:
-                        translation.with_context(language_description=True).write(
-                            {"state": "translated", "src": description_sale_es}
-                        )
-                description_sale_en = translation.value or "*****"
+                description_sale_cat = "*****"
+            
+            description_sale_en = prod_template.name2.get("en_US", False)
             if not description_sale_en:
-                cond = [
-                    ("name", "=", "product.template,name2"),
-                    ("type", "=", "model"),
-                    ("res_id", "=", template.id),
-                    ("lang", "=", "es_ES"),
-                ]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "lang": "en_US",
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_en = "*****"
-            if not description_sale_en:
-                cond = [("name", "=", "product.template,name2"), ("type", "=", "model")]
-                translation = self.env["ir.translation"].search(cond, limit=1)
-                if translation:
-                    translation.with_context(language_description=True).copy(
-                        {
-                            "res_id": template.id,
-                            "lang": "en_US",
-                            "src": description_sale_es,
-                            "value": "*****",
-                            "state": "to_translate",
-                        }
-                    )
-                    description_sale_en = "*****"
-            if description_sale_en:
-                template.with_context(
-                    from_cron=True
-                ).description_sale_en = description_sale_en
+                description_sale_en = "*****"
+            
+            prod_template.with_context(from_cron=True).write({
+                "description_sale_es": description_sale_es,
+                "description_sale_cat": description_sale_cat,
+                "description_sale_en": description_sale_en
+            })
