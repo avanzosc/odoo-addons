@@ -1,0 +1,659 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+    id="report_assets_common_inh_intecpla"
+    inherit_id="web.report_assets_common"
+  >
+        <link href="/web/static/src/scss/layout_background.scss" position="replace">
+            <link
+        rel="stylesheet"
+        type="text/scss"
+        href="/intecpla_reports/static/src/scss/layout_background.scss"
+      />
+        </link>
+    </template>
+
+    <template id="external_layout_background_invoice">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2>
+                        <span
+              t-if="o.type == 'out_invoice' and o.state in ('open', 'in_payment', 'paid')"
+            >SALE INVOICE</span>
+                        <span
+              t-if="o.type == 'out_invoice' and o.state == 'draft'"
+            >DRAFT SALE INVOICE</span>
+                        <span
+              t-if="o.type == 'out_invoice' and o.state == 'cancel'"
+            >CANCELLED SALE INVOICE</span>
+                        <span t-if="o.type == 'out_refund'">SALE CREDIT NOTE</span>
+                        <span t-if="o.type == 'in_refund'">VENDOR CREDIT NOTE</span>
+                        <span t-if="o.type == 'in_invoice'">VENDOR BILL</span>
+                    </h2>
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_invoice">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_invoice"><t
+        t-raw="0"
+      /></t>
+    </template>
+
+    <template id="external_layout_background_purchase">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2>
+                        Purchase Request for Quotation
+                    </h2>
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_purchase">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_purchase"><t
+        t-raw="0"
+      /></t>
+    </template>
+
+    <template id="external_layout_background_purchase2">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2 t-if="o.state == 'draft'">Purchase Request for Quotation</h2>
+                    <h2 t-if="o.state in ['sent', 'to approve']">Purchase Order</h2>
+                    <h2
+            t-if="o.state in ['purchase', 'done']"
+          >Purchase Order Confirmation</h2>
+                    <h2 t-if="o.state == 'cancel'">Cancelled Purchase Order</h2>
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_purchase2">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_purchase2"><t
+        t-raw="0"
+      /></t>
+    </template>
+
+    <template id="external_layout_background_sale">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2>
+                        <t
+              t-if="not (env.context.get('proforma', False) or is_pro_forma)"
+            >
+                            <span
+                t-if="o.state not in ['draft','sent']"
+              >Sale Order</span>
+                            <span
+                t-if="o.state in ['draft','sent']"
+              >Sale Quotation</span>
+                        </t>
+                        <t t-if="env.context.get('proforma', False) or is_pro_forma">
+                            <span>Pro-Forma Sale Invoice</span>
+                        </t>
+                    </h2>
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_sale">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_sale"><t t-raw="0" /></t>
+    </template>
+
+    <template id="external_layout_background_picking">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2>
+                        <span
+              t-if="o.picking_type_id.code=='incoming'"
+            >Incoming picking</span>
+                        <span
+              t-if="o.picking_type_id.code=='outgoing'"
+            >Outgoing picking</span>
+                        <span
+              t-if="o.picking_type_id.code=='internal'"
+            >Internal picking</span>
+                    </h2>
+                    <img
+            t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+            style="width:300px;height:39px;"
+            alt="Barcode"
+          />
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_picking">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_picking"><t
+        t-raw="0"
+      /></t>
+    </template>
+
+    <template id="external_layout_background_mrp">
+        <div class="header">
+            <div class="row">
+                <div class="col-6 text-left">
+                    <img
+            t-if="company.logo"
+            t-att-src="image_data_uri(company.logo)"
+            class="float-left"
+            style="width:250px;height:55px;"
+          />
+                </div>
+                <div class="col-6 text-center">
+                    <h2>
+                        <span t-if="o.state != 'draft'">Repair Order #:</span>
+                        <span t-if="o.state == 'draft'">Repair Quotation #:</span>
+                        <span t-field="o.name" />
+                    </h2>
+                </div>
+            </div>
+            <div class="clearfix mb8" />
+        </div>
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div class="footer o_background_footer" style="font-size: 12px">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Phone"
+              title="Phone"
+            /> <span t-field="company.phone" /></li>
+                    <li t-if="company.partner_id.fax" class="list-inline-item"><i
+              class="fa fa-phone"
+              role="img"
+              aria-label="Fax"
+              title="Fax"
+            />FAX<span t-field="company.partner_id.fax" /></li>
+                    <li t-if="company.email" class="list-inline-item"><i
+              class="fa fa-at"
+              role="img"
+              aria-label="Email"
+              title="Email"
+            /> <span t-field="company.email" /></li>
+                    <li t-if="company.website" class="list-inline-item"><i
+              class="fa fa-globe"
+              role="img"
+              aria-label="Website"
+              title="Website"
+            /> <span t-field="company.website" /></li>
+                    <li t-if="company.vat" class="list-inline-item"><i
+              class="fa fa-building-o"
+              role="img"
+              aria-label="Fiscal number"
+            /><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+                <div t-field="company.report_footer" />
+                <div
+          t-if="report_type == 'pdf'"
+          class="text-muted"
+          t-attf-style="color: #000000 !important;"
+        >
+                    Page:
+                    <span class="page" />
+                    of
+                    <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_mrp">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_background_mrp"><t t-raw="0" /></t>
+    </template>
+
+    <template id="external_layout_standard_operation_labels">
+        <div
+      class="article o_report_layout_background"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+    </template>
+
+    <template id="external_layout_operation_labels">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="intecpla_reports.external_layout_standard_operation_labels"><t
+        t-raw="0"
+      /></t>
+    </template>
+</odoo>

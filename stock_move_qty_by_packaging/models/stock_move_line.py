@@ -41,7 +41,7 @@ class StockMoveLine(models.Model):
                 line_key = self._generate_keys_to_found()
                 if line_key in clave:
                     boxes_sacks = move_line._get_boxes_sacks()
-                    result[clave]["boxes_sacks"] = round(boxes_sacks, 2)
+                    result[clave]["boxes_sacks"] = round(boxes_sacks,2)
         return result
 
     def _generate_keys_to_found(self):

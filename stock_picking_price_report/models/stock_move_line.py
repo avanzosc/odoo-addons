@@ -42,7 +42,9 @@ class StockMoveLine(models.Model):
                     if move_line.move_id.purchase_line_id:
                         price_unit = move_line.move_id.purchae_line_id.price_unit
                     result[clave]["price_unit"] = price_unit
-                    result[clave]["move_line_amount"] = move_line.qty_done * price_unit
+                    result[clave]["move_line_amount"] = (
+                        move_line.qty_done * price_unit
+                    )
         return result
 
     def _generate_keys_to_found(self):

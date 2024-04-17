@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record
+      id="report_paperformat_purchaseorder_operation_labels"
+      model="report.paperformat"
+    >
+            <field name="name">Purchase order operation labels</field>
+            <field name="format">custom</field>
+            <field name="page_height">210</field>
+            <field name="page_width">148</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top" eval="30" />
+            <field name="margin_bottom" eval="30" />
+            <field name="margin_left" eval="10" />
+            <field name="margin_right" eval="10" />
+            <field name="header_spacing" eval="0" />
+            <field name="dpi" eval="90" />
+        </record>
+    </data>
+</odoo>
