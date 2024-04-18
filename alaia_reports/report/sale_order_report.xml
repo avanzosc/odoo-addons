@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_saleorder_document_inh_alaia"
+                inherit_id="sale.report_saleorder_document">
+        <th name="th_priceunit" position="replace" />
+        <th name="th_taxes" position="replace" />
+        <td name="td_priceunit" position="replace" />
+        <td name="td_taxes" position="replace" />
+    </template>
+</odoo>
