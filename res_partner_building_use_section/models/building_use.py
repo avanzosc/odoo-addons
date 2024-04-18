@@ -3,10 +3,11 @@
 from odoo import fields, models
 
 
-class BuildingType(models.Model):
-    _name = "building.type"
-    _description = "Building type"
+class BuildingUse(models.Model):
+    _name = "building.use"
+    _description = "Building use"
 
     name = fields.Char(
         string="Description", required=True, copy=False
     )
+    is_industrial = fields.Boolean(string="Industrial")
