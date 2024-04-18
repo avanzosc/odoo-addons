@@ -3,7 +3,7 @@
 
 {
     "name": "Contact Payment Mode Import",
-    "version": "14.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
