@@ -7,7 +7,8 @@
                 <field name="contact_id" />
                 <field name="contact_code" />
                 <field name="payment_mode_id" />
-                <field name="payment_term_id" />
+                <field name="payment_mode_id" />
+                <field name="supplier_payment_mode_id" />
                 <field name="account_fiscal_position_id" />
                 <separator />
                 <filter
@@ -33,9 +34,14 @@
             context="{'group_by': 'contact_id'}"
           />
                     <filter
-            name="group_payment_mode"
-            string="Payment Mode"
+            name="group_customer_payment_mode"
+            string="Customer Payment Mode"
             context="{'group_by': 'payment_mode_id'}"
+          />
+          <filter
+            name="group_supplier_payment_mode"
+            string="Supplier Payment Mode"
+            context="{'group_by': 'supplier_payment_mode_id'}"
           />
                     <filter
             name="group_payment_term"
@@ -91,12 +97,9 @@
                         <group>
                             <field name="contact_name" />
                             <field name="contact_code" />
-                            <field name="contact_payment_mode" string="Payment Mode" />
-                            <field name="contact_payment_term" string="Payment Term" />
-                            <field
-                name="contact_account_fiscal_position"
-                string="Account Fiscal Position"
-              />
+                            <field name="contact_payment_mode"/>
+                            <field name="contact_payment_term"/>
+                            <field name="contact_account_fiscal_position"/>
                         </group>
                         <group>
                             <field
@@ -105,6 +108,10 @@
               />
                             <field
                 name="payment_mode_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="supplier_payment_mode_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
@@ -126,32 +133,21 @@
     <record id="res_partner_payment_import_line_view_tree" model="ir.ui.view">
         <field name="model">res.partner.payment.import.line</field>
         <field name="arch" type="xml">
-            <tree
-        decoration-danger="state == 'error'"
-        decoration-muted="state == 'done'"
-        decoration-it="log_info"
-        editable="top"
-      >
-                <field
-          name="action"
-          decoration-muted="action == 'nothing'"
-          decoration-info="action == 'update'"
-        />
+            <tree editable="top" decoration-danger="state == 'error'" decoration-muted="state == 'done'" decoration-it="log_info">
+                <field name="action"/>
                 <field name="import_id" invisible="1" />
                 <field name="contact_name" />
                 <field name="contact_code" />
-                <field name="contact_id" optional="hide" />
-                <field name="contact_payment_mode" string="Payment Mode" />
-                <field name="payment_mode_id" optional="hide" />
-                <field name="contact_payment_term" string="Payment Term" />
-                <field name="payment_term_id" optional="hide" />
-                <field
-          name="contact_account_fiscal_position"
-          string="Account Fiscal Position"
-        />
-                <field name="account_fiscal_position_id" optional="hide" />
-                <field name="state" />
-                <field name="log_info" optional="show" />
+                <field name="contact_id"/>
+                <field name="contact_payment_mode"/>
+                <field name="payment_mode_id"/>
+                <field name="supplier_payment_mode_id"/>
+                <field name="contact_payment_term"/>
+                <field name="payment_term_id"/>
+                <field name="contact_account_fiscal_position"/>
+                <field name="account_fiscal_position_id"/>
+                <field name="state"/>
+                <field name="log_info"/>
             </tree>
         </field>
     </record>
