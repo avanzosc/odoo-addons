@@ -1,6 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
+from odoo.http import request
 
 import logging
 
@@ -96,14 +97,32 @@ class SurveyUserInput(models.Model):
     
     def action_start_survey(self):
         
-        # Obtener el ID del partner con nombre "admin"
-        admin_partner = self.env['res.partner'].search([('name', '=', 'Administrator')], limit=1)
+        current_user_partner = self.env.user.partner_id
 
-        if admin_partner:
-            # Asignar el ID del partner con nombre "admin" al partner_id del survey_user_input
-            self.partner_id = admin_partner.id
+        if current_user_partner:
+            # Asignar el ID del socio asociado con el usuario actual al partner_id del survey_user_input
+            self.partner_id = current_user_partner.id
+        else:
+            # Usuario administrador es id = 3
+            self.partner_id = 3
             
-        base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+        
+        # Get the full URL of the current request
+        full_url = request.httprequest.url
+
+        # Find the index of the first dot and the first slash after that dot
+        dot_index = full_url.find('.')
+        slash_index = full_url.find('/', dot_index)
+
+        base_url = False
+
+        # Extract the base URL
+        if dot_index != -1 and slash_index != -1:
+            base_url = full_url[:slash_index]
+            
+        if not base_url:
+            base_url = self.env['ir.config_parameter'].get_param('web.base.url')
+            
         survey_id = self.survey_id
         access_token = survey_id.access_token
         answer_token = self.access_token

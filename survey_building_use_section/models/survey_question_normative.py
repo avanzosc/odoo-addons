@@ -1,6 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+
+from odoo import fields, models, api
 
 
 class SurveyQuestionNormative(models.Model):
@@ -8,17 +9,29 @@ class SurveyQuestionNormative(models.Model):
     _description = "Survey Question Normative"
 
     name = fields.Char(
-        string="Name", required=True, copy=False,
+        string="Name",
+        required=True,
+        copy=False,
     )
     description = fields.Char(
-        string="Description", copy=False,
-    )
-    start_year = fields.Integer(
-        string="Start Year", copy=False,
-    )
-    end_year = fields.Integer(
-        string="End Year", copy=False,
+        string="Description",
+        copy=False,
     )
     error_text = fields.Text(
-        string="Error Text", copy=False,
+        string="Error Text",
+        copy=False,
     )
+    start_date = fields.Date(
+        string="Start Date",
+        copy=False,
+    )
+    end_date = fields.Date(
+        string="End Date",
+        copy=False,
+    )
+    related_article_ids = fields.One2many(
+        "survey.question.article", 
+        "question_normative_id", 
+        string="Related Articles"
+    )
+

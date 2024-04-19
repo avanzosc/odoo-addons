@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="survey_question_article_view_tree" model="ir.ui.view">
+        <field name="name">survey.question.article.view.tree</field>
+        <field name="model">survey.question.article</field>
+        <field name="arch" type="xml">
+            <tree string="Questions Articles" editable="bottom" sample="1">
+                <field name="name"/>
+                <field name="error_text" />
+                <field name="description"/>
+                <field name="question_normative_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="survey_question_article_view_search" model="ir.ui.view">
+        <field name="name">survey.question.article.view.search</field>
+        <field name="model">survey.question.article</field>
+        <field name="arch" type="xml">
+            <search string="Search Questions Articles">
+                <field name="name"/>
+                <field name="error_text"/>
+                <field name="description"/>
+                <field name="question_normative_id"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_name" string="Name" domain="[]" context="{'group_by':'name'}"/>
+                    <filter name="error_text" string="Error" domain="[]" context="{'group_by':'error_text'}"/>
+                    <filter name="description" string="Description" domain="[]" context="{'group_by':'description'}"/>
+                    <filter name="question_normative_id" string="Normative" domain="[]" context="{'group_by':'question_normative_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="survey_question_article_action" model="ir.actions.act_window">
+        <field name="name">Questions Articles</field>
+        <field name="res_model">survey.question.article</field>
+        <field name="view_id" ref="survey_question_article_view_tree"/>
+    </record>
+
+    <menuitem id="menu_survey_question_article" name="Questions Articles" parent="survey.menu_surveys" action="survey_building_use_section.survey_question_article_action" sequence="100"/>
+</odoo>
