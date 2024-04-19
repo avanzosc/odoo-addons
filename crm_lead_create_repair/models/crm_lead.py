@@ -51,6 +51,10 @@ class CrmLead(models.Model):
         if not self.repair_product_qty:
             raise ValidationError(
                 _("You must enter the quantity to repair."))
+        vals = self._get_values_to_create_repair_order()
+        self.env["repair.order"].create(vals)
+
+    def _get_values_to_create_repair_order(self):
         warehouse = self.env["stock.warehouse"].search(
             [("company_id", "=", self.company_id.id)], limit=1)
         vals = {
@@ -63,4 +67,4 @@ class CrmLead(models.Model):
             "location_id": warehouse.lot_stock_id.id}
         if self.repair_lot_id:
             vals["lot_id"] = self.repair_lot_id.id
-        self.env["repair.order"].create(vals)
+        return vals
