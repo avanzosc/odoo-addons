@@ -9,22 +9,35 @@ class PurchaseOrderLine(models.Model):
 
     standard_price = fields.Float(
         string='Cost Price',
-        related='product_id.standard_price', readonly=True)
+        related='product_id.standard_price',
+        readonly=True,
+    )
     standard_price_subtotal = fields.Float(
         string='Cost Price Subtotal',
         compute='_compute_starndar_price_subtotal',
-        store=True, digits=dp.get_precision('Product Price'))
+        store=True,
+        digits=dp.get_precision('Product Price'),
+        compute_sudo=True,
+    )
     last_purchase_price = fields.Float(
-        related='product_id.last_purchase_price', readonly=True, store=True)
+        related='product_id.last_purchase_price',
+        readonly=True,
+    )
     last_purchase_price_subtotal = fields.Float(
         string='Last Purchase Price Subtotal',
         compute='_compute_last_price_subtotal',
-        store=True, digits=dp.get_precision('Product Price'))
+        store=True,
+        digits=dp.get_precision('Product Price'),
+        compute_sudo=True,
+    )
     product_category = fields.Many2one(
-        string='Category', comodel_name='product.category',
-        related='product_id.categ_id', readonly=True, store=True)
+        string='Category',
+        comodel_name='product.category',
+        related='product_id.categ_id',
+        readonly=True,
+    )
 
-    @api.depends('standard_price', 'product_uom_qty',)
+    @api.depends('product_id.standard_price', 'product_uom_qty')
     def _compute_starndar_price_subtotal(self):
         for record in self:
             total = 0
@@ -32,7 +45,7 @@ class PurchaseOrderLine(models.Model):
                 total = record.standard_price * record.product_uom_qty
             record.standard_price_subtotal = total
 
-    @api.depends('last_purchase_price', 'product_uom_qty',)
+    @api.depends('product_id.last_purchase_price', 'product_uom_qty',)
     def _compute_last_price_subtotal(self):
         for record in self:
             total = 0
