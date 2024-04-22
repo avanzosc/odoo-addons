@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="machinery_user_1" model="machinery.users">
+            <field name="m_user_id" ref="base.user_demo"/>
+            <field name="start_date" eval="time.strftime('%Y')+'-01-01'"/>
+            <field name="end_date" eval="time.strftime('%Y')+'-12-31'"/>
+        </record>
+    </data>
+</openerp>
