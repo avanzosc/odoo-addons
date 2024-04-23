@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="machine_form_view" model="ir.ui.view">
+            <field name="model">machine</field>
+            <field name="inherit_id" ref="machine_manager_account.machine_form_view" />
+            <field name="arch" type="xml">
+                <field name="assetacc_id" position="before">
+                    <field name="deprecperc" />
+                    <field name="deprecperiod" />
+                </field>
+            </field>
+        </record>
+
+        <record id="machine_tree_view" model="ir.ui.view">
+            <field name="model">machine</field>
+            <field name="inherit_id" ref="machine_manager_account.machine_tree_view" />
+            <field name="arch" type="xml">
+                <field name="assetacc_id" position="before">
+                    <field name="deprecperc" optional="show"/>
+                    <field name="deprecperiod" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="machine_search_view" model="ir.ui.view">
+            <field name="name">machine.search.view</field>
+            <field name="model">machine</field>
+            <field name="inherit_id" ref="machine_manager_account.machine_search_view" />
+            <field name="arch" type="xml">
+                <field name="assetacc_id" position="before">
+                    <field name="deprecperiod"/>
+                </field>
+                <filter name="group-assetacc" position="before">
+                   <filter name="group-deprecperiod" string="Depr. period"
+                            context="{'group_by' : 'deprecperiod'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>
