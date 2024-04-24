@@ -7,7 +7,7 @@
             <field name="partner_ids" position="before">
                 <field name="building_with_activation_date" invisible="1" />
                 <field name="partner_id" required="True" default="user" />
-                <field name="building_to_inspect_id" required="True" domain="['|', ('id','=',partner_id), '&', ('id','child_of',partner_id), ('type','!=','contact')]"/>
+                <field name="building_to_inspect_id" required="True" />
                 <field name="building_activation_date" attrs="{'invisible': [('building_with_activation_date','=',True)], 'required': [('building_with_activation_date','=',False)]}" />
             </field>
             <field name="partner_ids" position="attributes">
