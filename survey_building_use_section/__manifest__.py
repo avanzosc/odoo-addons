@@ -15,6 +15,10 @@
     "data": [
         "security/ir.model.access.csv",
         "wizard/survey_invite_views.xml",
+        "views/add_matrix_article_filter.xml",
+        "views/remove_retake_option.xml",
+        "views/res_partner_views.xml",
+        "views/res_partner_building_section_views.xml",
         "views/survey_question_answer_views.xml",
         "views/survey_question_article_views.xml",
         "views/survey_question_normative_views.xml",
@@ -22,14 +26,12 @@
         "views/survey_user_input_views.xml",
         "views/survey_user_input_line_views.xml",
         "views/survey_survey_views.xml",
-        "views/res_partner_views.xml",
-        "views/remove_retake_option.xml",
-        "views/add_matrix_article_filter.xml",
     ],
     "installable": True,
     "assets": {
         "web.assets_backend": [
-            "survey_building_use_section/static/src/js/th_articles_width.js",
+            "survey_building_use_section/static/src/js/*.js",
+            "survey_building_use_section/static/src/js/*.xml",
         ],
     },
 }

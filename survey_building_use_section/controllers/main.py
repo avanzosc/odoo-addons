@@ -82,8 +82,6 @@ class Survey(Survey):
                         and answer not in selected_answers 
                         and answer.value == normative.name):
 
-                        _logger.info(f"2024okdeb - Condition evaluated: {normative.start_date} <= {res.qcontext['answer'].inspected_building_id.service_start_date} < {normative.end_date} - Normative name: {normative.name} - Answer value: {answer.value}")
-
                         # Check if a record already exists for these conditions
                         existing_user_input_line = request.env['survey.user_input.line'].search([
                             ('survey_id', '=', res.qcontext['survey'].id),
@@ -103,11 +101,6 @@ class Survey(Survey):
                                 'user_input_id': res.qcontext['answer'].id
                             })
                         
-                            _logger.info(f"2024okdeb - Created survey.user_input.line with id {user_input_line.id}")
-
-                        else:
-                            _logger.info(f"2024okdeb - Survey user input line exists: {existing_user_input_line}")
-
                         # Dont compare this questions again because they are already selected
                         selected_answers.append(answer)
 

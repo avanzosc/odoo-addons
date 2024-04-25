@@ -1,62 +1,90 @@
-odoo.define('survey_building_use_section.duplicate_record', function (require) {
-    'use strict';
+/** @odoo-module **/
 
-    // Definir la función para agregar la columna y el botón de duplicación de registros
-    function addDuplicateButton() {
-        var $body = $('body');
+import { registry } from '@web/core/registry';
+const { Component, useState, onWillStart, useRef } = owl;
+import { useService } from "@web/core/utils/hooks";
 
-        // Check if the conditions are met to add the column and button
-        if (this.props.list.resModel === "survey.question.article") {
-            // Add a new column header for "Duplicate"
-            var $headerCell = $('<th>', {
-                class: 'o_list_record_selector'
-            }).append($('<span>', {
-                class: 'o_checkbox'
-            }));
-            this.columns.forEach(function (column) {
-                var $th = $('<th>', {
-                    class: 'o_column_sortable',
-                    role: 'columnheader',
-                    name: column.id,
-                }).text(column.string);
-                $headerCell.after($th);
-            });
-            $body.find('thead tr').prepend($headerCell);
+const intervalId = setInterval(() => {
+    const linkElement = document.querySelector('a[data-menu-xmlid="survey_building_use_section.menu_survey_question_owl_article"][title="."]');
+    if (linkElement) {
+        linkElement.style.color = '#66598f';
+        linkElement.removeAttribute('title');
 
-            // Add a button for each row to duplicate the record
-            $body.find('tbody tr').each(function () {
-                var $row = $(this);
-                var recordId = parseInt($row.data('id'), 10);
-                var $buttonCell = $('<td>', {
-                    class: 'o_list_record_selector'
-                }).append($('<button>', {
-                    class: 'o_duplicate_button btn btn-sm btn-default',
-                    text: 'Duplicate'
-                }).on('click', function () {
-                    // Aquí llama a la función _duplicateRecord con recordId
-                    // this._duplicateRecord(recordId);
-                    // Para acceder al contexto correcto, puedes almacenar el valor de `this` en una variable.
-                    var self = this;
-                    console.log("Duplicate button clicked for record with ID:", recordId);
-                    self._duplicateRecord(recordId);
-                }));
-                $row.prepend($buttonCell);
-            });
-        }
+        linkElement.style.setProperty('background-color', 'initial', 'important');
+        linkElement.style.setProperty('text-decoration', 'none', 'important'); 
+
+        linkElement.style.cursor = 'default';
+
+        clearInterval(intervalId);
+    }
+}, 10);
+
+
+
+export class OwlArticleList extends Component {
+    setup() {
+        this.state = useState({
+            article: { name: "", error_text: "", description: "", question_normative_id: {} },
+            articleList: [],
+            isEdit: false,
+            activeId: false,
+        })
+        this.orm = useService("orm")
+        this.model = "survey.question.article"
+        this.searchInput = useRef("search-input")
+
+        onWillStart(async () => {
+            await this.getAllArticles()
+        })
     }
 
-    // Añadir un event listener para ejecutar la función cuando la página esté completamente cargada
-    document.addEventListener('DOMContentLoaded', function() {
-        // Obtener la instancia del ListRenderer y ejecutar la función addDuplicateButton
-        var listRenderer = new Object();
-        listRenderer.props = {
-            list: {
-                resModel: "survey.question.article" // Puedes establecer la propiedad resModel según tus necesidades
-            },
-            columns: [
-                // Aquí puedes definir las columnas según tu estructura de datos
-            ]
-        };
-        addDuplicateButton.call(listRenderer);
-    });
-});
+    async getAllArticles() {
+        this.state.articleList = await this.orm.searchRead(this.model, [], ["id", "name", "error_text", "description", "question_normative_id"])
+    }
+
+    addArticle() {
+        this.resetForm()
+        this.state.activeId = false
+        this.state.isEdit = false
+    }
+
+    async editArticle(article, e, column) {
+        try {
+            const updatedData = {};
+    
+            if (column === "question_normative_id" && parseInt(e.target.value)) {
+                updatedData[column] = parseInt(e.target.value);
+            } else if (column !== "question_normative_id") {
+                updatedData[column] = e.target.innerText;
+            }
+            await this.orm.write(this.model, [article.id], updatedData);
+            await this.getAllArticles();
+        } catch (error) {
+            console.error("An error occurred while updating the article:", error);
+        }
+    }
+        async duplicateArticle(article) {
+        const duplicatedArticle = Object.assign({}, article);
+        duplicatedArticle.id = false;
+        duplicatedArticle.question_normative_id = (article.question_normative_id[0])
+        await this.orm.create(this.model, [duplicatedArticle]);
+        await this.getAllArticles();
+    }
+
+    resetForm() {
+        this.state.article = { name: "", error_text: "", description: "", question_normative_id: {} }
+    }
+
+    async deleteArticle(article) {
+        await this.orm.unlink(this.model, [article.id])
+        await this.getAllArticles()
+    }
+
+    async searchArticles() {
+        const text = this.searchInput.el.value
+        this.state.articleList = await this.orm.searchRead(this.model, [['name', 'ilike', text]], ["id", "name", "error_text", "description", "question_normative_id"])
+    }
+}
+
+OwlArticleList.template = 'survey_building_use_section.ArticleList'
+registry.category('actions').add('survey_building_use_section.action_article_list_js', OwlArticleList)
