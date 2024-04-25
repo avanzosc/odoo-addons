@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 13:11+0000\n"
-"PO-Revision-Date: 2024-04-25 13:11+0000\n"
+"POT-Creation-Date: 2024-04-25 13:33+0000\n"
+"PO-Revision-Date: 2024-04-25 13:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__administrator_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__administrator_id
+#, python-format
 msgid "Administrator"
 msgstr "Administrador"
 
@@ -27,9 +31,13 @@ msgid "Building"
 msgstr "Edificio"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model,name:res_partner_building_use_section.model_building_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__building_section_ids
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__building_section_ids
+#, python-format
 msgid "Building Section/Area"
 msgstr "Sección/Area del Edificio"
 
@@ -48,8 +56,12 @@ msgid "Building Use"
 msgstr "Uso del Edificio"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model,name:res_partner_building_use_section.model_building_use
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+#, python-format
 msgid "Building use"
 msgstr "Uso del Edificio"
 
@@ -69,6 +81,8 @@ msgstr "Edificios"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model,name:res_partner_building_use_section.model_res_partner
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__partner_id
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
@@ -92,6 +106,8 @@ msgstr "Creado en"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__name
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__name
 #, python-format
@@ -108,6 +124,8 @@ msgstr "Nombre Mostrado"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__evacuation_height
 #, python-format
 msgid "Evacuation Height"
@@ -127,11 +145,15 @@ msgstr "ID"
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__is_industrial
 msgid "Industrial"
-msgstr "Industrial"
+msgstr Industrial
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__installer_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__installer_id
+#, python-format
 msgid "Installer"
 msgstr "Instalador"
 
@@ -154,14 +176,22 @@ msgid "Last Updated on"
 msgstr "Última Actualización el"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__maintainer_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__maintainer_id
+#, python-format
 msgid "Maintainer"
 msgstr "Mantenedor"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__normativas_ids
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__normativas_ids
+#, python-format
 msgid "Normativas"
 msgstr "Normativas"
 
@@ -169,6 +199,8 @@ msgstr "Normativas"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
 #, python-format
@@ -184,22 +216,32 @@ msgstr "Buscar Secciones/Areas del Edificio"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__section_use
 #, python-format
 msgid "Section Use"
 msgstr "Uso de la Sección"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__service_end_date
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__service_end_date
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+#, python-format
 msgid "Service End Date"
-msgstr "Fecha Finalización Servicio"
+msgstr "Fecha Fin Servicio"
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__service_start_date
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__service_start_date
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+#, python-format
 msgid "Service Start Date"
 msgstr "Fecha de Inicio de Servicio"
 
@@ -207,6 +249,8 @@ msgstr "Fecha de Inicio de Servicio"
 #. odoo-python
 #: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__superficie
 #, python-format
 msgid "Surface"
