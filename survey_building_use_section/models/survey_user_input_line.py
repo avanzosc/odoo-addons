@@ -1,22 +1,20 @@
-# Copyright 2024 Alfredo de la Fuente - AvanzOSC
+# Copyright 2024 Unai Beristain - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+
 import logging
-
 _logger = logging.getLogger(__name__)
-
 
 class SurveyUserInputLine(models.Model):
     _inherit = "survey.user_input.line"
 
     question_normative_id = fields.Many2one(
-        string="Question Normative", comodel_name="survey.question.normative",
+        string=_("Question Normative"), comodel_name="survey.question.normative",
         copy=False,
     )
     notes = fields.Text(
-        string="Note", help="Error Text", copy=False,
+        string=_("Note"), help=_("Error Text"), copy=False,
     )
-    
     
     # @api.model_create_multi
     # def create(self, vals_list):

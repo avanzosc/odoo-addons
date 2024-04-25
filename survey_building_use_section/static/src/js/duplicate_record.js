@@ -1,76 +1,62 @@
 odoo.define('survey_building_use_section.duplicate_record', function (require) {
     'use strict';
 
-    var ListRenderer = require('web.ListRenderer');
+    // Definir la función para agregar la columna y el botón de duplicación de registros
+    function addDuplicateButton() {
+        var $body = $('body');
 
-    var YourListRenderer = ListRenderer.extend({
-        /**
-         * Override to add a column and button for duplicating records.
-         */
-        _renderBody: function () {
-            var self = this;
-            console.log("Rendering body of list view");
-            var $body = this._super.apply(this, arguments);
-
-            if (this.props.list.resModel === "survey.question.article") {
-                console.log("Detected resModel as 'survey.question.article'");
-                // Add a new column header for "Duplicate"
-                var $headerCell = $('<th>', {
-                    class: 'o_list_record_selector'
-                }).append($('<span>', {
-                    class: 'o_checkbox'
-                }));
-                this.columns.forEach(function (column) {
-                    var $th = $('<th>', {
-                        class: 'o_column_sortable',
-                        role: 'columnheader',
-                        name: column.id,
-                    }).text(column.string);
-                    $headerCell.after($th);
-                });
-                $body.find('thead tr').prepend($headerCell);
-
-                // Add a button for each row to duplicate the record
-                $body.find('tbody tr').each(function () {
-                    var $row = $(this);
-                    var recordId = parseInt($row.data('id'), 10);
-                    console.log("Adding duplicate button for record with ID:", recordId);
-                    var $buttonCell = $('<td>', {
-                        class: 'o_list_record_selector'
-                    }).append($('<button>', {
-                        class: 'o_duplicate_button btn btn-sm btn-default',
-                        text: 'Duplicate'
-                    }).on('click', function () {
-                        console.log("Duplicate button clicked for record with ID:", recordId);
-                        self._duplicateRecord(recordId);
-                    }));
-                    $row.prepend($buttonCell);
-                });
-            }
-
-            return $body;
-        },
-
-        /**
-         * Function to duplicate a record when the duplicate button is clicked.
-         * @param {integer} recordId - The id of the record to duplicate.
-         */
-        _duplicateRecord: function (recordId) {
-            var self = this;
-            console.log("Duplicating record with ID:", recordId);
-            this._rpc({
-                model: this.props.list.resModel,
-                method: 'copy',
-                args: [recordId],
-            }).then(function (_result) {
-                console.log("Record duplicated successfully");
-                // Refresh the list view to reflect the newly duplicated record
-                self.trigger_up('reload');
-            }).guardedCatch(function (error) {
-                console.error("Error duplicating record:", error.message);
+        // Check if the conditions are met to add the column and button
+        if (this.props.list.resModel === "survey.question.article") {
+            // Add a new column header for "Duplicate"
+            var $headerCell = $('<th>', {
+                class: 'o_list_record_selector'
+            }).append($('<span>', {
+                class: 'o_checkbox'
+            }));
+            this.columns.forEach(function (column) {
+                var $th = $('<th>', {
+                    class: 'o_column_sortable',
+                    role: 'columnheader',
+                    name: column.id,
+                }).text(column.string);
+                $headerCell.after($th);
             });
-        },
-    });
+            $body.find('thead tr').prepend($headerCell);
 
-    return YourListRenderer;
+            // Add a button for each row to duplicate the record
+            $body.find('tbody tr').each(function () {
+                var $row = $(this);
+                var recordId = parseInt($row.data('id'), 10);
+                var $buttonCell = $('<td>', {
+                    class: 'o_list_record_selector'
+                }).append($('<button>', {
+                    class: 'o_duplicate_button btn btn-sm btn-default',
+                    text: 'Duplicate'
+                }).on('click', function () {
+                    // Aquí llama a la función _duplicateRecord con recordId
+                    // this._duplicateRecord(recordId);
+                    // Para acceder al contexto correcto, puedes almacenar el valor de `this` en una variable.
+                    var self = this;
+                    console.log("Duplicate button clicked for record with ID:", recordId);
+                    self._duplicateRecord(recordId);
+                }));
+                $row.prepend($buttonCell);
+            });
+        }
+    }
+
+    // Añadir un event listener para ejecutar la función cuando la página esté completamente cargada
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener la instancia del ListRenderer y ejecutar la función addDuplicateButton
+        var listRenderer = new Object();
+        listRenderer.props = {
+            list: {
+                resModel: "survey.question.article" // Puedes establecer la propiedad resModel según tus necesidades
+            },
+            columns: [
+                // Aquí puedes definir las columnas según tu estructura de datos
+            ]
+        };
+        addDuplicateButton.call(listRenderer);
+    });
 });

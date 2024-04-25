@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, models
 
-
 class SurveySurvey(models.Model):
     _inherit = "survey.survey"
 
@@ -21,9 +20,9 @@ class SurveySurvey(models.Model):
                 
             normative_filter_question = self.env['survey.question'].create({
                 'survey_id': survey.id,
-                'title': 'NORMATIVE FILTER',
+                'title': _('NORMATIVE FILTER'),
                 'question_type': 'multiple_choice',
-                'description': 'Question needed to trigger normative questions and filter questions by normative',
+                'description': _('Question needed to trigger normative questions and filter questions by normative'),
                 'is_normative_filter': True,
                 'sequence': 1
             })

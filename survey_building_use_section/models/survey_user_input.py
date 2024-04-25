@@ -11,79 +11,79 @@ class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
     inspected_building_id = fields.Many2one(
-        string="Inspected Building",
+        string=_("Inspected Building"),
         comodel_name="res.partner",
         copy=False,
     )
     maintainer_id = fields.Many2one(
         related="inspected_building_id.maintainer_id",
-        string="Maintainer",
+        string=_("Maintainer"),
         comodel_name="res.partner",
     )
     installer_id = fields.Many2one(
         related="inspected_building_id.installer_id",
-        string="Installer",
+        string=_("Installer"),
         comodel_name="res.partner",
     )
     administrator_id = fields.Many2one(
         related="inspected_building_id.administrator_id",
-        string="Administrator",
+        string=_("Administrator"),
         comodel_name="res.partner",
     )
 
     building_section_id = fields.Many2one(
-        string="Building Section/Area",
+        string=_("Building Section/Area"),
         comodel_name="building.section",
         copy=False,
     )
     section_ids = fields.One2many(
-        string="Inspected Building Section/Area",
+        string=_("Inspected Building Section/Area"),
         comodel_name="building.section",
         copy=False,
         related="inspected_building_id.building_section_ids",
     )
     building_use_id = fields.Many2one(
-        string="Building type",
+        string=_("Building type"),
         comodel_name="building.use",
         related="inspected_building_id.building_use_id",
         store=True,
         copy=False,
     )
     risk = fields.Char(
-        string="Risk", related="building_section_id.risk", store=True, copy=False
+        string=_("Risk"), related="building_section_id.risk", store=True, copy=False
     )
     superficie = fields.Float(
-        string="Superficie",
+        string=_("Superficie"),
         related="building_section_id.superficie",
         store=True,
         copy=False,
     )
     file_number = fields.Char(
-        string="File Number",
+        string=_("File Number"),
         related="inspected_building_id.file_number",
         store=True,
         copy=False,
     )
     act_number = fields.Char(
-        string="Act Number",
+        string=_("Act Number"),
         copy=False,
     )
     inspection_start_date = fields.Datetime(
-        string="Inspection Start Date",
+        string=_("Inspection Start Date"),
         copy=False,
     )
     inspection_end_date = fields.Datetime(
-        string="Inspection End Date",
+        string=_("Inspection End Date"),
         copy=False,
     )
     inspector_id = fields.Many2one(
-        string="Inspector",
+        string=_("Inspector"),
         comodel_name="res.partner",
         copy=False,
     )
     inspection_type = fields.Selection(
         selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer"))],
-        string="Inspection Type",
+        string=_("Inspection Type"),
         copy=False,
     )
 
@@ -107,16 +107,16 @@ class SurveyUserInput(models.Model):
             self.partner_id = 3
             
         
-        # Get the full URL of the current request
+        # Obtener la URL completa de la solicitud actual
         full_url = request.httprequest.url
 
-        # Find the index of the first dot and the first slash after that dot
+        # Encontrar el índice del primer punto y el primer slash después de ese punto
         dot_index = full_url.find('.')
         slash_index = full_url.find('/', dot_index)
 
         base_url = False
 
-        # Extract the base URL
+        # Extraer la URL base
         if dot_index != -1 and slash_index != -1:
             base_url = full_url[:slash_index]
             

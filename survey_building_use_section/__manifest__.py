@@ -30,7 +30,6 @@
     "assets": {
         "web.assets_backend": [
             "survey_building_use_section/static/src/js/th_articles_width.js",
-            "survey_building_use_section/static/src/js/duplicate_record.js",
         ],
     },
 }
