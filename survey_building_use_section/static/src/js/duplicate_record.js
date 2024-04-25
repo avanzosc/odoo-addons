@@ -9,9 +9,11 @@ odoo.define('survey_building_use_section.duplicate_record', function (require) {
          */
         _renderBody: function () {
             var self = this;
+            console.log("Rendering body of list view");
             var $body = this._super.apply(this, arguments);
 
             if (this.props.list.resModel === "survey.question.article") {
+                console.log("Detected resModel as 'survey.question.article'");
                 // Add a new column header for "Duplicate"
                 var $headerCell = $('<th>', {
                     class: 'o_list_record_selector'
@@ -32,12 +34,14 @@ odoo.define('survey_building_use_section.duplicate_record', function (require) {
                 $body.find('tbody tr').each(function () {
                     var $row = $(this);
                     var recordId = parseInt($row.data('id'), 10);
+                    console.log("Adding duplicate button for record with ID:", recordId);
                     var $buttonCell = $('<td>', {
                         class: 'o_list_record_selector'
                     }).append($('<button>', {
                         class: 'o_duplicate_button btn btn-sm btn-default',
                         text: 'Duplicate'
                     }).on('click', function () {
+                        console.log("Duplicate button clicked for record with ID:", recordId);
                         self._duplicateRecord(recordId);
                     }));
                     $row.prepend($buttonCell);
@@ -53,13 +57,17 @@ odoo.define('survey_building_use_section.duplicate_record', function (require) {
          */
         _duplicateRecord: function (recordId) {
             var self = this;
+            console.log("Duplicating record with ID:", recordId);
             this._rpc({
                 model: this.props.list.resModel,
                 method: 'copy',
                 args: [recordId],
             }).then(function (_result) {
+                console.log("Record duplicated successfully");
                 // Refresh the list view to reflect the newly duplicated record
                 self.trigger_up('reload');
+            }).guardedCatch(function (error) {
+                console.error("Error duplicating record:", error.message);
             });
         },
     });
