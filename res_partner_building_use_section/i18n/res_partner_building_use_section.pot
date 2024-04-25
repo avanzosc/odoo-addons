@@ -4,16 +4,22 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-20 08:24+0000\n"
-"PO-Revision-Date: 2024-03-20 08:24+0000\n"
+"POT-Creation-Date: 2024-04-25 15:32+0000\n"
+"PO-Revision-Date: 2024-04-25 15:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__administrator_id
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__administrator_id
+msgid "Administrator"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
@@ -36,26 +42,18 @@ msgid "Building Sections/Areas"
 msgstr ""
 
 #. module: res_partner_building_use_section
+#: model:ir.model,name:res_partner_building_use_section.model_building_use
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__building_use_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__building_use_id
-msgid "Building Use"
-msgstr ""
-
-#. module: res_partner_building_use_section
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
-msgid "Building type"
+msgid "Building use"
 msgstr ""
 
 #. module: res_partner_building_use_section
 #: model:ir.actions.act_window,name:res_partner_building_use_section.building_use_action
 #: model:ir.ui.menu,name:res_partner_building_use_section.menu_customer_building_use
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_use_view_tree
-msgid "Building types"
-msgstr ""
-
-#. module: res_partner_building_use_section
-#: model:ir.model,name:res_partner_building_use_section.model_building_use
-msgid "Building use"
+msgid "Building uses"
 msgstr ""
 
 #. module: res_partner_building_use_section
@@ -87,7 +85,6 @@ msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__name
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__name
 #, python-format
@@ -120,6 +117,17 @@ msgid "ID"
 msgstr ""
 
 #. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__is_industrial
+msgid "Industrial"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__installer_id
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__installer_id
+msgid "Installer"
+msgstr ""
+
+#. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section____last_update
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use____last_update
 msgid "Last Modified on"
@@ -138,16 +146,17 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: res_partner_building_use_section
-#. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
-#, python-format
-msgid "Risk"
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__maintainer_id
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__maintainer_id
+msgid "Maintainer"
 msgstr ""
 
 #. module: res_partner_building_use_section
+#. odoo-python
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
-msgid "Risk/User"
+#, python-format
+msgid "Risk"
 msgstr ""
 
 #. module: res_partner_building_use_section
@@ -157,10 +166,16 @@ msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__section_use
 #, python-format
 msgid "Section Use"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__service_end_date
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__service_end_date
+#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+msgid "Service End Date"
 msgstr ""
 
 #. module: res_partner_building_use_section
@@ -172,7 +187,6 @@ msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__superficie
 #, python-format
 msgid "Surface"
