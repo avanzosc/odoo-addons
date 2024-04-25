@@ -101,14 +101,41 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div id="total" class="clearfix" style="font-size: 15px;">
+                    <div class="clearfix" name="so_total_summary">
                         <div id="total" class="row" name="total">
-                            <div t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
-                                <table class="table">
+                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                <table class="table table-sm">
                                     <tr class="border-black o_subtotal" style="">
-                                        <td name="subtotal"><strong>Subtotal</strong></td>
-                                        <td name="subtotal_amount" class="text-right">
-                                            <span t-esc="round(sum(round(line.price_unit * line.qty_delivered, 2) for line in lines), 2)"/>
+                                        <td name="td_amount_untaxed_label"><strong>Subtotal</strong></td>
+                                        <td name="td_amount_untaxed" class="text-right">
+                                            <span t-field="o.amount_untaxed"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                        <tr style="">
+                                            <t t-if="amount_by_group[5] == 1 and o.amount_untaxed == amount_by_group[2]">
+                                                <td name="td_amount_by_group_label_3">
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span>&amp;nbsp;<span>on</span>&amp;nbsp;<t t-esc="amount_by_group[2]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.pricelist_id.currency_id}"/></span>
+                                                </td>
+                                                <td name="td_amount_by_group_3" class="text-right o_price_total">
+                                                    <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.pricelist_id.currency_id}"/>
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <td name="td_amount_by_group_label">
+                                                    <span t-esc="amount_by_group[0]"/>
+                                                </td>
+                                                <td name="td_amount_by_group" class="text-right o_price_total">
+                                                    <span t-esc="amount_by_group[1]" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.pricelist_id.currency_id}"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </t>
+                                    <tr class="border-black o_total">
+                                        <td name="td_amount_total_label"><strong>Total</strong></td>
+                                        <td name="td_amount_total" class="text-right">
+                                            <span t-field="o.amount_total"/>
                                         </td>
                                     </tr>
                                 </table>
