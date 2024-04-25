@@ -18,6 +18,18 @@ class BuildingSection(models.Model):
     )
     evacuation_height = fields.Float(string=_('Evacuation Height'))
 
+    degree_title = fields.Char(
+        string=_("Degree Title"),
+        domain="[('is_company','=',False)]",
+        help=_("Degree Title of the individual contact."),
+    )
+    membership_number = fields.Char(
+        string=_("Membership Number"),
+        domain="[('is_company','=',False)]",
+        help=_("Membership number of the individual contact."),
+    )
+
+
     # Project
     project_title = fields.Char(string=_("Project Title"))
     project_author_id = fields.Many2one(string=_("Project Author"), comodel_name="res.partner")
@@ -31,13 +43,3 @@ class BuildingSection(models.Model):
     dof_author_license = fields.Char(string=_("Director of Works Author License"), related="dof_author_id.colegiado_numero")
     dof_approved_date = fields.Date(string=_("Director of Works Approved Date"))
 
-    degree_title = fields.Char(
-        string=_("Degree Title"),
-        domain="[('is_company','=',False)]",
-        help=_("Degree Title of the individual contact."),
-    )
-    membership_number = fields.Char(
-        string=_("Membership Number"),
-        domain="[('is_company','=',False)]",
-        help=_("Membership number of the individual contact."),
-    )
