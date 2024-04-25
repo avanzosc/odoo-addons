@@ -18,17 +18,6 @@ class BuildingSection(models.Model):
     )
     evacuation_height = fields.Float(string=_('Evacuation Height'))
 
-    degree_title = fields.Char(
-        string=_("Degree Title"),
-        domain="[('is_company','=',False)]",
-        help=_("Degree Title of the individual contact."),
-    )
-    membership_number = fields.Char(
-        string=_("Membership Number"),
-        domain="[('is_company','=',False)]",
-        help=_("Membership number of the individual contact."),
-    )
-
 
     # Project
     project_title = fields.Char(string=_("Project Title"))

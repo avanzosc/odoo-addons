@@ -25,6 +25,17 @@ class ResPartner(models.Model):
         string="Service End Date",
         copy=False,
     )
+    
+    degree_title = fields.Char(
+        string=_("Degree Title"),
+        domain="[('is_company','=',False)]",
+        help=_("Degree Title of the individual contact."),
+    )
+    membership_number = fields.Char(
+        string=_("Membership Number"),
+        domain="[('is_company','=',False)]",
+        help=_("Membership number of the individual contact."),
+    )
 
     maintainer_id = fields.Many2one("res.partner", string="Maintainer")
     installer_id = fields.Many2one("res.partner", string="Installer")
