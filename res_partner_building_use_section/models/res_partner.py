@@ -37,9 +37,18 @@ class ResPartner(models.Model):
         help=_("Membership number of the individual contact."),
     )
 
-    maintainer_id = fields.Many2one(_("Maintainer"), "res.partner")
-    installer_id = fields.Many2one(_("Installer"), "res.partner")
-    administrator_id = fields.Many2one(_("Administrator"), "res.partner")
+    maintainer_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Maintainer")
+    )
+    installer_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Installer")
+    )
+    administrator_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Administrator")
+    )
 
     normativas_ids = fields.Many2many(
         "survey.question.normative",
