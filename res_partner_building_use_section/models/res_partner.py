@@ -2,19 +2,18 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models, api, _
 
-
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
     building_use_id = fields.Many2one(
-        string=_("Building use"),
         comodel_name="building.use",
+        string=_("Building use"),
         copy=False,
     )
     building_section_ids = fields.One2many(
-        string=_("Building Section/Area"),
         comodel_name="building.section",
         inverse_name="partner_id",
+        string=_("Building Section/Area"),
         copy=False,
     )
     service_start_date = fields.Date(
@@ -26,12 +25,21 @@ class ResPartner(models.Model):
         copy=False,
     )
 
-    maintainer_id = fields.Many2one(_("Maintainer"), comodel_name="res.partner")
-    installer_id = fields.Many2one(_("Installer"), comodel_name="res.partner")
-    administrator_id = fields.Many2one(_("Administrator"), comodel_name="res.partner")
+    maintainer_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Maintainer")
+    )
+    installer_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Installer")
+    )
+    administrator_id = fields.Many2one(
+        comodel_name="res.partner",
+        string=_("Administrator")
+    )
 
     normativas_ids = fields.Many2many(
-        "survey.question.normative",
+        comodel_name="survey.question.normative",
         string=_("Normativas"),
         compute="_compute_normativas_ids",
     )
