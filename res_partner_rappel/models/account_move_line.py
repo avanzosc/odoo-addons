@@ -13,7 +13,7 @@ class AccountMoveLine(models.Model):
         store=True,
     )
     rappel_percentage = fields.Float(
-        string="%",
+        string="Rappel",
         compute="_compute_rappel_percentage",
         store=True,
     )
@@ -55,7 +55,7 @@ class AccountMoveLine(models.Model):
     @api.depends("rappel_percentage", "price_subtotal")
     def _compute_rappel_amount(self):
         for line in self:
-            line.rappel_amount = line.rappel_percentage * line.price_subtotal / 100
+            line.rappel_amount = line.rappel_percentage * line.quantity
 
     def action_recalcule_rappel(self):
         for line in self:
