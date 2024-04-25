@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models, api
+from odoo import fields, models
 
 
 class ResPartner(models.Model):
@@ -18,30 +18,13 @@ class ResPartner(models.Model):
         copy=False,
     )
     service_start_date = fields.Date(
-        string="Service Start Date",
         copy=False,
     )
     service_end_date = fields.Date(
-        string="Service End Date",
         copy=False,
     )
-
-    maintainer_id = fields.Many2one("res.partner", string="Maintainer")
-    installer_id = fields.Many2one("res.partner", string="Installer")
-    administrator_id = fields.Many2one("res.partner", string="Administrator")
-
-    normativas_ids = fields.Many2many(
-        "survey.question.normative",
-        string="Normativas",
-        compute="_compute_normativas_ids",
+    maintainer_id = fields.Many2one(comodel_name="res.partner", string="Maintainer")
+    installer_id = fields.Many2one(comodel_name="res.partner", string="Installer")
+    administrator_id = fields.Many2one(
+        comodel_name="res.partner", string="Administrator"
     )
-
-    @api.depends("service_start_date")
-    def _compute_normativas_ids(self):
-        for partner in self:
-            partner.normativas_ids = self.env["survey.question.normative"].search(
-                [
-                    ("start_year", "<=", partner.service_start_date.year),
-                    ("end_year", ">=", partner.service_start_date.year),
-                ]
-            )
