@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* res_partner_building_use_section
+# 	* survey_building_use_section
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 13:33+0000\n"
-"PO-Revision-Date: 2024-04-25 13:33+0000\n"
+"POT-Creation-Date: 2024-04-25 13:43+0000\n"
+"PO-Revision-Date: 2024-04-25 13:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,243 +15,702 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__administrator_id
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__administrator_id
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__act_number
+#, python-format
+msgid "Act Number"
+msgstr "Número de Acta"
+
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_survey_view_form
+msgid "Add Normative Filter"
+msgstr "Agregar Filtro Normativo"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__administrator_id
 #, python-format
 msgid "Administrator"
 msgstr "Administrador"
 
-#. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Building"
-msgstr "Edificio"
-
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model,name:res_partner_building_use_section.model_building_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__building_section_ids
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__building_section_ids
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__question_article_ids
+#, python-format
+msgid "Articles"
+msgstr "Artículos"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model,name:survey_building_use_section.model_building_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_section_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
 msgid "Building Section/Area"
 msgstr "Sección/Area del Edificio"
 
-#. module: res_partner_building_use_section
-#: model:ir.actions.act_window,name:res_partner_building_use_section.building_section_action
-#: model:ir.ui.menu,name:res_partner_building_use_section.menu_customer_building_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_tree
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Building Sections/Areas"
-msgstr "Secciones/Areas del Edificio"
-
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__building_use_id
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__building_use_id
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__building_use_id
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__building_use_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.view_res_partner_filter_inherit
+#, python-format
 msgid "Building Use"
 msgstr "Uso del Edificio"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__building_to_inspect_id
+msgid "Building to inspect"
+msgstr "Edificio a inspeccionar"
+
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model,name:res_partner_building_use_section.model_building_use
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_use_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
-msgid "Building use"
-msgstr "Uso del Edificio"
+msgid "Building type"
+msgstr "Tipo de Edificio"
 
-#. module: res_partner_building_use_section
-#: model:ir.actions.act_window,name:res_partner_building_use_section.building_use_action
-#: model:ir.ui.menu,name:res_partner_building_use_section.menu_customer_building_use
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_use_view_tree
-msgid "Building uses"
-msgstr "Usos del Edificio"
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__building_with_activation_date
+msgid "Building with activation date"
+msgstr "Edificio con fecha de activación"
 
-#. module: res_partner_building_use_section
-#: model:ir.ui.menu,name:res_partner_building_use_section.menu_customer_building
-msgid "Buildings"
-msgstr "Edificios"
-
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model,name:res_partner_building_use_section.model_res_partner
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__partner_id
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__certification_text
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__certification_text
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.view_res_partner_filter_inherit
 #, python-format
+msgid "Certification Text"
+msgstr "Texto de Certificación"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__create_uid
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__create_uid
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_invite_view_form
+msgid "Create Survey"
+msgstr "Crear Encuesta"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_survey.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_survey_view_form
+#, python-format
+msgid "Create Survey to Building"
+msgstr "Crear Encuesta para Edificio"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_uid
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__create_date
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__create_date
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_date
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__name
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__name
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__degree_title
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__degree_title
+#, python-format
+msgid "Degree Title"
+msgstr "Título de Grado"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,help:survey_building_use_section.field_building_section__dof_author_degree
+#: model:ir.model.fields,help:survey_building_use_section.field_building_section__project_author_degree
+#: model:ir.model.fields,help:survey_building_use_section.field_res_partner__degree_title
+#: model:ir.model.fields,help:survey_building_use_section.field_res_users__degree_title
+#, python-format
+msgid "Degree Title of the individual contact."
+msgstr "Título de Grado del contacto individual."
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__description
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__description
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
 #, python-format
 msgid "Description"
 msgstr "Descripción"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__display_name
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__display_name
-msgid "Display Name"
-msgstr "Nombre Mostrado"
-
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__evacuation_height
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__dof_approved_date
 #, python-format
-msgid "Evacuation Height"
-msgstr "Altura de Evacuación"
+msgid "Director of Works Approved Date"
+msgstr "Fecha de Aprobación del Director de Obras"
 
-#. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
-msgid "Group By"
-msgstr "Agrupar por"
-
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__id
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__id
-msgid "ID"
-msgstr "ID"
-
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__is_industrial
-msgid "Industrial"
-msgstr Industrial
-
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__installer_id
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__installer_id
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__dof_author_id
+#, python-format
+msgid "Director of Works Author"
+msgstr "Autor del Director de Obras"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__dof_author_degree
+#, python-format
+msgid "Director of Works Author Degree"
+msgstr "Título de Grado del Autor del Director de Obras"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__dof_author_license
+#, python-format
+msgid "Director of Works Author License"
+msgstr "Licencia del Autor del Director de Obras"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__display_name
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__emi
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__emi
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.view_res_partner_filter_inherit
+#, python-format
+msgid "Emi"
+msgstr "EMI"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__end_date
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
+#, python-format
+msgid "End Date"
+msgstr "Fecha de Finalización"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__epi
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__epi
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.view_res_partner_filter_inherit
+#, python-format
+msgid "Epi"
+msgstr "EPI"
+
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+msgid "Error"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__error_text
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__error_text
+#: model:ir.model.fields,help:survey_building_use_section.field_survey_question_answer__notes
+#: model:ir.model.fields,help:survey_building_use_section.field_survey_user_input_line__notes
+#, python-format
+msgid "Error Text"
+msgstr "Texto de Error"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__file_number
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__file_number
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__file_number
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.view_res_partner_filter_inherit
+#, python-format
+msgid "File Number"
+msgstr "Número de Expediente"
+
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__id
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__id
+msgid "ID"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspected_building_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
+#, python-format
+msgid "Inspected Building"
+msgstr "Edificio Inspeccionado"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__section_ids
+#, python-format
+msgid "Inspected Building Section/Area"
+msgstr "Sección/Área Inspeccionada del Edificio"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_end_date
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
+#, python-format
+msgid "Inspection End Date"
+msgstr "Fecha de Finalización de Inspección"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_start_date
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
+#, python-format
+msgid "Inspection Start Date"
+msgstr "Fecha de Inicio de Inspección"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_type
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
+#, python-format
+msgid "Inspection Type"
+msgstr "Tipo de Inspección"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspector_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
+#, python-format
+msgid "Inspector"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installer_id
 #, python-format
 msgid "Installer"
 msgstr "Instalador"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section____last_update
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use____last_update
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article____last_update
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative____last_update
 msgid "Last Modified on"
 msgstr "Última Modificación el"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__write_uid
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__write_uid
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_uid
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_uid
 msgid "Last Updated by"
 msgstr "Última Actualización por"
 
-#. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__write_date
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__write_date
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_date
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_date
 msgid "Last Updated on"
 msgstr "Última Actualización el"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__maintainer_id
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__maintainer_id
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__maintainer_id
 #, python-format
 msgid "Maintainer"
 msgstr "Mantenedor"
 
-#. module: res_partner_building_use_section
-#. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__normativas_ids
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__normativas_ids
-#, python-format
-msgid "Normativas"
-msgstr "Normativas"
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_answer_view_search
+msgid "Matrix Survey"
+msgstr ""
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_partner__membership_number
+#: model:ir.model.fields,field_description:survey_building_use_section.field_res_users__membership_number
+#, python-format
+msgid "Membership Number"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,help:survey_building_use_section.field_building_section__dof_author_license
+#: model:ir.model.fields,help:survey_building_use_section.field_building_section__project_author_license
+#: model:ir.model.fields,help:survey_building_use_section.field_res_partner__membership_number
+#: model:ir.model.fields,help:survey_building_use_section.field_res_users__membership_number
+#, python-format
+msgid "Membership number of the individual contact."
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_survey.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
+#, python-format
+msgid "NORMATIVE FILTER"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__name
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__name
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+#, python-format
+msgid "Name"
+msgstr "Nombre"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__question_normative_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+#, python-format
+msgid "Normative"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__is_normative_filter
+#, python-format
+msgid "Normative Filter"
+msgstr "Filtro Normativo"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__notes
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__notes
+#, python-format
+msgid "Note"
+msgstr "Nota"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__periodic
+#, python-format
+msgid "Periodic"
+msgstr "Periódico"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/wizard/survey_invite.py:0
+#: code:addons/temp-addons/survey_building_use_section/wizard/survey_invite.py:0
+#, python-format
+msgid "Please enter at least one valid recipient."
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__project_approved_date
+#, python-format
+msgid "Project Approved Date"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__project_author_id
+#, python-format
+msgid "Project Author"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__project_author_degree
+#, python-format
+msgid "Project Author Degree"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__project_author_license
+#, python-format
+msgid "Project Author License"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/building_section.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/building_section.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_building_section__project_title
+#, python-format
+msgid "Project Title"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__question_normative_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_line_view_search
+#, python-format
+msgid "Question Normative"
+msgstr "Normativa de Pregunta"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__question_normative_ids
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_search
+#, python-format
+msgid "Question Normatives"
+msgstr "Normativas de Preguntas"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_survey.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
+#, python-format
+msgid ""
+"Question needed to trigger normative questions and filter questions by "
+"normative"
+msgstr ""
+
+#. module: survey_building_use_section
+#: model:ir.actions.act_window,name:survey_building_use_section.survey_question_article_action
+#: model:ir.ui.menu,name:survey_building_use_section.menu_survey_question_article
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_tree
+msgid "Questions Articles"
+msgstr "Artículos de Preguntas"
+
+#. module: survey_building_use_section
+#: model:ir.actions.act_window,name:survey_building_use_section.survey_question_normative_action
+#: model:ir.ui.menu,name:survey_building_use_section.menu_survey_question_normative
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_tree
+msgid "Questions Normatives"
+msgstr "Normativas de Preguntas"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__partner_id
+msgid "Recipient"
+msgstr "Destinatario"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__related_article_filter_ids
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__related_article_ids
+#, python-format
+msgid "Related Articles"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__risk
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
 msgid "Risk"
 msgstr "Riesgo"
 
-#. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
-msgid "Search Building Sections/Areas"
-msgstr "Buscar Secciones/Areas del Edificio"
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
+msgid "Search Questions Articles"
+msgstr "Buscar artículos de pregunta"
 
-#. module: res_partner_building_use_section
-#. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__section_use
-#, python-format
-msgid "Section Use"
-msgstr "Uso de la Sección"
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
+msgid "Search Questions Normatives"
+msgstr "Buscar Normativas de Preguntas"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__service_end_date
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__service_end_date
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__start_date
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 #, python-format
-msgid "Service End Date"
-msgstr "Fecha Registro en Industria"
+msgid "Start Date"
+msgstr "Fecha de Inicio"
 
-#. module: res_partner_building_use_section
-#. odoo-python
-#: code:addons/res_partner_building_use_section/models/res_partner.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__service_start_date
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__service_start_date
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
-#, python-format
-msgid "Service Start Date"
-msgstr "Fecha Solicitud Licencia (Filtro Normativa)"
+#. module: survey_building_use_section
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
+msgid "Start Survey"
+msgstr "Iniciar Encuesta"
 
-#. module: res_partner_building_use_section
+#. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__superficie
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__superficie
 #, python-format
-msgid "Surface"
-msgstr "Superficie"
+msgid "Superficie"
+msgstr ""
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_survey
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__matrix_survey_id
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__survey_id
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_answer_view_search
+msgid "Survey"
+msgstr "Encuesta"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_invite
+msgid "Survey Invitation Wizard"
+msgstr "Asistente de Invitación a Encuestas"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_question_answer
+msgid "Survey Label"
+msgstr "Etiqueta de la Encuesta"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_question
+msgid "Survey Question"
+msgstr "Pregunta de la Encuesta"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_article.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
+#: model:ir.model,name:survey_building_use_section.model_survey_question_article
+#, python-format
+msgid "Survey Question Article"
+msgstr "Artículo de pregunta de encuesta"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_normative.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
+#: model:ir.model,name:survey_building_use_section.model_survey_question_normative
+#, python-format
+msgid "Survey Question Normative"
+msgstr "Normativa de Pregunta de la Encuesta"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_user_input
+msgid "Survey User Input"
+msgstr "Entrada de usuario en la encuesta"
+
+#. module: survey_building_use_section
+#: model:ir.model,name:survey_building_use_section.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Línea de Entrada de Usuario de la Encuesta"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__volunteer
+#, python-format
+msgid "Volunteer"
+msgstr "Voluntario"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__building_activation_date
+msgid "building activation date"
+msgstr "fecha de activación del edificio"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#, python-format
+msgid "survey.question.article"
+msgstr ""
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
+#, python-format
+msgid "survey.survey"
+msgstr ""
