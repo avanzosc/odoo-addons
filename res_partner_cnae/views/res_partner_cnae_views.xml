@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_partner_cnae_tree_view">
+            <field name="name">res.partner.cnae.tree.view</field>
+            <field name="model">res.partner.cnae</field>
+            <field name="arch" type="xml">
+                <tree string="CNAE">
+                    <field name="code" />
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_partner_cnae_search_view" model="ir.ui.view">
+            <field name="name">res.partner_cnae.search.view</field>
+            <field name="model">res.partner.cnae</field>
+            <field name="arch" type="xml">
+                <search string="Search CNAE">
+                    <field name="code" />
+                    <field name="name" />
+                </search>
+            </field>
+        </record>
+
+        <record id="res_partner_cnae_form_view" model="ir.ui.view">
+            <field name="name">res.partner.cnae.form.view</field>
+            <field name="model">res.partner.cnae</field>
+            <field name="arch" type="xml">
+                <form string="CNAE">
+                    <sheet>
+                        <label string="Code" for="code"/>
+                        <h1>
+                            <field name="code" class="oe_inline" />
+                        </h1>
+                        <field name="name" />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_res_partner_cnae_view" model="ir.actions.act_window">
+            <field name="name">CNAE</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.cnae</field>
+            <!--
+            <field name="view_type">form</field>
+            -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="res_partner_cnae_option_view" name="CNAE"
+                  action="action_res_partner_cnae_view" 
+                  parent="sale.menu_sale_config" sequence="70"
+                  groups="base.group_erp_manager" />
+</data>
+</odoo>

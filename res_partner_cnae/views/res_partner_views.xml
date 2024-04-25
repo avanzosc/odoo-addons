@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <label for="cnae_id" string="CNAE"/>
+                    <field name="cnae_id" nolabel="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_tree">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="cnae_id" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_res_partner_filter">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="cnae_id" />
+                </field>
+                <filter name="group_country" position="after">
+                    <filter name="group_cnae" string="CNAE"
+                        context="{'group_by': 'cnae_id'}"/>
+                </filter>
+            </field>
+        </record>
+</data>
+</odoo>
