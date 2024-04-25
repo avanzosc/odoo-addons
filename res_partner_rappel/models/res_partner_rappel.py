@@ -15,7 +15,7 @@ class ResPartnerRappel(models.Model):
         string="Product",
         comodel_name="product.product")
     percentage = fields.Float(
-        string="%")
+        string="Rappel")
     period = fields.Selection(
         selection=[
             ("monthly", "Monthly"),

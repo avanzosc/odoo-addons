@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-12 11:31+0000\n"
-"PO-Revision-Date: 2023-12-12 11:31+0000\n"
+"POT-Creation-Date: 2024-04-26 09:48+0000\n"
+"PO-Revision-Date: 2024-04-26 09:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -93,6 +93,7 @@ msgstr ""
 
 #. module: res_partner_rappel
 #: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
+#: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
 #, python-format
 msgid "One rappel line without product per customer."
 msgstr ""
@@ -128,6 +129,8 @@ msgid "Quarterly"
 msgstr ""
 
 #. module: res_partner_rappel
+#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line__rappel_percentage
+#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__percentage
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.view_partner_form
 msgid "Rappel"
 msgstr ""
@@ -145,6 +148,8 @@ msgstr ""
 
 #. module: res_partner_rappel
 #: code:addons/res_partner_rappel/models/res_partner.py:0
+#: code:addons/res_partner_rappel/models/res_partner.py:0
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.view_partner_form
 #, python-format
 msgid "Rappels"
 msgstr ""
@@ -155,6 +160,7 @@ msgid "Recalculate Rappel"
 msgstr ""
 
 #. module: res_partner_rappel
+#: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
 #: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
 #, python-format
 msgid ""
