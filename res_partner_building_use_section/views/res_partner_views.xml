@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>
@@ -10,7 +10,9 @@
                         <group>
                             <field name="building_use_id" />
                             <field name="service_start_date" />
-                            <field name="service_end_date" />                        </group>
+                            <field
+                name="service_end_date"
+              />                        </group>
                         <group>
                             <field name="administrator_id" />
                             <field name="installer_id" />
@@ -18,7 +20,11 @@
                         </group>
                     </group>
                     <field name="building_section_ids">
-                        <tree string="Building Sections/Areas" editable="bottom" sample="1">
+                        <tree
+              string="Building Sections/Areas"
+              editable="bottom"
+              sample="1"
+            >
                             <field name="partner_id" invisible="1" />
                             <field name="name" />
                             <field name="risk" />
@@ -40,8 +46,11 @@
                 <field name="service_start_date" optional="show" />
                 <field name="service_end_date" optional="show" />
                 <field name="building_use_id" optional="show" />
-                <field name="building_section_ids" optional="show"
-                    widget="many2many_tags" />
+                <field
+          name="building_section_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
             </field>
         </field>
     </record>
@@ -57,12 +66,21 @@
                 <field name="building_section_ids" />
             </field>
             <filter name="group_country" position="after">
-                <filter name="group_building_use" string="Building use"
-                    context="{'group_by': 'building_use_id'}" />
-                <filter name="group_service_start_date" string="Service Start Date"
-                    context="{'group_by': 'service_start_date'}" />
-                    <filter name="group_service_end_date" string="Service End Date"
-                    context="{'group_by': 'service_end_date'}" />
+                <filter
+          name="group_building_use"
+          string="Building use"
+          context="{'group_by': 'building_use_id'}"
+        />
+                <filter
+          name="group_service_start_date"
+          string="Service Start Date"
+          context="{'group_by': 'service_start_date'}"
+        />
+                    <filter
+          name="group_service_end_date"
+          string="Service End Date"
+          context="{'group_by': 'service_end_date'}"
+        />
 
             </filter>
         </field>

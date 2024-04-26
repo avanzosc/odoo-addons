@@ -5,8 +5,8 @@
         <field name="model">building.use</field>
         <field name="arch" type="xml">
             <tree string="Building uses" editable="bottom" sample="1">
-                <field name="name"/>
-                <field name="is_industrial"/>
+                <field name="name" />
+                <field name="is_industrial" />
             </tree>
         </field>
     </record>
@@ -14,17 +14,21 @@
     <record id="building_use_action" model="ir.actions.act_window">
         <field name="name">Building uses</field>
         <field name="res_model">building.use</field>
-        <field name="view_id" ref="building_use_view_tree"/>
+        <field name="view_id" ref="building_use_view_tree" />
     </record>
 
-    <menuitem id="menu_customer_building"
-                sequence="70"
-                parent="contacts.res_partner_menu_config"
-                name="Buildings">
-        <menuitem id="menu_customer_building_use"
-            name="Building uses"
-            action="res_partner_building_use_section.building_use_action"
-            sequence="10"/>
+    <menuitem
+    id="menu_customer_building"
+    sequence="70"
+    parent="contacts.res_partner_menu_config"
+    name="Buildings"
+  >
+        <menuitem
+      id="menu_customer_building_use"
+      name="Building uses"
+      action="res_partner_building_use_section.building_use_action"
+      sequence="10"
+    />
     </menuitem>
 
 </odoo>

@@ -27,8 +27,9 @@ class EventRegistration(models.Model):
 
     @api.onchange("student_id", "partner_id")
     def _onchange_student_id(self):
-        super()._onchange_student_id()
+        res = super()._onchange_student_id()
         self.update_student_birthdate()
+        return res
 
     @api.depends("student_id", "student_id.birthdate_date")
     def update_student_birthdate(self):
