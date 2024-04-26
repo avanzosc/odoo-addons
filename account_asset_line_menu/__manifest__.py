@@ -6,7 +6,7 @@
     "category": "Accounting & Finance",
     "license": "AGPL-3",
     "author": "Avanzosc",
-    "website": "https://avanzosc.es/",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "account_asset_management",
         "l10n_es_account_asset",
