@@ -4,58 +4,24 @@
         <field name="name">account.asset.line.view.tree</field>
         <field name="model">account.asset.line</field>
         <field name="arch" type="xml">
-            <tree
-        string="Assets Lines"
-        decoration-info="(move_check == False) and (init_entry == False)"
-        create="false"
-      >
-                <field name="asset_id" readonly="1" optional="show" />
-                <field name="type" optional="show" />
-                <field
-          name="line_date"
-          optional="show"
-          attrs="{'readonly': [('move_check', '=', True)]}"
-        />
-                <field name="line_days" sum="Total Days" optional="show" />
-                <field name="depreciated_value" readonly="1" optional="show" />
-                <field
-          name="amount"
-          optional="show"
-          attrs="{'readonly': [('move_check', '=', True)]}"
-        />
-                <field name="remaining_value" readonly="1" optional="show" />
-                <field
-          name="init_entry"
-          string="Init"
-          optional="show"
-          attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"
-        />
-                <field name="move_check" optional="show" />
-                <field name="parent_state" invisible="1" />
-                <field name="currency_id" invisible="1" />
-                <button
-          name="create_move"
-          icon="fa-cog"
-          string="Create Move"
-          type="object"
-          attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"
-        />
-                <button
-          name="open_move"
-          icon="fa-folder-open-o"
-          string="View Move"
-          type="object"
-          attrs="{'invisible': [('move_check', '!=', True)]}"
-        />
-                <button
-          name="unlink_move"
-          icon="fa-times"
-          string="Delete/Reverse Move"
-          type="object"
-          confirm="Are you sure ?"
-          groups="account.group_account_manager"
-          attrs="{'invisible': [('move_check', '!=', True)]}"
-        />
+            <tree string="Assets Lines" decoration-info="(move_check == False) and (init_entry == False)" create="false">
+                <field name="asset_id" readonly="1" optional="show"/>
+                <field name="type" optional="show"/>
+                <field name="line_date" optional="show"
+                    attrs="{'readonly': [('move_check', '=', True)]}"/>
+                <field name="line_days" sum="Total Days" optional="show"/>
+                <field name="depreciated_value" readonly="1" optional="show"/>
+                <field name="amount" optional="show"
+                    attrs="{'readonly': [('move_check', '=', True)]}"/>
+                <field name="remaining_value" readonly="1" optional="show"/>
+                <field name="init_entry" string="Init" optional="show"
+                    attrs="{'readonly': ['|', ('move_check', '=', True), ('type', '=', 'create')]}"/>
+                <field name="move_check" optional="show"/>
+                <field name="parent_state" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <button name="create_move" icon="fa-cog" string="Create Move" type="object" attrs="{'invisible': ['|', '|', ('init_entry', '=', True), ('move_check', '!=', False), ('parent_state', '!=', 'open')]}"/>
+                <button name="open_move" icon="fa-folder-open-o" string="View Move" type="object" attrs="{'invisible': [('move_check', '!=', True)]}"/>
+                <button name="unlink_move" icon="fa-times" string="Delete/Reverse Move" type="object" confirm="Are you sure ?" groups="account.group_account_manager" attrs="{'invisible': [('move_check', '!=', True)]}"/>
             </tree>
         </field>
     </record>
@@ -67,26 +33,14 @@
             <search string="Search Assets Lines">
                 <field name="asset_id" />
                 <field name="type" />
-                <field name="line_date" />
+                <field name="line_date"/>
                 <group expand="0" string="Group By">
-                    <filter
-            string="Asset"
-            name="group-asset"
-            domain="[]"
-            context="{'group_by': 'asset_id'}"
-          />
-                    <filter
-            string="Type"
-            name="group-type"
-            domain="[]"
-            context="{'group_by': 'type'}"
-          />
-                    <filter
-            string="Date"
-            name="group-line-date"
-            domain="[]"
-            context="{'group_by': 'line_date'}"
-          />
+                    <filter string="Asset" name="group-asset" domain="[]"
+                        context="{'group_by': 'asset_id'}"/>
+                    <filter string="Type" name="group-type" domain="[]"
+                        context="{'group_by': 'type'}"/>
+                    <filter string="Date" name="group-line-date" domain="[]"
+                        context="{'group_by': 'line_date'}"/>
                 </group>
             </search>
         </field>
@@ -95,14 +49,12 @@
     <record id="account_asset_line_action" model="ir.actions.act_window">
         <field name="name">Assets Lines</field>
         <field name="res_model">account.asset.line</field>
-        <field name="view_id" ref="account_asset_line_view_tree" />
+        <field name="view_id" ref="account_asset_line_view_tree"/>
     </record>
 
-    <menuitem
-    id="menu_account_asset_line"
-    name="Assets Lines"
-    parent="account_asset_management.menu_finance_assets"
-    action="account_asset_line_menu.account_asset_line_action"
-    sequence="10"
-  />
+    <menuitem id="menu_account_asset_line"
+        name="Assets Lines"
+        parent="account_asset_management.menu_finance_assets"
+        action="account_asset_line_menu.account_asset_line_action"
+        sequence="10"/>
 </odoo>
