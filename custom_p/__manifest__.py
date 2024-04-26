@@ -12,9 +12,14 @@
         "sale_stock",
         "sale_order_return",
         "sale_order_line_price_history",
+        "sale_order_lot_selection",
+        "sale_order_line_commitment_date",
+        "account",
     ],
     "data": [
-        "views/sale_order_view.xml"
+        "views/sale_order_view.xml",
+        "views/account_move_view.xml",
+        "wizards/sale_order_line_price_history_view.xml",
     ],
     "installable": True,
 }
