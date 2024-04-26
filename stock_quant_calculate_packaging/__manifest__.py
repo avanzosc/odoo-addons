@@ -5,8 +5,8 @@
     "version": "16.0.1.0.0",
     "category": "Sales/Sales",
     "license": "AGPL-3",
-    "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["product", "stock"],
     "data": [
         "views/stock_quant_views.xml",
