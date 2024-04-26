@@ -7,18 +7,12 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     price_unit_cost = fields.Float(
-        string="Cost Unit Price",
-        digits="Product Price",
-        store=True,
-        copy=False,
-        compute="_compute_price_unit_cost",
+        string="Cost Unit Price", digits="Product Price", store=True, copy=False,
+        compute="_compute_price_unit_cost"
     )
     cost = fields.Float(
-        string="Cost",
-        digits="Product Price",
-        store=True,
-        copy=False,
-        compute="_compute_price_unit_cost",
+        string="Cost", digits="Product Price", store=True, copy=False,
+        compute="_compute_price_unit_cost"
     )
 
     @api.depends("quantity_done", "move_line_ids", "move_line_ids.cost")

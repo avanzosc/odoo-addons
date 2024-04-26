@@ -7,7 +7,7 @@
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/odoo-addons",
+    "website": "https://www.avanzosc.es/",
     "depends": [
         "account",
     ],

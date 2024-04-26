@@ -3,17 +3,11 @@
 
     <record id="view_picking_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="inherit_id" ref="stock.view_picking_form"/>
         <field name="arch" type="xml">
             <header position="inside">
-                <button
-          name="button_empty_location"
-          attrs="{'invisible': ['|', ('show_empty_location', '=', False), ('state', '!=', 'draft')]}"
-          string="Unload"
-          type="object"
-          class="oe_highlight"
-        >
-                    <field name="show_empty_location" invisible="1" />
+                <button name="button_empty_location" attrs="{'invisible': ['|', ('show_empty_location', '=', False), ('state', '!=', 'draft')]}" string="Unload" type="object" class="oe_highlight">
+                    <field name="show_empty_location" invisible="1"/>
                 </button>
             </header>
         </field>

@@ -4,7 +4,7 @@
     "name": "Stock Move Cost",
     "version": "16.0.1.0.0",
     "category": "Inventory/Inventory",
-    "website": "https://github.com/avanzosc/odoo-addons",
+    "website": "https://avanzosc.es/",
     "author": "AvanzOSC",
     "license": "AGPL-3",
     "depends": [
