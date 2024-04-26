@@ -3,10 +3,14 @@
     :alt: License: AGPL-3
 
 ================================
-move supplier last price info
+Invoice supplier last price info
 ================================
-* In products new fields:"Last supplier move", "Last supplier move date",
-  and "Last supplier move price".
+* In products new fields:
+
+  * "Last supplier move",
+  * "Last supplier move date",
+  * "Last supplier move price"
+
 * When an supplier move is validated or canceled, the information of the
   last move in products is recalculated.
 * When modifying the unit price of a supplier move line that is not in draft

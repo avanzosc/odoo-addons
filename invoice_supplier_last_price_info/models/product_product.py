@@ -1,7 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
-
+from odoo import fields, models
 
 
 class ProductProduct(models.Model):
@@ -36,7 +35,7 @@ class ProductProduct(models.Model):
                     ("move_id.state", "not in", ["draft", "cancel"]),
                 ]
                 lines = move_line_obj.search(cond).sorted(
-                    key=lambda l: l.move_id.date_move, reverse=True
+                    key=lambda ln: ln.move_id.date_move, reverse=True
                 )
             if lines:
                 last_line = lines[:1]
@@ -50,9 +49,7 @@ class ProductProduct(models.Model):
                     "last_supplier_move_date": last_supplier_move_date,
                     "last_supplier_move_price": last_supplier_move_price,
                     "last_supplier_move_id": (
-                        last_supplier_move_id.id
-                        if last_supplier_move_id
-                        else False
+                        last_supplier_move_id.id if last_supplier_move_id else False
                     ),
                 }
             )
