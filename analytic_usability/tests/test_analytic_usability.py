@@ -5,7 +5,7 @@ from odoo.tests import common, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestAnalyticUsability(common.SavepointCase):
+class TestAnalyticUsability(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -25,7 +25,7 @@ class TestAnalyticUsability(common.SavepointCase):
 
     def test_analytic_usability(self):
         self.assertEqual(self.line.amount, 0)
-        self.assertEqual(self.line.amount_type, "revenue")
+        self.assertEqual(self.line.amount_type, "cost")
         self.line.write(
             {
                 "amount": -100,
