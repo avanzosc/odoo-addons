@@ -4,6 +4,7 @@
     "name": "Event Registration Sale Line Contract",
     "version": "16.0.1.0.0",
     "author": "Avanzosc",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": [
         "event_sale",
