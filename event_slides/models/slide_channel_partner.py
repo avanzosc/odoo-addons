@@ -7,7 +7,9 @@ class SlideChannelPartner(models.Model):
     _inherit = "slide.channel.partner"
 
     event_registration_id = fields.Many2one(
-        string='Event registration', comodel_name='event.registration')
+        string='Event registration', comodel_name='event.registration',
+        ondelete="cascade"
+    )
     real_date_start = fields.Date(
         string='Real date start')
     real_date_end = fields.Date(
