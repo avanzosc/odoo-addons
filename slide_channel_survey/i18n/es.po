@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 10:25+0000\n"
-"PO-Revision-Date: 2023-07-11 10:25+0000\n"
+"POT-Creation-Date: 2024-04-30 10:31+0000\n"
+"PO-Revision-Date: 2024-04-30 10:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,8 @@ msgstr ""
 #: model:ir.actions.report,print_report_name:slide_channel_survey.action_report_evaluate_certification
 msgid ""
 "'Evaluation: - %s' % (object.student_id.name or object.survey_id.title)"
-msgstr "'Evaluación: - %s' % (object.survey_id.title)"
+msgstr ""
+"'Evaluación: - %s' % (object.student_id.name or object.survey_id.title)"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.display_certificate
@@ -27,6 +28,8 @@ msgid ""
 "<i class=\"fa fa-certificate m-1\" aria-label=\"Download evaluation\" "
 "title=\"Download Evaluation\"/>"
 msgstr ""
+"<i class=\"fa fa-certificate m-1\" aria-label=\"Descargar evaluación\" "
+"title=\"Descargar Evaluación\"/>"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.display_certificate
@@ -34,6 +37,8 @@ msgid ""
 "<i class=\"fa fa-download\" aria-label=\"Download certification\" "
 "title=\"Download Certification\"/>"
 msgstr ""
+"<i class=\"fa fa-download\" aria-label=\"Descargar certificación\" "
+"title=\"Descargar Certificación\"/>"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__access_warning
@@ -53,7 +58,7 @@ msgstr "Actividades"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr ""
+msgstr "Decoración de excepción de actividad"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_state
@@ -63,12 +68,12 @@ msgstr "Estado de actividad"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_type_icon
 msgid "Activity Type Icon"
-msgstr ""
+msgstr "Icono de tipo de actividad"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Contador Adjuntos"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_res_company__certification_header_image
@@ -143,7 +148,7 @@ msgstr ""
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_survey__intro_text
 msgid "Evaluation report introduction text"
-msgstr ""
+msgstr "Texto de introducción del informe de evaluación"
 
 #. module: slide_channel_survey
 #: model:ir.actions.report,name:slide_channel_survey.action_report_evaluate_certification
@@ -153,6 +158,7 @@ msgstr "Evaluaciones"
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_event_event
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__event_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
 msgid "Event"
 msgstr "Evento"
@@ -166,6 +172,11 @@ msgstr "Registro de eventos"
 #: model:ir.model,name:slide_channel_survey.model_event_track
 msgid "Event Track"
 msgstr "Sesión del evento"
+
+#. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__event_registration_id
+msgid "Event registration"
+msgstr "Registro de evento"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
@@ -218,12 +229,12 @@ msgstr "Identificador"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Icono"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Icono para indicar una actividad de excepción."
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__access_token
@@ -234,13 +245,13 @@ msgstr "Token de identificación"
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_needaction
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_unread
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Si está marcado, los mensajes nuevos requieren su atención."
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_has_error
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
@@ -273,7 +284,7 @@ msgstr "Última modificación el"
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.report_evaluation_certification_doc
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_main_attachment_id
@@ -282,6 +293,7 @@ msgstr "Adjunto"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__main_responsible_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Main responsible"
 msgstr "Principal responsable"
 
@@ -298,7 +310,7 @@ msgstr "mensajes"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Fecha límite de mi actividad"
 
 #. module: slide_channel_survey
 #: model:ir.actions.act_window,name:slide_channel_survey.my_surveys_action
@@ -313,6 +325,7 @@ msgstr "Mis encuestas"
 
 #. module: slide_channel_survey
 #: code:addons/slide_channel_survey/models/survey.py:0
+#: code:addons/slide_channel_survey/models/survey.py:0
 #, python-format
 msgid "My surveys"
 msgstr "Mis certificaciones"
@@ -325,42 +338,42 @@ msgstr "Nuevo"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Fecha límite para la próxima actividad"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Resumen de la próxima actividad"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Siguiente tipo de actividad"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Número de acciones"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Número de errores"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_needaction_counter
 msgid "Number of messages which requires an action"
-msgstr ""
+msgstr "Número de mensajes que requieren una acción."
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Número de mensajes con error de entrega"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__message_unread_counter
 msgid "Number of unread messages"
-msgstr ""
+msgstr "Número de mensajes no leídos"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_tree
@@ -370,7 +383,7 @@ msgstr "Abrir"
 #. module: slide_channel_survey
 #: model:ir.actions.server,name:slide_channel_survey.action_open_my_surveys
 msgid "Open my Surveys"
-msgstr ""
+msgstr "Abrir mis encuestas"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.report_evaluation_certification_doc
@@ -385,7 +398,7 @@ msgstr "Contacto"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__access_url
 msgid "Portal Access URL"
-msgstr ""
+msgstr "URL de acceso al portal"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
@@ -400,12 +413,12 @@ msgstr "Usuario responsable"
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Error de entrega de SMS"
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.display_certificate
 msgid "Score :"
-msgstr ""
+msgstr "Puntuación: "
 
 #. module: slide_channel_survey
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
@@ -414,6 +427,7 @@ msgstr "Buscar encuesta"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__second_responsible_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Second responsible"
 msgstr "Segundo responsable"
 
@@ -430,11 +444,16 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Estado basado en actividades.\n"
+"Vencida: la fecha de vencimiento ya ha pasado\n"
+"Hoy: la fecha de la actividad es hoy.\n"
+"Planificado: Actividades futuras."
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__student_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Student"
-msgstr "Alumno/a"
+msgstr "Alumnado"
 
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_survey_survey
@@ -468,38 +487,39 @@ msgstr "Entradas de prueba"
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_slide_channel_partner__company_id
 msgid "The default company for this user."
-msgstr ""
+msgstr "La empresa predeterminada para este usuario."
 
 #. module: slide_channel_survey
 #: code:addons/slide_channel_survey/controller/main.py:0
+#: code:addons/slide_channel_survey/controller/main.py:0
 #, python-format
 msgid "The user has not succeeded the certification"
-msgstr ""
+msgstr "El usuario no ha conseguido la certificación"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Tipo de actividad de excepción registrada."
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_unread
 msgid "Unread Messages"
-msgstr ""
+msgstr "Mensajes no leídos"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__message_unread_counter
 msgid "Unread Messages Counter"
-msgstr ""
+msgstr "Contador Mensajes no leídos"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Mensajes del sitio web"
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,help:slide_channel_survey.field_survey_user_input__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Historial de comunicación del sitio web"
 
 #. module: slide_channel_survey
 #: model_terms:ir.actions.act_window,help:slide_channel_survey.my_surveys_action

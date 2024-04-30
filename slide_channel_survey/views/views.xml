@@ -56,6 +56,34 @@
              </sheet>
          </field>
      </record>
+
+     <record id="survey_user_input_view_search" model="ir.ui.view">
+         <field name="model">survey.user_input</field>
+         <field name="inherit_id" ref="survey.survey_user_input_view_search"/>
+         <field name="arch" type="xml">
+             <field name="survey_id" position="after">
+                <field name="event_id"/>
+             </field>
+             <field name="partner_id" position="after">
+                <field name="main_responsible_id"/>
+                <field name="second_responsible_id"/>
+                <field name="student_id"/>
+             </field>
+             <filter name="group_by_survey" position="after">
+                 <filter name="group_by_event" string="Event"
+                    domain="[]" context="{'group_by': 'event_id'}"/>
+             </filter>
+             <filter name="group_by_partner" position="after">
+                 <filter name="group_by_main_responsible" string="Main responsible"
+                    domain="[]" context="{'group_by': 'main_responsible_id'}"/>
+                 <filter name="group_by_second_responsible" string="Second responsible"
+                    domain="[]" context="{'group_by': 'second_responsible_id'}"/>
+                 <filter name="group_by_student" string="Student"
+                    domain="[]" context="{'group_by': 'student_id'}"/>
+             </filter>
+         </field>
+     </record>
+
      <record id="survey_form" model="ir.ui.view">
          <field name="model">survey.survey</field>
          <field name="inherit_id" ref="survey.survey_form"/>

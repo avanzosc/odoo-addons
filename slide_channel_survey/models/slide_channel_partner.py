@@ -27,6 +27,8 @@ class SlideChannelPartner(models.Model):
                     [
                         ("survey_id", "=", slide.survey_id.id),
                         ("event_id", "=", record.event_id.id),
+                        ("event_registration_id", "=",
+                         record.event_registration_id.id),
                         "|",
                         ("partner_id", "=", record.partner_id.id),
                         ("student_id", "=", record.partner_id.id),
@@ -42,9 +44,46 @@ class SlideChannelPartner(models.Model):
                         {
                             "survey_id": slide.survey_id.id,
                             "event_id": record.event_id.id,
+                            "event_registration_id":
+                            record.event_registration_id.id,
                             "student_id": record.partner_id.id,
                             "partner_id": main_responsible.partner_id.id
                             if main_responsible
                             else None,
                         }
+                    )
+
+    def _put_event_registration_in_survey_user_input(self):
+        survey_user_input_obj = self.env["survey.user_input"]
+        for record in self:
+            slide_channel = record.channel_id
+            slide_slides = slide_channel.slide_ids
+            for slide in slide_slides.filtered(
+                    lambda s: s.slide_type == "certification" and s.by_tutor):
+                cond = [("survey_id", "=", slide.survey_id.id),
+                        ("event_id", "=", record.event_id.id),
+                        "|",
+                        ("partner_id", "=", record.partner_id.id),
+                        ("student_id", "=", record.partner_id.id)
+                ]
+                survey_inputs = survey_user_input_obj.search(cond)
+                if not survey_inputs: 
+                    main_responsible = (
+                        record.event_id.main_responsible_id
+                        if record.event_id.main_responsible_id
+                        else record.event_id.second_responsible_id
+                    )
+                    partner_id = (
+                        main_responsible.partner_id.id if main_responsible
+                        else False)
+                    cond = [("survey_id", "=", slide.survey_id.id),
+                            ("event_id", "=", record.event_id.id),
+                            ("student_id", "=", record.partner_id.id),
+                            ("partner_id", "=", partner_id)
+                    ]
+                    survey_inputs = survey_user_input_obj.search(cond)
+                if survey_inputs:
+                    survey_inputs.write(
+                        {"event_registration_id":
+                         record.event_registration_id.id}
                     )
