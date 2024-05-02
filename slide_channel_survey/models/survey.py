@@ -31,7 +31,14 @@ class SurveyUserInput(models.Model):
     _inherit = ['survey.user_input', "mail.thread", "mail.activity.mixin", "portal.mixin"]
 
     student_id = fields.Many2one('res.partner', 'Student')
-    event_id = fields.Many2one('event.event', 'Event')
+    event_registration_id = fields.Many2one(
+        string="Event registration", comodel_name="event.registration",
+        ondelete="cascade"
+    )
+    event_id = fields.Many2one(
+        string="Event", comodel_name="event.event",
+        related="event_registration_id.event_id", store=True, copy=False
+    )
     main_responsible_id = fields.Many2one(
         'res.users', 'Main responsible',
         related='event_id.main_responsible_id', store=True)

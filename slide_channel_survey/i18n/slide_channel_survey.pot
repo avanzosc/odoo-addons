@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 10:22+0000\n"
-"PO-Revision-Date: 2023-07-11 10:22+0000\n"
+"POT-Creation-Date: 2024-04-30 10:32+0000\n"
+"PO-Revision-Date: 2024-04-30 10:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -153,6 +153,7 @@ msgstr ""
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_event_event
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__event_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 #: model_terms:ir.ui.view,arch_db:slide_channel_survey.view_slide_channel_survey_search
 msgid "Event"
 msgstr ""
@@ -165,6 +166,11 @@ msgstr ""
 #. module: slide_channel_survey
 #: model:ir.model,name:slide_channel_survey.model_event_track
 msgid "Event Track"
+msgstr ""
+
+#. module: slide_channel_survey
+#: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__event_registration_id
+msgid "Event registration"
 msgstr ""
 
 #. module: slide_channel_survey
@@ -282,6 +288,7 @@ msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__main_responsible_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Main responsible"
 msgstr ""
 
@@ -312,6 +319,7 @@ msgid "My Surveys"
 msgstr ""
 
 #. module: slide_channel_survey
+#: code:addons/slide_channel_survey/models/survey.py:0
 #: code:addons/slide_channel_survey/models/survey.py:0
 #, python-format
 msgid "My surveys"
@@ -414,6 +422,7 @@ msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__second_responsible_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Second responsible"
 msgstr ""
 
@@ -433,6 +442,7 @@ msgstr ""
 
 #. module: slide_channel_survey
 #: model:ir.model.fields,field_description:slide_channel_survey.field_survey_user_input__student_id
+#: model_terms:ir.ui.view,arch_db:slide_channel_survey.survey_user_input_view_search
 msgid "Student"
 msgstr ""
 
@@ -471,6 +481,7 @@ msgid "The default company for this user."
 msgstr ""
 
 #. module: slide_channel_survey
+#: code:addons/slide_channel_survey/controller/main.py:0
 #: code:addons/slide_channel_survey/controller/main.py:0
 #, python-format
 msgid "The user has not succeeded the certification"

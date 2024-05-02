@@ -6,7 +6,7 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     'category': 'website',
-    'version': '14.0.1.1.0',
+    'version': '14.0.2.0.0',
     'depends': ['survey', 'website_slides', 'website_slides_survey', 'slide_partner_menu'],
     'data': [
         'data/data.xml',
