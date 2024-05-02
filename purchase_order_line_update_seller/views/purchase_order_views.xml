@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='order_line']/tree/field[@name='price_subtotal']"
+        position="after"
+      >
+                <field name="update_price_on_tab" />
+            </xpath>
+            <xpath
+        expr="//field[@name='order_line']/form//field[@name='account_analytic_id']"
+        position="after"
+      >
+                <field name="update_price_on_tab" />
+            </xpath>
+            <field name="company_id" position="after">
+                <field name="update_price_on_tab" />
+            </field>
+        </field>
+    </record>
+</odoo>
