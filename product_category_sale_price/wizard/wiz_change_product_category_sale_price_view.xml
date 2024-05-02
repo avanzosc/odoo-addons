@@ -30,7 +30,7 @@
 <record id="action_wiz_change_product_category_sale_price" model="ir.actions.act_window">
     <field name="name">Change product category sale price</field>
     <field name="res_model">wiz.change.product.category.sale.price</field>
-    <field name="binding_model">product.product</field>
+    <field name="binding_model_id" ref="model_product_product" />
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="view_type">form</field>

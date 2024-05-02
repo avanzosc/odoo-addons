@@ -28,7 +28,7 @@
 <record id="action_wiz_recalculate_product_sale_price" model="ir.actions.act_window">
     <field name="name">Recalculate sale price</field>
     <field name="res_model">wiz.recalculate.product.sale.price</field>
-    <field name="binding_model">product.product</field>
+    <field name="binding_model_id" ref="model_product_product" />
     <field name="view_mode">form</field>
     <field name="target">new</field>
     <field name="view_type">form</field>
