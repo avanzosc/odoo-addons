@@ -118,6 +118,7 @@ class ProductImport(models.Model):
             if product_type:
                 ln = [w for w, v in import_line_obj._get_selection_product_type()]
                 if product_type not in ln:
+                if not any(product_type == type for type, _ in import_line_obj._get_selection_product_type()):
                     log_infos.append(_("Product Type not understood."))
                 else:
                     values.update(
