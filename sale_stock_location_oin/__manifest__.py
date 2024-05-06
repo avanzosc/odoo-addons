@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright 2019 Odoo IT now <http://www.odooitnow.com/>
@@ -7,7 +6,7 @@
 ##############################################################################
 {
     'name': 'Sale Product By Location',
-    'version': '12.0.1.1.0',
+    'version': "16.0.1.0.0",
     'category': 'Sales',
     'summary': 'Define a specific source location on each Sale Order Line',
 
