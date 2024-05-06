@@ -16,7 +16,8 @@
         "mrp",
         "purchase_order_shipping_method",
         "account_payment_order",
-        "stock_location_warehouse"
+        "stock_location_warehouse",
+        "account_asset_management",
     ],
     "data": [
         "security/ir.model.access.csv",
