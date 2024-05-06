@@ -94,6 +94,15 @@ class CleaningDatabase(models.Model):
             "               and  w.id = l.warehouse_id "
             "               and  w.company_id in %s)", [
                 tuple(self.company_ids.ids), tuple(self.company_ids.ids)])
+        self.env.cr.execute(
+            "DELETE FROM account_bank_statement WHERE company_id in %s", [
+                tuple(self.company_ids.ids)])
+        self.env.cr.execute(
+            "DELETE FROM account_asset_line WHERE company_id in %s", [
+                tuple(self.company_ids.ids)])
+        self.env.cr.execute(
+            "DELETE FROM account_asset WHERE company_id in %s", [
+                tuple(self.company_ids.ids)])
         sequences = self.env["ir.sequence"].search(
             [("number_next_actual", "!=", 1), ("company_id", "in", self.company_ids.ids)])
         for line in sequences:
