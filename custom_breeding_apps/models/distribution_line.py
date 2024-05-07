@@ -47,27 +47,29 @@ class DistributionLine(models.Model):
                  "product_id", "batch_id")
     def _compute_pending_qty(self):
         for line in self:
-            line.pending_qty = 0
+            pending_qty = 0
             distribution_lines = line.picking_id.distribution_ids.filtered(
                 lambda c: c.batch_id == line.batch_id)
             if line.picking_id and distribution_lines:
-                line.pending_qty = line.estimate_birth - sum(
+                pending_qty = line.estimate_birth - sum(
                     distribution_lines.mapped("distribute_qty"))
+            line.pending_qty = pending_qty
 
     @api.depends("picking_id", "picking_id.move_line_ids_without_package",
                  "picking_id.move_line_ids_without_package.birth_estimate_qty",
                  "product_id", "batch_id")
     def _compute_estimate_birth(self):
         for line in self:
-            line.estimate_birth = 0
+            estimate_birth = 0
             if (
                 line.picking_id) and (
                     line.picking_id.move_line_ids_without_package.filtered(
                         lambda x: x.batch_id == line.batch_id)):
-                line.estimate_birth = sum(
+                estimate_birth = sum(
                     line.picking_id.move_line_ids_without_package.filtered(
                         lambda x: x.batch_id == line.batch_id).mapped(
                                 "birth_estimate_qty"))
+            line.estimate_birth = estimate_birth
 
     @api.onchange("picking_id")
     def onchange_picking_id(self):
@@ -81,16 +83,13 @@ class DistributionLine(models.Model):
             move_lines = (
                 self.picking_id.move_line_ids_without_package.filtered(
                     lambda x: x.batch_id))
-            mothers = []
-            for line in move_lines:
-                if line.batch_id.id not in mothers:
-                    mothers.append(line.batch_id.id)
+            mothers = move_lines.mapped("batch_id")
             if not mothers:
                 raise ValidationError(
                     _("There is no movement with mothers.")
                     )
             if mothers:
-                domain = {"domain": {"batch_id": [("id", "in", mothers)]}}
+                domain = {"domain": {"batch_id": [("id", "in", mothers.ids)]}}
                 if len(mothers) == 1:
-                    self.batch_id = mothers[0]
+                    self.batch_id = mothers[0].id
         return domain

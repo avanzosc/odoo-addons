@@ -7,4 +7,6 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     entire_chick_percentage = fields.Float(
-        string="Entire Chick %")
+        string="Entire Chick Weight",
+        digits="Weight Decimal Precision",
+    )
