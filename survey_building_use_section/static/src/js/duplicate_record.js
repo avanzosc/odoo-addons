@@ -4,20 +4,20 @@ import { registry } from '@web/core/registry';
 const { Component, useState, onWillStart, useRef } = owl;
 import { useService } from "@web/core/utils/hooks";
 
-const intervalId = setInterval(() => {
-    const linkElement = document.querySelector('a[data-menu-xmlid="survey_building_use_section.menu_survey_question_owl_article"][title="."]');
-    if (linkElement) {
-        linkElement.style.color = '#66598f';
-        linkElement.removeAttribute('title');
+// const intervalId = setInterval(() => {
+//     const linkElement = document.querySelector('a[data-menu-xmlid="survey_building_use_section.menu_survey_question_owl_article"][title="."]');
+//     if (linkElement) {
+//         linkElement.style.color = '#66598f';
+//         linkElement.removeAttribute('title');
 
-        linkElement.style.setProperty('background-color', 'initial', 'important');
-        linkElement.style.setProperty('text-decoration', 'none', 'important'); 
+//         linkElement.style.setProperty('background-color', 'initial', 'important');
+//         linkElement.style.setProperty('text-decoration', 'none', 'important'); 
 
-        linkElement.style.cursor = 'default';
+//         linkElement.style.cursor = 'default';
 
-        clearInterval(intervalId);
-    }
-}, 10);
+//         clearInterval(intervalId);
+//     }
+// }, 10);
 
 
 

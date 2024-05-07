@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_location_tree2" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2" />
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field name="eligible_for_sales" />
+            </field>
+        </field>
+    </record>
+    <record id="view_location_search" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search" />
+        <field name="arch" type="xml">
+            <filter name="inactive" position="before">
+                <filter
+          string="Eligible for sales"
+          name="eligible-for-sales"
+          domain="[('eligible_for_sales','=',True)]"
+        />
+                <filter
+          string="No eligible for sales"
+          name="no-eligible-for-sales"
+          domain="[('eligible_for_sales','=',False)]"
+        />
+            </filter>
+        </field>
+    </record>
+    <record id="view_location_form" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <field name="return_location" position="after">
+                <field name="eligible_for_sales" />
+            </field>
+        </field>
+    </record>
+</odoo>

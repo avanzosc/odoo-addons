@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_order_form_sale_location_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/form/group/group/field[@name='product_id']" position="after">
+                <field name="location_id" domain="[('company_id','=',parent.company_id), ('usage','=','internal')]" options="{'no_create': True}" />
+            </xpath>
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="after">
+                <!-- <field name="sale_type_id" domain="[('picking_type_id.code','=','outgoing')]" /> -->
+                <field name="sale_type_id" />
+                <field name="location_id" domain="[('company_id','=',parent.company_id), ('usage','=','internal'), ('eligible_for_sales','=',True)]" options="{'no_create': True}" />
+            </xpath>
+            <field name="order_line" position="attributes">
+                <attribute name="context">{'default_commitment_date':commitment_date, 'default_sale_type_id':type_id}</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
