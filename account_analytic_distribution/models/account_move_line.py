@@ -59,8 +59,7 @@ class AccountMoveLine(models.Model):
             "context": self.env.context.copy()
         }
 
-    @api.constrains("analytic_line_ids", "analytic_line_ids.amount",
-                    "debit", "credit")
+    @api.constrains("analytic_line_ids", "debit", "credit")
     def _check_line_distribution(self):
         for line in self:
             if line.analytic_line_ids:
