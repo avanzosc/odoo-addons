@@ -20,29 +20,34 @@ class StockWarehouse(models.Model):
     @api.depends("type_id")
     def _compute_type(self):
         for line in self:
-            line.is_incubator = False
-            line.is_integration = False
-            line.is_reproductor = False
-            line.is_feed_flour = False
-            line.is_medicine = False
+            is_incubator = False
+            is_integration = False
+            is_reproductor = False
+            is_feed_flour = False
+            is_medicine = False
             if (
                 line.type_id) == (
                     self.env.ref("stock_warehouse_farm.categ_type1")):
-                line.is_reproductor = True
+                is_reproductor = True
             if (
                 line.type_id) == (
                     self.env.ref("stock_warehouse_farm.categ_type2")):
-                line.is_integration = True
+                is_integration = True
             if (
                 line.type_id) == (
                     self.env.ref("stock_warehouse_farm.categ_type3")):
-                line.is_medicine = True
+                is_medicine = True
             if (
                 line.type_id) in (
                     self.env.ref("stock_warehouse_farm.categ_type4"),
                     self.env.ref("stock_warehouse_farm.categ_type5")):
-                line.is_feed_flour = True
+                is_feed_flour = True
             if (
                 line.type_id) == (
                     self.env.ref("stock_warehouse_farm.categ_type6")):
-                line.is_incubator = True
+                is_incubator = True
+            line.is_incubator = is_incubator
+            line.is_integration = is_integration
+            line.is_reproductor = is_reproductor
+            line.is_feed_flour = is_feed_flour
+            line.is_medicine = is_medicine

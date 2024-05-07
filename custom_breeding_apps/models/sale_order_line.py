@@ -31,7 +31,11 @@ class SaleOrderLine(models.Model):
         for line in self:
             qty = 0
             if line.product_id and line.product_id.entire_chick_percentage:
-                qty = line.product_uom_qty * line.product_id.entire_chick_percentage / 100
+                qty = (
+                    line.product_uom_qty / (
+                        line.product_id.entire_chick_percentage
+                    )
+                )
             line.entire_chick_percentage = qty
 
     def _check_package(self):

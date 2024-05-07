@@ -20,11 +20,11 @@ class StockPickingType(models.Model):
     @api.depends("category_type_id", "dest_category_type_id")
     def _compute_type(self):
         for line in self:
-            line.is_incubator = False
-            line.is_integration = False
-            line.is_reproductor = False
-            line.is_feed_flour = False
-            line.is_medicine = False
+            is_incubator = False
+            is_integration = False
+            is_reproductor = False
+            is_feed_flour = False
+            is_medicine = False
             reproductor = self.env.ref("stock_warehouse_farm.categ_type1")
             integration = self.env.ref("stock_warehouse_farm.categ_type2")
             medicine = self.env.ref("stock_warehouse_farm.categ_type3")
@@ -34,20 +34,25 @@ class StockPickingType(models.Model):
             if (
                 line.category_type_id == reproductor) or (
                     line.dest_category_type_id == reproductor):
-                line.is_reproductor = True
+                is_reproductor = True
             if (
                 line.category_type_id == integration) or (
                     line.dest_category_type_id == integration):
-                line.is_integration = True
+                is_integration = True
             if (
                 line.category_type_id == medicine) or (
                     line.dest_category_type_id == medicine):
-                line.is_medicine = True
+                is_medicine = True
             if (
                 line.category_type_id in (feed, flour)) or (
                     line.dest_category_type_id in (feed, flour)):
-                line.is_feed_flour = True
+                is_feed_flour = True
             if (
                 line.category_type_id == incubator) or (
                     line.dest_category_type_id == incubator):
-                line.is_incubator = True
+                is_incubator = True
+            line.is_reproductor = is_reproductor
+            line.is_integration = is_integration
+            line.is_medicine = is_medicine
+            line.is_feed_flour = is_feed_flour
+            line.is_incubator = is_incubator

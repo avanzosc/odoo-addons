@@ -54,24 +54,26 @@ class StockPickingBatch(models.Model):
 
     def _compute_chick_entry_qty(self):
         for batch in self:
-            batch.chick_entry_qty = 0
+            chick_entry_qty = 0
             if batch.move_line_ids and batch.batch_type == "breeding":
-                batch.chick_entry_qty = sum(batch.move_line_ids.filtered(
+                chick_entry_qty = sum(batch.move_line_ids.filtered(
                     lambda c: c.product_id.one_day_chicken is True and (
                         c.state == "done") and c.location_dest_id == (
                             batch.location_id)).mapped("qty_done"))
+            batch.chick_entry_qty = chick_entry_qty
 
     def _compute_chick_outflow_qty(self):
         for batch in self:
-            batch.chick_outflow_qty = 0
+            chick_outflow_qty = 0
             if batch.move_line_ids and batch.batch_type == "breeding":
-                batch.chick_outflow_qty = sum(batch.move_line_ids.filtered(
+                chick_outflow_qty = sum(batch.move_line_ids.filtered(
                     lambda c: c.product_id.one_day_chicken is True and (
                         c.state == "done") and c.location_id == (
                             batch.location_id)).mapped("qty_done")) + sum(
                                 batch.move_line_ids.filtered(
                                     lambda c: c.saca_line_id and (
                                         c.state == "done")).mapped("qty_done"))
+            batch.chick_outflow_qty = chick_outflow_qty
 
     def _compute_chick_existece(self):
         for batch in self:
@@ -80,14 +82,15 @@ class StockPickingBatch(models.Model):
 
     def _compute_quant_ids(self):
         for batch in self:
-            batch.quant_ids = False
+            quant_ids = False
             if batch.location_id:
                 cond = [("location_id", "=", batch.location_id.id)]
                 if batch.location_id.child_ids:
                     cond = [("location_id", "in", (
                         batch.location_id.child_ids.ids))]
                 quant = self.env["stock.quant"].search(cond)
-                batch.quant_ids = [(6, 0, quant.ids)]
+                quant_ids = [(6, 0, quant.ids)]
+            batch.quant_ids = quant_ids
 
     def action_view_eggs(self):
         context = self.env.context.copy()
