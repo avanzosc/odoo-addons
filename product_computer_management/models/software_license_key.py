@@ -8,7 +8,4 @@ class SoftwareLicenseKey(models.Model):
     _name = "software.license.key"
     _description = "Software License Key"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

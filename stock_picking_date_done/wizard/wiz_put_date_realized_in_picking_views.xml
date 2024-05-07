@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="wiz_put_date_realized_in_picking_form">
         <field name="name">wiz.put.date.realized.in.picking.form</field>
@@ -10,13 +10,17 @@
                         <group>
                             <field name="custom_date_done" />
                         </group>
-                        <group></group>
+                        <group />
                     </group>
                     <footer>
-                        <button name="action_put_date_realized_in_picking" type="object"
-                            string="Put date realized" class="oe_highlight" />
+                        <button
+              name="action_put_date_realized_in_picking"
+              type="object"
+              string="Put date realized"
+              class="oe_highlight"
+            />
                         or
-                        <button string="Cancel" class="oe_link" special="cancel"/>
+                        <button string="Cancel" class="oe_link" special="cancel" />
                     </footer>
                 </sheet>
             </form>

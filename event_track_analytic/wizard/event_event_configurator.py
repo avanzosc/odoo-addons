@@ -1,10 +1,10 @@
 # Copyright Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, api
+from odoo import api, models
 
 
 class EventConfigurator(models.TransientModel):
-    _inherit = 'event.event.configurator'
+    _inherit = "event.event.configurator"
 
     @api.onchange("event_id")
     def _onchange_event_id(self):

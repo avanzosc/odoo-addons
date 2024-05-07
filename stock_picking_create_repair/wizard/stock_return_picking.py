@@ -7,9 +7,7 @@ class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
 
     def _create_returns(self):
-        new_picking_id, picking_type_id = super(
-            StockReturnPicking, self
-        )._create_returns()
+        new_picking_id, picking_type_id = super()._create_returns()
         new_picking = self.env["stock.picking"].browse(new_picking_id)
         for line in self.picking_id.move_line_ids.filtered(
             lambda x: x.state == "done" and x.is_repair and x.lot_id and x.sale_line_id

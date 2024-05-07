@@ -10,22 +10,24 @@ class SaleOrderLine(models.Model):
         string="Saca",
         comodel_name="saca",
         related="auto_purchase_line_id.saca_id",
-        store=True)
+        store=True,
+    )
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line",
         related="auto_purchase_line_id.saca_line_id",
-        store=True)
+        store=True,
+    )
     farm_id = fields.Many2one(
         string="Farm",
         comodel_name="res.partner",
         related="auto_purchase_line_id.farm_id",
-        store=True)
+        store=True,
+    )
     farmer_id = fields.Many2one(
         string="Farmer",
         comodel_name="res.partner",
         related="auto_purchase_line_id.farmer_id",
-        store=True)
-    surplus = fields.Boolean(
-        string="Surplus",
-        default=False)
+        store=True,
+    )
+    surplus = fields.Boolean(string="Surplus", default=False)

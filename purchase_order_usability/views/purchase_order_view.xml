@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="purchase_order_kpis_tree" model="ir.ui.view">
         <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
         <field name="arch" type="xml">
             <field name="date_approve" position="attributes">
                 <attribute name="invisible">0</attribute>
@@ -12,10 +11,10 @@
                 <attribute name="invisible">0</attribute>
             </field>
             <field name="date_planned" position="after">
-                <field name="effective_date" optional="show"/>
+                <field name="effective_date" optional="show" />
             </field>
             <field name="partner_id" position="after">
-                <field name="warehouse_id" optional="show"/>
+                <field name="warehouse_id" optional="show" />
             </field>
         </field>
     </record>

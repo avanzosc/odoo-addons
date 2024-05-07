@@ -54,9 +54,13 @@ class StockMoveLine(models.Model):
         if self.picking_id.sale_order_id:
             sale = self.picking_id.sale_order_id
             vals["partner_invoice_id"] = (
-                sale.partner_invoice_id.id if sale.partner_invoice_id else
-                sale.partner_id.id)
+                sale.partner_invoice_id.id
+                if sale.partner_invoice_id
+                else sale.partner_id.id
+            )
             vals["address_id"] = (
-                sale.partner_shipping_id.id if sale.partner_shipping_id else
-                sale.partner_id.id)
+                sale.partner_shipping_id.id
+                if sale.partner_shipping_id
+                else sale.partner_id.id
+            )
         return vals

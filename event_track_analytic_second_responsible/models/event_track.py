@@ -4,12 +4,13 @@ from odoo import models
 
 
 class EventTrack(models.Model):
-    _inherit = 'event.track'
+    _inherit = "event.track"
 
     def _create_analytic_line(self):
-        result = super(EventTrack, self)._create_analytic_line()
+        result = super()._create_analytic_line()
         if self.second_responsible_id:
             values = self._catch_values_for_create_analytic_line(
-                self.second_responsible_id)
-            self.env['account.analytic.line'].create(values)
+                self.second_responsible_id
+            )
+            self.env["account.analytic.line"].create(values)
         return result

@@ -15,8 +15,12 @@
                 <field name="qty_on_hand" readonly="1" optional="show" />
                 <field name="qty_forecast" readonly="1" optional="show" />
                 <field name="virtual_available" readonly="1" optional="show" />
-                <field name="forecaster_distinct_forecast" readonly="1" optional="show" />
-                <field name="lead_days_date" optional="show"/>
+                <field
+          name="forecaster_distinct_forecast"
+          readonly="1"
+          optional="show"
+        />
+                <field name="lead_days_date" optional="show" />
                 <field name="route_id" optional="show" />
             </field>
             <field name="qty_multiple" position="replace" />
@@ -26,19 +30,38 @@
             </field>
             <field name="product_uom_name" position="after">
                 <button
-                          name="button_recompute_qty_to_order"
-                          type="object"
-                          icon="fa-refresh"
-                          attrs="{'invisible': [('id', '=', False)]}"
-                        />
+          name="button_recompute_qty_to_order"
+          type="object"
+          icon="fa-refresh"
+          attrs="{'invisible': [('id', '=', False)]}"
+        />
             </field>
             <field name="company_id" position="after">
-                <button name="action_replenish" string="Order Once" type="object" class="o_replenish_buttons" icon="fa-truck"
-                    attrs="{'invisible': [('qty_to_order', '&lt;=', 0.0)]}"/>
-                <button name="action_replenish_auto" string="Automate Orders" type="object" class="o_replenish_buttons" icon="fa-refresh"
-                    attrs="{'invisible': ['|', ('qty_to_order', '&lt;=', 0.0), ('trigger', '=', 'auto')]}"/>
-                <button name="%(stock.action_orderpoint_snooze)d" string="Snooze" type="action" class="text-warning" icon="fa-bell-slash"
-                    attrs="{'invisible': [('trigger', '!=', 'manual')]}" context="{'default_orderpoint_ids': [id]}"/>
+                <button
+          name="action_replenish"
+          string="Order Once"
+          type="object"
+          class="o_replenish_buttons"
+          icon="fa-truck"
+          attrs="{'invisible': [('qty_to_order', '&lt;=', 0.0)]}"
+        />
+                <button
+          name="action_replenish_auto"
+          string="Automate Orders"
+          type="object"
+          class="o_replenish_buttons"
+          icon="fa-refresh"
+          attrs="{'invisible': ['|', ('qty_to_order', '&lt;=', 0.0), ('trigger', '=', 'auto')]}"
+        />
+                <button
+          name="%(stock.action_orderpoint_snooze)d"
+          string="Snooze"
+          type="action"
+          class="text-warning"
+          icon="fa-bell-slash"
+          attrs="{'invisible': [('trigger', '!=', 'manual')]}"
+          context="{'default_orderpoint_ids': [id]}"
+        />
                 <button
           name="open_form_view"
           type="object"
@@ -63,9 +86,9 @@
         />
             </button>
             <field name="route_id" position="before">
-                <field name="virtual_available" optional="show"/>
-                <field name="forecaster_distinct_forecast" optional="show"/>
-                <field name="lead_days_date" optional="show"/>
+                <field name="virtual_available" optional="show" />
+                <field name="forecaster_distinct_forecast" optional="show" />
+                <field name="lead_days_date" optional="show" />
             </field>
         </field>
     </record>
@@ -118,15 +141,19 @@
         <field name="inherit_id" ref="stock.stock_reorder_report_search" />
         <field name="arch" type="xml">
             <field name="location_id" position="after">
-                <field name="forecaster_distinct_forecast"/>
+                <field name="forecaster_distinct_forecast" />
             </field>
             <filter name="filter_to_reorder" position="after">
-                <filter string="Forecaster distinct forecast"
-                    name="filter_distinct"
-                    domain="[('forecaster_distinct_forecast', '=', True)]"/>
-                <filter string="Forecaster NOT distinct forecast"
-                    name="filter_not_distinct"
-                    domain="[('forecaster_distinct_forecast', '=', False)]"/>
+                <filter
+          string="Forecaster distinct forecast"
+          name="filter_distinct"
+          domain="[('forecaster_distinct_forecast', '=', True)]"
+        />
+                <filter
+          string="Forecaster NOT distinct forecast"
+          name="filter_not_distinct"
+          domain="[('forecaster_distinct_forecast', '=', False)]"
+        />
             </filter>
         </field>
     </record>
@@ -136,15 +163,19 @@
         <field name="inherit_id" ref="stock.warehouse_orderpoint_search" />
         <field name="arch" type="xml">
             <field name="location_id" position="after">
-                <field name="forecaster_distinct_forecast"/>
+                <field name="forecaster_distinct_forecast" />
             </field>
             <filter name="inactive" position="after">
-                <filter string="Forecaster distinct forecast"
-                    name="filter_distinct"
-                    domain="[('forecaster_distinct_forecast', '=', True)]"/>
-                <filter string="Forecaster NOT distinct forecast"
-                    name="filter_not_distinct"
-                    domain="[('forecaster_distinct_forecast', '=', False)]"/>
+                <filter
+          string="Forecaster distinct forecast"
+          name="filter_distinct"
+          domain="[('forecaster_distinct_forecast', '=', True)]"
+        />
+                <filter
+          string="Forecaster NOT distinct forecast"
+          name="filter_not_distinct"
+          domain="[('forecaster_distinct_forecast', '=', False)]"
+        />
             </filter>
         </field>
     </record>

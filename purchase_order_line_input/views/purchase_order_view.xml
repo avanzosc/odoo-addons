@@ -5,14 +5,54 @@
         <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
         <field name="arch" type="xml">
             <field name="amount_total" position="after">
-                <field name="price_subtotal_to_invoice" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
-                <field name="price_total_to_invoice" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
-                <field name="price_subtotal_to_receive" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
-                <field name="price_total_to_receive" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
-                <field name="price_subtotal_invoiced" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
-                <field name="price_total_invoiced" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
-                <field name="price_subtotal_received" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_excluded"/>
-                <field name="price_total_received" optional="hide" widget="monetary" groups="account.group_show_line_subtotals_tax_included"/>
+                <field
+          name="price_subtotal_to_invoice"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_excluded"
+        />
+                <field
+          name="price_total_to_invoice"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_included"
+        />
+                <field
+          name="price_subtotal_to_receive"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_excluded"
+        />
+                <field
+          name="price_total_to_receive"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_included"
+        />
+                <field
+          name="price_subtotal_invoiced"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_excluded"
+        />
+                <field
+          name="price_total_invoiced"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_included"
+        />
+                <field
+          name="price_subtotal_received"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_excluded"
+        />
+                <field
+          name="price_total_received"
+          optional="hide"
+          widget="monetary"
+          groups="account.group_show_line_subtotals_tax_included"
+        />
             </field>
         </field>
     </record>

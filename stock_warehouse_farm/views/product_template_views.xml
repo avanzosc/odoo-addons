@@ -5,12 +5,14 @@
         <field name="inherit_id" ref="product.product_template_search_view" />
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
-                 <field name="category_type_id"/>
+                 <field name="category_type_id" />
              </field>
              <filter name="categ_id" position="after">
-                <filter string="Category Type / Section"
-                        name="group_category_type_id"
-                        context="{'group_by':'category_type_id'}" />
+                <filter
+          string="Category Type / Section"
+          name="group_category_type_id"
+          context="{'group_by':'category_type_id'}"
+        />
              </filter>
         </field>
     </record>
@@ -20,7 +22,7 @@
         <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
-                <field name="category_type_id" optional="hide"/>
+                <field name="category_type_id" optional="hide" />
             </field>
         </field>
     </record>
@@ -30,8 +32,8 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
-                <field name="category_type_id"/>
-                <field name="type_ids" widget="many2many_tags"/>
+                <field name="category_type_id" />
+                <field name="type_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>

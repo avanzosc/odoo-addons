@@ -11,8 +11,7 @@
         "product_storable_generate_task",
         "sale_order_line_cost",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
     "auto_install": True,
 }

@@ -63,7 +63,7 @@ class SaleOrderLine(models.Model):
     @api.onchange("product_id")
     def product_id_change(self):
         warning = {}
-        result = super(SaleOrderLine, self).product_id_change()
+        result = super().product_id_change()
         if self.product_id and self.product_id.is_repair:
             lit_message = _("You must enter the product to repair")
             if "warning" not in result:
@@ -102,7 +102,7 @@ class SaleOrderLine(models.Model):
 
     def _prepare_invoice_line(self, **optional_values):
         self.ensure_one()
-        values = super(SaleOrderLine, self)._prepare_invoice_line(**optional_values)
+        values = super()._prepare_invoice_line(**optional_values)
         repairs = self.repair_order_ids.filtered(
             lambda x: not x.invoice_id
             and x.state in ("done", "2binvoiced")
@@ -297,7 +297,7 @@ class SaleOrderLine(models.Model):
             )
             line._compute_qty_delivered_method()
             my_lines += line
-        result = super(SaleOrderLine, self)._compute_qty_delivered()
+        result = super()._compute_qty_delivered()
         for line in my_lines:
             line.write(
                 {
@@ -324,7 +324,7 @@ class SaleOrderLine(models.Model):
             )
             line._compute_qty_delivered_method()
             my_lines += line
-        result = super(SaleOrderLine, self)._inverse_qty_delivered()
+        result = super()._inverse_qty_delivered()
         for line in my_lines:
             line.write(
                 {

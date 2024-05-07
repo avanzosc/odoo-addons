@@ -7,10 +7,9 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def action_confirm(self):
-        result = super(SaleOrder, self).action_confirm()
+        result = super().action_confirm()
         for sale in self:
-            sale_lines = sale.order_line.filtered(
-                lambda x: x.product_id)
+            sale_lines = sale.order_line.filtered(lambda x: x.product_id)
             for sale_line in sale_lines:
                 sale_line.check_sequence_notes_in_purchase()
         return result

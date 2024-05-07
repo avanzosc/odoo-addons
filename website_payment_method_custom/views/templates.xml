@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="address_bank_account" inherit_id="website_bank_account.address_bank_account">
+    <template
+    id="address_bank_account"
+    inherit_id="website_bank_account.address_bank_account"
+  >
         <xpath expr="//input[@name='field_required']" position="replace">
             <input type="hidden" name="field_required" t-att-value="required_list" />
         </xpath>
@@ -9,16 +12,19 @@
         </xpath>
     </template>
     <template id="payment" inherit_id="website_sale.payment">
-        <xpath expr="//div[@id='payment_method']/t/t[@t-set='submit_txt']" position="replace">
+        <xpath
+      expr="//div[@id='payment_method']/t/t[@t-set='submit_txt']"
+      position="replace"
+    >
             <t t-set="submit_txt">
-                <t t-if="submit_txt"><t t-esc="submit_txt"/></t>
+                <t t-if="submit_txt"><t t-esc="submit_txt" /></t>
                 <t t-else="">Pay Now</t>
             </t>
         </xpath>
     </template>
     <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
         <xpath expr="//a/span" position="replace">
-            <t t-if="submit_txt"><span><t t-esc="submit_txt"/></span></t>
+            <t t-if="submit_txt"><span><t t-esc="submit_txt" /></span></t>
             <t t-else=""><span>Process Checkout</span></t>
         </xpath>
     </template>

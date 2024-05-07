@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Breeding Apps",
-    'version': '14.0.2.0.0',
+    "version": "14.0.2.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "website": "http://www.avanzosc.es",
@@ -24,7 +24,7 @@
         "board",
         "account",
         "sale_order_to_payment",
-        "stock_production_lot_purchase_cost"
+        "stock_production_lot_purchase_cost",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -51,5 +51,5 @@
         "views/sale_order_view.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

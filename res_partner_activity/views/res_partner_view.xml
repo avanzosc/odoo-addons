@@ -2,38 +2,58 @@
 <odoo>
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="category_id" position="after">
-                <field name="principal_activity_id" widget="selection"/>
-                <field name="principal_activity_water" invisible="1"/>
-                <field name="principal_activity_industry" invisible="1"/>
-                <field name="water_subactivity_id" attrs="{'invisible': [('principal_activity_water', '=', False)]}" widget="selection"/>
-                <field name="general_industry_subactivity_id" attrs="{'invisible': [('principal_activity_industry', '=', False)]}" widget="selection"/>
+                <field name="principal_activity_id" widget="selection" />
+                <field name="principal_activity_water" invisible="1" />
+                <field name="principal_activity_industry" invisible="1" />
+                <field
+          name="water_subactivity_id"
+          attrs="{'invisible': [('principal_activity_water', '=', False)]}"
+          widget="selection"
+        />
+                <field
+          name="general_industry_subactivity_id"
+          attrs="{'invisible': [('principal_activity_industry', '=', False)]}"
+          widget="selection"
+        />
             </field>
         </field>
     </record>
 
     <record id="view_partner_tree" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="inherit_id" ref="base.view_partner_tree" />
         <field name="arch" type="xml">
             <field name="country_id" position="after">
-                <field name="principal_activity_id"/>
-                <field name="water_subactivity_id"/>
-                <field name="general_industry_subactivity_id"/>
+                <field name="principal_activity_id" />
+                <field name="water_subactivity_id" />
+                <field name="general_industry_subactivity_id" />
             </field>
         </field>
     </record>
 
     <record id="view_res_partner_filter" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
         <field name="arch" type="xml">
             <filter name="group_country" position="after">
-                <filter name="principal_activity" string="Principal Activity" context="{'group_by': 'principal_activity_id'}"/>
-                <filter name="water_subactivity" string="Water Subactivity" context="{'group_by': 'water_subactivity_id'}"/>
-                <filter name="general_industry_subactivity" string="General Industry Subactivity" context="{'group_by': 'general_industry_subactivity_id'}"/>
+                <filter
+          name="principal_activity"
+          string="Principal Activity"
+          context="{'group_by': 'principal_activity_id'}"
+        />
+                <filter
+          name="water_subactivity"
+          string="Water Subactivity"
+          context="{'group_by': 'water_subactivity_id'}"
+        />
+                <filter
+          name="general_industry_subactivity"
+          string="General Industry Subactivity"
+          context="{'group_by': 'general_industry_subactivity_id'}"
+        />
             </filter>
         </field>
     </record>

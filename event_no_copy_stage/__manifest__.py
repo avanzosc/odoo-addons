@@ -10,8 +10,7 @@
     "depends": [
         "event",
     ],
-    "data": [
-    ],
-    'installable': True,
-    'auto_install': True,
+    "data": [],
+    "installable": True,
+    "auto_install": True,
 }
