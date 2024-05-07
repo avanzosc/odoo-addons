@@ -9,7 +9,10 @@ class ResCompany(models.Model):
 
     partner_barcode_unique = fields.Selection(
         selection=[
-            ('none', 'None'),
-            ('companies', 'Only companies'),
-            ('all', 'All partners'),
-        ], string="Unique partner barcode for", default="none")
+            ("none", "None"),
+            ("companies", "Only companies"),
+            ("all", "All partners"),
+        ],
+        string="Unique partner barcode for",
+        default="none",
+    )
