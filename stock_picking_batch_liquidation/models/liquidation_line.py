@@ -108,22 +108,26 @@ class LiquidationLine(models.Model):
     def onchange_unit(self):
         self.ensure_one()
         n = 1
+        amount = self.amount
         if self.type == "charge":
             n = -1
         if self.type == "variable":
             if self.batch_id.difference < 0:
                 n = -1
         if self.unit:
-            self.amount = n * self.unit * self.price
+            amount = n * self.unit * self.price
         if self.quantity:
-            self.amount = n * self.quantity * self.price
+            amount = n * self.quantity * self.price
+        self.amount = amount
 
     @api.onchange("amount")
     def onchange_amount(self):
         self.ensure_one()
         if self.amount > 0:
-            self.amount_pay = self.amount
-            self.amount_charge = 0
+            amount_pay = self.amount
+            amount_charge = 0
         else:
-            self.amount_charge = abs(self.amount)
-            self.amount_pay = 0
+            amount_charge = abs(self.amount)
+            amount_pay = 0
+        self.amount_pay = amount_pay
+        self.amount_charge = amount_charge

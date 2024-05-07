@@ -304,7 +304,7 @@ class StockPickingBatch(models.Model):
                  "location_id")
     def _compute_medicine(self):
         for batch in self:
-            batch.medicine_qty = 0
+            medicine_qty = 0
             try:
                 move_type = self.env.ref(
                     "stock_picking_batch_liquidation.move_type4")
@@ -315,54 +315,58 @@ class StockPickingBatch(models.Model):
                     lambda c: c.move_type_id == move_type and (
                         c.state == "done") and c.location_dest_id == (
                             batch.location_id)).mapped("qty_done"))
-                if medicine_qty:
-                    batch.medicine_qty = medicine_qty
+            batch.medicine_qty = medicine_qty
 
     @api.depends("warehouse_id", "warehouse_id.farm_area", "chick_units")
     def _compute_density(self):
         for batch in self:
+            density = 0
             if batch.warehouse_id and batch.warehouse_id.farm_area != 0:
-                batch.density = (
+                density = (
                     batch.chick_units / batch.warehouse_id.farm_area)
+            batch.density = density
 
     @api.depends("stage_id")
     def _compute_closed(self):
         for batch in self:
             try:
-                closed = (
+                closed_type = (
                     self.env.ref("stock_warehouse_farm.batch_stage3"))
-                if batch.stage_id == closed:
-                    batch.closed = True
+                if batch.stage_id == closed_type:
+                    closed = True
                 else:
-                    batch.closed = False
+                    closed = False
             except Exception:
-                batch.closed = False
+                closed = False
+            batch.closed = closed
 
     @api.depends("stage_id")
     def _compute_liquidated(self):
         for batch in self:
             try:
-                liquidated = (
+                liquidated_type = (
                     self.env.ref("stock_picking_batch_breeding.batch_stage5"))
-                if batch.stage_id == liquidated:
-                    batch.liquidated = True
+                if batch.stage_id == liquidated_type:
+                    liquidated = True
                 else:
-                    batch.liquidated = False
+                    liquidated = False
             except Exception:
-                batch.liquidated = False
+                liquidated = False
+            batch.liquidated = liquidated
 
     @api.depends("stage_id")
     def _compute_billed(self):
         for batch in self:
             try:
-                billed = (
+                billed_type = (
                     self.env.ref("stock_picking_batch_breeding.batch_stage6"))
-                if batch.stage_id == billed:
-                    batch.billed = True
+                if batch.stage_id == billed_type:
+                    billed = True
                 else:
-                    batch.billed = False
+                    billed = False
             except Exception:
-                batch.billed = False
+                billed = False
+            batch.billed = billed
 
     @api.depends("move_line_ids", "move_line_ids.product_id",
                  "move_line_ids.lot_id", "move_line_ids.lot_id.batch_id",
@@ -396,7 +400,6 @@ class StockPickingBatch(models.Model):
                  "liquidation_line_ids.amount")
     def _compute_liquidation_amount(self):
         for line in self:
-            line.liquidation_amount = 0
             liquidation_amount = sum(line.liquidation_line_ids.mapped(
                 "amount"))
             if line.liquidation_line_ids and liquidation_amount != 0:
@@ -410,39 +413,43 @@ class StockPickingBatch(models.Model):
                  "warehouse_id.farm_area")
     def _compute_cancellation_area(self):
         for line in self:
-            line.cancellation_area = 0
+            cancellation_area = 0
             if line.warehouse_id.farm_area != 0:
-                line.cancellation_area = (
+                cancellation_area = (
                     line.chick_units - line.output_units) / (
                         line.warehouse_id.farm_area)
+            line.cancellation_area = cancellation_area
 
     @api.depends("meat_kilos", "warehouse_id", "warehouse_id.farm_area")
     def _compute_meat_area(self):
         for line in self:
-            line.meat_area = 0
+            meat_area = 0
             if line.warehouse_id.farm_area != 0:
-                line.meat_area = line.meat_kilos / line.warehouse_id.farm_area
+                meat_area = line.meat_kilos / line.warehouse_id.farm_area
+            line.meat_area = meat_area
 
     @api.depends("output_units", "warehouse_id", "warehouse_id.farm_area")
     def _compute_output_area(self):
         for line in self:
-            line.output_area = 0
+            output_area = 0
             if line.warehouse_id.farm_area != 0:
-                line.output_area = (
+                output_area = (
                     line.output_units / line.warehouse_id.farm_area)
+            line.output_area = output_area
 
     @api.depends("chick_units", "warehouse_id", "warehouse_id.farm_area")
     def _compute_entry_area(self):
         for line in self:
-            line.entry_area = 0
+            entry_area = 0
             if line.warehouse_id.farm_area != 0:
-                line.entry_area = (
+                entry_area = (
                     line.chick_units / line.warehouse_id.farm_area)
+            line.entry_area = entry_area
 
     @api.depends("entry_date", "move_line_ids", "move_line_ids.date")
     def _compute_farm_day(self):
         for line in self:
-            line.farm_day = 0
+            farm_day = 0
             try:
                 move_type = self.env.ref(
                     "stock_picking_batch_liquidation.move_type3")
@@ -459,7 +466,8 @@ class StockPickingBatch(models.Model):
                     date = date.replace(
                         tzinfo=pytz.timezone('UTC')).astimezone(timezone)
                     dif = date.date() - line.entry_date
-                    line.farm_day = dif.days - 1
+                    farm_day = dif.days - 1
+            line.farm_day = farm_day
 
     @api.depends("liquidation_max", "output_units")
     def _compute_max(self):
@@ -490,7 +498,7 @@ class StockPickingBatch(models.Model):
                  "liquidation_contract_id.feed_rate_ids")
     def _compute_feed_price(self):
         for line in self:
-            line.feed_price = 0
+            feed_price = 0
             if (
                 line.liquidation_contract_id) and (
                     line.liquidation_contract_id.feed_rate_ids):
@@ -498,35 +506,38 @@ class StockPickingBatch(models.Model):
                     line.liquidation_contract_id.feed_rate_ids.filtered(
                         lambda c: c.feed == line.feed))
                 if feed_line and len(feed_line) == 1:
-                    line.feed_price = feed_line.price
+                    feed_price = feed_line.price
+            line.feed_price = feed_price
 
     @api.depends("growth_speed", "correction_factor")
     def _compute_amount(self):
         for line in self:
-            line.amount = 0
+            amount = 0
             if line.correction_factor != 0:
-                line.amount = line.growth_speed / line.correction_factor
+                amount = line.growth_speed / line.correction_factor
+            line.amount = amount
 
     @api.depends("growth_speed", "conversion", "cancellation_percentage")
     def _compute_feed(self):
         for line in self:
-            line.feed = 0
+            feed = 0
             if line.conversion != 0:
-                feed = line.growth_speed * (
+                feed = round(line.growth_speed * (
                     100 - line.cancellation_percentage) / (
-                        line.conversion * 10)
-                line.feed = round(feed, 0)
+                        line.conversion * 10), 0)
+            line.feed = feed
 
     @api.depends("meat_kilos", "consume_feed")
     def _compute_conversion(self):
         for line in self:
-            line.conversion = 0
+            conversion = 0
             if line.meat_kilos != 0:
-                line.conversion = line.consume_feed / line.meat_kilos
+                conversion = line.consume_feed / line.meat_kilos
+            line.conversion = conversion
 
     def _compute_consume_feed(self):
         for line in self:
-            line.consume_feed = 0
+            consume_feed = 0
             try:
                 move_type = self.env.ref(
                     "stock_picking_batch_liquidation.move_type5")
@@ -539,30 +550,34 @@ class StockPickingBatch(models.Model):
                             line.location_id) and not c.picking_id).mapped(
                                 "qty_done"))
                 if out_qty:
-                    line.consume_feed = out_qty
+                    consume_feed = out_qty
+            line.consume_feed = consume_feed
 
     @api.depends("output_units", "chick_units")
     def _compute_cancellation_percentage(self):
         for line in self:
-            line.cancellation_percentage = 0
+            cancellation_percentage = 0
             if line.chick_units != 0:
-                line.cancellation_percentage = (
+                cancellation_percentage = (
                     100 - (line.output_units * 100) / line.chick_units)
+            line.cancellation_percentage = cancellation_percentage
 
     @api.depends("meat_kilos", "output_units", "average_age")
     def _compute_growth_speed(self):
         for line in self:
-            line.growth_speed = 0
+            growth_speed = 0
             if line.output_units != 0 and line.average_age != 0:
-                line.growth_speed = line.meat_kilos * 1000 / (
+                growth_speed = line.meat_kilos * 1000 / (
                     line.output_units * line.average_age)
+            line.growth_speed = growth_speed
 
     @api.depends("output_units", "output_amount_days")
     def _compute_average_age(self):
         for line in self:
-            line.average_age = 0
+            average_age = 0
             if line.output_units != 0:
-                line.average_age = line.output_amount_days / line.output_units
+                average_age = line.output_amount_days / line.output_units
+            line.average_age = average_age
 
     @api.depends("move_line_ids", "move_line_ids.qty_done",
                  "move_line_ids.product_id",
@@ -574,35 +589,40 @@ class StockPickingBatch(models.Model):
                  "move_line_ids.download_unit")
     def _compute_outputs_units(self):
         for line in self:
-            line.output_units = 0
-            line.output_amount = 0
-            line.meat_kilos = 0
+            output_units = 0
+            output_amount = 0
+            output_amount_days = 0
+            meat_kilos = 0
             try:
                 move_type = self.env.ref(
                     "stock_picking_batch_liquidation.move_type3")
             except Exception:
                 move_type = False
             if line.move_line_ids and move_type:
-                line.output_units = sum(line.move_line_ids.filtered(
+                output_units = sum(line.move_line_ids.filtered(
                     lambda c: c.move_type_id == move_type and (
                         c.state == "done") and c.location_id == (
                             line.location_id) and c.picking_id).mapped(
                                 "download_unit"))
-                line.output_amount = sum(line.move_line_ids.filtered(
+                output_amount = sum(line.move_line_ids.filtered(
                     lambda c: c.move_type_id == move_type and (
                         c.state == "done") and c.location_id == (
                             line.location_id) and c.picking_id).mapped(
                                 "amount"))
-                line.output_amount_days = sum(line.move_line_ids.filtered(
+                output_amount_days = sum(line.move_line_ids.filtered(
                     lambda c: c.move_type_id == move_type and (
                         c.state == "done") and c.location_id == (
                             line.location_id) and c.picking_id).mapped(
                                 "amount_days"))
-                line.meat_kilos = sum(line.move_line_ids.filtered(
+                meat_kilos = sum(line.move_line_ids.filtered(
                     lambda c: c.move_type_id == move_type and (
                         c.state == "done") and c.location_id == (
                             line.location_id) and c.picking_id).mapped(
                                 "qty_done"))
+            line.output_units = output_units
+            line.output_amount = output_amount
+            line.output_amount_days = output_amount_days
+            line.meat_kilos = meat_kilos
 
     @api.depends("move_line_ids", "move_line_ids.qty_done",
                  "move_line_ids.product_id",
@@ -610,19 +630,22 @@ class StockPickingBatch(models.Model):
                  "move_line_ids.state")
     def _compute_chick_units(self):
         for line in self:
-            line.chick_units = 0
+            chick_units = 0
             if line.move_line_ids:
                 entries = sum(line.move_line_ids.filtered(
                     lambda c: c.product_id.one_day_chicken and (
-                        c.state == "done" and (
-                            c.location_dest_id == line.location_id)
-                        )).mapped("qty_done"))
+                        c.state == "done"
+                    ) and c.location_dest_id == line.location_id and (
+                        c.picking_id
+                    )).mapped("qty_done")
+                )
                 outputs = sum(line.move_line_ids.filtered(
                     lambda c: c.product_id.one_day_chicken and (
                         c.state == "done") and c.location_id == (
                             line.location_id) and c.picking_id).mapped(
                                 "qty_done"))
-                line.chick_units = entries - outputs
+                chick_units = entries - outputs
+            line.chick_units = chick_units
 
     @api.depends("move_line_ids", "move_line_ids.move_type_id",
                   "move_line_ids.location_dest_id", "move_line_ids.amount",
@@ -636,7 +659,7 @@ class StockPickingBatch(models.Model):
                 entry_line = batch.move_line_ids.filtered(
                     lambda c: c.move_type_id == chick_type and (
                         c.location_dest_id == batch.location_id
-                    ) and c.state == "done")
+                    ) and c.state == "done" and c.picking_id)
                 dev_lines = batch.move_line_ids.filtered(
                     lambda c: c.move_type_id == chick_type and (
                         c.location_id == batch.location_id
