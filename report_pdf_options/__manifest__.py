@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': 'Pdf report options',
     'summary': """shows a modal window with options for printing, downloading or opening pdf reports""",
