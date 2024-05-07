@@ -55,9 +55,12 @@ class StockMoveLine(models.Model):
                 mother = line.move_id.inventory_id.batch_id.id
             line.mother_id = mother
 
-    @api.depends("picking_type_id", "picking_type_id.category_id", "production_id",
-                 "production_id.picking_type_id",
-                 "production_id.picking_type_id.category_id")
+    @api.depends("picking_type_id", "picking_type_id.category_id",
+                 "production_id", "production_id.picking_type_id",
+                 "production_id.picking_type_id.category_id", "move_id",
+                 "move_id.raw_material_production_id",
+                 "move_id.raw_material_production_id.picking_type_id",
+                 "move_id.raw_material_production_id.picking_type_id.category_id")
     def _compute_type_category_id(self):
         for line in self:
             categ = False
@@ -65,6 +68,10 @@ class StockMoveLine(models.Model):
                 categ = line.picking_type_id.category_id.id
             elif line.production_id:
                 categ = line.production_id.picking_type_id.category_id.id
+            elif line.move_id and line.move_id.production_id:
+                categ = line.move_id.production_id.picking_type_id.category_id.id
+            elif line.move_id and line.move_id.raw_material_production_id:
+                categ = line.move_id.raw_material_production_id.picking_type_id.category_id.id
             else:
                 regularization = self.env.ref(
                     "stock_picking_batch_liquidation.picking_type_categ_regu")
@@ -80,7 +87,7 @@ class StockMoveLine(models.Model):
                  "mother_id.move_line_ids.date")
     def _compute_weight_area(self):
         for line in self:
-            line.weight_area = 0
+            weight_area = 0
             move_type3 = (
                 self.env.ref("stock_picking_batch_liquidation.move_type3"))
             if line.move_type_id == move_type3:
@@ -91,15 +98,17 @@ class StockMoveLine(models.Model):
                 if before_lines:
                     units = units - sum(before_lines.mapped("download_unit"))
                 if line.farm_area != 0:
-                    line.weight_area = units * line.average_weight / line.farm_area
+                    weight_area = units * line.average_weight / line.farm_area
+            line.weight_area = weight_area
 
     @api.depends("download_unit", "qty_done")
     def _compute_average_weight(self):
         for line in self:
-            line.average_weight = 0
+            average_weight = 0
             unit = self.env.ref("uom.product_uom_unit")
             if line.download_unit != 0 and line.product_uom_id != unit:
-                line.average_weight = line.qty_done / line.download_unit
+                average_weight = line.qty_done / line.download_unit
+            line.average_weight = average_weight
 
     @api.depends("days", "download_unit")
     def _compute_amount_days(self):
@@ -110,7 +119,7 @@ class StockMoveLine(models.Model):
                  "mother_id.entry_date")
     def _compute_days(self):
         for line in self:
-            line.days = 0
+            days = 0
             if line.mother_id and line.mother_id.entry_date and (
                 line.date) and (
                     line.mother_id.batch_type == "breeding"):
@@ -119,7 +128,8 @@ class StockMoveLine(models.Model):
                 line_date = line_date.replace(
                 tzinfo=pytz.timezone('UTC')).astimezone(timezone)
                 dif = line_date.date() - line.mother_id.entry_date
-                line.days = dif.days - 1
+                days = dif.days - 1
+            line.days = days
 
     @api.onchange('product_id', 'product_uom_id', 'lot_id')
     def _onchange_product_id(self):

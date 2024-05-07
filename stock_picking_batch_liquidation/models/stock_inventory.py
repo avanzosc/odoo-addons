@@ -27,7 +27,7 @@ class StockInventory(models.Model):
     @api.depends("accounting_date")
     def _compute_date_week(self):
         for line in self:
-            line.accounting_date_week = 0
+            accounting_date_week = 0
             if line.accounting_date:
                 start_date = datetime(
                     line.accounting_date.year, 1, 1, 0, 0).date()
@@ -42,7 +42,8 @@ class StockInventory(models.Model):
                 week = line.weeks_between(start_date, end_date)
                 if week == 53:
                     week = 1
-                line.accounting_date_week = week
+                accounting_date_week = week
+            line.accounting_date_week = accounting_date_week
 
     def weeks_between(self, start_date, end_date):
         weeks = rrule.rrule(rrule.WEEKLY, dtstart=start_date, until=end_date)
