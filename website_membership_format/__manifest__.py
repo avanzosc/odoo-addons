@@ -7,15 +7,13 @@
     "category": "website",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "portal",
         "purchase",
         "website_membership",
-        "geonames_delivery_zone_link"
+        "geonames_delivery_zone_link",
     ],
-    "data": [
-        "views/website_membership_format_template.xml"
-    ],
+    "data": ["views/website_membership_format_template.xml"],
     "installable": True,
 }

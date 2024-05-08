@@ -36,9 +36,24 @@
                 <field name="supplier_city" />
             </xpath>
             <xpath expr="//filter[@name='groupby_vendor']" position="after">
-                <filter string="Zone" name="groupby_zone" domain="[]" context="{'group_by': 'supplier_zone'}" />
-                <filter string="State" name="groupby_state" domain="[]" context="{'group_by': 'supplier_state'}" />
-                <filter string="City" name="groupby_city" domain="[]" context="{'group_by': 'supplier_city'}" />
+                <filter
+          string="Zone"
+          name="groupby_zone"
+          domain="[]"
+          context="{'group_by': 'supplier_zone'}"
+        />
+                <filter
+          string="State"
+          name="groupby_state"
+          domain="[]"
+          context="{'group_by': 'supplier_state'}"
+        />
+                <filter
+          string="City"
+          name="groupby_city"
+          domain="[]"
+          context="{'group_by': 'supplier_city'}"
+        />
             </xpath>
         </field>
     </record>

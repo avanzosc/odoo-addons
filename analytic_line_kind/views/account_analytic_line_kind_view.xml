@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
     <record id="account_analytic_line_kind_tree_view" model="ir.ui.view">
         <field name="model">account.analytic.line.kind</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -38,8 +38,9 @@
     </record>
 
 
-    <menuitem id="account_analytic_line_kind_menuitem"
-              parent="account.menu_analytic_accounting"
-              action="account_analytic_line_kind_action" />
+    <menuitem
+    id="account_analytic_line_kind_menuitem"
+    parent="account.menu_analytic_accounting"
+    action="account_analytic_line_kind_action"
+  />
 </odoo>
-

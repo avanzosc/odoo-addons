@@ -18,8 +18,18 @@
                 <field name="product_id" />
                 <field name="pricelist_id" />
                 <group expand="0" string="Group By">
-                   <filter string="Product" name="group-product" domain="[]" context="{'group_by':'product_id'}"/>
-                   <filter string="Pricelist" name="group-pricelist" domain="[]" context="{'group_by':'pricelist_id'}"/>
+                   <filter
+            string="Product"
+            name="group-product"
+            domain="[]"
+            context="{'group_by':'product_id'}"
+          />
+                   <filter
+            string="Pricelist"
+            name="group-pricelist"
+            domain="[]"
+            context="{'group_by':'pricelist_id'}"
+          />
                 </group>
             </search>
         </field>
@@ -33,9 +43,12 @@
         <field name="view_id" ref="product_price_by_pricelist_view_tree" />
     </record>
 
-    <menuitem id="product_price_by_pricelist_group_view"
-            name="Product price by pricelist"
-            action="action_product_price_by_pricelist"
-            parent="sale.product_menu_catalog" sequence="25"
-            groups="base.group_no_one" />
+    <menuitem
+    id="product_price_by_pricelist_group_view"
+    name="Product price by pricelist"
+    action="action_product_price_by_pricelist"
+    parent="sale.product_menu_catalog"
+    sequence="25"
+    groups="base.group_no_one"
+  />
 </odoo>

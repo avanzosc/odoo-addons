@@ -8,7 +8,11 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     sends_to = fields.Selection(
-        selection=[('city', 'City'),
-                   ('zone', 'Zone'),
-                   ('state', 'State'),
-                   ('all', 'All')], string='Sends to')
+        selection=[
+            ("city", "City"),
+            ("zone", "Zone"),
+            ("state", "State"),
+            ("all", "All"),
+        ],
+        string="Sends to",
+    )
