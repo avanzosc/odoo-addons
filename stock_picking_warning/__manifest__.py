@@ -4,7 +4,7 @@
 
 {
     "name": "Stock Picking Warning",
-    "version": "8.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
@@ -12,11 +12,15 @@
         "Ana Juaristi <anajuaristi@avanzosc.es>",
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
-    "category": "Warehouse Management",
+    "category": "Inventory/Inventory",
     "depends": [
-        "warning",
+        "product",
+        "purchase",
+        "sale",
+        "stock"
     ],
     "data": [
+        "views/product_product_view.xml",
         "views/product_template_view.xml",
     ],
     "installable": True,
