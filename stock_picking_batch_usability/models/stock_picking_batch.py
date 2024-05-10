@@ -8,6 +8,31 @@ class StockPickingBatch(models.Model):
 
     in_progress = fields.Boolean(string="Is in progress", default=False)
     is_done = fields.Boolean(string="Is done", default=False)
+    num_pickings_confirmed = fields.Integer(
+        string="Num. Pickings Confirmed", compute="_compute_num_pickings",
+        store=True, copy=False
+    )
+    num_pickings_assigned = fields.Integer(
+        string="Num. Pickings Assigned", compute="_compute_num_pickings",
+        store=True, copy=False
+    )
+
+    @api.depends("picking_ids", "picking_ids.state")
+    def _compute_num_pickings(self):
+        for batch in self:
+            num_pickings_confirmed = 0
+            num_pickings_assigned = 0
+            if batch.picking_ids:
+                pickings = batch.picking_ids.filtered(
+                    lambda x: x.state == "confirmed")
+                if pickings:
+                    num_pickings_confirmed = len(pickings)
+                pickings = batch.picking_ids.filtered(
+                    lambda x: x.state == "assigned")
+                if pickings:
+                    num_pickings_assigned = len(pickings)
+            batch.num_pickings_confirmed = num_pickings_confirmed
+            batch.num_pickings_assigned = num_pickings_assigned
 
     @api.depends("company_id", "picking_type_id", "state")
     def _compute_allowed_picking_ids(self):
