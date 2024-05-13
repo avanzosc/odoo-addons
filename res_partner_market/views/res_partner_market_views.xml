@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_market_tree_view">
+        <field name="name">res.partner.market.tree.view</field>
+        <field name="model">res.partner.market</field>
+        <field name="arch" type="xml">
+            <tree string="Market" editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_market_tree_view" model="ir.actions.act_window">
+        <field name="name">Markets</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.market</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="res_partner_market_tree_view" />
+    </record>
+
+    <menuitem id="market_tree_option_view" name="Markets"
+              action="action_market_tree_view" 
+              parent="contacts.res_partner_menu_config" sequence="21"
+              groups="base.group_erp_manager" />
+</odoo>
