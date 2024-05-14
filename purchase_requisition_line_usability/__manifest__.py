@@ -8,8 +8,7 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "stock",
-        "purchase",
+        "purchase_stock",
         "purchase_requisition",
     ],
     "data": [
