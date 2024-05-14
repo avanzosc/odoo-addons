@@ -6,8 +6,7 @@
 Purchase Requisition Line Usability
 ===================================
 
-* New menu for purchase requisition lines.
-* 
+New menu for purchase requisition lines.
 
 Bug Tracker
 ===========
