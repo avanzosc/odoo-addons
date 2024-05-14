@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-02 11:00+0000\n"
-"PO-Revision-Date: 2023-10-02 11:00+0000\n"
+"POT-Creation-Date: 2024-05-14 10:02+0000\n"
+"PO-Revision-Date: 2024-05-14 10:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,11 @@ msgid "Accounting:"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Accounting Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model:ir.actions.act_window,name:cleaning_database_operations.action_cleaning_database_view
 #: model:ir.ui.menu,name:cleaning_database_operations.cleaning_database
 #: model:ir.ui.menu,name:cleaning_database_operations.menu_view_cleaning_database
@@ -37,19 +42,48 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model,name:cleaning_database_operations.model_cleaning_database
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Cleaning Database Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning MRP Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Purchase Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Sale Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Sequences"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Stock Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Transport Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Valuation Layers"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__company_ids
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Companies"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model:ir.model.fields,field_description:cleaning_database_operations.field_mrp_workorder__company_id
-msgid "Company"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -64,6 +98,7 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
 #, python-format
 msgid "Creation date: {}"
 msgstr ""
@@ -75,13 +110,11 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__display_name
-#: model:ir.model.fields,field_description:cleaning_database_operations.field_mrp_workorder__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__id
-#: model:ir.model.fields,field_description:cleaning_database_operations.field_mrp_workorder__id
 msgid "ID"
 msgstr ""
 
@@ -92,7 +125,6 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database____last_update
-#: model:ir.model.fields,field_description:cleaning_database_operations.field_mrp_workorder____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -133,6 +165,11 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Reset sequences"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Sale Order Line, Sale Order."
 msgstr ""
 
@@ -143,9 +180,14 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Squence"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid ""
-"Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory,\n"
-"Stock Production Lot."
+"Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation "
+"Layer, Stock Inventory, Stock Production Lot."
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -155,12 +197,7 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Transport Carrier Lines To Invoice,"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model:ir.model,name:cleaning_database_operations.model_mrp_workorder
-msgid "Work Order"
+msgid "Transport Carrier Lines To Invoice"
 msgstr ""
 
 #. module: cleaning_database_operations
