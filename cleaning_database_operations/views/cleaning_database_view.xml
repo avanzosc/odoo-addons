@@ -7,7 +7,6 @@
         <field name="arch" type="xml">
             <form string="Cleaning Database">
                 <header>
-                    <button name="action_delete_operations" type="object" string="Cleaning Database Operations" class="oe_highlight"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -19,24 +18,49 @@
                         <group>
                             <div style="margin-top: 4px;">
                                 <h3>This will delete the following objects</h3>
-                                <p>Accounting:</p>
-                                <p>Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
-                                <p>Inventory:</p>
-                                <p>Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory,
-Stock Production Lot.</p>
                                 <p>Sales:</p>
                                 <p>Sale Order Line, Sale Order.</p>
+                                <p>
+                                    <button name="action_delete_sale_operations" type="object" string="Cleaning Sale Operations" class="oe_highlight"/>
+                                </p>
                                 <p>Purchases:</p>
                                 <p>Purchase Order Line, Purchase Order.</p>
+                                <p>
+                                    <button name="action_delete_purchase_operations" type="object" string="Cleaning Purchase Operations" class="oe_highlight"/>
+                                </p>
+                                <p>Accounting:</p>
+                                <p>Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
+                                <p>
+                                    <button name="action_delete_analytic_operations" type="object" string="Cleaning Accounting Operations" class="oe_highlight"/>
+                                </p>
                                 <p>Manufacturing:</p>
                                 <p>MRP Workorder, MRP Production</p>
+                                <p>
+                                    <button name="action_delete_mrp_operations" type="object" string="Cleaning MRP Operations" class="oe_highlight"/>
+                                </p>
+                                <p>Inventory:</p>
+                                <p>Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory, Stock Production Lot.</p>
+                                <p>
+                                    <button name="action_delete_stock_valuation_operations" type="object" string="Cleaning Valuation Layers" class="oe_highlight"/>
+                                </p>
+                                <p>
+                                    <button name="action_delete_stock_operations" type="object" string="Cleaning Stock Operations" class="oe_highlight"/>
+                                </p>
                                 <p>Others</p>
-                                <p>Transport Carrier Lines To Invoice,  </p>
+                                <p>Transport Carrier Lines To Invoice</p>
+                                <p>
+                                    <button name="action_delete_transport_operations" type="object" string="Cleaning Transport Operations" class="oe_highlight"/>
+                                </p>
+                                <p>Squence</p>
+                                <p>Reset sequences</p>
+                                <p>
+                                    <button name="action_delete_sequance_operations" type="object" string="Cleaning Sequences" class="oe_highlight"/>
+                                </p>
                             </div>
                         </group>
                         <group>
                             <separator string="Companies" colspan="4"/>
-                            <field name="company_ids" nolabel="1" colspan="4">
+                            <field name="company_ids" nolabel="1" colspan="4" required="1">
                                 <tree string="Companies" delete="0" create="0" editable="top">
                                     <field name="name" readonly="1"/>
                                 </tree>
