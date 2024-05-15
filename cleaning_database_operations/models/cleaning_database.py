@@ -1,6 +1,7 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
+from odoo.tools.misc import split_every
 
 
 class CleaningDatabase(models.Model):
@@ -51,9 +52,10 @@ class CleaningDatabase(models.Model):
                 tuple(self.company_ids.ids), tuple(self.company_ids.ids)])
 
     def action_delete_stock_valuation_operations(self):
-        self.env.cr.execute(
-            "DELETE FROM stock_valuation_layer WHERE company_id in %s", [tuple(
-                self.company_ids.ids)])
+        valuation_layers = self.env["stock.valuation.layer"].search([("company_id", "in", self.company_ids.ids)])
+        for valuations in split_every(1000, valuation_layers.ids):
+            self.env.cr.execute(
+                "DELETE FROM stock_valuation_layer WHERE id in %s", [tuple(valuations)])
 
     def action_delete_sale_operations(self):
         self.env.cr.execute(
