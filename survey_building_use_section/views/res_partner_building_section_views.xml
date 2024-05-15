@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="res_partner_building_use_section.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='building_section_ids']/tree" position="inside">
+                <field name="project_title" />
+                <field name="project_author_id" />
+                <field name="project_author_degree" />
+                <field name="project_author_license" />
+                <field name="project_approved_date" />
+                <field name="dof_author_id" />
+                <field name="dof_author_degree" />
+                <field name="dof_author_license" />
+                <field name="dof_approved_date" />
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="res_partner_building_use_section.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='service_end_date']" position="inside">
+                <field name="file_number" string="File Number" />
+                <field name="building_use_id" string="Building Use" />
+                <field name="certification_text" string="Certification Text" />
+                <field name="emi" string="Emi" />
+                <field name="epi" string="Epi" />
+
+                                <field name="project_title" />
+                <field name="project_author_id" />
+                <field name="project_author_degree" />
+                <field name="project_author_license" />
+                <field name="project_approved_date" />
+                <field name="dof_author_id" />
+                <field name="dof_author_degree" />
+                <field name="dof_author_license" />
+                <field name="dof_approved_date" />
+
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
