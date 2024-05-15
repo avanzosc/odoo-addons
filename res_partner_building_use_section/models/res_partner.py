@@ -36,11 +36,17 @@ class ResPartner(models.Model):
         domain="[('is_company','=',False)]",
         help=_("Membership number of the individual contact."),
     )
-
+    emi = fields.Char(string=_("EMI"))
+    epi = fields.Char(string=_("EPI"))
+    
+    # Maintainer
     maintainer_id = fields.Many2one(
         comodel_name="res.partner",
         string=_("Maintainer")
     )
+    maintainer_epi = fields.Char(string=_("Maintainer EPI"), related="maintainer_id.epi")
+    maiintainer_emi = fields.Char(string=_("Maintainer EMI"), related="maintainer_id.emi")
+
     installer_id = fields.Many2one(
         comodel_name="res.partner",
         string=_("Installer")
@@ -55,6 +61,20 @@ class ResPartner(models.Model):
         string=_("Normativas"),
         compute="_compute_normativas_ids",
     )
+    
+    # Project
+    project_title = fields.Char(string=_("Project Title"))
+    project_author_id = fields.Many2one(string=_("Project Author"), comodel_name="res.partner")
+    project_author_degree = fields.Char(string=_("Project Author Degree"), related="project_author_id.degree_title")
+    project_author_license = fields.Char(string=_("Project Author License"), related="project_author_id.membership_number")
+    project_approved_date = fields.Date(string=_("Project Approved Date"))
+
+    # Certificate of Final Work Direction
+    dof_author_id = fields.Many2one(string=_("Director of Works Author"), comodel_name="res.partner")
+    dof_author_degree = fields.Char(string=_("Director of Works Author Degree"), related="dof_author_id.degree_title")
+    dof_author_license = fields.Char(string=_("Director of Works Author License"), related="dof_author_id.membership_number")
+    dof_approved_date = fields.Date(string=_("Director of Works Approved Date"))
+
 
     @api.depends("service_start_date")
     def _compute_normativas_ids(self):
