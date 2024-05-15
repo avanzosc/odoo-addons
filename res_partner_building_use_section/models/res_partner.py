@@ -44,13 +44,14 @@ class ResPartner(models.Model):
         comodel_name="res.partner",
         string=_("Maintainer")
     )
-    installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
     maintainer_emi = fields.Char(string=_("Maintainer EMI"), related="maintainer_id.emi")
 
     installer_id = fields.Many2one(
         comodel_name="res.partner",
         string=_("Installer")
     )
+    installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
+    certification_data = fields.Char(string=_("Certification Data"))
     administrator_id = fields.Many2one(
         comodel_name="res.partner",
         string=_("Administrator")
