@@ -6,33 +6,31 @@
         <field name="arch" type="xml">
             <page name="internal_notes" position="after">
                 <page name="customer_building" string="Building">
-                    <group>
-                        <group>
-                            <field name="building_use_id" />
-                            <field name="service_start_date" />
-                            <field name="service_end_date" />
-                        </group>
-                        <group>
-                            <field name="administrator_id" />
-                            <field name="installer_id" />
-                            <field name="installer_epi" />
-                            <field name="certification_date" />
-                            <field name="maintainer_id" />
-                            <field name="maintainer_emi" />
-                        </group>
-                        <group>
-                            <field name="project_title" />
-                            <field name="project_author_id" />
-                            <field name="project_author_degree" />
-                            <field name="project_author_license" />
-                            <field name="project_approved_date" />
-                        </group>
-                        <group>
-                            <field name="dof_author_id" />
-                            <field name="dof_author_degree" />
-                            <field name="dof_author_license" />
-                            <field name="dof_approved_date" />
-                        </group>
+                    <group string="Building Information">
+                        <field name="building_use_id" />
+                        <field name="service_start_date" />
+                        <field name="service_end_date" />
+                    </group>
+                    <group string="Administration Information">
+                        <field name="administrator_id" />
+                        <field name="installer_id" />
+                        <field name="installer_epi" />
+                        <field name="certification_date" />
+                        <field name="maintainer_id" />
+                        <field name="maintainer_emi" />
+                    </group>
+                    <group string="Project Information">
+                        <field name="project_title" />
+                        <field name="project_author_id" />
+                        <field name="project_author_degree" />
+                        <field name="project_author_license" />
+                        <field name="project_approved_date" />
+                    </group>
+                    <group string="Director of Work Information">
+                        <field name="dof_author_id" />
+                        <field name="dof_author_degree" />
+                        <field name="dof_author_license" />
+                        <field name="dof_approved_date" />
                     </group>
                     <field name="building_section_ids">
                         <tree string="Building Sections/Areas" editable="bottom" sample="1">
