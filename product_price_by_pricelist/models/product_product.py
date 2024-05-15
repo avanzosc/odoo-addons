@@ -26,7 +26,6 @@ class ProductProduct(models.Model):
                 product_pricelists=pricelists
             ).calculate_price_by_pricelist()
             product.last_date_price_by_pricelist = fields.Date.context_today(self)
-            self._cr.commit()
 
     def calculate_price_by_pricelist(self):
         product_obj = self.env["product.product"]
