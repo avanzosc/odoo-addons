@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-25 14:56+0000\n"
-"PO-Revision-Date: 2024-04-25 14:56+0000\n"
+"POT-Creation-Date: 2024-05-15 14:02+0000\n"
+"PO-Revision-Date: 2024-05-15 14:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,8 +79,6 @@ msgstr "Edificios"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model,name:res_partner_building_use_section.model_res_partner
@@ -116,18 +114,18 @@ msgstr "Titulación"
 #. odoo-python
 #: code:addons/res_partner_building_use_section/models/res_partner.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,help:res_partner_building_use_section.field_building_section__dof_author_degree
-#: model:ir.model.fields,help:res_partner_building_use_section.field_building_section__project_author_degree
 #: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__degree_title
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__dof_author_degree
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__project_author_degree
 #: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__degree_title
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__dof_author_degree
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__project_author_degree
 #, python-format
 msgid "Degree Title of the individual contact."
 msgstr "Titulación del individuo"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__name
@@ -138,36 +136,40 @@ msgstr "Descripción"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__dof_approved_date
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__dof_approved_date
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__dof_approved_date
 #, python-format
 msgid "Director of Works Approved Date"
 msgstr "Fecha de Aprobación del Director de Obra"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__dof_author_id
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__dof_author_id
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__dof_author_id
 #, python-format
 msgid "Director of Works Author"
 msgstr "Autor del Director de Obra"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__dof_author_degree
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__dof_author_degree
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__dof_author_degree
 #, python-format
 msgid "Director of Works Author Degree"
 msgstr "Grado del Autor del Director de Obra"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__dof_author_license
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__dof_author_license
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__dof_author_license
 #, python-format
 msgid "Director of Works Author License"
 msgstr "Licencia del Autor del Director de Obra"
@@ -180,8 +182,26 @@ msgstr "Nombre Mostrado"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__emi
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__emi
+#, python-format
+msgid "EMI"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__epi
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__epi
+#, python-format
+msgid "EPI"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#. odoo-python
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__evacuation_height
@@ -198,12 +218,12 @@ msgstr "Agrupar por"
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__is_industrial
 msgid "Industrial"
-msgstr "Industrial"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
@@ -232,6 +252,7 @@ msgstr "Última Actualización por"
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__write_date
 msgid "Last Updated on"
 msgstr "Última Actualización el"
+
 #. module: res_partner_building_use_section
 #. odoo-python
 #: code:addons/res_partner_building_use_section/models/res_partner.py:0
@@ -241,6 +262,26 @@ msgstr "Última Actualización el"
 #, python-format
 msgid "Maintainer"
 msgstr "Mantenedor"
+
+#. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__maintainer_emi
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__maintainer_emi
+#, python-format
+msgid "Maintainer EMI"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#. odoo-python
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__maintainer_epi
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__maintainer_epi
+#, python-format
+msgid "Maintainer EPI"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
@@ -256,10 +297,12 @@ msgstr "Número de Membresía"
 #. odoo-python
 #: code:addons/res_partner_building_use_section/models/res_partner.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
-#: model:ir.model.fields,help:res_partner_building_use_section.field_building_section__dof_author_license
-#: model:ir.model.fields,help:res_partner_building_use_section.field_building_section__project_author_license
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__dof_author_license
 #: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__membership_number
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_partner__project_author_license
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__dof_author_license
 #: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__membership_number
+#: model:ir.model.fields,help:res_partner_building_use_section.field_res_users__project_author_license
 #, python-format
 msgid "Membership number of the individual contact."
 msgstr "Número de membresía del contacto individual."
@@ -272,57 +315,60 @@ msgstr "Número de membresía del contacto individual."
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__normativas_ids
 #, python-format
 msgid "Normativas"
-msgstr "Normativas"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__project_approved_date
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_approved_date
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_approved_date
 #, python-format
 msgid "Project Approved Date"
 msgstr "Fecha de Aprobación del Proyecto"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__project_author_id
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_author_id
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_author_id
 #, python-format
 msgid "Project Author"
 msgstr "Autor del Proyecto"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__project_author_degree
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_author_degree
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_author_degree
 #, python-format
 msgid "Project Author Degree"
 msgstr "Grado del Autor del Proyecto"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__project_author_license
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_author_license
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_author_license
 #, python-format
 msgid "Project Author License"
 msgstr "Licencia del Autor del Proyecto"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__project_title
+#: code:addons/res_partner_building_use_section/models/res_partner.py:0
+#: code:addons/temp-addons/res_partner_building_use_section/models/res_partner.py:0
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_title
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_title
 #, python-format
 msgid "Project Title"
 msgstr "Título del Proyecto"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
@@ -338,8 +384,6 @@ msgstr "Buscar Secciones/Areas del Edificio"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__section_use
@@ -371,8 +415,6 @@ msgstr "Fecha Solicitud Licencia (Filtro Normativa)"
 
 #. module: res_partner_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/res_partner_building_use_section/models/building_section.py:0
-#: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/res_partner_building_use_section/models/building_section.py:0
 #: code:addons/temp-addons/res_partner_building_use_section/models/building_section.py:0
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__superficie
