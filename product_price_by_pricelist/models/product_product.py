@@ -59,7 +59,6 @@ class ProductProduct(models.Model):
             result, self.taxes_id, self.taxes_id, self.company_id)
         return price_unit
 
-    @api.multi
     def _get_display_price(self, product_pricelist):
         final_price, rule_id = product_pricelist.get_product_price_rule(
                 self, 1.0, self.env.user.partner_id)
