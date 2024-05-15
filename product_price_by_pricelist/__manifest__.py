@@ -9,6 +9,7 @@
     "license": "AGPL-3",
     "depends": [
         "product",
+        "sale",
     ],
     "data": [
         "security/ir.model.access.csv",
