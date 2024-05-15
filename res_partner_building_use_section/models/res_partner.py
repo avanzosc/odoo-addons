@@ -51,7 +51,7 @@ class ResPartner(models.Model):
         string=_("Installer")
     )
     installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
-    certification_date = fields.Char(string=_("Certification Date"))
+    certification_date = fields.Date(string=_("Certification Date"))
     administrator_id = fields.Many2one(
         comodel_name="res.partner",
         string=_("Administrator")
