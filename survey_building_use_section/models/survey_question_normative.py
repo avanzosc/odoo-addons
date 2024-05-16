@@ -9,20 +9,11 @@ class SurveyQuestionNormative(models.Model):
 
     name = fields.Char(
         required=True,
-        copy=False,
     )
-    description = fields.Char(
-        copy=False,
-    )
-    error_text = fields.Text(
-        copy=False,
-    )
-    start_date = fields.Date(
-        copy=False,
-    )
-    end_date = fields.Date(
-        copy=False,
-    )
+    description = fields.Char()
+    error_text = fields.Text()
+    start_date = fields.Date()
+    end_date = fields.Date()
     related_article_ids = fields.One2many(
         comodel_name="survey.question.article",
         inverse_name="question_normative_id",

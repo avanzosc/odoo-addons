@@ -7,16 +7,9 @@ class SurveyQuestionArticle(models.Model):
     _name = "survey.question.article"
     _description = "Survey Question Article"
 
-    name = fields.Char(
-        required=True,
-        copy=False,
-    )
-    description = fields.Char(
-        copy=False,
-    )
-    error_text = fields.Text(
-        copy=False,
-    )
+    name = fields.Char(required=True)
+    description = fields.Char()
+    error_text = fields.Text()
     question_normative_id = fields.Many2one(
         comodel_name="survey.question.normative",
         string="Normative",
