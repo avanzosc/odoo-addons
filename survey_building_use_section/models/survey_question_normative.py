@@ -9,23 +9,18 @@ class SurveyQuestionNormative(models.Model):
     name = fields.Char(
         string=_("Name"),
         required=True,
-        copy=False,
     )
     description = fields.Char(
         string=_("Description"),
-        copy=False,
     )
     error_text = fields.Text(
         string=_("Error Text"),
-        copy=False,
     )
     start_date = fields.Date(
         string=_("Start Date"),
-        copy=False,
     )
     end_date = fields.Date(
         string=_("End Date"),
-        copy=False,
     )
     related_article_ids = fields.One2many(
         "survey.question.article", 
