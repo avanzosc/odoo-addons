@@ -112,6 +112,10 @@ class IrModuleImportLine(models.Model):
         string="Website",
         states={"done": [("readonly", True)]},
     )
+    module_path = fields.Char(
+        string="Path",
+        states={"done": [("readonly", True)]},
+    )
     module_author = fields.Char(
         string="Author",
         states={"done": [("readonly", True)]},
@@ -145,8 +149,10 @@ class IrModuleImportLine(models.Model):
         module, log_info_module = self._check_module()
         if log_info_module:
             log_infos.append(log_info_module)
+        path = False
         if module:
-            if not get_module_path(self.module_technical_name, display_warning=False):
+            path = get_module_path(self.module_technical_name, display_warning=False)
+            if not path:
                 log_infos.append(
                     _("Module %(module_name)s not installable")
                     % {
@@ -163,6 +169,7 @@ class IrModuleImportLine(models.Model):
                 "migrate_module": False
                 if module and state != "error"
                 else self.migrate_module,
+                "module_path": path or "",
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
