@@ -1,13 +1,13 @@
 # Copyright 2024 Unai Beristain - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models, _
+from odoo import fields, models
+
 
 class SurveyQuestionNormative(models.Model):
     _name = "survey.question.normative"
-    _description = _("Survey Question Normative")
+    _description = "Survey Question Normative"
 
     name = fields.Char(
-        string=_("Name"),
         required=True,
     )
     description = fields.Char(
@@ -23,7 +23,7 @@ class SurveyQuestionNormative(models.Model):
         string=_("End Date"),
     )
     related_article_ids = fields.One2many(
-        "survey.question.article", 
-        "question_normative_id", 
-        string=_("Related Articles")
+        comodel_name="survey.question.article",
+        inverse_name="question_normative_id",
+        string="Related Articles",
     )
