@@ -4,7 +4,7 @@
         <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
         <t t-set="scoring_display_correction" t-value="True"/>
         <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
-            <!-- Dont show normative filter in Report -->
+            <!-- Don't show normative filter in Report -->
             <t t-if="not question.is_normative_filter">
                 <t t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
                     <hr t-if="question != o.survey_id.page_ids[0]"/>

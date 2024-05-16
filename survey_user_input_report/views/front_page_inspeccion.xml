@@ -88,7 +88,7 @@
             {'label': 'NIF:', 'value': o.administrator_id.vat},
             {'label': 'Teléfono:', 'value': o.administrator_id.phone},
         ]"/>
-        
+
         <!-- Contenedor principal -->
         <div class="contenedor contenedor_1">
             <!-- Contenedor izquierdo -->
@@ -103,7 +103,10 @@
                     <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])"/>
 
                     <!-- Filtrar las normativas basadas en el año de inicio y fin -->
-                    <t t-set="current_question_print_normatives" t-value="all_normatives.filtered(lambda norm:                          norm.start_date &lt;= o.inspected_building_id.service_start_date  and                         norm.end_date &gt;= o.inspected_building_id.service_start_date                      )"/>
+                    <t t-if="not isinstance(o.inspected_building_id.service_start_date, bool)">
+                        <t t-set="license_application_date" t-value="o.inspected_building_id.service_start_date"/>
+                        <t t-set="filtered_normatives" t-value="all_normatives.filtered(lambda norm: not isinstance(norm.start_date, bool) and not isinstance(norm.end_date, bool) and norm.start_date &lt;= license_application_date and norm.end_date &gt;= license_application_date)"/>
+                    </t>
                     <t t-if="current_question_print_normatives">
                         <t t-foreach="current_question_print_normatives" t-as="item">
                             <t t-set="counter" t-value="counter+1"/>
