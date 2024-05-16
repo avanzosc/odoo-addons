@@ -7,13 +7,13 @@ class SurveyQuestionArticle(models.Model):
     _description = _("Survey Question Article")
 
     name = fields.Char(
-        string=_("Name"), required=True, copy=False,
+        string=_("Name"), required=True,
     )
     description = fields.Char(
-        string=_("Description"), copy=False,
+        string=_("Description"),
     )
     error_text = fields.Text(
-        string=_("Error Text"), copy=False,
+        string=_("Error Text"),
     )
     question_normative_id = fields.Many2one(
         "survey.question.normative",
