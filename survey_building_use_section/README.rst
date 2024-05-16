@@ -26,7 +26,7 @@ Credits
 
 Contributors
 ------------
-* Ana Juaristi <ajuaristio@gmail.com>
+* Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
 * Unai Beristain <unaiberistain@avanzosc.es>
 
