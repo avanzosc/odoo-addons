@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResPartner(models.Model):
@@ -56,11 +56,6 @@ class ResPartner(models.Model):
         comodel_name="res.partner",
         string="Administrator",
     )
-    normativas_ids = fields.Many2many(
-        "survey.question.normative",
-        string="Normativas",
-        compute="_compute_normativas_ids",
-    )
     # Project
     project_title = fields.Char()
     project_author_id = fields.Many2one(
@@ -90,14 +85,3 @@ class ResPartner(models.Model):
         related="dof_author_id.membership_number",
     )
     dof_approved_date = fields.Date(string="Director of Works Approved Date")
-
-    @api.depends("service_start_date")
-    def _compute_normativas_ids(self):
-        normative_obj = self.env["survey.question.normative"]
-        for partner in self:
-            partner.normativas_ids = normative_obj.search(
-                [
-                    ("start_year", "<=", partner.service_start_date.year),
-                    ("end_year", ">=", partner.service_start_date.year),
-                ]
-            )

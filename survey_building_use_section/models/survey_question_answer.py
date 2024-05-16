@@ -1,29 +1,34 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models, api
+from odoo import api, fields, models
+
 
 class SurveyQuestionAnswer(models.Model):
     _inherit = "survey.question.answer"
 
     notes = fields.Text(
-        string=_("Note"),
-        help=_("Error Text"),
+        string="Note",
+        help="Error Text",
         copy=False,
     )
-    survey_id = fields.Many2one(_("survey.survey"), related="question_id.survey_id")
+    survey_id = fields.Many2one(
+        comodel_name="survey.survey",
+        related="question_id.survey_id",
+    )
     matrix_survey_id = fields.Many2one(
-        _("survey.survey"), related="matrix_question_id.survey_id"
+        comodel_name="survey.survey",
+        related="matrix_question_id.survey_id",
     )
     question_article_ids = fields.Many2many(
-        _("survey.question.article"),
-        string=_("Articles"),
+        comodel_name="survey.question.article",
+        string="Articles",
         relation="survey_question_answer_article_rel",
         column1="question_answer_id",
         column2="article_id",
     )
     related_article_filter_ids = fields.Many2many(
-        _("survey.question.article"),
-        string=_("Related Articles"),
+        comodel_name="survey.question.article",
+        string="Related Articles",
         compute="_compute_related_article_filter_ids",
         store=True,
     )
