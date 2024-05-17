@@ -19,8 +19,7 @@
     <field name="res_model">wiz.recalculate.product.temp.sale.price</field>
     <field name="binding_model_id" ref="model_product_template"/>
     <field name="view_mode">form</field>
-    <field name="target">new</field>
-    <field name="type">form</field>
+    <field name="view_id" ref="wiz_recalculate_product_temp_sale_price_view_form"/>
     <field name="groups_id" eval="[(6, 0, [ref('product_sale_configuration.allow_change_sale_price')])]"/>
   </record>
 </odoo>
