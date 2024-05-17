@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_partner_form">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="customer_technology_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_tree">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="customer_technology_id" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_res_partner_filter">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="customer_technology_id" />
+                </field>
+                <filter name="group_country" position="after">
+                    <filter string="Technology" name="group-technology_id"
+                        context="{'group_by': 'customer_technology_id'}"/>
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>

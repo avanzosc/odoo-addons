@@ -7,10 +7,22 @@ class BuildingSection(models.Model):
     _name = "building.section"
     _description = "Building Section/Area"
 
-    name = fields.Char(string="Description", required=True, copy=False)
-    risk = fields.Char(copy=False)
-    section_use = fields.Many2one(comodel_name="building.use")
-    superficie = fields.Float(string="Surface", default=0.0, copy=False)
+    name = fields.Char(
+        string="Description",
+        required=True,
+        copy=False,
+    )
+    risk = fields.Char(
+        copy=False,
+    )
+    section_use = fields.Many2one(
+        comodel_name="building.use",
+    )
+    superficie = fields.Float(
+        string="Surface",
+        default=0.0,
+        copy=False,
+    )
     partner_id = fields.Many2one(
         string="Contact",
         comodel_name="res.partner",

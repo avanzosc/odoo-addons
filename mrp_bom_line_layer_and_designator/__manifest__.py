@@ -2,10 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Custom BOM Fields Layer and Designator',
-    'version': '1.0',
-    'author': 'Unai Beristain',
-    'depends': ['mrp'],
-    'installable': True,
-    'application': True,
+    "name": "Bill of materials: Layer and Designator",
+    "version": "16.0.1.0.0",
+    "category": "Manufacturing/Manufacturing",
+    "license": "AGPL-3",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["mrp"],
+    "installable": True,
 }
