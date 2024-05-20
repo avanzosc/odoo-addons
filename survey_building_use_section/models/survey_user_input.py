@@ -14,7 +14,6 @@ class SurveyUserInput(models.Model):
     inspected_building_id = fields.Many2one(
         string=_("Inspected Building"),
         comodel_name="res.partner",
-        copy=False,
     )
     maintainer_id = fields.Many2one(
         related="inspected_building_id.maintainer_id",
@@ -35,12 +34,10 @@ class SurveyUserInput(models.Model):
     building_section_id = fields.Many2one(
         string=_("Building Section/Area"),
         comodel_name="building.section",
-        copy=False,
     )
     section_ids = fields.One2many(
         string=_("Inspected Building Section/Area"),
         comodel_name="building.section",
-        copy=False,
         related="inspected_building_id.building_section_ids",
     )
     building_use_id = fields.Many2one(
@@ -48,44 +45,36 @@ class SurveyUserInput(models.Model):
         comodel_name="building.use",
         related="inspected_building_id.building_use_id",
         store=True,
-        copy=False,
     )
     risk = fields.Char(
-        string=_("Risk"), related="building_section_id.risk", store=True, copy=False
+        string=_("Risk"), related="building_section_id.risk", store=True,
     )
     superficie = fields.Float(
         string=_("Superficie"),
         related="building_section_id.superficie",
         store=True,
-        copy=False,
     )
     file_number = fields.Char(
         string=_("File Number"),
         related="inspected_building_id.file_number",
         store=True,
-        copy=False,
     )
     act_number = fields.Char(
         string=_("Act Number"),
-        copy=False,
     )
     inspection_start_date = fields.Datetime(
         string=_("Inspection Start Date"),
-        copy=False,
     )
     inspection_end_date = fields.Datetime(
         string=_("Inspection End Date"),
-        copy=False,
     )
     inspector_id = fields.Many2one(
         string=_("Inspector"),
         comodel_name="res.partner",
-        copy=False,
     )
     inspection_type = fields.Selection(
         selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer"))],
         string=_("Inspection Type"),
-        copy=False,
     )
 
     # Project
