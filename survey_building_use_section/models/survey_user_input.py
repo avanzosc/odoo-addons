@@ -7,6 +7,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
@@ -87,6 +88,47 @@ class SurveyUserInput(models.Model):
         copy=False,
     )
 
+    # Project
+    project_title = fields.Char(
+        string=_("Project Title"), related="inspected_building_id.project_title"
+    )
+    project_author_id = fields.Many2one(
+        string=_("Project Author"),
+        comodel_name="res.partner",
+        related="inspected_building_id.project_author_id",
+    )
+    project_author_degree = fields.Char(
+        string=_("Project Author Degree"),
+        related="inspected_building_id.project_author_id.degree_title",
+    )
+    project_author_license = fields.Char(
+        string=_("Project Author License"),
+        related="inspected_building_id.project_author_id.membership_number",
+    )
+    project_approved_date = fields.Date(
+        string=_("Project Approved Date"),
+        related="inspected_building_id.project_approved_date",
+    )
+
+    # Certificate of Final Work Direction
+    dof_author_id = fields.Many2one(
+        string=_("Director of Works Author"),
+        comodel_name="res.partner",
+        related="inspected_building_id.dof_author_id",
+    )
+    dof_author_degree = fields.Char(
+        string=_("Director of Works Author Degree"),
+        related="inspected_building_id.dof_author_id.degree_title",
+    )
+    dof_author_license = fields.Char(
+        string=_("Director of Works Author License"),
+        related="inspected_building_id.dof_author_id.membership_number",
+    )
+    dof_approved_date = fields.Date(
+        string=_("Director of Works Approved Date"),
+        related="inspected_building_id.dof_approved_date",
+    )
+
     @api.model_create_multi
     def create(self, vals_list):
         inputs = super(SurveyUserInput, self).create(vals_list)
@@ -94,9 +136,8 @@ class SurveyUserInput(models.Model):
             if "building" in self.env.context:
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
-    
+
     def action_start_survey(self):
-        
         current_user_partner = self.env.user.partner_id
 
         if current_user_partner:
@@ -105,30 +146,31 @@ class SurveyUserInput(models.Model):
         else:
             # Usuario administrador es id = 3
             self.partner_id = 3
-            
-        
+
         # Obtener la URL completa de la solicitud actual
         full_url = request.httprequest.url
 
         # Encontrar el índice del primer punto y el primer slash después de ese punto
-        dot_index = full_url.find('.')
-        slash_index = full_url.find('/', dot_index)
+        dot_index = full_url.find(".")
+        slash_index = full_url.find("/", dot_index)
 
         base_url = False
 
         # Extraer la URL base
         if dot_index != -1 and slash_index != -1:
             base_url = full_url[:slash_index]
-            
+
         if not base_url:
-            base_url = self.env['ir.config_parameter'].get_param('web.base.url')
-            
+            base_url = self.env["ir.config_parameter"].get_param("web.base.url")
+
         survey_id = self.survey_id
         access_token = survey_id.access_token
         answer_token = self.access_token
-        url = "{}/survey/start/{}?answer_token={}".format(base_url, access_token, answer_token)
+        url = "{}/survey/start/{}?answer_token={}".format(
+            base_url, access_token, answer_token
+        )
         return {
-            'type': 'ir.actions.act_url',
-            'url': url,
-            'target': 'self',
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "self",
         }

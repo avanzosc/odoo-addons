@@ -29,10 +29,25 @@
                         <field name="installer_id" />
                         <field name="administrator_id" />
                     </group>
-                    <group>
+                    <group string="Inspection">
                         <field name="inspection_start_date"/>
                         <field name="inspection_end_date" />
                         <field name="inspection_type" />
+                    </group>
+                </group>
+                <group string="Building Use">
+                    <group string="Project">
+                        <field name="project_title"/>
+                        <field name="project_author_id"/>
+                        <field name="project_author_degree"/>
+                        <field name="project_author_license"/>
+                        <field name="project_approved_date"/>
+                    </group>
+                    <group string="Certificate of Final Work Direction">
+                        <field name="dof_author_id"/>
+                        <field name="dof_author_degree"/>
+                        <field name="dof_author_license"/>
+                        <field name="dof_approved_date"/>
                     </group>
                 </group>
             </notebook>

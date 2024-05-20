@@ -63,6 +63,8 @@ class ResPartner(models.Model):
         compute="_compute_normativas_ids",
     )
     
+    dof_author_degree = fields.Char(string=_("Director of Works Author Degree"), related="inspected_building_id.dof_author_degree")
+
     # Project
     project_title = fields.Char(string=_("Project Title"))
     project_author_id = fields.Many2one(string=_("Project Author"), comodel_name="res.partner")
