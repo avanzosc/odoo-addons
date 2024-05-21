@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_risk_tree_view">
+        <field name="name">res.partner.tree.view</field>
+        <field name="model">res.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Res Partner Risk">
+                <field name="ref"/>
+                <field name="name"/>
+                <field name="risk_sale_order"/>
+                <field name="risk_invoice_draft"/>
+                <field name="risk_invoice_open"/>
+                <field name="risk_invoice_unpaid"/>
+                <field name="risk_invoice_draft"/>
+                <field name="risk_account_amount"/>
+                <field name="risk_account_amount_unpaid"/>
+                <field name="risk_remaining_value"/>
+                <field name="risk_total"/>
+                <field name="credit_limit"/>
+                <field name="risk_sale_order_limit" optional="hide"/>
+                <field name="risk_invoice_draft_limit" optional="hide"/>
+                <field name="risk_invoice_open_limit" optional="hide"/>
+                <field name="risk_invoice_unpaid_limit" optional="hide"/>
+                <field name="risk_account_amount_limit" optional="hide"/>
+                <field name="risk_account_amount_unpaid_limit" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_res_partner_risk" model="ir.actions.act_window">
+        <field name="name">Res Partner Risk</field>
+        <field name="res_model">res.partner</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="res_partner_risk_tree_view" />
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+    </record>
+
+    <menuitem id="res_partner_risk_menu" action="action_res_partner_risk" parent="account.menu_finance_receivables" sequence="120"/>
+
+</odoo>
