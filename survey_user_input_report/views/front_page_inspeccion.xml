@@ -1,6 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="report_front_page_inspeccion" name="Inspeccion Portada">
+    <template id="report_front_page_inspeccion_prueba2" name="Inspeccion Portada">
+        <style>
+            .container {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            padding: 0;
+            }
+            .row {
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            padding: 0;
+            }
+            div, li{
+            padding: 4px;
+            }
+        </style>
+
+        <div class="container">
+            <div class="row" style="border: 1px solid #ccc">
+                <div style="width: 75%;">
+                    <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
+                <div style="width: 25%; border-left: 1px solid #ccc">
+                    <span style="font-weight: bold;">NIF / CIF: </span> B-12345678</div>
+            </div>
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div>
+                    <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
+                </div>
+            </div>
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div style="width: 25%;">
+                    <span style="font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</span>
+                </div>
+                <div style="width: 75%; border-left: 1px dashed #ccc">
+                    BARRIO KATEA S/N
+                </div>
+            </div>
+
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div style="width: 15%;">
+                    <span style="font-weight: bold;">USO:</span>
+                </div>
+                <div class="container" style="width: 85%; border-left: 1px dashed #ccc">
+                    <div class="row">
+                        <div style="width: 25%;">RESIDENCIAL
+                        </div>
+                        <div style="width: 25%;">PÚBLICO
+                        </div>
+                        <div style="width: 25%;">DOCENTE
+                        </div>
+                        <div style="width: 25%;">COMERCIAL
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="width: 25%;">HOSPITALARIO
+                        </div>
+                        <div style="width: 25%;">PÚBLICA CONCURRENCIA
+                        </div>
+                        <div style="width: 25%;">APARCAMIENTO
+                        </div>
+                        <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div>
+                    <span style="font-weight: bold;">SUPERFICIE CONSTRUIDA (m2):</span>
+                </div>
+            </div>
+
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div style="width: 50%;">
+                    <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
+                </div>
+                <div style="width: 50%;">
+                    <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
+                </div>
+            </div>
+
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div style="width: 25%;">
+                    <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
+                </div>
+                <div style="width: 25%;">RD 513/2017</div>
+                <div style="width: 25%;">RD 1942/1993</div>
+                <div style="width: 25%;">ANTERIOR RD1942/1993</div>
+            </div>
+
+            <div class="row bordered" style="margin-bottom: -1px; border: 1px solid #ccc">
+                <div style="width: 75%; border-right: 1px solid #ccc;">
+                    <span style="font-weight: bold;">EMPRESA MANTENEDORA: </span>LEHENGOAK BABES INGENIARITZA S.L.</div>
+                <div style="width: 25%;">
+                    <span style="font-weight: bold;">EMI: </span>20/EMI-15</div>
+            </div>
+        </div>
+
+
+        <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
+            <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
+            <div class="row">
+                <div style="width: 33%;">
+                    <ul class="list-unstyled">
+                        <li>
+                            <strong>X</strong> Sistemas de detección y alarma</li>
+                        <li>
+                            <strong>X</strong> Sistemas abastecimiento de agua</li>
+                        <li>Sistemas de hidrantes exteriores</li>
+                        <li>
+                            <strong>X</strong> Extintores de incendio</li>
+                        <li>Bocas de incendio equipadas</li>
+                        <li>Sistemas de columna seca</li>
+                    </ul>
+                </div>
+                <div style="width: 33%;">
+                    <ul class="list-unstyled">
+                        <li>Sistema rociadores automáticos de agua</li>
+                        <li>Sistemas fijos extinción agua nebulizada</li>
+                        <li>Sistemas fijos extinción espuma física</li>
+                        <li>Sistemas fijos extinción polvo</li>
+                        <li>Sistemas fijos extinción agentes gaseosos</li>
+                        <li>Mantas ignífugas</li>
+                    </ul>
+                </div>
+                <div style="width: 33%;">
+                    <ul class="list-unstyled">
+                        <li>Sist. de señalización luminiscente</li>
+                        <li>Alumbrado de emergencia</li>
+                        <li>Sistemas para control humos y calor</li>
+                        <li>Sistemas fijos extinción aerosoles condensados</li>
+                        <li>Otros</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_front_page_inspeccion_prueba2" name="Inspeccion Portada">
         <style>
             .container {
             display: -webkit-box;
@@ -57,14 +195,29 @@
                                 <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Proyecto</div>
                                 <div style="width: 80%; border-bottom: 1px dashed #ccc; ">
                                     <div class="container">
-                                        <div style="width: 100%;"><span style="font-weight: bold;">Título: </span><span t-field="o.project_title"/></div>
-                                        <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><span t-field="o.project_author_id"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><span t-field="o.project_author_degree"/></div>
+                                        <div style="width: 100%;">
+                                            <span style="font-weight: bold;">Título: </span>
+                                            <span t-field="o.project_title"/>
                                         </div>
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><span t-field="o.project_author_license"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º </span><span t-field="o.project_approved_date"/></div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Autor: </span>
+                                                <span t-field="o.project_author_id"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Titulación: </span>
+                                                <span t-field="o.project_author_degree"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Colegiado N.º: </span>
+                                                <span t-field="o.project_author_license"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Fecha / N.º </span>
+                                                <span t-field="o.project_approved_date"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -74,12 +227,24 @@
                                 <div style="width: 80%;">
                                     <div class="container">
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><span t-field="o.dof_author_id"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><span t-field="o.dof_author_degree"/></div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Autor: </span>
+                                                <span t-field="o.dof_author_id"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Titulación: </span>
+                                                <span t-field="o.dof_author_degree"/>
+                                            </div>
                                         </div>
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><span t-field="o.dof_author_license"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º Visado: </span><span t-field="o.dof_approved_date"/></div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Colegiado N.º: </span>
+                                                <span t-field="o.dof_author_license"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Fecha / N.º Visado: </span>
+                                                <span t-field="o.dof_approved_date"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +264,8 @@
                 </div>
             </div>
             <div class="row bordered" style="margin-bottom: -1px; border: 1px solid #ccc">
-                <div style="width: 75%; border-right: 1px solid #ccc;"><span style="font-weight: bold;">EMPRESA MANTENEDORA: </span>LEHENGOAK BABES INGENIARITZA S.L.</div>
+                <div style="width: 75%; border-right: 1px solid #ccc;">
+                    <span style="font-weight: bold;">EMPRESA MANTENEDORA: </span>LEHENGOAK BABES INGENIARITZA S.L.</div>
                 <div style="width: 25%;">
                     <span style="font-weight: bold;">EMI: </span>20/EMI-15</div>
             </div>
@@ -145,7 +311,7 @@
         </div>
     </template>
     <!-- Agregar portada -->
-    <template id="report_front_page_inspeccion_quitado_temporal" name="Inspeccion Portada">
+    <template id="report_front_page_inspeccion" name="Inspeccion Portada">
         <style>
             .contenedor_debajo {
             --col-count: 3;
