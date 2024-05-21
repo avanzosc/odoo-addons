@@ -22,39 +22,39 @@
                 </group>
                 <group string="Inspection Details">
                     <group string="Maintainer">
-                        <field name="maintainer_id" />
-                        <field name="maintainer_emi" />
+                        <field name="maintainer_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="maintainer_emi" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                     <group string="Installer">
-                        <field name="installer_id" />
-                        <field name="installer_epi" />
+                        <field name="installer_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="installer_epi" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                     <group string="Inspection">
-                        <field name="inspection_start_date"/>
+                        <field name="inspection_start_date" />
                         <field name="inspection_end_date" />
                         <field name="inspection_type" />
                         <field name="inspector_id" />
-                        <field name="administrator_id" />
+                        <field name="administrator_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                     <group string="Other">
-                        <field name="file_number"/>
+                        <field name="file_number" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                         <field name="act_number" />
-                        <field name="certification_date" />
+                        <field name="certification_date" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                 </group>
                 <group string="Building Use">
                     <group string="Project">
-                        <field name="project_title"/>
-                        <field name="project_author_id"/>
-                        <field name="project_author_degree"/>
-                        <field name="project_author_license"/>
-                        <field name="project_approved_date"/>
+                        <field name="project_title" attrs="{'invisible':[('inspected_building_id', '=', False)]}"/>
+                        <field name="project_author_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="project_author_degree" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="project_author_license" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="project_approved_date" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                     <group string="Certificate of Final Work Direction">
-                        <field name="dof_author_id"/>
-                        <field name="dof_author_degree"/>
-                        <field name="dof_author_license"/>
-                        <field name="dof_approved_date"/>
+                        <field name="dof_author_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="dof_author_degree" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="dof_author_license" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
+                        <field name="dof_approved_date" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                 </group>
             </notebook>

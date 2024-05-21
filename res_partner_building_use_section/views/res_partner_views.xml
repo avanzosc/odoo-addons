@@ -7,12 +7,12 @@
             <page name="internal_notes" position="after">
                 <page name="customer_building" string="Building">
                     <group>
-                        <group>
+                        <group string="Building Details">
                             <field name="building_use_id" />
                             <field name="service_start_date" />
                             <field name="service_end_date" />
                         </group>
-                        <group>
+                        <group string="Contractor">
                             <field name="administrator_id" />
                             <field name="installer_id" />
                             <field name="installer_epi" />
@@ -20,14 +20,14 @@
                             <field name="maintainer_id" />
                             <field name="maintainer_emi" />
                         </group>
-                        <group>
-                            <field name="project_title" />
+                        <group string="Project">
+                            <field name="project_title"/>
                             <field name="project_author_id" />
                             <field name="project_author_degree" />
                             <field name="project_author_license" />
                             <field name="project_approved_date" />
                         </group>
-                        <group>
+                        <group string="Certificate of Final Work Direction">
                             <field name="dof_author_id" />
                             <field name="dof_author_degree" />
                             <field name="dof_author_license" />
