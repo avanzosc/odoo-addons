@@ -57,14 +57,14 @@
                                 <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Proyecto</div>
                                 <div style="width: 80%; border-bottom: 1px dashed #ccc; ">
                                     <div class="container">
-                                        <div style="width: 100%;"><span style="font-weight: bold;">Título: </span><t t-field="o.project_title"/></div>
+                                        <div style="width: 100%;"><span style="font-weight: bold;">Título: </span><span t-field="o.project_title"/></div>
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><t t-field="o.project_author_id"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><t t-field="o.project_author_degree"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><span t-field="o.project_author_id"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><span t-field="o.project_author_degree"/></div>
                                         </div>
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><t t-field="o.project_author_license"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º </span><t t-field="o.project_approved_date"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><span t-field="o.project_author_license"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º </span><span t-field="o.project_approved_date"/></div>
                                         </div>
                                     </div>
                                 </div>
@@ -74,12 +74,12 @@
                                 <div style="width: 80%;">
                                     <div class="container">
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><t t-field="o.dof_author_id"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><t t-field="o.dof_author_degree"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Autor: </span><span t-field="o.dof_author_id"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Titulación: </span><span t-field="o.dof_author_degree"/></div>
                                         </div>
                                         <div class="row">
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><t t-field="o.dof_author_license"/></div>
-                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º Visado: </span><t t-field="o.dof_approved_date"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Colegiado N.º: </span><span t-field="o.dof_author_license"/></div>
+                                            <div style="width: 50%;"><span style="font-weight: bold;"> Fecha / N.º Visado: </span><span t-field="o.dof_approved_date"/></div>
                                         </div>
                                     </div>
                                 </div>
