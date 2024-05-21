@@ -25,14 +25,21 @@
                         <field name="file_number"/>
                         <field name="act_number" />
                         <field name="inspector_id" />
-                        <field name="maintainer_id" />
-                        <field name="installer_id" />
+                        <group string="Maintainer">
+                            <field name="maintainer_id" />
+                            <field name="maintainer_emi" />
+                        </group>
+                        <group string="Installer">
+                            <field name="installer_id" />
+                            <field name="installer_epi" />
+                        </group>
                         <field name="administrator_id" />
                     </group>
                     <group string="Inspection">
                         <field name="inspection_start_date"/>
                         <field name="inspection_end_date" />
                         <field name="inspection_type" />
+                        <field name="certification_date" />
                     </group>
                 </group>
                 <group string="Building Use">

@@ -20,11 +20,16 @@ class SurveyUserInput(models.Model):
         string=_("Maintainer"),
         comodel_name="res.partner",
     )
+    maintainer_emi = fields.Char(
+        string=_("Maintainer EMI"), related="maintainer_id.emi"
+    )
     installer_id = fields.Many2one(
         related="inspected_building_id.installer_id",
         string=_("Installer"),
         comodel_name="res.partner",
     )
+    installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
+
     administrator_id = fields.Many2one(
         related="inspected_building_id.administrator_id",
         string=_("Administrator"),
@@ -98,7 +103,10 @@ class SurveyUserInput(models.Model):
         string=_("Project Approved Date"),
         related="inspected_building_id.project_approved_date",
     )
-
+    certification_date = fields.Date(
+        string=_("Certification Date"),
+        related="inspected_building_id.certification_date",
+    )
     # Certificate of Final Work Direction
     dof_author_id = fields.Many2one(
         string=_("Director of Works Author"),

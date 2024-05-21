@@ -29,44 +29,47 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row bordered" style="margin-bottom: -1px;">
-                <div class="col-2">
-                    <div class="title">DOCUMENTACIÓN TÉCNICA</div>
-                </div>
-                <div class="col-10">
+                <div class="col-12 bordered" style="margin-bottom: -1px;">
                     <div class="row">
-                        <div class="col-2 title" style="border-left: 1px dashed black; border-bottom: 1px dashed black; border-right: 1px dashed black;">Proyecto</div>
-                        <div class="col-10" style="border-bottom: 1px dashed black; ">
+                        <div class="col-3">
+                            <div class="title">DOCUMENTACIÓN TÉCNICA</div>
+                        </div>
+                        <div class="col-9">
                             <div class="row">
-                                <div class="col-12">Título: AMPLIACION MECANIZADO AMPO S.COOP</div>
-                                <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
-                                <div class="col-6">Titulación: ARQUITECTO</div>
-                                <div class="col-6">Colegiado N.º: 2648</div>
-                                <div class="col-6">Fecha / N.º Visado: 06/2017</div>
+                                <div class="col-2 title" style="border-left: 1px dashed black; border-bottom: 1px dashed black; border-right: 1px dashed black;">Proyecto</div>
+                                <div class="col-10" style="border-bottom: 1px dashed black; ">
+                                    <div class="row">
+                                        <div class="col-12">Título: AMPLIACION MECANIZADO AMPO S.COOP</div>
+                                        <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
+                                        <div class="col-6">Titulación: ARQUITECTO</div>
+                                        <div class="col-6">Colegiado N.º: 2648</div>
+                                        <div class="col-6">Fecha / N.º Visado: 06/2017</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 title" style="border-left: 1px dashed black; border-right: 1px dashed black;">Certificado Final</div>
+                                <div class="col-10">
+                                    <div class="row">
+                                        <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
+                                        <div class="col-6">Titulación: ARQUITECTO</div>
+                                        <div class="col-6">Colegiado N.º: 2648</div>
+                                        <div class="col-6">Fecha / N.º Visado: 09/2017</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-2 title" style="border-left: 1px dashed black; border-right: 1px dashed black;">Certificado Final</div>
-                        <div class="col-10">
-                            <div class="row">
-                                <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
-                                <div class="col-6">Titulación: ARQUITECTO</div>
-                                <div class="col-6">Colegiado N.º: 2648</div>
-                                <div class="col-6">Fecha / N.º Visado: 09/2017</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="row bordered" style="margin-bottom: -1px;">
-                <div class="col-6" style="border-right: 1px solid black;">
-                    <span class="title p-1">Nº REGISTRO INSTALACIÓN: </span>
-                    <span class="color p-1">AMPO S.COOP</span>
+                <div class="col-6 p-1" style="border-right: 1px solid black;">
+                    <span class="title">Nº REGISTRO INSTALACIÓN: </span>
+                    <span class="color">AMPO S.COOP</span>
                 </div>
-                <div class="col-6">
-                    <span class="title">Fecha Puesta en Servicio: </span><span class="color">01/01/2018</span>
+                <div class="col-6 p-1">
+                    <span class="title">Fecha Puesta en Servicio: </span>
+                    <span class="color">01/01/2018</span>
                 </div>
             </div>
             <div class="row bordered" style="margin-bottom: -1px;">
@@ -74,6 +77,11 @@
                 <div class="col-3 p-1">
                     <span class="title">EMI: </span>20/EMI-15</div>
             </div>
+
+        </div>
+
+        <div class="container my-3" style="font-size: 9px">
+
             <div class="row bordered p-1">
                 <div class="col-12 title">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
                 <div class="col-4">
@@ -110,12 +118,10 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
-</template>
-<!-- Agregar portada -->
-<template id="report_front_page_inspeccion_quitado_temporal" name="Inspeccion Portada">
-<style>
+    </template>
+    <!-- Agregar portada -->
+    <template id="report_front_page_inspeccion_quitado_temporal" name="Inspeccion Portada">
+        <style>
             .contenedor_debajo {
             --col-count: 3;
             margin-bottom: 20px;
@@ -153,11 +159,11 @@
             padding: 5px;
             }
 
-</style>
+        </style>
 
-<t t-set="survey_form_readonly" t-value="true"/>
+        <t t-set="survey_form_readonly" t-value="true"/>
 
-<!-- <t t-set="survey_info" t-value="[
+        <!-- <t t-set="survey_info" t-value="[
                 {'label': 'Survey Title:', 'value': o.survey_id.title},
                 {'label': 'Survey Expediente:', 'value': o.file_number},
                 {'label': 'Survey Acta:', 'value': o.act_number},
@@ -177,7 +183,7 @@
                 {'label': 'Create Date:', 'value': o.create_date},
                 ]" /> -->
 
-<t t-set="survey_info" t-value="[
+        <t t-set="survey_info" t-value="[
             {'label': 'Expediente de la Encuesta:', 'value': o.file_number},
             {'label': 'Acta de la Encuesta:', 'value': o.act_number},
             {'label': 'Fecha de Inicio de Inspección:', 'value': o.inspection_start_date},
@@ -187,7 +193,7 @@
             {'label': 'Socio:', 'value': o.partner_id.name},
         ]"/>
 
-<t t-set="survey_info_debajo" t-value="[
+        <t t-set="survey_info_debajo" t-value="[
             {'label': 'Edificio:', 'value': o.inspected_building_id.name},
             {'label': 'NIF:', 'value': o.inspected_building_id.vat},
             {'label': 'Teléfono:', 'value': o.inspected_building_id.phone},
@@ -202,45 +208,45 @@
             {'label': 'Teléfono:', 'value': o.administrator_id.phone},
         ]"/>
 
-<!-- Contenedor principal -->
-<div class="contenedor contenedor_1">
-    <!-- Contenedor izquierdo -->
-    <div class="w-100 m-0 p-0 mx-auto">
-        <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
+        <!-- Contenedor principal -->
+        <div class="contenedor contenedor_1">
+            <!-- Contenedor izquierdo -->
+            <div class="w-100 m-0 p-0 mx-auto">
+                <p>De acuerdo con el Reglamento de instalaciones de protección contraincendios, las
                     comprobaciones y controles se realizan en base al cumplimiento de las
                     disposiciones: </p>
-        <table class="reglamento w-100">
-            <t t-set="counter" t-value="0"/>
-            <t t-set="grouped_items" t-value="[]"/>
+                <table class="reglamento w-100">
+                    <t t-set="counter" t-value="0"/>
+                    <t t-set="grouped_items" t-value="[]"/>
 
-            <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])"/>
+                    <t t-set="all_normatives" t-value="env['survey.question.normative'].search([])"/>
 
-            <!-- Filtrar las normativas basadas en el año de inicio y fin -->
-            <t t-if="not isinstance(o.inspected_building_id.service_start_date, bool)">
-                <t t-set="license_application_date" t-value="o.inspected_building_id.service_start_date"/>
-                <t t-set="filtered_normatives" t-value="all_normatives.filtered(lambda norm: not isinstance(norm.start_date, bool) and not isinstance(norm.end_date, bool) and norm.start_date &lt;= license_application_date and norm.end_date &gt;= license_application_date)"/>
-            </t>
-            <t t-if="current_question_print_normatives">
-                <t t-foreach="current_question_print_normatives" t-as="item">
-                    <t t-set="counter" t-value="counter+1"/>
-                    <t t-set="grouped_items" t-value="grouped_items + [item]"/>
-                    <t t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
-                        <tr>
-                            <t t-foreach="grouped_items" t-as="grouped_item">
-                                <td class="w-50">
-                                    <input id="cuadrado" type="checkbox"/>
-                                    <t t-esc="grouped_item.name"/>
-                                </td>
-                            </t>
-                        </tr>
-                        <t t-set="grouped_items" t-value="[]"/>
+                    <!-- Filtrar las normativas basadas en el año de inicio y fin -->
+                    <t t-if="not isinstance(o.inspected_building_id.service_start_date, bool)">
+                        <t t-set="license_application_date" t-value="o.inspected_building_id.service_start_date"/>
+                        <t t-set="filtered_normatives" t-value="all_normatives.filtered(lambda norm: not isinstance(norm.start_date, bool) and not isinstance(norm.end_date, bool) and norm.start_date &lt;= license_application_date and norm.end_date &gt;= license_application_date)"/>
                     </t>
-                </t>
-            </t>
-        </table>
-    </div>
-    <!-- Contenedor derecho -->
-    <!-- <div>
+                    <t t-if="current_question_print_normatives">
+                        <t t-foreach="current_question_print_normatives" t-as="item">
+                            <t t-set="counter" t-value="counter+1"/>
+                            <t t-set="grouped_items" t-value="grouped_items + [item]"/>
+                            <t t-if="counter % 2 == 0 or counter == len(current_question_print_normatives)">
+                                <tr>
+                                    <t t-foreach="grouped_items" t-as="grouped_item">
+                                        <td class="w-50">
+                                            <input id="cuadrado" type="checkbox"/>
+                                            <t t-esc="grouped_item.name"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-set="grouped_items" t-value="[]"/>
+                            </t>
+                        </t>
+                    </t>
+                </table>
+            </div>
+            <!-- Contenedor derecho -->
+            <!-- <div>
                 <table class="table table-borderless o_survey_question_matrix text-white text-center">
                     <t t-set="display_counter" t-value="0" />
                     <t t-set="total_counter" t-value="0" />
@@ -291,57 +297,57 @@
                     </t>
                 </table>
             </div> -->
-</div>
+        </div>
 
-<div class="contenedor_debajo" style="margin: 0 auto 40px;">
-    <t t-set="total_counter" t-value="0"/>
-    <t t-set="line_infos" t-value="[]"/>
-    <t t-foreach="survey_info_debajo" t-as="info">
-        <t t-if="info['value'] and info['label']">
-            <t t-set="total_counter" t-value="total_counter+1"/>
-            <t t-set="line_infos" t-value="line_infos + [info]"/>
-            <t t-if="total_counter % 3 == 1">
-                <div class="row" style="margin-bottom: -1px;">
-                    <div class="col-12">
-                        <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px 0 0 0; width: 795px;">
-                            <label style="font-weight: bold;">
-                                <t t-esc="line_infos[total_counter-1]['label']"/>
-                            </label>
-                            <span>
-                                <t t-esc="line_infos[total_counter-1]['value']"/>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </t>
-            <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
-                <div class="row" style="margin-bottom: -1px;">
-                    <div class="col-6">
-                        <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px -1px 0 0;">
-                            <label style="font-weight: bold;">
-                                <t t-esc="line_infos[total_counter-2]['label']"/>
-                            </label>
-                            <span>
-                                <t t-esc="line_infos[total_counter-2]['value']"/>
-                            </span>
-                        </div>
-                    </div>
-                    <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
-                        <div class="col-6">
-                            <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px 0 0 -1px;">
-                                <label style="font-weight: bold;">
-                                    <t t-esc="line_infos[total_counter-1]['label']"/>
-                                </label>
-                                <span>
-                                    <t t-esc="line_infos[total_counter-1]['value']"/>
-                                </span>
+        <div class="contenedor_debajo" style="margin: 0 auto 40px;">
+            <t t-set="total_counter" t-value="0"/>
+            <t t-set="line_infos" t-value="[]"/>
+            <t t-foreach="survey_info_debajo" t-as="info">
+                <t t-if="info['value'] and info['label']">
+                    <t t-set="total_counter" t-value="total_counter+1"/>
+                    <t t-set="line_infos" t-value="line_infos + [info]"/>
+                    <t t-if="total_counter % 3 == 1">
+                        <div class="row" style="margin-bottom: -1px;">
+                            <div class="col-12">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px 0 0 0; width: 795px;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-1]['label']"/>
+                                    </label>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-1]['value']"/>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </t>
-                </div>
+                    <t t-elif="total_counter % 3 == 0 or total_counter == len(survey_info)">
+                        <div class="row" style="margin-bottom: -1px;">
+                            <div class="col-6">
+                                <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px -1px 0 0;">
+                                    <label style="font-weight: bold;">
+                                        <t t-esc="line_infos[total_counter-2]['label']"/>
+                                    </label>
+                                    <span>
+                                        <t t-esc="line_infos[total_counter-2]['value']"/>
+                                    </span>
+                                </div>
+                            </div>
+                            <t t-if="not (total_counter % 3 == 2 and total_counter == len(survey_info))">
+                                <div class="col-6">
+                                    <div class="o_survey_matrix_btn text-dark position-relative border p-1" style="margin: -1px 0 0 -1px;">
+                                        <label style="font-weight: bold;">
+                                            <t t-esc="line_infos[total_counter-1]['label']"/>
+                                        </label>
+                                        <span>
+                                            <t t-esc="line_infos[total_counter-1]['value']"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </t>
             </t>
-        </t>
-    </t>
-</div>
-</template>
+        </div>
+    </template>
 </odoo>
