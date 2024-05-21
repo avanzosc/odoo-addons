@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_front_page_inspeccion" name="Inspeccion Portada">
-               <div class="container">
+        <div class="container">
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
                 <div style="width: 25%; border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">NIF / CIF: </span> B-12345678</div>
             </div>
-            <div class="row" style="border: 1px solid #ccc">
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
                 <div>
                     <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
                 </div>
             </div>
-            <div class="container" style="border: 1px solid #ccc; padding: 0;">
+            <div class="container" style="margin-top: -1px;">
                 <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row">
-                        <div style="width: 25%; border-right: 1px dashed black;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
+                        <div style="width: 25%; border-right: 1px dashed #ccc;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                         <div style="width: 75%;">BARRIO KATEA S/N</div>
                     </div>
                 </div>
                 <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row">
-                        <div style="width: 25%; border-right: 1px dashed black;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
+                        <div style="width: 25%; border-right: 1px dashed #ccc;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                         <div style="width: 75%;">
                             <div style="width: 100%;">Superficie (m²): 12.800</div>
                             <div style="width: 100%;">Actividad: MECANIZADO PIEZAS</div>
@@ -33,13 +33,13 @@
                 </div>
                 <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row" style="width: 100%;">
-                        <div style="width: 25%;">
+                        <div style="width: 25%;border-right: 1px dashed #ccc;">
                             <div class="title">DOCUMENTACIÓN TÉCNICA</div>
                         </div>
                         <div class="container" style="width: 75%; margin: 0 auto 0 0; ">
                             <div class="row">
-                                <div style="width: 20%; border-left: 1px dashed black; border-bottom: 1px dashed black; border-right: 1px dashed black;">Proyecto</div>
-                                <div style="width: 80%; border-bottom: 1px dashed black; ">
+                                <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Proyecto</div>
+                                <div style="width: 80%; border-bottom: 1px dashed #ccc; ">
                                     <div class="container">
                                         <div style="width: 100%;">Título: AMPLIACION MECANIZADO AMPO S.COOP</div>
                                         <div class="row">
@@ -54,8 +54,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div style="width: 16.666%; border-left: 1px dashed black; border-right: 1px dashed black;">Certificado Final</div>
-                                <div style="width: 83.333%;">
+                                <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Final</div>
+                                <div style="width: 80%;">
                                     <div class="container">
                                         <div class="row">
                                             <div style="width: 50%;">Autor: JOSE IGNACIO MARTÍNEZ</div>
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="row bordered" style="margin-bottom: -1px; border: 1px solid #ccc">
-                <div style="border-right: 1px solid black; width: 50%;">
+                <div style="border-right: 1px solid #ccc; width: 50%;">
                     <span class="title">Nº REGISTRO INSTALACIÓN: </span>
                     <span class="color">AMPO S.COOP</span>
                 </div>
@@ -83,11 +83,11 @@
                 </div>
             </div>
             <div class="row bordered" style="margin-bottom: -1px; border: 1px solid #ccc">
-                <div style="width: 75%; border-right: 1px solid black;">EMPRESA MANTENEDORA: LEHENGOAK BABES INGENIARITZA S.L.</div>
+                <div style="width: 75%; border-right: 1px solid #ccc;">EMPRESA MANTENEDORA: LEHENGOAK BABES INGENIARITZA S.L.</div>
                 <div style="width: 25%;">
                     <span class="title">EMI: </span>20/EMI-15</div>
             </div>
-        </div>
+        </div> 
 
 
 
