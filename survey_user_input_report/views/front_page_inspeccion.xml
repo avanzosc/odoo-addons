@@ -1,7 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <template id="report_front_page_inspeccion" name="Inspeccion Portada">
-              <div class="container">
+        <style>
+            .container {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            padding: 0;
+            }
+            .row {
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            padding: 0;
+            }
+            div, li{
+            padding: 4px;
+            }
+        </style>
+
+
+
+        <div class="container">
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
@@ -87,100 +105,13 @@
                 <div style="width: 25%;">
                     <span class="title">EMI: </span>20/EMI-15</div>
             </div>
-        </div> 
-
-
-
-
-
-
-
-
-
-        <div class="container my-3" style="font-size: 9px">
-            <div class="row bordered p-1" style="margin-bottom: -1px;">
-                <div class="col-9">
-                    <span class="title">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
-                <div class="col-3">
-                    <span class="title">NIF / CIF: </span> B-12345678</div>
-            </div>
-            <div class="row bordered" style="margin-bottom: -1px;">
-                <div class="col-12 title p-1">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</div>
-            </div>
-            <div class="row">
-                <div class="col-12 bordered" style="margin-bottom: -1px;">
-                    <div class="row">
-                        <div class="col-3 p-1 title" style="border-right: 1px dashed black;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
-                        <div class="col-3 p-1">BARRIO KATEA S/N</div>
-                    </div>
-                </div>
-                <div class="col-12 bordered" style="margin-bottom: -1px;">
-                    <div class="row">
-                        <div class="col-3 p-1 title" style="border-right: 1px dashed black;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
-                        <div class="col-9 p-1">
-                            <div class="col-12">Superficie (m²): 12.800</div>
-                            <div class="col-12">Actividad: MECANIZADO PIEZAS</div>
-                            <div class="col-12">Nivel Riego Intrínseco: <strong>X</strong> Bajo Medio Alto</div>
-                            <div class="col-12">Configuración: A <strong>X</strong> B C D E</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 bordered" style="margin-bottom: -1px;">
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="title">DOCUMENTACIÓN TÉCNICA</div>
-                        </div>
-                        <div class="col-9">
-                            <div class="row">
-                                <div class="col-2 title" style="border-left: 1px dashed black; border-bottom: 1px dashed black; border-right: 1px dashed black;">Proyecto</div>
-                                <div class="col-10" style="border-bottom: 1px dashed black; ">
-                                    <div class="row">
-                                        <div class="col-12">Título: AMPLIACION MECANIZADO AMPO S.COOP</div>
-                                        <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
-                                        <div class="col-6">Titulación: ARQUITECTO</div>
-                                        <div class="col-6">Colegiado N.º: 2648</div>
-                                        <div class="col-6">Fecha / N.º Visado: 06/2017</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2 title" style="border-left: 1px dashed black; border-right: 1px dashed black;">Certificado Final</div>
-                                <div class="col-10">
-                                    <div class="row">
-                                        <div class="col-6">Autor: JOSE IGNACIO MARTÍNEZ</div>
-                                        <div class="col-6">Titulación: ARQUITECTO</div>
-                                        <div class="col-6">Colegiado N.º: 2648</div>
-                                        <div class="col-6">Fecha / N.º Visado: 09/2017</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row bordered" style="margin-bottom: -1px;">
-                <div class="col-6 p-1" style="border-right: 1px solid black;">
-                    <span class="title">Nº REGISTRO INSTALACIÓN: </span>
-                    <span class="color">AMPO S.COOP</span>
-                </div>
-                <div class="col-6 p-1">
-                    <span class="title">Fecha Puesta en Servicio: </span>
-                    <span class="color">01/01/2018</span>
-                </div>
-            </div>
-            <div class="row bordered" style="margin-bottom: -1px;">
-                <div class="col-9 p-1 title" style="border-right: 1px solid black;">EMPRESA MANTENEDORA: LEHENGOAK BABES INGENIARITZA S.L.</div>
-                <div class="col-3 p-1">
-                    <span class="title">EMI: </span>20/EMI-15</div>
-            </div>
-
         </div>
 
-        <div class="container my-3" style="font-size: 9px">
 
-            <div class="row bordered p-1">
-                <div class="col-12 title">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
-                <div class="col-4">
+        <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
+            <div style="width: 100%;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
+            <div class="row">
+                <div style="width: 33%;">
                     <ul class="list-unstyled">
                         <li>
                             <strong>X</strong> Sistemas de detección y alarma</li>
@@ -193,7 +124,7 @@
                         <li>Sistemas de columna seca</li>
                     </ul>
                 </div>
-                <div class="col-4">
+                <div style="width: 33%;">
                     <ul class="list-unstyled">
                         <li>Sistema rociadores automáticos de agua</li>
                         <li>Sistemas fijos extinción agua nebulizada</li>
@@ -203,7 +134,7 @@
                         <li>Mantas ignífugas</li>
                     </ul>
                 </div>
-                <div class="col-4">
+                <div style="width: 33%;">
                     <ul class="list-unstyled">
                         <li>Sist. de señalización luminiscente</li>
                         <li>Alumbrado de emergencia</li>
