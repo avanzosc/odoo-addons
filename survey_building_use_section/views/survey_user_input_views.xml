@@ -8,7 +8,7 @@
                 <attribute name="attrs">{}</attribute>
             </field>
             <notebook position="before">
-                <group  string="Inspection">
+                <group>
                     <group string="Building">
                         <field name="inspected_building_id"/>
                         <field name="building_use_id" readonly="1" attrs="{'invisible':[('inspected_building_id', '=', False)]}"/>
@@ -20,7 +20,7 @@
                         <field name="superficie" readonly="1" attrs="{'invisible':[('building_section_id', '=', False)]}"/>
                     </group>
                 </group>
-                <group string="Inspection Details">
+                <group>
                     <group string="Maintainer">
                         <field name="maintainer_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                         <field name="maintainer_emi" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
@@ -42,7 +42,7 @@
                         <field name="certification_date" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                     </group>
                 </group>
-                <group string="Building Use">
+                <group>
                     <group string="Project">
                         <field name="project_title" attrs="{'invisible':[('inspected_building_id', '=', False)]}"/>
                         <field name="project_author_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
