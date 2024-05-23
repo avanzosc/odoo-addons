@@ -5,10 +5,12 @@
          <field name="inherit_id" ref="account.view_account_payment_form" />
          <field name="arch" type="xml">
             <field name="move_id" position="after">
-                <field name="sale_order_ids" widget="many2many_tags" domain="[('state', '=', 'sale'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
-                <field name="sale_amount"/>
-                <field name="purchase_order_ids" widget="many2many_tags" domain="[('state', '=', 'purchase'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
-                <field name="purchase_amount"/>
+                <field name="sale_order_ids" invisible="1" widget="many2many_tags" domain="[('state', '=', 'sale'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
+                <field name="sale_amount" invisible="1"/>
+                <field name="purchase_order_ids" invisible="1" widget="many2many_tags" domain="[('state', '=', 'purchase'), ('partner_id', '=', partner_id), ('invoice_status', '=', 'to invoice')]"/>
+                <field name="purchase_amount" invisible="1"/>
+                <field name="invoice_order_ids" widget="many2many_tags" domain="[('move_type', 'in', ('out_refund', 'out_invoice')), ('partner_id', '=', partner_id), ('payment_state', 'in', ('not_paid', 'in_payment', 'partial'))]"/>
+                <field name="invoice_amount"/>
             </field>
          </field>
      </record>
