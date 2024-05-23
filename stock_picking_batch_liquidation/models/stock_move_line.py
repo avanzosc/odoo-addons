@@ -43,17 +43,23 @@ class StockMoveLine(models.Model):
         compute="_compute_mother_id",
         store=True
     )
+    cleaned_date = fields.Date(
+        string="Cleaned Date",
+        compute="_compute_mother_id",
+        store=True
+    )
 
     @api.depends("picking_id", "picking_id.batch_id", "move_id",
                  "move_id.inventory_id", "move_id.inventory_id.batch_id")
     def _compute_mother_id(self):
         for line in self:
             mother = False
-            if line.picking_id:
-                mother = line.picking_id.batch_id.id
-            elif line.move_id and line.move_id.inventory_id:
-                mother = line.move_id.inventory_id.batch_id.id
-            line.mother_id = mother
+            if line.picking_id and line.picking_id.batch_id:
+                mother = line.picking_id.batch_id
+            elif line.move_id and line.move_id.inventory_id and line.move_id.inventory_id.batch_id:
+                mother = line.move_id.inventory_id.batch_id
+            line.mother_id = mother.id if mother else False
+            line.cleaned_date = mother.cleaned_date if mother else False
 
     @api.depends("picking_type_id", "picking_type_id.category_id",
                  "production_id", "production_id.picking_type_id",

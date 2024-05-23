@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch Liquidation",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "depends": [
@@ -47,4 +47,5 @@
     ],
     "license": "AGPL-3",
     "installable": True,
+    "pre_init_hook": "pre_init_hook",
 }
