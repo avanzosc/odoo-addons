@@ -63,6 +63,10 @@
                 <filter string="Move Type" name="move_type" domain="[]" context="{'group_by': 'move_type_id'}"/>
                 <filter string="Picking Type Category" name="type_category" domain="[]" context="{'group_by': 'type_category_id'}"/>
             </filter>
+            <group position="inside">
+                <separator/>
+                <filter string="Cleaned Date" name="move_cleaned_date" domain="[]" context="{'group_by': 'cleaned_date'}"/>
+            </group>
         </field>
     </record>
 </odoo>
