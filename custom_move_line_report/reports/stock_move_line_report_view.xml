@@ -5,7 +5,7 @@
         <field name="name">stock.move.line.report.tree</field>
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
-            <tree string="Movement Analysis">
+            <tree string="Movement Analysis" editable="bottom">
                 <field name="date"/>
                 <field name="ref"/>
                 <field name="picking_id"/>
@@ -18,6 +18,7 @@
                 <field name="move_type_id"/>
                 <field name="type_category_id"/>
                 <field name="batch_id"/>
+                <field name="mother_id"/>
                 <field name="warehouse_id"/>
                 <field name="company_id" optional="hide"/>
                 <field name="owner_id" optional="hide"/>
@@ -47,6 +48,7 @@
                             <field name="company_id"/>
                             <field name="owner_id"/>
                             <field name="batch_id"/>
+                            <field name="mother_id"/>
                         </group>
                         <group string="Type">
                             <field name="picking_type_id"/>
@@ -132,6 +134,7 @@
                 <field name="product_category_type_id"/>
                 <field name="picking_id"/>
                 <field name="batch_id"/>
+                <field name="mother_id"/>
                 <field name="production_id"/>
                 <filter string="Internal Location" name="internal" domain="[('location_id.usage', '=', 'internal')]"/>
                 <filter string="Supplier Location" name="supplier" domain="[('location_id.usage', '=', 'supplier')]"/>
@@ -140,6 +143,8 @@
                 <filter string="Production Location" name="production" domain="[('location_id.usage', '=', 'production')]"/>
                 <separator/>
                 <filter name="filter_date" date="date"/>
+                <separator/>
+                <filter string="Today" name="today" domain="[('date','&gt;', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
                 <group expand="0" string="Group By">
                     <filter name="groupby_ref" string="Reference"
                             context="{'group_by':'ref'}" />
@@ -165,6 +170,8 @@
                             context="{'group_by':'picking_type_id'}" />
                     <filter name="groupby_batch" string="Egg Mother"
                             context="{'group_by':'batch_id'}" />
+                    <filter name="groupby_mother" string="Mother"
+                            context="{'group_by':'mother_id'}" />
                     <filter name="groupby_production" string="Production"
                             context="{'group_by':'production_id'}" />
                     <filter name="groupby_partner" string="Partner"

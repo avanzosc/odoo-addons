@@ -43,6 +43,10 @@ class StockMoveLineReport(models.Model):
         string="Egg Mother",
         comodel_name="stock.picking.batch",
         readonly=True)
+    mother_id = fields.Many2one(
+        string="Mother",
+        comodel_name="stock.picking.batch",
+        readonly=True)
     warehouse_id = fields.Many2one(
         string="Warehouse",
         comodel_name="stock.warehouse",
@@ -145,6 +149,7 @@ class StockMoveLineReport(models.Model):
                     line.move_type_id,
                     line.type_category_id,
                     line.batch_id,
+                    line.mother_id,
                     line.batch_location_id,
                     line.batch_category_type_id,
                     line.warehouse_id,
@@ -179,6 +184,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.move_type_id AS move_type_id,
                             stock_move_line.type_category_id AS type_category_id,
                             stock_move_line.batch_id AS batch_id,
+                            stock_move_line.mother_id AS mother_id,
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
@@ -220,6 +226,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.move_type_id AS move_type_id,
                             stock_move_line.type_category_id AS type_category_id,
                             stock_move_line.batch_id AS batch_id,
+                            stock_move_line.mother_id AS mother_id,
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
@@ -261,6 +268,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.move_type_id AS move_type_id,
                             '2' AS type_category_id,
                             stock_move_line.batch_id AS batch_id,
+                            stock_move_line.mother_id AS mother_id,
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
@@ -305,6 +313,7 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.move_type_id AS move_type_id,
                             '8' AS type_category_id,
                             stock_move_line.batch_id AS batch_id,
+                            stock_move_line.mother_id AS mother_id,
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
