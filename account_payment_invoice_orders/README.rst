@@ -6,7 +6,7 @@
 Account Payment Invoice Orders
 ==============================
 
-In payments, purchase and sale orders that are to invoice.
+In payments, purchase and sale orders and invoices that are to invoice.
 
 ===========
 
