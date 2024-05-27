@@ -15,13 +15,12 @@ Product sale configuration
   last price change date.
 * Whenever you change the Target Cost, Extra Cost, Sales Price Category fields
   in products, the sale price of the product will be calculated as follows:
-  PSP = (target cost) *% discount of the price category + Fixed amount field of
+  PSP = (target cost) * % discount of the price category + Fixed amount field of
   the sale price category
 * In products 2 new actions to assign category for sale price, and to
   change manual PsP. In order to do any of these 2 actions, the user
   must belong to the group created in this module. If a user is not in this
   group, the fields referenced will be read-only.
-*
 
 
 Bug Tracker
