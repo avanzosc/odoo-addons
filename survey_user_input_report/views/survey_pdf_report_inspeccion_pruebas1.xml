@@ -3,7 +3,7 @@
 
     <template id="report_front_page_inspeccion_prueba1" name="Inspeccion Portada">
         <style>
-            .container {
+            .columns {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             padding: 0;
@@ -18,7 +18,7 @@
             }
         </style>
 
-        <div class="container">
+        <div class="columns">
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
@@ -30,14 +30,14 @@
                     <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
                 </div>
             </div>
-            <div class="container" style="margin-top: -1px;">
-                <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
+            <div class="columns" style="margin-top: -1px;">
+                <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row">
                         <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                         <div style="width: 75%;">BARRIO KATEA S/N</div>
                     </div>
                 </div>
-                <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
+                <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row">
                         <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                         <div style="width: 75%;">
@@ -48,16 +48,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="container" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
+                <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                     <div class="row" style="width: 100%;">
                         <div style="width: 25%;border-right: 1px dashed #ccc;">
                             <span style="font-weight: bold;">DOCUMENTACIÓN TÉCNICA</span>
                         </div>
-                        <div class="container" style="width: 75%; margin: 0 auto 0 0; ">
+                        <div class="columns" style="width: 75%; margin: 0 auto 0 0; ">
                             <div class="row">
                                 <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Proyecto</div>
                                 <div style="width: 80%; border-bottom: 1px dashed #ccc; ">
-                                    <div class="container">
+                                    <div class="columns">
                                         <div style="width: 100%;">
                                             <span style="font-weight: bold;">Título: </span>
                                             <span t-field="o.project_title"/>
@@ -88,7 +88,7 @@
                             <div class="row">
                                 <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Final</div>
                                 <div style="width: 80%;">
-                                    <div class="container">
+                                    <div class="columns">
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Autor: </span>

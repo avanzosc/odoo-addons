@@ -39,6 +39,13 @@ class ResPartner(models.Model):
     emi = fields.Char(string=_("EMI"))
     epi = fields.Char(string=_("EPI"))
 
+    file_number = fields.Char(
+        string=_("File Number"),
+        copy=False,
+    )
+    certification_text = fields.Text(string=_("Certification Text"))
+
+
     # Maintainer
     maintainer_id = fields.Many2one(comodel_name="res.partner", string=_("Maintainer"))
     maintainer_emi = fields.Char(

@@ -3,11 +3,11 @@
 
 import logging
 
-_logger = logging.getLogger(__name__)
-
 from odoo import http
 from odoo.http import request
 from odoo.addons.survey.controllers.main import Survey
+
+_logger = logging.getLogger(__name__)
 
 class Survey(Survey):
     @http.route()
@@ -93,7 +93,7 @@ class Survey(Survey):
 
                         if not existing_user_input_line:
                             # Create a record for survey.user_input_line
-                            user_input_line = request.env['survey.user_input.line'].create({
+                            request.env['survey.user_input.line'].create({
                                 'survey_id': res.qcontext['survey'].id,
                                 'question_id': triggering_question_obj.id,
                                 'answer_type': 'suggestion',

@@ -2,7 +2,7 @@
 <odoo>
     <template id="report_front_page_inspeccion_prueba2" name="Inspeccion Portada">
         <style>
-            .container {
+            .columns {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             padding: 0;
@@ -17,7 +17,7 @@
             }
         </style>
 
-        <div class="container">
+        <div class="columns">
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
@@ -42,25 +42,25 @@
                 <div style="width: 15%;">
                     <span style="font-weight: bold;">USO:</span>
                 </div>
-                <div class="container" style="width: 85%; border-left: 1px dashed #ccc">
+                <div class="columns" style="width: 85%; border-left: 1px dashed #ccc">
                     <div class="row">
-                        <div style="width: 22%;">RESIDENCIAL
+                        <div style="width: 25%;">RESIDENCIAL
                         </div>
-                        <div style="width: 22%;">PÚBLICO
+                        <div style="width: 25%;">PÚBLICO
                         </div>
-                        <div style="width: 22%;">DOCENTE
+                        <div style="width: 25%;">DOCENTE
                         </div>
-                        <div style="width: 22%;">COMERCIAL
+                        <div style="width: 25%;">COMERCIAL
                         </div>
                     </div>
                     <div class="row">
-                        <div style="width: 22%;">HOSPITALARIO
+                        <div style="width: 25%;">HOSPITALARIO
                         </div>
-                        <div style="width: 22%;">PÚBLICA CONCURRENCIA
+                        <div style="width: 25%;">PÚBLICA CONCURRENCIA
                         </div>
-                        <div style="width: 22%;">APARCAMIENTO
+                        <div style="width: 25%;">APARCAMIENTO
                         </div>
-                        <div style="width: 22%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
+                        <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
                         </div>
                     </div>
                 </div>
