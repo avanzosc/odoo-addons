@@ -27,28 +27,19 @@ class CleaningDatabase(models.Model):
                 tuple(self.company_ids.ids)])
         self.env.cr.execute(
             "DELETE FROM stock_quant "
-            "WHERE location_id in (select l.id "
-            "                      from   stock_location as l,"
-            "                             stock_warehouse as w"
-            "                      where  l.id = stock_quant.location_id "
-            "                        and  w.id = l.warehouse_id "
-            "                        and  w.company_id in %s)", [
-                tuple(self.company_ids.ids)])
+            "WHERE company_id in %s OR lot_id in (select l.id "
+            "                      from   stock_production_lot as l"
+            "                      where  l.id = stock_quant.lot_id "
+            "                        and  l.company_id in %s)", [
+                tuple(self.company_ids.ids), tuple(self.company_ids.ids)])
         self.env.cr.execute(
             "DELETE FROM stock_inventory WHERE company_id in %s", [
                 tuple(self.company_ids.ids)])
+
+    def action_delete_stock_production_lot(self):
         self.env.cr.execute(
-            "DELETE FROM stock_production_lot "
-            "WHERE company_id in %s "
-            "  AND id in (select q.lot_id "
-            "             from   stock_quant as q,"
-            "                    stock_location as l,"
-            "                    stock_warehouse as w"
-            "             where  q.lot_id = stock_production_lot.id "
-            "               and  l.id = q.location_id "
-            "               and  w.id = l.warehouse_id "
-            "               and  w.company_id in %s)", [
-                tuple(self.company_ids.ids), tuple(self.company_ids.ids)])
+            "DELETE FROM stock_production_lot WHERE company_id in %s", [
+                tuple(self.company_ids.ids)])
 
     def action_delete_stock_valuation_operations(self):
         self.env.cr.execute(
@@ -98,6 +89,9 @@ class CleaningDatabase(models.Model):
                 tuple(self.company_ids.ids)])
         self.env.cr.execute(
             "DELETE FROM account_asset WHERE company_id in %s", [
+                tuple(self.company_ids.ids)])
+        self.env.cr.execute(
+            "DELETE FROM account_check_deposit WHERE company_id in %s", [
                 tuple(self.company_ids.ids)])
 
     def action_delete_transport_operations(self):
