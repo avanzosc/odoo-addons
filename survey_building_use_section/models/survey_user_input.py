@@ -35,7 +35,11 @@ class SurveyUserInput(models.Model):
         string=_("Administrator"),
         comodel_name="res.partner",
     )
-
+    configuration = fields.Selection(
+        string=_("Configuration"),
+        related="building_section_id.configuration",
+        store=True,
+    )
     building_section_id = fields.Many2one(
         string=_("Building Section/Area"),
         comodel_name="building.section",
