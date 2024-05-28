@@ -9,23 +9,39 @@ class ResPartner(models.Model):
     building_use_id = fields.Many2one(
         string=_("Building use"),
         comodel_name="building.use",
-        copy=False,
     )
     building_section_ids = fields.One2many(
         string=_("Building Section/Area"),
         comodel_name="building.section",
         inverse_name="partner_id",
-        copy=False,
     )
     service_start_date = fields.Date(
         string=_("Service Start Date"),
-        copy=False,
     )
     service_end_date = fields.Date(
         string=_("Service End Date"),
-        copy=False,
     )
+    alternative_text = fields.Char(string="Alternative Text", copy=False)
+    number_of_plants = fields.Integer(string='Number of Plants')
+    risk = fields.Char(string=_("Risk"), copy=False)
 
+    superficie = fields.Float(string=_("Surface"), default=0.0, copy=False)
+    evacuation_height = fields.Float(string=_('Evacuation Height'))
+
+    configuration = fields.Selection([
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
+        ('E', 'E'),
+    ], string='Configuration')
+
+    file_number = fields.Char(
+        string=_("File Number"),
+    )
+    installation_number = fields.Char(string='Installation Number')
+
+    certification_text = fields.Text(string=_("Certification Text"))
     degree_title = fields.Char(
         string=_("Degree Title"),
         domain="[('is_company','=',False)]",
@@ -38,13 +54,6 @@ class ResPartner(models.Model):
     )
     emi = fields.Char(string=_("EMI"))
     epi = fields.Char(string=_("EPI"))
-
-    file_number = fields.Char(
-        string=_("File Number"),
-        copy=False,
-    )
-    certification_text = fields.Text(string=_("Certification Text"))
-
 
     # Maintainer
     maintainer_id = fields.Many2one(comodel_name="res.partner", string=_("Maintainer"))
