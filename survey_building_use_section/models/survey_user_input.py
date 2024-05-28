@@ -68,6 +68,11 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.file_number",
         store=True,
     )
+    number_of_plants = fields.Integer(
+        string=_("Number of Plants"),
+        related="inspected_building_id.number_of_plants",
+        store=True,
+    )
     act_number = fields.Char(
         string=_("Act Number"),
     )
