@@ -10,8 +10,7 @@ class SurveyUserInputLine(models.Model):
 
     question_normative_id = fields.Many2one(
         string=_("Question Normative"), comodel_name="survey.question.normative",
-        copy=False,
     )
     notes = fields.Text(
-        string=_("Note"), help=_("Error Text"), copy=False,
+        string=_("Note"), help=_("Error Text"),
     )

@@ -36,7 +36,7 @@ class SurveySurvey(models.Model):
 
             normative_data = self.env['survey.question.normative'].search([])
             for normative in normative_data:
-                possible_answer = self.env['survey.question.answer'].create({
+                self.env['survey.question.answer'].create({
                     'question_id': normative_filter_question.id,
                     'value': normative.name,
                     'sequence': normative.id,
