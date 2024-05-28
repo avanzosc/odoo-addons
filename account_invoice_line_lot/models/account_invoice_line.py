@@ -7,7 +7,7 @@ class AccountInvoiceLine(models.Model):
     _inherit = "account.move.line"
 
     lot_ids = fields.Many2many(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="lots",
         relation="rel_invoice_line_lot",
         column1="invoice_line_id",
