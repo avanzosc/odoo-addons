@@ -6,7 +6,12 @@
                 <t t-set="answer_aux" t-value="answer"/>
                 <t t-foreach="question.matrix_row_ids" t-as="row_label">
                     <t t-if="answer_aux and row_label.question_article_ids.question_normative_id.start_date and answer_aux.inspected_building_id.service_start_date and row_label.question_article_ids.question_normative_id.end_date">
-                        <t t-if="answer_aux and row_label.question_article_ids.question_normative_id.start_date &lt; answer_aux.inspected_building_id.service_start_date and answer_aux.inspected_building_id.service_start_date &lt; row_label.question_article_ids.question_normative_id.end_date">
+                        <t t-if="any(question_article_id.question_normative_id.start_date &lt; answer_aux.inspected_building_id.service_start_date for question_article_id in row_label.question_article_ids) and any(answer_aux.inspected_building_id.service_start_date &lt; question_article_id.question_normative_id.end_date for question_article_id in row_label.question_article_ids)">
+                            <!-- <t
+                            t-if="answer_aux and row_label.question_article_ids.question_normative_id.start_date &lt;
+                            answer_aux.inspected_building_id.service_start_date and
+                            answer_aux.inspected_building_id.service_start_date &lt;
+                            row_label.question_article_ids.question_normative_id.end_date"> -->
                             <tr class="bg-white text-white" t-att-id="row_label.id">
                                 <th class="fw-normal text-start">
                                     <span t-field="row_label.value"/>
