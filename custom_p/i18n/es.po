@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-07 11:18+0000\n"
-"PO-Revision-Date: 2024-05-07 11:18+0000\n"
+"POT-Creation-Date: 2024-05-29 08:49+0000\n"
+"PO-Revision-Date: 2024-05-29 08:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,20 +26,23 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__display_name
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Nombre a mostrar"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__id
 msgid "ID"
-msgstr "Identificador"
+msgstr "ID (identificación)"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line____last_update
@@ -50,6 +53,16 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__lot_id
 msgid "Lot/Serial Number"
 msgstr "Lote/Nº de serie"
+
+#. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__product_pricelist_price
+msgid "Pricelist Price"
+msgstr "Precio tarifa"
+
+#. module: custom_p
+#: model:ir.model,name:custom_p.model_product_pricelist_item
+msgid "Pricelist Rule"
+msgstr "Elemento de tarifa"
 
 #. module: custom_p
 #: model:ir.model,name:custom_p.model_sale_order_line_price_history_line
@@ -77,8 +90,10 @@ msgid ""
 "This is the delivery date promised to the customer. If set, the delivery "
 "order will be scheduled based on this date rather than product lead times."
 msgstr ""
-"Esta es la fecha de entrega prometida al cliente. Si se establece, la "
-"orden de entrega se programará en función de esta fecha y no de los plazos de entrega del producto."
+"Esta es la fecha de entrega prometida al cliente. Si se establece, la orden "
+"de entrega se programará en función de esta fecha y no de los plazos de "
+"entrega del producto."
+
 #. module: custom_p
 #: code:addons/custom_p/models/sale_order.py:0
 #: code:addons/custom_p/models/sale_order.py:0
