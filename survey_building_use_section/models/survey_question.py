@@ -9,3 +9,11 @@ class SurveyQuestion(models.Model):
         string=_("Question Normatives"), comodel_name="survey.question.normative",
     )
     is_normative_filter = fields.Boolean(string=_("Normative Filter"))
+    
+    questions_to_filter = fields.Many2many(
+        comodel_name="survey.question",
+        relation='survey_question_filter_rel', 
+        column1='questions_to_filter',  
+        column2='normative_filter_question_id',
+        string=_("Questions to filter"),
+    )

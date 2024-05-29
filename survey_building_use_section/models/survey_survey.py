@@ -15,7 +15,7 @@ class SurveySurvey(models.Model):
             existing_normative_filter = survey.question_and_page_ids.filtered(lambda q: q.is_normative_filter)
             normative_filter_existed = False
             if existing_normative_filter:
-                existing_normative_filter.unlink()
+                # existing_normative_filter.unlink()
                 normative_filter_existed = True
                 
             normative_filter_question = self.env['survey.question'].create({
