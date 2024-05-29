@@ -17,44 +17,45 @@ class Survey(Survey):
         triggering_question_ids = request.env['survey.question'].search([('survey_id', '=', res.qcontext['survey'].id), ('is_normative_filter', '=', True)])
 
         for triggering_question_id in triggering_question_ids:
-            for question in res.qcontext['survey'].question_and_page_ids.filtered(lambda q: q.normative_filter_question_id == triggering_question_id):
-                if question.sequence > triggering_question_id.sequence:
-                    triggered_question = question
-                    
-                    triggering_question_before = request.env['survey.question'].browse(triggered_question.triggering_question_id.id)
-                    
-                    # If a question has a triggering_question_id, dont change it to be activated with the normative filter
-                    # Only change the first question that needs no activation, and filter it regarding normative
-                    if not triggering_question_before or triggering_question_before and not triggering_question_before.is_normative_filter:
-                        # If a question has no normative, show it no matter the normative and
-                        # remove the is conditional filter
-                        '''
-                        if not triggered_question.question_normative_ids:
-                            triggered_question.write({
-                                'is_conditional': False,
-                            })
+            for question in res.qcontext['survey'].question_and_page_ids.filtered(lambda q: q.questions_to_filter == triggering_question_id):
+                for triggering_question_to_filter in question.questions_to_filter:
+                    if question.sequence > triggering_question_to_filter.sequence:
+                        triggered_question = question
+                        
+                        triggering_question_before = request.env['survey.question'].browse(triggered_question.triggering_question_to_filter.id)
+                        
+                        # If a question has a triggering_question_id, dont change it to be activated with the normative filter
+                        # Only change the first question that needs no activation, and filter it regarding normative
+                        if not triggering_question_before or triggering_question_before and not triggering_question_before.is_normative_filter:
+                            # If a question has no normative, show it no matter the normative and
+                            # remove the is conditional filter
                             '''
+                            if not triggered_question.question_normative_ids:
+                                triggered_question.write({
+                                    'is_conditional': False,
+                                })
+                                '''
 
-                        if triggered_question.question_normative_ids:
-                            # All other questions must be conditional. If they are not conditional they will display 
-                            # no matter the condition
-                            triggered_question.write({
-                                'is_conditional': True,
-                                'triggering_question_id': triggering_question_id.id,
-                                'triggering_answer_id': False,
-                            })
+                            if triggered_question.question_normative_ids:
+                                # All other questions must be conditional. If they are not conditional they will display 
+                                # no matter the condition
+                                triggered_question.write({
+                                    'is_conditional': True,
+                                    'triggering_question_id': triggering_question_to_filter.id,
+                                    'triggering_answer_id': False,
+                                })
 
-                            if any(normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date
-                                for normative in question.question_normative_ids):
-                                matched_normatives = [normative for normative in question.question_normative_ids if normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date]
-                                matching_normative_names = [normative.name for normative in matched_normatives]
-                                matched_answers = [ans for ans in triggering_question_id.suggested_answer_ids if ans.value in matching_normative_names]
-                                if matched_answers:
-                                    triggering_answer = next((ans for ans in triggering_question_id.suggested_answer_ids if ans.value == matched_answers[0].value), False)
-                                    if triggering_answer:
-                                        triggered_question.write({
-                                            'triggering_answer_id': triggering_answer.id,
-                                        })
+                                if any(normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date
+                                    for normative in question.question_normative_ids):
+                                    matched_normatives = [normative for normative in question.question_normative_ids if normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date]
+                                    matching_normative_names = [normative.name for normative in matched_normatives]
+                                    matched_answers = [ans for ans in triggering_question_to_filter.suggested_answer_ids if ans.value in matching_normative_names]
+                                    if matched_answers:
+                                        triggering_answer = next((ans for ans in triggering_question_to_filter.suggested_answer_ids if ans.value == matched_answers[0].value), False)
+                                        if triggering_answer:
+                                            triggered_question.write({
+                                                'triggering_answer_id': triggering_answer.id,
+                                            })
                                 
                 # Write a value in triggering_answer_id not to be null
                 # Get the first normative of the question. This answer will not trigger the question 

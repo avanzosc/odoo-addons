@@ -31,8 +31,8 @@ class SurveySurvey(models.Model):
                 for question_page in survey.question_and_page_ids:
                     question_page.sequence += 10
 
-            existing_answers = normative_filter_question.suggested_answer_ids
-            existing_answers.unlink()
+            # existing_answers = normative_filter_question.suggested_answer_ids
+            # existing_answers.unlink()
 
             normative_data = self.env['survey.question.normative'].search([])
             for normative in normative_data:
