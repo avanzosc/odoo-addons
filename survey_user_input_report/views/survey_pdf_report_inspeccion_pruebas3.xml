@@ -68,11 +68,11 @@
                             <span t-field="o.inspected_building_id.name"/>
                         </div>
                         <div class="row">
-                            <div style="width: 25%; border-right: 1px dashed #ccc;">POBLACION: <span t-field="o.inspected_building_id.province_id.name"/>
+                            <div style="width: 25%; border-right: 1px dashed #ccc;">POBLACION: <span t-field="o.inspected_building_id.street2"/>
                             </div>
                             <div style="width: 25%; border-right: 1px dashed #ccc;">PROVINCIA: <span t-field="o.inspected_building_id.street"/>
                             </div>
-                            <div style="width: 25%; border-right: 1px dashed #ccc;">CP.: <span t-field="o.inspected_building_id.street2"/>
+                            <div style="width: 25%; border-right: 1px dashed #ccc;">CP.: <span t-field="o.inspected_building_id.zip"/>
                             </div>
                         </div>
                     </div>
