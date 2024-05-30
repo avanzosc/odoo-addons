@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <notebook position="before">
                 <group colspan="2">
-                    <field name="question_normative_ids" widget="many2many_tags" colspan="2"/>
+                    <field name="question_normative_ids" widget="many2many_tags" colspan="2" attrs="{'invisible': [('is_normative_filter', '=', True)]}"/>
                     <field name="questions_to_filter" widget="many2many_tags" colspan="2" domain="[('survey_id', '=', survey_id)]"/>
                     <field name="is_normative_filter" colspan="2" readonly="1"/>
                 </group>
