@@ -58,4 +58,11 @@
             </t>
         </xpath>
     </template>
+
+
+    <template id="survey_fill_form_inherit" inherit_id="survey.survey_fill_form">
+        <xpath expr="//div[hasclass('o_survey_form_content')]" position="before">
+            <t t-value="survey._create_and_fill_normative_filters(survey,answer)" t-set="result" />
+        </xpath>
+    </template>
 </odoo> 
