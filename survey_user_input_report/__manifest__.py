@@ -23,6 +23,7 @@
         "views/survey_pdf_report_verificacion.xml",
         "views/survey_pdf_report_inspeccion_pruebas1.xml",
         "views/survey_pdf_report_inspeccion_pruebas2.xml",
+        "views/survey_pdf_report_inspeccion_pruebas3.xml",
     ],
     "installable": True,
 }
