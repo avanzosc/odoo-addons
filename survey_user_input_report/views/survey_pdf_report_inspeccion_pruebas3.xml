@@ -81,11 +81,10 @@
             <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                 <div class="row">
                     <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
-                    <div style="width: 75%;">
-                        <div style="width: 100%;">Superficie (m²): 12.800</div>
-                        <div style="width: 100%;">Actividad: MECANIZADO PIEZAS</div>
-                        <div style="width: 100%;">Nivel Riego Intrínseco: <strong>X</strong> Bajo Medio Alto</div>
-                        <div style="width: 100%;">Configuración: A <strong>X</strong> B C D E</div>
+                    <div style="width: 75%;" class="row">
+                        <div style="width: 25%;">USO</div>
+                        <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area"/></div>
+                        <div style="width: 25%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors"/></div>
                     </div>
                 </div>
             </div>
@@ -127,33 +126,6 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Certificado Instalador</div>
-                            <div style="width: 80%; border-bottom: 1px dashed #ccc;">
-                                <div class="columns">
-                                    <div class="row">
-                                        <div style="width: 50%;">
-                                            <span style="font-weight: bold;"> Empresa: </span>
-                                            <span t-field="o.dof_author_id"/>
-                                        </div>
-                                        <div style="width: 50%;">
-                                            <span style="font-weight: bold;"></span>
-                                            <!-- <span t-field="o.dof_author_degree"/> -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div style="width: 50%;">
-                                            <span style="font-weight: bold;"> RII: </span>
-                                            <span t-field="o.dof_author_license"/>
-                                        </div>
-                                        <div style="width: 50%;">
-                                            <span style="font-weight: bold;"> Fecha: </span>
-                                            <span t-field="o.dof_approved_date"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Final</div>
                             <div style="width: 80%;">
                                 <div class="columns">
@@ -180,7 +152,33 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Certificado Instalador</div>
+                            <div style="width: 80%; border-bottom: 1px dashed #ccc;">
+                                <div class="columns">
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Empresa: </span>
+                                            <span t-field="o.dof_author_id"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"></span>
+                                            <!-- <span t-field="o.dof_author_degree"/> -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> RII: </span>
+                                            <span t-field="o.dof_author_license"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Fecha: </span>
+                                            <span t-field="o.dof_approved_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

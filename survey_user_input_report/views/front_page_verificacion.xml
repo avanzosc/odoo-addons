@@ -19,7 +19,7 @@
             {'label': 'Socio:', 'value': o.partner_id.name},
             {'label': 'Correo Electrónico:', 'value': o.email},
             {'label': 'Uso de Riesgo:', 'value': o.risk},
-            {'label': 'Área:', 'value': o.superficie},
+            {'label': 'Área:', 'value': o.area},
         ]"/>
 
         <t t-set="left_table_top" t-value="[
@@ -45,7 +45,7 @@
             {'label': 'Tipo de Edificio:', 'value': o.building_use_id.name},
             {'label': 'Sección del Edificio:', 'value': o.building_section_id.name},
             {'label': 'Uso de Riesgo:', 'value': o.risk},
-            {'label': 'Área:', 'value': o.superficie},
+            {'label': 'Área:', 'value': o.area},
             {'label': 'Fecha de Creación:', 'value': o.create_date},
         ]"/>
 

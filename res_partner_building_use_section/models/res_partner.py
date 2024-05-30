@@ -22,10 +22,10 @@ class ResPartner(models.Model):
         string=_("Service End Date"),
     )
     alternative_text = fields.Char(string="Alternative Text", copy=False)
-    number_of_plants = fields.Integer(string='Number of Plants')
+    number_of_floors = fields.Integer(string='Number of Plants')
     risk = fields.Char(string=_("Risk"), copy=False)
 
-    superficie = fields.Float(string=_("Surface"), default=0.0, copy=False)
+    area = fields.Float(string=_("Surface"), default=0.0, copy=False)
     evacuation_height = fields.Float(string=_('Evacuation Height'))
 
     configuration = fields.Selection([

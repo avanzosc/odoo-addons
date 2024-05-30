@@ -17,9 +17,9 @@
                     <group string="Section">
                         <field name="building_section_id" attrs="{'invisible':[('inspected_building_id', '=', False)]}" domain="[('id', 'in', section_ids)]"/>
                         <field name="risk" readonly="1" attrs="{'invisible':[('building_section_id', '=', False)]}"/>
-                        <field name="superficie" readonly="1" attrs="{'invisible':[('building_section_id', '=', False)]}"/>
+                        <field name="area" readonly="1" attrs="{'invisible':[('building_section_id', '=', False)]}"/>
                         <field name="configuration" readonly="1" attrs="{'invisible':[('building_section_id', '=', False)]}"/>
-                        <field name="number_of_plants"/>
+                        <field name="number_of_floors"/>
                     </group>
                 </group>
                 <group>
@@ -79,7 +79,7 @@
                 <field name="building_use_id" optional="show"/>
                 <field name="building_section_id" optional="show"/>
                 <field name="risk" optional="show"/>
-                <field name="superficie" optional="show"/>
+                <field name="area" optional="show"/>
                 <field name="configuration" optional="show"/>
                 <field name="file_number" optional="hide"/>
                 <field name="act_number" optional="hide"/>

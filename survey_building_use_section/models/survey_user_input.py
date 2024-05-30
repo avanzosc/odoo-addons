@@ -58,9 +58,9 @@ class SurveyUserInput(models.Model):
     risk = fields.Char(
         string=_("Risk"), related="building_section_id.risk", store=True,
     )
-    superficie = fields.Float(
+    area = fields.Float(
         string=_("Superficie"),
-        related="building_section_id.superficie",
+        related="building_section_id.area",
         store=True,
     )
     file_number = fields.Char(
@@ -68,9 +68,9 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.file_number",
         store=True,
     )
-    number_of_plants = fields.Integer(
+    number_of_floors = fields.Integer(
         string=_("Number of Plants"),
-        related="inspected_building_id.number_of_plants",
+        related="inspected_building_id.number_of_floors",
         store=True,
     )
     act_number = fields.Char(
