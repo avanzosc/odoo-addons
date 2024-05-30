@@ -35,7 +35,7 @@ class Survey(Survey):
                                     'is_conditional': False,
                                 })
                                 '''
-
+                            _logger.info("Triggered question: %s", triggered_question)
                             if triggered_question.question_normative_ids:
                                 # All other questions must be conditional. If they are not conditional they will display 
                                 # no matter the condition
@@ -76,7 +76,9 @@ class Survey(Survey):
             # Get all normatives from the survey.question.normative table
             all_normatives = request.env['survey.question.normative'].search([])
 
-            for answer in triggering_question_id.suggested_answer_ids:                
+            for answer in triggering_question_id.suggested_answer_ids:
+                _logger.info(f"_logger_okatek {answer}")
+                _logger.info(f"_logger_okatek {all_normatives}")
                 for normative in all_normatives:
                     # Check if any of the normatives meet the condition
                     if (normative.start_date <= res.qcontext['answer'].inspected_building_id.service_start_date < normative.end_date
