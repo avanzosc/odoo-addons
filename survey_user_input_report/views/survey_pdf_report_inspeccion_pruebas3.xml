@@ -85,6 +85,33 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Instalador</div>
+                                <div style="width: 80%;">
+                                    <div class="columns">
+                                        <div class="row">
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Empresa: </span>
+                                                <span t-field="o.dof_author_id"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;">  </span>
+                                                <span t-field="o.dof_author_degree"/>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> RII: </span>
+                                                <span t-field="o.dof_author_license"/>
+                                            </div>
+                                            <div style="width: 50%;">
+                                                <span style="font-weight: bold;"> Fecha: </span>
+                                                <span t-field="o.dof_approved_date"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Final</div>
                                 <div style="width: 80%;">
                                     <div class="columns">
@@ -111,6 +138,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -184,13 +212,6 @@
                 <div style="width: 25%;">RD 513/2017</div>
                 <div style="width: 25%;">RD 1942/1993</div>
                 <div style="width: 25%;">ANTERIOR RD1942/1993</div>
-            </div>
-
-            <div class="row bordered" style="margin-top: -1px; border: 1px solid #ccc">
-                <div style="width: 75%; border-right: 1px solid #ccc;">
-                    <span style="font-weight: bold;">EMPRESA MANTENEDORA: </span>LEHENGOAK BABES INGENIARITZA S.L.</div>
-                <div style="width: 25%;">
-                    <span style="font-weight: bold;">EMI: </span>20/EMI-15</div>
             </div>
         </div>
 
