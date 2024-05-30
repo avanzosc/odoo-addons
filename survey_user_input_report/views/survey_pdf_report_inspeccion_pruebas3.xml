@@ -17,7 +17,7 @@
             }
         </style>
 
-        <t t-if="o.building_use_id.is_industial">
+        <t t-if="o.building_use_id.is_industrial">
             <h1>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h1>
             <h2>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h2>
         </t>
@@ -25,7 +25,7 @@
             <h1>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h1>
             <h2>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h2>
         </t>
-        <t t-if="o.building_use_id.is_industial">
+        <t t-if="o.building_use_id.is_industrial">
             <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto2267/2004, de 3 de diciembre</p>
         </t>
         <t t-else="">
