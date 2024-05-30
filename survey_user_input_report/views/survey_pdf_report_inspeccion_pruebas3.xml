@@ -2,29 +2,34 @@
 <odoo>
     <template id="report_front_page_inspeccion_prueba3" name="Inspeccion Portada">
         <style>
+            * {
+              font-size: 12px;
+            }
             .columns {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            padding: 0;
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                padding: 0;
             }
             .row {
-            display: -webkit-box;
-            -webkit-box-orient: horizontal;
-            padding: 0;
+                display: -webkit-box;
+                -webkit-box-orient: horizontal;
+                padding: 0;
             }
             div, li{
-            padding: 4px;
+                padding: 4px;
             }
         </style>
 
-        <t t-if="o.building_use_id.is_industrial">
-            <h1>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h1>
-            <h2>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h2>
-        </t>
-        <t t-else="">
-            <h1>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h1>
-            <h2>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h2>
-        </t>
+        <span style="text-align: center; font-weight: bold;">
+            <t t-if="o.building_use_id.is_industrial">
+                <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
+                <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
+            </t>
+            <t t-else="">
+                <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
+                <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
+            </t>
+        </span>
         <t t-if="o.building_use_id.is_industrial">
             <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto2267/2004, de 3 de diciembre</p>
         </t>
@@ -32,28 +37,44 @@
             <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
         </t>
         <p>
-            <span style="font-weight: bold;">CERTIFICA: </span> que en fecha <span t-field="o.inspection_start_date"/> el inspector que suscribe el <span t-field="o.act_number"/>
+            <span style="font-weight: bold;">CERTIFICA: </span> que en fecha <span t-field="o.inspection_start_date"/>
+ el inspector que suscribe el <span t-field="o.act_number"/>
    ha realizado la inspección periódica de la instalación con las siguientes características</p>
 
-        <span>Tabla de Datos</span>
-        <!-- INICIO TABLA -->
-        <div class="columns">
-            <div class="row" style="border: 1px solid #ccc">
-                <div style="width: 75%;">
-                    <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span> AMPO S.COOP</div>
-                <div style="width: 25%; border-left: 1px solid #ccc">
-                    <span style="font-weight: bold;">NIF / CIF: </span> B-12345678</div>
+    <span>Tabla de Datos</span>
+    <!-- INICIO TABLA -->
+    <div class="columns">
+        <div class="row" style="border: 1px solid #ccc">
+            <div style="width: 75%;">
+                <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span>
+                <span t-field="o.inspected_building_id.name"/>
             </div>
-            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-                <div>
-                    <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
-                </div>
+            <div style="width: 25%; border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">NIF / CIF: </span>
+                <span t-field="o.inspected_building_id.vat"/>
             </div>
-            <div class="columns" style="margin-top: -1px;">
-                <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
-                    <div class="row">
-                        <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
-                        <div style="width: 75%;">BARRIO KATEA S/N</div>
+        </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div>
+                <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
+            </div>
+        </div>
+        <div class="columns" style="margin-top: -1px;">
+            <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
+                <div class="row">
+                    <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
+                    <div class="columns" style="width: 75%;">
+                        <div>
+                            <span t-field="o.inspected_building_id.name"/>
+                        </div>
+                        <div class="row">
+                            <div style="width: 25%; border-right: 1px dashed #ccc;">POBLACION: <span t-field="o.inspected_building_id.province_id.name"/>
+                            </div>
+                            <div style="width: 25%; border-right: 1px dashed #ccc;">PROVINCIA: <span t-field="o.inspected_building_id.street"/>
+                            </div>
+                            <div style="width: 25%; border-right: 1px dashed #ccc;">CP.: <span t-field="o.inspected_building_id.street2"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
