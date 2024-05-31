@@ -12,17 +12,6 @@ class ProductTemplate(models.Model):
         string="Sales limitation expiration days",
         help="Expiration days for website sales limitation")
 
-    def _combination_info_filter(self):
-        max_per_product_order = self.product_brand_id.max_per_product_order
-        b2b_virtual_available = \
-            self.product_variant_id.sudo().b2b_virtual_available
-        limited_categories = self.product_brand_id.limited_categories
-        if not limited_categories or self.categ_id in limited_categories:
-            if max_per_product_order > 0 and \
-                    max_per_product_order < b2b_virtual_available:
-                return self.product_brand_id.max_per_product_order
-        return b2b_virtual_available
-
 
 class ProductBrand(models.Model):
     _inherit = 'product.brand'

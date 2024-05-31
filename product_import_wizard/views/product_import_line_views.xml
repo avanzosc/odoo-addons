@@ -5,31 +5,45 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_validate"
-                            string="Validate"
-                            type="object"
-                            class="oe_read_only"
-                            states="2validate,error" />
-                    <button name="action_process"
-                            string="Process"
-                            type="object"
-                            class="oe_read_only"
-                            states="pass" />
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
-                        <field name="product_name" />
-                        <field name="product_default_code" />
-                        <field name="product_id"
-                               options="{'no_create': True, 'no_open': True}"  />
-                        <field name="product_uom" />
-                        <field name="product_uom_id"
-                               options="{'no_create': True, 'no_open': True}" />
-                        <field name="category_name" />
-                        <field name="category_id"
-                               options="{'no_create': True, 'no_open': True}" />
-                        <field name="product_type" />
+                        <group>
+                            <field name="product_name" />
+                            <field name="product_default_code" />
+                            <field name="product_type" />
+                            <field name="product_uom" />
+                            <field name="category_name" />
+                        </group>
+                        <group>
+                            <field
+                name="product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="product_uom_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="category_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                        </group>
                     </group>
                     <field name="log_info" />
                 </sheet>
@@ -40,23 +54,135 @@
     <record id="product_import_line_view_tree" model="ir.ui.view">
         <field name="model">product.import.line</field>
         <field name="arch" type="xml">
-            <tree decoration-danger="state == 'error'"
-                  decoration-muted="state == 'done'"
-                  decoration-it="log_info"
-                  editable="top">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                                <field
+          name="action"
+        />
                 <field name="product_name" />
                 <field name="product_default_code" />
-                <field name="product_id" readonly="True" />
+                                <field
+          name="product_id"
+          options="{'no_create': True}"
+        />
+                <field name="sale_ok"/>
+                <field name="purchase_ok"/>
+                <field name="barcode"/>
+                <field name="list_price"/>
+                <field name="customer_tax"/>
+                <field
+          name="customer_tax_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="standard_price"/>
                 <field name="product_uom" />
-                <field name="product_uom_id"
-                       options="{'no_create': True, 'no_open': True}" />
+                <field
+          name="product_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="purchase_uom_name"/>
+                <field
+          name="purchase_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="invoice_policy"/>
                 <field name="category_name" />
-                <field name="category_id"
-                       options="{'no_create': True, 'no_open': True}" />
-                <field name="product_type" />
-                <field name="state" />
-                <field name="log_info" invisible="True" />
+                <field
+          name="category_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="product_type"/>
+                <field name="purchase_method"/>
+                <field name="description_purchase"/>
+                <field name="property_account_income"/>
+                <field
+          name="property_account_income_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="property_account_expense"/>
+                <field
+          name="property_account_expense_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="state"/>
+                <field name="log_info" />
             </tree>
+        </field>
+    </record>
+
+    <record id="product_import_line_view_search" model="ir.ui.view">
+        <field name="model">product.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" />
+                <field name="barcode" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+                <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Product Type"
+            name="type_group"
+            domain="[]"
+            context="{'group_by':'product_type'}"
+          />
+                    <filter
+            string="Category"
+            name="category_group"
+            domain="[]"
+            context="{'group_by':'category_id'}"
+          />
+                    <filter
+            string="Barcode"
+            name="barcode_group"
+            domain="[]"
+            context="{'group_by':'barcode'}"
+          />
+                    <separator />
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                </group>
+            </search>
         </field>
     </record>
 
