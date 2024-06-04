@@ -14,7 +14,6 @@
 
     <template id="answers_template_inspeccion_general" name="Inspección Answers Template 2">
         <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
-
             <!-- Don't show normative filter in Report -->
             <t t-if="not question.is_normative_filter">
                 <t t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
@@ -239,5 +238,5 @@
                 </t>
             </t>
         </t>
-    </t>
+    </template>
 </odoo>
