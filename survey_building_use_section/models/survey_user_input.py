@@ -56,7 +56,9 @@ class SurveyUserInput(models.Model):
         store=True,
     )
     risk = fields.Char(
-        string=_("Risk"), related="building_section_id.risk", store=True,
+        string=_("Risk"),
+        related="building_section_id.risk",
+        store=True,
     )
     area = fields.Float(
         string=_("Superficie"),
@@ -135,7 +137,11 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.dof_approved_date",
     )
     survey_report_fussion = fields.Many2many(
-        comodel_name="survey.user_input", string=_("Survey Report Fussion"),
+        comodel_name="survey.user_input",
+        string=_("Survey Report Fussion"),
+        relation="survey_report_fussion_rel",
+        column1="survey_report_fussion_id",
+        column2="survey_report_id",
     )
 
     @api.model_create_multi
@@ -145,7 +151,7 @@ class SurveyUserInput(models.Model):
             if "building" in self.env.context:
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
-    
+
     def action_start_survey(self):
         current_user_partner = self.env.user.partner_id
 
