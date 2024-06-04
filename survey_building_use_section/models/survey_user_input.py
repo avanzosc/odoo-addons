@@ -148,7 +148,8 @@ class SurveyUserInput(models.Model):
         return inputs
     
     def _compute_survey_report_fussion(self):
-        pass
+        for input in self:
+            input.survey_report_fussion = False
 
     def action_start_survey(self):
         current_user_partner = self.env.user.partner_id
