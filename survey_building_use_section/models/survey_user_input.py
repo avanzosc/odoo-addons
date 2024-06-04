@@ -136,7 +136,6 @@ class SurveyUserInput(models.Model):
     )
     survey_report_fussion = fields.Many2many(
         comodel_name="survey.user_input", string=_("Survey Report Fussion"),
-        compute="_compute_survey_report_fussion",
     )
 
     @api.model_create_multi
@@ -147,10 +146,6 @@ class SurveyUserInput(models.Model):
                 input.inspected_building_id = self.env.context.get("building").id
         return inputs
     
-    def _compute_survey_report_fussion(self):
-        for input in self:
-            input.survey_report_fussion = False
-
     def action_start_survey(self):
         current_user_partner = self.env.user.partner_id
 
