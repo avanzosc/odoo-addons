@@ -41,25 +41,24 @@
  el inspector que suscribe el <span t-field="o.act_number"/>
    ha realizado la inspección periódica de la instalación con las siguientes características</p>
 
-    <span>Tabla de Datos</span>
-    <!-- INICIO TABLA -->
-    <div class="columns">
-        <div class="row" style="border: 1px solid #ccc">
-            <div style="width: 75%;">
-                <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span>
-                <span t-field="o.inspected_building_id.name"/>
+        <span>Tabla de Datos</span>
+        <!-- INICIO TABLA -->
+        <div class="columns">
+            <div class="row" style="border: 1px solid #ccc">
+                <div style="width: 75%;">
+                    <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span>
+                    <span t-field="o.inspected_building_id.name"/>
+                </div>
+                <div style="width: 25%; border-left: 1px solid #ccc">
+                    <span style="font-weight: bold;">NIF / CIF: </span>
+                    <span t-field="o.inspected_building_id.vat"/>
+                </div>
             </div>
-            <div style="width: 25%; border-left: 1px solid #ccc">
-                <span style="font-weight: bold;">NIF / CIF: </span>
-                <span t-field="o.inspected_building_id.vat"/>
+            <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+                <div>
+                    <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
+                </div>
             </div>
-        </div>
-        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-            <div>
-                <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
-            </div>
-        </div>
-        <div class="columns" style="margin-top: -1px;">
             <div class="columns" style="width: 100%; margin-bottom: -1px; border: 1px solid #ccc;">
                 <div class="row">
                     <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
@@ -350,64 +349,64 @@
         </div>
     </template>
 
-    <template id="survey_pdf_inspeccion_documental_prueba3" name="Inspección Vista General">
-        <t t-if="not company">
-            <!-- Multicompany -->
-            <t t-if="company_id">
-                <t t-set="company" t-value="company_id" />
-            </t>
-            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()" />
-            </t>
-            <t t-else="else">
-                <t t-set="company" t-value="res_company" />
-            </t>
+<template id="survey_pdf_inspeccion_documental_prueba3" name="Inspección Vista General">
+    <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id" />
         </t>
-        <t t-call="web.external_layout_striped">
-            <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
-            <page>
-                <t t-if="o.survey_id.title">
-                    <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
-                    </div>
-                </t>
-                <t t-if="o.survey_id.description">
-                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
-                </t>
-                <t t-if="review" t-call="o.survey_id.survey_button_retake" />
-                <t t-set="survey_form_readonly" t-value="true" />
-                <div class="wrap">
-                    <div class="o_survey_print container">
-                        <div role="form">
-                            <fieldset disabled="disabled">
-                                <t t-call="survey_user_input_report.report_front_page_inspeccion_prueba3" t-lang="o.partner_id.lang" />
-                                <t t-call="survey_user_input_report.answers_template_inspeccion" />
-                            </fieldset>
-                        </div>
+        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+            <t t-set="company" t-value="o.company_id.sudo()" />
+        </t>
+        <t t-else="else">
+            <t t-set="company" t-value="res_company" />
+        </t>
+    </t>
+    <t t-call="web.external_layout_striped">
+        <link href="/survey_user_input_report/static/src/css/survey_user_input_report.css" rel="stylesheet" />
+        <page>
+            <t t-if="o.survey_id.title">
+                <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
+                    <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                </div>
+            </t>
+            <t t-if="o.survey_id.description">
+                <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+            </t>
+            <t t-if="review" t-call="o.survey_id.survey_button_retake" />
+            <t t-set="survey_form_readonly" t-value="true" />
+            <div class="wrap">
+                <div class="o_survey_print container">
+                    <div role="form">
+                        <fieldset disabled="disabled">
+                            <t t-call="survey_user_input_report.report_front_page_inspeccion_prueba3" t-lang="o.partner_id.lang" />
+                            <t t-call="survey_user_input_report.answers_template_inspeccion" />
+                        </fieldset>
                     </div>
                 </div>
-            </page>
+            </div>
+        </page>
+    </t>
+</template>
+
+
+
+<template id="report_survey_pdf_inspeccion_documental_prueba3" name="Inspección Template Prueba 2">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental_prueba3" t-lang="o.partner_id.lang" />
         </t>
-    </template>
+    </t>
+</template>
 
-
-
-    <template id="report_survey_pdf_inspeccion_documental_prueba3" name="Inspección Template Prueba 2">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental_prueba3" t-lang="o.partner_id.lang" />
-            </t>
-        </t>
-    </template>
-
-    <record id="action_report_survey_print_inspeccion_documental_prueba3" model="ir.actions.report">
-        <field name="name">Inspección Portada Total</field>
-        <field name="model">survey.user_input</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental_prueba3</field>
-        <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental_prueba3</field>
-        <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
-        <field name="binding_model_id" ref="survey.model_survey_user_input" />
-        <field name="binding_type">report</field>
-    </record>
+<record id="action_report_survey_print_inspeccion_documental_prueba3" model="ir.actions.report">
+    <field name="name">Inspección Portada Total</field>
+    <field name="model">survey.user_input</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental_prueba3</field>
+    <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental_prueba3</field>
+    <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
+    <field name="binding_model_id" ref="survey.model_survey_user_input" />
+    <field name="binding_type">report</field>
+</record>
 </odoo>
