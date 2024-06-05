@@ -151,48 +151,49 @@
                                         <!-- MATRIX -->
                                         <t t-foreach="question.matrix_row_ids" t-as="row_label">
                                             <t t-foreach="question.suggested_answer_ids" t-as="col_label">
-                                                <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
-                                                <t t-set="is_correct" t-value="col_label.is_correct" />
-                                                <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)" />
+                                                <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                                                <t t-set="is_correct" t-value="col_label.is_correct"/>
+                                                <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
                                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                                    <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)" />
+                                                    <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                                 </t>
                                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                                    <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date and norm.end_date &gt;= o.inspected_building_id.service_start_date)"/>
                                                     <tr>
                                                         <td>
-                                                            <t t-esc="question.title" />
+                                                            <t t-esc="article.error_text"/>
+
                                                         </td>
                                                         <td>
-                                                            <t t-esc="row_label.notes" />
+                                                            <t t-esc="current_question_print_normatives.name"/>
+
                                                         </td>
                                                         <td>
-                                                            <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
-                                                             lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
-                                                                           and norm.end_date &gt;= o.inspected_building_id.service_start_date 
-                                                             )" />
-                                                            <t t-foreach="answer.suggested_answer_id.question_article_ids" t-as="article">
+                                                            <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids"/>
+                                                            <t t-foreach="current_matrix_line_print_articles" t-as="article">
+
                                                                 <t t-if="article.question_normative_id in current_question_print_normatives">
-                                                                    <t t-esc="article.name" />
-                                                                    <t t-esc="article.description" />
-                                                                    <t t-esc="article.error_text" />
+                                                                    <t t-esc="article.name"/>
+                                                                    <t t-esc="article.description"/>
+                                                                    <t t-esc="article.error_text"/>
                                                                 </t>
                                                             </t>
                                                         </td>
 
-                                                        <td>
-                                                            <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids" />
+                                                        <!--td>
+                                                            <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids"/>
                                                             <t t-foreach="current_matrix_line_print_articles" t-as="article">
-                                                                <t t-esc="article.name" />
+                                                                <t t-esc="article.name"/>
                                                                 <span>: </span>
-                                                                <t t-esc="article.description" />
-                                                                <span></span>
-                                                                <t t-esc="article.error_text" />
-                                                                <br />
+                                                                <t t-esc="article.description"/>
+                                                                <span/>
+                                                                <t t-esc="article.error_text"/>
+                                                                <br/>
                                                             </t>
-                                                        </td>
+                                                        </td-->
 
                                                         <td>
-                                                            <t t-esc="col_label.value" />
+                                                            <t t-esc="col_label.value"/>
                                                         </td>
                                                     </tr>
                                                 </t>
