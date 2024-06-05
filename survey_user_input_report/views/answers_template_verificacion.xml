@@ -20,10 +20,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>QUESTION</th>
-                        <th>NOTES</th>
-                        <th>NORMATIVE NOTES</th>
-                        <th>VALUE</th>
+                        <th>TEXTO ERROR</th>
+                        <th>NORMA</th>
+                        <th>ARTÍCULO</th>
+                        <th>GRAVE / LEVE / MUY GRAVE</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -170,9 +170,11 @@
                                                              lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
                                                                            and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                              )" />
-                                                            <t t-foreach="current_question_print_normatives" t-as="normative">
-                                                                <t t-esc="normative.name" />
-:                                                                <t t-esc="normative.description" />
+                                                            <t t-foreach="question.question_article_ids" t-as="article">
+                                                                <t t-if="article.question_normative_id in current_question_print_normatives" />
+                                                                <t t-esc="article.name" />
+:                                                               <t t-esc="article.description" />
+:                                                               <t t-esc="article.error_text" />
                                                                 <br />
                                                             </t>
                                                         </td>
@@ -180,8 +182,10 @@
                                                         <td>
                                                             <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids" />
                                                             <t t-foreach="current_matrix_line_print_articles" t-as="article">
-                                                                <t t-esc="article.name" /><span>: </span>
-                                                                <t t-esc="article.description" /><span> </span>
+                                                                <t t-esc="article.name" />
+                                                                <span>: </span>
+                                                                <t t-esc="article.description" />
+                                                                <span></span>
                                                                 <t t-esc="article.error_text" />
                                                                 <br />
                                                             </t>
