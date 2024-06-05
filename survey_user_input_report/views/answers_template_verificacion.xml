@@ -171,11 +171,11 @@
                                                                            and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                              )" />
                                                             <t t-foreach="answer.suggested_answer_id.question_article_ids" t-as="article">
-                                                                <t t-if="article.question_normative_id in current_question_print_normatives" />
-                                                                <t t-esc="article.name" />
-:                                                               <t t-esc="article.description" />
-:                                                               <t t-esc="article.error_text" />
-                                                                <br />
+                                                                <t t-if="article.question_normative_id in current_question_print_normatives">
+                                                                    <t t-esc="article.name" />
+                                                                    <t t-esc="article.description" />
+                                                                    <t t-esc="article.error_text" />
+                                                                </t>
                                                             </t>
                                                         </td>
 
