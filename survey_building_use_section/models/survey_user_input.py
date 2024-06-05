@@ -89,7 +89,7 @@ class SurveyUserInput(models.Model):
         comodel_name="res.partner",
     )
     inspection_type = fields.Selection(
-        selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer"))],
+        selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer")), ("correction_of_deficiencies", _("Correction of Deficiencies"))],
         string=_("Inspection Type"),
     )
 
