@@ -4,10 +4,10 @@
         <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
         <t t-set="scoring_display_correction" t-value="True"/>
         <!-- Print original survey -->
-        <t t-call="answers_template_inspeccion_general"/>
+        <t t-call="survey_user_input_report.answers_template_inspeccion_general"/>
         <!-- Print more than one survey input in the same Report -->
         <t t-foreach="o.survey_report_fussion" t-as="o">
-            <t t-call="answers_template_inspeccion_general"/>
+            <t t-call="survey_user_input_report.answers_template_inspeccion_general"/>
         </t>
     </template>
 
