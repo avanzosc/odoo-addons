@@ -111,15 +111,15 @@
                     <div class="row">
                         <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO</div>
                         <div style="width: 5%;">
-                            <t t-if="'BAJ' in o.risk">X</t>
+                            <t t-if="o.risk and 'BAJ' in str(o.risk)">X</t>
                         </div>
                         <div style="width: 15%;">BAJO</div>
                         <div style="width: 5%;">
-                            <t t-if="'MEDI' in o.risk">X</t>
+                            <t t-if="o.risk and 'MEDI' in str(o.risk)">X</t>
                         </div>
                         <div style="width: 15%;">MEDIA</div>
                         <div style="width: 5%;">
-                            <t t-if="'ALT' in o.risk">X</t>
+                            <t t-if="o.risk and 'ALT' in str(o.risk)">X</t>
                         </div>
                         <div style="width: 15%;">ALTO</div>
                     </div>
@@ -264,36 +264,6 @@
                 <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
             </div>
         </div>
-
-
-
-        <!-- <div class="row" style="border: 1px solid #ccc; margin-top: 0px;">
-            <div style="width: 15%;">
-                <span style="font-weight: bold;">USO:</span>
-            </div>
-            <div class="columns" style="width: 85%; border-left: 1px dashed #ccc">
-                <div class="row">
-                    <div style="width: 25%;">RESIDENCIAL
-                    </div>
-                    <div style="width: 25%;">PÚBLICO
-                    </div>
-                    <div style="width: 25%;">DOCENTE
-                    </div>
-                    <div style="width: 25%;">COMERCIAL
-                    </div>
-                </div>
-                <div class="row">
-                    <div style="width: 25%;">HOSPITALARIO
-                    </div>
-                    <div style="width: 25%;">PÚBLICA CONCURRENCIA
-                    </div>
-                    <div style="width: 25%;">APARCAMIENTO
-                    </div>
-                    <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
-                    </div>
-                </div>
-            </div>
-        </div> -->
 
         <div class="row" style="border: 1px solid #ccc;margin-top: -1px;">
             <div style="width: 40%;">
