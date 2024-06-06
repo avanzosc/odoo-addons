@@ -222,8 +222,8 @@
                                     </div>
                                     <div class="row">
                                         <div style="width: 50%;">
-                                            <span style="font-weight: bold;"> RII: </span>
-                                            <span t-field="o.dof_author_license"/>
+                                            <span style="font-weight: bold;"> EPI: </span>
+                                            <span t-field="o.installer_epi"/>
                                         </div>
                                         <div style="width: 50%;">
                                             <span style="font-weight: bold;"> Fecha: </span>
@@ -237,6 +237,24 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div style="width: 25%;">
+                <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
+            </div>
+            <div style="width: 25%;">RD 513/2017</div>
+            <div style="width: 25%;">RD 1942/1993</div>
+            <div style="width: 25%;">ANTERIOR RD1942/1993</div>
+        </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div style="width: 50%;">
+                <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
+            </div>
+            <div style="width: 50%;">
+                <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
+            </div>
+        </div>
+
+
 
         <!-- <div class="row" style="border: 1px solid #ccc; margin-top: 0px;">
             <div style="width: 15%;">
@@ -267,8 +285,14 @@
         </div> -->
 
         <div class="row" style="border: 1px solid #ccc;">
-            <div>
+            <div style="width: 40%;">
                 <span style="font-weight: bold;">SUPERFICIE CONSTRUIDA (m2):</span>
+            </div>
+            <div style="width: 30%;border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">FECHA:</span>
+            </div>
+            <div style="width: 30%;border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">EQUIPOS:</span>
             </div>
         </div>
 
@@ -281,32 +305,9 @@
             </div>
         </div>
 
-        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-            <div style="width: 70%;">
-                <span style="font-weight: bold;">EMPRESA INSTALADORA:</span>
-            </div>
-            <div style="width: 30%; border-left: 1px solid #ccc">
-                <span style="font-weight: bold;">EPI:</span>
-            </div>
-        </div>
 
-        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-            <div style="width: 50%;">
-                <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
-            </div>
-            <div style="width: 50%;">
-                <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
-            </div>
-        </div>
 
-        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-            <div style="width: 25%;">
-                <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
-            </div>
-            <div style="width: 25%;">RD 513/2017</div>
-            <div style="width: 25%;">RD 1942/1993</div>
-            <div style="width: 25%;">ANTERIOR RD1942/1993</div>
-        </div>
+
     </div>
 
 
