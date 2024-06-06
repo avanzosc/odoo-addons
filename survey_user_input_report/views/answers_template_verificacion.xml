@@ -36,23 +36,21 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                     <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                 </t>
                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                    <t t-if="any(col_label.value == 'SI')">
+                                    <t t-if="col_label.value == 'SI' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
                                         <t t-set="defecto" t-value="SI"/>
                                     </t>
-                                    <t t-elif="any(col_label.value == 'LEVE')">
+                                    <t t-elif="col_label.value == 'LEVE' and defecto != 'MUY GRAVE' and defecto != 'GRAVE'">
                                         <t t-set="defecto" t-value="LEVE"/>
                                     </t>
-
-                                    <t t-elif="any(col_label.value == 'GRAVE')">
+                                    <t t-elif="col_label.value == 'GRAVE' and defecto != 'MUY GRAVE'">
                                         <t t-set="defecto" t-value="GRAVE"/>
                                     </t>
-                                    <t t-elif="any(col_label.value == 'MUY GRAVE')">
+                                    <t t-elif="col_label.value == 'MUY GRAVE'">
                                         <t t-set="defecto" t-value="'MUY GRAVE'"/>
                                     </t>
-                                    <t t-elif="any(col_label.value == 'N/A')">
+                                    <t t-elif="col_label.value == 'N/A' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
                                         <t t-set="defecto" t-value="N/A"/>
                                     </t>
-
                                     <t t-else="">
                                     </t>
                                 </t>
