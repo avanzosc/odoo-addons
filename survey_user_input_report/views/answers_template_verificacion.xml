@@ -20,11 +20,70 @@
             <span style="font-weight: bold;">RESULTADO DE LA INSPECCIÓN:</span> La revisión ha sido realizada mediante control
 documental y visual en todas sus partes controlables y visibles de la instalación. A la vista de
 los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
-        <div>FAVORABLE SIN DEFECTOS / DEFECTOS LEVES
-FAVORABLE CON DEFECTOS LEVES
-    CONDICIONADO (CUANDO HAY DEFECTOS GRAVES)
-    NEGATIVO  (CUANDO HAY DEFECTOS MUY GRAVES)</div>
-        <h1>INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</h1>
+        <!-- CHECK TYPE OF DEFECTO -->
+        <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+            <t t-if="not question.is_normative_filter">
+                <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                    <t t-if="question.question_type == 'matrix'">
+                        <!-- MATRIX -->
+                        <t t-foreach="question.matrix_row_ids" t-as="row_label">
+                            <t t-foreach="question.suggested_answer_ids" t-as="col_label">
+                                <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                                <t t-set="is_correct" t-value="col_label.is_correct"/>
+                                <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
+                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                    <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
+                                </t>
+                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                    <t t-if="any(col_label.value == 'SI')">
+                                        <t t-set="defecto" t-value="SI"/>
+                                    </t>
+                                    <t t-elif="any(col_label.value == 'LEVE')">
+                                        <t t-set="defecto" t-value="LEVE"/>
+                                    </t>
+
+                                    <t t-elif="any(col_label.value == 'GRAVE')">
+                                        <t t-set="defecto" t-value="GRAVE"/>
+                                    </t>
+                                    <t t-elif="any(col_label.value == 'MUY GRAVE')">
+                                        <t t-set="defecto" t-value="MUY GRAVE"/>
+                                    </t>
+                                    <t t-elif="any(col_label.value == 'N/A')">
+                                        <t t-set="defecto" t-value="N/A"/>
+                                    </t>
+
+                                    <t t-else="">
+                                    </t>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </t>
+
+        <t t-if="defecto == 'N/A' or defecto == 'SI'">
+            <div style="text-align: center;">FAVORABLE SIN DEFECTOS / DEFECTOS LEVES</div>
+        </t>
+        <t t-elif="defecto == 'LEVE'">
+            <div style="text-align: center;">FAVORABLE CON DEFECTOS LEVES</div>
+        </t>
+        <t t-elif="defecto == 'GRAVE'">
+            <div style="text-align: center;">CONDICIONADO (CUANDO HAY DEFECTOS GRAVES)</div>
+        </t>
+        <t t-elif="defecto == 'MUY GRAVE'">
+            <div style="text-align: center;">NEGATIVO (CUANDO HAY DEFECTOS MUY GRAVES)</div>
+        </t>
+
+        <div style="text-align: center;">- FECHA SUBSANACIÓN DEFICIENCIAS: </div>
+        <div style="text-align: center;">- FECHA PRÓXIMA INSPECCIÓN: </div>
+        <div style="text-align: center;">- En Vitoria-Gasteiz, a </div>
+        <div style="text-align: center; margin-left: 50%;">El inspector </div>
+        <div style="text-align: center;">Fdo: </div>
+
+
+
+        <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
         <div id="table_verificacion">
             <table>
                 <thead>
