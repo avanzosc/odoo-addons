@@ -78,7 +78,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
         <div style="text-align: center;">- FECHA PRÓXIMA INSPECCIÓN: <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/></div>
         <div style="text-align: center;">- En Vitoria-Gasteiz, a <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
         </div>
-        <div style="text-align: center; margin-left: 50%;">El inspector <span t-field="o.inpector_id.name"/>
+        <div style="text-align: center; margin-left: 50%;">El inspector <span t-field="o.inspector_id.name"/>
         </div>
         <div style="text-align: center;">Fdo: </div>
 
