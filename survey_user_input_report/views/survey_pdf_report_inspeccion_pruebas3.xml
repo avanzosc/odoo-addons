@@ -110,11 +110,17 @@
                     </div>
                     <div class="row">
                         <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO</div>
-                        <div style="width: 5%;"></div>
+                        <div style="width: 5%;">
+                            <t t-if="'BAJ' in o.risk">X</t>
+                        </div>
                         <div style="width: 15%;">BAJO</div>
-                        <div style="width: 5%;"></div>
+                        <div style="width: 5%;">
+                            <t t-if="'MEDI' in o.risk">X</t>
+                        </div>
                         <div style="width: 15%;">MEDIA</div>
-                        <div style="width: 5%;"></div>
+                        <div style="width: 5%;">
+                            <t t-if="'ALT' in o.risk">X</t>
+                        </div>
                         <div style="width: 15%;">ALTO</div>
                     </div>
                     <div class="row">
