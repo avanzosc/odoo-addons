@@ -246,10 +246,15 @@
             <div style="width: 25%;">ANTERIOR RD1942/1993</div>
         </div>
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-            <div style="width: 50%;">
+            <div style="width: 40%;">
                 <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
             </div>
-            <div style="width: 50%;">
+            <div style="width: 30%;">
+                <span style="font-weight: bold;">Nº EXPEDIENTE:</span>
+                <span t-field="o.file_number"/>
+            </div>
+
+            <div style="width: 30%;">
                 <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
             </div>
         </div>
@@ -304,9 +309,6 @@
                 <span style="font-weight: bold;">EMI:</span>
             </div>
         </div>
-
-
-
 
     </div>
 
