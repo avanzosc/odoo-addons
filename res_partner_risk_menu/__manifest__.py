@@ -12,9 +12,13 @@
         "contacts",
         "account",
         "account_financial_risk",
+        "sale",
+        "sale_stock",
         "sale_financial_risk",
+        "sale_line_pending_info",
     ],
     "data": [
+        "report/contact_risk_xlsx.xml",
         "views/res_partner_view.xml",
     ],
     "installable": True,

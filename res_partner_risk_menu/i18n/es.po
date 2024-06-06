@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-17 09:34+0000\n"
-"PO-Revision-Date: 2024-05-17 09:34+0000\n"
+"POT-Creation-Date: 2024-06-05 08:21+0000\n"
+"PO-Revision-Date: 2024-06-05 08:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,162 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Amount"
+msgstr "Importe"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__risk_total_amount
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_users__risk_total_amount
+msgid "Amount Risk"
+msgstr "Total riesgo"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Bank"
+msgstr "Banco"
+
+#. module: res_partner_risk_menu
+#: model:ir.model,name:res_partner_risk_menu.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: res_partner_risk_menu
+#: model:ir.model,name:res_partner_risk_menu.model_report_contact_risk_xlsx
+msgid "Contact Risk Report"
+msgstr "Informe de riesgo"
+
+#. module: res_partner_risk_menu
+#: model:ir.actions.report,name:res_partner_risk_menu.report_contact_risk_xlsx
+msgid "Contact Risk XLSX"
+msgstr "Informe de riesgo XLSX"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__credit_policy_amount
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_users__credit_policy_amount
+msgid "Credit Policy Amount"
+msgstr "Importe póliza de crédito"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Date"
+msgstr "Fecha"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Delivery Pending Sales"
+msgstr "Ventas pendiente de entrega"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Description"
+msgstr "Descripción"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Discount Date"
+msgstr "Fecha descuento"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx__display_name
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Draft Invoices"
+msgstr "Facturas en borrador"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Expiration Date"
+msgstr "Fecha de vencimiento"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx__id
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Invoices/Balance Open"
+msgstr "Facturas/saldo abierto"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Invoicing Pending Sales"
+msgstr "Ventas pendiente de facturar"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx____last_update
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Number"
+msgstr "Número"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Order"
+msgstr "Pedido"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Other Open Account Balance"
+msgstr "Otro saldo contable abierto"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Other Unpaid Account Balance"
+msgstr "Otro saldo contable impagado"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: res_partner_risk_menu
 #: model:ir.actions.act_window,name:res_partner_risk_menu.action_res_partner_risk
 #: model:ir.ui.menu,name:res_partner_risk_menu.res_partner_risk_menu
 #: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
 msgid "Res Partner Risk"
 msgstr "Riesgo de clientes"
+
+#. module: res_partner_risk_menu
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__risk_sum
+#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_users__risk_sum
+msgid "Sum of Risk"
+msgstr "Suma de riesgo"
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "The report cant be taken from a single contact."
+msgstr "El informe se puede sacar de un sólo contacto."
