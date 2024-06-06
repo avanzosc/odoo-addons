@@ -46,7 +46,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                         <t t-set="defecto" t-value="GRAVE"/>
                                     </t>
                                     <t t-elif="any(col_label.value == 'MUY GRAVE')">
-                                        <t t-set="defecto" t-value="MUY GRAVE"/>
+                                        <t t-set="defecto" t-value="'MUY GRAVE'"/>
                                     </t>
                                     <t t-elif="any(col_label.value == 'N/A')">
                                         <t t-set="defecto" t-value="N/A"/>
