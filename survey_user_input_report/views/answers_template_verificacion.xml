@@ -24,6 +24,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
         <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
             <t t-if="not question.is_normative_filter">
                 <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                    <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
                     <t t-if="question.question_type == 'matrix'">
                         <!-- MATRIX -->
                         <t t-foreach="question.matrix_row_ids" t-as="row_label">
