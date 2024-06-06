@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_contact_risk_xlsx" model="ir.actions.report">
+        <field name="name">Contact Risk XLSX</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">contact_risk_xlsx</field>
+        <field name="report_file">contact_risk_xlsx</field>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
