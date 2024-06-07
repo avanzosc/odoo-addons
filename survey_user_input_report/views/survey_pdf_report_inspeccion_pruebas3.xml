@@ -297,7 +297,7 @@
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
                         <li>
-                            <t t-if="equipment in installed_equipment_ids">
+                            <t t-if="equipment in o.installed_equipment_ids">
                                 <strong>X</strong>
                             </t>
                             <t t-esc="equipment.name"/>
@@ -309,7 +309,7 @@
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[len(equipment_records) // 3: 2 * len(equipment_records) // 3]" t-as="equipment">
                         <li>
-                            <t t-if="equipment in installed_equipment_ids">
+                            <t t-if="equipment in o.installed_equipment_ids">
                                 <strong>X</strong>
                             </t>
                             <t t-esc="equipment.name"/>
@@ -321,7 +321,7 @@
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[2 * len(equipment_records) // 3:]" t-as="equipment">
                         <li>
-                            <t t-if="equipment in installed_equipment_ids">
+                            <t t-if="equipment in o.installed_equipment_ids">
                                 <strong>X</strong>
                             </t>
                             <t t-esc="equipment.name"/>
