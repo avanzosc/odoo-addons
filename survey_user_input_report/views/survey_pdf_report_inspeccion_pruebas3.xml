@@ -291,9 +291,9 @@
 
     <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
         <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
-        <div class="row">
+        <div class="row" style="33">
             <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])"/>
-            <div style="width: 33%; display: inline-block; vertical-align: top;">
+            <div style="width: 33%;">
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
                         <li>
@@ -305,7 +305,7 @@
                     </t>
                 </ul>
             </div>
-            <div style="width: 33%; display: inline-block; vertical-align: top;">
+            <div style="width: 33%;">
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[len(equipment_records) // 3: 2 * len(equipment_records) // 3]" t-as="equipment">
                         <li>
@@ -317,7 +317,7 @@
                     </t>
                 </ul>
             </div>
-            <div style="width: 33%; display: inline-block; vertical-align: top;">
+            <div style="width: 33%;">
                 <ul class="list-unstyled">
                     <t t-foreach="equipment_records[2 * len(equipment_records) // 3:]" t-as="equipment">
                         <li>
