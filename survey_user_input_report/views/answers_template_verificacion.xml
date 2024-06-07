@@ -74,15 +74,15 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             <div style="text-align: center;">NEGATIVO</div>
         </t>
 
-        <div style="text-align: center;">- FECHA SUBSANACIÓN DEFICIENCIAS: <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+        <div style="text-align: center;"><span>- FECHA SUBSANACIÓN DEFICIENCIAS:  </span><span t-esc="o.date_deficiency_correction"/>
         </div>
-        <div style="text-align: center;">- FECHA PRÓXIMA INSPECCIÓN: <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+        <div style="text-align: center;"><span>- FECHA PRÓXIMA INSPECCIÓN: </span><span t-esc="o.next_inspection_date"/>
         </div>
-        <div style="text-align: center;">- En Vitoria-Gasteiz, a <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+        <div style="text-align: center;"><span>- En Vitoria-Gasteiz, a </span><span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
         </div>
-        <div style="text-align: center; margin-left: 50%;">El inspector <span t-field="o.inspector_id.name"/>
+        <div style="text-align: center; margin-left: 50%;"><span>El inspector </span><span t-field="o.inspector_id.name"/>
         </div>
-        <div style="text-align: center;">Fdo: </div>
+        <div style="text-align: center;"><span>Fdo: </span><span t-field="o.inspector_id.name"/></div>
 
 
 
