@@ -292,36 +292,41 @@
     <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
         <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
         <div class="row">
-            <div style="width: 33%;">
+            <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])"/>
+            <div style="width: 33%; display: inline-block; vertical-align: top;">
                 <ul class="list-unstyled">
-                    <li>
-                        <strong>X</strong> Sistemas de detección y alarma</li>
-                    <li>
-                        <strong>X</strong> Sistemas abastecimiento de agua</li>
-                    <li>Sistemas de hidrantes exteriores</li>
-                    <li>
-                        <strong>X</strong> Extintores de incendio</li>
-                    <li>Bocas de incendio equipadas</li>
-                    <li>Sistemas de columna seca</li>
+                    <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
                 </ul>
             </div>
-            <div style="width: 33%;">
+            <div style="width: 33%; display: inline-block; vertical-align: top;">
                 <ul class="list-unstyled">
-                    <li>Sistema rociadores automáticos de agua</li>
-                    <li>Sistemas fijos extinción agua nebulizada</li>
-                    <li>Sistemas fijos extinción espuma física</li>
-                    <li>Sistemas fijos extinción polvo</li>
-                    <li>Sistemas fijos extinción agentes gaseosos</li>
-                    <li>Mantas ignífugas</li>
+                    <t t-foreach="equipment_records[len(equipment_records) // 3: 2 * len(equipment_records) // 3]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
                 </ul>
             </div>
-            <div style="width: 33%;">
+            <div style="width: 33%; display: inline-block; vertical-align: top;">
                 <ul class="list-unstyled">
-                    <li>Sist. de señalización luminiscente</li>
-                    <li>Alumbrado de emergencia</li>
-                    <li>Sistemas para control humos y calor</li>
-                    <li>Sistemas fijos extinción aerosoles condensados</li>
-                    <li>Otros</li>
+                    <t t-foreach="equipment_records[2 * len(equipment_records) // 3:]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
                 </ul>
             </div>
         </div>
