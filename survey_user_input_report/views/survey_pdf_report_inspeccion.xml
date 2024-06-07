@@ -1,60 +1,421 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="survey_pdf_inspeccion_documental" name="Inspección Vista General">
-        <t t-if="not company">
-            <!-- Multicompany -->
-            <t t-if="company_id">
-                <t t-set="company" t-value="company_id" />
+    <template id="report_front_page_inspeccion_prueba3" name="Inspeccion Portada">
+        <style>
+            * {
+              font-size: 12px;
+            }
+            .columns {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                padding: 0;
+            }
+            .row {
+                display: -webkit-box;
+                -webkit-box-orient: horizontal;
+                padding: 0;
+            }
+            div, li{
+                padding: 4px;
+            }
+        </style>
+
+        <span style="text-align: center; font-weight: bold;">
+            <t t-if="o.building_use_id.is_industrial">
+                <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
+                <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
             </t>
-            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()" />
+            <t t-else="">
+                <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
+                <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
             </t>
-            <t t-else="else">
-                <t t-set="company" t-value="res_company" />
-            </t>
+        </span>
+        <t t-if="o.building_use_id.is_industrial">
+            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto2267/2004, de 3 de diciembre</p>
         </t>
-        <t t-call="web.external_layout_striped">
-            <page>
-                <t t-if="o.survey_id.title">
-                    <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+        <t t-else="">
+            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
+        </t>
+        <p>
+            <span style="font-weight: bold;">CERTIFICA: </span> que en fecha <span t-field="o.inspection_start_date"/>
+ el inspector que suscribe el <span t-field="o.act_number"/>
+   ha realizado la inspección periódica de la instalación con las siguientes características</p>
+
+    <!-- INICIO TABLA -->
+    <div class="columns">
+        <div class="row" style="border: 1px solid #ccc">
+            <div style="width: 75%;">
+                <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span>
+                <span t-field="o.inspected_building_id.name"/>
+            </div>
+            <div style="width: 25%; border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">NIF / CIF: </span>
+                <span t-field="o.inspected_building_id.vat"/>
+            </div>
+        </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div>
+                <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN: AMPO FOUNDRY. AMPLIACIÓN MECANIZADO</span>
+            </div>
+        </div>
+        <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
+            <div class="row">
+                <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
+                <div class="columns" style="width: 75%;">
+                    <div style="border-bottom: 1px dashed #ccc;">
+                        <span t-field="o.inspected_building_id.name"/>
                     </div>
-                </t>
-                <t t-if="o.survey_id.description">
-                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
-                </t>
-                <t t-if="review" t-call="o.survey_id.survey_button_retake" />
-                <t t-set="survey_form_readonly" t-value="true" />
-                <div class="wrap">
-                    <div class="o_survey_print container">
-                        <div role="form">
-                            <fieldset disabled="disabled">
-                                <t t-call="survey_user_input_report.report_front_page_inspeccion" t-lang="o.partner_id.lang" />
-                                <t t-call="survey_user_input_report.answers_template_inspeccion" />
-                            </fieldset>
+                    <div class="row">
+                        <div style="width: 33.33%; border-right: 1px dashed #ccc;">POBLACION: <span t-field="o.inspected_building_id.street2"/>
+                        </div>
+                        <div style="width: 33.33%; border-right: 1px dashed #ccc;">PROVINCIA: <span t-field="o.inspected_building_id.street"/>
+                        </div>
+                        <div style="width: 33.33%;">CP.: <span t-field="o.inspected_building_id.zip"/>
                         </div>
                     </div>
                 </div>
-            </page>
-        </t>
-    </template>
+            </div>
+        </div>
+        <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
+            <div class="row" style="border-bottom: 1px solid #ccc">
+                <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
+                <div style="width: 75%;" class="column">
+                    <div class="row" style="border-bottom: 1px dashed #ccc;">
+                        <div style="width: 25%;">USO</div>
+                        <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area"/>
+                        </div>
+                        <div style="width: 25%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="width: 25%;">RESIDENCIAL
+                        </div>
+                        <div style="width: 25%;">PÚBLICO
+                        </div>
+                        <div style="width: 25%;">DOCENTE
+                        </div>
+                        <div style="width: 25%;">COMERCIAL
+                        </div>
+                    </div>
+                    <div class="row" style="border-bottom: 1px dashed #ccc;">
+                        <div style="width: 25%;">HOSPITALARIO
+                        </div>
+                        <div style="width: 25%;">PÚBLICA CONCURRENCIA
+                        </div>
+                        <div style="width: 25%;">APARCAMIENTO
+                        </div>
+                        <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO</div>
+                        <div style="width: 5%;">
+                            <t t-if="o.risk and 'BAJ' in str(o.risk)">X</t>
+                        </div>
+                        <div style="width: 15%;">BAJO</div>
+                        <div style="width: 5%;">
+                            <t t-if="o.risk and 'MEDI' in str(o.risk)">X</t>
+                        </div>
+                        <div style="width: 15%;">MEDIA</div>
+                        <div style="width: 5%;">
+                            <t t-if="o.risk and 'ALT' in str(o.risk)">X</t>
+                        </div>
+                        <div style="width: 15%;">ALTO</div>
+                    </div>
+                    <div class="row">
+                        <div style="width: 40%;">CONFIGURACIÓN: </div>
+                        <div style="width: 3%;">
+                            <t t-if="o.configuration==A">X</t>
+                        </div>
+                        <div style="width: 9%;">A</div>
+                        <div style="width: 3%;">
+                            <t t-if="o.configuration==B">X</t>
+                        </div>
+                        <div style="width: 9%;">B</div>
+                        <div style="width: 3%;">
+                            <t t-if="o.configuration==C">X</t>
+                        </div>
+                        <div style="width: 9%;">C</div>
+                        <div style="width: 3%;">
+                            <t t-if="o.configuration==D">X</t>
+                        </div>
+                        <div style="width: 9%;">D</div>
+                        <div style="width: 3%;">
+                            <t t-if="o.configuration==E">X</t>
+                        </div>
+                        <div style="width: 9%;">E</div>
+                    </div>
+                </div>
+            </div>
+            <div class="columns" style="width: 100%; margin-bottom: -1px;">
+                <div class="row" style="width: 100%;">
+                    <div style="width: 25%;border-right: 1px dashed #ccc;">
+                        <span style="font-weight: bold;">DOCUMENTACIÓN TÉCNICA</span>
+                    </div>
+                    <div class="columns" style="width: 75%; margin: 0 auto 0 0; ">
+                        <div class="row">
+                            <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Proyecto</div>
+                            <div style="width: 80%; border-bottom: 1px dashed #ccc; ">
+                                <div class="columns">
+                                    <div style="width: 100%;">
+                                        <span style="font-weight: bold;">Título: </span>
+                                        <span t-field="o.project_title"/>
+                                    </div>
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Autor: </span>
+                                            <span t-field="o.project_author_id"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Titulación: </span>
+                                            <span t-field="o.project_author_degree"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Colegiado N.º: </span>
+                                            <span t-field="o.project_author_license"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Fecha / N.º </span>
+                                            <span t-field="o.project_approved_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="border-bottom: 1px dashed #ccc;">
+                            <div style="width: 20%; border-right: 1px dashed #ccc;">Certificado Final</div>
+                            <div style="width: 80%;">
+                                <div class="columns">
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Autor: </span>
+                                            <span t-field="o.dof_author_id"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Titulación: </span>
+                                            <span t-field="o.dof_author_degree"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Colegiado N.º: </span>
+                                            <span t-field="o.dof_author_license"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Fecha / N.º Visado: </span>
+                                            <span t-field="o.dof_approved_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div style="width: 20%; border-bottom: 1px dashed #ccc; border-right: 1px dashed #ccc;">Certificado Instalador</div>
+                            <div style="width: 80%; border-bottom: 1px dashed #ccc;">
+                                <div class="columns">
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Empresa: </span>
+                                            <span t-field="o.dof_author_id"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"></span>
+                                            <!-- <span t-field="o.dof_author_degree"/> -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> EPI: </span>
+                                            <span t-field="o.installer_epi"/>
+                                        </div>
+                                        <div style="width: 50%;">
+                                            <span style="font-weight: bold;"> Fecha: </span>
+                                            <span t-field="o.dof_approved_date"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px; ">
+            <div style="width: 25%;">
+                <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
+            </div>
+            <div style="width: 25%;">RD 513/2017</div>
+            <div style="width: 25%;">RD 1942/1993</div>
+            <div style="width: 25%;">ANTERIOR RD1942/1993</div>
+        </div>
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div style="width: 40%;">
+                <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
+            </div>
+            <div style="width: 30%; border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">Nº EXPEDIENTE:</span>
+                <span t-field="o.file_number"/>
+            </div>
 
-    <template id="report_survey_pdf_inspeccion_documental" name="Inspección Template ">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="o">
-                <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
+            <div style="width: 30%; border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
+            </div>
+        </div>
+
+        <div class="row" style="border: 1px solid #ccc;margin-top: -1px;">
+            <div style="width: 40%;">
+                <span style="font-weight: bold;">SUPERFICIE CONSTRUIDA (m2):</span>
+            </div>
+            <div style="width: 30%;border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">FECHA:</span>
+            </div>
+            <div style="width: 30%;border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">EQUIPOS:</span>
+                <span t-field="o.equipment"/>
+            </div>
+        </div>
+
+        <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
+            <div style="width: 70%;">
+                <span style="font-weight: bold;">EMPRESA MANTENEDORA:</span>
+            </div>
+            <div style="width: 30%;border-left: 1px solid #ccc">
+                <span style="font-weight: bold;">EMI:</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
+        <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
+        <div class="row" style="33">
+            <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])"/>
+            <div style="width: 33%;">
+                <ul class="list-unstyled">
+                    <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in o.installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <div style="width: 33%;">
+                <ul class="list-unstyled">
+                    <t t-foreach="equipment_records[len(equipment_records) // 3: 2 * len(equipment_records) // 3]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in o.installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <div style="width: 33%;">
+                <ul class="list-unstyled">
+                    <t t-foreach="equipment_records[2 * len(equipment_records) // 3:]" t-as="equipment">
+                        <li>
+                            <t t-if="equipment in o.installed_equipment_ids">
+                                <strong>X</strong>
+                            </t>
+                            <t t-esc="equipment.name"/>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="survey_pdf_inspeccion_documental" name="Inspección Vista General">
+    <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+            <t t-set="company" t-value="company_id" />
+        </t>
+        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+            <t t-set="company" t-value="o.company_id.sudo()" />
+        </t>
+        <t t-else="else">
+            <t t-set="company" t-value="res_company" />
+        </t>
+    </t>
+    <t t-call="web.external_layout_striped_changed">
+        <page>
+            <t t-if="o.survey_id.title">
+                <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
+                    <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                </div>
             </t>
-        </t>
-    </template>
+            <t t-if="o.survey_id.description">
+                <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+            </t>
+            <t t-if="review" t-call="o.survey_id.survey_button_retake" />
+            <t t-set="survey_form_readonly" t-value="true" />
+            <div class="wrap">
+                <div class="o_survey_print container">
+                    <div role="form">
+                        <fieldset disabled="disabled">
+                            <t t-call="survey_user_input_report.report_front_page_inspeccion_prueba3" t-lang="o.partner_id.lang" />
+                            <t t-call="survey_user_input_report.answers_template_inspeccion" />
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </page>
+    </t>
+</template>
 
-    <!-- <record id="action_report_survey_print_inspeccion_documental" model="ir.actions.report">
-        <field name="name">Inspección</field>
-        <field name="model">survey.user_input</field>
-        <field name="report_type">qweb-pdf</field>
-        <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
-        <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
-        <field name="print_report_name">'Printed Survey Inspección Prueba 2'</field>
-        <field name="binding_model_id" ref="survey.model_survey_user_input" />
-        <field name="binding_type">report</field>
-    </record> -->
+<template id="external_layout_striped_changed">
+    <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+        <div class="o_background_header">
+        <div class="float-end">
+            <div class="mt0 text-end h3" t-field="company.report_header"/>
+        </div>
+        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+        <div class="float-start company_address">
+            <ul class="list-unstyled">
+                <li t-if="company.is_company_details_empty"><t t-esc="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/></li>
+                <li t-else=""><t t-esc="company.company_details"/></li>
+                <li t-if="forced_vat">
+                    <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
+                    <span t-esc="forced_vat"/>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix mb8"/>
+        </div>
+    </div>
+
+    <div t-attf-class="o_company_#{company.id}_layout article o_report_layout_striped {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-call="web.address_layout"/>
+        <t t-out="0"/>
+    </div>
+</template>
+
+
+<template id="report_survey_pdf_inspeccion_documental" name="Inspección Template Prueba 2">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
+        </t>
+    </t>
+</template>
+
+<record id="action_report_survey_print_inspeccion_documental" model="ir.actions.report">
+    <field name="name">Inspección</field>
+    <field name="model">survey.user_input</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
+    <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
+    <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
+    <field name="binding_model_id" ref="survey.model_survey_user_input" />
+    <field name="binding_type">report</field>
+</record>
 </odoo>
