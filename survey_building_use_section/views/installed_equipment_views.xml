@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="installed_equipment_view_tree" model="ir.ui.view">
+        <field name="name">installed.equipment.normative.view.tree</field>
+        <field name="model">installed.equipment.normative</field>
+        <field name="arch" type="xml">
+            <tree string="Installed Equipment" editable="bottom" sample="1">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="installed_equipment_action" model="ir.actions.act_window">
+        <field name="name">Installed Equipment</field>
+        <field name="res_model">installed.equipment</field>
+        <field name="view_id" ref="installed_equipment_view_tree"/>
+    </record>
+
+    <menuitem id="menu_installed_equipment" name="Questions Normatives" parent="survey.menu_surveys" action="survey_building_use_section.installed_equipment_action" sequence="100"/>
+</odoo>

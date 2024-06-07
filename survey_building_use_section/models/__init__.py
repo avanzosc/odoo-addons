@@ -1,3 +1,4 @@
+from . import installed_equipment
 from . import survey_question_answer
 from . import survey_question_article
 from . import survey_question_normative

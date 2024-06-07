@@ -68,10 +68,10 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             <div style="text-align: center;">FAVORABLE CON DEFECTOS LEVES</div>
         </t>
         <t t-elif="defecto == 'GRAVE'">
-            <div style="text-align: center;">CONDICIONADO (CUANDO HAY DEFECTOS GRAVES)</div>
+            <div style="text-align: center;">CONDICIONADO</div>
         </t>
         <t t-elif="defecto == 'MUY GRAVE'">
-            <div style="text-align: center;">NEGATIVO (CUANDO HAY DEFECTOS MUY GRAVES)</div>
+            <div style="text-align: center;">NEGATIVO</div>
         </t>
 
         <div style="text-align: center;">- FECHA SUBSANACIÓN DEFICIENCIAS: <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
@@ -229,7 +229,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                     <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                                 </t>
                                                 <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                                    <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date and norm.end_date &gt;= o.inspected_building_id.service_start_date)"/>
+                                                    <t t-set="  " t-value="question.question_normative_ids.filtered(lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date and norm.end_date &gt;= o.inspected_building_id.service_start_date)"/>
                                                     <tr>
                                                         <td>
                                                             <t t-foreach="current_matrix_line_print_articles" t-as="article">

@@ -98,6 +98,13 @@ class SurveyUserInput(models.Model):
         selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer")), ("correction_of_deficiencies", _("Correction of Deficiencies"))],
         string=_("Inspection Type"),
     )
+    date_deficiency_correction = fields.Date(string="Date Deficiency Correction")
+    next_inspection_date = fields.Date(string="Next Inspection Date")
+    installed_equipment_ids = fields.Many2many(
+        'installed.equipment', 
+        string="Installed Equipment"
+    )
+
 
     # Project
     project_title = fields.Char(
