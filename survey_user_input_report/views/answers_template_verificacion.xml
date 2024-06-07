@@ -155,7 +155,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                             <t t-if="not is_correct and answer_selected">
                                                 <tr>
                                                     <td>
-                                                        <t t-esc="question.title" />
+                                                        <t t-esc="answer_line.notes" />
                                                     </td>
                                                     <td>
                                                         <t t-esc="label.notes" />
@@ -237,6 +237,9 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                                     <t t-esc="article.error_text"/>
                                                                 </t>
                                                             </t>
+                                                            <br />
+                                                            <t t-esc="answer_line.notes" />
+
                                                         </td>
                                                         <td>
                                                             <t t-esc="current_question_print_normatives.name"/>
