@@ -246,9 +246,14 @@
             <div style="width: 25%;">
                 <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
             </div>
-            <div style="width: 25%;">RD 513/2017</div>
-            <div style="width: 25%;">RD 1942/1993</div>
-            <div style="width: 25%;">ANTERIOR RD1942/1993</div>
+            <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+                <t t-if="question.is_normative_filter">
+                    <t t-set="answer_count" t-value="len(question.suggested_answer_ids)" />
+                    <t t-foreach="question.suggested_answer_ids" t-as="label">
+                        <span t-att-style="'width:' + (75 / answer_count) + '%; display: inline-block;'" t-esc="label.name" />
+                    </t>
+                </t>
+            </t>
         </div>
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
             <div style="width: 40%;">
@@ -380,21 +385,26 @@
 <template id="external_layout_striped_changed">
     <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
         <div class="o_background_header">
-        <div class="float-end">
-            <div class="mt0 text-end h3" t-field="company.report_header"/>
-        </div>
-        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
-        <div class="float-start company_address">
-            <ul class="list-unstyled">
-                <li t-if="company.is_company_details_empty"><t t-esc="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/></li>
-                <li t-else=""><t t-esc="company.company_details"/></li>
-                <li t-if="forced_vat">
-                    <t t-esc="company.country_id.vat_label or 'Tax ID'"/>:
-                    <span t-esc="forced_vat"/>
-                </li>
-            </ul>
-        </div>
-        <div class="clearfix mb8"/>
+            <div class="float-end">
+                <div class="mt0 text-end h3" t-field="company.report_header"/>
+            </div>
+            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+            <div class="float-start company_address">
+                <ul class="list-unstyled">
+                    <li t-if="company.is_company_details_empty">
+                        <t t-esc="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                    </li>
+                    <li t-else="">
+                        <t t-esc="company.company_details"/>
+                    </li>
+                    <li t-if="forced_vat">
+                        <t t-esc="company.country_id.vat_label or 'Tax ID'"/>
+:
+                        <span t-esc="forced_vat"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix mb8"/>
         </div>
     </div>
 
