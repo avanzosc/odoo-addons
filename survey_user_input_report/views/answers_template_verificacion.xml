@@ -10,7 +10,7 @@
             }
             table{
             margin: 10px;
-            width: 90%;
+            width: 98%;
             }
 
         </style>
@@ -71,7 +71,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             <div style="text-align: center;">CONDICIONADO</div>
         </t>
         <t t-elif="defecto == 'MUY GRAVE'">
-            <div style="text-align: center;">NEGATIVO</div>
+            <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">NEGATIVO</div>
         </t>
 
         <div style="text-align: center;">
