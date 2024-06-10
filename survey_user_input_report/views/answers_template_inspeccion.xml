@@ -43,11 +43,11 @@
                         </t>
                         <t t-if="question.question_type == 'char_box'">
                             <div class="o_survey_comment_container p-0" style="display: inline-block; margin-right: auto;">
-                                <input t-att-type="'email' if question.validation_email else 'text'" class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0" t-att-name="question.id" t-att-placeholder="question.question_placeholder" t-att-value="answer_lines[0].value_char_box if answer_lines else None" t-att-data-question-type="question.question_type" t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False" t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False"/>
+                                <input style="font-size: 12px;" t-att-type="'email' if question.validation_email else 'text'" class="form-control o_survey_question_text_box bg-transparent text-dark rounded-0 p-0" t-att-name="question.id" t-att-placeholder="question.question_placeholder" t-att-value="answer_lines[0].value_char_box if answer_lines else None" t-att-data-question-type="question.question_type" t-att-data-validation-length-min="question.validation_length_min if question.validation_required else False" t-att-data-validation-length-max="question.validation_length_max if question.validation_required else False"/>
                             </div>
                         </t>
                         <t t-if="question.question_type == 'numerical_box'">
-                            <t t-call="survey.question_numerical_box"/>
+                            <input style="font-size: 12px;" type="number" step="any" class="form-control o_survey_question_numerical_box bg-transparent text-dark rounded-0 p-0" t-att-name="question.id" t-att-placeholder="question.question_placeholder" t-att-value="answer_lines[0].value_numerical_box if answer_lines else None" t-att-data-question-type="question.question_type" t-att-data-validation-float-min="question.validation_min_float_value if question.validation_required else False" t-att-data-validation-float-max="question.validation_max_float_value if question.validation_required else False"/>
                         </t>
                         <t t-if="question.question_type == 'date'">
                             <div class="input-group o_survey_form_date" t-attf-id="datetimepicker_#{question.id}" data-target-input="nearest" t-att-data-mindate="question.validation_min_date" t-att-data-maxdate="question.validation_max_date">
