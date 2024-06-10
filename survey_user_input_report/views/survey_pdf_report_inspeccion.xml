@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-<template id="survey_pdf_inspeccion_documental" name="Inspección Vista General">
+<template id="survey_pdf_inspeccion" name="Inspección Vista General">
     <t t-if="not company">
         <!-- Multicompany -->
         <t t-if="company_id">
@@ -17,7 +17,7 @@
         <page>
             <t t-if="o.survey_id.title">
                 <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                    <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                    <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
                 </div>
             </t>
             <t t-if="o.survey_id.description">
@@ -91,10 +91,10 @@
 </template>
 
 
-<template id="report_survey_pdf_inspeccion_documental" name="Inspección Template">
+<template id="report_survey_pdf_inspeccion" name="Inspección Template">
     <t t-call="web.html_container">
         <t t-foreach="docs" t-as="o">
-            <t t-call="survey_user_input_report.survey_pdf_inspeccion_documental" t-lang="o.partner_id.lang" />
+            <t t-call="survey_user_input_report.survey_pdf_inspeccion" t-lang="o.partner_id.lang" />
         </t>
     </t>
 </template>
@@ -103,8 +103,8 @@
     <field name="name">Inspección</field>
     <field name="model">survey.user_input</field>
     <field name="report_type">qweb-pdf</field>
-    <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
-    <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion_documental</field>
+    <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion</field>
+    <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion</field>
     <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
     <field name="binding_model_id" ref="survey.model_survey_user_input" />
     <field name="binding_type">report</field>

@@ -60,8 +60,8 @@
         </div>
         <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
             <div class="row">
-                <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
-                <div class="columns" style="width: 75%;">
+                <div style="width: 15%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
+                <div class="columns" style="width: 85%;">
                     <div style="border-bottom: 1px dashed #ccc;">
                         <span t-field="o.inspected_building_id.name"/>
                     </div>
@@ -78,8 +78,8 @@
         </div>
         <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
             <div class="row" style="border-bottom: 1px solid #ccc">
-                <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
-                <div style="width: 75%;" class="column">
+                <div style="width: 15%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
+                <div style="width: 85%;" class="column">
                     <div class="row" style="border-bottom: 1px dashed #ccc;">
                         <div style="width: 25%;">USO <span t-field="o.building_use_id.name"/>
                         </div>
@@ -166,7 +166,7 @@
             </div>
             <div class="columns" style="width: 100%; margin-bottom: -1px;">
                 <div class="row" style="width: 100%;">
-                    <div style="width: 25%;border-right: 1px dashed #ccc;">
+                    <div style="width: 15%;border-right: 1px dashed #ccc;">
                         <span style="font-weight: bold;">DOCUMENTACIÓN TÉCNICA</span>
                     </div>
                     <div class="columns" style="width: 75%; margin: 0 auto 0 0; ">
@@ -260,7 +260,7 @@
             </div>
         </div>
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px; ">
-            <div style="width: 25%;">
+            <div style="width: 15%;">
                 <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
             </div>
             <t t-set="found_normative_filter" t-value="False"/>
@@ -269,14 +269,14 @@
                     <t t-set="found_normative_filter" t-value="True"/>
                     <t t-set="answer_count" t-value="len(question.suggested_answer_ids)"/>
                     <t t-foreach="question.suggested_answer_ids" t-as="label">
-                        <div t-att-style="'width:' + str(75 / answer_count) + '%; padding: 5px; border-left: 1px dashed #ccc'" t-esc="label.value"/>
+                        <div t-att-style="'width:' + str(85 / answer_count) + '%; padding: 5px; border-left: 1px dashed #ccc'" t-esc="label.value"/>
                     </t>
                 </t>
             </t>
         </div>
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
             <div style="width: 40%;">
-                <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
+                <span style="font-weight: bold;">Nº REGISTRO INSTALACIÓN:</span>
                 <span t-field="o.installation_number"/>
             </div>
             <div style="width: 30%; border-left: 1px solid #ccc">

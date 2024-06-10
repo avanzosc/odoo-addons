@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <template id="verificacion_operaciones_mantenimiento" name="Verificación Vista General">
+    <template id="pdf_survey_verificacion" name="Verificación Vista General">
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
@@ -18,7 +18,7 @@
             <page>
                 <t t-if="o.survey_id.title">
                     <div style="text-align: center; padding: .6rem; margin: 0;">
-                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .75rem;" />
+                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
                     </div>
                 </t>
                 <t t-if="o.survey_id.description">
@@ -41,21 +41,20 @@
         </t>
     </template>
 
-
-    <template id="report_survey_pdf_verificacion_operaciones_mantenimiento" name="Verificacion Template">
+    <template id="report_survey_pdf_pdf_survey_verificacion" name="Verificacion Template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="survey_user_input_report.verificacion_operaciones_mantenimiento" t-lang="o.partner_id.lang" />
+                <t t-call="survey_user_input_report.pdf_survey_verificacion" t-lang="o.partner_id.lang" />
             </t>
         </t>
     </template>
 
-    <record id="action_report_survey_print_verificacion_operaciones_mantenimiento" model="ir.actions.report">
+    <record id="action_report_survey_print_pdf_survey_verificacion" model="ir.actions.report">
         <field name="name">Verificación</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">survey_user_input_report.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
-        <field name="report_file">survey_user_input_report.report_survey_pdf_verificacion_operaciones_mantenimiento</field>
+        <field name="report_name">survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
+        <field name="report_file">survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
         <field name="print_report_name">'Printed Survey Verificación'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>
