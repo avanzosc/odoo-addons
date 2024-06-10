@@ -246,13 +246,13 @@
             <div style="width: 25%;">
                 <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
             </div>
-            <t t-set="found_normative_filter" t-value="False" />
+            <t t-set="found_normative_filter" t-value="False"/>
             <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                 <t t-if="question.is_normative_filter and not found_normative_filter">
-                    <t t-set="found_normative_filter" t-value="True" />
-                    <t t-set="answer_count" t-value="len(question.suggested_answer_ids)" />
+                    <t t-set="found_normative_filter" t-value="True"/>
+                    <t t-set="answer_count" t-value="len(question.suggested_answer_ids)"/>
                     <t t-foreach="question.suggested_answer_ids" t-as="label">
-                        <span t-att-style="'width:' + str(75 / answer_count) + '%; display: inline-block;'" t-esc="label.value" />
+                        <div t-att-style="'width:' + str(75 / answer_count) + '%; padding: 5px; border-left: 1px dashed #ccc'" t-esc="label.value"/>
                     </t>
                 </t>
             </t>
