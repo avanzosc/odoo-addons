@@ -81,6 +81,11 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.number_of_floors",
         store=True,
     )
+    installation_number = fields.Char(
+        string='Installation Number', 
+        related="inspected_building_id.installation_number"
+    )
+    
     act_number = fields.Char(
         string=_("Act Number"),
     )

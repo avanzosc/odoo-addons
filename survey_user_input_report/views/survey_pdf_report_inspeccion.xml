@@ -82,9 +82,9 @@
                 <div style="width: 75%;" class="column">
                     <div class="row" style="border-bottom: 1px dashed #ccc;">
                         <div style="width: 25%;">USO</div>
-                        <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area"/>
+                        <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.area"/>
                         </div>
-                        <div style="width: 25%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors"/>
+                        <div style="width: 25%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
                         </div>
                     </div>
                     <div class="row">
@@ -253,6 +253,7 @@
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
             <div style="width: 40%;">
                 <span style="font-weight: bold;">No REGISTRO INSTALACIÓN:</span>
+                <span t-field="o.installation_number"/>
             </div>
             <div style="width: 30%; border-left: 1px solid #ccc">
                 <span style="font-weight: bold;">Nº EXPEDIENTE:</span>
@@ -266,10 +267,14 @@
 
         <div class="row" style="border: 1px solid #ccc;margin-top: -1px;">
             <div style="width: 40%;">
-                <span style="font-weight: bold;">SUPERFICIE CONSTRUIDA (m2):</span>
+                <span style="font-weight: bold;">TIPO DE INSPECCION:</span>
+                <span t-field="o.inspection_type"/>
             </div>
             <div style="width: 30%;border-left: 1px solid #ccc">
                 <span style="font-weight: bold;">FECHA:</span>
+                <span t-field="o.inspection_start_date"/>
+                <span> al </span>
+                <span t-field="o.inspection_end_date"/>
             </div>
             <div style="width: 30%;border-left: 1px solid #ccc">
                 <span style="font-weight: bold;">EQUIPOS:</span>
