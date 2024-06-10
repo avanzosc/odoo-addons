@@ -81,7 +81,8 @@
                 <div style="width: 25%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                 <div style="width: 75%;" class="column">
                     <div class="row" style="border-bottom: 1px dashed #ccc;">
-                        <div style="width: 25%;">USO <span t-field="o.building_use_id.name"/></div>
+                        <div style="width: 25%;">USO <span t-field="o.building_use_id.name"/>
+                        </div>
                         <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.area"/>
                         </div>
                         <div style="width: 25%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
@@ -110,38 +111,54 @@
                     <div class="row">
                         <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO</div>
                         <div style="width: 5%;">
-                            <t t-if="o.risk and 'BAJ' in str(o.risk)">X</t>
+                            <t t-if="o.risk and 'BAJ' in str(o.risk)">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 15%;">BAJO</div>
                         <div style="width: 5%;">
-                            <t t-if="o.risk and 'MEDI' in str(o.risk)">X</t>
+                            <t t-if="o.risk and 'MEDI' in str(o.risk)">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 15%;">MEDIA</div>
                         <div style="width: 5%;">
-                            <t t-if="o.risk and 'ALT' in str(o.risk)">X</t>
+                            <t t-if="o.risk and 'ALT' in str(o.risk)">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 15%;">ALTO</div>
                     </div>
                     <div class="row">
                         <div style="width: 40%;">CONFIGURACIÓN: </div>
                         <div style="width: 3%;">
-                            <t t-if="o.configuration==A">X</t>
+                            <t t-if="o.configuration==A">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 9%;">A</div>
                         <div style="width: 3%;">
-                            <t t-if="o.configuration==B">X</t>
+                            <t t-if="o.configuration==B">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 9%;">B</div>
                         <div style="width: 3%;">
-                            <t t-if="o.configuration==C">X</t>
+                            <t t-if="o.configuration==C">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 9%;">C</div>
                         <div style="width: 3%;">
-                            <t t-if="o.configuration==D">X</t>
+                            <t t-if="o.configuration==D">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 9%;">D</div>
                         <div style="width: 3%;">
-                            <t t-if="o.configuration==E">X</t>
+                            <t t-if="o.configuration==E">
+                                <span style="font-weight: bold;">X</span>
+                            </t>
                         </div>
                         <div style="width: 9%;">E</div>
                     </div>
