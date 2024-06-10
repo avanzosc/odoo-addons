@@ -13,7 +13,8 @@
                 <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="web.external_layout_striped">
+        <!-- <t t-call="web.external_layout_striped"> -->
+        <t t-call="survey_user_input_report.external_layout_striped_changed">
             <page>
                 <t t-if="o.survey_id.title">
                     <div style="text-align: center; padding: .6rem; margin: 0;">
@@ -30,7 +31,7 @@
                         <div role="form">
                             <fieldset disabled="disabled">
                                 <!-- <t t-call="survey_user_input_report.report_front_page_verificacion" t-lang="o.partner_id.lang" /> -->
-                                <t t-call="survey_user_input_report.report_front_page_inspeccion_prueba3" t-lang="o.partner_id.lang" />
+                                <t t-call="survey_user_input_report.report_front_page_inspeccion" t-lang="o.partner_id.lang" />
                                 <t t-call="survey_user_input_report.answers_template_verificacion" />
                             </fieldset>
                         </div>

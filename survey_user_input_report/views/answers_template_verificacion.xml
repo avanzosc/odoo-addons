@@ -74,16 +74,26 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             <div style="text-align: center;">NEGATIVO</div>
         </t>
 
-        <div style="text-align: center;"><span>- FECHA SUBSANACIÓN DEFICIENCIAS:  </span><span t-esc="o.date_deficiency_correction"/>
+        <div style="text-align: center;">
+            <span>- FECHA SUBSANACIÓN DEFICIENCIAS:  </span>
+            <span t-esc="o.date_deficiency_correction"/>
         </div>
-        <div style="text-align: center;"><span>- FECHA PRÓXIMA INSPECCIÓN: </span><span t-esc="o.next_inspection_date"/>
+        <div style="text-align: center;">
+            <span>- FECHA PRÓXIMA INSPECCIÓN: </span>
+            <span t-esc="o.next_inspection_date"/>
         </div>
-        <div style="text-align: center;"><span>- En Vitoria-Gasteiz, a </span><span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+        <div style="text-align: center;">
+            <span>- En Vitoria-Gasteiz, a </span>
+            <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
         </div>
-        <div style="text-align: center; margin-left: 50%;"><span>El inspector </span><span t-field="o.inspector_id.name"/>
+        <div style="text-align: center; margin-left: 50%;">
+            <span>El inspector </span>
+            <span t-field="o.inspector_id.name"/>
         </div>
-        <div style="text-align: center;"><span>Fdo: </span><span t-field="o.inspector_id.name"/></div>
-
+        <div style="text-align: center;">
+            <span>Fdo: </span>
+            <span t-field="o.inspector_id.name"/>
+        </div>
 
 
         <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
@@ -155,10 +165,12 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                             <t t-if="not is_correct and answer_selected">
                                                 <tr>
                                                     <td>
-                                                        <t t-esc="answer_line.notes" />
+                                                        <t t-esc="label.notes" />
+
+                                                        <!-- <t t-esc="answer_line.notes" /> -->
                                                     </td>
                                                     <td>
-                                                        <t t-esc="label.notes" />
+
                                                     </td>
                                                     <td>
                                                         <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
@@ -180,7 +192,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                     </t>
                                     <t t-if="question.question_type == 'multiple_choice'">
                                         <!-- MULTIPLE CHOICE -->
-                                        <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
+                                        <!-- <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
                                         <t t-set="item_idx" t-value="0" />
                                         <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
                                         <t t-foreach="question.suggested_answer_ids" t-as="label">
@@ -189,8 +201,6 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                             <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
                                             <t t-set="is_correct" t-value="label.is_correct" />
                                             <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
-                                            <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
-                                        <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" /> -->
 
                                             <t t-if="not is_correct and answer_selected">
                                                 <tr>
@@ -216,7 +226,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                     </td>
                                                 </tr>
                                             </t>
-                                        </t>
+                                        </t> -->
                                     </t>
                                     <t t-if="question.question_type == 'matrix'">
                                         <!-- MATRIX -->
