@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-05 07:25+0000\n"
-"PO-Revision-Date: 2024-06-05 07:25+0000\n"
+"POT-Creation-Date: 2024-06-10 09:34+0000\n"
+"PO-Revision-Date: 2024-06-10 09:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,6 @@ msgstr ""
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__act_number
 #, python-format
 msgid "Act Number"
@@ -32,7 +31,6 @@ msgstr "Añadir Filtro de Normativas"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__administrator_id
 #, python-format
 msgid "Administrator"
@@ -41,7 +39,6 @@ msgstr "Administrador"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__question_article_ids
 #, python-format
 msgid "Articles"
@@ -49,13 +46,11 @@ msgstr "Artículos"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "Botones"
-msgstr ""
+msgstr "Botónes"
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
@@ -65,7 +60,6 @@ msgstr "Edificio"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_section_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -80,7 +74,6 @@ msgstr "Edificio a inspeccionar"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__building_use_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -100,7 +93,6 @@ msgstr "Certificado de Dirección de Trabajo Final"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__certification_date
 #, python-format
 msgid "Certification Date"
@@ -109,11 +101,18 @@ msgstr "Fecha de Certificación"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__configuration
 #, python-format
 msgid "Configuration"
-msgstr ""
+msgstr "Configuración"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__correction_of_deficiencies
+#, python-format
+msgid "Correction of Deficiencies"
+msgstr "Corrección de Deficiencias"
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_invite_view_form
@@ -122,26 +121,31 @@ msgstr "Crear Encuesta"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_survey_view_form
 #, python-format
 msgid "Create Survey to Building"
 msgstr "Crear Encuesta para Edificio"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__create_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__create_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__create_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__date_deficiency_correction
+msgid "Date Deficiency Correction"
+msgstr  "Fecha de Corrección de Deficiencias"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,help:survey_building_use_section.field_survey_user_input__dof_author_degree
@@ -151,25 +155,19 @@ msgstr "Grado del contacto individual."
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #. module: survey_building_use_section
-#. odoo-python
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
+#. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_article.py:0
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__description
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__description
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
@@ -180,7 +178,6 @@ msgstr "Descripción"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__dof_approved_date
 #, python-format
 msgid "Director of Works Approved Date"
@@ -189,7 +186,6 @@ msgstr "Fecha de Aprobación de Dirección de Trabajos"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__dof_author_id
 #, python-format
 msgid "Director of Works Author"
@@ -198,7 +194,6 @@ msgstr "Autor de Dirección de Trabajos"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__dof_author_degree
 #, python-format
 msgid "Director of Works Author Degree"
@@ -207,13 +202,13 @@ msgstr "Titulación Autor Proyecto de Dirección de Trabajos"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__dof_author_license
 #, python-format
 msgid "Director of Works Author License"
 msgstr "Número de colegiado"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__display_name
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__display_name
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__display_name
 msgid "Display Name"
@@ -221,13 +216,11 @@ msgstr "Nombre a Mostrar"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #. module: survey_building_use_section
 #: model:ir.ui.menu,name:survey_building_use_section.menu_survey_question_owl_article
@@ -237,7 +230,6 @@ msgstr "Duplicar Articulos"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__end_date
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 #, python-format
@@ -245,28 +237,34 @@ msgid "End Date"
 msgstr "Fecha Final"
 
 #. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__equipment
+#, python-format
+msgid "Equipment"
+msgstr "Equipo"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__name
+msgid "Equipment Name"
+msgstr  "Nombre del Equipo"
+
+#. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
 #: code:addons/survey_building_use_section/models/survey_question_article.py:0
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__error_text
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__error_text
 #: model:ir.model.fields,help:survey_building_use_section.field_survey_question_answer__notes
@@ -278,7 +276,6 @@ msgstr "Texto de Error"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__file_number
 #, python-format
 msgid "File Number"
@@ -292,30 +289,26 @@ msgstr "Agrupar Por"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__id
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__id
 #, python-format
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "ID:"
-msgstr ""
+msgstr "ID"
 
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspected_building_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -325,7 +318,6 @@ msgstr "Edificio Inspeccionado"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__section_ids
 #, python-format
 msgid "Inspected Building Section/Area"
@@ -339,7 +331,6 @@ msgstr "Inspección"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_end_date
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -349,7 +340,6 @@ msgstr "Fecha de Finalización de Inspección"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_start_date
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -359,7 +349,6 @@ msgstr "Fecha de Inicio de Inspección"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspection_type
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -369,7 +358,6 @@ msgstr "Tipo de Inspección"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__inspector_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -377,9 +365,22 @@ msgid "Inspector"
 msgstr "Inspector"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installation_number
+msgid "Installation Number"
+msgstr "Número de Instalación"
+
+#. module: survey_building_use_section
+#: model:ir.actions.act_window,name:survey_building_use_section.installed_equipment_action
+#: model:ir.model,name:survey_building_use_section.model_installed_equipment
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installed_equipment_ids
+#: model:ir.ui.menu,name:survey_building_use_section.menu_installed_equipment
+#: model_terms:ir.ui.view,arch_db:survey_building_use_section.installed_equipment_view_tree
+msgid "Installed Equipment"
+msgstr "Equipo Instalado"
+
+#. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installer_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
 #, python-format
@@ -389,25 +390,27 @@ msgstr "Instalador"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installer_epi
 #, python-format
 msgid "Installer EPI"
 msgstr "Instalador EPI"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment____last_update
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article____last_update
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative____last_update
 msgid "Last Modified on"
 msgstr "Última Modificación el"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__write_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_uid
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_uid
 msgid "Last Updated by"
 msgstr "Última Actualización por"
 
 #. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__write_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__write_date
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__write_date
 msgid "Last Updated on"
@@ -416,7 +419,6 @@ msgstr "Última Actualización el"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__maintainer_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
 #, python-format
@@ -426,7 +428,6 @@ msgstr "Mantenedor"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__maintainer_emi
 #, python-format
 msgid "Maintainer EMI"
@@ -445,25 +446,19 @@ msgstr "Número de colegiado"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
 #, python-format
 msgid "NORMATIVE FILTER"
-msgstr "FILTRO DE NORMATIVA"
+msgstr "FILTRO NORMATIVO"
 
 #. module: survey_building_use_section
-#. odoo-python
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
+#. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_article.py:0
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__name
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__name
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
@@ -472,14 +467,16 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: survey_building_use_section
-#. odoo-python
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__next_inspection_date
+msgid "Next Inspection Date"
+msgstr "Fecha de Inspección Siguiente"
+
+#. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
+#. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_article.py:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_article__question_normative_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
 #, python-format
@@ -489,7 +486,6 @@ msgstr "Normativa"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__is_normative_filter
 #, python-format
 msgid "Normative Filter"
@@ -497,12 +493,9 @@ msgstr "Filtro de Normativas"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__notes
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__notes
 #, python-format
@@ -512,11 +505,10 @@ msgstr "Nota"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__number_of_floors
 #, python-format
 msgid "Number of Plants"
-msgstr "Numero de Plantas"
+msgstr "Número de Plantas"
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
@@ -526,7 +518,6 @@ msgstr "Otro"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__periodic
 #, python-format
 msgid "Periodic"
@@ -534,10 +525,8 @@ msgstr "Periódico"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/wizard/survey_invite.py:0
 #: code:addons/survey_building_use_section/wizard/survey_invite.py:0
 #: code:addons/survey_building_use_section/wizard/survey_invite.py:0
-#: code:addons/temp-addons/survey_building_use_section/wizard/survey_invite.py:0
 #, python-format
 msgid "Please enter at least one valid recipient."
 msgstr "Por favor, introduce al menos un destinatario válido."
@@ -550,7 +539,6 @@ msgstr "Proyecto"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__project_approved_date
 #, python-format
 msgid "Project Approved Date"
@@ -559,7 +547,6 @@ msgstr "Fecha Visado"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__project_author_id
 #, python-format
 msgid "Project Author"
@@ -568,7 +555,6 @@ msgstr "Autor del Proyecto"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__project_author_degree
 #, python-format
 msgid "Project Author Degree"
@@ -577,7 +563,6 @@ msgstr "Titulación Autor Proyecto"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__project_author_license
 #, python-format
 msgid "Project Author License"
@@ -586,7 +571,6 @@ msgstr "Licencia del Autor del Proyecto"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__project_title
 #, python-format
 msgid "Project Title"
@@ -599,10 +583,8 @@ msgstr "Articulos de Preguntas OWL"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: code:addons/survey_building_use_section/models/survey_user_input_line.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input_line.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input_line__question_normative_id
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_line_view_search
 #, python-format
@@ -612,7 +594,6 @@ msgstr "Normativa de Pregunta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__question_normative_ids
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_search
 #, python-format
@@ -621,17 +602,13 @@ msgstr "Normativas de Preguntas"
 
 #. module: survey_building_use_section
 #. odoo-python
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
 #: code:addons/survey_building_use_section/models/survey_survey.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_survey.py:0
 #, python-format
 msgid ""
 "Question needed to trigger normative questions and filter questions by "
 "normative"
-msgstr ""
-"Se necesita la pregunta para activar las normativas de preguntas y filtrar "
-"las preguntas por normativa"
+msgstr "Preguntas necesarias para activar las normativas de preguntas y filtrar por normativa"
 
 #. module: survey_building_use_section
 #: model:ir.actions.act_window,name:survey_building_use_section.survey_question_article_action
@@ -655,11 +632,10 @@ msgstr "Preguntas para Filtrar"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__questions_to_filter
 #, python-format
 msgid "Questions to filter"
-msgstr "Preguntas para filtrar"
+msgstr  "Preguntas para filtrar"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__partner_id
@@ -670,8 +646,6 @@ msgstr "Destinatario"
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_answer__related_article_filter_ids
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__related_article_ids
 #, python-format
@@ -681,7 +655,6 @@ msgstr "Articulos Relacionados"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__risk
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
@@ -690,10 +663,8 @@ msgstr "Riesgo"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "Search"
 msgstr "Buscar"
@@ -710,13 +681,11 @@ msgstr "Buscar Normativas de Preguntas"
 
 #. module: survey_building_use_section
 #. odoo-javascript
-#: code:addons/github/avanzosc/odoo-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #: code:addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
-#: code:addons/temp-addons/survey_building_use_section/static/src/js/duplicate_record.xml:0
 #, python-format
 msgid "Search here..."
-msgstr "Busca aquí..."
+msgstr "Buscar..."
 
 #. module: survey_building_use_section
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_form
@@ -726,7 +695,6 @@ msgstr "Sección"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__start_date
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_normative_view_search
 #, python-format
@@ -741,11 +709,10 @@ msgstr "Comenzar Encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__area
 #, python-format
 msgid "Superficie"
-msgstr ""
+msgstr "Superficie"
 
 #. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_survey_survey
@@ -773,16 +740,14 @@ msgstr "Pregunta de la encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_article.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_article.py:0
 #: model:ir.model,name:survey_building_use_section.model_survey_question_article
 #, python-format
 msgid "Survey Question Article"
-msgstr "Artículo de pregunta de encuesta"
+msgstr "Articulo de Pregunta de la Encuesta"
 
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_normative.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_normative.py:0
 #: model:ir.model,name:survey_building_use_section.model_survey_question_normative
 #, python-format
 msgid "Survey Question Normative"
@@ -791,11 +756,10 @@ msgstr "Normativa de Pregunta de la Encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__survey_report_fussion
 #, python-format
 msgid "Survey Report Fussion"
-msgstr "Fusionar Informe de Encuesta"
+msgstr "Reporte de Encuesta Fusionado"
 
 #. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_survey_user_input
@@ -810,7 +774,6 @@ msgstr "Línea de entrada de usuario de la encuesta"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_user_input.py:0
 #: model:ir.model.fields.selection,name:survey_building_use_section.selection__survey_user_input__inspection_type__volunteer
 #, python-format
 msgid "Volunteer"
@@ -825,8 +788,6 @@ msgstr "fecha de activación del edificio"
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
 #, python-format
 msgid "survey.question.article"
 msgstr ""
@@ -835,8 +796,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
 #: code:addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
-#: code:addons/temp-addons/survey_building_use_section/models/survey_question_answer.py:0
 #, python-format
 msgid "survey.survey"
 msgstr ""
