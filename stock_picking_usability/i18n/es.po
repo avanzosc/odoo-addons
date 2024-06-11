@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-27 08:57+0000\n"
-"PO-Revision-Date: 2023-01-27 08:57+0000\n"
+"POT-Creation-Date: 2024-06-11 08:48+0000\n"
+"PO-Revision-Date: 2024-06-11 08:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__id
 #: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__id
 msgid "ID"
-msgstr ""
+msgstr "Identificador"
 
 #. module: stock_picking_usability
 #: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings____last_update
@@ -57,6 +57,16 @@ msgstr "Última modificación el"
 #: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
 msgid "List view of detailed operations"
 msgstr "Vista de lista de operaciones detalladas"
+
+#. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
+msgid "Lot:"
+msgstr "Lote:"
+
+#. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
+msgid "Quantity:"
+msgstr "Cantidad:"
 
 #. module: stock_picking_usability
 #: model:res.groups,name:stock_picking_usability.group_detailed_operations_visible
