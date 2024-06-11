@@ -154,8 +154,10 @@
                             <br/>
                             <div class="col-12">
                                 <h2>
-                                    <span>Picking Nº: </span>
-                                    <span t-field="o.name"/>
+                                    <span t-if="o.origin">Origin: </span>
+                                    <span t-if="not o.origin">Picking Nº: </span>
+                                    <span t-if="o.origin" t-field="o.origin"/>
+                                    <span t-if="not o.origin" t-field="o.name"/>
                                 </h2>
                             </div>
                             <div id="informations" class="row mt-4 mb-4">
@@ -168,8 +170,8 @@
                                     <p class="m-0" t-field="o.sale_id.client_order_ref"/>
                                 </div>
                                 <div class="col-auto col-3 mw-100 mb-2" t-if="o.origin">
-                                    <t><strong>Origin:</strong></t>
-                                    <p class="m-0" t-field="o.origin"/>
+                                    <t><strong t-if="o.origin">Picking Nº:</strong></t>
+                                    <p class="m-0" t-if="o.origin" t-field="o.name"/>
                                 </div>
                             </div>
                             <table class="table table-bordered" style="font-size: 15px;">
