@@ -10,6 +10,10 @@
     "website": "http://www.avanzosc.es",
     "depends": [
         "web",
+        "purchase",
+        "sale",
+        "purchase_order_line_lot",
+        "sale_order_lot_selection",
         "stock_picking_batch_liquidation",
         "report_qweb_element_page_visibility",
     ],
@@ -25,6 +29,7 @@
         "report/purchase_order_report.xml",
         "report/account_move_report.xml",
         "report/stock_by_breeding_xlsx.xml",
+        "report/sale_order_report_templates.xml",
         "views/stock_picking_batch_view.xml",
         "wizard/stock_by_breeding_wizard_view.xml",
     ],

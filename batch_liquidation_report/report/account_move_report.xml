@@ -78,6 +78,7 @@
                         <thead>
                             <tr>
                                 <th class="text-left"><span>Product</span></th>
+                                <th class="text-left"><span>Lot</span></th>
                                 <th class="text-center"><span>Quantity</span></th>
                                 <th class="text-center"><span>Price</span></th>
                                 <th class="text-center"><span>Subtotal</span></th>
@@ -88,11 +89,15 @@
                                 <td>
                                     <span t-field="line.name"/>
                                 </td>
+                                <td>
+                                    <span t-if="line.sale_line_ids and len(line.sale_line_ids) == 1 and line.sale_line_ids[:1].lot_id" t-field="line.sale_line_ids[:1].lot_id.name"/>
+                                    <span t-if="not line.sale_line_ids and line.purchase_line_id and line.purchase_line_id.lot_id" t-field="line.purchase_line_id and line.purchase_line_id.lot_id.name"/>
+                                </td>
                                 <td class="text-center">
                                     <span t-field="line.quantity"/>
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.price_unit"/>
+                                    <span t-esc="round(line.price_unit, 2)"/>
                                 </td>
                                 <td class="text-center">
                                     <span t-field="line.price_subtotal"/>

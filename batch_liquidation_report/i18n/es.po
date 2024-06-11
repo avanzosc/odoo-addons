@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-15 13:30+0000\n"
-"PO-Revision-Date: 2024-04-15 13:30+0000\n"
+"POT-Creation-Date: 2024-06-07 10:00+0000\n"
+"PO-Revision-Date: 2024-06-07 10:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+msgid "&amp;nbsp;<span>on</span>&amp;nbsp;"
+msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 
 #. module: batch_liquidation_report
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_account_move_ticket
@@ -146,6 +151,7 @@ msgid "<span>Liquidation Invoice</span>"
 msgstr "<span>Factura de liquidación</span>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
@@ -177,11 +183,6 @@ msgstr "<span>Abonos</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Peso M.</span>"
 msgstr ""
-
-#. module: batch_liquidation_report
-#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
-msgid "<span>Picking Nº: </span>"
-msgstr "<span>Nº de albarán: </span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
@@ -604,11 +605,6 @@ msgid "<strong>Nombre: ________________________________________</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
-#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
-msgid "<strong>Origin:</strong>"
-msgstr "<strong>Documento origen:</strong>"
-
-#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Output Area</strong>"
@@ -663,6 +659,7 @@ msgstr "<strong>Total Crianza</strong>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_account_move_liquidation
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<strong>Total</strong>"
 msgstr ""
 
@@ -672,6 +669,7 @@ msgid "Account Move Ticket"
 msgstr "Ticket factura"
 
 #. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 #, python-format
@@ -684,6 +682,7 @@ msgid "Amount Due"
 msgstr "Importe adeudado"
 
 #. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Breeding"
@@ -706,6 +705,7 @@ msgstr "Método de envío:"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Chicken Amount"
 msgstr "Importe pollitos"
@@ -719,11 +719,18 @@ msgstr "Limpia:"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Cleaning Date"
 msgstr "Fecha limpia"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_saleorder_document_inherit_batch_liquidation
+msgid "Containers"
+msgstr "Envases"
+
+#. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Costs"
@@ -741,6 +748,7 @@ msgstr "Creado el"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_stock_by_breeding_wizard__date
 #, python-format
 msgid "Date"
@@ -748,11 +756,13 @@ msgstr "Fecha"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Description"
 msgstr "Descripción"
 
 #. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Difference"
@@ -776,6 +786,7 @@ msgstr ""
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Entry Chick (Units)"
 msgstr "Entradas pollito (unidades)"
@@ -786,6 +797,11 @@ msgstr "Entradas pollito (unidades)"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "Entry:"
 msgstr "Entrada:"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_saleorder_document_inherit_batch_liquidation
+msgid "Expiration"
+msgstr "Caducidad"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
@@ -812,6 +828,7 @@ msgid "Fattening Cost"
 msgstr "Coste de engorde"
 
 #. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Feed Amount"
@@ -884,6 +901,11 @@ msgid "Liquidation:"
 msgstr "Liquidación:"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_saleorder_document_inherit_batch_liquidation
+msgid "Lot"
+msgstr "Lote"
+
+#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
@@ -897,11 +919,18 @@ msgstr "Precio carne"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Medicine Amount"
-msgstr "Importe medicamento"
+msgstr "Importe medicamentos"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Origin:"
+msgstr "Documento origen:"
+
+#. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Output Chicken (Meat Units)"
@@ -909,9 +938,15 @@ msgstr "Salidas carne (unidades)"
 
 #. module: batch_liquidation_report
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Output Chicken Qty"
 msgstr "Salidas carne (Kgs)"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_saleorder_document_inherit_batch_liquidation
+msgid "Packaging"
+msgstr "Empaquetado"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
@@ -933,6 +968,11 @@ msgstr "X kilo"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
 msgid "Phone:"
 msgstr "Teléfono:"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Picking Nº:"
+msgstr "Nº de albarán:"
 
 #. module: batch_liquidation_report
 #: model:ir.actions.report,name:batch_liquidation_report.action_report_picking
@@ -970,6 +1010,7 @@ msgid "Sobrante"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Stock (E - O Units)"
