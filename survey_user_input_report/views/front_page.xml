@@ -300,9 +300,11 @@
                 <span> al </span>
                 <span t-field="o.inspection_end_date"/>
             </div>
-            <div style="width: 30%;border-left: 1px solid #ccc">
+            <div style="width: 30%; border-left: 1px solid #ccc;">
                 <span style="font-weight: bold;">EQUIPOS:</span>
-                <span t-field="o.equipment_ids"/>
+                <t t-foreach="o.equipment_ids" t-as="equipment">
+                    <span t-field="equipment.name"/>
+                </t>
             </div>
         </div>
 
