@@ -41,7 +41,7 @@
                     <group string="Other">
                         <field name="file_number" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                         <field name="act_number" />
-                        <field name="equipment" />
+                        <field name="equipment_ids" widget="many2many_tags"/>
                         <field name="certification_date" attrs="{'invisible':[('inspected_building_id', '=', False)]}" />
                         <field name="survey_report_fussion" widget="many2many_tags"/>
                         <field name="installed_equipment_ids" widget="many2many_tags"/>

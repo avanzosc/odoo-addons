@@ -30,8 +30,8 @@ class SurveyUserInput(models.Model):
     )
     installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
     
-    equipment = fields.Selection(
-        related="inspected_building_id.equipment",
+    equipment_ids = fields.Many2many(
+        related="inspected_building_id.equipment_ids",
         string=_("Equipment"),
         comodel_name="res.partner",
     )
@@ -76,7 +76,7 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.file_number",
         store=True,
     )
-    number_of_floors = fields.Integer(
+    number_of_floors = fields.Char(
         string=_("Number of Plants"),
         related="inspected_building_id.number_of_floors",
         store=True,

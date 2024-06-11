@@ -22,7 +22,7 @@ class ResPartner(models.Model):
         string=_("Service End Date"),
     )
     alternative_text = fields.Char(string="Alternative Text", copy=False)
-    number_of_floors = fields.Integer(string='Number of Plants')
+    number_of_floors = fields.Char(string='Number of Plants')
     risk = fields.Char(string=_("Risk"), copy=False)
 
     area = fields.Float(string=_("Surface"), default=0.0, copy=False)
@@ -107,12 +107,10 @@ class ResPartner(models.Model):
     )
     dof_approved_date = fields.Date(string=_("Director of Works Approved Date"))
     
-    equipment = fields.Selection([
-        ('man', 'Man'),
-        ('son', 'Son'),
-        ('lux', 'Lux')
-    ], string='Equipment')
-
+    equipment_ids = fields.Many2many(
+        comodel_name="maintenance.team",
+        string="Equipment",
+    )
 
     @api.depends("service_start_date")
     def _compute_normativas_ids(self):

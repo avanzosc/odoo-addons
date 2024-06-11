@@ -20,7 +20,7 @@
                             <field name="area" />
                             <field name="evacuation_height" />
                             <field name="configuration" />
-                            <field name="equipment" />
+                            <field name="equipment_ids" />
                         </group>
                         <group string="Contractor">
                             <field name="administrator_id" />
@@ -100,7 +100,6 @@
                     context="{'group_by': 'service_start_date'}" />
                 <filter name="group_service_end_date" string="Service End Date"
                     context="{'group_by': 'service_end_date'}" />
-
             </filter>
         </field>
     </record>
