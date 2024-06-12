@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* quality_control_claim
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-20 09:49+0000\n"
+"PO-Revision-Date: 2015-01-20 09:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_claim
+#: field:qc.inspection,automatic_claims:0
+#: field:qc.test,automatic_claims:0
+msgid "Automatic Claims"
+msgstr ""
+
+#. module: quality_control_claim
+#: field:qc.inspection,automatic_claims_by_line:0
+#: field:qc.test,automatic_claims_by_line:0
+msgid "Automatic Claims by line"
+msgstr ""
+
+#. module: quality_control_claim
+#: model:ir.actions.act_window,name:quality_control_claim.action_claims_per_inspection
+msgid "Claims"
+msgstr ""
+
+#. module: quality_control_claim
+#: model:ir.model,name:quality_control_claim.model_qc_inspection
+msgid "Email Thread"
+msgstr ""
+
+#. module: quality_control_claim
+#: help:qc.inspection,automatic_claims_by_line:0
+#: help:qc.test,automatic_claims_by_line:0
+msgid "If you want to create one claim per quality test line, when the quality test line status is 'No ok'."
+msgstr ""
+
+#. module: quality_control_claim
+#: help:qc.inspection,automatic_claims:0
+#: help:qc.test,automatic_claims:0
+msgid "If you want to create one claim when the quality test status is 'Quality failed'."
+msgstr ""
+
+#. module: quality_control_claim
+#: model:ir.model,name:quality_control_claim.model_qc_test
+msgid "Quality control test"
+msgstr ""
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:45
+#, python-format
+msgid "Quality test %s for product %s unsurpassed"
+msgstr ""
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:63
+#, python-format
+msgid "Quality test %s for product %s unsurpassed, in test line %s"
+msgstr ""
+

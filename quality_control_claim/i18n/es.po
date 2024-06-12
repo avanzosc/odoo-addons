@@ -1,0 +1,83 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * quality_control_claim
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: odoomrp-wip (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-07 10:44+0000\n"
+"PO-Revision-Date: 2015-10-09 10:50+0000\n"
+"Last-Translator: Pedro M. Baeza <pedro.baeza@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/odoomrp-wip-8-0/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: quality_control_claim
+#: field:qc.inspection,automatic_claims:0 field:qc.test,automatic_claims:0
+msgid "Automatic Claims"
+msgstr "Reclamaciones automáticas"
+
+#. module: quality_control_claim
+#: field:qc.inspection,automatic_claims_by_line:0
+#: field:qc.test,automatic_claims_by_line:0
+msgid "Automatic Claims by line"
+msgstr "Reclamaciones automáticas por línea de test"
+
+#. module: quality_control_claim
+#: model:ir.actions.act_window,name:quality_control_claim.action_claims_per_inspection
+msgid "Claims"
+msgstr "Reclamaciones"
+
+#. module: quality_control_claim
+#: help:qc.inspection,automatic_claims_by_line:0
+#: help:qc.test,automatic_claims_by_line:0
+msgid ""
+"If you want to create one claim per quality test line, when the quality test"
+" line status is 'No ok'."
+msgstr "Si quiere crear una reclamación por línea de test de calidad, cuando el estado de la lína de test de calidad sea 'No ok'."
+
+#. module: quality_control_claim
+#: help:qc.inspection,automatic_claims:0 help:qc.test,automatic_claims:0
+msgid ""
+"If you want to create one claim when the quality test status is 'Quality "
+"failed'."
+msgstr "Si quiere crear una reclamación cuando el estado del test de calidad es 'Calidad fallida'."
+
+#. module: quality_control_claim
+#: model:ir.model,name:quality_control_claim.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Inspección del control de calidad"
+
+#. module: quality_control_claim
+#: model:ir.model,name:quality_control_claim.model_qc_test
+msgid "Quality control test"
+msgstr "Test del control de calidad"
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:69
+#, python-format
+msgid "Quality test %s for %s unsurpassed, in test line %s"
+msgstr ""
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:47
+#, python-format
+msgid "Quality test %s for object %s  unsurpassed"
+msgstr ""
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:50
+#, python-format
+msgid "Quality test %s unsurpassed"
+msgstr ""
+
+#. module: quality_control_claim
+#: code:addons/quality_control_claim/models/qc_inspection.py:72
+#, python-format
+msgid "Quality test %s unsurpassed, in test line %s"
+msgstr ""
