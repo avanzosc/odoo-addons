@@ -35,10 +35,10 @@ class Survey(Survey):
                             
                             # If a question has a triggering_question_id, dont change it to be activated with the normative filter
                             # Only change the first question that needs no activation, and filter it regarding normative
-                            if not triggering_question_before or triggering_question_before: # and not triggering_question_before.is_normative_filter:
+                            if not triggering_question_before or triggering_question_before and triggering_question_before.is_normative_filter:
+                                
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
-                                
                                 if not triggered_question.question_normative_ids:
                                     triggered_question.write({
                                         'is_conditional': False,
