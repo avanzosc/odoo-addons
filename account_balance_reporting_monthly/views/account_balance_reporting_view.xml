@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	<record model="ir.ui.view" id="view_account_balance_reporting_form_monthly">
+            <field name="name">account.balance.reporting.monthly.form</field>
+            <field name="model">account.balance.reporting</field>
+            <field name="inherit_id" ref="account_balance_reporting.view_account_balance_reporting_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//field[@name='line_ids']/.." position="after">
+                	<page string="Monthly Lines">
+                			<notebook>
+                				<page string="January">
+                				<field name="jan_line_ids" nolabel="1" domain="[('month_num','=',1)]" context="{'month_report_id':active_id}">
+                                </field>
+                				</page>     
+                				<page string="February">
+                				<field name="feb_line_ids" nolabel="1" domain="[('month_num','=',2)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="March">
+                				<field name="mar_line_ids" nolabel="1" domain="[('month_num','=',3)]" context="{'month_report_id':active_id}">
+                                </field>  
+                                </page>                                 
+                                <page string="April">
+                				<field name="apr_line_ids" nolabel="1" domain="[('month_num','=',4)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="May">
+                				<field name="may_line_ids" nolabel="1" domain="[('month_num','=',5)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="June">
+                				<field name="jun_line_ids" nolabel="1" domain="[('month_num','=',6)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="July">
+                				<field name="jul_line_ids" nolabel="1" domain="[('month_num','=',7)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="August">
+                				<field name="aug_line_ids" nolabel="1" domain="[('month_num','=',8)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="September">
+                				<field name="sep_line_ids" nolabel="1" domain="[('month_num','=',9)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="October">
+                				<field name="oct_line_ids" nolabel="1" domain="[('month_num','=',10)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="November">
+                				<field name="nov_line_ids" nolabel="1" domain="[('month_num','=',11)]" context="{'month_report_id':active_id}">
+                                </field>
+                                </page>   
+                                <page string="December">
+                				<field name="dec_line_ids" nolabel="1" domain="[('month_num','=',12)]" context="{'month_report_id':active_id}">
+                                </field>  
+                                </page>      	              			
+                			</notebook>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="monthly_reporting_line_search_view">
+            <field name="name">account.reporting.line.monthly.search</field>
+            <field name="model">account.balance.reporting.line</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml"> 
+            	<search string="">
+            		<field name="month_start_date"/>
+            		<field name="month_end_date"/>
+            		<field name="code"/>
+            		<field name="name"/>
+            		<field name="report_id"/>
+            		<field name="parent_id"/>
+            		<field name="current_value"/>
+            		<newline/>
+	                <group expand="0" string="Group By...">
+	                	<filter string="Report" domain="[]" context="{'group_by':'report_id'}" icon="terp-folder-blue"/>
+	                	<filter string="Month" domain="[]" context="{'group_by':'month_start_date'}" icon="terp-go-month"/>
+	                </group>
+            	</search>
+            </field>
+        </record>
+        
+        
+        <record model="ir.ui.view" id="monthly_reporting_line_tree_view">
+            <field name="name">account.reporting.line.monthly.tree</field>
+            <field name="model">account.balance.reporting.line</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+               <tree string="Report lines by month" editable="bottom"
+                     colors="blue:css_class in ('l1')">
+                 <field name="month_name" invisible="1"/>
+                 <field name="month_num" invisible="1"/>
+                 <field name="code" select="1" colspan="1"/>
+                 <field name="name" select="1" colspan="2"/>
+                 <field name="notes" colspan="4"/>
+                 <field name="current_value" colspan="2"/>
+                 <field name="previous_value" colspan="2" invisible="1"/>
+                 <field name="month_report_id" invisible="1"/>
+                 <field name="parent_id" select="1" colspan="1" domain="[('month_report_id','=',month_report_id)]"/>
+                 <field name="report_id" invisible="1"/>
+                 <field name="sequence" select="1" colspan="1"/>
+                 <field name="css_class" select="1" colspan="1"/>
+                 <field name="month_start_date" invisible="1"/>
+                 <field name="month_end_date" invisible="1"/>
+             </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="monthly_reporting_line_form_view">
+            <field name="name">account.reporting.line.monthly.form</field>
+            <field name="model">account.balance.reporting.line</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+               <form string="Report line">
+	               	<group colspan="4">
+	               		<field name="month_start_date" select="1"/>
+	               		<field name="month_end_date" select="1"/> 
+	               	</group>
+	                   <group colspan="4">
+	                       <field name="code" select="1" colspan="1"/>
+	                       <field name="name" select="1" colspan="3"/>
+	                   </group>
+	                   <group colspan="4">
+	                       <field name="report_id" select="1"/>
+	                       <field name="parent_id" select="1" domain="[('month_report_id','=',month_report_id)]"/>
+	                   </group>
+	                   <group string="Values" colspan="4">
+	                       <field name="notes" colspan="4"/>
+	                       <field name="current_value" colspan="2"/>
+	                       <field name="previous_value" colspan="2"/>
+	                   </group>
+	                   <group string="Style" colspan="4">
+	                       <field name="sequence" colspan="1"/>
+	                       <field name="css_class" colspan="1"/>
+	                   </group>
+	               </form>
+            </field>
+        </record>
+                
+        <act_window name="Monthly Report"
+			domain="[('month_report_id', '=', active_id)]"
+			res_model="account.balance.reporting.line"
+			src_model="account.balance.reporting"
+			view_type="form"
+			view_mode="tree,form"
+			limit="12000"
+			id="act_monthly_reporting_lines_shortcut"/>
+	
+    
+    </data>
+</openerp>
