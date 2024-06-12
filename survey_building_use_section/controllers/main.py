@@ -35,7 +35,7 @@ class Survey(Survey):
                             
                             # If a question has a triggering_question_id, dont change it to be activated with the normative filter
                             # Only change the first question that needs no activation, and filter it regarding normative
-                            if not triggering_question_before or triggering_question_before and not triggering_question_before.is_normative_filter:
+                            if not triggering_question_before or triggering_question_before: # and not triggering_question_before.is_normative_filter:
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
                                 
@@ -51,7 +51,7 @@ class Survey(Survey):
                                         # no matter the condition
                                         triggered_question.write({
                                             'is_conditional': True,
-                                            'triggering_question_id': triggering_question_to_filter.id,
+                                            'triggering_question_id': triggering_question_id.id,
                                             'triggering_answer_id': False,
                                         })
 
@@ -59,9 +59,9 @@ class Survey(Survey):
                                             for normative in question.question_normative_ids):
                                             matched_normatives = [normative for normative in question.question_normative_ids if normative.start_date <= current_user_input_id.inspected_building_id.service_start_date < normative.end_date]
                                             matching_normative_names = [normative.name for normative in matched_normatives]
-                                            matched_answers = [ans for ans in triggering_question_to_filter.suggested_answer_ids if ans.value in matching_normative_names]
+                                            matched_answers = [ans for ans in triggering_question_id.suggested_answer_ids if ans.value in matching_normative_names]
                                             if matched_answers:
-                                                triggering_answer = next((ans for ans in triggering_question_to_filter.suggested_answer_ids if ans.value == matched_answers[0].value), False)
+                                                triggering_answer = next((ans for ans in triggering_question_id.suggested_answer_ids if ans.value == matched_answers[0].value), False)
                                                 if triggering_answer:
                                                     triggered_question.write({
                                                         'triggering_answer_id': triggering_answer.id,
@@ -111,7 +111,6 @@ class Survey(Survey):
                         ])
 
                         if not existing_user_input_line:
-                            # Create a record for survey.user_input_line
                             request.env['survey.user_input.line'].create({
                                 'survey_id': current_survey_id.id,
                                 'question_id': triggering_question_id.id,
@@ -119,6 +118,6 @@ class Survey(Survey):
                                 'suggested_answer_id': answer.id,
                                 'user_input_id': current_user_input_id.id
                             })
-                        
+
                         # Dont compare this questions again because they are already selected
                         selected_answers.append(answer)
