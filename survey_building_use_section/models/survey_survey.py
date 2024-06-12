@@ -70,6 +70,7 @@ class SurveySurvey(models.Model):
                             "triggering_answer_id": False,
                         }
                     )
+
     def _create_and_fill_normative_filters(
         self, current_survey_id, current_user_input_id
     ):
@@ -98,10 +99,10 @@ class SurveySurvey(models.Model):
                             if (
                                 not triggering_question_before
                                 or triggering_question_before
-                            ):  # and not triggering_question_before.is_normative_filter:
+                                and triggering_question_before.is_normative_filter
+                            ):
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
-
                                 if not triggered_question.question_normative_ids:
                                     triggered_question.write(
                                         {
