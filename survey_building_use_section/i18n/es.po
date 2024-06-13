@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-10 09:34+0000\n"
-"PO-Revision-Date: 2024-06-10 09:34+0000\n"
+"POT-Creation-Date: 2024-06-13 14:04+0000\n"
+"PO-Revision-Date: 2024-06-13 14:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -145,7 +145,7 @@ msgstr "Creado el"
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__date_deficiency_correction
 msgid "Date Deficiency Correction"
-msgstr  "Fecha de Corrección de Deficiencias"
+msgstr "Fecha de Corrección de Deficiencias"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,help:survey_building_use_section.field_survey_user_input__dof_author_degree
@@ -239,15 +239,22 @@ msgstr "Fecha Final"
 #. module: survey_building_use_section
 #. odoo-python
 #: code:addons/survey_building_use_section/models/survey_user_input.py:0
-#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__equipment
 #, python-format
 msgid "Equipment"
 msgstr "Equipo"
 
 #. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/installed_equipment.py:0
 #: model:ir.model.fields,field_description:survey_building_use_section.field_installed_equipment__name
+#, python-format
 msgid "Equipment Name"
-msgstr  "Nombre del Equipo"
+msgstr "Nombre del Equipo"
+
+#. module: survey_building_use_section
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__equipment_ids
+msgid "Equipments"
+msgstr ""
 
 #. module: survey_building_use_section
 #. odoo-javascript
@@ -256,7 +263,7 @@ msgstr  "Nombre del Equipo"
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_question_article_view_search
 #, python-format
 msgid "Error"
-msgstr "Error"
+msgstr ""
 
 #. module: survey_building_use_section
 #. odoo-python
@@ -296,7 +303,7 @@ msgstr "Agrupar Por"
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question_normative__id
 #, python-format
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: survey_building_use_section
 #. odoo-javascript
@@ -362,7 +369,7 @@ msgstr "Tipo de Inspección"
 #: model_terms:ir.ui.view,arch_db:survey_building_use_section.survey_user_input_view_search
 #, python-format
 msgid "Inspector"
-msgstr "Inspector"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__installation_number
@@ -608,7 +615,9 @@ msgstr "Normativas de Preguntas"
 msgid ""
 "Question needed to trigger normative questions and filter questions by "
 "normative"
-msgstr "Preguntas necesarias para activar las normativas de preguntas y filtrar por normativa"
+msgstr ""
+"Preguntas necesarias para activar las normativas de preguntas y filtrar por "
+"normativa"
 
 #. module: survey_building_use_section
 #: model:ir.actions.act_window,name:survey_building_use_section.survey_question_article_action
@@ -635,7 +644,7 @@ msgstr "Preguntas para Filtrar"
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_question__questions_to_filter
 #, python-format
 msgid "Questions to filter"
-msgstr  "Preguntas para filtrar"
+msgstr "Preguntas para filtrar"
 
 #. module: survey_building_use_section
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_invite__partner_id
@@ -651,6 +660,14 @@ msgstr "Destinatario"
 #, python-format
 msgid "Related Articles"
 msgstr "Articulos Relacionados"
+
+#. module: survey_building_use_section
+#. odoo-python
+#: code:addons/survey_building_use_section/models/survey_user_input.py:0
+#: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__remove_title_from_report
+#, python-format
+msgid "Remove Title From Report"
+msgstr "Borrar Título del Informe"
 
 #. module: survey_building_use_section
 #. odoo-python
@@ -712,7 +729,7 @@ msgstr "Comenzar Encuesta"
 #: model:ir.model.fields,field_description:survey_building_use_section.field_survey_user_input__area
 #, python-format
 msgid "Superficie"
-msgstr "Superficie"
+msgstr ""
 
 #. module: survey_building_use_section
 #: model:ir.model,name:survey_building_use_section.model_survey_survey
