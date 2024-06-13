@@ -30,6 +30,26 @@ class Survey(Survey):
     def _create_and_fill_normative_filters(
         self, current_survey_id, current_user_input_id
     ):
+        
+        
+        # Delete all questions of filter normative for this to work properly
+        
+        questions = self.env["survey.question"].search(
+            [("survey_id", "=", current_survey_id.id)]
+        )
+
+        for question in questions:
+            if question.triggering_question_id.is_normative_filter:
+                question.write(
+                    {
+                        "is_conditional": False,
+                        "triggering_question_id": False,
+                        "triggering_answer_id": False,
+                    }
+                )
+
+        
+        
         triggering_question_ids = request.env["survey.question"].search(
             [
                 ("survey_id", "=", current_survey_id.id),
