@@ -18,41 +18,42 @@
         <t t-set="scoring_display_correction" t-value="True" />
         <div style="height: 250px;">
             <div>
-            <span style="font-weight: bold;">RESULTADO DE LA INSPECCIÓN:</span> La revisión ha sido realizada mediante control
+                <span style="font-weight: bold;">RESULTADO DE LA INSPECCIÓN:</span> La revisión ha sido realizada mediante control
 documental y visual en todas sus partes controlables y visibles de la instalación. A la vista de
 los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
-        <!-- CHECK TYPE OF DEFECTO -->
-        <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
-            <t t-if="not question.is_normative_filter">
-                <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
-                    <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
-                    <t t-if="question.question_type == 'matrix'">
-                        <!-- MATRIX -->
-                        <t t-foreach="question.matrix_row_ids" t-as="row_label">
-                            <t t-foreach="question.suggested_answer_ids" t-as="col_label">
-                                <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
-                                <t t-set="is_correct" t-value="col_label.is_correct"/>
-                                <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
-                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                    <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
-                                </t>
-                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                    <t t-if="col_label.value == 'SI' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
-                                        <t t-set="defecto" t-value="SI"/>
+            <!-- CHECK TYPE OF DEFECTO -->
+            <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+                <t t-if="not question.is_normative_filter">
+                    <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                        <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
+                        <t t-if="question.question_type == 'matrix'">
+                            <!-- MATRIX -->
+                            <t t-foreach="question.matrix_row_ids" t-as="row_label">
+                                <t t-foreach="question.suggested_answer_ids" t-as="col_label">
+                                    <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                                    <t t-set="is_correct" t-value="col_label.is_correct"/>
+                                    <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
+                                    <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                        <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                     </t>
-                                    <t t-elif="col_label.value == 'LEVE' and defecto != 'MUY GRAVE' and defecto != 'GRAVE'">
-                                        <t t-set="defecto" t-value="LEVE"/>
-                                    </t>
-                                    <t t-elif="col_label.value == 'GRAVE' and defecto != 'MUY GRAVE'">
-                                        <t t-set="defecto" t-value="GRAVE"/>
-                                    </t>
-                                    <t t-elif="col_label.value == 'MUY GRAVE'">
-                                        <t t-set="defecto" t-value="'MUY GRAVE'"/>
-                                    </t>
-                                    <t t-elif="col_label.value == 'N/A' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
-                                        <t t-set="defecto" t-value="N/A"/>
-                                    </t>
-                                    <t t-else="">
+                                    <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                        <t t-if="col_label.value == 'SI' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
+                                            <t t-set="defecto" t-value="SI"/>
+                                        </t>
+                                        <t t-elif="col_label.value == 'LEVE' and defecto != 'MUY GRAVE' and defecto != 'GRAVE'">
+                                            <t t-set="defecto" t-value="LEVE"/>
+                                        </t>
+                                        <t t-elif="col_label.value == 'GRAVE' and defecto != 'MUY GRAVE'">
+                                            <t t-set="defecto" t-value="GRAVE"/>
+                                        </t>
+                                        <t t-elif="col_label.value == 'MUY GRAVE'">
+                                            <t t-set="defecto" t-value="'MUY GRAVE'"/>
+                                        </t>
+                                        <t t-elif="col_label.value == 'N/A' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
+                                            <t t-set="defecto" t-value="N/A"/>
+                                        </t>
+                                        <t t-else="">
+                                        </t>
                                     </t>
                                 </t>
                             </t>
@@ -60,45 +61,45 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                     </t>
                 </t>
             </t>
-        </t>
 
-        <t t-if="defecto == 'N/A' or defecto == 'SI'">
-            <div style="text-align: center;">FAVORABLE SIN DEFECTOS / DEFECTOS LEVES</div>
-        </t>
-        <t t-elif="defecto == 'LEVE'">
-            <div style="text-align: center;">FAVORABLE CON DEFECTOS LEVES</div>
-        </t>
-        <t t-elif="defecto == 'GRAVE'">
-            <div style="text-align: center;">CONDICIONADO</div>
-        </t>
-        <t t-elif="defecto == 'MUY GRAVE'">
-            <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">NEGATIVO</div>
-        </t>
+            <t t-if="defecto == 'N/A' or defecto == 'SI'">
+                <div style="text-align: center;">FAVORABLE SIN DEFECTOS / DEFECTOS LEVES</div>
+            </t>
+            <t t-elif="defecto == 'LEVE'">
+                <div style="text-align: center;">FAVORABLE CON DEFECTOS LEVES</div>
+            </t>
+            <t t-elif="defecto == 'GRAVE'">
+                <div style="text-align: center;">CONDICIONADO</div>
+            </t>
+            <t t-elif="defecto == 'MUY GRAVE'">
+                <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">NEGATIVO</div>
+            </t>
 
-        <div style="text-align: center;">
-            <span>- FECHA SUBSANACIÓN DEFICIENCIAS:  </span>
-            <span t-esc="o.date_deficiency_correction"/>
+            <div style="text-align: center;">
+                <span>- FECHA SUBSANACIÓN DEFICIENCIAS:  </span>
+                <span t-esc="o.date_deficiency_correction"/>
+            </div>
+            <div style="text-align: center;">
+                <span>- FECHA PRÓXIMA INSPECCIÓN: </span>
+                <span t-esc="o.next_inspection_date"/>
+            </div>
+            <div style="text-align: center;">
+                <span>- En Vitoria-Gasteiz, a </span>
+                <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+            </div>
+            <div style="text-align: center; margin-left: 50%;">
+                <span>El inspector </span>
+                <span t-field="o.inspector_id.name"/>
+            </div>
+            <div style="text-align: center;">
+                <span>Fdo: </span>
+                <span t-field="o.inspector_id.name"/>
+            </div>
         </div>
-        <div style="text-align: center;">
-            <span>- FECHA PRÓXIMA INSPECCIÓN: </span>
-            <span t-esc="o.next_inspection_date"/>
-        </div>
-        <div style="text-align: center;">
-            <span>- En Vitoria-Gasteiz, a </span>
-            <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
-        </div>
-        <div style="text-align: center; margin-left: 50%;">
-            <span>El inspector </span>
-            <span t-field="o.inspector_id.name"/>
-        </div>
-        <div style="text-align: center;">
-            <span>Fdo: </span>
-            <span t-field="o.inspector_id.name"/>
-        </div></div>
 
 
         <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
-        <div style="margin-top: -100px;">
+        <div>
             <table>
                 <thead>
                     <tr>
@@ -109,19 +110,31 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                     </tr>
                 </thead>
                 <tbody>
-                    <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
-                        <!-- Don't show normative filter in Report -->
-                        <t t-if="not question.is_normative_filter">
-                            <t t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
-                                <!-- <tr><td>
+                    <t t-call="survey_user_input_report.template_verificacion_tr_foreach"/>
+
+                    <t t-foreach="o.survey_report_fussion" t-as="o">
+                        <t t-call="survey_user_input_report.template_verificacion_tr_foreach"/>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+
+    <template id="template_verificacion_tr_foreach" name="Answers Template Verificación">
+        <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
+            <!-- Don't show normative filter in Report -->
+            <t t-if="not question.is_normative_filter">
+                <t t-if="question.is_page and (any(q in questions_to_display for q in question.question_ids) or not is_html_empty(question.description))">
+                    <!-- <tr><td>
                                     <t t-esc="question.title"/>
                                     <t t-esc="question.description"/></td>
                                 </tr> -->
-                            </t>
-                            <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
-                                <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
-                                <div class="js_question-wrapper" t-att-id="question.id" style="overflow: hidden;">
-                                    <!-- <h3 style="margin: 2px; padding: 2px; font-size: 1.5em;
+                </t>
+                <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)">
+                    <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)" />
+                    <div class="js_question-wrapper" t-att-id="question.id" style="overflow: hidden;">
+                        <!-- <h3 style="margin: 2px; padding: 2px; font-size: 1.5em;
                                 display:
                             inline-block; font-size: 1em; ">
                                 <span t-field="question.title"/>
@@ -130,70 +143,70 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                             </h3> -->
 
 
-                                    <!-- <t t-if="question.description">
+                        <!-- <t t-if="question.description">
                                         <div class="text-muted oe_no_empty" t-field="question.description" />
                                     </t> -->
-                                    <t t-if="question.question_type == 'text_box'">
+                        <t t-if="question.question_type == 'text_box'">
 
-                                    </t>
-                                    <t t-if="question.question_type == 'char_box'">
+                        </t>
+                        <t t-if="question.question_type == 'char_box'">
 
-                                    </t>
-                                    <t t-if="question.question_type == 'numerical_box'">
+                        </t>
+                        <t t-if="question.question_type == 'numerical_box'">
 
-                                    </t>
-                                    <t t-if="question.question_type == 'date'">
+                        </t>
+                        <t t-if="question.question_type == 'date'">
 
-                                    </t>
-                                    <t t-if="question.question_type == 'datetime'">
+                        </t>
+                        <t t-if="question.question_type == 'datetime'">
 
-                                    </t>
-                                    <t t-if="question.question_type == 'simple_choice'">
-                                        <!-- SIMPLE CHOICE -->
-                                        <t t-set="answer_line" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id)" />
-                                        <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
-                                        <t t-set="item_idx" t-value="0" />
-                                        <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
+                        </t>
+                        <t t-if="question.question_type == 'simple_choice'">
+                            <!-- SIMPLE CHOICE -->
+                            <t t-set="answer_line" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id)" />
+                            <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
+                            <t t-set="item_idx" t-value="0" />
+                            <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
 
-                                        <t t-foreach="question.suggested_answer_ids" t-as="label">
-                                            <t t-set="item_idx" t-value="label_index" />
-                                            <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
-                                            <t t-set="is_correct" t-value="label.is_correct" />
+                            <t t-foreach="question.suggested_answer_ids" t-as="label">
+                                <t t-set="item_idx" t-value="label_index" />
+                                <t t-set="answer_selected" t-value="answer_line and answer_line.suggested_answer_id.id == label.id" />
+                                <t t-set="is_correct" t-value="label.is_correct" />
 
-                                            <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
-                                            <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
+                                <t t-set="answer_class" t-if="not has_correct_answer" t-value="''" />
+                                <!-- <t t-set="answer_class" t-elif="is_correct" t-value="'bg-success'" />
                                             <t t-set="answer_class" t-elif="not is_correct" t-value="'bg-danger'" />-->
-                                            <t t-if="not is_correct and answer_selected">
-                                                <tr>
-                                                    <td>
-                                                        <t t-esc="label.notes" />
+                                <t t-if="not is_correct and answer_selected">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="label.notes" />
 
-                                                        <!-- <t t-esc="answer_line.notes" /> -->
-                                                    </td>
-                                                    <td>
+                                            <!-- <t t-esc="answer_line.notes" /> -->
+                                        </td>
+                                        <td>
 
-                                                    </td>
-                                                    <td>
-                                                        <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
+                                        </td>
+                                        <td>
+                                            <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(
                                                          lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date  
                                                                        and norm.end_date &gt;= o.inspected_building_id.service_start_date 
                                                          )" />
-                                                        <t t-foreach="current_question_print_normatives" t-as="normative">
-                                                            <t t-esc="normative.name" />
-:                                                            <t t-esc="normative.description" />
-                                                            <br />
-                                                        </t>
-                                                    </td>
-                                                    <td>
-                                                        <t t-esc="label.value" />
-                                                    </td>
-                                                </tr>
+                                            <t t-foreach="current_question_print_normatives" t-as="normative">
+                                                <t t-esc="normative.name" />
+:                                                <t t-esc="normative.description" />
+                                                <br />
                                             </t>
-                                        </t>
-                                    </t>
-                                    <t t-if="question.question_type == 'multiple_choice'">
-                                        <!-- MULTIPLE CHOICE -->
-                                        <!-- <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
+                                        </td>
+                                        <td>
+                                            <t t-esc="label.value" />
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if="question.question_type == 'multiple_choice'">
+                            <!-- MULTIPLE CHOICE -->
+                            <!-- <t t-set="comment_line" t-value="answer_lines.filtered(lambda line: line.value_char_box)" />
                                         <t t-set="item_idx" t-value="0" />
                                         <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)" />
                                         <t t-foreach="question.suggested_answer_ids" t-as="label">
@@ -228,50 +241,50 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                 </tr>
                                             </t>
                                         </t> -->
+                        </t>
+                        <t t-if="question.question_type == 'matrix'">
+                            <!-- MATRIX -->
+                            <t t-foreach="question.matrix_row_ids" t-as="row_label">
+                                <t t-foreach="question.suggested_answer_ids" t-as="col_label">
+                                    <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
+                                    <t t-set="is_correct" t-value="col_label.is_correct"/>
+                                    <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
+                                    <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                        <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                     </t>
-                                    <t t-if="question.question_type == 'matrix'">
-                                        <!-- MATRIX -->
-                                        <t t-foreach="question.matrix_row_ids" t-as="row_label">
-                                            <t t-foreach="question.suggested_answer_ids" t-as="col_label">
-                                                <t t-set="has_correct_answer" t-value="scoring_display_correction and any(label.is_correct for label in question.suggested_answer_ids)"/>
-                                                <t t-set="is_correct" t-value="col_label.is_correct"/>
-                                                <t t-set="answer" t-value="answer_lines.filtered(lambda line: line.suggested_answer_id == col_label and line.matrix_row_id == row_label)"/>
-                                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                                    <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
+                                    <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
+                                        <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date and norm.end_date &gt;= o.inspected_building_id.service_start_date)"/>
+                                        <tr>
+                                            <td>
+                                                <t t-foreach="current_matrix_line_print_articles" t-as="article">
+                                                    <t t-if="article.question_normative_id in current_question_print_normatives">
+                                                        <t t-esc="article.error_text"/>
+                                                    </t>
                                                 </t>
-                                                <t t-if="answer.suggested_answer_id == col_label and not col_label.is_correct">
-                                                    <t t-set="current_question_print_normatives" t-value="question.question_normative_ids.filtered(lambda norm: norm.start_date &lt;= o.inspected_building_id.service_start_date and norm.end_date &gt;= o.inspected_building_id.service_start_date)"/>
-                                                    <tr>
-                                                        <td>
-                                                            <t t-foreach="current_matrix_line_print_articles" t-as="article">
-                                                                <t t-if="article.question_normative_id in current_question_print_normatives">
-                                                                    <t t-esc="article.error_text"/>
-                                                                </t>
-                                                            </t>
-                                                            <br />
-                                                            <t t-esc="answer_line.notes" />
-                                                            <br />
+                                                <br />
+                                                <t t-esc="answer_line.notes" />
+                                                <br />
 
-                                                            <t t-esc="answer.notes" />
+                                                <t t-esc="answer.notes" />
 
-                                                        </td>
-                                                        <td>
-                                                            <t t-esc="current_question_print_normatives.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="current_question_print_normatives.name"/>
 
-                                                        </td>
-                                                        <td>
-                                                            <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids"/>
-                                                            <t t-foreach="current_matrix_line_print_articles" t-as="article">
+                                            </td>
+                                            <td>
+                                                <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids"/>
+                                                <t t-foreach="current_matrix_line_print_articles" t-as="article">
 
-                                                                <t t-if="article.question_normative_id in current_question_print_normatives">
-                                                                    <t t-esc="article.name"/>
-                                                                    <t t-esc="article.description"/>
-                                                                    <!-- <t t-esc="article.error_text"/> -->
-                                                                </t>
-                                                            </t>
-                                                        </td>
+                                                    <t t-if="article.question_normative_id in current_question_print_normatives">
+                                                        <t t-esc="article.name"/>
+                                                        <t t-esc="article.description"/>
+                                                        <!-- <t t-esc="article.error_text"/> -->
+                                                    </t>
+                                                </t>
+                                            </td>
 
-                                                        <!-- <td>
+                                            <!-- <td>
                                                                 <t t-set="current_matrix_line_print_articles" t-value="row_label.question_article_ids"/>
                                                                 <t t-foreach="current_matrix_line_print_articles" t-as="article">
                                                                     <t t-esc="article.name"/>
@@ -283,20 +296,17 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                                 </t>
                                                             </td> -->
 
-                                                        <td>
-                                                            <t t-esc="col_label.value"/>
-                                                        </td>
-                                                    </tr>
-                                                </t>
-                                            </t>
-                                        </t>
+                                            <td>
+                                                <t t-esc="col_label.value"/>
+                                            </td>
+                                        </tr>
                                     </t>
-                                </div>
+                                </t>
                             </t>
                         </t>
-                    </t>
-                </tbody>
-            </table>
-        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
     </template>
 </odoo>

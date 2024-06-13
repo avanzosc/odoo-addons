@@ -58,8 +58,8 @@ class Survey(Survey):
                             # Only change the first question that needs no activation, and filter it regarding normative
                             if (
                                 not triggering_question_before
-                                or triggering_question_before
-                                and not triggering_question_before.is_normative_filter
+                                # or triggering_question_before
+                                # and not triggering_question_before.is_normative_filter
                             ):
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
@@ -122,6 +122,10 @@ class Survey(Survey):
                                                     )
                                                     _logger.info(f"Question: {triggering_question_to_filter} - Answer: {triggering_answer}")
 
+                            
+                            elif triggering_question_to_filter.question_type == "matrix":
+                                
+                            
                     # Write a value in triggering_answer_id not to be null
                     # Get the first normative of the question. This answer will not trigger the question
                     # so it does not matter if it is the first or the last
