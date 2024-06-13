@@ -34,7 +34,7 @@ class Survey(Survey):
         
         # Delete all questions of filter normative for this to work properly
         
-        questions = self.env["survey.question"].search(
+        questions = request.env["survey.question"].search(
             [("survey_id", "=", current_survey_id.id)]
         )
 
