@@ -66,9 +66,7 @@
                         <span t-field="o.inspected_building_id.name"/>
                     </div>
                     <div class="row">
-                        <div style="width: 33.33%; border-right: 1px dashed #ccc;">POBLACION: <span t-field="o.inspected_building_id.street2"/>
-                        </div>
-                        <div style="width: 33.33%; border-right: 1px dashed #ccc;">PROVINCIA: <span t-field="o.inspected_building_id.street"/>
+                        <div style="width: 66.66%; border-right: 1px dashed #ccc;">DIRECCIÓN: <span t-field="o.inspected_building_id.street"/>
                         </div>
                         <div style="width: 33.33%;">CP.: <span t-field="o.inspected_building_id.zip"/>
                         </div>
@@ -81,7 +79,7 @@
                 <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                 <div style="width: 80%;" class="column">
                     <div class="row" style="border-bottom: 1px dashed #ccc;">
-                        <div style="width: 25%;">USO <span t-field="o.building_use_id.name"/>
+                        <div style="width: 25%;">USO: <span t-field="o.building_use_id.name"/>
                         </div>
                         <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.area"/>
                         </div>
