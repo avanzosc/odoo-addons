@@ -26,6 +26,7 @@ class Survey(Survey):
             ),
         )
 
+
     def _create_and_fill_normative_filters(
         self, current_survey_id, current_user_input_id
     ):
@@ -36,6 +37,11 @@ class Survey(Survey):
             ]
         )
 
+        Survey._create_and_fill_normative_filters_logic(current_survey_id, current_user_input_id, triggering_question_ids)
+
+    @staticmethod
+    def _create_and_fill_normative_filters_logic(current_survey_id, current_user_input_id, triggering_question_ids):
+
         for triggering_question_id in triggering_question_ids:
             if triggering_question_id.questions_to_filter:
                 for question in current_survey_id.question_and_page_ids:
@@ -43,7 +49,6 @@ class Survey(Survey):
                         for (
                             triggering_question_to_filter
                         ) in triggering_question_id.questions_to_filter:
-                            triggered_question = triggering_question_to_filter
 
                             triggering_question_before = (
                                 triggering_question_to_filter.triggering_question_id
@@ -54,22 +59,22 @@ class Survey(Survey):
                             if (
                                 not triggering_question_before
                                 or triggering_question_before
-                                and triggering_question_before.is_normative_filter
+                                and not triggering_question_before.is_normative_filter
                             ):
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
-                                if not triggered_question.question_normative_ids:
-                                    triggered_question.write(
+                                if not triggering_question_to_filter.question_normative_ids:
+                                    triggering_question_to_filter.write(
                                         {
                                             "is_conditional": False,
                                         }
                                     )
 
                                 else:
-                                    if triggered_question.question_normative_ids:
+                                    if triggering_question_to_filter.question_normative_ids:
                                         # All other questions must be conditional. If they are not conditional they will be displayed
                                         # no matter the condition
-                                        triggered_question.write(
+                                        triggering_question_to_filter.write(
                                             {
                                                 "is_conditional": True,
                                                 "triggering_question_id": triggering_question_id.id,
@@ -81,11 +86,11 @@ class Survey(Survey):
                                             normative.start_date
                                             <= current_user_input_id.inspected_building_id.service_start_date
                                             < normative.end_date
-                                            for normative in question.question_normative_ids
+                                            for normative in triggering_question_to_filter.question_normative_ids
                                         ):
                                             matched_normatives = [
                                                 normative
-                                                for normative in question.question_normative_ids
+                                                for normative in triggering_question_to_filter.question_normative_ids
                                                 if normative.start_date
                                                 <= current_user_input_id.inspected_building_id.service_start_date
                                                 < normative.end_date
@@ -110,11 +115,12 @@ class Survey(Survey):
                                                     False,
                                                 )
                                                 if triggering_answer:
-                                                    triggered_question.write(
+                                                    triggering_question_to_filter.write(
                                                         {
                                                             "triggering_answer_id": triggering_answer.id,
                                                         }
                                                     )
+                                                    _logger.info(f"Question: {triggering_question_to_filter} - Answer: {triggering_answer}")
 
                     # Write a value in triggering_answer_id not to be null
                     # Get the first normative of the question. This answer will not trigger the question
@@ -142,12 +148,13 @@ class Survey(Survey):
                             }
                         )
 
-            self._create_automatic_user_input_lines_for_normative_questions(
+            Survey._create_automatic_user_input_lines_for_normative_questions(
                 current_survey_id, current_user_input_id, triggering_question_id
             )
 
+    @staticmethod
     def _create_automatic_user_input_lines_for_normative_questions(
-        self, current_survey_id, current_user_input_id, triggering_question_id
+        current_survey_id, current_user_input_id, triggering_question_id
     ):
         # Create automatic responses of the normative filter question (1st question),
         # Generate the responses of the first question that is activated when pressing
@@ -158,7 +165,7 @@ class Survey(Survey):
 
         # Get all normatives from the survey.question.normative table
         all_normatives = request.env["survey.question.normative"].search([])
-
+        _logger.info(f"Creating answers for {triggering_question_id}")
         for answer in triggering_question_id.suggested_answer_ids:
             for normative in all_normatives:
                 # Check if any of the normatives meet the condition

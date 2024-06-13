@@ -16,7 +16,8 @@
         </style>
         <t t-set="questions_to_display" t-value="o._get_print_questions()" />
         <t t-set="scoring_display_correction" t-value="True" />
-        <div>
+        <div style="height: 250px;">
+            <div>
             <span style="font-weight: bold;">RESULTADO DE LA INSPECCIÓN:</span> La revisión ha sido realizada mediante control
 documental y visual en todas sus partes controlables y visibles de la instalación. A la vista de
 los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
@@ -93,7 +94,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
         <div style="text-align: center;">
             <span>Fdo: </span>
             <span t-field="o.inspector_id.name"/>
-        </div>
+        </div></div>
 
 
         <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
