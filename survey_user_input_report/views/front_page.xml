@@ -31,10 +31,10 @@
             </t>
         </span>
         <t t-if="o.building_use_id.is_industrial">
-            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto2267/2004, de 3 de diciembre</p>
+            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto2267/2004, de 3 de diciembre</p>
         </t>
         <t t-else="">
-            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
+            <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
         </t>
         <p>
             <span style="font-weight: bold;">CERTIFICA: </span> que en fecha <span t-field="o.inspection_start_date"/>
@@ -62,9 +62,6 @@
             <div class="row">
                 <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                 <div class="columns" style="width: 80%;">
-                    <div style="border-bottom: 1px dashed #ccc;">
-                        <span t-field="o.inspected_building_id.name"/>
-                    </div>
                     <div class="row">
                         <div style="width: 66.66%; border-right: 1px dashed #ccc;">DIRECCIÓN: <span t-field="o.inspected_building_id.street"/>
                         </div>

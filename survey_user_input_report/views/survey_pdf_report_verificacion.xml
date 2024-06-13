@@ -16,7 +16,7 @@
         <!-- <t t-call="web.external_layout_striped"> -->
         <t t-call="survey_user_input_report.external_layout_striped_changed">
             <page>
-                <t t-if="o.survey_id.title">
+                <t t-if="o.survey_id.title and not o.remove_title_from_report">
                     <div style="text-align: center; padding: .6rem; margin: 0;">
                         <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
                     </div>

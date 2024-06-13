@@ -45,7 +45,7 @@
             <div class="float-end">
                 <div class="mt0 text-end h3" t-field="company.report_header"/>
             </div>
-            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo" style="max-width: 50px;"/>
+            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo" style="max-width: 65px;"/>
             <div class="float-start company_address">
                 <ul class="list-unstyled">
                     <li t-if="company.is_company_details_empty">
@@ -54,22 +54,22 @@
                     <li t-else="">
                         <!--<t t-esc="company.company_details"/>-->
                         <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 9px; padding: 0; margin: 0;">OKATEK Servicios y Control S.L.</span>
+                            <span style="font-size: 11px; padding: 0; margin: 0;">OKATEK Servicios y Control S.L.</span>
                         </p>
                         <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 9px; padding: 0; margin: 0;">B16684672</span>
+                            <span style="font-size: 11px; padding: 0; margin: 0;">B16684672</span>
                         </p>
                         <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 9px; padding: 0; margin: 0;">Salvador Azpiazu 12 Bajo CP 01008 Vitoria-Gasteiz (Álava)</span>
+                            <span style="font-size: 11px; padding: 0; margin: 0;">Salvador Azpiazu 12 Bajo CP 01008 Vitoria-Gasteiz (Álava)</span>
                         </p>
                         <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 9px; padding: 0; margin: 0;">Email:
+                            <span style="font-size: 11px; padding: 0; margin: 0;">Email:
                             </span>
                             <a href="https://okatek@okatek.es">
-                                <span style="font-size: 9px; padding: 0; margin: 0;">okatek@okatek.es</span>
+                                <span style="font-size: 11px; padding: 0; margin: 0;">okatek@okatek.es</span>
                             </a>
 
-                            <span style="font-size: 9px; padding: 0; margin: 0;">  | Tlfno: 945 298 414</span>
+                            <span style="font-size: 11px; padding: 0; margin: 0;">  | Tlfno: 945 298 414</span>
                         </p>
                     </li>
                     <li t-if="forced_vat">
