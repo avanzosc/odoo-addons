@@ -3,15 +3,18 @@
     <template id="answers_template_verificacion" name="Verificación Answers Template">
         <style>
 
-            td, th{
+        div, table{
+            padding: 0;
+            margin: 0;
+            border-collapse: collapse;
+        }
+        
+        td, th{
             padding: 5px;
             margin: 5px;
             font-size: 0.75rem;
-            }
-            table{
-            margin: 10px;
-            width: 98%;
-            }
+        }
+
 
         </style>
         <t t-set="questions_to_display" t-value="o._get_print_questions()" />
