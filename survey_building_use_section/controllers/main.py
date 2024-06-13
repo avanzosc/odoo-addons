@@ -124,6 +124,7 @@ class Survey(Survey):
 
                             
                             elif triggering_question_to_filter.question_type == "matrix":
+                                pass
                                 
                             
                     # Write a value in triggering_answer_id not to be null
