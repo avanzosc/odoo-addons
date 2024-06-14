@@ -60,26 +60,29 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             </t>
 
             <t t-if="defecto == 'N/A' or defecto == 'SI'">
-                <div style="text-align: center;">FAVORABLE SIN DEFECTOS / DEFECTOS LEVES</div>
+                <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">FAVORABLE SIN DEFECTOS / DEFECTOS LEVES</div>
             </t>
             <t t-elif="defecto == 'LEVE'">
-                <div style="text-align: center;">FAVORABLE CON DEFECTOS LEVES</div>
+                <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">FAVORABLE CON DEFECTOS LEVES</div>
             </t>
             <t t-elif="defecto == 'GRAVE'">
-                <div style="text-align: center;">CONDICIONADO</div>
+                <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">CONDICIONADO</div>
             </t>
             <t t-elif="defecto == 'MUY GRAVE'">
                 <div style="text-align: center; font-weight: bold; margin: 10px 0; font-size: 16pt;">NEGATIVO</div>
             </t>
 
             <div style="text-align: center;">
-                <span>- FECHA SUBSANACIÓN DEFICIENCIAS:  <span t-esc="o.date_deficiency_correction"/></span>
+                <span>- FECHA SUBSANACIÓN DEFICIENCIAS:  <span t-esc="o.date_deficiency_correction"/>
+                </span>
             </div>
             <div style="text-align: center;">
-                <span>- FECHA PRÓXIMA INSPECCIÓN: <span t-esc="o.next_inspection_date"/></span>
+                <span>- FECHA PRÓXIMA INSPECCIÓN: <span t-esc="o.next_inspection_date"/>
+                </span>
             </div>
             <div style="text-align: center;">
-                <span>- En Vitoria-Gasteiz, a <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/></span>
+                <span>- En Vitoria-Gasteiz, a <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                </span>
             </div>
             <div style="text-align: center; margin-left: 50%;">
                 <span>El inspector </span>
@@ -93,8 +96,8 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
 
 
         <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
-<div style="padding: 0; margin: 0;">
-    <table style="padding: 0; margin-top: -50px;">
+        <div style="padding: 0; margin: 0;">
+            <table style="padding: 0; margin-top: -50px;">
                 <thead>
                     <tr>
                         <th>TEXTO ERROR</th>
@@ -261,7 +264,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                 <t t-esc="answer_line.notes" />
                                                 <br />
 
-                                                <t t-esc="answer.notes" />
+                                            <span style="color: #0070C0;"><t t-esc="answer.notes"/></span>
 
                                             </td>
                                             <td>

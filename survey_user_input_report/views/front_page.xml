@@ -262,13 +262,9 @@
                                                 <div style="width: 80%; border-bottom: 1px dashed #ccc;">
                                                     <div class="columns">
                                                         <div class="row">
-                                                            <div style="width: 50%;">
+                                                            <div style="width: 100%;">
                                                                 <span style="font-weight: bold;"> Empresa: </span>
-                                                                <span t-field="o.dof_author_id"/>
-                                                            </div>
-                                                            <div style="width: 50%;">
-                                                                <span style="font-weight: bold;"></span>
-                                                                <!-- <span t-field="o.dof_author_degree"/> -->
+                                                                <span t-field="o.installer_id"/>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -278,7 +274,7 @@
                                                             </div>
                                                             <div style="width: 50%;">
                                                                 <span style="font-weight: bold;"> Fecha: </span>
-                                                                <span t-field="o.dof_approved_date"/>
+                                                                <span t-field="o.certification_date"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -310,17 +306,22 @@
                                 </t>
                             </div>
                             <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
-                                <div style="width: 40%;">
+                                <div style="width: 50%;">
                                     <span style="font-weight: bold;">Nº REGISTRO INSTALACIÓN:</span>
                                     <span t-field="o.installation_number"/>
-                                </div>
-                                <div style="width: 30%; border-left: 1px solid #ccc">
+                                    <br />
                                     <span style="font-weight: bold;">Nº EXPEDIENTE:</span>
                                     <span t-field="o.file_number"/>
-                                </div>
 
-                                <div style="width: 30%; border-left: 1px solid #ccc">
+                                </div>
+                                <div style="width: 50%; border-left: 1px solid #ccc">
                                     <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:</span>
+                                    <span t-field="o.inspected_building_id.service_start_date"/>
+                                    <br />
+                                    <span style="font-weight: bold;">FECHA INICIO ACTIVIDAD:</span>
+
+                                    <span t-field="o.inspected_building_id.service_end_date"/>
+
                                 </div>
                             </div>
 
