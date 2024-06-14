@@ -111,45 +111,23 @@
                         <t t-set="building_uses" t-value="request.env['building.use'].search([])"/>
                         <t t-set="use_names" t-value="building_uses.mapped('name')"/>
                         <t t-set="half_len_int" t-value="len(use_names) // 2"/>
-                        <t t-set="half_len_float" t-value="len(use_names) / 2"/>
 
-                        <t t-if="half_len_int != half_len_float">
-                            <div class="row" style="padding: 4px 0">
-                                <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
-                                    <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                        <t t-if="o.building_use_id.name == use">X </t>
-                                        <t t-esc="use"/>
-                                    </div>
-                                </t>
-                            </div>
-                            <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
-                                    <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
-                                        <t t-if="o.building_use_id.name == use">X </t>
-                                        <t t-esc="use"/>
-                                    </div>
-                                </t>
-                            </div>
-                        </t>
-                        <t t-else="">
-                            <div class="row" style="padding: 4px 0">
-                                <t t-foreach="use_names[:half_len_int]" t-as="use">
-                                    <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
-                                        <t t-if="o.building_use_id.name == use">X </t>
-                                        <t t-esc="use"/>
-                                    </div>
-                                </t>
-                            </div>
-                            <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                <t t-foreach="use_names[half_len_int:]" t-as="use">
-                                    <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
-                                        <t t-if="o.building_use_id.name == use">X </t>
-                                        <t t-esc="use"/>
-                                    </div>
-                                </t>
-                            </div>
-                        </t>
-
+                        <div class="row" style="padding: 4px 0">
+                            <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
+                                <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
+                                    <t t-if="o.building_use_id.name == use">X </t>
+                                    <t t-esc="use"/>
+                                </div>
+                            </t>
+                        </div>
+                        <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
+                            <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
+                                <div t-att-style="'width: ' + str(100 / half_len_int + 1) + '%;'">
+                                    <t t-if="o.building_use_id.name == use">X </t>
+                                    <t t-esc="use"/>
+                                </div>
+                            </t>
+                        </div>
 
                         <div class="row" style="padding: 4px 0">
                             <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
