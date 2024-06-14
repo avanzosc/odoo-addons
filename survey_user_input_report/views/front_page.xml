@@ -308,9 +308,11 @@
         <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
             <div style="width: 70%;">
                 <span style="font-weight: bold;">EMPRESA MANTENEDORA:</span>
+                <span t-field="o.maintainer_id"/>
             </div>
             <div style="width: 30%;border-left: 1px solid #ccc">
                 <span style="font-weight: bold;">EMI:</span>
+                <span t-field="o.maintainer_emi"/>
             </div>
         </div>
 
