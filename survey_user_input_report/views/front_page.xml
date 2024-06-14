@@ -308,7 +308,7 @@
                 <div style="width: 30%; border-left: 1px solid #ccc;">
                     <span style="font-weight: bold;">EQUIPOS:</span>
                     <t t-foreach="o.equipment_ids" t-as="equipment">
-                        <span t-field="equipment.name"/>
+                        <span t-field="equipment.equipment_id.name"/>
                     </t>
                 </div>
             </div>
