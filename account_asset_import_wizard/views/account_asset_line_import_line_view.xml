@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_asset_line_import_line_view_search" model="ir.ui.view">
+        <field name="model">account.asset.line.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="account_asset_ref"/>
+                <separator/>
+                <filter
+          string="Errored"
+          name="error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="Create"
+          name="create"
+          domain="[('action', '=', 'create')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" name="group_by" string="Group By">
+                    <filter
+            name="group_account_asset_id"
+            string="Asset"
+            context="{'group_by': 'account_asset_id'}"
+          />
+                    <separator/>
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                    <filter
+            string="Action"
+            name="action_group"
+            domain="[]"
+            context="{'group_by':'action'}"
+          />
+                    <filter
+            string="Log Info"
+            name="log_info_group"
+            domain="[]"
+            context="{'group_by':'log_info'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="account_asset_line_import_line_view_form" model="ir.ui.view">
+        <field name="model">account.asset.line.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error,pass"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="error,pass"
+          />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="import_id" invisible="1"/>
+                            <field name="action" invisible="1"/>
+                            <field name="account_asset_ref"/>
+                            <field name="account_asset_name"/>
+                            <field name="account_asset_id"/>
+                            <field name="asset_date"/>
+                            <field name="purchase_value"/>
+                            <field name="profile"/>
+                            <field name="profile_id"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                        </group>
+                    </group>
+                    <field name="log_info"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="account_asset_line_import_line_view_tree" model="ir.ui.view">
+        <field name="model">account.asset.line.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                <field
+          name="action"
+          decoration-muted="action == 'nothing'"
+          decoration-info="action == 'create'"
+        />
+                <field name="import_id" invisible="1"/>
+                <field name="account_asset_ref"/>
+                <field name="account_asset_name"/>
+                <field name="account_asset_id" optional="hide"/>
+                <field name="asset_date" optional="show"/>
+                <field name="purchase_value" optional="show"/>
+                <field name="profile" optional="show"/>
+                <field name="profile_id" optional="hide"/>
+                <field name="date"/>
+                <field name="amount"/>
+                <field name="state" optional="show"/>
+                <field name="log_info" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="account_asset_line_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Asset Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">account.asset.line.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="account_asset_line_import_line_view_tree" />
+    </record>
+</odoo>
