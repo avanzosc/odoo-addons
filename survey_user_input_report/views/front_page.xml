@@ -49,7 +49,7 @@
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:</span>
-                    <span t-field="o.inspected_building_id.name"/>
+                    <span t-field="o.inspected_building_id.parent_id.name"/>
                 </div>
                 <div style="width: 25%; border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">NIF / CIF: </span>
