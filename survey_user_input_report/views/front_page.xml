@@ -269,8 +269,12 @@
                         <!-- Filtrar las respuestas sugeridas que no tienen valor de dos líneas seguidas -->
                         <t t-set="filtered_answers" t-value="[label for label in question.suggested_answer_ids if label.value != '--']"/>
                         <t t-set="answer_count" t-value="len(filtered_answers)"/>
-                        <t t-foreach="filtered_answers" t-as="label" t-index="i">
-                            <div t-att-style="'width:' + str(80 / (answer_count or 1)) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc' if (i or 0) &lt; (answer_count or 0) - 1 else '')" t-esc="label.value"/>
+                        <!-- Inicializar el contador -->
+                        <t t-set="i" t-value="0"/>
+                        <t t-foreach="filtered_answers" t-as="label">
+                            <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc' if i &lt; answer_count - 1 else '')" t-esc="label.value"/>
+                            <!-- Incrementar el contador -->
+                            <t t-set="i" t-value="i + 1"/>
                         </t>
                     </t>
                 </t>
