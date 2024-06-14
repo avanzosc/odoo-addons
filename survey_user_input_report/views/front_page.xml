@@ -161,31 +161,31 @@
                                         <div class="row" style="padding: 4px 0">
                                             <div style="width: 40%;">CONFIGURACIÓN: </div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.inspected_building_id.configuration==A">
+                                                <t t-if="o.inspected_building_id.configuration=='A'">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">A</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.inspected_building_id.configuration==B">
+                                                <t t-if="o.inspected_building_id.configuration=='B'">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">B</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.inspected_building_id.configuration==C">
+                                                <t t-if="o.inspected_building_id.configuration=='C'">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">C</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.inspected_building_id.configuration==D">
+                                                <t t-if="o.inspected_building_id.configuration=='D'">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">D</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.inspected_building_id.configuration==E">
+                                                <t t-if="o.inspected_building_id.configuration=='E'">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
