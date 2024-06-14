@@ -285,22 +285,39 @@
                                 </div>
                             </div>
                             <div class="row" style="border: 1px solid #ccc; margin-top: -1px; ">
-                                <div style="width: 20%;border-right: 1px dashed #ccc;">
+                                <div style="width: 20%; border-right: 1px dashed #ccc;">
                                     <span style="font-weight: bold;">REGLAMENTO APLICABLE:</span>
                                 </div>
                                 <t t-set="found_normative_filter" t-value="False"/>
                                 <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                                     <t t-if="question.is_normative_filter and not found_normative_filter">
+                                        <t t-set="all_normatives" t-value="request.env['survey.question.normative'].search([])"/>
+                                        <t t-set="building_date" t-value="o.inspected_building_id.service_start_date"/>
+                                        <t t-set="selected_answers" t-value="[]"/>
+
+                                        <t t-foreach="question.suggested_answer_ids" t-as="answer">
+                                            <t t-set="answer_found" t-value="False"/>
+                                            <t t-foreach="all_normatives" t-as="normative">
+                                                <t t-if="normative.start_date &lt;= building_date and building_date &lt; normative.end_date">
+                                                    <t t-if="answer.value == normative.name">
+                                                        <t t-set="selected_answers" t-value="selected_answers + [answer.value]"/>
+                                                    </t>
+                                                </t>
+                                            </t>
+                                        </t>
+
                                         <t t-set="found_normative_filter" t-value="True"/>
-                                        <t t-set="filtered_answers" t-value="[label for label in question.suggested_answer_ids if label.value != '--']"/>
-                                        <t t-set="answer_count" t-value="len(filtered_answers)"/>
+                                        <t t-set="selected_answers" t-value="[answer for answer in selected_answers if answer != '--']"/>
+
+                                        <t t-set="answer_count" t-value="len(selected_answers)"/>
                                         <t t-set="i" t-value="0"/>
-                                        <t t-foreach="filtered_answers" t-as="label">
-                                            <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc' if i &lt; answer_count - 1 else '')" t-esc="label.value"/>
+                                        <t t-foreach="selected_answers" t-as="label">
+                                            <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc;' if i &lt; answer_count - 1 else '')" t-esc="label"/>
                                             <t t-set="i" t-value="i + 1"/>
                                         </t>
                                     </t>
                                 </t>
+
                             </div>
                             <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
                                 <div style="width: 50%;">
