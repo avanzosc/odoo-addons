@@ -29,12 +29,6 @@ class SurveyUserInput(models.Model):
         comodel_name="res.partner",
     )
     installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
-    
-    equipment_ids = fields.Many2many(
-        related="inspected_building_id.equipment_ids",
-        string=_("Equipment"),
-        comodel_name="res.partner",
-    )
 
     administrator_id = fields.Many2one(
         related="inspected_building_id.administrator_id",

@@ -106,11 +106,7 @@ class ResPartner(models.Model):
         related="dof_author_id.membership_number",
     )
     dof_approved_date = fields.Date(string=_("Director of Works Approved Date"))
-    
-    equipment_ids = fields.Many2many(
-        comodel_name="maintenance.team",
-        string="Equipment",
-    )
+
 
     @api.depends("service_start_date")
     def _compute_normativas_ids(self):
