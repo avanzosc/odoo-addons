@@ -260,9 +260,10 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                                         <t t-esc="article.error_text"/>
                                                     </t>
                                                 </t>
+
                                                 <br />
-                                                <t t-esc="answer_line.notes" />
-                                                <br />
+                                                <!-- <t t-esc="answer_line.notes" />
+                                                <br /> -->
 
                                             <span style="color: #0070C0;"><t t-esc="answer.notes"/></span>
 
