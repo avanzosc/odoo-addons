@@ -66,25 +66,25 @@
                 <div class="row">
                     <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                     <div class="columns" style="width: 80%;">
-                        <div class="row">
-                            <div style="width: 66.66%; border-right: 1px dashed #ccc;">DIRECCIÓN: <span t-field="o.inspected_building_id.street"/>
-                            </div>
-                            <div style="width: 33.33%;">CP.: <span t-field="o.inspected_building_id.zip"/>
-                            </div>
+                    <div class="row" style="padding: 0">
+                        <div style="padding: 5px; width: 66.66%; border-right: 1px dashed #ccc;">DIRECCIÓN: <span t-field="o.inspected_building_id.street"/>
                         </div>
+                        <div style="padding: 5px; width: 33.33%;">CP.: <span t-field="o.inspected_building_id.zip"/>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
             <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
                 <div class="row" style="border-bottom: 1px solid #ccc">
                     <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
-                    <div style="width: 80%;" class="column">
+                    <div style="width: 80%; padding: 0;" class="column">
                         <div class="row" style="border-bottom: 1px dashed #ccc;">
-                            <div style="width: 25%;">USO: <span t-field="o.building_use_id.name"/>
+                            <div style="width: 40%;">USO: <span t-field="o.building_use_id.name"/>
                             </div>
-                            <div style="width: 25%;">SUPERFICIE (m²): <span t-field="o.area"/>
+                            <div style="width: 30%;">SUPERFICIE (m²): <span t-field="o.area"/>
                             </div>
-                            <div style="width: 25%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
+                            <div style="width: 30%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
                             </div>
                         </div>
                         <div class="row">
@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO</div>
+                            <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
                             <div style="width: 5%;">
                                 <t t-if="o.risk and 'BAJ' in str(o.risk)">
                                     <span style="font-weight: bold;">X</span>
