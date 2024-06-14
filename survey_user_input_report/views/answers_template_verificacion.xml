@@ -38,16 +38,16 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                             <t t-set="defecto" t-value="'MUY GRAVE'"/>
                                         </t>
                                         <t t-elif="col_label.value == 'GRAVE' and defecto != 'MUY GRAVE'">
-                                            <t t-set="defecto" t-value="GRAVE"/>
+                                            <t t-set="defecto" t-value="'GRAVE'"/>
                                         </t>
                                         <t t-elif="col_label.value == 'LEVE' and defecto != 'MUY GRAVE' and defecto != 'GRAVE'">
-                                            <t t-set="defecto" t-value="LEVE"/>
+                                            <t t-set="defecto" t-value="'LEVE'"/>
                                         </t>
                                         <t t-elif="col_label.value == 'SI' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
-                                            <t t-set="defecto" t-value="SI"/>
+                                            <t t-set="defecto" t-value="'SI'"/>
                                         </t>
                                         <t t-elif="col_label.value == 'N/A' and defecto != 'MUY GRAVE' and defecto != 'GRAVE' and defecto != 'LEVE'">
-                                            <t t-set="defecto" t-value="N/A"/>
+                                            <t t-set="defecto" t-value="'N/A'"/>
                                         </t>
                                         <t t-else="">
                                         </t>
