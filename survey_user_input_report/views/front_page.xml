@@ -79,7 +79,7 @@
                 <div class="row" style="border-bottom: 1px solid #ccc">
                     <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                     <div style="width: 80%; padding: 0;" class="column">
-                        <div class="row" style="border-bottom: 1px dashed #ccc;">
+                        <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
                             <div style="width: 40%;">USO: <span t-field="o.building_use_id.name"/>
                             </div>
                             <div style="width: 30%;">SUPERFICIE (m²): <span t-field="o.area"/>
@@ -87,7 +87,7 @@
                             <div style="width: 30%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding: 4px 0">
                             <div style="width: 25%;">RESIDENCIAL
                             </div>
                             <div style="width: 25%;">PÚBLICO
@@ -97,7 +97,7 @@
                             <div style="width: 25%;">COMERCIAL
                             </div>
                         </div>
-                        <div class="row" style="border-bottom: 1px dashed #ccc;">
+                        <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
                             <div style="width: 25%;">HOSPITALARIO
                             </div>
                             <div style="width: 25%;">PÚBLICA CONCURRENCIA
@@ -107,7 +107,7 @@
                             <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding: 4px 0">
                             <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
                             <div style="width: 5%;">
                                 <t t-if="o.risk and 'BAJ' in str(o.risk)">
@@ -128,7 +128,7 @@
                             </div>
                             <div style="width: 15%;">ALTO</div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="padding: 4px 0">
                             <div style="width: 40%;">CONFIGURACIÓN: </div>
                             <div style="width: 3%;">
                                 <t t-if="o.configuration==A">
