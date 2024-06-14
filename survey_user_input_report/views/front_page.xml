@@ -84,9 +84,9 @@
                                 </t>
                                 <t t-else="">NO INDUSTRIAL</t>
                             </div>
-                            <div style="width: 30%;">SUPERFICIE (m²): <span t-field="o.area"/>
+                            <div style="width: 30%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area"/>
                             </div>
-                            <div style="width: 30%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
+                            <div style="width: 30%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors"/>
                             </div>
                         </div>
 
@@ -140,19 +140,19 @@
                                         <div class="row" style="padding: 4px 0">
                                             <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
                                             <div style="width: 5%;">
-                                                <t t-if="o.risk and 'BAJ' in str(o.risk)">
+                                                <t t-if="o.inspected_building_id.risk and 'BAJ' in str(o.inspected_building_id.risk)">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 15%;">BAJO</div>
                                             <div style="width: 5%;">
-                                                <t t-if="o.risk and 'MEDI' in str(o.risk)">
+                                                <t t-if="o.inspected_building_id.risk and 'MEDI' in str(o.inspected_building_id.risk)">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 15%;">MEDIA</div>
                                             <div style="width: 5%;">
-                                                <t t-if="o.risk and 'ALT' in str(o.risk)">
+                                                <t t-if="o.inspected_building_id.risk and 'ALT' in str(o.inspected_building_id.risk)">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
@@ -161,31 +161,31 @@
                                         <div class="row" style="padding: 4px 0">
                                             <div style="width: 40%;">CONFIGURACIÓN: </div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.configuration==A">
+                                                <t t-if="o.inspected_building_id.configuration==A">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">A</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.configuration==B">
+                                                <t t-if="o.inspected_building_id.configuration==B">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">B</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.configuration==C">
+                                                <t t-if="o.inspected_building_id.configuration==C">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">C</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.configuration==D">
+                                                <t t-if="o.inspected_building_id.configuration==D">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
                                             <div style="width: 9%;">D</div>
                                             <div style="width: 3%;">
-                                                <t t-if="o.configuration==E">
+                                                <t t-if="o.inspected_building_id.configuration==E">
                                                     <span style="font-weight: bold;">X</span>
                                                 </t>
                                             </div>
