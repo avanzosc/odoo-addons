@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="paper_format_survey_A4" model="report.paperformat">
+        <field name="name">A4 para encuestas</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">297</field>
+        <field name="page_width">210</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">20</field>
+        <field name="margin_bottom">5</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">14</field>
+        <field name="header_line" eval="True"/>
+        <field name="header_spacing">18</field>
+        <field name="smartshrink">False</field>
+        <field name="dpi">90</field>
+        <field name="report_ids" eval="[(6, 0, [ref('survey_user_input_report.action_report_survey_print_pdf_survey_verificacion'), ref('survey_user_input_report.action_report_survey_print_inspeccion_documental')])]"/>
+    </record>
+</odoo>
