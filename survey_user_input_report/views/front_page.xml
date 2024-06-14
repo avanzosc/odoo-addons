@@ -87,26 +87,6 @@
                             <div style="width: 30%;">Nº PLANTAS: <span t-field="o.number_of_floors"/>
                             </div>
                         </div>
-                        <div class="row" style="padding: 4px 0">
-                            <div style="width: 25%;">RESIDENCIAL
-                            </div>
-                            <div style="width: 25%;">PÚBLICO
-                            </div>
-                            <div style="width: 25%;">DOCENTE
-                            </div>
-                            <div style="width: 25%;">COMERCIAL
-                            </div>
-                        </div>
-                        <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                            <div style="width: 25%;">HOSPITALARIO
-                            </div>
-                            <div style="width: 25%;">PÚBLICA CONCURRENCIA
-                            </div>
-                            <div style="width: 25%;">APARCAMIENTO
-                            </div>
-                            <div style="width: 25%;">ADMINISTRATIVO X EST. USO INDUSTRIAL
-                            </div>
-                        </div>
 
                         <t t-set="building_uses" t-value="request.env['building.use'].search([])"/>
                         <t t-set="use_names" t-value="building_uses.mapped('name')"/>
@@ -117,7 +97,7 @@
                             <div class="row" style="padding: 4px 0">
                                 <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
                                     <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span> </t>
+                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span </t>
                                         <t t-esc="use"/>
                                     </div>
                                 </t>
@@ -125,7 +105,7 @@
                             <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
                                 <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
                                     <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span> </t>
+                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span </t>
                                         <t t-esc="use"/>
                                     </div>
                                 </t>
@@ -135,7 +115,7 @@
                             <div class="row" style="padding: 4px 0">
                                 <t t-foreach="use_names[:half_len_int]" t-as="use">
                                     <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
-                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span> </t>
+                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span </t>
                                         <t t-esc="use"/>
                                     </div>
                                 </t>
@@ -143,7 +123,7 @@
                             <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
                                 <t t-foreach="use_names[half_len_int:]" t-as="use">
                                     <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
-                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span> </t>
+                                        <t t-if="o.building_use_id.name == use"><span style="font-weight: bold; ">X</span </t>
                                         <t t-esc="use"/>
                                     </div>
                                 </t>
