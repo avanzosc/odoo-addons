@@ -100,7 +100,7 @@
                                 <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
                                     <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
                                         <t t-if="o.building_use_id.name == use">
-                                            <span style="font-weight: bold; ">X</span </t>
+                                            <span style="font-weight: bold; ">X</span> </t>
                                             <t t-esc="use"/>
                                         </div>
                                     </t>
@@ -109,7 +109,7 @@
                                     <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
                                         <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
                                             <t t-if="o.building_use_id.name == use">
-                                                <span style="font-weight: bold; ">X</span </t>
+                                                <span style="font-weight: bold; ">X</span> </t>
                                                 <t t-esc="use"/>
                                             </div>
                                         </t>
@@ -120,7 +120,7 @@
                                         <t t-foreach="use_names[:half_len_int]" t-as="use">
                                             <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
                                                 <t t-if="o.building_use_id.name == use">
-                                                    <span style="font-weight: bold; ">X</span </t>
+                                                    <span style="font-weight: bold; ">X</span> </t>
                                                     <t t-esc="use"/>
                                                 </div>
                                             </t>
