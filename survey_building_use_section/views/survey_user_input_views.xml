@@ -12,6 +12,7 @@
                     <group string="Building">
                         <field name="inspected_building_id"/>
                         <field name="building_use_id" readonly="1" attrs="{'invisible':[('inspected_building_id', '=', False)]}"/>
+                        <field name="is_industrial"/>
                         <field name="section_ids" invisible="1"/>
                     </group>
                     <group string="Section">

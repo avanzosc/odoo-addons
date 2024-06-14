@@ -55,6 +55,11 @@ class SurveyUserInput(models.Model):
         related="inspected_building_id.building_use_id",
         store=True,
     )
+    is_industrial = fields.Boolean(
+        string=_("Industrial"),
+        related="building_use_id.is_industrial",
+        store=True,
+    )
     risk = fields.Char(
         string=_("Risk"),
         related="building_section_id.risk",
