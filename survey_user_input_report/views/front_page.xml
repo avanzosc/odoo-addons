@@ -292,14 +292,11 @@
                                 <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                                     <t t-if="question.is_normative_filter and not found_normative_filter">
                                         <t t-set="found_normative_filter" t-value="True"/>
-                                        <!-- Filtrar las respuestas sugeridas que no tienen valor de dos líneas seguidas -->
                                         <t t-set="filtered_answers" t-value="[label for label in question.suggested_answer_ids if label.value != '--']"/>
                                         <t t-set="answer_count" t-value="len(filtered_answers)"/>
-                                        <!-- Inicializar el contador -->
                                         <t t-set="i" t-value="0"/>
                                         <t t-foreach="filtered_answers" t-as="label">
                                             <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc' if i &lt; answer_count - 1 else '')" t-esc="label.value"/>
-                                            <!-- Incrementar el contador -->
                                             <t t-set="i" t-value="i + 1"/>
                                         </t>
                                     </t>
@@ -360,9 +357,9 @@
 
                         <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
                             <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:</div>
-                            <div class="row" style="33">
+                            <div class="row">
                                 <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])"/>
-                                <div style="width: 33%;">
+                                <div t-att-style="'width: ' + str(100 / 3) + '%;'">
                                     <ul class="list-unstyled">
                                         <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
                                             <li>
@@ -374,7 +371,7 @@
                                         </t>
                                     </ul>
                                 </div>
-                                <div style="width: 33%;">
+                                <div t-att-style="'width: ' + str(100 / 3) + '%;'">
                                     <ul class="list-unstyled">
                                         <t t-foreach="equipment_records[len(equipment_records) // 3: 2 * len(equipment_records) // 3]" t-as="equipment">
                                             <li>
@@ -386,7 +383,7 @@
                                         </t>
                                     </ul>
                                 </div>
-                                <div style="width: 33%;">
+                                <div t-att-style="'width: ' + str(100 / 3) + '%;'">
                                     <ul class="list-unstyled">
                                         <t t-foreach="equipment_records[2 * len(equipment_records) // 3:]" t-as="equipment">
                                             <li>
