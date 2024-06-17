@@ -22,7 +22,7 @@
                 padding: 4px;
             }
         </style>
-        <div id="front_page_container" style="height: 970px; margin-bottom: 20px;">
+          <div id="front_page_container" t-att-style="o.remove_title_from_report ? 'height: 990px ' : 'height: 940px'">
             <span style="text-align: center; font-weight: bold;">
                 <t t-if="o.building_use_id.is_industrial">
                     <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
