@@ -22,6 +22,14 @@
                 padding: 4px;
             }
         </style>
+
+        <!-- PAGE NUMBER IN FOOTER -->
+        <div class="footer" style="position:absolute; margin:0px; padding:0px; font-size: 12px;color: #666;">
+            <span class="page"/>
+/            <span class="topage"/>
+        </div>
+
+
         <div id="front_page_container" t-att-style="'height: 990px; border: 1px solid black' if o.remove_title_from_report else 'height: 940px; border: 1px solid black'">
             <span style="text-align: center; font-weight: bold;">
                 <t t-if="o.building_use_id.is_industrial">
