@@ -69,11 +69,11 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
             </t>
 
             <div style="text-align: center;">
-                <span style="font-weight: bold;">FECHA SUBSANACIÓN DEFICIENCIAS:  <span t-esc="o.date_deficiency_correction"/>
+                <span style="font-weight: bold;">FECHA SUBSANACIÓN DEFICIENCIAS:  <span style="font-weight: normal;" t-esc="o.date_deficiency_correction"/>
                 </span>
             </div>
             <div style="text-align: center;">
-                <span style="font-weight: bold;">- FECHA PRÓXIMA INSPECCIÓN:  <span t-esc="o.next_inspection_date"/>
+                <span style="font-weight: bold;">FECHA PRÓXIMA INSPECCIÓN:  <span style="font-weight: normal;" t-esc="o.next_inspection_date"/>
                 </span>
             </div>
             <div style="text-align: center;">
