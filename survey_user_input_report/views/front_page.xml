@@ -22,7 +22,7 @@
                 padding: 4px;
             }
         </style>
-          <div id="front_page_container" t-att-style="o.remove_title_from_report ? 'height: 990px ' : 'height: 940px'">
+        <div id="front_page_container" t-att-style="'height: 990px; border: 1px solid black' if o.remove_title_from_report else 'height: 940px; border: 1px solid black'">
             <span style="text-align: center; font-weight: bold;">
                 <t t-if="o.building_use_id.is_industrial">
                     <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
@@ -148,19 +148,25 @@
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; "><span>BAJO</span></div>
+                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                <span>BAJO</span>
+                            </div>
                             <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.risk and 'MEDI' in str(o.inspected_building_id.risk)">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; "><span>MEDIA</span></div>
+                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                <span>MEDIA</span>
+                            </div>
                             <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.risk and 'ALT' in str(o.inspected_building_id.risk)">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; "><span>ALTO</span></div>
+                            <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                <span>ALTO</span>
+                            </div>
                         </div>
                         <div class="row" style="padding: 4px 0">
                             <div style="width: 40%;">CONFIGURACIÓN: </div>
@@ -169,31 +175,41 @@
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;"><span>A</span></div>
+                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                <span>A</span>
+                            </div>
                             <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.configuration=='B'">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;"><span>B</span></div>
+                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                <span>B</span>
+                            </div>
                             <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.configuration=='C'">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;"><span>C</span></div>
+                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                <span>C</span>
+                            </div>
                             <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.configuration=='D'">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;"><span>D</span></div>
+                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                <span>D</span>
+                            </div>
                             <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
                                 <t t-if="o.inspected_building_id.configuration=='E'">
                                     <span style="font-weight: bold;">X</span>
                                 </t>
                             </div>
-                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;"><span>E</span></div>
+                            <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                <span>E</span>
+                            </div>
                         </div>
                     </div>
                 </div>
