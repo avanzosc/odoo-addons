@@ -77,11 +77,11 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                 </span>
             </div>
             <div style="text-align: center;">
-                <span>- FECHA PRÓXIMA INSPECCIÓN: <span t-esc="o.next_inspection_date"/>
+                <span>- FECHA PRÓXIMA INSPECCIÓN:  <span t-esc="o.next_inspection_date"/>
                 </span>
             </div>
             <div style="text-align: center;">
-                <span>- En Vitoria-Gasteiz, a <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
+                <span>- En Vitoria-Gasteiz, a  <span t-esc="datetime.datetime.now().strftime('%d-%m-%Y')"/>
                 </span>
             </div>
             <div style="text-align: center; margin-left: 50%;">
