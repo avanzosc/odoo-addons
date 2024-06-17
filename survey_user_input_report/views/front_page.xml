@@ -22,7 +22,7 @@
                 padding: 4px;
             }
         </style>
-        <div id="front_page_container" style="height: 960px;">
+        <div id="front_page_container" style="height: 970px; margin-bottom: 20px;">
             <span style="text-align: center; font-weight: bold;">
                 <t t-if="o.building_use_id.is_industrial">
                     <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
@@ -67,9 +67,9 @@
                     <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                     <div class="columns" style="width: 80%;">
                         <div class="row" style="padding: 0">
-                            <div style="padding: 5px; width: 68.75%; border-right: 1px dashed #ccc;">DIRECCIÓN:  <span t-field="o.inspected_building_id.street"/>
+                            <div style="padding: 5px; width: 69%; border-right: 1px dashed #ccc;">DIRECCIÓN:  <span t-field="o.inspected_building_id.street"/>
                             </div>
-                            <div style="padding: 5px; width: 31.25%;">CP.: <span t-field="o.inspected_building_id.zip"/>
+                            <div style="padding: 5px; width: 31%;">CP.: <span t-field="o.inspected_building_id.zip"/>
                             </div>
                         </div>
                     </div>
