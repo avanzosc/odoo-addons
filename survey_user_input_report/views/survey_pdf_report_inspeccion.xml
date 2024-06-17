@@ -1,112 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-<template id="survey_pdf_inspeccion" name="Inspección Vista General">
-    <t t-if="not company">
-        <!-- Multicompany -->
-        <t t-if="company_id">
-            <t t-set="company" t-value="company_id" />
-        </t>
-        <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-            <t t-set="company" t-value="o.company_id.sudo()" />
-        </t>
-        <t t-else="else">
-            <t t-set="company" t-value="res_company" />
-        </t>
-    </t>
-    <t t-call="survey_user_input_report.external_layout_striped_changed">
-        <page>
-            <t t-if="o.survey_id.title and not o.remove_title_from_report">
-                <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
-                    <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
-                </div>
+    <template id="survey_pdf_inspeccion" name="Inspección Vista General">
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
             </t>
-            <t t-if="o.survey_id.description">
-                <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
-            <t t-if="review" t-call="o.survey_id.survey_button_retake" />
-            <t t-set="survey_form_readonly" t-value="true" />
-            <div class="wrap">
-                <div class="o_survey_print container">
-                    <div role="form">
-                        <fieldset disabled="disabled">
-                            <t t-call="survey_user_input_report.report_front_page" t-lang="o.partner_id.lang" />
-                            <t t-call="survey_user_input_report.answers_template_inspeccion" />
-                        </fieldset>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="survey_user_input_report.external_layout_striped_changed">
+            <page>
+                <t t-if="o.survey_id.title and not o.remove_title_from_report">
+                    <div style="text-align: center; padding: .6rem; margin: 0; padding: 0;">
+                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
+                    </div>
+                </t>
+                <t t-if="o.survey_id.description">
+                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+                </t>
+                <t t-if="review" t-call="o.survey_id.survey_button_retake" />
+                <t t-set="survey_form_readonly" t-value="true" />
+                <div class="wrap">
+                    <div class="o_survey_print container">
+                        <div role="form">
+                            <fieldset disabled="disabled">
+                                <t t-call="survey_user_input_report.report_front_page" t-lang="o.partner_id.lang" />
+                                <t t-call="survey_user_input_report.answers_template_inspeccion" />
+                            </fieldset>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </page>
-    </t>
-</template>
-
-<template id="external_layout_striped_changed">
-    <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
-        <div class="o_background_header">
-            <div class="float-end">
-                <div class="mt0 text-end h3" t-field="company.report_header"/>
-            </div>
-            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo" style="max-width: 65px;"/>
-            <div class="float-start company_address">
-                <ul class="list-unstyled">
-                    <li t-if="company.is_company_details_empty">
-                        <t t-esc="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
-                    </li>
-                    <li t-else="">
-                        <!--<t t-esc="company.company_details"/>-->
-                        <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 11px; padding: 0; margin: 0;">OKATEK Servicios y Control S.L.</span>
-                        </p>
-                        <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 11px; padding: 0; margin: 0;">B16684672</span>
-                        </p>
-                        <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 11px; padding: 0; margin: 0;">Salvador Azpiazu 12 Bajo CP 01008 Vitoria-Gasteiz (Álava)</span>
-                        </p>
-                        <p style="margin: 0px; padding: 0; line-height: 0.2;">
-                            <span style="font-size: 11px; padding: 0; margin: 0;">Email:
-                            </span>
-                            <a href="https://okatek@okatek.es">
-                                <span style="font-size: 11px; padding: 0; margin: 0;">okatek@okatek.es</span>
-                            </a>
-
-                            <span style="font-size: 11px; padding: 0; margin: 0;">  | Tlfno: 945 298 414</span>
-                        </p>
-                    </li>
-                    <li t-if="forced_vat">
-                        <t t-esc="company.country_id.vat_label or 'Tax ID'"/>
-:
-                        <span t-esc="forced_vat"/>
-                    </li>
-                </ul>
-            </div>
-            <div class="clearfix mb8"/>
-        </div>
-    </div>
-
-    <div t-attf-class="o_company_#{company.id}_layout article o_report_layout_striped {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-        <t t-call="web.address_layout"/>
-        <t t-out="0"/>
-    </div>
-
-</template>
-
-
-<template id="report_survey_pdf_inspeccion" name="Inspección Template">
-    <t t-call="web.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-call="survey_user_input_report.survey_pdf_inspeccion" t-lang="o.partner_id.lang" />
+            </page>
         </t>
-    </t>
-</template>
+    </template>
 
-<record id="action_report_survey_print_inspeccion_documental" model="ir.actions.report">
-    <field name="name">Inspección</field>
-    <field name="model">survey.user_input</field>
-    <field name="report_type">qweb-pdf</field>
-    <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion</field>
-    <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion</field>
-    <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
-    <field name="binding_model_id" ref="survey.model_survey_user_input" />
-    <field name="binding_type">report</field>
-</record>
+    <template id="external_layout_striped_changed">
+        <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+            <div class="o_background_header">
+                <div class="float-end">
+                    <div class="mt0 text-end h3" t-field="company.report_header"/>
+                </div>
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo" style="max-width: 65px;"/>
+                <div class="float-start company_address">
+                    <ul class="list-unstyled">
+                        <li t-if="company.is_company_details_empty">
+                            <t t-esc="company.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+                        </li>
+                        <li t-else="">
+                            <!--<t t-esc="company.company_details"/>-->
+                            <p style="margin: 0px; padding: 0; line-height: 0.2;">
+                                <span style="font-size: 11px; padding: 0; margin: 0;">OKATEK Servicios y Control S.L.</span>
+                            </p>
+                            <p style="margin: 0px; padding: 0; line-height: 0.2;">
+                                <span style="font-size: 11px; padding: 0; margin: 0;">B16684672</span>
+                            </p>
+                            <p style="margin: 0px; padding: 0; line-height: 0.2;">
+                                <span style="font-size: 11px; padding: 0; margin: 0;">Salvador Azpiazu 12 Bajo CP 01008 Vitoria-Gasteiz (Álava)</span>
+                            </p>
+                            <p style="margin: 0px; padding: 0; line-height: 0.2;">
+                                <span style="font-size: 11px; padding: 0; margin: 0;">Email:
+                                </span>
+                                <span style="font-size: 11px; padding: 0; margin: 0;">okatek@okatek.es</span>
+
+                                <span style="font-size: 11px; padding: 0; margin: 0;">  | Tlfno: 945 298 414</span>
+                            </p>
+                        </li>
+                        <li t-if="forced_vat">
+                            <t t-esc="company.country_id.vat_label or 'Tax ID'"/>
+:
+                            <span t-esc="forced_vat"/>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix mb8"/>
+            </div>
+        </div>
+
+        <div t-attf-class="o_company_#{company.id}_layout article o_report_layout_striped {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-out="0"/>
+        </div>
+
+    </template>
+
+
+    <template id="report_survey_pdf_inspeccion" name="Inspección Template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="survey_user_input_report.survey_pdf_inspeccion" t-lang="o.partner_id.lang" />
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_survey_print_inspeccion_documental" model="ir.actions.report">
+        <field name="name">Inspección</field>
+        <field name="model">survey.user_input</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">survey_user_input_report.report_survey_pdf_inspeccion</field>
+        <field name="report_file">survey_user_input_report.report_survey_pdf_inspeccion</field>
+        <field name="print_report_name">'Printed Survey Inspección Portada Total'</field>
+        <field name="binding_model_id" ref="survey.model_survey_user_input" />
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
