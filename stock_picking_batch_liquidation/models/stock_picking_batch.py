@@ -778,8 +778,6 @@ class StockPickingBatch(models.Model):
                         "amount": amount,
                         "batch_id": self.id})
                     liquidation_line.onchange_amount()
-                if self.analytic_line_ids:
-                    self.analytic_line_ids.unlink()
                 self.create_liquidation_analytic_lines()
                 liquidated = self.env.ref(
                     "stock_picking_batch_breeding.batch_stage5")
@@ -803,6 +801,8 @@ class StockPickingBatch(models.Model):
             drug_type = False
             feed_type = False
             breeding_tag = False
+        if self.analytic_line_ids:
+            self.analytic_line_ids.unlink()
         self.env["account.analytic.line"].create({
             "name": "Ventas",
             "account_id": self.account_id.id,
