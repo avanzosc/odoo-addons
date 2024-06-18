@@ -37,13 +37,13 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                         <t t-if="col_label.value == 'MUY GRAVE'">
                                             <t t-set="defecto" t-value="'MUY GRAVE'"/>
                                         </t>
-                                        <t t-elif="col_label.value == 'GRAVE'">
+                                        <t t-elif="col_label.value == 'GRAVE' and defecto != 'MUY GRAVE'">
                                             <t t-set="defecto" t-value="'GRAVE'"/>
                                         </t>
-                                        <t t-elif="col_label.value == 'LEVE'">
+                                        <t t-elif="col_label.value == 'LEVE' and defecto != 'GRAVE' and defecto != 'MUY GRAVE'">
                                             <t t-set="defecto" t-value="'LEVE'"/>
                                         </t>
-                                        <t t-elif="col_label.value in ('SI', 'N/A')">
+                                        <t t-elif="col_label.value in ('SI', 'N/A') and defecto != 'LEVE' and defecto != 'GRAVE' and defecto != 'MUY GRAVE'">
                                             <t t-set="defecto" t-value="col_label.value"/>
                                         </t>
                                     </t>
@@ -92,7 +92,7 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
 
         <span style="font-weight: bold;">INFORME RELATIVO A LOS PUNTOS NO SATIFACTORIOS</span>
         <div style="padding: 0; margin: 0;">
-            <table style="padding: 0; margin-top: -56px;">
+            <table style="padding: 0;">
                 <thead>
                     <tr>
                         <th>TEXTO ERROR</th>
