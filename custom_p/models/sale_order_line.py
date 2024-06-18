@@ -30,3 +30,21 @@ class SaleOrderLine(models.Model):
                 )]
             ):
                 line.order_id.update_line_qty = False
+
+    @api.depends("product_id", "order_id.type_id",
+                 "order_id.type_id.picking_type_id",
+                 "order_id.type_id.filter_lot_by_location",
+                 "order_id.type_id.picking_type_id.default_location_src_id",
+                 "return_qty", "product_uom_qty")
+    def _compute_possible_lot_ids(self):
+        super(SaleOrderLine, self)._compute_possible_lot_ids()
+        for line in self:
+            lot_ids = self.env["stock.production.lot"]
+            if line.product_id and line.product_id.tracking != "none":
+                if line.return_qty and not line.product_uom_qty:
+                    lots = self.env["stock.production.lot"].search([
+                        ("product_id", "=", line.product_id.id),
+                        ("company_id", "=", line.company_id.id)
+                    ])
+                    lot_ids += lots
+                    line.possible_lot_ids = [(6, 0, lot_ids.ids)]
