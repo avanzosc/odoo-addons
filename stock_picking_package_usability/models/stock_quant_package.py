@@ -8,7 +8,7 @@ class StockQuantPackage(models.Model):
 
     picking_id = fields.Many2one(string="Transfer", comodel_name="stock.picking")
     max_weight = fields.Float(
-        string="Maximum Weight", related="packaging_id.max_weight", store=True
+        string="Maximum Weight", related="package_type_id.max_weight", store=True
     )
     pack_length = fields.Float(string="Pack Length")
     width = fields.Float(string="Pack Width")
@@ -20,29 +20,19 @@ class StockQuantPackage(models.Model):
         store=True,
     )
 
-    @api.onchange("packaging_id")
+    @api.onchange("packaging_type_id")
     def onchange_dimension(self):
-        if self.packaging_id.height:
-            self.height = self.packaging_id.height
-        if self.packaging_id.width:
-            self.width = self.packaging_id.width
-        if self.packaging_id.packaging_length:
-            self.pack_length = self.packaging_id.packaging_length
-        if self.packaging_id.length_uom_id:
-            self.length_uom_id = self.packaging_id.length_uom_id.id
-        if self.packaging_id.volume_uom_id:
-            self.volume_uom_id = self.packaging_id.volume_uom_id.id
-        if self.packaging_id.weight_uom_id:
-            self.weight_uom_id = self.packaging_id.weight_uom_id.id
-        if self.packaging_id.volume:
-            self.volume = self.packaging_id.volume
+        if self.packaging_type_id.height:
+            self.height = self.packaging_type_id.height
+        if self.packaging_type_id.width:
+            self.width = self.packaging_type_id.width
+        if self.packaging_type_id.packaging_length:
+            self.pack_length = self.packaging_type_id.packaging_length
 
     @api.model
     def create(self, vals):
         line = super().create(vals)
         line.name = "{} {} {:0>3}".format(
-            line.picking_id.name,
-            "-",
-            len(line.picking_id.quant_package_ids)
+            line.picking_id.name, "-", len(line.picking_id.quant_package_ids)
         )
         return line

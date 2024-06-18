@@ -6,25 +6,48 @@
             <field name="arch" type="xml">
                 <form string="Create reordering rules">
                     <header>
-                        <button name="button_create_reordering_rules" string="Create reordering rules" type="object" class="btn-primary" default_focus="1"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button
+              name="button_create_reordering_rules"
+              string="Create reordering rules"
+              type="object"
+              class="btn-primary"
+              default_focus="1"
+            />
+                        <button
+              string="Cancel"
+              class="btn-secondary"
+              special="cancel"
+            />
                     </header>
                     <group>
                         <field name="line_ids" nolabel="1">
                             <tree editable="bottom" create="0" edit="0" delete="1">
-                                <field name="location_id"/>
+                                <field name="location_id" />
                             </tree>
                         </field>
                     </group>
                     <footer>
-                        <button string="Create reordering rules" name="button_create_reordering_rules" type="object" class="btn-primary" default_focus="1"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                        <button
+              string="Create reordering rules"
+              name="button_create_reordering_rules"
+              type="object"
+              class="btn-primary"
+              default_focus="1"
+            />
+                        <button
+              string="Cancel"
+              class="btn-secondary"
+              special="cancel"
+            />
                     </footer>
                 </form>
             </field>
         </record>
 
-        <record id="action_wiz_create_auto_reordering_rule" model="ir.actions.act_window">
+        <record
+      id="action_wiz_create_auto_reordering_rule"
+      model="ir.actions.act_window"
+    >
             <field name="name">Create reordering rules</field>
             <field name="res_model">wiz.create.auto.reordering.rule</field>
             <!-- <field name="view_mode">form</field>

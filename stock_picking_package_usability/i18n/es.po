@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-26 16:28+0000\n"
-"PO-Revision-Date: 2022-04-26 16:28+0000\n"
+"POT-Creation-Date: 2024-06-18 10:01+0000\n"
+"PO-Revision-Date: 2024-06-18 10:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,30 +29,6 @@ msgstr "Crear paquetes"
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__partner_id
 msgid "Delivery Address"
 msgstr "Dirección de entrega"
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__id
-msgid "ID"
-msgstr ""
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__max_weight
@@ -93,7 +69,7 @@ msgid "Package Type"
 msgstr "Tipo de Paquete"
 
 #. module: stock_picking_package_usability
-#: code:addons/stock_picking_package_usability/models/stock_picking.py:0
+#. odoo-python
 #: code:addons/stock_picking_package_usability/models/stock_picking.py:0
 #: model:ir.model,name:stock_picking_package_usability.model_stock_quant_package
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__quant_package_ids
@@ -121,14 +97,36 @@ msgid "Packages Weight"
 msgstr "Peso de paquetes"
 
 #. module: stock_picking_package_usability
+#: model:ir.model.fields,help:stock_picking_package_usability.field_product_packaging__height
+msgid "Packaging Height"
+msgstr "Altura del embalaje"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,help:stock_picking_package_usability.field_product_packaging__packaging_length
+msgid "Packaging Length"
+msgstr "Longitud del embalaje"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,help:stock_picking_package_usability.field_product_packaging__width
+msgid "Packaging Width"
+msgstr "Ancho del embalaje"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__packaging_id
+msgid ""
+"Packaging of the product, used for internal logisticstransfers, put-away "
+"rules, ..."
+msgstr "Embalaje del producto, utilizado para logística interna, traslados, normas de almacenaje, ..."
+
+#. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos de Producto (Stock Move Line)"
+msgstr "Movimientos productos (Stock Move Line)"
 
 #. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_product_packaging
 msgid "Product Packaging"
-msgstr "Empaquetado del producto"
+msgstr "Envase del producto"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__shipping_weight

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2020 Alfredo de la Fuente - Avanzosc S.L.
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
@@ -12,11 +11,7 @@
         "Alfredo de la Fuente <alfredodelafuente@avanzosc.es>",
     ],
     "license": "AGPL-3",
-    "depends": [
-        "product",
-        "purchase",
-        "stock"
-    ],
+    "depends": ["product", "purchase", "stock"],
     "data": [
         "views/product_supplierinfo_view.xml",
     ],
