@@ -47,7 +47,6 @@
       </form>
     </field>
   </record>
-
   <record id="product_import_line_view_tree" model="ir.ui.view">
     <field name="model">product.import.line</field>
     <field name="arch" type="xml">
@@ -63,15 +62,19 @@
           decoration-success="action == 'create'"
           decoration-info="action == 'update'"
         />
-        <field name="product_name" />
-        <field name="product_default_code" />
-        <field name="product_id" optional="hide" options="{'no_create': True}" />
-        <field name="sale_ok" optional="hide" />
-        <field name="purchase_ok" optional="hide" />
-        <field name="barcode" optional="show" />
-        <field name="list_price" optional="show" />
-        <field name="customer_tax" optional="show" />
-        <field
+                <field name="product_name" />
+                <field name="product_default_code" />
+                                <field 
+          name="product_id" 
+          optional="hide"
+          options="{'no_create': True}"
+        />
+                <field name="sale_ok" optional="hide" />
+                <field name="purchase_ok" optional="hide" />
+                <field name="barcode" optional="show" />
+                <field name="list_price" optional="show" />
+                <field name="customer_tax" optional="show" />
+                <field
           name="customer_tax_id"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
