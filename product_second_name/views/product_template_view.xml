@@ -5,24 +5,37 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="priority">17</field>
         <field name="arch" type="xml">
-            <field name="general_information" position="after">
+            <group name="group_standard_price" position="after">
+                <group name="second_name">
+                    <field name="allowed_location" />
+                    <field
+            name="name2"
+            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+          />
+                    <field
+            name="description_sale_es"
+            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+          />
+                    <field
+            name="description_sale_cat"
+            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+          />
+                    <field
+            name="description_sale_en"
+            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+          />
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="product_template_view_search" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
                 <field name="allowed_location" />
-                <field
-          name="name2"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-                <field
-          name="description_sale_es"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-                <field
-          name="description_sale_cat"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-                <field
-          name="description_sale_en"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
+                <field name="name2" />
             </field>
         </field>
     </record>
