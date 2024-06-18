@@ -34,7 +34,6 @@ los defectos encontrados y su gravedad, el resultado de la inspección es:</div>
                                         <t t-set="incorrect_answer_label" t-value="(label.col_label if label.col_label == col_label and not label.is_correct else None for label in question.suggested_answer_ids)"/>
                                     </t>
                                     <t t-if="answer.suggested_answer_id == col_label">
-                                        <t t-set="defecto" t-value="None"/>
                                         <t t-if="col_label.value == 'MUY GRAVE'">
                                             <t t-set="defecto" t-value="'MUY GRAVE'"/>
                                         </t>
