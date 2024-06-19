@@ -163,6 +163,10 @@ class SurveyUserInput(models.Model):
     remove_title_from_report = fields.Boolean(
         string=_("Remove Title From Report")
     )
+    remove_upper_text_from_report = fields.Boolean(
+        string=_("Remove Upper Text From Report")
+    )
+
 
     @api.model_create_multi
     def create(self, vals_list):
