@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_deliveryslip_user_lang">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="stock.report_delivery_document" t-lang="o._get_user_lang()"/>
+        </t>
+    </template>
+
+    <record id="action_report_delivery_user_lang" model="ir.actions.report">
+        <field name="name">Delivery Slip User Lang</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_picking_report_user_lang.report_deliveryslip_user_lang</field>
+        <field name="report_file">stock_picking_report_user_lang.report_deliveryslip_user_lang</field>
+        <field name="print_report_name">'Delivery Slip - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
