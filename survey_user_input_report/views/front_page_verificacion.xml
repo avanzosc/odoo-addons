@@ -37,28 +37,28 @@
 
         <div style="margin: 5px 0; height: 1200px">
             <div id="front_page_container">
-                    <span style="text-align: center; font-weight: bold;">
-                        <t t-if="o.building_use_id.is_industrial">
-                            <h5
-            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
-                            <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
-                        </t>
-                        <t t-else="">
-                            <h5
-            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
-                            <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
-                        </t>
-                    </span>
+                <span style="text-align: center; font-weight: bold;">
                     <t t-if="o.building_use_id.is_industrial">
-                        <p
-          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto 2267/2004, de 3 de diciembre</p>
+                        <h5
+            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
+                        <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
                     </t>
                     <t t-else="">
-                        <p
-          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
+                        <h5
+            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
+                        <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
                     </t>
-                    <p>
-                        <span style="font-weight: bold;">CERTIFICA: </span> que en fecha  <span t-field="o.inspection_start_date" />
+                </span>
+                <t t-if="o.building_use_id.is_industrial">
+                    <p
+          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto 2267/2004, de 3 de diciembre</p>
+                </t>
+                <t t-else="">
+                    <p
+          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
+                </t>
+                <p>
+                    <span style="font-weight: bold;">CERTIFICA: </span> que en fecha  <span t-field="o.inspection_start_date" />
  el inspector que suscribe el Acta  <span t-field="o.act_number" />
  ha realizado la inspección periódica de la instalación con las siguientes características</p>
 
@@ -98,25 +98,13 @@
                         <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">CARACTERÍSTICAS ESTABLECIMIENTO</div>
                         <div style="width: 80%; padding: 0;" class="column">
                             <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                <t t-if="o.building_section_id">
-                                    <div style="width: 33.33%;">USO:  <t t-if="o.building_section_id.section_use.is_industrial">INDUSTRIAL
-                                        </t>
-                                        <t t-else="">NO INDUSTRIAL</t>
-                                    </div>
+                                <div style="width: 33.33%;">USO:  <t t-if="o.building_use_id.is_industrial">INDUSTRIAL
+                                    </t>
+                                    <t t-else="">NO INDUSTRIAL</t>
+                                </div>
 
-                                    <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.building_section_id.area" />
-                                    </div>
-                                </t>
-                                <t t-else="">
-                                    <div style="width: 33.33%;">USO:  <t t-if="o.building_use_id.is_industrial">INDUSTRIAL
-                                        </t>
-                                        <t t-else="">NO INDUSTRIAL</t>
-                                    </div>
-
-                                    <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area" />
-                                    </div>
-                                </t>
-
+                                <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area" />
+                                </div>
                                 <div style="width: 33.33%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors" />
                                 </div>
                             </div>
@@ -127,246 +115,123 @@
                             <t t-set="half_len_int" t-value="len(use_names) // 2" />
                             <t t-set="half_len_float" t-value="len(use_names) / 2" />
 
-                            <t t-if="o.building_section_id">
-                                <t t-if="half_len_int != half_len_float">
-                                    <div class="row" style="padding: 4px 0">
-                                        <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                                <t t-if="o.building_section_id.section_use.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                    <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                        <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                                <t t-if="o.building_section_id.section_use.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                </t>
-                                <t t-else="">
-                                    <div class="row" style="padding: 4px 0">
-                                        <t t-foreach="use_names[:half_len_int]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
-                                                <t t-if="o.building_section_id.section_use.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                    <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                        <t t-foreach="use_names[half_len_int:]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
-                                                <t t-if="o.building_section_id.section_use.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                </t>
-
+                            <t t-if="half_len_int != half_len_float">
                                 <div class="row" style="padding: 4px 0">
-                                    <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.risk and 'BAJ' in str(o.building_section_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>BAJO</span>
-                                    </div>
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.risk and 'MEDI' in str(o.building_section_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>MEDIA</span>
-                                    </div>
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.risk and 'ALT' in str(o.building_section_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>ALTO</span>
-                                    </div>
+                                    <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
+                                        <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
+                                            <t t-if="o.building_use_id.name == use">
+                                                <span style="font-weight: bold; ">X</span>
+                                            </t>
+                                            <t t-esc="use" />
+                                        </div>
+                                    </t>
                                 </div>
-                            </t>
-                            <t t-else="">
-                                <t t-if="half_len_int != half_len_float">
-                                    <div class="row" style="padding: 4px 0">
-                                        <t t-foreach="use_names[:half_len_int + 1]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                                <t t-if="o.building_use_id.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                    <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                        <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
-                                                <t t-if="o.building_use_id.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                </t>
-                                <t t-else="">
-                                    <div class="row" style="padding: 4px 0">
-                                        <t t-foreach="use_names[:half_len_int]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
-                                                <t t-if="o.building_use_id.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                    <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
-                                        <t t-foreach="use_names[half_len_int:]" t-as="use">
-                                            <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
-                                                <t t-if="o.building_use_id.name == use">
-                                                    <span style="font-weight: bold; ">X</span>
-                                                </t>
-                                                <t t-esc="use" />
-                                            </div>
-                                        </t>
-                                    </div>
-                                </t>
-
-                                <div class="row" style="padding: 4px 0">
-                                    <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
-
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.risk and 'BAJ' in str(o.inspected_building_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>BAJO</span>
-                                    </div>
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.risk and 'MEDI' in str(o.inspected_building_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>MEDIA</span>
-                                    </div>
-                                    <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.risk and 'ALT' in str(o.inspected_building_id.risk)">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
-                                        <span>ALTO</span>
-                                    </div>
-                                </div>
-                            </t>
-                            <t t-if="o.building_section_id">
-                                <div class="row" style="padding: 4px 0">
-                                    <div style="width: 40%;">CONFIGURACIÓN: </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.configuration=='A'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>A</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.configuration=='B'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>B</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.configuration=='C'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>C</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.configuration=='D'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>D</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.building_section_id.configuration=='E'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>E</span>
-                                    </div>
+                                <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
+                                    <t t-foreach="use_names[half_len_int + 1:]" t-as="use">
+                                        <div t-att-style="'width: ' + str(100 / (half_len_int + 1)) + '%;'">
+                                            <t t-if="o.building_use_id.name == use">
+                                                <span style="font-weight: bold; ">X</span>
+                                            </t>
+                                            <t t-esc="use" />
+                                        </div>
+                                    </t>
                                 </div>
                             </t>
                             <t t-else="">
                                 <div class="row" style="padding: 4px 0">
-                                    <div style="width: 40%;">CONFIGURACIÓN: </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.configuration=='A'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>A</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.configuration=='B'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>B</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.configuration=='C'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>C</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.configuration=='D'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>D</span>
-                                    </div>
-                                    <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
-                                        <t t-if="o.inspected_building_id.configuration=='E'">
-                                            <span style="font-weight: bold;">X</span>
-                                        </t>
-                                    </div>
-                                    <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
-                                        <span>E</span>
-                                    </div>
+                                    <t t-foreach="use_names[:half_len_int]" t-as="use">
+                                        <div t-att-style="'width: ' + str(100 / (half_len_int)) + '%;'">
+                                            <t t-if="o.building_use_id.name == use">
+                                                <span style="font-weight: bold; ">X</span>
+                                            </t>
+                                            <t t-esc="use" />
+                                        </div>
+                                    </t>
                                 </div>
-
+                                <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
+                                    <t t-foreach="use_names[half_len_int:]" t-as="use">
+                                        <div t-att-style="'width: ' + str(100 / half_len_int) + '%;'">
+                                            <t t-if="o.building_use_id.name == use">
+                                                <span style="font-weight: bold; ">X</span>
+                                            </t>
+                                            <t t-esc="use" />
+                                        </div>
+                                    </t>
+                                </div>
                             </t>
+
+                            <div class="row" style="padding: 4px 0">
+                                <div style="width: 40%;">NIVEL RIESGO INTRÍNSECO: </div>
+
+                                <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.risk and 'BAJ' in str(o.inspected_building_id.risk)">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                    <span>BAJO</span>
+                                </div>
+                                <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.risk and 'MEDI' in str(o.inspected_building_id.risk)">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                    <span>MEDIA</span>
+                                </div>
+                                <div style="padding: 0; width: 5%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.risk and 'ALT' in str(o.inspected_building_id.risk)">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 15%; display: -webkit-box; -webkit-box-align: center; margin: 0; ">
+                                    <span>ALTO</span>
+                                </div>
+                            </div>
+                            <div class="row" style="padding: 4px 0">
+                                <div style="width: 40%;">CONFIGURACIÓN: </div>
+                                <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.configuration=='A'">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                    <span>A</span>
+                                </div>
+                                <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.configuration=='B'">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                    <span>B</span>
+                                </div>
+                                <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.configuration=='C'">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                    <span>C</span>
+                                </div>
+                                <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.configuration=='D'">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                    <span>D</span>
+                                </div>
+                                <div style="padding: 0; width: 4%; display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center;">
+                                    <t t-if="o.inspected_building_id.configuration=='E'">
+                                        <span style="font-weight: bold;">X</span>
+                                    </t>
+                                </div>
+                                <div style="padding: 0; width: 8%; display: -webkit-box; -webkit-box-align: center;">
+                                    <span>E</span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="columns" style="width: 100%; margin-bottom: -1px;">

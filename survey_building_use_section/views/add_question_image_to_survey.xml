@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="survey_question_container_inherit_template" inherit_id="survey.question_container">
+        <xpath expr="//div/div[1]" position="before">
+            <t t-if="question.image">
+                <img height="auto" width="100%" t-att-src="'data:image/png;base64,' + question.image.decode('utf-8')" alt="Question Image"/>
+            </t>
+        </xpath>
+    </template>
+</odoo>

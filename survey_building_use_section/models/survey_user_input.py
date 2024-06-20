@@ -173,12 +173,6 @@ class SurveyUserInput(models.Model):
         column1="survey_report_fussion_id",
         column2="survey_report_id",
     )
-    remove_title_from_report = fields.Boolean(
-        string="Remove Title From Report",
-    )
-    remove_upper_text_from_report = fields.Boolean(
-        string="Remove Upper Text From Report",
-    )
 
     @api.model_create_multi
     def create(self, vals_list):

@@ -17,6 +17,7 @@
         "security/ir.model.access.csv",
         "wizard/survey_invite_views.xml",
         "views/add_matrix_article_filter.xml",
+        "views/add_question_image_to_survey.xml",
         "views/remove_retake_option.xml",
         "views/survey_question_answer_views.xml",
         "views/survey_question_article_views.xml",

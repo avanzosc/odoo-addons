@@ -9,6 +9,7 @@
         "survey",
         "res_partner_building_use_section",
         "survey_building_use_section",
+        "survey_question_image",
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
