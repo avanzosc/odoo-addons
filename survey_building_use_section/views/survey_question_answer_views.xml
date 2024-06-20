@@ -6,11 +6,15 @@
         <field name="arch" type="xml">
             <sheet position="inside">
                 <group colspan="2">
-                    <field name="question_article_ids" widget="many2many_tags" colspan="2"/>
+                    <field
+            name="question_article_ids"
+            widget="many2many_tags"
+            colspan="2"
+          />
                 </group>
             </sheet>
             <field name="sequence" position="after">
-                <field name="notes"/>
+                <field name="notes" />
             </field>
 
         </field>
@@ -21,10 +25,14 @@
         <field name="inherit_id" ref="survey.survey_question_answer_view_tree" />
         <field name="arch" type="xml">
             <field name="question_id" position="after">
-                <field name="question_article_ids" widget="many2many_tags" optional="show"/>
+                <field
+          name="question_article_ids"
+          widget="many2many_tags"
+          optional="show"
+        />
             </field>
             <field name="sequence" position="after">
-                <field name="notes" optional="show"/>
+                <field name="notes" optional="show" />
             </field>
 
         </field>
@@ -35,12 +43,22 @@
         <field name="inherit_id" ref="survey.survey_question_answer_view_search" />
         <field name="arch" type="xml">
             <field name="question_id" position="after">
-                <field name="survey_id"/>
-                <field name="matrix_survey_id"/>
+                <field name="survey_id" />
+                <field name="matrix_survey_id" />
             </field>
             <filter name="group_by_question" position="after">
-                <filter name="group_by_survey" string="Survey" domain="[]" context="{'group_by':'survey_id'}"/>
-                <filter name="group_by_matrix_survey" string="Matrix Survey" domain="[]" context="{'group_by':'matrix_survey_id'}"/>
+                <filter
+          name="group_by_survey"
+          string="Survey"
+          domain="[]"
+          context="{'group_by':'survey_id'}"
+        />
+                <filter
+          name="group_by_matrix_survey"
+          string="Matrix Survey"
+          domain="[]"
+          context="{'group_by':'matrix_survey_id'}"
+        />
             </filter>
         </field>
     </record>

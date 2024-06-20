@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="report_front_page" name="Portada">
         <style>
@@ -25,7 +25,7 @@
 
         <!-- PAGE NUMBER IN FOOTER -->
         <div class="footer" style="position:absolute; margin:0px; padding:0px; font-size: 12px;color: #666;">
-            <span class="page"/>/<span class="topage"/>
+            <span class="page" />/<span class="topage" />
         </div>
 
 
@@ -33,23 +33,27 @@
             <t t-if="o.remove_upper_text_from_report">
                 <span style="text-align: center; font-weight: bold;">
                     <t t-if="o.building_use_id.is_industrial">
-                        <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
+                        <h5
+            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS INDUSTRIALES</h5>
                         <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
                     </t>
                     <t t-else="">
-                        <h5>ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
+                        <h5
+            >ACTA DE INSPECCIÓN PERIÓDICA ESTABLECIMIENTOS NO INDUSTRIALES</h5>
                         <h6>INSTALACIÓN DE PROTECCIÓN CONTRA INCENDIOS</h6>
                     </t>
                 </span>
                 <t t-if="o.building_use_id.is_industrial">
-                    <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto 2267/2004, de 3 de diciembre</p>
+                    <p
+          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 6 del Reglamento de Instalaciones de Protección Contra Incendios en Establecimientos Industriales aprobado por el Real Decreto 2267/2004, de 3 de diciembre</p>
                 </t>
                 <t t-else="">
-                    <p>Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
+                    <p
+          >Okatek Servicios y Control S.L., Organismo de Control habilitado según la acreditación ENAC Nº545 / EI862, en aplicación del Artículo 22 del Reglamento de Instalaciones de Protección Contra Incendios aprobado por el Real Decreto 513/2017,de 22 de mayo</p>
                 </t>
                 <p>
-                    <span style="font-weight: bold;">CERTIFICA: </span> que en fecha  <span t-field="o.inspection_start_date"/>
- el inspector que suscribe el Acta  <span t-field="o.act_number"/>
+                    <span style="font-weight: bold;">CERTIFICA: </span> que en fecha  <span t-field="o.inspection_start_date" />
+ el inspector que suscribe el Acta  <span t-field="o.act_number" />
    ha realizado la inspección periódica de la instalación con las siguientes características</p>
         </t>
 
@@ -58,17 +62,17 @@
             <div class="row" style="border: 1px solid #ccc">
                 <div style="width: 75%;">
                     <span style="font-weight: bold;">TITULAR DE LA INSTALACIÓN:  </span>
-                    <span t-field="o.inspected_building_id.parent_id.name"/>
+                    <span t-field="o.inspected_building_id.parent_id.name" />
                 </div>
                 <div style="width: 25%; border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">NIF / CIF:  </span>
-                    <span t-field="o.inspected_building_id.vat"/>
+                    <span t-field="o.inspected_building_id.vat" />
                 </div>
             </div>
             <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
                 <div>
                     <span style="font-weight: bold;">DENOMINACIÓN DE LA INSTALACIÓN:  </span>
-                    <span t-field="o.inspected_building_id.name"/>
+                    <span t-field="o.inspected_building_id.name" />
                 </div>
             </div>
             <div class="columns" style="width: 100%; margin-top: -1px; border: 1px solid #ccc;">
@@ -76,9 +80,9 @@
                     <div style="width: 20%; border-right: 1px dashed #ccc; font-weight: bold;">EMPLAZAMIENTO DE LA INSTALACIÓN:</div>
                     <div class="columns" style="width: 80%;">
                         <div class="row" style="padding: 0">
-                            <div style="padding: 5px; width: 69%; border-right: 1px dashed #ccc;">DIRECCIÓN:  <span t-field="o.inspected_building_id.street"/>
+                            <div style="padding: 5px; width: 69%; border-right: 1px dashed #ccc;">DIRECCIÓN:  <span t-field="o.inspected_building_id.street" />
                             </div>
-                            <div style="padding: 5px; width: 31%;">CP.: <span t-field="o.inspected_building_id.zip"/>
+                            <div style="padding: 5px; width: 31%;">CP.: <span t-field="o.inspected_building_id.zip" />
                             </div>
                         </div>
                     </div>
@@ -95,7 +99,7 @@
                                     <t t-else="">NO INDUSTRIAL</t>
                                 </div>
 
-                                <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.building_section_id.area"/>
+                                <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.building_section_id.area" />
                                 </div>
                             </t>
                             <t t-else="">
@@ -104,19 +108,19 @@
                                     <t t-else="">NO INDUSTRIAL</t>
                                 </div>
 
-                                <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area"/>
+                                <div style="width: 33.33%;">SUPERFICIE (m²): <span t-field="o.inspected_building_id.area" />
                                 </div>
                             </t>
 
-                            <div style="width: 33.33%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors"/>
+                            <div style="width: 33.33%;">Nº PLANTAS: <span t-field="o.inspected_building_id.number_of_floors" />
                             </div>
                         </div>
 
                         <!-- Field use to print the uses in the database in 2 rows -->
-                        <t t-set="building_uses" t-value="request.env['building.use'].search([])"/>
-                        <t t-set="use_names" t-value="building_uses.mapped('name')"/>
-                        <t t-set="half_len_int" t-value="len(use_names) // 2"/>
-                        <t t-set="half_len_float" t-value="len(use_names) / 2"/>
+                        <t t-set="building_uses" t-value="request.env['building.use'].search([])" />
+                        <t t-set="use_names" t-value="building_uses.mapped('name')" />
+                        <t t-set="half_len_int" t-value="len(use_names) // 2" />
+                        <t t-set="half_len_float" t-value="len(use_names) / 2" />
 
                         <t t-if="o.building_section_id">
                             <t t-if="half_len_int != half_len_float">
@@ -126,7 +130,7 @@
                                             <t t-if="o.building_section_id.section_use.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -136,7 +140,7 @@
                                             <t t-if="o.building_section_id.section_use.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -148,7 +152,7 @@
                                             <t t-if="o.building_section_id.section_use.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -158,7 +162,7 @@
                                             <t t-if="o.building_section_id.section_use.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -200,7 +204,7 @@
                                             <t t-if="o.building_use_id.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -210,7 +214,7 @@
                                             <t t-if="o.building_use_id.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -222,7 +226,7 @@
                                             <t t-if="o.building_use_id.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -232,7 +236,7 @@
                                             <t t-if="o.building_use_id.name == use">
                                                 <span style="font-weight: bold; ">X</span>
                                             </t>
-                                            <t t-esc="use"/>
+                                            <t t-esc="use" />
                                         </div>
                                     </t>
                                 </div>
@@ -372,26 +376,26 @@
                                     <div class="columns">
                                         <div style="width: 100%;">
                                             <span style="font-weight: bold;">Título: </span>
-                                            <span t-field="o.project_title"/>
+                                            <span t-field="o.project_title" />
                                         </div>
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Autor: </span>
-                                                <span t-field="o.project_author_id"/>
+                                                <span t-field="o.project_author_id" />
                                             </div>
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Titulación: </span>
-                                                <span t-field="o.project_author_degree"/>
+                                                <span t-field="o.project_author_degree" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Colegiado N.º: </span>
-                                                <span t-field="o.project_author_license"/>
+                                                <span t-field="o.project_author_license" />
                                             </div>
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Fecha / N.º  </span>
-                                                <span t-field="o.project_approved_date"/>
+                                                <span t-field="o.project_approved_date" />
                                             </div>
                                         </div>
                                     </div>
@@ -404,21 +408,21 @@
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Autor: </span>
-                                                <span t-field="o.dof_author_id"/>
+                                                <span t-field="o.dof_author_id" />
                                             </div>
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Titulación: </span>
-                                                <span t-field="o.dof_author_degree"/>
+                                                <span t-field="o.dof_author_degree" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Colegiado N.º: </span>
-                                                <span t-field="o.dof_author_license"/>
+                                                <span t-field="o.dof_author_license" />
                                             </div>
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Fecha / N.º Visado:  </span>
-                                                <span t-field="o.dof_approved_date"/>
+                                                <span t-field="o.dof_approved_date" />
                                             </div>
                                         </div>
                                     </div>
@@ -431,17 +435,17 @@
                                         <div class="row">
                                             <div style="width: 100%;">
                                                 <span style="font-weight: bold;"> Empresa:  </span>
-                                                <span t-field="o.installer_id"/>
+                                                <span t-field="o.installer_id" />
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> EPI:  </span>
-                                                <span t-field="o.installer_epi"/>
+                                                <span t-field="o.installer_epi" />
                                             </div>
                                             <div style="width: 50%;">
                                                 <span style="font-weight: bold;"> Fecha:  </span>
-                                                <span t-field="o.certification_date"/>
+                                                <span t-field="o.certification_date" />
                                             </div>
                                         </div>
                                     </div>
@@ -455,32 +459,32 @@
                 <div style="width: 20%; border-right: 1px dashed #ccc;">
                     <span style="font-weight: bold;">REGLAMENTO APLICABLE:  </span>
                 </div>
-                <t t-set="found_normative_filter" t-value="False"/>
+                <t t-set="found_normative_filter" t-value="False" />
                 <t t-foreach="o.survey_id.question_and_page_ids" t-as="question">
                     <t t-if="question.is_normative_filter and not found_normative_filter">
-                        <t t-set="all_normatives" t-value="request.env['survey.question.normative'].search([])"/>
-                        <t t-set="building_date" t-value="o.inspected_building_id.service_start_date"/>
-                        <t t-set="selected_answers" t-value="[]"/>
+                        <t t-set="all_normatives" t-value="request.env['survey.question.normative'].search([])" />
+                        <t t-set="building_date" t-value="o.inspected_building_id.service_start_date" />
+                        <t t-set="selected_answers" t-value="[]" />
 
                         <t t-foreach="question.suggested_answer_ids" t-as="answer">
-                            <t t-set="answer_found" t-value="False"/>
+                            <t t-set="answer_found" t-value="False" />
                             <t t-foreach="all_normatives" t-as="normative">
                                 <t t-if="normative.start_date &lt;= building_date and building_date &lt; normative.end_date">
                                     <t t-if="answer.value == normative.name">
-                                        <t t-set="selected_answers" t-value="selected_answers + [answer.value]"/>
+                                        <t t-set="selected_answers" t-value="selected_answers + [answer.value]" />
                                     </t>
                                 </t>
                             </t>
                         </t>
 
-                        <t t-set="found_normative_filter" t-value="True"/>
-                        <t t-set="selected_answers" t-value="[answer for answer in selected_answers if answer != '--']"/>
+                        <t t-set="found_normative_filter" t-value="True" />
+                        <t t-set="selected_answers" t-value="[answer for answer in selected_answers if answer != '--']" />
 
-                        <t t-set="answer_count" t-value="len(selected_answers)"/>
-                        <t t-set="i" t-value="0"/>
+                        <t t-set="answer_count" t-value="len(selected_answers)" />
+                        <t t-set="i" t-value="0" />
                         <t t-foreach="selected_answers" t-as="label">
-                            <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc;' if i &lt; answer_count - 1 else '')" t-esc="label"/>
-                            <t t-set="i" t-value="i + 1"/>
+                            <div t-att-style="'width:' + str(80 / answer_count) + '%; padding: 5px;' + ('border-right: 1px dashed #ccc;' if i &lt; answer_count - 1 else '')" t-esc="label" />
+                            <t t-set="i" t-value="i + 1" />
                         </t>
                     </t>
                 </t>
@@ -489,24 +493,24 @@
             <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
                 <div style="width: 50%;">
                     <span style="font-weight: bold;">Nº REGISTRO INSTALACIÓN:  </span>
-                    <span t-field="o.installation_number"/>
+                    <span t-field="o.installation_number" />
                     <br />
                     <span style="font-weight: bold;">Nº EXPEDIENTE:  </span>
-                    <span t-field="o.file_number"/>
+                    <span t-field="o.file_number" />
 
                 </div>
                 <div style="width: 50%; border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">FECHA PUESTA EN SERVICIO:  </span>
                     <t t-if="o.inspected_building_id.service_end_date">
-                        <span t-field="o.inspected_building_id.service_end_date"/>
+                        <span t-field="o.inspected_building_id.service_end_date" />
                     </t>
                     <t t-else="">
-                        <span t-field="o.inspected_building_id.alternative_text"/>
+                        <span t-field="o.inspected_building_id.alternative_text" />
                     </t>
                     <br />
                     <span style="font-weight: bold;">FECHA INICIO ACTIVIDAD:  </span>
 
-                    <span t-field="o.inspected_building_id.service_start_date"/>
+                    <span t-field="o.inspected_building_id.service_start_date" />
 
                 </div>
             </div>
@@ -514,18 +518,18 @@
             <div class="row" style="border: 1px solid #ccc;margin-top: -1px;">
                 <div style="width: 40%;">
                     <span style="font-weight: bold;">TIPO DE INSPECCION:  </span>
-                    <span t-field="o.inspection_type"/>
+                    <span t-field="o.inspection_type" />
                 </div>
                 <div style="width: 30%;border-left: 1px solid #ccc">
                     <span style="font-weight: bold;">FECHA:  </span>
-                    <span t-field="o.inspection_start_date"/>
+                    <span t-field="o.inspection_start_date" />
                     <span> al </span>
-                    <span t-field="o.inspection_end_date"/>
+                    <span t-field="o.inspection_end_date" />
                 </div>
                 <div style="width: 30%; border-left: 1px solid #ccc;">
                     <span style="font-weight: bold;">EQUIPOS:  </span>
                     <t t-foreach="o.equipment_ids" t-as="equipment">
-                        <span t-field="equipment.equipment_id.name"/>
+                        <span t-field="equipment.equipment_id.name" />
                     </t>
                 </div>
             </div>
@@ -533,11 +537,11 @@
             <div class="row" style="border: 1px solid #ccc; margin-top: -1px;">
                 <div style="width: 70%;border-right: 1px solid #ccc;">
                     <span style="font-weight: bold;">EMPRESA MANTENEDORA:  </span>
-                    <span t-field="o.maintainer_id"/>
+                    <span t-field="o.maintainer_id" />
                 </div>
                 <div style="width: 30%;">
                     <span style="font-weight: bold;">EMI:  </span>
-                    <span t-field="o.maintainer_emi"/>
+                    <span t-field="o.maintainer_emi" />
                 </div>
             </div>
 
@@ -547,7 +551,7 @@
         <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
             <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:  </div>
             <div class="row">
-                <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])"/>
+                <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])" />
                 <div t-att-style="'width: ' + str(100 / 3) + '%;'">
                     <ul class="list-unstyled">
                         <t t-foreach="equipment_records[:len(equipment_records) // 3]" t-as="equipment">
@@ -555,7 +559,7 @@
                                 <t t-if="equipment in o.installed_equipment_ids">
                                     <strong>X</strong>
                                 </t>
-                                <t t-esc="equipment.name"/>
+                                <t t-esc="equipment.name" />
                             </li>
                         </t>
                     </ul>
@@ -567,7 +571,7 @@
                                 <t t-if="equipment in o.installed_equipment_ids">
                                     <strong>X</strong>
                                 </t>
-                                <t t-esc="equipment.name"/>
+                                <t t-esc="equipment.name" />
                             </li>
                         </t>
                     </ul>
@@ -579,7 +583,7 @@
                                 <t t-if="equipment in o.installed_equipment_ids">
                                     <strong>X</strong>
                                 </t>
-                                <t t-esc="equipment.name"/>
+                                <t t-esc="equipment.name" />
                             </li>
                         </t>
                     </ul>

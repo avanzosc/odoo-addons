@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template id="pdf_survey_verificacion" name="Verificación Vista General">
         <t t-if="not company">
@@ -18,11 +18,19 @@
             <page>
                 <t t-if="o.survey_id.title and not o.remove_title_from_report">
                     <div style="text-align: center; padding: .6rem; margin: 0;">
-                        <h1 t-field="o.survey_id.title" style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;" />
+                        <h1
+              t-field="o.survey_id.title"
+              style="font-size: 1.5rem; font-weight: bold; margin-bottom: .25rem;"
+            />
                     </div>
                 </t>
-                <t t-if="o.survey_id.description and not o.remove_upper_text_from_report">
-                    <div t-field="o.survey_id.description" style="margin-bottom: 1.5rem;" />
+                <t
+          t-if="o.survey_id.description and not o.remove_upper_text_from_report"
+        >
+                    <div
+            t-field="o.survey_id.description"
+            style="margin-bottom: 1.5rem;"
+          />
                 </t>
                 <t t-if="review" t-call="o.survey_id.survey_button_retake" />
                 <t t-set="survey_form_readonly" t-value="true" />
@@ -31,8 +39,13 @@
                         <div role="form">
                             <fieldset disabled="disabled">
                                 <!-- <t t-call="survey_user_input_report.report_front_page_verificacion" t-lang="o.partner_id.lang" /> -->
-                                <t t-call="survey_user_input_report.report_front_page" t-lang="o.partner_id.lang" />
-                                <t t-call="survey_user_input_report.answers_template_verificacion" />
+                                <t
+                  t-call="survey_user_input_report.report_front_page"
+                  t-lang="o.partner_id.lang"
+                />
+                                <t
+                  t-call="survey_user_input_report.answers_template_verificacion"
+                />
                             </fieldset>
                         </div>
                     </div>
@@ -41,20 +54,33 @@
         </t>
     </template>
 
-    <template id="report_survey_pdf_pdf_survey_verificacion" name="Verificacion Template">
+    <template
+    id="report_survey_pdf_pdf_survey_verificacion"
+    name="Verificacion Template"
+  >
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="survey_user_input_report.pdf_survey_verificacion" t-lang="o.partner_id.lang" />
+                <t
+          t-call="survey_user_input_report.pdf_survey_verificacion"
+          t-lang="o.partner_id.lang"
+        />
             </t>
         </t>
     </template>
 
-    <record id="action_report_survey_print_pdf_survey_verificacion" model="ir.actions.report">
+    <record
+    id="action_report_survey_print_pdf_survey_verificacion"
+    model="ir.actions.report"
+  >
         <field name="name">Verificación</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
-        <field name="report_file">survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
+        <field
+      name="report_name"
+    >survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
+        <field
+      name="report_file"
+    >survey_user_input_report.report_survey_pdf_pdf_survey_verificacion</field>
         <field name="print_report_name">'Informe Verificación'</field>
         <field name="binding_model_id" ref="survey.model_survey_user_input" />
         <field name="binding_type">report</field>

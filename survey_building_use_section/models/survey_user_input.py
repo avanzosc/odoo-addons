@@ -1,42 +1,41 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+import logging
+
 from odoo import api, fields, models
 from odoo.http import request
 
-import logging
-
 _logger = logging.getLogger(__name__)
-
 
 class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
     inspected_building_id = fields.Many2one(
+        "res.partner",
         string="Inspected Building",
-        comodel_name="res.partner",
     )
     maintainer_id = fields.Many2one(
-        related="inspected_building_id.maintainer_id",
+        "res.partner",
         string="Maintainer",
-        comodel_name="res.partner",
+        related="inspected_building_id.maintainer_id",
     )
     maintainer_emi = fields.Char(
         string="Maintainer EMI",
-        related="maintainer_id.emi"
+        related="maintainer_id.emi",
     )
     installer_id = fields.Many2one(
-        related="inspected_building_id.installer_id",
+        "res.partner",
         string="Installer",
-        comodel_name="res.partner",
+        related="inspected_building_id.installer_id",
     )
     installer_epi = fields.Char(
-        string="Installer EPI",    
-        related="installer_id.epi"
+        string="Installer EPI",
+        related="installer_id.epi",
     )
     administrator_id = fields.Many2one(
-        related="inspected_building_id.administrator_id",
+        "res.partner",
         string="Administrator",
-        comodel_name="res.partner",
+        related="inspected_building_id.administrator_id",
     )
     configuration = fields.Selection(
         string="Configuration",
@@ -44,17 +43,18 @@ class SurveyUserInput(models.Model):
         store=True,
     )
     building_section_id = fields.Many2one(
+        "building.section",
         string="Building Section/Area",
-        comodel_name="building.section",
     )
     section_ids = fields.One2many(
+        "building.section",
+        "partner_id",
         string="Inspected Building Section/Area",
-        comodel_name="building.section",
         related="inspected_building_id.building_section_ids",
     )
     building_use_id = fields.Many2one(
+        "building.use",
         string="Building type",
-        comodel_name="building.use",
         related="inspected_building_id.building_use_id",
         store=True,
     )
@@ -84,8 +84,8 @@ class SurveyUserInput(models.Model):
         store=True,
     )
     installation_number = fields.Char(
-        string='Installation Number', 
-        related="inspected_building_id.installation_number"
+        string="Installation Number",
+        related="inspected_building_id.installation_number",
     )
     act_number = fields.Char(
         string="Act Number",
@@ -97,32 +97,36 @@ class SurveyUserInput(models.Model):
         string="Inspection End Date",
     )
     inspector_id = fields.Many2one(
+        "res.partner",
         string="Inspector",
-        comodel_name="res.partner",
     )
     inspection_type = fields.Selection(
-        selection=[("periodic", "Periodic"), ("volunteer", "Volunteer"), ("correction_of_deficiencies", "Correction of Deficiencies")],
+        [
+            ("periodic", "Periodic"),
+            ("volunteer", "Volunteer"),
+            ("correction_of_deficiencies", "Correction of Deficiencies"),
+        ],
         string="Inspection Type",
     )
     date_deficiency_correction = fields.Date(
-        string="Date Deficiency Correction"
+        string="Date Deficiency Correction",
     )
     next_inspection_date = fields.Date(
-        string="Next Inspection Date"
+        string="Next Inspection Date",
     )
     installed_equipment_ids = fields.Many2many(
-        'installed.equipment', 
-        string="Installed Equipment"
+        "installed.equipment",
+        string="Installed Equipment",
     )
 
     # Project
     project_title = fields.Char(
         string="Project Title",
-        related="inspected_building_id.project_title"
+        related="inspected_building_id.project_title",
     )
     project_author_id = fields.Many2one(
+        "res.partner",
         string="Project Author",
-        comodel_name="res.partner",
         related="inspected_building_id.project_author_id",
     )
     project_author_degree = fields.Char(
@@ -137,14 +141,16 @@ class SurveyUserInput(models.Model):
         string="Project Approved Date",
         related="inspected_building_id.project_approved_date",
     )
+
     certification_date = fields.Date(
         string="Certification Date",
         related="inspected_building_id.certification_date",
     )
+
     # Certificate of Final Work Direction
     dof_author_id = fields.Many2one(
+        "res.partner",
         string="Director of Works Author",
-        comodel_name="res.partner",
         related="inspected_building_id.dof_author_id",
     )
     dof_author_degree = fields.Char(
@@ -159,24 +165,24 @@ class SurveyUserInput(models.Model):
         string="Director of Works Approved Date",
         related="inspected_building_id.dof_approved_date",
     )
+
     survey_report_fussion = fields.Many2many(
-        comodel_name="survey.user_input",
+        "survey.user_input",
         string="Survey Report Fussion",
         relation="survey_report_fussion_rel",
         column1="survey_report_fussion_id",
         column2="survey_report_id",
     )
     remove_title_from_report = fields.Boolean(
-        string="Remove Title From Report"
+        string="Remove Title From Report",
     )
     remove_upper_text_from_report = fields.Boolean(
-        string="Remove Upper Text From Report"
+        string="Remove Upper Text From Report",
     )
-
 
     @api.model_create_multi
     def create(self, vals_list):
-        inputs = super(SurveyUserInput, self).create(vals_list)
+        inputs = super().create(vals_list)
         for input in inputs:
             if "building" in self.env.context:
                 input.inspected_building_id = self.env.context.get("building").id

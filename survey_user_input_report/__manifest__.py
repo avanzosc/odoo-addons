@@ -19,9 +19,9 @@
         "views/answers_template_verificacion.xml",
         "views/front_page.xml",
         "views/front_page_inspeccion.xml",
-        "views/paper_format.xml",
         "views/survey_pdf_report_inspeccion.xml",
         "views/survey_pdf_report_verificacion.xml",
+        "views/paper_format.xml",
     ],
     "installable": True,
 }

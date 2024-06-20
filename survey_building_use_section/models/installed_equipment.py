@@ -1,10 +1,11 @@
-from odoo import models, fields
+from odoo import fields, models
+
 
 class InstalledEquipment(models.Model):
-    _name = 'installed.equipment'
-    _description = 'Installed Equipment'
+    _name = "installed.equipment"
+    _description = "Installed Equipment"
 
     name = fields.Char(
-        string="Equipment Name",
+        "Equipment Name", 
         required=True
     )

@@ -5,6 +5,7 @@ import logging
 
 from odoo import http
 from odoo.http import request
+
 from odoo.addons.survey.controllers.main import Survey
 
 _logger = logging.getLogger(__name__)
@@ -26,15 +27,12 @@ class Survey(Survey):
             ),
         )
 
-
     def _create_and_fill_normative_filters(
         self, current_survey_id, current_user_input_id
     ):
-        
-        
-        # Delete all questions of filter normative for this 
-        # to calculate the normatives again correctly 
-        
+        # Delete all questions of filter normative for this
+        # to calculate the normatives again correctly
+
         questions = request.env["survey.question"].search(
             [("survey_id", "=", current_survey_id.id)]
         )
@@ -49,8 +47,6 @@ class Survey(Survey):
                     }
                 )
 
-        
-        
         triggering_question_ids = request.env["survey.question"].search(
             [
                 ("survey_id", "=", current_survey_id.id),
@@ -58,11 +54,14 @@ class Survey(Survey):
             ]
         )
 
-        Survey._create_and_fill_normative_filters_logic(current_survey_id, current_user_input_id, triggering_question_ids)
+        Survey._create_and_fill_normative_filters_logic(
+            current_survey_id, current_user_input_id, triggering_question_ids
+        )
 
     @staticmethod
-    def _create_and_fill_normative_filters_logic(current_survey_id, current_user_input_id, triggering_question_ids):
-
+    def _create_and_fill_normative_filters_logic(
+        current_survey_id, current_user_input_id, triggering_question_ids
+    ):
         for triggering_question_id in triggering_question_ids:
             if triggering_question_id.questions_to_filter:
                 for question in current_survey_id.question_and_page_ids:
@@ -70,7 +69,6 @@ class Survey(Survey):
                         for (
                             triggering_question_to_filter
                         ) in triggering_question_id.questions_to_filter:
-
                             triggering_question_before = (
                                 triggering_question_to_filter.triggering_question_id
                             )
@@ -84,7 +82,9 @@ class Survey(Survey):
                             ):
                                 # If a question has no normative, show it no matter the normative and
                                 # remove the is conditional filter
-                                if not triggering_question_to_filter.question_normative_ids:
+                                if (
+                                    not triggering_question_to_filter.question_normative_ids
+                                ):
                                     triggering_question_to_filter.write(
                                         {
                                             "is_conditional": False,
@@ -92,7 +92,9 @@ class Survey(Survey):
                                     )
 
                                 else:
-                                    if triggering_question_to_filter.question_normative_ids:
+                                    if (
+                                        triggering_question_to_filter.question_normative_ids
+                                    ):
                                         # All other questions must be conditional. If they are not conditional they will be displayed
                                         # no matter the condition
                                         triggering_question_to_filter.write(
@@ -141,13 +143,15 @@ class Survey(Survey):
                                                             "triggering_answer_id": triggering_answer.id,
                                                         }
                                                     )
-                                                    _logger.info(f"Question: {triggering_question_to_filter} - Answer: {triggering_answer}")
+                                                    _logger.info(
+                                                        f"Question: {triggering_question_to_filter} - Answer: {triggering_answer}"
+                                                    )
 
-                            
-                            elif triggering_question_to_filter.question_type == "matrix":
+                            elif (
+                                triggering_question_to_filter.question_type == "matrix"
+                            ):
                                 pass
-                                
-                            
+
                     # Write a value in triggering_answer_id not to be null
                     # Get the first normative of the question. This answer will not trigger the question
                     # so it does not matter if it is the first or the last

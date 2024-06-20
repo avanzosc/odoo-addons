@@ -1,37 +1,36 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models, api
+from odoo import api, fields, models
 
 class SurveyQuestionAnswer(models.Model):
     _inherit = "survey.question.answer"
 
     notes = fields.Text(
-        string="Note",
+        "Note",
         help="Error Text",
         copy=False,
     )
     survey_id = fields.Many2one(
-        "survey.survey",
-        related="question_id.survey_id"
+        'survey.survey',
+        related="question_id.survey_id",
     )
     matrix_survey_id = fields.Many2one(
-        "survey.survey",
-        related="matrix_question_id.survey_id"
+        'survey.survey',
+        related="matrix_question_id.survey_id",
     )
     question_article_ids = fields.Many2many(
-        "survey.question.article",
+        'survey.question.article',
         string="Articles",
         relation="survey_question_answer_article_rel",
         column1="question_answer_id",
         column2="article_id",
     )
     related_article_filter_ids = fields.Many2many(
-        "survey.question.article",
+        'survey.question.article',
         string="Related Articles",
         compute="_compute_related_article_filter_ids",
         store=True,
     )
-
     @api.depends(
         "matrix_question_id.question_normative_ids.related_article_ids",
         "matrix_question_id.question_normative_ids",

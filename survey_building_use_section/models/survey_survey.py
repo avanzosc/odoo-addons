@@ -1,20 +1,19 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, models
-
 import logging
 
-_logger = logging.getLogger(__name__)
+from odoo import _, models
 
 from odoo.addons.survey_building_use_section.controllers.main import Survey
 
+_logger = logging.getLogger(__name__)
 
 
 class SurveySurvey(models.Model):
     _inherit = "survey.survey"
 
     def action_send_survey(self):
-        result = super(SurveySurvey, self).action_send_survey()
+        result = super().action_send_survey()
         result["name"] = _("Create Survey to Building")
         return result
 
@@ -84,4 +83,6 @@ class SurveySurvey(models.Model):
             ]
         )
 
-        Survey._create_and_fill_normative_filters_logic(current_survey_id, current_user_input_id, triggering_question_ids)
+        Survey._create_and_fill_normative_filters_logic(
+            current_survey_id, current_user_input_id, triggering_question_ids
+        )
