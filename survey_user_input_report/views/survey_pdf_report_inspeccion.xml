@@ -15,7 +15,7 @@
         </t>
         <t t-call="survey_user_input_report.external_layout_striped_changed">
             <page>
-                <t t-if="o.survey_id.title and not o.remove_title_from_report">
+                <t t-if="o.survey_id.title">
                     <div
             style="text-align: center; padding: .6rem; margin: 0; padding: 0;"
           >
@@ -26,7 +26,7 @@
                     </div>
                 </t>
                 <t
-          t-if="o.survey_id.description and not o.remove_upper_text_from_report"
+          t-if="o.survey_id.description"
         >
                     <div
             t-field="o.survey_id.description"
@@ -43,7 +43,6 @@
                   t-call="survey_user_input_report.report_front_page_inspeccion"
                   t-lang="o.partner_id.lang"
                 />
-                                <!-- <t t-call="survey_user_input_report.report_front_page" t-lang="o.partner_id.lang" /> -->
                                 <t
                   t-call="survey_user_input_report.answers_template_inspeccion"
                 />

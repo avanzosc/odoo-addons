@@ -29,8 +29,8 @@
         </div>
 
 
-        <div id="front_page_container" t-att-style="'height: 990px;' if o.remove_title_from_report else 'height: 940px;'">
-            <t t-if="o.remove_upper_text_from_report">
+        <div id="front_page_container">
+            <t t-if="False">
                 <span style="text-align: center; font-weight: bold;">
                     <t t-if="o.building_use_id.is_industrial">
                         <h5
@@ -94,7 +94,6 @@
                     <div style="width: 80%; padding: 0;" class="column">
                         <div class="row" style="border-bottom: 1px dashed #ccc; padding: 4px 0">
                             <t t-if="o.building_section_id">
-
                                 <div style="width: 33.33%;">
                                     USO:  <t t-if="o.building_section_id.section_use.is_industrial">INDUSTRIAL
                                     </t>
@@ -419,7 +418,7 @@
         </div>
 
 
-        <div class="container" style="border: 1px solid #ccc; margin-top: 5px;">
+        <div class="container" style="border: 1px solid #ccc; margin: 5px 0 20px 0;">
             <div style="width: 100%; font-weight: bold;">EQUIPOS Y SISTEMAS DE PROTECCIÓN CONTRA INCENDIOS DISPONIBLES EN ESTA INSTALACIÓN:  </div>
             <div class="row">
                 <t t-set="equipment_records" t-value="request.env['installed.equipment'].search([])" />
