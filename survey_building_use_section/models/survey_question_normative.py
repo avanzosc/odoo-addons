@@ -7,25 +7,25 @@ class SurveyQuestionNormative(models.Model):
     _description = _("Survey Question Normative")
 
     name = fields.Char(
-        string=_("Name"),
+        string="Name",
         required=True,
     )
     description = fields.Char(
-        string=_("Description"),
+        string="Description",
     )
     error_text = fields.Text(
-        string=_("Error Text"),
+        string="Error Text",
     )
     start_date = fields.Date(
-        string=_("Start Date"),
+        string="Start Date",
         required=True,
     )
     end_date = fields.Date(
-        string=_("End Date"),
+        string="End Date",
         required=True,
     )
     related_article_ids = fields.One2many(
         "survey.question.article", 
         "question_normative_id", 
-        string=_("Related Articles")
+        string="Related Articles"
     )

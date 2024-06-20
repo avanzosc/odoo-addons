@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.http import request
 
 import logging
@@ -12,71 +12,74 @@ class SurveyUserInput(models.Model):
     _inherit = "survey.user_input"
 
     inspected_building_id = fields.Many2one(
-        string=_("Inspected Building"),
+        string="Inspected Building",
         comodel_name="res.partner",
     )
     maintainer_id = fields.Many2one(
         related="inspected_building_id.maintainer_id",
-        string=_("Maintainer"),
+        string="Maintainer",
         comodel_name="res.partner",
     )
     maintainer_emi = fields.Char(
-        string=_("Maintainer EMI"), related="maintainer_id.emi"
+        string="Maintainer EMI",
+        related="maintainer_id.emi"
     )
     installer_id = fields.Many2one(
         related="inspected_building_id.installer_id",
-        string=_("Installer"),
+        string="Installer",
         comodel_name="res.partner",
     )
-    installer_epi = fields.Char(string=_("Installer EPI"), related="installer_id.epi")
-
+    installer_epi = fields.Char(
+        string="Installer EPI",    
+        related="installer_id.epi"
+    )
     administrator_id = fields.Many2one(
         related="inspected_building_id.administrator_id",
-        string=_("Administrator"),
+        string="Administrator",
         comodel_name="res.partner",
     )
     configuration = fields.Selection(
-        string=_("Configuration"),
+        string="Configuration",
         related="building_section_id.configuration",
         store=True,
     )
     building_section_id = fields.Many2one(
-        string=_("Building Section/Area"),
+        string="Building Section/Area",
         comodel_name="building.section",
     )
     section_ids = fields.One2many(
-        string=_("Inspected Building Section/Area"),
+        string="Inspected Building Section/Area",
         comodel_name="building.section",
         related="inspected_building_id.building_section_ids",
     )
     building_use_id = fields.Many2one(
-        string=_("Building type"),
+        string="Building type",
         comodel_name="building.use",
         related="inspected_building_id.building_use_id",
         store=True,
     )
     is_industrial = fields.Boolean(
-        string=_("Industrial"),
+        string="Industrial",
         related="building_use_id.is_industrial",
         store=True,
     )
     risk = fields.Char(
-        string=_("Risk"),
+        string="Risk",
         related="building_section_id.risk",
         store=True,
     )
     area = fields.Float(
-        string=_("Superficie"),
+        string="Superficie",
         related="building_section_id.area",
         store=True,
     )
     file_number = fields.Char(
-        string=_("File Number"),
+        string="File Number",
         related="inspected_building_id.file_number",
         store=True,
     )
     number_of_floors = fields.Char(
-        string=_("Number of Plants"),
+        string="Number of Plants",
         related="inspected_building_id.number_of_floors",
         store=True,
     )
@@ -84,87 +87,90 @@ class SurveyUserInput(models.Model):
         string='Installation Number', 
         related="inspected_building_id.installation_number"
     )
-    
     act_number = fields.Char(
-        string=_("Act Number"),
+        string="Act Number",
     )
     inspection_start_date = fields.Datetime(
-        string=_("Inspection Start Date"),
+        string="Inspection Start Date",
     )
     inspection_end_date = fields.Datetime(
-        string=_("Inspection End Date"),
+        string="Inspection End Date",
     )
     inspector_id = fields.Many2one(
-        string=_("Inspector"),
+        string="Inspector",
         comodel_name="res.partner",
     )
     inspection_type = fields.Selection(
-        selection=[("periodic", _("Periodic")), ("volunteer", _("Volunteer")), ("correction_of_deficiencies", _("Correction of Deficiencies"))],
-        string=_("Inspection Type"),
+        selection=[("periodic", "Periodic"), ("volunteer", "Volunteer"), ("correction_of_deficiencies", "Correction of Deficiencies")],
+        string="Inspection Type",
     )
-    date_deficiency_correction = fields.Date(string="Date Deficiency Correction")
-    next_inspection_date = fields.Date(string="Next Inspection Date")
+    date_deficiency_correction = fields.Date(
+        string="Date Deficiency Correction"
+    )
+    next_inspection_date = fields.Date(
+        string="Next Inspection Date"
+    )
     installed_equipment_ids = fields.Many2many(
         'installed.equipment', 
         string="Installed Equipment"
     )
 
-
     # Project
     project_title = fields.Char(
-        string=_("Project Title"), related="inspected_building_id.project_title"
+        string="Project Title",
+        related="inspected_building_id.project_title"
     )
     project_author_id = fields.Many2one(
-        string=_("Project Author"),
+        string="Project Author",
         comodel_name="res.partner",
         related="inspected_building_id.project_author_id",
     )
     project_author_degree = fields.Char(
-        string=_("Project Author Degree"),
+        string="Project Author Degree",
         related="inspected_building_id.project_author_id.degree_title",
     )
     project_author_license = fields.Char(
-        string=_("Project Author License"),
+        string="Project Author License",
         related="inspected_building_id.project_author_id.membership_number",
     )
     project_approved_date = fields.Date(
-        string=_("Project Approved Date"),
+        string="Project Approved Date",
         related="inspected_building_id.project_approved_date",
     )
     certification_date = fields.Date(
-        string=_("Certification Date"),
+        string="Certification Date",
         related="inspected_building_id.certification_date",
     )
     # Certificate of Final Work Direction
     dof_author_id = fields.Many2one(
-        string=_("Director of Works Author"),
+        string="Director of Works Author",
         comodel_name="res.partner",
         related="inspected_building_id.dof_author_id",
     )
     dof_author_degree = fields.Char(
-        string=_("Director of Works Author Degree"),
+        string="Director of Works Author Degree",
         related="inspected_building_id.dof_author_id.degree_title",
     )
     dof_author_license = fields.Char(
-        string=_("Director of Works Author License"),
+        string="Director of Works Author License",
         related="inspected_building_id.dof_author_id.membership_number",
     )
     dof_approved_date = fields.Date(
-        string=_("Director of Works Approved Date"),
+        string="Director of Works Approved Date",
         related="inspected_building_id.dof_approved_date",
     )
     survey_report_fussion = fields.Many2many(
         comodel_name="survey.user_input",
-        string=_("Survey Report Fussion"),
+        string="Survey Report Fussion",
         relation="survey_report_fussion_rel",
         column1="survey_report_fussion_id",
         column2="survey_report_id",
     )
     remove_title_from_report = fields.Boolean(
-        string=_("Remove Title From Report")
+        string="Remove Title From Report"
     )
     remove_upper_text_from_report = fields.Boolean(
-        string=_("Remove Upper Text From Report")
+        string="Remove Upper Text From Report"
     )
 
 
