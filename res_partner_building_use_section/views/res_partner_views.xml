@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>
@@ -6,44 +6,66 @@
         <field name="arch" type="xml">
             <page name="internal_notes" position="after">
                 <page name="customer_building" string="Building">
-                    <group string="Building Information">
-                        <field name="building_use_id" />
-                        <field name="service_start_date" />
-                        <field name="service_end_date" />
-                    </group>
-                    <group string="Administration Information">
-                        <field name="administrator_id" />
-                        <field name="installer_id" />
-                        <field name="installer_epi" />
-                        <field name="certification_date" />
-                        <field name="maintainer_id" />
-                        <field name="maintainer_emi" />
-                    </group>
-                    <group string="Project Information">
-                        <field name="project_title" />
-                        <field name="project_author_id" />
-                        <field name="project_author_degree" />
-                        <field name="project_author_license" />
-                        <field name="project_approved_date" />
-                    </group>
-                    <group string="Director of Work Information">
-                        <field name="dof_author_id" />
-                        <field name="dof_author_degree" />
-                        <field name="dof_author_license" />
-                        <field name="dof_approved_date" />
+                    <group>
+                        <group string="Building Details">
+                            <field name="building_use_id" />
+                            <field name="service_start_date" />
+                            <field name="service_end_date" />
+                            <field name="alternative_text" />
+                            <field name="file_number" />
+                            <field name="certification_text" />
+                            <field name="installation_number" />
+                            <field name="number_of_floors" />
+                            <field name="risk" />
+                            <field name="area" />
+                            <field name="evacuation_height" />
+                            <field name="configuration" />
+                        </group>
+                        <group string="Contractor">
+                            <field name="administrator_id" />
+                            <field name="installer_id" />
+                            <field name="installer_epi" />
+                            <field name="certification_date" />
+                            <field name="maintainer_id" />
+                            <field name="maintainer_emi" />
+                        </group>
+                        <group string="Project">
+                            <field name="project_title" />
+                            <field name="project_author_id" />
+                            <field name="project_author_degree" />
+                            <field name="project_author_license" />
+                            <field name="project_approved_date" />
+                        </group>
+                        <group string="Certificate of Final Work Direction">
+                            <field name="dof_author_id" />
+                            <field name="dof_author_degree" />
+                            <field name="dof_author_license" />
+                            <field name="dof_approved_date" />
+                        </group>
                     </group>
                     <field name="building_section_ids">
-                        <tree string="Building Sections/Areas" editable="bottom" sample="1">
+                        <tree
+              string="Building Sections/Areas"
+              editable="bottom"
+              sample="1"
+            >
                             <field name="partner_id" invisible="1" />
                             <field name="name" />
                             <field name="risk" />
-                            <field name="superficie" />
+                            <field name="area" />
+                            <field name="configuration" />
                             <field name="evacuation_height" />
                             <field name="section_use" />
                         </tree>
                     </field>
                 </page>
             </page>
+            <field name="vat" position="after">
+                <field name="emi" />
+                <field name="epi" />
+                <field name="degree_title" />
+                <field name="membership_number" />
+            </field>
         </field>
     </record>
 
@@ -54,8 +76,14 @@
             <field name="phone" position="before">
                 <field name="service_start_date" optional="show" />
                 <field name="service_end_date" optional="show" />
+                <field name="file_number" optional="show" />
+
                 <field name="building_use_id" optional="show" />
-                <field name="building_section_ids" optional="show" widget="many2many_tags" />
+                <field
+          name="building_section_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
             </field>
         </field>
     </record>
@@ -67,14 +95,27 @@
             <field name="user_id" position="after">
                 <field name="service_start_date" />
                 <field name="service_end_date" />
+                <field name="file_number" />
+
                 <field name="building_use_id" />
                 <field name="building_section_ids" />
             </field>
             <filter name="group_country" position="after">
-                <filter name="group_building_use" string="Building use" context="{'group_by': 'building_use_id'}" />
-                <filter name="group_service_start_date" string="Service Start Date" context="{'group_by': 'service_start_date'}" />
-                <filter name="group_service_end_date" string="Service End Date" context="{'group_by': 'service_end_date'}" />
-
+                <filter
+          name="group_building_use"
+          string="Building use"
+          context="{'group_by': 'building_use_id'}"
+        />
+                <filter
+          name="group_service_start_date"
+          string="Service Start Date"
+          context="{'group_by': 'service_start_date'}"
+        />
+                <filter
+          name="group_service_end_date"
+          string="Service End Date"
+          context="{'group_by': 'service_end_date'}"
+        />
             </filter>
         </field>
     </record>
