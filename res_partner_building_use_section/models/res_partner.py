@@ -1,23 +1,44 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
-
+from odoo import fields, models
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    building_use_id = fields.Many2one("building.use", "Building use")
-    building_section_ids = fields.One2many(
-        "building.section", "partner_id", "Building Section/Area"
+    building_use_id = fields.Many2one(
+        "building.use",
+        "Building use",
     )
-    service_start_date = fields.Date("Service Start Date")
-    service_end_date = fields.Date("Service End Date")
-    alternative_text = fields.Char("Alternative Text", copy=False)
-    number_of_floors = fields.Char("Number of Plants")
-    risk = fields.Char("Risk", copy=False)
-    area = fields.Float("Surface", default=0.0, copy=False)
-    evacuation_height = fields.Float("Evacuation Height")
-
+    building_section_ids = fields.One2many(
+        "building.section",
+        "partner_id",
+        "Building Section/Area",
+    )
+    service_start_date = fields.Date(
+        "Service Start Date",
+    )
+    service_end_date = fields.Date(
+        "Service End Date",
+    )
+    alternative_text = fields.Char(
+        "Alternative Text",
+        copy=False,
+    )
+    number_of_floors = fields.Char(
+        "Number of Plants",
+    )
+    risk = fields.Char(
+        "Risk",
+        copy=False,
+    )
+    area = fields.Float(
+        "Surface",
+        default=0.0,
+        copy=False,
+    )
+    evacuation_height = fields.Float(
+        "Evacuation Height",
+    )
     configuration = fields.Selection(
         [
             ("A", "A"),
@@ -28,10 +49,15 @@ class ResPartner(models.Model):
         ],
         "Configuration",
     )
-
-    file_number = fields.Char("File Number")
-    installation_number = fields.Char("Installation Number")
-    certification_text = fields.Text("Certification Text")
+    file_number = fields.Char(
+        "File Number",
+    )
+    installation_number = fields.Char(
+        "Installation Number",
+    )
+    certification_text = fields.Text(
+        "Certification Text",
+    )
     degree_title = fields.Char(
         "Degree Title",
         domain="[('is_company','=',False)]",
@@ -42,52 +68,77 @@ class ResPartner(models.Model):
         domain="[('is_company','=',False)]",
         help="Membership number of the individual contact.",
     )
-    emi = fields.Char("EMI")
-    epi = fields.Char("EPI")
-
+    emi = fields.Char(
+        "EMI",
+    )
+    epi = fields.Char(
+        "EPI",
+    )
     # Maintainer
-    maintainer_id = fields.Many2one("res.partner", "Maintainer")
-    maintainer_emi = fields.Char("Maintainer EMI", related="maintainer_id.emi")
-
-    installer_id = fields.Many2one("res.partner", "Installer")
-    installer_epi = fields.Char("Installer EPI", related="installer_id.epi")
-    certification_date = fields.Date("Date of Certificate from Installation Company")
-    administrator_id = fields.Many2one("res.partner", "Administrator")
+    maintainer_id = fields.Many2one(
+        "res.partner",
+        "Maintainer",
+    )
+    maintainer_emi = fields.Char(
+        "Maintainer EMI",
+        related="maintainer_id.emi",
+    )
+    installer_id = fields.Many2one(
+        "res.partner",
+        "Installer",
+    )
+    installer_epi = fields.Char(
+        "Installer EPI",
+        related="installer_id.epi",
+    )
+    certification_date = fields.Date(
+        "Date of Certificate from Installation Company",
+    )
+    administrator_id = fields.Many2one(
+        "res.partner",
+        "Administrator",
+    )
     normativas_ids = fields.Many2many(
-        "survey.question.normative", "Normativas", compute="_compute_normativas_ids"
+        "survey.question.normative",
+        "Normativas",
+        compute="_compute_normativas_ids",
     )
     dof_author_degree = fields.Char(
         "Director of Works Author Degree",
         related="inspected_building_id.dof_author_degree",
     )
-
     # Project
-    project_title = fields.Char("Project Title")
-    project_author_id = fields.Many2one("res.partner", "Project Author")
+    project_title = fields.Char(
+        "Project Title",
+    )
+    project_author_id = fields.Many2one(
+        "res.partner",
+        "Project Author",
+    )
     project_author_degree = fields.Char(
-        "Project Author Degree", related="project_author_id.degree_title"
+        "Project Author Degree",
+        related="project_author_id.degree_title",
     )
     project_author_license = fields.Char(
-        "Project Author License", related="project_author_id.membership_number"
+        "Project Author License",
+        related="project_author_id.membership_number",
     )
-    project_approved_date = fields.Date("Project Approved Date")
-
+    project_approved_date = fields.Date(
+        "Project Approved Date",
+    )
     # Certificate of Final Work Direction
-    dof_author_id = fields.Many2one("res.partner", "Director of Works Author")
+    dof_author_id = fields.Many2one(
+        "res.partner",
+        "Director of Works Author",
+    )
     dof_author_degree = fields.Char(
-        "Director of Works Author Degree", related="dof_author_id.degree_title"
+        "Director of Works Author Degree",
+        related="dof_author_id.degree_title",
     )
     dof_author_license = fields.Char(
-        "Director of Works Author License", related="dof_author_id.membership_number"
+        "Director of Works Author License",
+        related="dof_author_id.membership_number",
     )
-    dof_approved_date = fields.Date("Director of Works Approved Date")
-
-    @api.depends("service_start_date")
-    def _compute_normativas_ids(self):
-        for partner in self:
-            partner.normativas_ids = self.env["survey.question.normative"].search(
-                [
-                    ("start_year", "<=", partner.service_start_date.year),
-                    ("end_year", ">=", partner.service_start_date.year),
-                ]
-            )
+    dof_approved_date = fields.Date(
+        "Director of Works Approved Date",
+    )
