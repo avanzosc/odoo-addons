@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="arch" type="xml">
+            <filter name="account_id" position="before">
+				<filter string="Active" context="{'group_by':'no_archived'}" name="group-active"/>
+		    </filter>
+        </field>
+    </record>
+</odoo>
