@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <page name="note" position="after">
                 <page name="cmr" string="CMR">
-                    <group>
+                    <group name="way">
                         <group>
                             <separator string="Way out" />
                             <field name="cmr_way_out_id"/>
@@ -17,30 +17,22 @@
                             <field name="cmr_destination_id"/>
                         </group>
                     </group>
-                    <group>
+                    <group name="transportation">
                         <separator string="Loader/Transportation" colspan="4"/>
                         <group>
                             <field name="cmr_loader_id" />
-                        </group>
-                        <group>
                             <field name="crm_transportation_id" />
+                            <field name="crm_driver_id" force_save="1"/>
                         </group>
                     </group>
-                    <group>
+                    <group name="license_plate">
                         <separator string="License plates" colspan="4"/>
                         <group>
-                            <field name="cmr_tractor_license_plate" />
+                            <field name="cmr_tractor_license_plate" force_save="1"/>
                         </group>
                         <group>
-                            <field name="cmr_semi_trailer_license_plate" />
+                            <field name="cmr_semi_trailer_license_plate" force_save="1"/>
                         </group>
-                    </group>
-                    <group>
-                        <group>
-                            <separator string="Driver" />
-                            <field name="crm_driver_id"/>
-                        </group>
-                        <group />
                     </group>
                 </page>
             </page>

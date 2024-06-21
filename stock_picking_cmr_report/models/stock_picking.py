@@ -1,6 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, models, fields, _
+from odoo import _, api, fields, models
 
 
 class StockPicking(models.Model):
@@ -11,7 +11,7 @@ class StockPicking(models.Model):
     cmr_destination_id = fields.Many2one(
         string="Destination", comodel_name="res.city", copy=False)
     cmr_loader_id = fields.Many2one(
-        string="loader", comodel_name="res.partner", copy=False)
+        string="Operator", comodel_name="res.partner", copy=False)
     crm_transportation_id = fields.Many2one(
         string="Transportations", comodel_name="res.partner", copy=False)
     cmr_tractor_license_plate = fields.Char(
@@ -23,12 +23,18 @@ class StockPicking(models.Model):
     site_date_info = fields.Char(
         string="Site and date info", compute="_compute_site_date_info")
 
+    @api.onchange("partner_id")
+    def onchange_partner_id(self):
+        super(StockPicking, self).onchange_partner_id()
+        if self.partner_id:
+            self.crm_driver_id = self.partner_id.driver_id.id
+
     def _compute_site_date_info(self):
         my_date = fields.Date.context_today(self)
         for picking in self:
-            city = (picking.cmr_way_out_id.name if picking.cmr_way_out_id else
-                    "")
-            print ('***** my_date: ' + str(my_date))
+            city = (
+                picking.cmr_way_out_id.name if picking.cmr_way_out_id else ""
+            )
             if my_date.month == 1:
                 month = _("January")
             if my_date.month == 2:

@@ -3,10 +3,10 @@
     :alt: License: AGPL-3
 
 ========================
-Stock picking cmr report
+Stock picking CMR report
 ========================
 
-* New "CRM" tag in pickings, and new report.
+* New "CMR" tag in pickings, and new report.
 
 Bug Tracker
 ===========
