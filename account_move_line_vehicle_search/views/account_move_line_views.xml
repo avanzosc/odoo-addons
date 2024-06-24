@@ -1,0 +1,20 @@
+<odoo>
+    <record id="" model="ir.ui.view">
+        <field name="name">account.move.line.search.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="vehicle_id" />
+                <field name="serial_number_id" />
+            </xpath>
+            <xpath expr="//filter[@name='purchases']" position="after">
+                <filter
+          string="Serial Number"
+          name="filter_serial_number_id"
+          context="{'group_by':'serial_number_id'}"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
