@@ -1,41 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_production_lot_form" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="requires_mother" invisible="1"/>
-                <field name="batch_id" attrs="{'required': [('requires_mother', '=', True)]}"/>
-                <field name="lineage_id"/>
+                <field name="requires_mother" invisible="1" />
+                <field
+          name="batch_id"
+          attrs="{'required': [('requires_mother', '=', True)]}"
+        />
+                <field name="lineage_id" />
             </field>
         </field>
     </record>
 
     <record id="view_production_lot_tree" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="inherit_id" ref="stock.view_production_lot_tree" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="batch_id" optional="show"/>
-                <field name="lineage_id" optional="hide"/>
+                <field name="batch_id" optional="show" />
+                <field name="lineage_id" optional="hide" />
             </field>
         </field>
     </record>
 
     <record id="search_product_lot_filter" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="inherit_id" ref="stock.search_product_lot_filter" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="batch_id"/>
-                <field name="lineage_id"/>
+                <field name="batch_id" />
+                <field name="lineage_id" />
             </field>
             <filter name="group_by_product" position="after">
-                <filter name="batch" string="Mother" domain="[]" context="{'group_by': 'batch_id'}"/>
-                <filter name="lineage" string="Lineage" domain="[]" context="{'group_by': 'lineage_id'}"/>
+                <filter
+          name="batch"
+          string="Mother"
+          domain="[]"
+          context="{'group_by': 'batch_id'}"
+        />
+                <filter
+          name="lineage"
+          string="Lineage"
+          domain="[]"
+          context="{'group_by': 'lineage_id'}"
+        />
             </filter>
         </field>
     </record>

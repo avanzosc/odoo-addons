@@ -1,24 +1,47 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="cancellation_line_view_tree" model="ir.ui.view">
         <field name="name">cancellation.line.tree</field>
         <field name="model">cancellation.line</field>
         <field name="arch" type="xml">
             <tree string="Cancellation Line" editable="top">
-                <field name="batch_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="location_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="date" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="week"/>
-                <field name="hen_life_week"/>
-                <field name="product_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="lot_id" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="cancellation_qty" attrs="{'readonly': [('picking_id', '!=', False)]}"/>
-                <field name="move_line_id" invisible="1"/>
-                <field name="qty_done"/>
-                <field name="inventory_qty" readonly="1"/>
-                <field name="picking_id" readonly="1"/>
-                <button string="Do Cancellation" class="oe_highlight" type="object" name="button_do_cancellation" attrs="{'invisible': [('picking_id', '!=', False)]}"/>
+                <field
+          name="batch_id"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field
+          name="location_id"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field
+          name="date"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field name="week" />
+                <field name="hen_life_week" />
+                <field
+          name="product_id"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field
+          name="lot_id"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field
+          name="cancellation_qty"
+          attrs="{'readonly': [('picking_id', '!=', False)]}"
+        />
+                <field name="move_line_id" invisible="1" />
+                <field name="qty_done" />
+                <field name="inventory_qty" readonly="1" />
+                <field name="picking_id" readonly="1" />
+                <button
+          string="Do Cancellation"
+          class="oe_highlight"
+          type="object"
+          name="button_do_cancellation"
+          attrs="{'invisible': [('picking_id', '!=', False)]}"
+        />
             </tree>
         </field>
     </record>
@@ -28,20 +51,48 @@
         <field name="model">cancellation.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="batch_id"/>
-                <field name="location_id"/>
-                <field name="product_id"/>
-                <field name="lot_id"/>
-                <filter string="Date" name="date" date="date"/>
-                <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
-                <filter string="Last Week" name="week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"/>
-                <filter string="Last Month" name="month" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"/>
-                <filter string="Last Year" name="year" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"/>
+                <field name="batch_id" />
+                <field name="location_id" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <filter string="Date" name="date" date="date" />
+                <filter
+          string="Today"
+          name="today"
+          domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"
+        />
+                <filter
+          string="Last Week"
+          name="week"
+          domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
+        />
+                <filter
+          string="Last Month"
+          name="month"
+          domain="[('date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"
+        />
+                <filter
+          string="Last Year"
+          name="year"
+          domain="[('date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"
+        />
                 <group expand="0" string="Group By">
-                    <filter string="Batch" name="batch" context="{'group_by':'batch_id'}"/>
-                    <filter string="Location" name="location" context="{'group_by':'location_id'}"/>
-                    <filter string="Product" name="product" context="{'group_by':'product_id'}"/>
-                    <filter string="Lot" name="lot" context="{'group_by':'lot_id'}"/>
+                    <filter
+            string="Batch"
+            name="batch"
+            context="{'group_by':'batch_id'}"
+          />
+                    <filter
+            string="Location"
+            name="location"
+            context="{'group_by':'location_id'}"
+          />
+                    <filter
+            string="Product"
+            name="product"
+            context="{'group_by':'product_id'}"
+          />
+                    <filter string="Lot" name="lot" context="{'group_by':'lot_id'}" />
                 </group>
             </search>
         </field>
@@ -49,8 +100,14 @@
 
     <record id="action_do_cancellations" model="ir.actions.server">
         <field name="name">Do Cancellations</field>
-        <field name="model_id" ref="stock_picking_batch_mother.model_cancellation_line"/>
-        <field name="binding_model_id" ref="stock_picking_batch_mother.model_cancellation_line"/>
+        <field
+      name="model_id"
+      ref="stock_picking_batch_mother.model_cancellation_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch_mother.model_cancellation_line"
+    />
         <field name="state">code</field>
         <field name="code">
             for record in records:
@@ -65,7 +122,11 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem action="action_cancellation_line_view" id="menu_view_cancellation_line"
-              parent="stock.menu_product_in_config_stock" sequence="10"/>
+    <menuitem
+    action="action_cancellation_line_view"
+    id="menu_view_cancellation_line"
+    parent="stock.menu_product_in_config_stock"
+    sequence="10"
+  />
 
 </odoo>
