@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="stock_quant_change_location_wizard_action" model="ir.actions.act_window">
+    <record
+    id="stock_quant_change_location_wizard_action"
+    model="ir.actions.act_window"
+  >
         <field name="name">Change Location</field>
         <field name="res_model">stock.quant.change.location.wizard</field>
-        <field name="binding_model_id" ref="stock.model_stock_quant"/>
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]" />
     </record>
 </odoo>
