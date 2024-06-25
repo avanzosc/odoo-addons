@@ -5,7 +5,7 @@
         <field name="model">stock.picking.type.category</field>
         <field name="arch" type="xml">
             <tree string="Picking Type Category" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -17,7 +17,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_stock_picking_type_category_view" id="menu_view_stock_picking_type_category"
-              parent="stock.menu_warehouse_config" sequence="4"/>
+    <menuitem
+    action="action_stock_picking_type_category_view"
+    id="menu_view_stock_picking_type_category"
+    parent="stock.menu_warehouse_config"
+    sequence="4"
+  />
 
 </odoo>
