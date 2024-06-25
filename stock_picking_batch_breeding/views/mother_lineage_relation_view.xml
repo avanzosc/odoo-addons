@@ -1,15 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="mother_lineage_relation_view_tree" model="ir.ui.view">
         <field name="name">mother.lineage.relation.tree</field>
         <field name="model">mother.lineage.relation</field>
         <field name="arch" type="xml">
             <tree string="Mother Lineage Relation" editable="top">
-                <field name="breeding_id" invisible="1"/>
-                <field name="mother_id"/>
-                <field name="lineage_id"/>
-                <field name="percentage"/>
+                <field name="breeding_id" invisible="1" />
+                <field name="mother_id" />
+                <field name="lineage_id" />
+                <field name="percentage" />
             </tree>
         </field>
     </record>
