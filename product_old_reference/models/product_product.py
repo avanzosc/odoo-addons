@@ -6,15 +6,15 @@ from odoo import api, fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    product_old_reference = fields.Char(
-        string="Old reference", index=True, copy=False)
+    product_old_reference = fields.Char(string="Old reference", index=True, copy=False)
 
     @api.model
-    def _name_search(self, name="", args=None, operator="ilike", limit=100,
-                     name_get_uid=None):
-        res = super(ProductProduct, self)._name_search(
-            name, args=args, operator=operator, limit=limit,
-            name_get_uid=name_get_uid)
+    def _name_search(
+        self, name="", args=None, operator="ilike", limit=100, name_get_uid=None
+    ):
+        res = super()._name_search(
+            name, args=args, operator=operator, limit=limit, name_get_uid=name_get_uid
+        )
         res_ids = list(res)
         res_ids_len = len(res_ids)
         if not limit or res_ids_len >= limit:
