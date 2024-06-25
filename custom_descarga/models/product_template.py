@@ -12,5 +12,5 @@ class ProductTemplate(models.Model):
     def action_view_stock_moves(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("stock.stock_move_action")
-        action['domain'] = [('product_id', '=', self.id)]
+        action["domain"] = [("product_id", "=", self.id)]
         return action

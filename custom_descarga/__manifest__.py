@@ -14,7 +14,7 @@
         "stock_move_line_force_done",
         "custom_breeding_apps",
         "product_editable_tree_menu",
-        "purchase_last_price_info"
+        "purchase_last_price_info",
     ],
     "data": [
         "data/saca_line_stage.xml",

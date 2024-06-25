@@ -3,11 +3,16 @@
 
     <record id="saca_form_view" model="ir.ui.view">
         <field name="model">saca</field>
-        <field name="inherit_id" ref="custom_saca.saca_form_view"/>
+        <field name="inherit_id" ref="custom_saca.saca_form_view" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <button class="oe_stat_button" icon="fa-search" type="object" name="action_view_historic_lines">
-                    <field string="Historics" name="count_historic" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          icon="fa-search"
+          type="object"
+          name="action_view_historic_lines"
+        >
+                    <field string="Historics" name="count_historic" widget="statinfo" />
                 </button>
             </div>
         </field>
@@ -20,6 +25,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_saca" name="Saca" id="menu_saca" parent="stage_descarga_menu" sequence="5"/>
+    <menuitem
+    action="action_saca"
+    name="Saca"
+    id="menu_saca"
+    parent="stage_descarga_menu"
+    sequence="5"
+  />
 
 </odoo>
