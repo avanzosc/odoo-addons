@@ -1,52 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="purchase_stock.report_purchaseorder_document" model="ir.ui.view">
-        <field name="active" eval="False"/>
+        <field name="active" eval="False" />
     </record>
 
     <record id="purchase_stock.report_purchasequotation_document" model="ir.ui.view">
-        <field name="active" eval="False"/>
+        <field name="active" eval="False" />
     </record>
 
-    <template id="report_purchaseorder_document2" inherit_id="purchase.report_purchaseorder_document" priority="20">
+    <template
+    id="report_purchaseorder_document2"
+    inherit_id="purchase.report_purchaseorder_document"
+    priority="20"
+  >
         <t t-if="o.dest_address_id" position="replace" />
         <t t-set="address" position="replace">
             <div class="row">
                 <div class="col-6" name="div_shipping_address">
-                    <t t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)">
+                    <t
+            t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)"
+          >
                         <strong>Shipping address:</strong>
-                        <t t-set="shipping_address" t-if="o.dest_address_id" t-value="o.dest_address_id" />
-                        <t t-set="shipping_address" t-if="not o.dest_address_id" t-value="o.picking_type_id.warehouse_id.partner_id" />
-                        <div t-esc="shipping_address" name="purchase_shipping_address"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        <t
+              t-set="shipping_address"
+              t-if="o.dest_address_id"
+              t-value="o.dest_address_id"
+            />
+                        <t
+              t-set="shipping_address"
+              t-if="not o.dest_address_id"
+              t-value="o.picking_type_id.warehouse_id.partner_id"
+            />
+                        <div
+              t-esc="shipping_address"
+              name="purchase_shipping_address"
+              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+            />
                     </t>
                 </div>
                 <div class="col-5 offset-1" name="div_address">
-                    <div t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                    <p t-if="o.partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></p>
+                    <div
+            t-field="o.partner_id"
+            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+          />
+                    <p t-if="o.partner_id.vat"><t
+              t-esc="o.company_id.country_id.vat_label or 'Tax ID'"
+            />: <span t-field="o.partner_id.vat" /></p>
                 </div>
             </div>
         </t>
     </template>
 
-    <template id="report_purchasequotation_document2" inherit_id="purchase.report_purchasequotation_document" priority="20">
+    <template
+    id="report_purchasequotation_document2"
+    inherit_id="purchase.report_purchasequotation_document"
+    priority="20"
+  >
         <t t-if="o.dest_address_id" position="replace" />
         <t t-set="address" position="replace">
             <div class="row">
                 <div class="col-6" name="div_shipping_address">
-                    <t t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)">
+                    <t
+            t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)"
+          >
                         <strong>Shipping address:</strong>
-                        <t t-set="shipping_address" t-if="o.dest_address_id" t-value="o.dest_address_id" />
-                        <t t-set="shipping_address" t-if="not o.dest_address_id" t-value="o.picking_type_id.warehouse_id.partner_id" />
-                        <div t-esc="shipping_address" name="purchase_shipping_address"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                        <t
+              t-set="shipping_address"
+              t-if="o.dest_address_id"
+              t-value="o.dest_address_id"
+            />
+                        <t
+              t-set="shipping_address"
+              t-if="not o.dest_address_id"
+              t-value="o.picking_type_id.warehouse_id.partner_id"
+            />
+                        <div
+              t-esc="shipping_address"
+              name="purchase_shipping_address"
+              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+            />
                     </t>
                 </div>
                 <div class="col-5 offset-1" name="div_address">
-                    <div t-field="o.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
-                    <p t-if="o.partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span t-field="o.partner_id.vat"/></p>
+                    <div
+            t-field="o.partner_id"
+            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+          />
+                    <p t-if="o.partner_id.vat"><t
+              t-esc="o.company_id.country_id.vat_label or 'Tax ID'"
+            />: <span t-field="o.partner_id.vat" /></p>
                 </div>
             </div>
         </t>
