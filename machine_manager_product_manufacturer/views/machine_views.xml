@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="machine_form_view" model="ir.ui.view">
@@ -16,7 +16,7 @@
             <field name="inherit_id" ref="machine_manager.machine_tree_view" />
             <field name="arch" type="xml">
                 <field name="product_id" position="after">
-                    <field name="manufacturer_id" optional="show"/>
+                    <field name="manufacturer_id" optional="show" />
                 </field>
             </field>
         </record>
@@ -27,11 +27,14 @@
             <field name="inherit_id" ref="machine_manager.machine_search_view" />
             <field name="arch" type="xml">
                 <field name="serial_id" position="after">
-                    <field name="manufacturer_id"/>
+                    <field name="manufacturer_id" />
                 </field>
                 <filter name="group-product-categ" position="after">
-                   <filter name="group-manufacturer" string="Manufacturer"
-                            context="{'group_by' : 'manufacturer_id'}"/>
+                   <filter
+            name="group-manufacturer"
+            string="Manufacturer"
+            context="{'group_by' : 'manufacturer_id'}"
+          />
                 </filter>
             </field>
         </record>
