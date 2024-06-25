@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="action_report_picking" model="ir.actions.report">
@@ -7,16 +7,21 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">batch_liquidation_report.report_picking</field>
             <field name="report_file">batch_liquidation_report.report_picking</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
 
     <template id="external_layout_standard_picking_report">
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
             <div class="pt-5">
-                <t t-call="web.address_layout"/>
+                <t t-call="web.address_layout" />
             </div>
-            <t t-raw="0"/>
+            <t t-raw="0" />
         </div>
 
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
@@ -25,61 +30,68 @@
                     <strong>Mantener la mercancía entre 0-4 grados.</strong>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="text-center; last-page">
                 <div class="row">
                     <table style="width:80mm;">
                         <thead>
                             <tr class="text-center">
-                                <th style="font-weight: bold; font-size: 15px;">RECIBÍ - CONFORME</th>
+                                <th
+                    style="font-weight: bold; font-size: 15px;"
+                  >RECIBÍ - CONFORME</th>
                             </tr>
                         </thead>
                         <tbody>
                             <t>
                                 <tr>
-                                    <td style="height:30mm;border: 1px solid black;"/>
+                                    <td style="height:30mm;border: 1px solid black;" />
                                 </tr>
                                 <tr>
                                     <td class="text-center">
-                                        <span style="font-size: 13px;">Este albarán no es deducible a efectos de I.V.A</span>
+                                        <span
+                        style="font-size: 13px;"
+                      >Este albarán no es deducible a efectos de I.V.A</span>
                                     </td>
                                 </tr>
                             </t>
                         </tbody>
                     </table>
-                    <div style="width:20px"/>
+                    <div style="width:20px" />
                     <table style="width:180mm;">
                         <tbody>
                             <t>
                                 <tr>
                                     <td class="text-left">
-                                        <strong>Nombre: ________________________________________</strong>
+                                        <strong
+                      >Nombre: ________________________________________</strong>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="height:10mm;"/>
+                                    <td style="height:10mm;" />
                                 </tr>
                                 <tr>
                                     <td class="text-left">
-                                        <strong>DNI: __________________________________</strong>
+                                        <strong
+                      >DNI: __________________________________</strong>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="height:2mm;"/>
+                                    <td style="height:2mm;" />
                                 </tr>
                                 <tr>
                                     <td style="font-size: 11px;" class="text-left">
-                                        <t t-esc="o.company_id.name"/>
-                                        <span>garantiza la protección y confidencialidad de los datos personales que nos proporcionen 
-                                            de acuerdo con lo dispuesto en el Reglamento General de Protección de Datos de Carácter Personal 
-                                            (UE) 2016/679 del Parlamento Europeo y del Consejo, de 26 de abril de 2016 (en adelante, RGPD). 
-                                            Le informamos que sus datos de carácter personal tienen como finalidad gestionar las comunicaciones 
-                                            y relaciones empresariales. En cumplimiento de lo establecido en el RGPD, usted podrá ejercer sus 
-                                            derechos de acceso, rectificación, cancelación/supresión, oposición, limitación o portabilidad en los 
+                                        <t t-esc="o.company_id.name" />
+                                        <span
+                      >garantiza la protección y confidencialidad de los datos personales que nos proporcionen
+                                            de acuerdo con lo dispuesto en el Reglamento General de Protección de Datos de Carácter Personal
+                                            (UE) 2016/679 del Parlamento Europeo y del Consejo, de 26 de abril de 2016 (en adelante, RGPD).
+                                            Le informamos que sus datos de carácter personal tienen como finalidad gestionar las comunicaciones
+                                            y relaciones empresariales. En cumplimiento de lo establecido en el RGPD, usted podrá ejercer sus
+                                            derechos de acceso, rectificación, cancelación/supresión, oposición, limitación o portabilidad en los
                                             términos establecidos en la dirección</span>
-                                        <t t-esc="o.company_id.street"/>
+                                        <t t-esc="o.company_id.street" />
                                         <span>, </span>
-                                        <t t-esc="o.company_id.state_id.name"/>
+                                        <t t-esc="o.company_id.state_id.name" />
                                         <span>, adjuntando copia de su DNI.</span>
                                     </td>
                                 </tr>
@@ -92,124 +104,181 @@
     </template>
 
     <template id="external_layout_picking_report">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="batch_liquidation_report.external_layout_standard_picking_report"><t t-raw="0"/></t>
+        <t t-call="batch_liquidation_report.external_layout_standard_picking_report"><t
+          t-raw="0"
+        /></t>
     </template>
 
         <template id="batch_liquidation_report.report_picking">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-set="move_lines" t-value="o.mapped('move_line_ids_without_package')"/>
+                    <t
+            t-set="move_lines"
+            t-value="o.mapped('move_line_ids_without_package')"
+          />
                     <t t-set="address">
-                        <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' class="mb-0"/>
+                        <address
+              t-field="o.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+              class="mb-0"
+            />
                     </t>
                     <t t-set="information_block">
-                        <div t-if="o.carrier_id" class="mt16">Carrier: 
-                            <span t-field="o.carrier_id.name"/>
+                        <div t-if="o.carrier_id" class="mt16">Carrier:
+                            <span t-field="o.carrier_id.name" />
                         </div>
-                        <div t-if="o.transporter_id" class="mt16">Transporter: 
-                            <span t-field="o.transporter_id.name"/>
+                        <div t-if="o.transporter_id" class="mt16">Transporter:
+                            <span t-field="o.transporter_id.name" />
                         </div>
                         <div t-if="o.transporter_id.vat" class="mt16">
-                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:
-                            <span t-field="o.transporter_id.vat"/>
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                            <span t-field="o.transporter_id.vat" />
                         </div>
-                        <div t-if="o.transporter_id.phone or o.transporter_id.mobile" class="mt16">Phone: 
-                            <span t-field="o.transporter_id.phone"/>
-                            <span t-if="o.transporter_id.phone and o.transporter_id.mobile"> / </span>
-                            <span t-field="o.transporter_id.mobile"/>
+                        <div
+              t-if="o.transporter_id.phone or o.transporter_id.mobile"
+              class="mt16"
+            >Phone:
+                            <span t-field="o.transporter_id.phone" />
+                            <span
+                t-if="o.transporter_id.phone and o.transporter_id.mobile"
+              > / </span>
+                            <span t-field="o.transporter_id.mobile" />
                         </div>
-                        <div t-if="o.crm_driver_id" class="mt16">Driver: 
-                            <span t-field="o.crm_driver_id.name"/>
+                        <div t-if="o.crm_driver_id" class="mt16">Driver:
+                            <span t-field="o.crm_driver_id.name" />
                         </div>
                         <div t-if="o.crm_driver_id.vat" class="mt16">
-                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:
-                            <span t-field="o.crm_driver_id.vat"/>
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                            <span t-field="o.crm_driver_id.vat" />
                         </div>
-                        <div t-if="o.crm_driver_id.mobile or o.crm_driver_id.phone" class="mt16">Phone: 
-                            <span t-if="o.crm_driver_id.phone" t-field="o.crm_driver_id.phone"/>
-                            <span t-if="o.crm_driver_id.mobile and o.crm_driver_id.phone"> / </span>
-                            <span t-if="o.crm_driver_id.mobile" t-field="o.crm_driver_id.mobile"/>
+                        <div
+              t-if="o.crm_driver_id.mobile or o.crm_driver_id.phone"
+              class="mt16"
+            >Phone:
+                            <span
+                t-if="o.crm_driver_id.phone"
+                t-field="o.crm_driver_id.phone"
+              />
+                            <span
+                t-if="o.crm_driver_id.mobile and o.crm_driver_id.phone"
+              > / </span>
+                            <span
+                t-if="o.crm_driver_id.mobile"
+                t-field="o.crm_driver_id.mobile"
+              />
                         </div>
                         <div t-if="o.cmr_tractor_license_plate" class="mt16">
-                            License Plate Head: <span t-field="o.cmr_tractor_license_plate"/>
+                            License Plate Head: <span
+                t-field="o.cmr_tractor_license_plate"
+              />
                         </div>
                         <div t-if="o.cmr_semi_trailer_license_plate" class="mt16">
-                            License Plate Trailer: <span t-field="o.cmr_semi_trailer_license_plate"/>
+                            License Plate Trailer: <span
+                t-field="o.cmr_semi_trailer_license_plate"
+              />
                         </div>
                     </t>
                     <t t-call="batch_liquidation_report.external_layout_picking_report">
                         <div class="page">
-                            <br/>
+                            <br />
                             <div class="col-12">
                                 <h2>
                                     <span t-if="o.origin">Origin: </span>
                                     <span t-if="not o.origin">Picking Nº: </span>
-                                    <span t-if="o.origin" t-field="o.origin"/>
-                                    <span t-if="not o.origin" t-field="o.name"/>
+                                    <span t-if="o.origin" t-field="o.origin" />
+                                    <span t-if="not o.origin" t-field="o.name" />
                                 </h2>
                             </div>
                             <div id="informations" class="row mt-4 mb-4">
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.custom_date_done">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.custom_date_done"
+                >
                                     <strong>Date Done:</strong>
-                                    <p class="m-0" t-field="o.custom_date_done" t-options='{"widget": "date"}'/>
+                                    <p
+                    class="m-0"
+                    t-field="o.custom_date_done"
+                    t-options='{"widget": "date"}'
+                  />
                                 </div>
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.sale_id and o.sale_id.client_order_ref">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.sale_id and o.sale_id.client_order_ref"
+                >
                                     <strong>Client Ref:</strong>
-                                    <p class="m-0" t-field="o.sale_id.client_order_ref"/>
+                                    <p
+                    class="m-0"
+                    t-field="o.sale_id.client_order_ref"
+                  />
                                 </div>
                                 <div class="col-auto col-3 mw-100 mb-2" t-if="o.origin">
                                     <t><strong t-if="o.origin">Picking Nº:</strong></t>
-                                    <p class="m-0" t-if="o.origin" t-field="o.name"/>
+                                    <p class="m-0" t-if="o.origin" t-field="o.name" />
                                 </div>
                             </div>
-                            <table class="table table-bordered" style="font-size: 15px;">
+                            <table
+                class="table table-bordered"
+                style="font-size: 15px;"
+              >
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width:40%;"><span>Product</span></th>
-                                        <th class="text-center" style="width:10%;"><span>Lot</span></th>
-                                        <th class="text-center" style="width:10%;"><span>Expiration</span></th>
-                                        <th class="text-center" style="width:10%;"><span>Container</span></th>
-                                        <th class="text-center" style="width:10%;"><span>Packaging</span></th>
-                                        <th class="text-center" style="width:20%;"><span>Quantity</span></th>
+                                        <th class="text-center" style="width:40%;"><span
+                      >Product</span></th>
+                                        <th class="text-center" style="width:10%;"><span
+                      >Lot</span></th>
+                                        <th class="text-center" style="width:10%;"><span
+                      >Expiration</span></th>
+                                        <th class="text-center" style="width:10%;"><span
+                      >Container</span></th>
+                                        <th class="text-center" style="width:10%;"><span
+                      >Packaging</span></th>
+                                        <th class="text-center" style="width:20%;"><span
+                      >Quantity</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="move_lines" t-as="line">
                                         <td>
-                                            <span t-field="line.move_id.name"/>
+                                            <span t-field="line.move_id.name" />
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.lot_id.name"/>
+                                            <span t-field="line.lot_id.name" />
                                         </td>
                                         <td class="text-center">
-                                            <span t-if="line.lot_id.expiration_date" t-field="line.lot_id.expiration_date" t-options='{"widget": "date"}'/>
+                                            <span
+                        t-if="line.lot_id.expiration_date"
+                        t-field="line.lot_id.expiration_date"
+                        t-options='{"widget": "date"}'
+                      />
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.container"/>
+                                            <span t-field="line.container" />
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.product_packaging_qty"/>
+                                            <span
+                        t-field="line.product_packaging_qty"
+                      />
                                         </td>
                                         <td class="text-center">
-                                            <span t-field="line.qty_done"/>
-                                            <span t-field="line.product_uom_id.name"/>
+                                            <span t-field="line.qty_done" />
+                                            <span t-field="line.product_uom_id.name" />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <p style="page-break-after: always;"/>
+                            <p style="page-break-after: always;" />
                         </div>
                     </t>
                 </t>

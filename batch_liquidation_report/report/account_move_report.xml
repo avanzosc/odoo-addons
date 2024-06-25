@@ -4,76 +4,90 @@
         <field name="name">Account Move Ticket</field>
         <field name="model">account.move</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">batch_liquidation_report.account_move_ticket_report</field>
+        <field
+      name="report_name"
+    >batch_liquidation_report.account_move_ticket_report</field>
         <field name="print_report_name">'Ticket - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_model_id" ref="account.model_account_move" />
         <field name="binding_type">report</field>
-        <field name="paperformat_id" ref="batch_liquidation_report.paperformat_custom_ticket"/>
+        <field
+      name="paperformat_id"
+      ref="batch_liquidation_report.paperformat_custom_ticket"
+    />
     </record>
 
     <template id="account_move_ticket_report_document">
         <t t-call="web.basic_layout">
             <div class="page">
-                <t t-set="lines" t-value="o.mapped('invoice_line_ids')"/>
-                <t t-set="company" t-value="o.company_id.partner_id"/>
+                <t t-set="lines" t-value="o.mapped('invoice_line_ids')" />
+                <t t-set="company" t-value="o.company_id.partner_id" />
                 <div class="page">
                     <h6 id="company_info">
                         <div class="col-12" t-if="company.comercial">
-                            <span t-field="company.comercial"/>
+                            <span t-field="company.comercial" />
                         </div>
                         <div class="col-12" t-if="company">
-                            <span t-field="company.name"/>
+                            <span t-field="company.name" />
                         </div>
                         <div class="col-12" t-if="company.street">
-                            <span t-field="company.street"/>
+                            <span t-field="company.street" />
                         </div>
                         <div class="col-12" t-if="company.zip">
-                            <span t-field="company.zip"/>
+                            <span t-field="company.zip" />
                         </div>
                         <div class="col-12" t-if="company.state_id">
-                            <span t-field="company.state_id"/>
+                            <span t-field="company.state_id" />
                         </div>
                         <div class="col-12" t-if="companyvat or company.phone">
-                            <span t-if="company.vat" t-field="company.vat"/>
+                            <span t-if="company.vat" t-field="company.vat" />
                             <strong>&#160;</strong>
-                            <span t-if="company.phone" t-field="company.phone"/>
+                            <span t-if="company.phone" t-field="company.phone" />
                         </div>
                         <div class="col-12" t-if="company.website">
-                            <span t-field="company.website"/>
+                            <span t-field="company.website" />
                         </div>
                     </h6>
                     <h6 class="col-14">
-                        <hr class="mb-1" style="border-bottom: 1px solid black;"/>
-                        <br/>
+                        <hr class="mb-1" style="border-bottom: 1px solid black;" />
+                        <br />
                     </h6>
                     <h6 id="sale_info">
                         <div class="col-12" t-if="o.name">
                             <span>Invoice Name:</span>
-                            <span t-field="o.name"/>
+                            <span t-field="o.name" />
                         </div>
                         <div class="col-12" t-if="o.invoice_date">
                             <span>Date:</span>
-                            <span t-field="o.invoice_date"/>
+                            <span t-field="o.invoice_date" />
                         </div>
                     </h6>
-                    <br/>
+                    <br />
                     <h6 id="partner_info">
                         <div class="col-12" t-if="o.partner_id">
-                            <span t-field="o.partner_id.display_name"/>
+                            <span t-field="o.partner_id.display_name" />
                         </div>
                         <div class="col-12" t-if="o.partner_id.street">
-                            <span t-field="o.partner_id.street"/>
+                            <span t-field="o.partner_id.street" />
                         </div>
-                        <div class="col-12" t-if="o.partner_id.city or o.partner_id.state_id">
-                            <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>
+                        <div
+              class="col-12"
+              t-if="o.partner_id.city or o.partner_id.state_id"
+            >
+                            <span
+                t-if="o.partner_id.city"
+                t-field="o.partner_id.city"
+              />
                             <strong>&#160;</strong>
-                            <span t-if="o.partner_id.state_id" t-field="o.partner_id.state_id.name"/>
+                            <span
+                t-if="o.partner_id.state_id"
+                t-field="o.partner_id.state_id.name"
+              />
                         </div>
                         <div class="col-12" t-if="o.partner_id.vat">
-                            <span t-field="o.partner_id.vat"/>
+                            <span t-field="o.partner_id.vat" />
                         </div>
                     </h6>
-                    <br/>
+                    <br />
                     <table class="table" style="font-size: 13px;">
                         <thead>
                             <tr>
@@ -87,51 +101,76 @@
                         <tbody>
                             <tr t-foreach="lines" t-as="line">
                                 <td>
-                                    <span t-field="line.name"/>
+                                    <span t-field="line.name" />
                                 </td>
                                 <td>
-                                    <span t-if="line.sale_line_ids and len(line.sale_line_ids) == 1 and line.sale_line_ids[:1].lot_id" t-field="line.sale_line_ids[:1].lot_id.name"/>
-                                    <span t-if="not line.sale_line_ids and line.purchase_line_id and line.purchase_line_id.lot_id" t-field="line.purchase_line_id and line.purchase_line_id.lot_id.name"/>
+                                    <span
+                    t-if="line.sale_line_ids and len(line.sale_line_ids) == 1 and line.sale_line_ids[:1].lot_id"
+                    t-field="line.sale_line_ids[:1].lot_id.name"
+                  />
+                                    <span
+                    t-if="not line.sale_line_ids and line.purchase_line_id and line.purchase_line_id.lot_id"
+                    t-field="line.purchase_line_id and line.purchase_line_id.lot_id.name"
+                  />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.quantity"/>
+                                    <span t-field="line.quantity" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-esc="round(line.price_unit, 2)"/>
+                                    <span t-esc="round(line.price_unit, 2)" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.price_subtotal"/>
+                                    <span t-field="line.price_subtotal" />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                     <div class="clearfix">
                         <div id="total" class="row">
-                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
-                                <table class="table table-sm" style="page-break-inside: avoid;">
+                            <div
+                t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
+              >
+                                <table
+                  class="table table-sm"
+                  style="page-break-inside: avoid;"
+                >
                                     <tr class="border-black o_subtotal" style="">
                                         <td><strong>Subtotal</strong></td>
                                         <td class="text-right">
-                                            <span t-field="o.amount_untaxed"/>
+                                            <span t-field="o.amount_untaxed" />
                                         </td>
                                     </tr>
-                                    <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                    <t
+                    t-foreach="o.amount_by_group"
+                    t-as="amount_by_group"
+                  >
                                         <tr style="">
-                                            <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0">
-                                                <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
+                                            <t
+                        t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0"
+                      >
+                                                <td><span
+                            class="text-nowrap"
+                            t-esc="amount_by_group[0]"
+                          /></td>
                                                 <td class="text-right o_price_total">
-                                                    <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                                    <span
+                            class="text-nowrap"
+                            t-esc="amount_by_group[3]"
+                          />
                                                 </td>
                                             </t>
                                             <t t-else="">
                                                 <td>
-                                                    <span t-esc="amount_by_group[0]"/>
+                                                    <span t-esc="amount_by_group[0]" />
                                                     <span class="text-nowrap"> on
-                                                        <t t-esc="amount_by_group[4]"/>
+                                                        <t t-esc="amount_by_group[4]" />
                                                     </span>
                                                 </td>
                                                 <td class="text-right o_price_total">
-                                                    <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                                    <span
+                            class="text-nowrap"
+                            t-esc="amount_by_group[3]"
+                          />
                                                 </td>
                                             </t>
                                         </tr>
@@ -139,27 +178,48 @@
                                     <tr class="border-black o_total">
                                         <td><strong>Total</strong></td>
                                         <td class="text-right">
-                                            <span class="text-nowrap" t-field="o.amount_total"/>
+                                            <span
+                        class="text-nowrap"
+                        t-field="o.amount_total"
+                      />
                                         </td>
                                     </tr>
                                     <t t-if="print_with_payments">
                                         <t t-if="o.payment_state != 'invoicing_legacy'">
-                                            <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
-                                            <t t-foreach="payments_vals" t-as="payment_vals">
+                                            <t
+                        t-set="payments_vals"
+                        t-value="o.sudo()._get_reconciled_info_JSON_values()"
+                      />
+                                            <t
+                        t-foreach="payments_vals"
+                        t-as="payment_vals"
+                      >
                                                 <tr>
                                                     <td>
-                                                        <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options="{&quot;widget&quot;: &quot;date&quot;}"/></i>
+                                                        <i
+                              class="oe_form_field text-right oe_payment_label"
+                            >Paid on <t
+                                t-esc="payment_vals['date']"
+                                t-options="{&quot;widget&quot;: &quot;date&quot;}"
+                              /></i>
                                                     </td>
                                                     <td class="text-right">
-                                                        <span t-esc="payment_vals['amount']" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                                        <span
+                              t-esc="payment_vals['amount']"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                            />
                                                     </td>
                                                 </tr>
                                             </t>
                                             <t t-if="len(payments_vals) &gt; 0">
-                                                <tr class="border-black font-weight-bold">
+                                                <tr
+                          class="border-black font-weight-bold"
+                        >
                                                     <td>Amount Due</td>
                                                     <td class="text-right">
-                                                        <span t-field="o.amount_residual"/>
+                                                        <span
+                              t-field="o.amount_residual"
+                            />
                                                     </td>
                                                 </tr>
                                             </t>
@@ -177,7 +237,10 @@
     <template id="account_move_ticket_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="batch_liquidation_report.account_move_ticket_report_document" t-lang="user.lang"/>
+                <t
+          t-call="batch_liquidation_report.account_move_ticket_report_document"
+          t-lang="user.lang"
+        />
             </t>
         </t>
     </template>
