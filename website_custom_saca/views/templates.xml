@@ -1,48 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="assets_frontend" inherit_id="website.assets_frontend">
         <xpath expr=".">
-            <script type="text/javascript" src="/website_custom_saca/static/src/js/script.js"/>
-        	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css'/>
+            <script
+        type="text/javascript"
+        src="/website_custom_saca/static/src/js/script.js"
+      />
+        	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css' />
         </xpath>
     </template>
     <template id="report_assets_common" inherit_id="web.report_assets_common">
         <xpath expr=".">
-        	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css'/>
+        	<link rel='stylesheet' href='/website_custom_saca/static/src/css/style.css' />
         </xpath>
     </template>
     <template id="portal_my_saca_lines_home" inherit_id="portal.portal_my_home">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">My saca lines for today</t>
-                <t t-set="url" t-value="'/my/saca/lines?today=true'"/>
-                <t t-set="placeholder_count" t-value="'saca_lines_count_today'"/>
+                <t t-set="url" t-value="'/my/saca/lines?today=true'" />
+                <t t-set="placeholder_count" t-value="'saca_lines_count_today'" />
             </t>
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">My saca lines</t>
-                <t t-set="url" t-value="'/my/saca/lines/all'"/>
-                <t t-set="placeholder_count" t-value="'saca_lines_count'"/>
+                <t t-set="url" t-value="'/my/saca/lines/all'" />
+                <t t-set="placeholder_count" t-value="'saca_lines_count'" />
             </t>
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">All saca lines for today</t>
-                <t t-set="url" t-value="'/my/saca/lines?today=true&amp;show_all=true'"/>
-                <t t-set="placeholder_count" t-value="'saca_lines_count_today'"/>
+                <t
+          t-set="url"
+          t-value="'/my/saca/lines?today=true&amp;show_all=true'"
+        />
+                <t t-set="placeholder_count" t-value="'saca_lines_count_today'" />
             </t>
             <t t-call="portal.portal_docs_entry">
                 <t t-set="title">All saca lines</t>
-                <t t-set="url" t-value="'/my/saca/lines/all?show_all=true'"/>
-                <t t-set="placeholder_count" t-value="'saca_lines_count'"/>
+                <t t-set="url" t-value="'/my/saca/lines/all?show_all=true'" />
+                <t t-set="placeholder_count" t-value="'saca_lines_count'" />
             </t>
         </xpath>
     </template>
-    <template id="portal_my_home_menu_saca" name="Portal layout : saca menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+    <template
+    id="portal_my_home_menu_saca"
+    name="Portal layout : saca menu entries"
+    inherit_id="portal.portal_breadcrumbs"
+    priority="20"
+  >
         <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name in ['saca', 'saca_line']" t-attf-class="breadcrumb-item #{'active ' if not sacas else ''}">
-                <a t-if="not sacas" t-att-href="'/my/saca/lines?show_all=%s' % show_all"><t t-if="not show_all">My</t><t t-else="">All</t> sacas</a>
-                <t t-else=""><t t-if="not show_all">My </t><t t-else="">All</t> sacas</t>
+            <li
+        t-if="page_name in ['saca', 'saca_line']"
+        t-attf-class="breadcrumb-item #{'active ' if not sacas else ''}"
+      >
+                <a
+          t-if="not sacas"
+          t-att-href="'/my/saca/lines?show_all=%s' % show_all"
+        ><t t-if="not show_all">My</t><t t-else="">All</t> sacas</a>
+                <t t-else=""><t t-if="not show_all">My </t><t
+            t-else=""
+          >All</t> sacas</t>
             </li>
             <li t-if="saca_line" class="breadcrumb-item active">
-                <t t-esc="saca_line.name"/>
+                <t t-esc="saca_line.name" />
             </li>
         </xpath>
     </template>
@@ -58,34 +77,72 @@
                 <div class="container p-0">
                     <h1 class="h3 mb-3">Saca Lines</h1>
                     <div class="row">
-                        <div t-foreach="sacas" t-as="saca" t-att-class="'col-12' if today else 'col-12 col-lg-6 col-xl-4'">
+                        <div
+              t-foreach="sacas"
+              t-as="saca"
+              t-att-class="'col-12' if today else 'col-12 col-lg-6 col-xl-4'"
+            >
                             <div class="card card-border-primary">
                                 <div class="card-header">
-                                    <h5 class="card-title">SACA <t t-esc="saca.name"/></h5>
-                                    <h6 class="card-subtitle text-muted"><t t-esc="saca.date"/></h6>
+                                    <h5 class="card-title">SACA <t
+                      t-esc="saca.name"
+                    /></h5>
+                                    <h6 class="card-subtitle text-muted"><t
+                      t-esc="saca.date"
+                    /></h6>
                                 </div>
                                 <div class="card-body p-3">
-                                    <div t-foreach="saca_lines.filtered(lambda l: l.saca_id.id == saca.id)" t-as="saca_line" class="card mb-3 bg-light">
+                                    <div
+                    t-foreach="saca_lines.filtered(lambda l: l.saca_id.id == saca.id)"
+                    t-as="saca_line"
+                    class="card mb-3 bg-light"
+                  >
                                         <div class="card-body p-3">
                                             <div class="float-right mr-n2">
-                                                <a t-att-href="'/my/saca/line/%s?show_all=%s' % (saca_line.id, show_all)" class="btn btn-outline-primary btn-sm">
+                                                <a
+                          t-att-href="'/my/saca/line/%s?show_all=%s' % (saca_line.id, show_all)"
+                          class="btn btn-outline-primary btn-sm"
+                        >
                                                     Edit
                                                 </a>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <div t-if="saca_line.saca_time"><small><b>Saca Hour:</b> <t t-esc="saca_line.saca_time" t-options="{'widget': 'float_time'}"/></small></div>
+                                                    <div
+                            t-if="saca_line.saca_time"
+                          ><small><b>Saca Hour:</b> <t
+                                t-esc="saca_line.saca_time"
+                                t-options="{'widget': 'float_time'}"
+                              /></small></div>
                                                     <div>
                                                         <small>
                                                             <b>Granja:</b>
-                                                            <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/>
-                                                            <t t-if="saca_line.farm_id and not saca_line.farm_warehouse_id" t-esc="saca_line.farm_id.name"/>
+                                                            <t
+                                t-if="saca_line.farm_warehouse_id"
+                                t-esc="saca_line.farm_warehouse_id.name"
+                              />
+                                                            <t
+                                t-if="saca_line.farm_id and not saca_line.farm_warehouse_id"
+                                t-esc="saca_line.farm_id.name"
+                              />
                                                         </small>
                                                     </div>
-                                                    <div><small><b>City:</b> <t t-esc="saca_line.city"/></small></div>
-                                                    <div t-if="show_all and saca_line.driver_id"><small><b>Driver:</b> <t t-esc="saca_line.driver_id.display_name"/></small></div>
-                                                    <div t-if="saca_line.phone or saca_line.mobile"><small><b>Phone:</b> <t t-esc="saca_line.phone"/> <t t-if="saca_line.phone and saca_line.mobile"> - </t> <t t-esc="saca_line.mobile"/></small></div>
-                                                    <div><small><b>Lote:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></small></div>
+                                                    <div><small><b>City:</b> <t
+                                t-esc="saca_line.city"
+                              /></small></div>
+                                                    <div
+                            t-if="show_all and saca_line.driver_id"
+                          ><small><b>Driver:</b> <t
+                                t-esc="saca_line.driver_id.display_name"
+                              /></small></div>
+                                                    <div
+                            t-if="saca_line.phone or saca_line.mobile"
+                          ><small><b>Phone:</b> <t t-esc="saca_line.phone" /> <t
+                                t-if="saca_line.phone and saca_line.mobile"
+                              > - </t> <t t-esc="saca_line.mobile" /></small></div>
+                                                    <div><small><b>Lote:</b> <t
+                                t-esc="saca_line.lot"
+                              /> - <t t-esc="saca_line.seq" /></small></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +157,7 @@
     </template>
     <template id="portal_saca_line" name="Saca line">
         <t t-call="portal.portal_layout">
-            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
             <t t-call="portal.portal_searchbar">
                 <t t-set="title">Line ID</t>
             </t>
@@ -108,158 +165,393 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card card-border-primary saca_line_card">
-                            <form t-attf-action="/my/saca/line/{{saca_line.id}}" method="post" id="driver_saca_edit">
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                <input type="hidden" id="current_saca_line" t-att-value="saca_line.id"/>
+                            <form
+                t-attf-action="/my/saca/line/{{saca_line.id}}"
+                method="post"
+                id="driver_saca_edit"
+              >
+                                <input
+                  type="hidden"
+                  name="csrf_token"
+                  t-att-value="request.csrf_token()"
+                />
+                                <input
+                  type="hidden"
+                  id="current_saca_line"
+                  t-att-value="saca_line.id"
+                />
                                 <div class="card-header">
                                     <div class="card-actions float-right">
-                                        <a t-if="prev_saca_line_id" t-att-href="'/my/saca/line/%s' % prev_saca_line_id" id="btn_prev" class="button"><i class="fa fa-caret-square-o-left"/></a>
-                                        <a t-if="next_saca_line_id" t-att-href="'/my/saca/line/%s' % next_saca_line_id" id="btn_next" class="button"><i class="fa fa-caret-square-o-right"/></a>
-                                        <a id="btn_saca_print" target="_blank" t-att-href="'/saca/line/print/%s' % saca_line.id" class="button btn btn-secondary"><i class="fa fa-download"/></a>
-                                        <button type="button" id="btn_saca_send" t-att-value="saca_line.id" class="btn btn-secondary"><i class="fa fa-paper-plane"/></button>
-                                        <a t-if="saca_line.has_to_be_signed(sign_by='farm')" role="button" href="#" class="button btn btn-secondary" data-toggle="modal"
-                                            data-target="#modalaccept_farmer">Sign Farmer<i class="fa fa-sign"/></a>
-                                        <a t-if="saca_line.has_to_be_signed(sign_by='driver')" role="button" href="#" class="button btn btn-secondary" data-toggle="modal"
-                                            data-target="#modalaccept_driver">Sign Driver<i class="fa fa-sign"/></a>
+                                        <a
+                      t-if="prev_saca_line_id"
+                      t-att-href="'/my/saca/line/%s' % prev_saca_line_id"
+                      id="btn_prev"
+                      class="button"
+                    ><i class="fa fa-caret-square-o-left" /></a>
+                                        <a
+                      t-if="next_saca_line_id"
+                      t-att-href="'/my/saca/line/%s' % next_saca_line_id"
+                      id="btn_next"
+                      class="button"
+                    ><i class="fa fa-caret-square-o-right" /></a>
+                                        <a
+                      id="btn_saca_print"
+                      target="_blank"
+                      t-att-href="'/saca/line/print/%s' % saca_line.id"
+                      class="button btn btn-secondary"
+                    ><i class="fa fa-download" /></a>
+                                        <button
+                      type="button"
+                      id="btn_saca_send"
+                      t-att-value="saca_line.id"
+                      class="btn btn-secondary"
+                    ><i class="fa fa-paper-plane" /></button>
+                                        <a
+                      t-if="saca_line.has_to_be_signed(sign_by='farm')"
+                      role="button"
+                      href="#"
+                      class="button btn btn-secondary"
+                      data-toggle="modal"
+                      data-target="#modalaccept_farmer"
+                    >Sign Farmer<i class="fa fa-sign" /></a>
+                                        <a
+                      t-if="saca_line.has_to_be_signed(sign_by='driver')"
+                      role="button"
+                      href="#"
+                      class="button btn btn-secondary"
+                      data-toggle="modal"
+                      data-target="#modalaccept_driver"
+                    >Sign Driver<i class="fa fa-sign" /></a>
                                     </div>
-                                    <h5 class="card-title">SACA LINE <t t-esc="saca_line.name"/></h5>
-                                    <h6 class="card-subtitle text-muted mb-3"><t t-esc="saca_line.date"/></h6>
-                                    <h6 class="card-subtitle text-muted">Edit saca form</h6>
+                                    <h5 class="card-title">SACA LINE <t
+                      t-esc="saca_line.name"
+                    /></h5>
+                                    <h6 class="card-subtitle text-muted mb-3"><t
+                      t-esc="saca_line.date"
+                    /></h6>
+                                    <h6
+                    class="card-subtitle text-muted"
+                  >Edit saca form</h6>
                                 </div>
                                 <div class="card-body p-3">
                                     <div class="card mb-3 bg-light">
                                         <div class="card-body p-3">
                                             <div class="row">
                                                 <div class="col-12 card-actions">
-                                                    <button type="button" id="btn_saca_edit" class="btn btn-secondary float-right"><i class="fa fa-edit"/></button>
-                                                    <button style="display:none;" id="btn_saca_save" class="btn btn-secondary float-right"><i class="fa fa-save"/></button>
+                                                    <button
+                            type="button"
+                            id="btn_saca_edit"
+                            class="btn btn-secondary float-right"
+                          ><i class="fa fa-edit" /></button>
+                                                    <button
+                            style="display:none;"
+                            id="btn_saca_save"
+                            class="btn btn-secondary float-right"
+                          ><i class="fa fa-save" /></button>
                                                 </div>
-                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div saca_line_div_left"
+                        >
                                                     <h5><b>General info</b></h5>
-                                                    <div><b>Date:</b> <t t-esc="saca_line.date"/></div>
-                                                    <div><b>Lot:</b> <t t-esc="saca_line.lot"/> - <t t-esc="saca_line.seq"/></div>
-                                                    <div><b>Breeding:</b> <t t-if="saca_line.breeding_id" t-esc="saca_line.breeding_id.name"/></div>
-                                                    <div><b>Product:</b> <t t-if="saca_line.product_id" t-esc="saca_line.product_id.name"/></div>
+                                                    <div><b>Date:</b> <t
+                              t-esc="saca_line.date"
+                            /></div>
+                                                    <div><b>Lot:</b> <t
+                              t-esc="saca_line.lot"
+                            /> - <t t-esc="saca_line.seq" /></div>
+                                                    <div><b>Breeding:</b> <t
+                              t-if="saca_line.breeding_id"
+                              t-esc="saca_line.breeding_id.name"
+                            /></div>
+                                                    <div><b>Product:</b> <t
+                              t-if="saca_line.product_id"
+                              t-esc="saca_line.product_id.name"
+                            /></div>
                                                 </div>
-                                                <div class="col-12 col-lg-6 saca_line_div">
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div"
+                        >
                                                     <h5><b>Farm info</b></h5>
-                                                    <div><b>Nave:</b> <t t-if="saca_line.farm_warehouse_id" t-esc="saca_line.farm_warehouse_id.name"/></div>
-                                                    <div><b>Street:</b> <t t-esc="saca_line.street"/></div>
-                                                    <div><b>City:</b> <t t-esc="saca_line.city"/></div>
-                                                    <div><b>Phone:</b> <t t-esc="saca_line.phone"/> <t t-esc="saca_line.mobile"/></div>
-                                                    <div><b>Farmer:</b> <t t-if="saca_line.breeding_id" t-esc="saca_line.breeding_id.farmer_id.name"/></div>
-                                                    <div><b>Bascula:</b> <t t-if="saca_line.main_scale" t-esc="saca_line.main_scale.name"/></div>
+                                                    <div><b>Nave:</b> <t
+                              t-if="saca_line.farm_warehouse_id"
+                              t-esc="saca_line.farm_warehouse_id.name"
+                            /></div>
+                                                    <div><b>Street:</b> <t
+                              t-esc="saca_line.street"
+                            /></div>
+                                                    <div><b>City:</b> <t
+                              t-esc="saca_line.city"
+                            /></div>
+                                                    <div><b>Phone:</b> <t
+                              t-esc="saca_line.phone"
+                            /> <t t-esc="saca_line.mobile" /></div>
+                                                    <div><b>Farmer:</b> <t
+                              t-if="saca_line.breeding_id"
+                              t-esc="saca_line.breeding_id.farmer_id.name"
+                            /></div>
+                                                    <div><b>Bascula:</b> <t
+                              t-if="saca_line.main_scale"
+                              t-esc="saca_line.main_scale.name"
+                            /></div>
                                                 </div>
                                             </div>
-                                            <br/>
+                                            <br />
                                             <div class="row">
-                                                <h5 class="col-12"><b>Drive info</b></h5>
-                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
-                                                    <div><b>Driver:</b> <t t-if="saca_line.driver_id" t-esc="saca_line.driver_id.name"/></div>
-                                                    <div><b>Trailer:</b> <t t-if="saca_line.remolque_id" t-esc="saca_line.remolque_id.name"/></div>
-                                                    <div><b>Vehicle:</b> <t t-if="saca_line.vehicle_id" t-esc="saca_line.vehicle_id.name"/></div>
+                                                <h5 class="col-12"><b
+                          >Drive info</b></h5>
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div saca_line_div_left"
+                        >
+                                                    <div><b>Driver:</b> <t
+                              t-if="saca_line.driver_id"
+                              t-esc="saca_line.driver_id.name"
+                            /></div>
+                                                    <div><b>Trailer:</b> <t
+                              t-if="saca_line.remolque_id"
+                              t-esc="saca_line.remolque_id.name"
+                            /></div>
+                                                    <div><b>Vehicle:</b> <t
+                              t-if="saca_line.vehicle_id"
+                              t-esc="saca_line.vehicle_id.name"
+                            /></div>
                                                 </div>
-                                                <div class="col-12 col-lg-6 saca_line_div">
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div"
+                        >
                                                         <div><b>Cages num.:</b>
-                                                            <span class="info_span"><t t-if="saca_line.cages_num" t-esc="saca_line.cages_num"/></span>
-                                                            <input class="form-control saca_input" name="cages_num" t-att-value="saca_line.cages_num" style="display:none;"/>
+                                                            <span class="info_span"><t
+                                t-if="saca_line.cages_num"
+                                t-esc="saca_line.cages_num"
+                              /></span>
+                                                            <input
+                              class="form-control saca_input"
+                              name="cages_num"
+                              t-att-value="saca_line.cages_num"
+                              style="display:none;"
+                            />
                                                         </div>
                                                         <div><b>Unit burden:</b>
-                                                            <span class="info_span"><t t-if="saca_line.unit_burden" t-esc="saca_line.unit_burden" t-options='{"widget": "float", "precision": 2}'/></span>
-                                                            <input type="number" step="0.01" class="form-control saca_input" name="unit_burden" t-att-value="saca_line.unit_burden" style="display:none;"/>
+                                                            <span class="info_span"><t
+                                t-if="saca_line.unit_burden"
+                                t-esc="saca_line.unit_burden"
+                                t-options='{"widget": "float", "precision": 2}'
+                              /></span>
+                                                            <input
+                              type="number"
+                              step="0.01"
+                              class="form-control saca_input"
+                              name="unit_burden"
+                              t-att-value="saca_line.unit_burden"
+                              style="display:none;"
+                            />
                                                         </div>
                                                         <div><b>Crew num.:</b>
-                                                            <span class="info_span"><t t-esc="saca_line.staff_crew"/></span>
-                                                            <input type="text" class="form-control saca_input" name="staff_crew" t-att-value="saca_line.staff_crew" style="display:none;"/>
+                                                            <span class="info_span"><t
+                                t-esc="saca_line.staff_crew"
+                              /></span>
+                                                            <input
+                              type="text"
+                              class="form-control saca_input"
+                              name="staff_crew"
+                              t-att-value="saca_line.staff_crew"
+                              style="display:none;"
+                            />
                                                         </div>
                                                         <div><b>Planta:</b>
-                                                            <span class="info_span" t-field="saca_line.floor"/>
-                                                            <select class="form-control unload_input" id="exampleFormControlSelect2" name="floor" t-att-value="saca_line.floor" style="display:none;">
-                                                                <option value="0">Seleccionar planta...</option>
-                                                                <t t-foreach="floor_options" t-as="floor">
-                                                                     <option t-att-value="floor" t-att-selected="floor == saca_line.floor"><t t-esc="floor_options.get(floor)"/></option>
+                                                            <span
+                              class="info_span"
+                              t-field="saca_line.floor"
+                            />
+                                                            <select
+                              class="form-control unload_input"
+                              id="exampleFormControlSelect2"
+                              name="floor"
+                              t-att-value="saca_line.floor"
+                              style="display:none;"
+                            >
+                                                                <option
+                                value="0"
+                              >Seleccionar planta...</option>
+                                                                <t
+                                t-foreach="floor_options"
+                                t-as="floor"
+                              >
+                                                                     <option
+                                  t-att-value="floor"
+                                  t-att-selected="floor == saca_line.floor"
+                                ><t t-esc="floor_options.get(floor)" /></option>
                                                                 </t>
                                                             </select>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-lg-12" style="display: flex;">
-                                                                <label for="forklift">Carretilla:</label>
-                                                                <input id="chbx_fork" t-att-class="'form-control saca_input form-check-input' + ' checked' if saca_line.forklift else '' " name="forklift" type="checkbox" t-att-value="saca_line.forklift" style="width:20%; height: 70%;"/>
+                                                            <div
+                              class="col-lg-12"
+                              style="display: flex;"
+                            >
+                                                                <label
+                                for="forklift"
+                              >Carretilla:</label>
+                                                                <input
+                                id="chbx_fork"
+                                t-att-class="'form-control saca_input form-check-input' + ' checked' if saca_line.forklift else '' "
+                                name="forklift"
+                                type="checkbox"
+                                t-att-value="saca_line.forklift"
+                                style="width:20%; height: 70%;"
+                              />
                                                             </div>
                                                         </div>
                                                     </div>
                                             </div>
-                                            <br/>
-                                            <br/>
+                                            <br />
+                                            <br />
                                             <div class="row">
-                                                <div t-if="timesheet_ids" class="col-12 col-lg-6 saca_line_div saca_line_div_left">
-                                                    <h5 class="mt-3"><b>Timesheet</b></h5>
+                                                <div
+                          t-if="timesheet_ids"
+                          class="col-12 col-lg-6 saca_line_div saca_line_div_left"
+                        >
+                                                    <h5 class="mt-3"><b
+                            >Timesheet</b></h5>
                                                     <table class="timesheet_table">
                                                         <thead>
                                                             <tr>
-                                                                <td/>
+                                                                <td />
                                                                 <th>Start hour</th>
                                                                 <th>Stop hour</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr t-foreach="timesheet_ids" t-as="timesheet_id">
+                                                            <tr
+                                t-foreach="timesheet_ids"
+                                t-as="timesheet_id"
+                              >
                                                                 <td>
-                                                                    <b><t t-esc="timesheet_id.task_id.name"/></b>
+                                                                    <b><t
+                                      t-esc="timesheet_id.task_id.name"
+                                    /></b>
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <button t-if="timesheet_id.time_start == 0.0" class="btn btn-secondary" name='btn_start' t-att-value="timesheet_id.id">Start</button>
-                                                                    <t t-else="" t-esc="timesheet_id.time_start" t-options='{"widget": "float_time"}'/>
+                                                                    <button
+                                    t-if="timesheet_id.time_start == 0.0"
+                                    class="btn btn-secondary"
+                                    name='btn_start'
+                                    t-att-value="timesheet_id.id"
+                                  >Start</button>
+                                                                    <t
+                                    t-else=""
+                                    t-esc="timesheet_id.time_start"
+                                    t-options='{"widget": "float_time"}'
+                                  />
                                                                 </td>
                                                                 <td class="text-center">
-                                                                    <button t-if="timesheet_id.time_stop == 0.0 and timesheet_id.time_start != 0.0" class="btn btn-secondary" name='btn_finish' t-att-value="timesheet_id.id">Finish</button>
-                                                                    <t t-else="" t-esc="timesheet_id.time_stop" t-options='{"widget": "float_time"}'/>
+                                                                    <button
+                                    t-if="timesheet_id.time_stop == 0.0 and timesheet_id.time_start != 0.0"
+                                    class="btn btn-secondary"
+                                    name='btn_finish'
+                                    t-att-value="timesheet_id.id"
+                                  >Finish</button>
+                                                                    <t
+                                    t-else=""
+                                    t-esc="timesheet_id.time_stop"
+                                    t-options='{"widget": "float_time"}'
+                                  />
 
                                                                 </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
                                                 </div></div>
-                                            <hr/>
+                                            <hr />
                                             <div class="row">
-                                                <h5 class="col-12"><b>Unload info</b></h5>
-                                                <div class="col-12 col-lg-6 saca_line_div saca_line_div_left">
-                                                    <div><b>Unload date:</b> <t t-esc="saca_line.unload_date"/></div>
+                                                <h5 class="col-12"><b
+                          >Unload info</b></h5>
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div saca_line_div_left"
+                        >
+                                                    <div><b>Unload date:</b> <t
+                              t-esc="saca_line.unload_date"
+                            /></div>
                                                     <div><b>Guide number:</b>
-                                                        <span class="info_span"><t t-esc="saca_line.guide_number"/></span>
-                                                        <input class="form-control unload_input" name="guide_number" t-att-value="saca_line.guide_number" style="display:none;"/>
+                                                        <span class="info_span"><t
+                                t-esc="saca_line.guide_number"
+                              /></span>
+                                                        <input
+                              class="form-control unload_input"
+                              name="guide_number"
+                              t-att-value="saca_line.guide_number"
+                              style="display:none;"
+                            />
                                                     </div>
                                                     <div><b>Download unit:</b>
-                                                        <span class="info_span"><t t-esc="saca_line.download_unit"/></span>
-                                                        <input class="form-control unload_input" name="download_unit" t-att-value="saca_line.download_unit" style="display:none;"/>
+                                                        <span class="info_span"><t
+                                t-esc="saca_line.download_unit"
+                              /></span>
+                                                        <input
+                              class="form-control unload_input"
+                              name="download_unit"
+                              t-att-value="saca_line.download_unit"
+                              style="display:none;"
+                            />
                                                     </div>
                                                 </div>
-                                                <div class="col-12 col-lg-6 saca_line_div">
+                                                <div
+                          class="col-12 col-lg-6 saca_line_div"
+                        >
                                                     <div><b>Kilometers:</b>
-                                                        <span class="info_span"><t t-esc="saca_line.distance_done" t-options='{"widget": "float", "precision": 2}'/></span>
-                                                        <input type="number" step="0.01" class="form-control unload_input" name="distance_done" t-att-value="saca_line.distance_done" style="display:none;"/>
+                                                        <span class="info_span"><t
+                                t-esc="saca_line.distance_done"
+                                t-options='{"widget": "float", "precision": 2}'
+                              /></span>
+                                                        <input
+                              type="number"
+                              step="0.01"
+                              class="form-control unload_input"
+                              name="distance_done"
+                              t-att-value="saca_line.distance_done"
+                              style="display:none;"
+                            />
                                                     </div>
                                                     <div><b>Torista:</b>
-                                                        <span class="info_span"><t t-if="saca_line.torista_id" t-esc="saca_line.torista_id.name"/></span>
-                                                        <select class="form-control unload_input" id="exampleFormControlSelect1" name="torista_id" t-att-value="saca_line.torista_id.id if saca_line.torista_id else ''" style="display:none;">
-                                                            <option value="0">Select torista...</option>
-                                                            <t t-foreach="toristas" t-as="torista">
-                                                                <option t-att-value="torista.id" t-att-selected="int(torista.id) == int(saca_line.torista_id.id)"><t t-esc="torista.name"/></option>
+                                                        <span class="info_span"><t
+                                t-if="saca_line.torista_id"
+                                t-esc="saca_line.torista_id.name"
+                              /></span>
+                                                        <select
+                              class="form-control unload_input"
+                              id="exampleFormControlSelect1"
+                              name="torista_id"
+                              t-att-value="saca_line.torista_id.id if saca_line.torista_id else ''"
+                              style="display:none;"
+                            >
+                                                            <option
+                                value="0"
+                              >Select torista...</option>
+                                                            <t
+                                t-foreach="toristas"
+                                t-as="torista"
+                              >
+                                                                <option
+                                  t-att-value="torista.id"
+                                  t-att-selected="int(torista.id) == int(saca_line.torista_id.id)"
+                                ><t t-esc="torista.name" /></option>
                                                             </t>
                                                         </select>
                                                     </div>
                                                     <div><b>Coya:</b>
-                                                        <span><t t-if="saca_line.coya_id" t-esc="saca_line.coya_id.name"/></span>
+                                                        <span><t
+                                t-if="saca_line.coya_id"
+                                t-esc="saca_line.coya_id.name"
+                              /></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br/>
+                                            <br />
                                             <div class="col-12 weight_col">
                                                 <h5><b>Weight table</b></h5>
                                                 <table class="col-12 weight_table">
                                                     <thead>
                                                         <tr>
-                                                            <th/>
+                                                            <th />
                                                             <th>Peso Granja</th>
                                                             <th>Peso Matadero</th>
                                                             <th>Peso Previsto</th>
@@ -269,133 +561,304 @@
                                                         <tr>
                                                             <th>Bruto</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_origin" t-options='{"widget": "float", "precision": 0}'/></span>
-                                                                <input type="number" step="0.01" class="form-control weight_input" name="gross_origin" t-att-value="saca_line.gross_origin" style="display:none;"/>
+                                                                <span
+                                  class="info_span"
+                                ><t
+                                    t-esc="saca_line.gross_origin"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
+                                                                <input
+                                  type="number"
+                                  step="0.01"
+                                  class="form-control weight_input"
+                                  name="gross_origin"
+                                  t-att-value="saca_line.gross_origin"
+                                  style="display:none;"
+                                />
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.gross_dest" t-options='{"widget": "float", "precision": 0}'/></span>
-                                                                <input type="number" step="0.01" class="form-control weight_input" name="gross_dest" t-att-value="saca_line.gross_dest" style="display:none;"/>
+                                                                <span
+                                  class="info_span"
+                                ><t
+                                    t-esc="saca_line.gross_dest"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
+                                                                <input
+                                  type="number"
+                                  step="0.01"
+                                  class="form-control weight_input"
+                                  name="gross_dest"
+                                  t-att-value="saca_line.gross_dest"
+                                  style="display:none;"
+                                />
                                                             </td>
-                                                            <td><span><t t-esc="saca_line.estimate_weight" t-options='{"widget": "float", "precision": 0}'/> <t t-esc="saca_line.weight_uom_id.name"/></span></td>
+                                                            <td><span><t
+                                    t-esc="saca_line.estimate_weight"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /> <t
+                                    t-esc="saca_line.weight_uom_id.name"
+                                  /></span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Tara</th>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_origin" t-options='{"widget": "float", "precision": 0}'/></span>
-                                                                <input type="number" step="0.01" class="form-control weight_input" name="tara_origin" t-att-value="saca_line.tara_origin" style="display:none;"/>
+                                                                <span
+                                  class="info_span"
+                                ><t
+                                    t-esc="saca_line.tara_origin"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
+                                                                <input
+                                  type="number"
+                                  step="0.01"
+                                  class="form-control weight_input"
+                                  name="tara_origin"
+                                  t-att-value="saca_line.tara_origin"
+                                  style="display:none;"
+                                />
                                                             </td>
                                                             <td>
-                                                                <span class="info_span"><t t-esc="saca_line.tara_dest" t-options='{"widget": "float", "precision": 0}'/></span>
-                                                                <input type="number" step="0.01" class="form-control weight_input" name="tara_dest" t-att-value="saca_line.tara_dest" style="display:none;"/>
+                                                                <span
+                                  class="info_span"
+                                ><t
+                                    t-esc="saca_line.tara_dest"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
+                                                                <input
+                                  type="number"
+                                  step="0.01"
+                                  class="form-control weight_input"
+                                  name="tara_dest"
+                                  t-att-value="saca_line.tara_dest"
+                                  style="display:none;"
+                                />
                                                             </td>
                                                             <th>Peso m. real</th>
                                                         </tr>
                                                         <tr>
                                                             <th>Neto</th>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_origin" t-options='{"widget": "float", "precision": 0}'/></span>
+                                                                <span><t
+                                    t-esc="saca_line.net_origin"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
                                                             </td>
                                                             <td>
-                                                                <span><t t-esc="saca_line.net_dest" t-options='{"widget": "float", "precision": 0}'/></span>
+                                                                <span><t
+                                    t-esc="saca_line.net_dest"
+                                    t-options='{"widget": "float", "precision": 0}'
+                                  /></span>
                                                             </td>
                                                             <td>
-                                                                <span class=""><t t-esc="saca_line.average_weight_origin" t-options='{"widget": "float", "precision": 2}'/></span>
-                                                                  <t t-esc="saca_line.weight_uom_id.name"/>
+                                                                <span class=""><t
+                                    t-esc="saca_line.average_weight_origin"
+                                    t-options='{"widget": "float", "precision": 2}'
+                                  /></span>
+                                                                  <t
+                                  t-esc="saca_line.weight_uom_id.name"
+                                />
                                                             </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                             <t>
-                                                <br/>
-                                                <hr/>
+                                                <br />
+                                                <hr />
                                                 <div class="col-12">
                                                     <h5><b>Observations</b></h5>
                                                     <div>
-                                                        <p class="info_span"><t t-esc="saca_line.note"/></p>
-                                                        <textarea class="form-control saca_input" name="note" style="display:none;"><t t-esc="saca_line.note"/></textarea>
+                                                        <p class="info_span"><t
+                                t-esc="saca_line.note"
+                              /></p>
+                                                        <textarea
+                              class="form-control saca_input"
+                              name="note"
+                              style="display:none;"
+                            ><t t-esc="saca_line.note" /></textarea>
                                                     </div>
                                                 </div>
                                             </t>
-                                            <hr/>
-                                            <br/>
+                                            <hr />
+                                            <br />
                                             <div class="row">
                                                 <div class="col-6">
                                                     <h6><b>Farm signature</b>
-                                                        <a t-if="saca_line.has_to_be_signed(sign_by='farm')" role="button" href="#" class="button btn btn-secondary"
-                                                           data-toggle="modal" data-target="#modalaccept_farmer">
-                                                            <i class="fa fa-pencil-square-o"/></a>
+                                                        <a
+                              t-if="saca_line.has_to_be_signed(sign_by='farm')"
+                              role="button"
+                              href="#"
+                              class="button btn btn-secondary"
+                              data-toggle="modal"
+                              data-target="#modalaccept_farmer"
+                            >
+                                                            <i
+                                class="fa fa-pencil-square-o"
+                              /></a>
                                                     </h6>
-                                                    <div t-if="saca_line.signature_farm" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=signature_farm"
-                                                            class="o_cal_avatar"/>
+                                                    <div
+                            t-if="saca_line.signature_farm"
+                            class="card"
+                          >
+                                                        <img
+                              t-attf-src="/web/image?model=saca.line&#38;id=#{saca_line.id}&#38;field=signature_farm"
+                              class="o_cal_avatar"
+                            />
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
                                                     <h6><b>Driver signature</b>
-                                                        <a t-if="saca_line.has_to_be_signed(sign_by='driver')" role="button" href="#" class="button btn btn-secondary"
-                                                           data-toggle="modal" data-target="#modalaccept_driver">
-                                                            <i class="fa fa-pencil-square-o"/></a>
+                                                        <a
+                              t-if="saca_line.has_to_be_signed(sign_by='driver')"
+                              role="button"
+                              href="#"
+                              class="button btn btn-secondary"
+                              data-toggle="modal"
+                              data-target="#modalaccept_driver"
+                            >
+                                                            <i
+                                class="fa fa-pencil-square-o"
+                              /></a>
                                                     </h6>
-                                                    <div t-if="saca_line.signature_driver" class="card" >
-                                                        <img t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=signature_driver"
-                                                            class="o_cal_avatar"/>
+                                                    <div
+                            t-if="saca_line.signature_driver"
+                            class="card"
+                          >
+                                                        <img
+                              t-attf-src="/web/image?model=saca.line&#38;id={{saca_line.id}}&#38;field=signature_driver"
+                              class="o_cal_avatar"
+                            />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <br/>
-                                            <br/>
+                                            <br />
+                                            <br />
                                             <div class="row">
                                                 <div class="col-12 card-actions">
-                                                    <button type="button" id="btn_saca_edit_2" class="btn btn-secondary">Edit <i class="fa fa-edit"/></button>
-                                                    <button style="display:none;" id="btn_saca_save_2" class="btn btn-secondary">Save <i class="fa fa-save"/></button>
+                                                    <button
+                            type="button"
+                            id="btn_saca_edit_2"
+                            class="btn btn-secondary"
+                          >Edit <i class="fa fa-edit" /></button>
+                                                    <button
+                            style="display:none;"
+                            id="btn_saca_save_2"
+                            class="btn btn-secondary"
+                          >Save <i class="fa fa-save" /></button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <t t-call="website_custom_saca.sign_saca_dialog">
-                                    <t t-set="sign_by" t-value="'farm'"/>
-                                    <t t-set="signer_id" t-value="saca_line.farmer_id"/>
-                                    <t t-set="saca_line" t-value="saca_line"/>
-                                    <t t-set="modal_id" t-value="'modalaccept_farmer'"/>
+                                    <t t-set="sign_by" t-value="'farm'" />
+                                    <t
+                    t-set="signer_id"
+                    t-value="saca_line.farmer_id"
+                  />
+                                    <t t-set="saca_line" t-value="saca_line" />
+                                    <t
+                    t-set="modal_id"
+                    t-value="'modalaccept_farmer'"
+                  />
                                 </t>
                                 <t t-call="website_custom_saca.sign_saca_dialog">
-                                    <t t-set="sign_by" t-value="'driver'"/>
-                                    <t t-set="signer_id" t-value="saca_line.driver_id"/>
-                                    <t t-set="saca_line" t-value="saca_line"/>
-                                    <t t-set="modal_id" t-value="'modalaccept_driver'"/>
+                                    <t t-set="sign_by" t-value="'driver'" />
+                                    <t
+                    t-set="signer_id"
+                    t-value="saca_line.driver_id"
+                  />
+                                    <t t-set="saca_line" t-value="saca_line" />
+                                    <t
+                    t-set="modal_id"
+                    t-value="'modalaccept_driver'"
+                  />
                                 </t>
                             </form>
 
                             <div class="card-body p-3">
                                     <div class="card mb-3 bg-light">
-                                            <hr/>
-                                            <br/>
+                                            <hr />
+                                            <br />
                                             <div class="row">
                                                 <div class="col-6">
                                                     <h6><b>Farm ticket</b></h6>
-                                                    <div t-if="saca_line.ticket_farm_attachment_id" class="card" >
-                                                        <t t-set="attachment" t-value="saca_line.ticket_farm_attachment_id"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id" t-att-data-id="attachment.res_id"/>
+                                                    <div
+                        t-if="saca_line.ticket_farm_attachment_id"
+                        class="card"
+                      >
+                                                        <t
+                          t-set="attachment"
+                          t-value="saca_line.ticket_farm_attachment_id"
+                        />
+                                                        <img
+                          alt="Attachment"
+                          style="cursor: pointer;"
+                          class="img img-fluid"
+                          t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id"
+                          t-att-data-id="attachment.res_id"
+                        />
                                                     </div>
                                                     <t t-else="">
-                                                        <form id="form_origin" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
-                                                            <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_origin" name="ticket_farm_attachment_id" class="ticket_upload" multiple="multiple" type="file"/>
+                                                        <form
+                          id="form_origin"
+                          t-attf-action="/my/saca/line/{{saca_line.id}}/binary"
+                          method="POST"
+                        >
+                                                            <button
+                            title="Upload"
+                            id="upload_img"
+                            class="btn btn-primary"
+                            style="display: none;"
+                          ><i class="fa fa-upload" />  Upload</button>
+                                                            <input
+                            id="img_origin"
+                            name="ticket_farm_attachment_id"
+                            class="ticket_upload"
+                            multiple="multiple"
+                            type="file"
+                          />
                                                         </form>
                                                     </t>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6><b>Slaughterhouse ticket</b></h6>
-                                                    <div t-if="saca_line.ticket_slaughterhouse_attachment_id" class="card" >
-                                                        <t t-set="attachment" t-value="saca_line.ticket_slaughterhouse_attachment_id"/>
-                                                        <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id" t-att-data-id="attachment.res_id"/>
+                                                    <h6><b
+                        >Slaughterhouse ticket</b></h6>
+                                                    <div
+                        t-if="saca_line.ticket_slaughterhouse_attachment_id"
+                        class="card"
+                      >
+                                                        <t
+                          t-set="attachment"
+                          t-value="saca_line.ticket_slaughterhouse_attachment_id"
+                        />
+                                                        <img
+                          alt="Attachment"
+                          style="cursor: pointer;"
+                          class="img img-fluid"
+                          t-att-src="'/web/image/ir.attachment/%s/datas' % attachment.res_id"
+                          t-att-data-id="attachment.res_id"
+                        />
                                                     </div>
                                                     <t t-else="">
-                                                        <form id="form_dest" t-attf-action="/my/saca/line/{{saca_line.id}}/binary" method="POST">
-                                                            <button title="Upload" id="upload_img" class="btn btn-primary" style="display: none;"><i class="fa fa-upload"/>  Upload</button>
-                                                            <input id="img_dest" name="ticket_slaughterhouse_attachment_id" class="ticket_upload" multiple="multiple" type="file"/>
+                                                        <form
+                          id="form_dest"
+                          t-attf-action="/my/saca/line/{{saca_line.id}}/binary"
+                          method="POST"
+                        >
+                                                            <button
+                            title="Upload"
+                            id="upload_img"
+                            class="btn btn-primary"
+                            style="display: none;"
+                          ><i class="fa fa-upload" />  Upload</button>
+                                                            <input
+                            id="img_dest"
+                            name="ticket_slaughterhouse_attachment_id"
+                            class="ticket_upload"
+                            multiple="multiple"
+                            type="file"
+                          />
                                                         </form>
                                                     </t>
                                                 </div>
@@ -413,35 +876,72 @@
     <template id="sign_saca_dialog" name="Sign Saca Dialog">
         <div id="quote_content" class="col-12 col-lg justify-content-end">
             <div role="dialog" class="modal fade" t-att-id="modal_id">
-                A <t t-esc="str(saca_line.has_to_be_signed(sign_by=sign_by))"/> B
-                <div id="saca_modal_dialog" class="modal-dialog" t-if="saca_line.has_to_be_signed(sign_by=sign_by)">
-                    <form id="accept" method="POST" t-att-data-order-id="saca_line.id" class="js_accept_json modal-content js_website_submit_form">
+                A <t t-esc="str(saca_line.has_to_be_signed(sign_by=sign_by))" /> B
+                <div
+          id="saca_modal_dialog"
+          class="modal-dialog"
+          t-if="saca_line.has_to_be_signed(sign_by=sign_by)"
+        >
+                    <form
+            id="accept"
+            method="POST"
+            t-att-data-order-id="saca_line.id"
+            class="js_accept_json modal-content js_website_submit_form"
+          >
     <!--                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                         <header class="modal-header" style="background-color: white;">
                             <h4 class="modal-title">Validate Saca</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                            <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >×</button>
                         </header>
-                        <main class="modal-body" id="sign-dialog" style="background-color: whitesmoke;">
+                        <main
+              class="modal-body"
+              id="sign-dialog"
+              style="background-color: whitesmoke;"
+            >
                             <p>
-                                <span>By signing this proposal, I agree to the following terms:</span>
+                                <span
+                >By signing this proposal, I agree to the following terms:</span>
                                 <ul>
-                                    <li><span>Accepted on the behalf of:</span> <b t-field="saca_line.driver_id"/></li>
+                                    <li><span>Accepted on the behalf of:</span> <b
+                      t-field="saca_line.driver_id"
+                    /></li>
                                 </ul>
                             </p>
                             <t t-call="portal.signature_form">
-                                <t t-set="call_url" t-value="'/saca/line/'+str(saca_line.id)+'/'+str(signer_id.id)+'/accept'"/>
-                                <t t-set="default_name" t-value="signer_id.name"/>
+                                <t
+                  t-set="call_url"
+                  t-value="'/saca/line/'+str(saca_line.id)+'/'+str(signer_id.id)+'/accept'"
+                />
+                                <t t-set="default_name" t-value="signer_id.name" />
                             </t>
                         </main>
                     </form>
                 </div>
             </div>
             <!-- status messages -->
-            <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none" role="status">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
-                <strong>Thank You!</strong><br/>
-                <t t-if="message == 'sign_ok' and sale_order.state in ['sale', 'done']">Your order has been confirmed.</t>
-                <t t-elif="message == 'sign_ok' and sale_order.has_to_be_paid()">Your order has been signed but still needs to be paid to be confirmed.</t>
+            <div
+        t-if="message == 'sign_ok'"
+        class="alert alert-success alert-dismissable d-print-none"
+        role="status"
+      >
+                <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >×</button>
+                <strong>Thank You!</strong><br />
+                <t
+          t-if="message == 'sign_ok' and sale_order.state in ['sale', 'done']"
+        >Your order has been confirmed.</t>
+                <t
+          t-elif="message == 'sign_ok' and sale_order.has_to_be_paid()"
+        >Your order has been signed but still needs to be paid to be confirmed.</t>
                 <t t-else="">Your order has been signed.</t>
             </div>
 
