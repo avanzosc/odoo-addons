@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- Configuration -->
     <record id="action_open_model_url" model="ir.actions.act_window">
@@ -11,16 +11,28 @@
     <!-- Views -->
     <record id="res_config_settings_view_form" model="ir.ui.view">
         <field name="model">res.config.settings</field>
-        <field name="priority" eval="0"/>
-        <field name="inherit_id" ref="website.res_config_settings_view_form"/>
+        <field name="priority" eval="0" />
+        <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('settings')]//div[@id='website_settings']" position="inside">
+            <xpath
+        expr="//div[hasclass('settings')]//div[@id='website_settings']"
+        position="inside"
+      >
                 <div class="col-12 col-lg-12 o_setting_box" id="portal_entry_setting">
                     <div class="o_setting_right_pane">
-                        <label for="portal_custom_entry_show"/>
-                        <field name='portal_custom_entry_show' widget="many2many_tags"/>
+                        <label for="portal_custom_entry_show" />
+                        <field
+              name='portal_custom_entry_show'
+              widget="many2many_tags"
+            />
                         <div class="mt16">
-                            <button name="%(action_open_model_url)d" icon="fa-arrow-right" type="action" string="Model URLs" class="btn-link"/>
+                            <button
+                name="%(action_open_model_url)d"
+                icon="fa-arrow-right"
+                type="action"
+                string="Model URLs"
+                class="btn-link"
+              />
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class IrModelUrl(models.Model):
-    _name = 'ir.model.url'
+    _name = "ir.model.url"
 
     name = fields.Char(string="Name", related="ir_model_id.name")
-    ir_model_id = fields.Many2one(comodel_name='ir.model', string="Model")
+    ir_model_id = fields.Many2one(comodel_name="ir.model", string="Model")
     url = fields.Char(string="Portal URL")

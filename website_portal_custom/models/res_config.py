@@ -5,15 +5,19 @@ from odoo import fields, models
 
 
 class Company(models.Model):
-    _inherit = 'res.company'
+    _inherit = "res.company"
 
     portal_custom_entry_show = fields.Many2many(
-        comodel_name='ir.model.url', string="Show Entries")
+        comodel_name="ir.model.url", string="Show Entries"
+    )
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
     portal_custom_entry_show = fields.Many2many(
-        comodel_name='ir.model.url', string='Show Entries',
-        related='company_id.portal_custom_entry_show', readonly=False)
+        comodel_name="ir.model.url",
+        string="Show Entries",
+        related="company_id.portal_custom_entry_show",
+        readonly=False,
+    )
