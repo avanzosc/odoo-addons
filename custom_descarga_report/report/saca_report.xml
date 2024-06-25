@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="action_report_saca" model="ir.actions.report">
@@ -7,146 +7,241 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">custom_descarga_report.report_saca</field>
             <field name="report_file">custom_descarga_report.report_saca</field>
-            <field name="binding_model_id" ref="custom_saca.model_saca"/>
+            <field name="binding_model_id" ref="custom_saca.model_saca" />
             <field name="binding_type">report</field>
         </record>
 
     <template id="external_layout_standard_saca">
-        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
             <div class="row">
-                <t t-foreach="docs" t-as="o"/>
+                <t t-foreach="docs" t-as="o" />
                 <div class="col-2 mb4">
-                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 48px;" alt="Logo"/>
+                    <img
+              t-if="company.logo"
+              t-att-src="image_data_uri(company.logo)"
+              style="max-height: 48px;"
+              alt="Logo"
+            />
                 </div>
-                <div class="col-9 text-left" style="margin-top:20px;font-size:24px!important;">
+                <div
+            class="col-9 text-left"
+            style="margin-top:20px;font-size:24px!important;"
+          >
                      <span>Carga pollo vivo para</span>
-                     <span t-esc="o.date.strftime('%A')"/>
+                     <span t-esc="o.date.strftime('%A')" />
                      <span>, </span>
-                     <span t-esc="o.date.strftime('%d de %B de %Y')"/>
+                     <span t-esc="o.date.strftime('%d de %B de %Y')" />
                 </div>
             </div>
         </div>
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
             <div class="pt-5">
                 <!-- This div ensures that the address is not cropped by the header. -->
-                <t t-call="web.address_layout"/>
+                <t t-call="web.address_layout" />
             </div>
-            <t t-raw="0"/>
+            <t t-raw="0" />
         </div>
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
         <div class="row">
-            <div class="col-9 text-middle" style="margin-bottom:20px;font-size:20px!important;">
-                 <span t-field="o.company_id.partner_id" t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+            <div
+            class="col-9 text-middle"
+            style="margin-bottom:20px;font-size:20px!important;"
+          >
+                 <span
+              t-field="o.company_id.partner_id"
+              t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'
+            />
             </div>
         </div>
         </div>
     </template>
 
     <template id="external_layout_saca">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="custom_descarga_report.external_layout_standard_saca"><t t-raw="0"/></t>
+        <t t-call="custom_descarga_report.external_layout_standard_saca"><t
+          t-raw="0"
+        /></t>
     </template>
 
         <template id="custom_descarga_report.report_saca">
             <t t-name="custom_descarga_report.report_saca">
                 <t t-call="web.html_container">
                     <t t-foreach="docs" t-as="o">
-                        <t t-set="saca_line_ids" t-value="o.mapped('saca_line_ids')"/>
-                        <t t-set="foo" t-value="5* (' '.replace(' ',u'\xa0').encode('utf-8'))"/>
-                        <t t-set="foo2" t-value="6* (' '.replace(' ',u'\xa0').encode('utf-8'))"/>
-                        <t t-set="line" t-value="saca_line_ids.mapped('id')"/>
+                        <t t-set="saca_line_ids" t-value="o.mapped('saca_line_ids')" />
+                        <t
+              t-set="foo"
+              t-value="5* (' '.replace(' ',u'\xa0').encode('utf-8'))"
+            />
+                        <t
+              t-set="foo2"
+              t-value="6* (' '.replace(' ',u'\xa0').encode('utf-8'))"
+            />
+                        <t t-set="line" t-value="saca_line_ids.mapped('id')" />
                         <t t-call="custom_descarga_report.external_layout_saca">
                             <div class="page" style="font-size: 14px !important;">
                                 <table class="table table-condensed">
                                     <thead style="display: table-row-group">
                                         <tr style="border-bottom:2px solid #dddddd;">
-                                            <th class="align-middle" style="width:3%;"><span/></th>
-                                            <th class="align-middle" style="width:9%;"><span>Vehicle/Coya</span></th>
-                                            <th class="align-middle" style="width:31%;"><span>Conductor/Assistant</span></th>
-                                            <th class="align-middle" style="width:24%;"><span>Farmer/Population</span></th>
+                                            <th
+                        class="align-middle"
+                        style="width:3%;"
+                      ><span /></th>
+                                            <th
+                        class="align-middle"
+                        style="width:9%;"
+                      ><span>Vehicle/Coya</span></th>
+                                            <th
+                        class="align-middle"
+                        style="width:31%;"
+                      ><span>Conductor/Assistant</span></th>
+                                            <th
+                        class="align-middle"
+                        style="width:24%;"
+                      ><span>Farmer/Population</span></th>
                                             <th class="align-middle" style="width:33%;">
                                                 <span>Hour</span>
-                                                <span><t t-esc="foo"/></span>
+                                                <span><t t-esc="foo" /></span>
                                                 <span>Weight</span>
-                                                <span><t t-esc="foo"/></span>
+                                                <span><t t-esc="foo" /></span>
                                                 <span>Units</span>
-                                                <span><t t-esc="foo2"/></span>
+                                                <span><t t-esc="foo2" /></span>
                                                 <span>Rows</span>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="saca_line_ids" t-as="line" style="border-bottom:2px solid #dddddd;">
+                                        <tr
+                      t-foreach="saca_line_ids"
+                      t-as="line"
+                      style="border-bottom:2px solid #dddddd;"
+                    >
                                             <td>
-                                                <span t-field="line.name"/>
+                                                <span t-field="line.name" />
                                             </td>
                                             <td>
-                                                <span t-field="line.sudo().vehicle_id.license_plate"/>
-                                                <br/>
-                                                <span t-field="line.sudo().remolque_id.license_plate" style="font-weight: bold;"/>
-                                                <br/>
-                                                <span t-field="line.coya_id"/>
+                                                <span
+                          t-field="line.sudo().vehicle_id.license_plate"
+                        />
+                                                <br />
+                                                <span
+                          t-field="line.sudo().remolque_id.license_plate"
+                          style="font-weight: bold;"
+                        />
+                                                <br />
+                                                <span t-field="line.coya_id" />
                                             </td>
                                             <td>
-                                                <span t-field="line.sudo().driver_id.name"/>
-                                                <hr class="mt-1 mb-1" t-if="line.driver_id"/>
-                                                <strong t-if="line.breeding_id">Breeding: </strong>
-                                                <span t-if="line.breeding_id" t-field="line.breeding_id" style="font-weight: bold;"/>
-                                                <br t-if="line.breeding_id"/>
+                                                <span
+                          t-field="line.sudo().driver_id.name"
+                        />
+                                                <hr
+                          class="mt-1 mb-1"
+                          t-if="line.driver_id"
+                        />
+                                                <strong
+                          t-if="line.breeding_id"
+                        >Breeding: </strong>
+                                                <span
+                          t-if="line.breeding_id"
+                          t-field="line.breeding_id"
+                          style="font-weight: bold;"
+                        />
+                                                <br t-if="line.breeding_id" />
                                                 <strong> Lot: </strong>
-                                                <span t-field="line.lot" style="font-weight: bold;"/>
-                                                <span t-field="line.seq" style="font-weight: bold;"/>
+                                                <span
+                          t-field="line.lot"
+                          style="font-weight: bold;"
+                        />
+                                                <span
+                          t-field="line.seq"
+                          style="font-weight: bold;"
+                        />
                                             </td>
                                             <td>
-                                                <span t-if="line.breeding_id" t-field="line.sudo().farm_warehouse_id.name"/>
-                                                <span t-else="else" t-field="line.sudo().farmer_id.name"/>
-                                                <br/>
-                                                <span t-field="line.city"/>
-                                                <br/>
-                                                <span t-field="line.phone"/>
+                                                <span
+                          t-if="line.breeding_id"
+                          t-field="line.sudo().farm_warehouse_id.name"
+                        />
+                                                <span
+                          t-else="else"
+                          t-field="line.sudo().farmer_id.name"
+                        />
+                                                <br />
+                                                <span t-field="line.city" />
+                                                <br />
+                                                <span t-field="line.phone" />
                                                 <strong> </strong>
-                                                <span t-field="line.mobile"/>
+                                                <span t-field="line.mobile" />
                                             </td>
                                             <td>
-                                                <span t-field="line.saca_time" t-options="{'widget': 'float_time'}"/>
-                                                <strong><t t-esc="foo"/></strong>
-                                                <span t-field="line.estimate_weight"/>
-                                                <strong><t t-esc="foo2"/></strong>
-                                                <span t-field="line.estimate_burden"/>
-                                                <strong><t t-esc="foo"/></strong>
-                                                <span t-field="line.cages_num"/>
-                                                <strong style="font-weight: normal;">F x</strong>
-                                                <span t-field="line.unit_burden" t-options="{&quot;widget&quot;: &quot;integer&quot;}"/>
-                                                <hr class="mt-1 mb-1"/>
+                                                <span
+                          t-field="line.saca_time"
+                          t-options="{'widget': 'float_time'}"
+                        />
+                                                <strong><t t-esc="foo" /></strong>
+                                                <span t-field="line.estimate_weight" />
+                                                <strong><t t-esc="foo2" /></strong>
+                                                <span t-field="line.estimate_burden" />
+                                                <strong><t t-esc="foo" /></strong>
+                                                <span t-field="line.cages_num" />
+                                                <strong
+                          style="font-weight: normal;"
+                        >F x</strong>
+                                                <span
+                          t-field="line.unit_burden"
+                          t-options="{&quot;widget&quot;: &quot;integer&quot;}"
+                        />
+                                                <hr class="mt-1 mb-1" />
                                                 <strong>Scale: </strong>
                                                 <strong> </strong>
-                                                <span t-if="line.main_scale" t-field="line.main_scale"/>
-                                                <br/>
-                                                <span t-if="line.note" t-field="line.note"/>
+                                                <span
+                          t-if="line.main_scale"
+                          t-field="line.main_scale"
+                        />
+                                                <br />
+                                                <span
+                          t-if="line.note"
+                          t-field="line.note"
+                        />
                                             </td>
                                         </tr>
                                         <tr class="is-subtotal text-right">
-                                            <td name="td_section_subtotal" colspan="99" style="font-size:20px!important;">
+                                            <td
+                        name="td_section_subtotal"
+                        colspan="99"
+                        style="font-size:20px!important;"
+                      >
                                                 <strong>Total Saca: </strong>
                                                 <strong> </strong>
-                                                <span t-esc="'{:,}'.format(sum(saca_line_ids.mapped('estimate_burden'))).replace(',','~').replace('.',',').replace('~','.')" style="font-weight: bold;"/>
+                                                <span
+                          t-esc="'{:,}'.format(sum(saca_line_ids.mapped('estimate_burden'))).replace(',','~').replace('.',',').replace('~','.')"
+                          style="font-weight: bold;"
+                        />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <p style="page-break-after: always;"/>
+                                <p style="page-break-after: always;" />
                             </div>
                         </t>
                     </t>
