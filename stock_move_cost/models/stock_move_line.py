@@ -7,10 +7,11 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     price_unit_cost = fields.Float(
-        string="Cost Unit Price", digits="Product Price", copy=False
+        string="Cost Unit Price",
+        digits="Product Price",
+        copy=False,
     )
     cost = fields.Float(
-        string="Cost",
         digits="Product Price",
         copy=False,
         store=True,
