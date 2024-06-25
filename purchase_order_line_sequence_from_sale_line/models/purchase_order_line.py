@@ -7,7 +7,8 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     sequence = fields.Integer(
-        compute="_compute_sequence", store=True, copy=False, readonly=True)
+        compute="_compute_sequence", store=True, copy=False, readonly=True
+    )
 
     @api.depends("sale_line_id", "sale_line_id.sequence")
     def _compute_sequence(self):
@@ -19,7 +20,7 @@ class PurchaseOrderLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        lines = super(PurchaseOrderLine, self).create(vals_list)
+        lines = super().create(vals_list)
         for line in lines:
             if not line.sale_line_id and line.order_id.origin:
                 line.put_sale_order_line()
@@ -30,7 +31,8 @@ class PurchaseOrderLine(models.Model):
         sale = self.env["sale.order"].search(cond, limit=1)
         if sale:
             line = sale.order_line.filtered(
-                lambda x: x.product_id == self.product_id and
-                x.product_uom_qty == self.product_qty)
+                lambda x: x.product_id == self.product_id
+                and x.product_uom_qty == self.product_qty
+            )
             if len(line) == 1:
                 self.sale_line_id = line.id
