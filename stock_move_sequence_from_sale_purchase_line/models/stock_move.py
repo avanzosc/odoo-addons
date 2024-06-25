@@ -6,8 +6,12 @@ from odoo import api, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    @api.depends("sale_line_id", "sale_line_id.sequence", "purchase_line_id",
-                 "purchase_line_id.sequence")
+    @api.depends(
+        "sale_line_id",
+        "sale_line_id.sequence",
+        "purchase_line_id",
+        "purchase_line_id.sequence",
+    )
     def _compute_sequence(self):
         for move in self:
             sequence = 0
