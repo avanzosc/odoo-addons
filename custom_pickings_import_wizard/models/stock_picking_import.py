@@ -115,9 +115,7 @@ class StockPickingImportLine(models.Model):
         ],
         ondelete={"update": "set default", "create": "set default"},
     )
-    picking_id = fields.Many2one(
-        string="Picking",
-        comodel_name="stock.picking")
+    picking_id = fields.Many2one(string="Picking", comodel_name="stock.picking")
     picking_custom_date_done = fields.Datetime(
         string="Date",
         states={"done": [("readonly", True)]},
