@@ -10,7 +10,8 @@ class FleetVehicle(models.Model):
         string="Commercial Partner",
         comodel_name="res.partner",
         compute="_compute_commercial_partner",
-        store=True)
+        store=True,
+    )
 
     @api.depends("driver_id")
     def _compute_commercial_partner(self):

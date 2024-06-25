@@ -8,10 +8,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "fleet",
-        "contacts"
-    ],
+    "depends": ["fleet", "contacts"],
     "data": [
         "views/fleet_vehicle_view.xml",
         "views/res_partner_view.xml",
