@@ -2,9 +2,9 @@
 <odoo>
     <data>
         <template id="custom_cart_inherit" inherit_id="website_sale.cart">
-            <xpath expr="//div[hasclass('justify-content-between')]" position="inside">
+            <xpath expr="//div[hasclass('justify-content-between')]" position="after">
                 <t t-if="website_sale_order.id">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-center">
                         <div>
                             <a class="btn btn-primary mb32" role="button" t-att-href="'/confirm_sale_order?order_id=' + str(website_sale_order.id)">
                                 <span>Confirmar Carro</span>
