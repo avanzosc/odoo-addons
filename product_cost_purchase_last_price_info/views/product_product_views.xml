@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_product_last_purchase_info_form_view" model="ir.ui.view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="purchase_last_price_info.product_product_last_purchase_info_form_view" />
+        <field
+      name="inherit_id"
+      ref="purchase_last_price_info.product_product_last_purchase_info_form_view"
+    />
         <field name="arch" type="xml">
             <field name="last_purchase_price" position="before">
                  <field
-                     name="last_purchase_price_company_currency"
-                     groups="product_cost_visible.group_product_cost_visible"
-                     attrs="{'invisible':[('show_last_purchase_price_currency', '=', False)]}"
-                 />
+          name="last_purchase_price_company_currency"
+          groups="product_cost_visible.group_product_cost_visible"
+          attrs="{'invisible':[('show_last_purchase_price_currency', '=', False)]}"
+        />
             </field>
         </field>
     </record>
@@ -20,13 +23,21 @@
         <field name="arch" type="xml">
             <field name="standard_price" position="replace" />
             <field name="uom_id" position="after">
-                 <field name="standard_price" optional="show"/>
-                 <field name="average_price_value" optional="show"
-                    groups="product_cost_visible.group_product_cost_visible"/>
-                 <field name="last_purchase_price_company_currency"
-                    groups="product_cost_visible.group_product_cost_visible"/>
-                 <field name="last_purchase_value" optional="show"
-                    groups="product_cost_visible.group_product_cost_visible"/>
+                 <field name="standard_price" optional="show" />
+                 <field
+          name="average_price_value"
+          optional="show"
+          groups="product_cost_visible.group_product_cost_visible"
+        />
+                 <field
+          name="last_purchase_price_company_currency"
+          groups="product_cost_visible.group_product_cost_visible"
+        />
+                 <field
+          name="last_purchase_value"
+          optional="show"
+          groups="product_cost_visible.group_product_cost_visible"
+        />
             </field>
         </field>
     </record>
@@ -36,10 +47,16 @@
         <field name="inherit_id" ref="stock.view_stock_product_tree" />
         <field name="arch" type="xml">
             <field name="qty_available" position="before">
-                 <field name="net_purchase_price" optional="show"
-                    groups="product_cost_visible.group_product_cost_visible"/>
-                 <field name="last_purchase_currency_id"
-                    string="Currency" optional="show"/>
+                 <field
+          name="net_purchase_price"
+          optional="show"
+          groups="product_cost_visible.group_product_cost_visible"
+        />
+                 <field
+          name="last_purchase_currency_id"
+          string="Currency"
+          optional="show"
+        />
             </field>
         </field>
     </record>
