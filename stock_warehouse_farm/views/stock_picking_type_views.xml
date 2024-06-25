@@ -1,42 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_picking_type_tree" model="ir.ui.view">
         <field name="model">stock.picking.type</field>
-        <field name="inherit_id" ref="stock.view_picking_type_tree"/>
+        <field name="inherit_id" ref="stock.view_picking_type_tree" />
         <field name="arch" type="xml">
             <field name="warehouse_id" position="after">
-                <field name="category_type_id" optional="show"/>
-                <field name="dest_category_type_id" optional="show"/>
+                <field name="category_type_id" optional="show" />
+                <field name="dest_category_type_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_picking_type_form" model="ir.ui.view">
         <field name="model">stock.picking.type</field>
-        <field name="inherit_id" ref="stock.view_picking_type_form"/>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
         <field name="arch" type="xml">
             <field name="warehouse_id" position="after">
-                <field name="category_type_id"/>
-                <field name="dest_category_type_id"/>
-                <field name="egg_production"/>
-                <field name="burden_to_incubator"/>
-                <field name="chick_production"/>
-                <field name="incubator_hatcher"/>
+                <field name="category_type_id" />
+                <field name="dest_category_type_id" />
+                <field name="egg_production" />
+                <field name="burden_to_incubator" />
+                <field name="chick_production" />
+                <field name="incubator_hatcher" />
             </field>
         </field>
     </record>
 
     <record id="view_pickingtype_filter" model="ir.ui.view">
         <field name="model">stock.picking.type</field>
-        <field name="inherit_id" ref="stock.view_pickingtype_filter"/>
+        <field name="inherit_id" ref="stock.view_pickingtype_filter" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="category_type_id"/>
-                <field name="dest_category_type_id"/>
-                <filter string="Source Section" name="category_type" domain="[]" context="{'group_by': 'category_type_id'}"/>
-                <filter string="Dest. Section" name="dest_category_type" domain="[]" context="{'group_by': 'dest_category_type_id'}"/>
+                <field name="category_type_id" />
+                <field name="dest_category_type_id" />
+                <filter
+          string="Source Section"
+          name="category_type"
+          domain="[]"
+          context="{'group_by': 'category_type_id'}"
+        />
+                <filter
+          string="Dest. Section"
+          name="dest_category_type"
+          domain="[]"
+          context="{'group_by': 'dest_category_type_id'}"
+        />
             </field>
         </field>
     </record>

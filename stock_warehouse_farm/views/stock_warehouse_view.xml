@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="stock.view_warehouse" />
         <field name="arch" type="xml">
             <field name="code" position="after">
-                <field name="type_id"/>
+                <field name="type_id" />
                 <field name="farm_area" />
                 <field name="farm_capacity" />
                 <field name="farm_owned" />
@@ -13,23 +13,23 @@
                 <field name="farm_rega_cmpl" />
                 <field name="farm_maximum" />
                 <field name="farm_minimum" />
-                <field name="farm_distance" string="Distance to Factory"/>
-                <field name="distance_slaughterhouse"/>
-                <field name="activity"/>
-                <field name="other_activity"/>
-                <field name="farm_type"/>
+                <field name="farm_distance" string="Distance to Factory" />
+                <field name="distance_slaughterhouse" />
+                <field name="activity" />
+                <field name="other_activity" />
+                <field name="farm_type" />
             </field>
             <field name="partner_id" position="after">
                 <div>
                     <span> Lat : </span>
-                    <field name="partner_latitude" nolabel="1" class="oe_inline"/>
+                    <field name="partner_latitude" nolabel="1" class="oe_inline" />
                     <span> ;  Long :  </span>
-                    <field name="partner_longitude" nolabel="1" class="oe_inline"/>
+                    <field name="partner_longitude" nolabel="1" class="oe_inline" />
                 </div>
             </field>
             <field name="company_id" position="before">
-                <field name="farmer_id"/>
-                <field name="tax_entity_id"/>
+                <field name="farmer_id" />
+                <field name="tax_entity_id" />
             </field>
         </field>
     </record>
@@ -39,12 +39,12 @@
         <field name="inherit_id" ref="stock.view_warehouse_tree" />
         <field name="arch" type="xml">
             <field name="company_id" position="after">
-                <field name="type_id"/>
-                <field name="farmer_id" optional="show"/>
-                <field name="tax_entity_id" optional="show"/>
-                <field name="activity" optional="show"/>
-                <field name="other_activity" optional="show"/>
-                <field name="farm_type" optional="show"/>
+                <field name="type_id" />
+                <field name="farmer_id" optional="show" />
+                <field name="tax_entity_id" optional="show" />
+                <field name="activity" optional="show" />
+                <field name="other_activity" optional="show" />
+                <field name="farm_type" optional="show" />
             </field>
         </field>
     </record>
@@ -54,20 +54,50 @@
         <field name="inherit_id" ref="stock.stock_warehouse_view_search" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="type_id"/>
-                <field name="farmer_id"/>
-                <field name="tax_entity_id"/>
-                <field name="activity"/>
-                <field name="other_activity"/>
-                <field name="farm_type"/>
+                <field name="type_id" />
+                <field name="farmer_id" />
+                <field name="tax_entity_id" />
+                <field name="activity" />
+                <field name="other_activity" />
+                <field name="farm_type" />
             </field>
             <filter name="inactive" position="after">
-                <filter string="Type" name="type" domain="[]" context="{'group_by': 'type_id'}"/>
-                 <filter string="Farmer" name="farmer" domain="[]" context="{'group_by': 'farmer_id'}"/>
-                  <filter string="Tax Entity" name="tax_entity" domain="[]" context="{'group_by': 'tax_entity_id'}"/>
-                  <filter string="Activity" name="activity" domain="[]" context="{'group_by': 'activity'}"/>
-                  <filter string="Other Activity" name="other_activity" domain="[]" context="{'group_by': 'other_activity'}"/>
-                  <filter string="Farm Type" name="farm_type" domain="[]" context="{'group_by': 'farm_type'}"/>
+                <filter
+          string="Type"
+          name="type"
+          domain="[]"
+          context="{'group_by': 'type_id'}"
+        />
+                 <filter
+          string="Farmer"
+          name="farmer"
+          domain="[]"
+          context="{'group_by': 'farmer_id'}"
+        />
+                  <filter
+          string="Tax Entity"
+          name="tax_entity"
+          domain="[]"
+          context="{'group_by': 'tax_entity_id'}"
+        />
+                  <filter
+          string="Activity"
+          name="activity"
+          domain="[]"
+          context="{'group_by': 'activity'}"
+        />
+                  <filter
+          string="Other Activity"
+          name="other_activity"
+          domain="[]"
+          context="{'group_by': 'other_activity'}"
+        />
+                  <filter
+          string="Farm Type"
+          name="farm_type"
+          domain="[]"
+          context="{'group_by': 'farm_type'}"
+        />
             </filter>
         </field>
     </record>
