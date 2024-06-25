@@ -16,40 +16,34 @@ class Saca(models.Model):
     sale_order_line_ids = fields.One2many(
         string="Sale Order Lines",
         comodel_name="sale.order.line",
-        inverse_name="saca_id")
+        inverse_name="saca_id",
+    )
     sale_line_count = fields.Integer(
-        string="# Sale Order Lines",
-        compute="_compute_sale_line_count")
+        string="# Sale Order Lines", compute="_compute_sale_line_count"
+    )
     sale_order_ids = fields.One2many(
-        string="Sale Order",
-        comodel_name="sale.order",
-        inverse_name="saca_id")
-    sale_count = fields.Integer(
-        string="# Sale Orders",
-        compute="_compute_sale_count")
+        string="Sale Order", comodel_name="sale.order", inverse_name="saca_id"
+    )
+    sale_count = fields.Integer(string="# Sale Orders", compute="_compute_sale_count")
     stock_move_ids = fields.One2many(
-        string="Stock Move",
-        comodel_name="stock.move",
-        inverse_name="saca_id")
+        string="Stock Move", comodel_name="stock.move", inverse_name="saca_id"
+    )
     stock_move_count = fields.Integer(
-        string="# Stock Moves",
-        compute="_compute_stock_move_count")
+        string="# Stock Moves", compute="_compute_stock_move_count"
+    )
     move_line_ids = fields.One2many(
-        string="Move Line",
-        comodel_name="stock.move.line",
-        inverse_name="saca_id")
+        string="Move Line", comodel_name="stock.move.line", inverse_name="saca_id"
+    )
     move_line_count = fields.Integer(
-        string="# Move Lines",
-        compute="_compute_move_lines_count")
+        string="# Move Lines", compute="_compute_move_lines_count"
+    )
     picking_ids = fields.One2many(
-        string="Pickings",
-        comodel_name="stock.picking",
-        inverse_name="saca_id")
+        string="Pickings", comodel_name="stock.picking", inverse_name="saca_id"
+    )
     picking_count = fields.Integer(
-        string="# Pickings",
-        compute="_compute_picking_count")
-    company_id = fields.Many2one(
-        default=_default_get_company_id)
+        string="# Pickings", compute="_compute_picking_count"
+    )
+    company_id = fields.Many2one(default=_default_get_company_id)
 
     def _compute_sale_line_count(self):
         for saca in self:
@@ -80,7 +74,7 @@ class Saca(models.Model):
             "res_model": "sale.order.line",
             "domain": [("id", "in", self.sale_order_line_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_sale_order(self):
@@ -92,7 +86,7 @@ class Saca(models.Model):
             "res_model": "sale.order",
             "domain": [("id", "in", self.sale_order_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_picking(self):
@@ -104,7 +98,7 @@ class Saca(models.Model):
             "res_model": "stock.picking",
             "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_stock_move(self):
@@ -116,7 +110,7 @@ class Saca(models.Model):
             "res_model": "stock.move",
             "domain": [("id", "in", self.stock_move_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_move_line(self):
@@ -128,5 +122,5 @@ class Saca(models.Model):
             "res_model": "stock.move.line",
             "domain": [("id", "in", self.move_line_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }

@@ -1,21 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="saca_line_form_view" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
         <field name="arch" type="xml">
             <page name="saca" position="inside">
                 <group string="Sale Order" com="1">
-                    <field name="sale_order_line_ids" nolabel="1"/>
+                    <field name="sale_order_line_ids" nolabel="1" />
                 </group>
             </page>
             <div name="button_box" position="inside">
-                <button class="oe_stat_button" icon="fa-dollar" type="object" name="action_view_sale_ids" attrs="{'invisible': [('count_sale', '=', 0)]}">
-                    <field name="external_supplier" invisible="1"/>
-                    <field string="Sale Order" name="count_sale" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          icon="fa-dollar"
+          type="object"
+          name="action_view_sale_ids"
+          attrs="{'invisible': [('count_sale', '=', 0)]}"
+        >
+                    <field name="external_supplier" invisible="1" />
+                    <field string="Sale Order" name="count_sale" widget="statinfo" />
                 </button>
-                <button class="oe_stat_button" icon="fa-truck" type="object" name="action_view_picking_ids">
-                    <field string="Pickings" name="count_picking" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          icon="fa-truck"
+          type="object"
+          name="action_view_picking_ids"
+        >
+                    <field string="Pickings" name="count_picking" widget="statinfo" />
                 </button>
             </div>
         </field>
@@ -23,23 +34,27 @@
 
     <record id="saca_line_tree_view" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_tree_view" />
         <field name="arch" type="xml">
             <field name="main_scale" position="before">
-                <field name="sale_order_id" optional="hide"/>
+                <field name="sale_order_id" optional="hide" />
             </field>
         </field>
     </record>
 
     <record id="saca_line_view_search" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_view_search"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_view_search" />
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
-                <field name="sale_order_id"/>
+                <field name="sale_order_id" />
             </field>
             <filter name="coya" position="after">
-                <filter string="Sale Order" name="sale_order" context="{'group_by':'sale_order_id'}"/>
+                <filter
+          string="Sale Order"
+          name="sale_order"
+          context="{'group_by':'sale_order_id'}"
+        />
             </filter>
         </field>
     </record>
