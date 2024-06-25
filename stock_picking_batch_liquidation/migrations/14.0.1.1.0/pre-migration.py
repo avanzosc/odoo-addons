@@ -1,7 +1,9 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from openupgradelib import openupgrade
 import logging
+
+from openupgradelib import openupgrade
+
 _logger = logging.getLogger(__name__)
 
 
@@ -43,4 +45,3 @@ def migrate(env, version):
           and  move_id is not null
             """
         )
-

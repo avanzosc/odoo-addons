@@ -6,19 +6,19 @@ from odoo import api, fields, models
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
-    batch_id = fields.Many2one(
-        string="Breeding",
-        comodel_name="stock.picking.batch")
+    batch_id = fields.Many2one(string="Breeding", comodel_name="stock.picking.batch")
     amount_kilo = fields.Float(
         string="Per Kilo",
         compute="_compute_amount_kilo",
         store=True,
-        digits="Feep Decimal Precision")
+        digits="Feep Decimal Precision",
+    )
     amount_chicken = fields.Float(
         string="Per Chicken",
         compute="_compute_amount_chicken",
         store=True,
-        digits="Feep Decimal Precision")
+        digits="Feep Decimal Precision",
+    )
 
     @api.depends("batch_id", "batch_id.meat_kilos", "amount")
     def _compute_amount_kilo(self):

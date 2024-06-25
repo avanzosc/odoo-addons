@@ -7,5 +7,4 @@ class MoveType(models.Model):
     _name = "move.type"
     _description = "Move Type"
 
-    name = fields.Char(
-        string="Name")
+    name = fields.Char(string="Name")

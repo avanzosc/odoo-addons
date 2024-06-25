@@ -1,33 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_move_tree" model="ir.ui.view">
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_tree"/>
+        <field name="inherit_id" ref="stock.view_move_tree" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="move_type_id" optional="show"/>
+                <field name="move_type_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_picking_move_tree_inherited" model="ir.ui.view">
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock_picking_batch.view_picking_move_tree_inherited"/>
+        <field
+      name="inherit_id"
+      ref="stock_picking_batch.view_picking_move_tree_inherited"
+    />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="move_type_id" optional="show"/>
+                <field name="move_type_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_move_search" model="ir.ui.view">
         <field name="model">stock.move</field>
-        <field name="inherit_id" ref="stock.view_move_search"/>
+        <field name="inherit_id" ref="stock.view_move_search" />
         <field name="arch" type="xml">
             <filter name="by_product" position="after">
-                <filter string="Move Type" name="move_type" domain="[]" context="{'group_by': 'move_type_id'}"/>
+                <filter
+          string="Move Type"
+          name="move_type"
+          domain="[]"
+          context="{'group_by': 'move_type_id'}"
+        />
             </filter>
         </field>
     </record>

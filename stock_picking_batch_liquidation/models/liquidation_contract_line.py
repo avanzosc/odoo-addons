@@ -8,33 +8,29 @@ class LiquidationContractLine(models.Model):
     _description = "Liquidation Contract Line"
 
     product_id = fields.Many2one(
-        string="Product",
-        comodel_name="product.product",
-        required=True)
+        string="Product", comodel_name="product.product", required=True
+    )
     type = fields.Selection(
         string="Type",
-        selection=[("charge", "Charge"),
-                   ("pay", "Pay"),
-                   ("variable", "Variable")])
-    obligatory = fields.Boolean(
-        string="Obligatory")
+        selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
+    )
+    obligatory = fields.Boolean(string="Obligatory")
     price_type = fields.Selection(
-        selection=[("correction", "F. M. Correction"),
-                   ("feed", "Feep"),
-                   ("average", "Average"),
-                   ("contract", "Contract")])
+        selection=[
+            ("correction", "F. M. Correction"),
+            ("feed", "Feep"),
+            ("average", "Average"),
+            ("contract", "Contract"),
+        ]
+    )
     quantity_type = fields.Selection(
-        selection=[("unit", "Unit"),
-                   ("kg", "Kg"),
-                   ("fixed", "Fixed")])
-    move_type_id = fields.Many2one(
-        string="Move Type",
-        comodel_name="move.type")
+        selection=[("unit", "Unit"), ("kg", "Kg"), ("fixed", "Fixed")]
+    )
+    move_type_id = fields.Many2one(string="Move Type", comodel_name="move.type")
     contract_id = fields.Many2one(
-        string="Contract",
-        comodel_name="liquidation.contract")
-    price = fields.Float(
-        string="Price")
+        string="Contract", comodel_name="liquidation.contract"
+    )
+    price = fields.Float(string="Price")
 
     @api.onchange("product_id")
     def onchange_product_id(self):
