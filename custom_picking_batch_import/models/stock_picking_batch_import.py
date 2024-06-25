@@ -1,11 +1,13 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import xlrd
+
 from odoo import _, api, fields, models
-from odoo.addons.base_import_wizard.models.base_import import convert2str
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
-import xlrd
+
+from odoo.addons.base_import_wizard.models.base_import import convert2str
 
 
 class StockPickingBatchImport(models.Model):
@@ -25,11 +27,11 @@ class StockPickingBatchImport(models.Model):
         string="Company",
         index=True,
         required=True,
-        default=lambda self: self.env.company.id
+        default=lambda self: self.env.company.id,
     )
     pickings_import_id = fields.Many2one(
-        string="Pickings Import",
-        comodel_name="stock.picking.import")
+        string="Pickings Import", comodel_name="stock.picking.import"
+    )
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -37,7 +39,8 @@ class StockPickingBatchImport(models.Model):
         if row_values:
             batch_entry_date = row_values.get("Entry Date", "")
             batch_entry_date = xlrd.xldate.xldate_as_datetime(
-                batch_entry_date, 0).date()
+                batch_entry_date, 0
+            ).date()
             batch_type = row_values.get("Type", "")
             batch_location = row_values.get("Location", "")
             batch_name = row_values.get("Name", "")
@@ -89,8 +92,7 @@ class StockPickingBatchImport(models.Model):
 
     def _compute_batch_count(self):
         for record in self:
-            record.batch_count = len(
-                record.mapped("import_line_ids.batch_id"))
+            record.batch_count = len(record.mapped("import_line_ids.batch_id"))
 
     def button_open_batch(self):
         self.ensure_one()
@@ -107,81 +109,101 @@ class StockPickingBatchImport(models.Model):
         self.ensure_one()
         pickings_import = self.pickings_import_id
         if not pickings_import:
-            pickings_import= self.env["stock.picking.import"].create({
-                "file_date": fields.Date.today(),
-                "company_id": self.company_id.id,
-                "filename": self.filename})
+            pickings_import = self.env["stock.picking.import"].create(
+                {
+                    "file_date": fields.Date.today(),
+                    "company_id": self.company_id.id,
+                    "filename": self.filename,
+                }
+            )
             self.pickings_import_id = pickings_import.id
-        if not pickings_import.import_line_ids or not any([import_line.state == "done" for import_line in pickings_import.import_line_ids]):
+        if not pickings_import.import_line_ids or not any(
+            [
+                import_line.state == "done"
+                for import_line in pickings_import.import_line_ids
+            ]
+        ):
             pickings_import.import_line_ids.unlink()
-            for line in self.import_line_ids.filtered(
-                lambda l: l.state == "done"):
+            for line in self.import_line_ids.filtered(lambda l: l.state == "done"):
                 customer_location = self.env["stock.location"].search(
-                    [("usage", "=", "customer")], limit=1)
+                    [("usage", "=", "customer")], limit=1
+                )
                 picking_type = self.env["stock.picking.type"].search(
-                    [("code", "=", "outgoing"),
-                     ("default_location_src_id", "=", line.batch_location_id.id)],
-                    limit=1)
+                    [
+                        ("code", "=", "outgoing"),
+                        ("default_location_src_id", "=", line.batch_location_id.id),
+                    ],
+                    limit=1,
+                )
                 if line.chick_code:
-                    self.env["stock.picking.import.line"].create({
-                        "import_id": pickings_import.id,
-                        "picking_custom_date_done": line.batch_entry_date,
-                        "picking_location": line.chick_location,
-                        "picking_location_dest": line.batch_location_id.name,
-                        "picking_location_dest_id": line.batch_location_id.id,
-                        "picking_batch_id": line.batch_id.id,
-                        "mother": line.mother,
-                        "picking_product_code": line.chick_code,
-                        "picking_lot": line.chick_lot,
-                        "picking_qty_done": line.chick_qty,
-                    })
+                    self.env["stock.picking.import.line"].create(
+                        {
+                            "import_id": pickings_import.id,
+                            "picking_custom_date_done": line.batch_entry_date,
+                            "picking_location": line.chick_location,
+                            "picking_location_dest": line.batch_location_id.name,
+                            "picking_location_dest_id": line.batch_location_id.id,
+                            "picking_batch_id": line.batch_id.id,
+                            "mother": line.mother,
+                            "picking_product_code": line.chick_code,
+                            "picking_lot": line.chick_lot,
+                            "picking_qty_done": line.chick_qty,
+                        }
+                    )
                 if line.chicken_code:
-                    self.env["stock.picking.import.line"].create({
-                        "import_id": pickings_import.id,
-                        "picking_custom_date_done": line.batch_entry_date,
-                        "picking_location": line.batch_location_id.name,
-                        "picking_location_id": line.batch_location_id.id,
-                        "picking_location_dest": customer_location.name,
-                        "picking_location_dest_id": customer_location.id,
-                        "picking_type_id": picking_type.id,
-                        "picking_batch_id": line.batch_id.id,
-                        "picking_product_code": line.chicken_code,
-                        "picking_lot": line.chicken_lot,
-                        "picking_qty_done": line.chicken_qty,
-                    })
+                    self.env["stock.picking.import.line"].create(
+                        {
+                            "import_id": pickings_import.id,
+                            "picking_custom_date_done": line.batch_entry_date,
+                            "picking_location": line.batch_location_id.name,
+                            "picking_location_id": line.batch_location_id.id,
+                            "picking_location_dest": customer_location.name,
+                            "picking_location_dest_id": customer_location.id,
+                            "picking_type_id": picking_type.id,
+                            "picking_batch_id": line.batch_id.id,
+                            "picking_product_code": line.chicken_code,
+                            "picking_lot": line.chicken_lot,
+                            "picking_qty_done": line.chicken_qty,
+                        }
+                    )
                 if line.medicine_code:
-                    self.env["stock.picking.import.line"].create({
-                        "import_id": pickings_import.id,
-                        "picking_custom_date_done": line.batch_entry_date,
-                        "picking_location": line.medicine_location,
-                        "picking_location_dest": line.batch_location_id.name,
-                        "picking_location_dest_id": line.batch_location_id.id,
-                        "picking_batch_id": line.batch_id.id,
-                        "picking_product_code": line.medicine_code,
-                        "picking_qty_done": line.medicine_qty,
-                    })
+                    self.env["stock.picking.import.line"].create(
+                        {
+                            "import_id": pickings_import.id,
+                            "picking_custom_date_done": line.batch_entry_date,
+                            "picking_location": line.medicine_location,
+                            "picking_location_dest": line.batch_location_id.name,
+                            "picking_location_dest_id": line.batch_location_id.id,
+                            "picking_batch_id": line.batch_id.id,
+                            "picking_product_code": line.medicine_code,
+                            "picking_qty_done": line.medicine_qty,
+                        }
+                    )
                 if line.feed_code:
-                    self.env["stock.picking.import.line"].create({
-                        "import_id": pickings_import.id,
-                        "picking_custom_date_done": line.batch_entry_date,
-                        "picking_location": line.feed_location,
-                        "picking_location_dest": line.batch_location_id.name,
-                        "picking_location_dest_id": line.batch_location_id.id,
-                        "picking_batch_id": line.batch_id.id,
-                        "picking_product_code": line.feed_code,
-                        "picking_qty_done": line.feed_qty,
-                    })
+                    self.env["stock.picking.import.line"].create(
+                        {
+                            "import_id": pickings_import.id,
+                            "picking_custom_date_done": line.batch_entry_date,
+                            "picking_location": line.feed_location,
+                            "picking_location_dest": line.batch_location_id.name,
+                            "picking_location_dest_id": line.batch_location_id.id,
+                            "picking_batch_id": line.batch_id.id,
+                            "picking_product_code": line.feed_code,
+                            "picking_qty_done": line.feed_qty,
+                        }
+                    )
 
     def action_view_pickings_import(self):
         context = self.env.context.copy()
         return {
-            'name': _("Pickings Import"),
-            'view_mode': 'tree,form',
-            'res_model': 'stock.picking.import',
-            'domain': [('id', '=', self.pickings_import_id.ids)],
-            'type': 'ir.actions.act_window',
-            'context': context
+            "name": _("Pickings Import"),
+            "view_mode": "tree,form",
+            "res_model": "stock.picking.import",
+            "domain": [("id", "=", self.pickings_import_id.ids)],
+            "type": "ir.actions.act_window",
+            "context": context,
         }
+
 
 class StockPickingBatchImportLine(models.Model):
     _name = "stock.picking.batch.import.line"
@@ -190,8 +212,9 @@ class StockPickingBatchImportLine(models.Model):
 
     @api.model
     def _get_selection_batch_type(self):
-        return self.env["stock.picking.batch"].fields_get(
-            allfields=["batch_type"])["batch_type"]["selection"]
+        return self.env["stock.picking.batch"].fields_get(allfields=["batch_type"])[
+            "batch_type"
+        ]["selection"]
 
     import_id = fields.Many2one(
         comodel_name="stock.picking.batch.import",
@@ -205,9 +228,7 @@ class StockPickingBatchImportLine(models.Model):
         states={"done": [("readonly", True)]},
         ondelete={"update": "set default", "create": "set default"},
     )
-    batch_id = fields.Many2one(
-        string="Batch",
-        comodel_name="stock.picking.batch")
+    batch_id = fields.Many2one(string="Batch", comodel_name="stock.picking.batch")
     batch_entry_date = fields.Date(
         string="Entry Date",
         states={"done": [("readonly", True)]},
@@ -241,7 +262,7 @@ class StockPickingBatchImportLine(models.Model):
         string="Mother",
         states={"done": [("readonly", True)]},
         copy=False,
-        )
+    )
     batch_location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
@@ -283,7 +304,7 @@ class StockPickingBatchImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    
+
     chicken_lot = fields.Char(
         string="Chicken Lot",
         states={"done": [("readonly", True)]},
@@ -324,9 +345,7 @@ class StockPickingBatchImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    feed_family_id = fields.Many2one(
-        string="Feed Family",
-        comodel_name="breeding.feed")
+    feed_family_id = fields.Many2one(string="Feed Family", comodel_name="breeding.feed")
 
     def action_validate(self):
         super().action_validate()
@@ -361,7 +380,7 @@ class StockPickingBatchImportLine(models.Model):
                 "log_info": log_info,
                 "state": state,
                 "action": action,
-                }
+            }
             line_values.append(
                 (
                     1,
@@ -413,9 +432,12 @@ class StockPickingBatchImportLine(models.Model):
         if self.batch_location_id:
             return self.batch_location_id, log_info
         location_obj = self.env["stock.location"]
-        search_domain = ['|', ("name", "=", self.batch_location),
-                         ("complete_name", "=", self.batch_location),
-                         ("usage", "!=", "view")]
+        search_domain = [
+            "|",
+            ("name", "=", self.batch_location),
+            ("complete_name", "=", self.batch_location),
+            ("usage", "!=", "view"),
+        ]
         locations = location_obj.search(search_domain)
         if not locations:
             locations = False
@@ -463,8 +485,7 @@ class StockPickingBatchImportLine(models.Model):
         if not batch and not log_info:
             batch_obj = self.env["stock.picking.batch"]
             values = self._batch_values()
-            values.update({
-                "name": self.batch_name})
+            values.update({"name": self.batch_name})
             batch = batch_obj.create(values)
             log_info = ""
         elif batch:
@@ -486,16 +507,13 @@ class StockPickingBatchImportLine(models.Model):
             "start_date": self.batch_entry_date,
             "batch_type": self.batch_type,
             "location_id": self.batch_location_id.id,
-            "feed_family": self.feed_family_id.id
-            }
+            "feed_family": self.feed_family_id.id,
+        }
         if self.batch_type == "mother":
-            vals.update({
-                "lineage_id": self.batch_lineage_id.id})
+            vals.update({"lineage_id": self.batch_lineage_id.id})
         elif self.batch_type == "breeding":
-            lineage = self.env["lineage.percentage"].create({
-                    "lineage_id": self.batch_lineage_id.id,
-                    "percentage": 100})
-            vals.update({
-                "lineage_percentage_ids": [(6, 0, lineage.ids)]
-                })
+            lineage = self.env["lineage.percentage"].create(
+                {"lineage_id": self.batch_lineage_id.id, "percentage": 100}
+            )
+            vals.update({"lineage_percentage_ids": [(6, 0, lineage.ids)]})
         return vals
