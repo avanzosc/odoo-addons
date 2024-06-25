@@ -4,10 +4,10 @@
         <field name="model">stock.picking.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -67,9 +67,11 @@
                             <field name="file_date" />
                         </group>
                         <group>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}" />
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
                         </group>
                     </group>
                     <notebook>
@@ -161,7 +163,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="stock_picking_import_view_tree"/>
+        <field name="view_id" ref="stock_picking_import_view_tree" />
     </record>
 
     <menuitem
