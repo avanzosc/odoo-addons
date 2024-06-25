@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Payment Journal Domain",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Analytic",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,5 +15,5 @@
         "views/account_journal_view.xml",
         "wizard/account_payment_registrer_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
