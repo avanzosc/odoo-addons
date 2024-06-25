@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="machine_form_view" model="ir.ui.view">
@@ -6,11 +6,11 @@
             <field name="inherit_id" ref="machine_manager.machine_form_view" />
             <field name="arch" type="xml">
                 <field name="enrolldate" position="before">
-                    <separator string="Purchase Info" colspan="4"/>
+                    <separator string="Purchase Info" colspan="4" />
                     <field name="purchase_id" readonly="1" />
-                    <field name="purch_date" readonly="1"/>
-                    <field name="purch_partner_id" readonly="1"/>
-                    <field name="purch_cost" readonly="1"/>
+                    <field name="purch_date" readonly="1" />
+                    <field name="purch_partner_id" readonly="1" />
+                    <field name="purch_cost" readonly="1" />
                     <field name="in_picking_id" readonly="1" />
                 </field>
             </field>
@@ -21,11 +21,11 @@
             <field name="inherit_id" ref="machine_manager.machine_tree_view" />
             <field name="arch" type="xml">
                 <field name="serial_id" position="after">
-                    <field name="purchase_id" readonly="1" optional="show"/>
-                    <field name="purch_date" readonly="1" optional="show"/>
-                    <field name="purch_partner_id" readonly="1" optional="show"/>
-                    <field name="purch_cost" readonly="1" optional="show"/>
-                    <field name="in_picking_id" readonly="1" optional="show"/>
+                    <field name="purchase_id" readonly="1" optional="show" />
+                    <field name="purch_date" readonly="1" optional="show" />
+                    <field name="purch_partner_id" readonly="1" optional="show" />
+                    <field name="purch_cost" readonly="1" optional="show" />
+                    <field name="in_picking_id" readonly="1" optional="show" />
                 </field>
             </field>
         </record>
@@ -36,20 +36,32 @@
             <field name="inherit_id" ref="machine_manager.machine_search_view" />
             <field name="arch" type="xml">
                 <field name="model_type_id" position="after">
-                    <field name="purchase_id"/>
-                    <field name="purch_partner_id"/>
-                    <field name="in_picking_id"/>
-                    <field name="purch_date"/>
+                    <field name="purchase_id" />
+                    <field name="purch_partner_id" />
+                    <field name="in_picking_id" />
+                    <field name="purch_date" />
                 </field>
                 <filter name="group-product-categ" position="after">
-                   <filter name="group-purchase" string="Purchase Order"
-                            context="{'group_by' : 'purchase_id'}"/>
-                   <filter name="group-purch_partner" string="Purchased From"
-                            context="{'group_by' : 'purch_partner_id'}"/>
-                   <filter name="group-in_picking" string="In Picking"
-                            context="{'group_by' : 'in_picking_id'}"/>
-                   <filter name="group-purch_date" string="Purchase Date"
-                            context="{'group_by' : 'purch_date'}"/>
+                   <filter
+            name="group-purchase"
+            string="Purchase Order"
+            context="{'group_by' : 'purchase_id'}"
+          />
+                   <filter
+            name="group-purch_partner"
+            string="Purchased From"
+            context="{'group_by' : 'purch_partner_id'}"
+          />
+                   <filter
+            name="group-in_picking"
+            string="In Picking"
+            context="{'group_by' : 'in_picking_id'}"
+          />
+                   <filter
+            name="group-purch_date"
+            string="Purchase Date"
+            context="{'group_by' : 'purch_date'}"
+          />
                 </filter>
             </field>
         </record>
