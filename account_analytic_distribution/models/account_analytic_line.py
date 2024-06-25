@@ -6,8 +6,7 @@ from odoo import api, fields, models
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
-    pre_amount = fields.Float(
-        string="Amount")
+    pre_amount = fields.Float(string="Amount")
 
     @api.onchange("pre_amount")
     def onchange_pre_amount(self):
@@ -18,7 +17,11 @@ class AccountAnalyticLine(models.Model):
     @api.model
     def create(self, values):
         if "name" in values and values["name"] == "/ -- /" and "move_id" in values:
-            values["name"] = self.env["account.move.line"].browse(values.get("move_id")).account_id.display_name
+            values["name"] = (
+                self.env["account.move.line"]
+                .browse(values.get("move_id"))
+                .account_id.display_name
+            )
         if "amount" in values:
             values["pre_amount"] = values["amount"]
-        return super(AccountAnalyticLine, self).create(values)
+        return super().create(values)
