@@ -34,10 +34,7 @@ class StockInventoryImport(models.Model):
         string="Create Lot",
         default=False,
     )
-    accounting_date = fields.Date(
-        string="Accounting Date",
-        default=fields.Date.today()
-    )
+    accounting_date = fields.Date(string="Accounting Date", default=fields.Date.today())
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -80,7 +77,7 @@ class StockInventoryImport(models.Model):
             "company_id": self.company_id.id,
             "date": self.file_date,
             "start_empty": True,
-            "accounting_date": self.accounting_date
+            "accounting_date": self.accounting_date,
         }
         inventory = self.env["stock.inventory"].create(values)
         inventory.action_start()
