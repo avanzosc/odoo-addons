@@ -9,12 +9,12 @@
     "license": "AGPL-3",
     "depends": [
         "product_supplierinfo_for_customer_sale",
-        "product_supplierinfo_for_customer_picking"
+        "product_supplierinfo_for_customer_picking",
     ],
     "data": [
         "report/sale_order_report.xml",
         "report/stock_picking_report.xml",
-        "report/account_invoice_report.xml"
+        "report/account_invoice_report.xml",
     ],
     "installable": True,
 }
