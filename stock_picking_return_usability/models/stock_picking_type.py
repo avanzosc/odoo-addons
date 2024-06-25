@@ -7,6 +7,4 @@ from odoo import fields, models
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
-    retun_picking_draft = fields.Boolean(
-        string="Return in draft state",
-        default=False)
+    retun_picking_draft = fields.Boolean(string="Return in draft state", default=False)
