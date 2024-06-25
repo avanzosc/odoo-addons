@@ -50,4 +50,4 @@ class StockValuationLayer(models.Model):
                     .property_valuation,
                 }
             )
-        return super(StockValuationLayer, self).create(values)
+        return super().create(values)

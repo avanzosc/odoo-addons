@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
         :return: values to use in a call to create
         :rtype: dict
         """
-        vals = super(ProductProduct, self)._prepare_out_svl_vals(quantity, company)
+        vals = super()._prepare_out_svl_vals(quantity, company)
         vals.update(
             {
                 "valuation": self.valuation,
