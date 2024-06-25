@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="product_company_rule" model="ir.rule">
         <field name="name">Product Company rule</field>
-        <field name="model_id" ref="stock.model_product_template"/>
+        <field name="model_id" ref="stock.model_product_template" />
         <field
       name="domain_force"
     >['|', '|', ('company_id','in',company_ids), ('company_ids','in',company_ids), '&amp;', ('company_id','=',False), ('company_ids', '=', False)]</field>

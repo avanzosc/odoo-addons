@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Multi Company Usability",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Inventory",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -14,5 +14,5 @@
         "security/product_company_security.xml",
         "views/product_template_views.xml",
     ],
-    'installable': True,
+    "installable": True,
 }
