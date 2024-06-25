@@ -8,14 +8,18 @@
                 <attribute name="delete">1</attribute>
             </kanban>
             <xpath expr="//kanban/templates/t/div/strong" position="before">
-                <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                <a
+          t-if="! read_only_mode"
+          type="delete"
+          style="position: absolute; right: 0; padding: 4px; diplay: inline-block"
+        >X</a>
             </xpath>
             <xpath expr="//field[@name='lot_id']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='picking_id']" position="after">
                 <div>
-                    <span>Lot: <field name="lot_id"/></span>
+                    <span>Lot: <field name="lot_id" /></span>
                 </div>
             </xpath>
             <xpath expr="//field[@name='product_uom_id']" position="attributes">
@@ -23,9 +27,9 @@
             </xpath>
             <xpath expr="//field[@name='qty_done']" position="replace">
                 <div>
-                    <span>Quantity: 
-                        <field name="qty_done"/>
-                        <field name="product_uom_id" groups="uom.group_uom"/>
+                    <span>Quantity:
+                        <field name="qty_done" />
+                        <field name="product_uom_id" groups="uom.group_uom" />
                     </span>
                 </div>
             </xpath>
