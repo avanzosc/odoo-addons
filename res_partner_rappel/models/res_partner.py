@@ -9,7 +9,8 @@ class ResPartner(models.Model):
     partner_rappel_ids = fields.One2many(
         string="Partner Rappel",
         comodel_name="res.partner.rappel",
-        inverse_name="partner_id")
+        inverse_name="partner_id",
+    )
 
     def action_view_rappel(self):
         return {
@@ -18,9 +19,9 @@ class ResPartner(models.Model):
             "res_model": "account.move.line",
             "domain": [
                 ("partner_rappel_id", "!=", False),
-                ("partner_id", "=", self.id)],
+                ("partner_id", "=", self.id),
+            ],
             "type": "ir.actions.act_window",
-            "views": [[self.env.ref(
-                "res_partner_rappel.rappel_view_tree").id, "tree"]],
-            "context": self.env.context
+            "views": [[self.env.ref("res_partner_rappel.rappel_view_tree").id, "tree"]],
+            "context": self.env.context,
         }
