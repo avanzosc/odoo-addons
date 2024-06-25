@@ -1,28 +1,25 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class CrossoveredBudgetLines(models.Model):
     _inherit = "crossovered.budget.lines"
 
-    result_amount = fields.Float(
-        string="Result Amount",
-    )
+    result_amount = fields.Float()
 
     def action_recalculate_result_amount(self):
         for line in self:
             line.result_amount = line.practical_amount - line.planned_amount
 
     def read_group(
-            self, domain, fields, groupby, offset=0, limit=None, orderby=False,
-            lazy=True
-        ):
-        result = super(CrossoveredBudgetLines, self).read_group(
-            domain, fields, groupby, offset=0, limit=None, orderby=False,
-            lazy=True)
+        self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+    ):
+        result = super().read_group(
+            domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+        )
         for line in result:
-            if '__domain' in line:
+            if "__domain" in line:
                 lines = self.search(line["__domain"])
                 practical_amount = sum(lines.mapped("practical_amount"))
                 theoretical_amount = sum(lines.mapped("theoretical_amount"))
