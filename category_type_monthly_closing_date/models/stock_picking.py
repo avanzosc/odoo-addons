@@ -9,18 +9,30 @@ class StockPicking(models.Model):
 
     def button_validate(self):
         for picking in self:
-            if picking.custom_date_done and picking.category_type_id and (
-                picking.category_type_id.monthly_closing_date) and (
-                    picking.custom_date_done.date()) < (
-                        picking.category_type_id.monthly_closing_date):
+            if (
+                picking.custom_date_done
+                and picking.category_type_id
+                and (picking.category_type_id.monthly_closing_date)
+                and (picking.custom_date_done.date())
+                < (picking.category_type_id.monthly_closing_date)
+            ):
                 raise ValidationError(
-                        _("The date of the picking cannot be earlier " +
-                          "than the monthly closing date of the sections."))
-            if picking.custom_date_done and picking.dest_category_type_id and (
-                picking.dest_category_type_id.monthly_closing_date) and (
-                    picking.custom_date_done.date()) < (
-                        picking.dest_category_type_id.monthly_closing_date):
+                    _(
+                        "The date of the picking cannot be earlier "
+                        + "than the monthly closing date of the sections."
+                    )
+                )
+            if (
+                picking.custom_date_done
+                and picking.dest_category_type_id
+                and (picking.dest_category_type_id.monthly_closing_date)
+                and (picking.custom_date_done.date())
+                < (picking.dest_category_type_id.monthly_closing_date)
+            ):
                 raise ValidationError(
-                        _("The date of the picking cannot be earlier " +
-                          "than the monthly closing date of the sections."))
-        return super(StockPicking, self).button_validate()
+                    _(
+                        "The date of the picking cannot be earlier "
+                        + "than the monthly closing date of the sections."
+                    )
+                )
+        return super().button_validate()
