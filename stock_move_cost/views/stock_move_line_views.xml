@@ -5,8 +5,8 @@
         <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="state" position="before">
-                <field name="price_unit_cost" optional="show"/>
-                <field name="cost" optional="show" sum="Total cost"/>
+                <field name="price_unit_cost" optional="show" />
+                <field name="cost" optional="show" sum="Total cost" />
             </field>
         </field>
     </record>
@@ -17,15 +17,15 @@
         <field name="arch" type="xml">
             <field name="location_dest_id" position="after">
                 <field name="price_unit_cost" />
-                <field name="cost" optional="show"/>
+                <field name="cost" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="action_cost_in_move_line" model="ir.actions.server">
         <field name="name">Put Cost</field>
-        <field name="model_id" ref="stock.model_stock_move_line"/>
-        <field name="binding_model_id" ref="stock.model_stock_move_line"/>
+        <field name="model_id" ref="stock.model_stock_move_line" />
+        <field name="binding_model_id" ref="stock.model_stock_move_line" />
         <field name="type">ir.actions.server</field>
         <field name="state">code</field>
         <field name="code">
