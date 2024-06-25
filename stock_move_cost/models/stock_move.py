@@ -14,7 +14,6 @@ class StockMove(models.Model):
         compute="_compute_price_unit_cost",
     )
     cost = fields.Float(
-        string="Cost",
         digits="Product Price",
         store=True,
         copy=False,
