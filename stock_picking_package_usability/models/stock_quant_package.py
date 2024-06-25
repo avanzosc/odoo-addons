@@ -41,8 +41,6 @@ class StockQuantPackage(models.Model):
     def create(self, vals):
         line = super().create(vals)
         line.name = "{} {} {:0>3}".format(
-            line.picking_id.name,
-            "-",
-            len(line.picking_id.quant_package_ids)
+            line.picking_id.name, "-", len(line.picking_id.quant_package_ids)
         )
         return line
