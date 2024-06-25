@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="saca_line_form_view_descarga">
         <field name="model">saca.line</field>
@@ -23,24 +23,38 @@
                 <page name="signatures" string="Signatures">
                     <group col="3">
                         <group string="Signature Driver">
-                            <button name="clear_signature_driver" type="object" string="Clear" attrs="{'invisible': [('signature_driver','!=',False)]}"/>
-                            <field name="date_signature_driver" readonly="1"/>
-                            <field name="signature_driver" widget="image" readonly="1"/>
+                            <button
+                name="clear_signature_driver"
+                type="object"
+                string="Clear"
+                attrs="{'invisible': [('signature_driver','!=',False)]}"
+              />
+                            <field name="date_signature_driver" readonly="1" />
+                            <field
+                name="signature_driver"
+                widget="image"
+                readonly="1"
+              />
                         </group>
                         <group string="Signature Farm">
-                            <button name="clear_signature_farm" type="object" string="Clear" attrs="{'invisible': [('signature_driver','!=',False)]}"/>
-                            <field name="date_signature_farm" readonly="1"/>
-                            <field name="signature_farm" widget="image" readonly="1"/>
+                            <button
+                name="clear_signature_farm"
+                type="object"
+                string="Clear"
+                attrs="{'invisible': [('signature_driver','!=',False)]}"
+              />
+                            <field name="date_signature_farm" readonly="1" />
+                            <field name="signature_farm" widget="image" readonly="1" />
                         </group>
                     </group>
                 </page>
                 <page name="tickets" string="Tickets">
                     <group col="3">
                         <group string="Ticket Slaughterhouse">
-                            <field name="ticket_slaughterhouse_attachment_id"/>
+                            <field name="ticket_slaughterhouse_attachment_id" />
                         </group>
                         <group string="Ticket Farm">
-                            <field name="ticket_farm_attachment_id"/>
+                            <field name="ticket_farm_attachment_id" />
                         </group>
                     </group>
                 </page>
