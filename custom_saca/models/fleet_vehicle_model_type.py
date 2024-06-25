@@ -8,8 +8,6 @@ class FleetVehicleModelType(models.Model):
 
     category = fields.Selection(
         string="Category",
-        selection=[
-            ("head", "Head"),
-            ("trailer", "Trailer"),
-            ("other", "Other")],
-        copy=False)
+        selection=[("head", "Head"), ("trailer", "Trailer"), ("other", "Other")],
+        copy=False,
+    )

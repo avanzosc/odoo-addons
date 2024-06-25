@@ -5,7 +5,7 @@
         <field name="model">main.scale</field>
         <field name="arch" type="xml">
             <tree string="Main Scale" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -17,7 +17,11 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <menuitem action="action_main_scale_view" id="menu_view_main_scale"
-              parent="menu_conf" sequence="2"/>
+    <menuitem
+    action="action_main_scale_view"
+    id="menu_view_main_scale"
+    parent="menu_conf"
+    sequence="2"
+  />
 
 </odoo>

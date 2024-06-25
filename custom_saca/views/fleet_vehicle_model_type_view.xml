@@ -3,10 +3,13 @@
 
     <record id="view_type_tree" model="ir.ui.view">
         <field name="model">fleet.vehicle.model.type</field>
-        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.view_type_tree"/>
+        <field
+      name="inherit_id"
+      ref="stock_production_lot_fleet_vehicle.view_type_tree"
+    />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="category"/>
+                <field name="category" />
             </field>
         </field>
     </record>

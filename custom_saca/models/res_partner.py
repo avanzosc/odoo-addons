@@ -6,18 +6,21 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    ates = fields.Char(string='Ates')
-    distance = fields.Float(string='Distance')
-    chicken_supplier = fields.Boolean(
-        string="Is Live Chicken Supplier?", default=False)
+    ates = fields.Char(string="Ates")
+    distance = fields.Float(string="Distance")
+    chicken_supplier = fields.Boolean(string="Is Live Chicken Supplier?", default=False)
     chicken_supplier_id = fields.Many2one(
-        string="Chicken Supplier", comodel_name="res.partner")
+        string="Chicken Supplier", comodel_name="res.partner"
+    )
     is_supplier = fields.Boolean(
-        string="Is Supplier?", compute="_compute_is_supplier", store=True)
+        string="Is Supplier?", compute="_compute_is_supplier", store=True
+    )
     is_farmer = fields.Boolean(
-        string="Is Farmer?", compute="_compute_is_supplier", store=True)
+        string="Is Farmer?", compute="_compute_is_supplier", store=True
+    )
     farm = fields.Boolean(
-        string="Is a Farm?", compute="_compute_is_supplier", store=True)
+        string="Is a Farm?", compute="_compute_is_supplier", store=True
+    )
     main_scale = fields.Many2one(string="Scale", comodel_name="main.scale")
 
     @api.depends("contact_type_id")
@@ -53,22 +56,23 @@ class ResPartner(models.Model):
                 partner.chicken_supplier = False
                 partner.chicken_supplier_id = False
 
-    @api.depends('is_company', 'name', 'parent_id.display_name', 'type',
-                 'company_name', 'ref')
+    @api.depends(
+        "is_company", "name", "parent_id.display_name", "type", "company_name", "ref"
+    )
     def _compute_display_name(self):
-        super(ResPartner, self)._compute_display_name()
+        super()._compute_display_name()
 
     def name_get(self):
-        super(ResPartner, self).name_get()
+        super().name_get()
         result = []
         for partner in self:
             name = partner._get_name()
-            name = name.split('\n')
+            name = name.split("\n")
             p_name = partner.name
             if partner.parent_id:
-                p_name = u'{}, {}'.format(p_name, partner.parent_id.name)
+                p_name = "{}, {}".format(p_name, partner.parent_id.name)
             if partner.ref:
-                p_name = u'{} {}'.format(partner.ref, p_name)
+                p_name = "{} {}".format(partner.ref, p_name)
             name[0] = p_name
             name = "\n".join(name)
             result.append((partner.id, name))
