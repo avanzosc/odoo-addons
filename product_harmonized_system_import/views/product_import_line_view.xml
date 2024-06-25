@@ -2,26 +2,38 @@
 <odoo>
     <record id="product_import_line_view_form" model="ir.ui.view">
         <field name="model">product.import.line</field>
-        <field name="inherit_id" ref="product_import_wizard.product_import_line_view_form"/>
+        <field
+      name="inherit_id"
+      ref="product_import_wizard.product_import_line_view_form"
+    />
         <field name="arch" type="xml">
             <field name="product_type" position="after">
-                <field name="hs_code"/>
-                <field name="hs_code_id" options="{'no_create': True, 'no_open': True}"/>
-                <field name="origin_country"/>
-                <field name="origin_country_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="hs_code" />
+                <field
+          name="hs_code_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+                <field name="origin_country" />
+                <field
+          name="origin_country_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
             </field>
         </field>
     </record>
 
     <record id="product_import_line_view_tree" model="ir.ui.view">
         <field name="model">product.import.line</field>
-        <field name="inherit_id" ref="product_import_wizard.product_import_line_view_tree"/>
+        <field
+      name="inherit_id"
+      ref="product_import_wizard.product_import_line_view_tree"
+    />
         <field name="arch" type="xml">
             <field name="product_type" position="after">
-                <field name="hs_code" optional="show"/>
-                <field name="hs_code_id" optional="hide"/>
-                <field name="origin_country" optional="show"/>
-                <field name="origin_country_id" optional="hide"/>
+                <field name="hs_code" optional="show" />
+                <field name="hs_code_id" optional="hide" />
+                <field name="origin_country" optional="show" />
+                <field name="origin_country_id" optional="hide" />
             </field>
         </field>
     </record>
