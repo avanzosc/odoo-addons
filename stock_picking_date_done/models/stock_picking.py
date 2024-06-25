@@ -5,17 +5,17 @@ from odoo.exceptions import ValidationError
 
 
 class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = "stock.picking"
 
-    custom_date_done = fields.Datetime(string='Date Realized')
+    custom_date_done = fields.Datetime(string="Date Realized")
 
     def button_validate(self):
         if any(self.filtered(lambda p: not p.custom_date_done)):
             raise ValidationError(_("You must introduce the date realized"))
-        return super(StockPicking, self).button_validate()
+        return super().button_validate()
 
     def write(self, vals):
-        result = super(StockPicking, self).write(vals)
+        result = super().write(vals)
         if "custom_date_done" in vals:
             for line in self:
                 for move in line.move_ids_without_package:
