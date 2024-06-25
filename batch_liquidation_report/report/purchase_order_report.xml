@@ -4,76 +4,90 @@
         <field name="name">Purchase Order Ticket</field>
         <field name="model">purchase.order</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">batch_liquidation_report.purchase_order_ticket_report</field>
+        <field
+      name="report_name"
+    >batch_liquidation_report.purchase_order_ticket_report</field>
         <field name="print_report_name">'Ticket - %s' % (object.name)</field>
-        <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+        <field name="binding_model_id" ref="purchase.model_purchase_order" />
         <field name="binding_type">report</field>
-        <field name="paperformat_id" ref="batch_liquidation_report.paperformat_custom_ticket"/>
+        <field
+      name="paperformat_id"
+      ref="batch_liquidation_report.paperformat_custom_ticket"
+    />
     </record>
 
     <template id="purchase_order_ticket_report_document">
         <t t-call="web.basic_layout">
             <div class="page">
-                <t t-set="lines" t-value="o.mapped('order_line')"/>
-                <t t-set="company" t-value="o.company_id.partner_id"/>
+                <t t-set="lines" t-value="o.mapped('order_line')" />
+                <t t-set="company" t-value="o.company_id.partner_id" />
                 <div class="page">
                     <h6 id="company_info">
                         <div class="col-12" t-if="company.comercial">
-                            <span t-field="company.comercial"/>
+                            <span t-field="company.comercial" />
                         </div>
                         <div class="col-12" t-if="company">
-                            <span t-field="company.name"/>
+                            <span t-field="company.name" />
                         </div>
                         <div class="col-12" t-if="company.street">
-                            <span t-field="company.street"/>
+                            <span t-field="company.street" />
                         </div>
                         <div class="col-12" t-if="company.zip">
-                            <span t-field="company.zip"/>
+                            <span t-field="company.zip" />
                         </div>
                         <div class="col-12" t-if="company.state_id">
-                            <span t-field="company.state_id"/>
+                            <span t-field="company.state_id" />
                         </div>
                         <div class="col-12" t-if="companyvat or company.phone">
-                            <span t-if="company.vat" t-field="company.vat"/>
+                            <span t-if="company.vat" t-field="company.vat" />
                             <strong>&#160;</strong>
-                            <span t-if="company.phone" t-field="company.phone"/>
+                            <span t-if="company.phone" t-field="company.phone" />
                         </div>
                         <div class="col-12" t-if="company.website">
-                            <span t-field="company.website"/>
+                            <span t-field="company.website" />
                         </div>
                     </h6>
                     <h6 class="col-14">
-                        <hr class="mb-1" style="border-bottom: 1px solid black;"/>
-                        <br/>
+                        <hr class="mb-1" style="border-bottom: 1px solid black;" />
+                        <br />
                     </h6>
                     <h6 id="sale_info">
                         <div class="col-12" t-if="o.name">
                             <span>Picking Order:</span>
-                            <span t-field="o.name"/>
+                            <span t-field="o.name" />
                         </div>
                         <div class="col-12" t-if="o.date_order">
                             <span>Date:</span>
-                            <span t-field="o.date_order"/>
+                            <span t-field="o.date_order" />
                         </div>
                     </h6>
-                    <br/>
+                    <br />
                     <h6 id="partner_info">
                         <div class="col-12" t-if="o.partner_id">
-                            <span t-field="o.partner_id.display_name"/>
+                            <span t-field="o.partner_id.display_name" />
                         </div>
                         <div class="col-12" t-if="o.partner_id.street">
-                            <span t-field="o.partner_id.street"/>
+                            <span t-field="o.partner_id.street" />
                         </div>
-                        <div class="col-12" t-if="o.partner_id.city or o.partner_id.state_id">
-                            <span t-if="o.partner_id.city" t-field="o.partner_id.city"/>
+                        <div
+              class="col-12"
+              t-if="o.partner_id.city or o.partner_id.state_id"
+            >
+                            <span
+                t-if="o.partner_id.city"
+                t-field="o.partner_id.city"
+              />
                             <strong>&#160;</strong>
-                            <span t-if="o.partner_id.state_id" t-field="o.partner_id.state_id.name"/>
+                            <span
+                t-if="o.partner_id.state_id"
+                t-field="o.partner_id.state_id.name"
+              />
                         </div>
                         <div class="col-12" t-if="o.partner_id.vat">
-                            <span t-field="o.partner_id.vat"/>
+                            <span t-field="o.partner_id.vat" />
                         </div>
                     </h6>
-                    <br/>
+                    <br />
                     <table class="table" style="font-size: 13px;">
                         <thead>
                             <tr>
@@ -87,19 +101,19 @@
                         <tbody>
                             <tr t-foreach="lines" t-as="line">
                                 <td>
-                                    <span t-field="line.product_id.name"/>
+                                    <span t-field="line.product_id.name" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.lot_id.name"/>
+                                    <span t-field="line.lot_id.name" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.qty_received"/>
+                                    <span t-field="line.qty_received" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.price_unit"/>
+                                    <span t-field="line.price_unit" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.price_subtotal"/>
+                                    <span t-field="line.price_subtotal" />
                                 </td>
                             </tr>
                         </tbody>
@@ -107,24 +121,37 @@
                 </div>
                 <div id="total" class="clearfix" style="font-size: 15px;">
                     <div id="total" class="row" name="total">
-                        <div t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                        <div
+              t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
+            >
                             <table class="table">
                                 <tr class="border-black o_subtotal">
-                                    <td name="td_subtotal_label"><strong>Subtotal</strong></td>
+                                    <td name="td_subtotal_label"><strong
+                    >Subtotal</strong></td>
                                     <td class="text-right">
-                                        <span t-field="o.amount_untaxed" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        <span
+                      t-field="o.amount_untaxed"
+                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                    />
                                     </td>
                                 </tr>
                                 <tr>
                                     <td name="td_taxes_label">Taxes</td>
                                     <td class="text-right">
-                                        <span t-field="o.amount_tax" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        <span
+                      t-field="o.amount_tax"
+                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                    />
                                     </td>
                                 </tr>
                                 <tr class="border-black o_total">
-                                    <td name="td_amount_total_label"><strong>Total</strong></td>
+                                    <td name="td_amount_total_label"><strong
+                    >Total</strong></td>
                                     <td class="text-right">
-                                        <span t-field="o.amount_total" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"/>
+                                        <span
+                      t-field="o.amount_total"
+                      t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                    />
                                     </td>
                                 </tr>
                             </table>
@@ -138,7 +165,10 @@
     <template id="purchase_order_ticket_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="batch_liquidation_report.purchase_order_ticket_report_document" t-lang="user.lang"/>
+                <t
+          t-call="batch_liquidation_report.purchase_order_ticket_report_document"
+          t-lang="user.lang"
+        />
             </t>
         </t>
     </template>

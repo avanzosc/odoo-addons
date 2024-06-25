@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_partner_type_tree" model="ir.ui.view">
-        <field name="inherit_id" ref="event.view_event_registration_tree"/>
+        <field name="inherit_id" ref="event.view_event_registration_tree" />
         <field name="model">event.registration</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
-                <field name="birthdate" optional="show"/>
-                <field name="age" optional="show"/>
+                <field name="birthdate" optional="show" />
+                <field name="age" optional="show" />
             </field>
         </field>
     </record>
     <record id="view_partner_birthdate_form" model="ir.ui.view">
-        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="inherit_id" ref="event.view_event_registration_form" />
         <field name="model">event.registration</field>
         <field name="arch" type="xml">
             <field name="mobile" position="after">
@@ -22,7 +22,7 @@
     </record>
     <record id="action_update_student_birthdate" model="ir.actions.server">
         <field name="name">Update student birthdate</field>
-        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="model_id" ref="event.model_event_registration" />
         <field name="binding_model_id" ref="event.model_event_registration" />
         <field name="state">code</field>
         <field name="code">

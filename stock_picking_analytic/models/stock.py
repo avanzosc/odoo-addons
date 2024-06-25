@@ -37,7 +37,7 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     def _action_done(self, cancel_backorder=False):
-        moves = super(StockMove, self)._action_done(cancel_backorder=cancel_backorder)
+        moves = super()._action_done(cancel_backorder=cancel_backorder)
         for move in moves.filtered(
             lambda x: x.picking_id
             and x.picking_id.analytic_account_id

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="account_move_line_distribution_form_view">
         <field name="name">account.move.line.form.view</field>
@@ -7,25 +7,33 @@
             <form string="Analytic Distribution">
                 <sheet>
                     <group>
-                        <field name="name" invisible="1"/>
-                        <field name="account_id" invisible="1"/>
-                        <field name="product_id" invisible="1"/>
-                        <field name="date" invisible="1"/>
-                        <field name="payment_reference" invisible="1"/>
-                        <field name="account_name" invisible="1"/>
+                        <field name="name" invisible="1" />
+                        <field name="account_id" invisible="1" />
+                        <field name="product_id" invisible="1" />
+                        <field name="date" invisible="1" />
+                        <field name="payment_reference" invisible="1" />
+                        <field name="account_name" invisible="1" />
                     </group>
-                    <field name="analytic_line_ids" context="{'default_move_id': active_id, 'default_product_id': product_id, 'default_date': date, 'default_ref': payment_reference, 'default_unit_amount': 1, 'default_name': account_name}">
+                    <field
+            name="analytic_line_ids"
+            context="{'default_move_id': active_id, 'default_product_id': product_id, 'default_date': date, 'default_ref': payment_reference, 'default_unit_amount': 1, 'default_name': account_name}"
+          >
                         <tree editable="button">
-                            <field name="date" invisible="1"/>
-                            <field name="unit_amount" invisible="1"/>
-                            <field name="ref" invisible="1"/>
-                            <field name="product_id" invisible="1"/>
-                            <field name="move_id" invisible="1"/>
-                            <field name="name"/>
-                            <field name="account_id"/>
-                            <field name="pre_amount" sum="Total Pre Amoun"/>
-                            <field name="amount" sum="Total Amount" force_save="1" invisible="1"/>
-                            <field name="company_id" invisible="1"/>
+                            <field name="date" invisible="1" />
+                            <field name="unit_amount" invisible="1" />
+                            <field name="ref" invisible="1" />
+                            <field name="product_id" invisible="1" />
+                            <field name="move_id" invisible="1" />
+                            <field name="name" />
+                            <field name="account_id" />
+                            <field name="pre_amount" sum="Total Pre Amoun" />
+                            <field
+                name="amount"
+                sum="Total Amount"
+                force_save="1"
+                invisible="1"
+              />
+                            <field name="company_id" invisible="1" />
                         </tree>
                     </field>
                 </sheet>
@@ -35,25 +43,35 @@
 
     <record model="ir.ui.view" id="view_move_line_tree">
         <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account.view_move_line_tree"/>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
         <field name="arch" type="xml">
            <field name="date" position="after">
-               <field name="distribution_done" invisible="1"/>
+               <field name="distribution_done" invisible="1" />
            </field>
            <tree position="attributes">
-               <attribute name="decoration-danger">distribution_done == False</attribute>
+               <attribute
+          name="decoration-danger"
+        >distribution_done == False</attribute>
            </tree>
         </field>
     </record>
 
     <record model="ir.ui.view" id="view_account_move_line_filter">
         <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account.view_account_move_line_filter"/>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
         <field name="arch" type="xml">
             <filter name="to_check" position="after">
-                <separator/>
-                <filter string="Distribution Done" name="distribution_done" domain="[('distribution_done', '=', True)]"/>
-                <filter string="Not Distributed" name="no_distribution_done" domain="[('distribution_done', '=', False)]"/>
+                <separator />
+                <filter
+          string="Distribution Done"
+          name="distribution_done"
+          domain="[('distribution_done', '=', True)]"
+        />
+                <filter
+          string="Not Distributed"
+          name="no_distribution_done"
+          domain="[('distribution_done', '=', False)]"
+        />
             </filter>
         </field>
     </record>

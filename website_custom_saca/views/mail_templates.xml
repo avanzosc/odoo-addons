@@ -9,7 +9,10 @@
               <tbody>
                 <tr>
                   <td class="left">
-                    <img id="main_logo" t-attf-src="data:image;base64,{{env.user.company_id.logo}}" />
+                    <img
+                      id="main_logo"
+                      t-attf-src="data:image;base64,{{env.user.company_id.logo}}"
+                    />
                   </td>
                   <td class="right">
                     <span class="date_today" t-esc="time.strftime('%%d %%B %%Y')" />
@@ -29,16 +32,16 @@
           <footer id="main_footer">
             <div class="company_info">
               <p class="website"><a
-                                    href="https://www.example.com"
-                                >www.example.com</a></p>
+                  href="https://www.example.com"
+                >www.example.com</a></p>
               <div class="address">
                 <div
-                                    t-field="env.user.company_id.partner_id"
-                                    t-options='{
+                  t-field="env.user.company_id.partner_id"
+                  t-options='{
                       "widget": "contact",
                       "fields": ["name", "address", "phone", "mobile", "email"]
                       }'
-                                />
+                />
               </div>
             </div>
           </footer>

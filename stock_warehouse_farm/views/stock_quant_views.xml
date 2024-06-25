@@ -1,38 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_stock_quant_tree_editable" model="ir.ui.view">
         <field name="model">stock.quant</field>
-        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="categ_id" optional="hide"/>
-                <field name="category_type_id" optional="show"/>
+                <field name="categ_id" optional="hide" />
+                <field name="category_type_id" optional="show" />
             </field>
             <field name="location_id" position="after">
-                <field name="location_type_id" optional="show"/>
+                <field name="location_type_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="quant_search_view" model="ir.ui.view">
         <field name="model">stock.quant</field>
-        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="inherit_id" ref="stock.quant_search_view" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="categ_id"/>
-                <field name="category_type_id"/>
+                <field name="categ_id" />
+                <field name="category_type_id" />
             </field>
             <field name="location_id" position="after">
-                <field name="location_type_id"/>
+                <field name="location_type_id" />
             </field>
             <filter name="productgroup" position="after">
-                <filter string="Product Category" name="productcateg" context="{'group_by': 'categ_id'}"/>
-                <filter string="Product Category Type / Section" name="category_type" context="{'group_by': 'category_type_id'}"/>
+                <filter
+          string="Product Category"
+          name="productcateg"
+          context="{'group_by': 'categ_id'}"
+        />
+                <filter
+          string="Product Category Type / Section"
+          name="category_type"
+          context="{'group_by': 'category_type_id'}"
+        />
             </filter>
             <filter name="locationgroup" position="after">
-                <filter string="Location Category" name="locationcateg" context="{'group_by': 'location_type_id'}"/>
+                <filter
+          string="Location Category"
+          name="locationcateg"
+          context="{'group_by': 'location_type_id'}"
+        />
             </filter>
         </field>
     </record>

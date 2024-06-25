@@ -8,7 +8,4 @@ class Processor(models.Model):
     _name = "processor"
     _description = "Processor"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

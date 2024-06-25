@@ -73,7 +73,7 @@ class FleetVehicle(models.Model):
 
     @api.model
     def name_search(self, name="", args=None, operator="ilike", limit=100):
-        result = super(FleetVehicle, self).name_search(
+        result = super().name_search(
             name=name, args=args, operator=operator, limit=limit
         )
         if not name:
@@ -101,11 +101,11 @@ class FleetVehicle(models.Model):
         for d in domain:
             if d and d[0] == "name":
                 domain2 = [["old_license_plate", d[1], d[2]]]
-        result = super(FleetVehicle, self).search_read(
+        result = super().search_read(
             domain=domain, fields=fields, offset=offset, limit=limit, order=order
         )
         if domain2:
-            result2 = super(FleetVehicle, self).search_read(
+            result2 = super().search_read(
                 domain=domain2, fields=fields, offset=offset, limit=limit, order=order
             )
             if result2:

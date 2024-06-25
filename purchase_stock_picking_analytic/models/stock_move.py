@@ -11,4 +11,4 @@ class StockMove(models.Model):
         self.ensure_one()
         if self.picking_id.purchase_id:
             return {}
-        return super(StockMove, self)._prepare_data_for_create_analytic_line()
+        return super()._prepare_data_for_create_analytic_line()

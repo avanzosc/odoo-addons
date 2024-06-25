@@ -7,7 +7,7 @@ from odoo.tests import common
 class TestCommercialLanguage(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestCommercialLanguage, cls).setUpClass()
+        super().setUpClass()
         cls.ResPartner = cls.env["res.partner"]
         cls.ResUsers = cls.env["res.users"]
         cls.ResLang = cls.env["res.lang"]

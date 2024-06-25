@@ -9,12 +9,7 @@ class StockPickingBatchTotalBox(models.Model):
     _order = "picking_batch_id, id"
 
     picking_batch_id = fields.Many2one(
-        string="Stock Picking Batch", comodel_name="stock.picking.batch",
-        copy=False
+        string="Stock Picking Batch", comodel_name="stock.picking.batch", copy=False
     )
-    boxes_number = fields.Integer(
-        string="Boxes number", copy=False
-        )
-    dimensions = fields.Char(
-        sring="Dimensions", copy=False
-        )
+    boxes_number = fields.Integer(string="Boxes number", copy=False)
+    dimensions = fields.Char(sring="Dimensions", copy=False)

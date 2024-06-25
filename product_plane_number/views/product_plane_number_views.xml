@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_plane_number_tree" model="ir.ui.view">
         <field name="model">product.plane.number</field>
         <field name="arch" type="xml">
             <tree string="Plane numbers" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -18,17 +18,21 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_product_plane_number"
-        name="Plane number"
-        parent="sale.menu_sale_config"
-        action="action_product_plane_number"
-        groups="base.group_system"
-        sequence="10"/>
+    <menuitem
+    id="menu_product_plane_number"
+    name="Plane number"
+    parent="sale.menu_sale_config"
+    action="action_product_plane_number"
+    groups="base.group_system"
+    sequence="10"
+  />
 
-    <menuitem id="menu_product_plane_number_purchase"
-        action="action_product_plane_number"
-        parent="purchase.menu_purchase_config"
-        groups="base.group_system"
-        sequence="10"/>
+    <menuitem
+    id="menu_product_plane_number_purchase"
+    action="action_product_plane_number"
+    parent="purchase.menu_purchase_config"
+    groups="base.group_system"
+    sequence="10"
+  />
 
 </odoo>

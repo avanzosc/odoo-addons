@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="slide_channel_technology_search" model="ir.ui.view">
@@ -8,7 +8,12 @@
                 <field name="name" />
                 <field name="category_id" />
                 <group expand="0" string="Group By">
-                    <filter string="Category" name="category" domain="[]" context="{'group_by': 'category_id'}"/>
+                    <filter
+            string="Category"
+            name="category"
+            domain="[]"
+            context="{'group_by': 'category_id'}"
+          />
                 </group>
            </search>
         </field>
@@ -17,7 +22,7 @@
     <record id="slide_channel_technology_tree" model="ir.ui.view">
         <field name="model">slide.channel.technology</field>
         <field name="arch" type="xml">
-            <tree string="Technologies" >
+            <tree string="Technologies">
                 <field name="name" />
                 <field name="category_id" />
                 <field name="description" />
@@ -28,7 +33,7 @@
     <record id="slide_channel_technology_form" model="ir.ui.view">
         <field name="model">slide.channel.technology</field>
         <field name="arch" type="xml">
-            <form string="Technology" >
+            <form string="Technology">
                 <sheet>
                     <div class="oe_title">
                         <h1>
@@ -39,9 +44,9 @@
                         <group>
                             <field name="category_id" />
                         </group>
-                        <group/>
-                        <separator string="Description" colspan="4"/>
-                        <field  name="description" colspan="4" nolabel="1" />
+                        <group />
+                        <separator string="Description" colspan="4" />
+                        <field name="description" colspan="4" nolabel="1" />
                     </group>
                 </sheet>
             </form>
@@ -60,8 +65,10 @@
         </field>
     </record>
 
-    <menuitem id="menu_slide_channel_technology2"
-        action="slide_channel_technology_action"
-        parent="menu_slide_channel_technology"
-        sequence="10" />
+    <menuitem
+    id="menu_slide_channel_technology2"
+    action="slide_channel_technology_action"
+    parent="menu_slide_channel_technology"
+    sequence="10"
+  />
 </odoo>

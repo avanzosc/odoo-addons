@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="wiz_automatic_material_in_sale_order_form">
         <field name="name">wiz.automatic.material.in.sale.order.form</field>
@@ -6,16 +6,23 @@
         <field name="arch" type="xml">
             <form string="Put additional material in sale order">
                 <footer>
-                    <button name="action_put_material_from_registration" type="object"
-                        string="Put material" class="oe_highlight" />
+                    <button
+            name="action_put_material_from_registration"
+            type="object"
+            string="Put material"
+            class="oe_highlight"
+          />
                     or
-                    <button string="Cancel" class="oe_link" special="cancel"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
 
-    <record id="action_event_participant_create_claim_single" model="ir.actions.act_window">
+    <record
+    id="action_event_participant_create_claim_single"
+    model="ir.actions.act_window"
+  >
         <field name="name">Insert additional material in sale order</field>
         <field name="res_model">wiz.automatic.material.in.sale.order</field>
         <field name="view_mode">form</field>

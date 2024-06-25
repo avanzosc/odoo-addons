@@ -4,12 +4,12 @@
         <field name="model">purchase.order.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="purchase_product_id"/>
-                <field name="purchase_origin"/>
-                <field name="purchase_supplier_id"/>
-                <field name="purchase_warehouse_id"/>
-                <field name="purchase_picking_type_id"/>
-                <field name="purchase_requisition_id"/>
+                <field name="purchase_product_id" />
+                <field name="purchase_origin" />
+                <field name="purchase_supplier_id" />
+                <field name="purchase_warehouse_id" />
+                <field name="purchase_picking_type_id" />
+                <field name="purchase_requisition_id" />
                 <separator />
                 <filter
           string="Errored"
@@ -73,19 +73,19 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="purchase_supplier_code"/>
-                            <field name="purchase_supplier_name"/>
-                            <field name="purchase_date_planned"/>
-                            <field name="purchase_origin"/>
-                            <field name="purchase_product_code"/>
-                            <field name="purchase_product_name"/>
-                            <field name="purchase_ordered_qty"/>
-                            <field name="purchase_qty_done"/>
-                            <field name="purchase_shipping_method"/>
-                            <field name="purchase_license_plate"/>
-                            <field name="purchase_warehouse"/>
-                            <field name="purchase_product_cost"/>
-                            <field name="purchase_product_shipping_cost"/>
+                            <field name="purchase_supplier_code" />
+                            <field name="purchase_supplier_name" />
+                            <field name="purchase_date_planned" />
+                            <field name="purchase_origin" />
+                            <field name="purchase_product_code" />
+                            <field name="purchase_product_name" />
+                            <field name="purchase_ordered_qty" />
+                            <field name="purchase_qty_done" />
+                            <field name="purchase_shipping_method" />
+                            <field name="purchase_license_plate" />
+                            <field name="purchase_warehouse" />
+                            <field name="purchase_product_cost" />
+                            <field name="purchase_product_shipping_cost" />
                         </group>
                         <group>
                             <field
@@ -118,7 +118,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -133,30 +133,38 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action"/>
-                <field name="purchase_order_id" invisible="1"/>
-                <field name="purchase_supplier_code"/>
-                <field name="purchase_supplier_name"/>
-                <field name="purchase_supplier_id" optional="hide"/>
-                <field name="purchase_date_planned"/>
-                <field name="purchase_origin"/>
-                <field name="purchase_product_code"/>
-                <field name="purchase_product_name"/>
-                <field name="purchase_product_id" optional="hide"/>
-                <field name="purchase_ordered_qty"/>
-                <field name="purchase_qty_done"/>
-                <field name="purchase_shipping_method"/>
-                <field name="purchase_shipping_method_id" optional="hide"/>
-                <field name="purchase_license_plate"/>
-                <field name="purchase_warehouse"/>
-                <field name="purchase_warehouse_id" optional="hide"/>
-                <field name="purchase_picking_type_id" optional="hide"/>
-                <field name="purchase_requisition_id" optional="hide" domain="[('vendor_id', '=', purchase_supplier_id)]"/>
-                <field name="purchase_requisition_line_id" optional="hide" domain="[('vendor_id', '=', purchase_supplier_id), ('product_id', '=', purchase_product_id)]"/>
-                <field name="purchase_product_cost"/>
-                <field name="purchase_product_shipping_cost"/>
-                <field name="state"/>
-                <field name="log_info" optional="show"/>
+                <field name="action" />
+                <field name="purchase_order_id" invisible="1" />
+                <field name="purchase_supplier_code" />
+                <field name="purchase_supplier_name" />
+                <field name="purchase_supplier_id" optional="hide" />
+                <field name="purchase_date_planned" />
+                <field name="purchase_origin" />
+                <field name="purchase_product_code" />
+                <field name="purchase_product_name" />
+                <field name="purchase_product_id" optional="hide" />
+                <field name="purchase_ordered_qty" />
+                <field name="purchase_qty_done" />
+                <field name="purchase_shipping_method" />
+                <field name="purchase_shipping_method_id" optional="hide" />
+                <field name="purchase_license_plate" />
+                <field name="purchase_warehouse" />
+                <field name="purchase_warehouse_id" optional="hide" />
+                <field name="purchase_picking_type_id" optional="hide" />
+                <field
+          name="purchase_requisition_id"
+          optional="hide"
+          domain="[('vendor_id', '=', purchase_supplier_id)]"
+        />
+                <field
+          name="purchase_requisition_line_id"
+          optional="hide"
+          domain="[('vendor_id', '=', purchase_supplier_id), ('product_id', '=', purchase_product_id)]"
+        />
+                <field name="purchase_product_cost" />
+                <field name="purchase_product_shipping_cost" />
+                <field name="state" />
+                <field name="log_info" optional="show" />
             </tree>
         </field>
     </record>

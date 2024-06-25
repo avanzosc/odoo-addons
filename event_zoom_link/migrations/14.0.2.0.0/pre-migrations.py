@@ -3,15 +3,16 @@
 
 
 import logging
+
 from openupgradelib import openupgrade
 
 _logger = logging.getLogger(__name__)
 
 fields_to_rename = [
-    ('event.event', 'event_event', 'email_address', 'teacher_zoom_email'),
-    ('event.event', 'event_event', 'password', 'teacher_zoom_pwd'),
-    ('event.event', 'event_event', 'meeting_id', 'student_zoom_meetingid'),
-    ('event.event', 'event_event', 'key', 'student_zoom_key'),
+    ("event.event", "event_event", "email_address", "teacher_zoom_email"),
+    ("event.event", "event_event", "password", "teacher_zoom_pwd"),
+    ("event.event", "event_event", "meeting_id", "student_zoom_meetingid"),
+    ("event.event", "event_event", "key", "student_zoom_key"),
 ]
 
 

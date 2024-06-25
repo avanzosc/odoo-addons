@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_registration_form" model="ir.ui.view">
         <field name="model">event.registration</field>
-        <field name="inherit_id" ref="event.view_event_registration_form"/>
+        <field name="inherit_id" ref="event.view_event_registration_form" />
         <field name="arch" type="xml">
             <field name="event_ticket_id" position="after">
                 <field name="headquarter_id" readonly="1" />
@@ -12,7 +12,7 @@
 
     <record id="view_event_registration_tree" model="ir.ui.view">
         <field name="model">event.registration</field>
-        <field name="inherit_id" ref="event.view_event_registration_tree"/>
+        <field name="inherit_id" ref="event.view_event_registration_tree" />
         <field name="arch" type="xml">
             <field name="event_id" position="after">
                 <field name="headquarter_id" optional="show" />
@@ -22,13 +22,18 @@
 
     <record id="view_registration_search" model="ir.ui.view">
         <field name="model">event.registration</field>
-        <field name="inherit_id" ref="event.view_registration_search"/>
+        <field name="inherit_id" ref="event.view_registration_search" />
         <field name="arch" type="xml">
             <field name="event_id" position="after">
                 <field name="headquarter_id" optional="show" />
             </field>
             <filter name="group_event" position="after">
-                <filter string="Headquarter" name="group_headquarter" domain="[]" context="{'group_by':'headquarter_id'}"/>
+                <filter
+          string="Headquarter"
+          name="group_headquarter"
+          domain="[]"
+          context="{'group_by':'headquarter_id'}"
+        />
             </filter>
         </field>
     </record>

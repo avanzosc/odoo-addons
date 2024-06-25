@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Event Price Shared",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Marketing/Events",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -14,13 +14,13 @@
         "website_event_track_claim",
         "event_track_analytic",
         "sale_order_event_attendee",
-        "sale_timesheet"
+        "sale_timesheet",
     ],
     "data": [
         "views/event_event_views.xml",
         "views/event_registration_views.xml",
         "views/event_track_views.xml",
     ],
-    'installable': True,
-    'auto_install': False,
+    "installable": True,
+    "auto_install": False,
 }

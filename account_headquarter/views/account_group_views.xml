@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_account_group_tree" model="ir.ui.view">
         <field name="model">account.group</field>
-        <field name="inherit_id" ref="account.view_account_group_tree"/>
+        <field name="inherit_id" ref="account.view_account_group_tree" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="without_headquarter" />
@@ -12,7 +12,7 @@
 
     <record id="view_account_group_form" model="ir.ui.view">
         <field name="model">account.group</field>
-        <field name="inherit_id" ref="account.view_account_group_form"/>
+        <field name="inherit_id" ref="account.view_account_group_form" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
                 <field name="without_headquarter" />
@@ -33,7 +33,10 @@
         </field>
     </record>
 
-    <menuitem id="menu_account_group_headquarter"
-        action="account_group_headquarter_action"
-        parent="account.account_account_menu" sequence="2" />
+    <menuitem
+    id="menu_account_group_headquarter"
+    action="account_group_headquarter_action"
+    parent="account.account_account_menu"
+    sequence="2"
+  />
 </odoo>

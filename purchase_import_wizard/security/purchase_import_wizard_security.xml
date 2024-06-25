@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="purchase_order_import_rule" model="ir.rule">
         <field name="name">Purchase order wizard company rule</field>
-        <field name="model_id" ref="model_purchase_order_import"/>
+        <field name="model_id" ref="model_purchase_order_import" />
         <field
       name="domain_force"
     >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>

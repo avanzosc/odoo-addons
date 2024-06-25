@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <menuitem id="stock_account.menu_valuation"
-        name="Inventory Valuation"
-        parent="stock.menu_warehouse_report"
-        action="stock_account.stock_valuation_layer_action"
-        groups="product_cost_visible.group_product_cost_visible"
-        sequence="110"/>
+    <menuitem
+    id="stock_account.menu_valuation"
+    name="Inventory Valuation"
+    parent="stock.menu_warehouse_report"
+    action="stock_account.stock_valuation_layer_action"
+    groups="product_cost_visible.group_product_cost_visible"
+    sequence="110"
+  />
 </odoo>

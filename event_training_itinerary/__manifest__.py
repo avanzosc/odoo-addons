@@ -7,19 +7,15 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "website_slides",
-        "event_slides",
-        "slide_channel_technology"
-    ],
+    "depends": ["website_slides", "event_slides", "slide_channel_technology"],
     "data": [
-        'security/ir.model.access.csv',
-        'data/event_training_itinerary_data.xml',
-        'views/event_event_views.xml',
-        'views/event_track_views.xml',
-        'views/slide_channel_views.xml',
-        'views/slide_channel_tag_views.xml',
-        'views/slide_channel_tag_course_views.xml',
+        "security/ir.model.access.csv",
+        "data/event_training_itinerary_data.xml",
+        "views/event_event_views.xml",
+        "views/event_track_views.xml",
+        "views/slide_channel_views.xml",
+        "views/slide_channel_tag_views.xml",
+        "views/slide_channel_tag_course_views.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

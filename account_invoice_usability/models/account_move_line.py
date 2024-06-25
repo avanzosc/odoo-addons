@@ -7,6 +7,10 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     product_default_code = fields.Char(
-        string="Product Internal Reference", related="product_id.default_code",
-        store=True, readonly=True, index=True, copy=False
+        string="Product Internal Reference",
+        related="product_id.default_code",
+        store=True,
+        readonly=True,
+        index=True,
+        copy=False,
     )

@@ -8,18 +8,28 @@
                     <group>
                         <field name="bank_ids" invisible="True" />
                         <field name="mandate_format" />
-                        <field name="mandate_type"
-                               attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}" />
-                        <field name="mandate_scheme"
-                               attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}"/>
-                        <field name="mandate_recurrent_sequence_type"
-                               attrs="{'invisible': ['|', ('mandate_type', '=', 'oneoff'), ('mandate_format', '!=', 'sepa')], 'required': [('mandate_type', '=', 'recurrent')]}" />
+                        <field
+              name="mandate_type"
+              attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}"
+            />
+                        <field
+              name="mandate_scheme"
+              attrs="{'invisible': [('mandate_format', '!=', 'sepa')], 'required': [('mandate_format', '=', 'sepa')]}"
+            />
+                        <field
+              name="mandate_recurrent_sequence_type"
+              attrs="{'invisible': ['|', ('mandate_type', '=', 'oneoff'), ('mandate_format', '!=', 'sepa')], 'required': [('mandate_type', '=', 'recurrent')]}"
+            />
                         <field name="signed" />
                         <field name="validate" />
                     </group>
                     <footer>
-                        <button name="button_generate_mandates" string="Generate Mandates"
-                                    type="object" class="oe_highlight" />
+                        <button
+              name="button_generate_mandates"
+              string="Generate Mandates"
+              type="object"
+              class="oe_highlight"
+            />
                         or
                         <button special="cancel" string="Cancel" class="oe_link" />
                     </footer>
@@ -28,12 +38,18 @@
         </field>
     </record>
 
-    <record id="action_res_partner_bank_mandate_generator" model="ir.actions.act_window">
+    <record
+    id="action_res_partner_bank_mandate_generator"
+    model="ir.actions.act_window"
+  >
         <field name="name">Create Mandates</field>
         <field name="res_model">res.partner.bank.mandate.generator</field>
         <field name="view_mode">form</field>
-        <field name="groups_id" eval="[(4, ref('account_payment_order.group_account_payment'))]"/>
-        <field name="binding_model_id" ref="model_res_partner_bank"/>
+        <field
+      name="groups_id"
+      eval="[(4, ref('account_payment_order.group_account_payment'))]"
+    />
+        <field name="binding_model_id" ref="model_res_partner_bank" />
         <field name="binding_view_types">list</field>
         <field name="target">new</field>
     </record>

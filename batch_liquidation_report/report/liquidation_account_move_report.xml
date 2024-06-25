@@ -1,133 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="action_report_account_move_liquidation" model="ir.actions.report">
             <field name="name">Liquidation Report</field>
             <field name="model">account.move</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">batch_liquidation_report.report_account_move_liquidation</field>
-            <field name="report_file">batch_liquidation_report.report_account_move_liquidation</field>
-            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field
+        name="report_name"
+      >batch_liquidation_report.report_account_move_liquidation</field>
+            <field
+        name="report_file"
+      >batch_liquidation_report.report_account_move_liquidation</field>
+            <field name="binding_model_id" ref="account.model_account_move" />
             <field name="binding_type">report</field>
         </record>
 
     <template id="external_layout_standard_liquidation_account_move">
-        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
             <div class="row">
                 <div class="col-6" name="company_address">
-                    <div t-field="company.partner_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                    />
+                    <div
+              t-field="company.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+            />
                 </div>
             </div>
         </div>
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
             <div class="pt-5">
                 <!-- This div ensures that the address is not cropped by the header. -->
-                <t t-call="web.address_layout"/>
+                <t t-call="web.address_layout" />
             </div>
-            <t t-raw="0"/>
+            <t t-raw="0" />
         </div>
     </template>
 
     <template id="external_layout_liquidation_account_move">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="batch_liquidation_report.external_layout_standard_liquidation_account_move"><t t-raw="0"/></t>
+        <t
+        t-call="batch_liquidation_report.external_layout_standard_liquidation_account_move"
+      ><t t-raw="0" /></t>
     </template>
 
 
         <template id="batch_liquidation_report.report_account_move_liquidation">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-set="invoice_line" t-value="o.mapped('invoice_line_ids')"/>
+                    <t t-set="invoice_line" t-value="o.mapped('invoice_line_ids')" />
                     <t t-set="address">
-                        <address t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' class="mb-0"/>
+                        <address
+              t-field="o.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'
+              class="mb-0"
+            />
                         <p t-if="o.partner_id.vat">
-                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>:
-                            <span t-field="o.partner_id.vat"/>
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                            <span t-field="o.partner_id.vat" />
                         </p>
                     </t>
 <!--                     <t t-call="web.external_layout">
- -->                    <t t-call="batch_liquidation_report.external_layout_liquidation_account_move">
+ -->                    <t
+            t-call="batch_liquidation_report.external_layout_liquidation_account_move"
+          >
                         <div class="page">
                             <h2>
-                                <span >Liquidation Invoice</span>
+                                <span>Liquidation Invoice</span>
                             </h2>
                             <div id="informations" class="row mt-4 mb-4">
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.ref" name="ref">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.ref"
+                  name="ref"
+                >
                                     <strong>Invoice Number:</strong>
-                                    <p class="m-0" t-field="o.ref"/>
+                                    <p class="m-0" t-field="o.ref" />
                                 </div>
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date" name="invoice_date">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.invoice_date"
+                  name="invoice_date"
+                >
                                     <t><strong>Invoice Date:</strong></t>
-                                    <p class="m-0" t-field="o.invoice_date"/>
+                                    <p class="m-0" t-field="o.invoice_date" />
                                 </div>
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.payment_mode_id" name="payment_mode">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.payment_mode_id"
+                  name="payment_mode"
+                >
                                     <t><strong>Payment Mode:</strong></t>
-                                    <p class="m-0" t-field="o.payment_mode_id"/>
+                                    <p class="m-0" t-field="o.payment_mode_id" />
                                 </div>
-                                <div class="col-auto col-3 mw-100 mb-2" t-if="o.invoice_date_due" name="invoice_date_due">
+                                <div
+                  class="col-auto col-3 mw-100 mb-2"
+                  t-if="o.invoice_date_due"
+                  name="invoice_date_due"
+                >
                                     <t><strong>Expiration date:</strong></t>
-                                    <p class="m-0" t-field="o.invoice_date_due"/>
+                                    <p class="m-0" t-field="o.invoice_date_due" />
                                 </div>
                             </div>
                             <table class="table table-condensed">
                                 <thead>
                                     <tr>
-                                        <th name="th_description" class="text-left"><span>Description</span></th>
-                                        <th name="th_quantity" class="text-left"><span>Amount</span></th>
+                                        <th
+                      name="th_description"
+                      class="text-left"
+                    ><span>Description</span></th>
+                                        <th name="th_quantity" class="text-left"><span
+                      >Amount</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr t-foreach="invoice_line" t-as="line">
                                         <td name="description">
-                                            <span t-field="line.name"/>
+                                            <span t-field="line.name" />
                                         </td>
                                         <td name="amount">
-                                            <span t-esc="line.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            <span
+                        t-esc="line.price_subtotal"
+                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                      />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="clearfix">
                                 <div id="total" class="row">
-                                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
-                                        <table class="table table-sm" style="page-break-inside: avoid;">
-                                            <tr class="border-black o_subtotal" style="">
+                                    <div
+                    t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
+                  >
+                                        <table
+                      class="table table-sm"
+                      style="page-break-inside: avoid;"
+                    >
+                                            <tr
+                        class="border-black o_subtotal"
+                        style=""
+                      >
                                                 <td><strong>Subtotal</strong></td>
                                                 <td class="text-right">
-                                                    <span t-field="o.amount_untaxed"/>
+                                                    <span t-field="o.amount_untaxed" />
                                                 </td>
                                             </tr>
-                                            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                            <t
+                        t-foreach="o.amount_by_group"
+                        t-as="amount_by_group"
+                      >
                                                 <tr style="">
-                                                    <t t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0">
-                                                        <td><span class="text-nowrap" t-esc="amount_by_group[0]"/></td>
-                                                        <td class="text-right o_price_total">
-                                                            <span class="text-nowrap" t-esc="amount_by_group[3]" />
+                                                    <t
+                            t-if="len(o.line_ids.filtered(lambda line: line.tax_line_id)) in [0, 1] and float_compare(o.amount_untaxed, amount_by_group[2], precision_rounding=o.currency_id.rounding) == 0"
+                          >
+                                                        <td><span
+                                class="text-nowrap"
+                                t-esc="amount_by_group[0]"
+                              /></td>
+                                                        <td
+                              class="text-right o_price_total"
+                            >
+                                                            <span
+                                class="text-nowrap"
+                                t-esc="amount_by_group[3]"
+                              />
                                                         </td>
                                                     </t>
                                                     <t t-else="">
                                                         <td>
-                                                            <span t-esc="amount_by_group[0]"/>
-                                                            <span class="text-nowrap"> on
-                                                                <t t-esc="amount_by_group[4]"/>
+                                                            <span
+                                t-esc="amount_by_group[0]"
+                              />
+                                                            <span
+                                class="text-nowrap"
+                              > on
+                                                                <t
+                                  t-esc="amount_by_group[4]"
+                                />
                                                             </span>
                                                         </td>
-                                                        <td class="text-right o_price_total">
-                                                            <span class="text-nowrap" t-esc="amount_by_group[3]"/>
+                                                        <td
+                              class="text-right o_price_total"
+                            >
+                                                            <span
+                                class="text-nowrap"
+                                t-esc="amount_by_group[3]"
+                              />
                                                         </td>
                                                     </t>
                                                 </tr>
@@ -135,27 +211,49 @@
                                             <tr class="border-black o_total">
                                                 <td><strong>Total</strong></td>
                                                 <td class="text-right">
-                                                    <span class="text-nowrap" t-field="o.amount_total"/>
+                                                    <span
+                            class="text-nowrap"
+                            t-field="o.amount_total"
+                          />
                                                 </td>
                                             </tr>
                                             <t t-if="print_with_payments">
-                                                <t t-if="o.payment_state != 'invoicing_legacy'">
-                                                    <t t-set="payments_vals" t-value="o.sudo()._get_reconciled_info_JSON_values()"/>
-                                                    <t t-foreach="payments_vals" t-as="payment_vals">
+                                                <t
+                          t-if="o.payment_state != 'invoicing_legacy'"
+                        >
+                                                    <t
+                            t-set="payments_vals"
+                            t-value="o.sudo()._get_reconciled_info_JSON_values()"
+                          />
+                                                    <t
+                            t-foreach="payments_vals"
+                            t-as="payment_vals"
+                          >
                                                         <tr>
                                                             <td>
-                                                                <i class="oe_form_field text-right oe_payment_label">Paid on <t t-esc="payment_vals['date']" t-options='{"widget": "date"}'/></i>
+                                                                <i
+                                  class="oe_form_field text-right oe_payment_label"
+                                >Paid on <t
+                                    t-esc="payment_vals['date']"
+                                    t-options='{"widget": "date"}'
+                                  /></i>
                                                             </td>
                                                             <td class="text-right">
-                                                                <span t-esc="payment_vals['amount']" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                                                <span
+                                  t-esc="payment_vals['amount']"
+                                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                                />
                                                             </td>
                                                         </tr>
                                                     </t>
                                                     <t t-if="len(payments_vals) > 0">
                                                         <tr class="border-black">
-                                                            <td><strong>Amount Due</strong></td>
+                                                            <td><strong
+                                >Amount Due</strong></td>
                                                             <td class="text-right">
-                                                                <span t-field="o.amount_residual"/>
+                                                                <span
+                                  t-field="o.amount_residual"
+                                />
                                                             </td>
                                                         </tr>
                                                     </t>
@@ -167,12 +265,13 @@
                             </div>
                             <div id="sign" class="row mt-4 mb-4">
                                 <div class="col-auto col-3 mw-100 mb-2" name="sign">
-                                    <strong>He/she signs this document on behalf of the taxpayer, according to the power of attorney granted:</strong>
-                                    <p class="m-0" t-field="o.company_id"/>
+                                    <strong
+                  >He/she signs this document on behalf of the taxpayer, according to the power of attorney granted:</strong>
+                                    <p class="m-0" t-field="o.company_id" />
                                     <strong>P.P</strong>
                                 </div>
                             </div>
-                            <p style="page-break-after: always;"/>
+                            <p style="page-break-after: always;" />
                          </div>
                      </t>
                  </t>

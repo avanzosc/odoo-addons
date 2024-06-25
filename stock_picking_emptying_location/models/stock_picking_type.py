@@ -7,6 +7,4 @@ from odoo import fields, models
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
-    show_empty_location = fields.Boolean(
-        string="Show Emptying Location",
-        default=False)
+    show_empty_location = fields.Boolean(string="Show Emptying Location", default=False)

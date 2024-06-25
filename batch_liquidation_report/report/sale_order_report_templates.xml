@@ -1,6 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
-    <template id="report_saleorder_document_inherit_batch_liquidation" inherit_id="sale.report_saleorder_document">
+    <template
+    id="report_saleorder_document_inherit_batch_liquidation"
+    inherit_id="sale.report_saleorder_document"
+  >
         <xpath expr="//th[@name='th_description']" position="after">
             <th name="th_lot" class="text-right">Lot</th>
             <th name="th_expiration_date" class="text-right">Expiration</th>
@@ -9,21 +12,25 @@
         </xpath>
         <xpath expr="//td[@name='td_name']" position="after">
             <td name="td_lot" class="text-right">
-                <span t-if="line.lot_id" t-field="line.lot_id.name"/>
+                <span t-if="line.lot_id" t-field="line.lot_id.name" />
             </td>
             <td name="td_expiration_date" class="text-right">
-                <span t-if="line.lot_id.expiration_date" t-field="line.lot_id.expiration_date" t-options='{"widget": "date"}'/>
+                <span
+          t-if="line.lot_id.expiration_date"
+          t-field="line.lot_id.expiration_date"
+          t-options='{"widget": "date"}'
+        />
             </td>
             <td name="td_container" class="text-right">
-                <span t-field="line.container"/>
+                <span t-field="line.container" />
             </td>
             <td name="td_product_packaging" class="text-right">
-                <span t-field="line.product_packaging"/>
+                <span t-field="line.product_packaging" />
             </td>
         </xpath>
         <xpath expr="//td[@name='td_priceunit']" position="replace">
             <td name="td_priceunit" class="text-right">
-                <span t-esc="round(line.price_unit, 2)"/>
+                <span t-esc="round(line.price_unit, 2)" />
             </td>
         </xpath>
         <xpath expr="//th[@name='th_taxes']" position="replace">

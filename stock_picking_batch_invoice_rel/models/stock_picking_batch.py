@@ -9,14 +9,18 @@ class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
     invoice_ids = fields.Many2many(
-        string="Invoices", comodel_name="account.move",
-        compute="_compute_invoice_ids", relation="rel_picking_batch_invoice",
-        column1="picking_batch_id", column2="invoice_id", store=True,
-        copy=False
-        )
+        string="Invoices",
+        comodel_name="account.move",
+        compute="_compute_invoice_ids",
+        relation="rel_picking_batch_invoice",
+        column1="picking_batch_id",
+        column2="invoice_id",
+        store=True,
+        copy=False,
+    )
     invoice_count = fields.Integer(
         string="Invoices counter", compute="_compute_invoice_count"
-        )
+    )
 
     @api.depends("picking_ids", "picking_ids.invoice_ids")
     def _compute_invoice_ids(self):
@@ -36,7 +40,7 @@ class StockPickingBatch(models.Model):
         action = self.env.ref("account.action_move_out_invoice_type")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
-            [[("id", "in", self.invoice_ids.ids)],
-             safe_eval(action.domain or "[]")])
+            [[("id", "in", self.invoice_ids.ids)], safe_eval(action.domain or "[]")]
+        )
         action_dict.update({"domain": domain})
         return action_dict

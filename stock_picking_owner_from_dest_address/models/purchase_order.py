@@ -7,7 +7,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     def _prepare_picking(self):
-        values = super(PurchaseOrder, self)._prepare_picking()
+        values = super()._prepare_picking()
         if self.dest_address_id:
             values["owner_id"] = self.dest_address_id.id
         return values

@@ -7,8 +7,7 @@ class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
 
     def _create_returns(self):
-        new_picking_id, picking_type_id = super(
-            StockReturnPicking, self)._create_returns()
+        new_picking_id, picking_type_id = super()._create_returns()
         new_picking = self.env["stock.picking"].browse(new_picking_id)
         if "active_id" in self.env.context:
             active = self.env["stock.picking"].browse(self.env.context["active_id"])

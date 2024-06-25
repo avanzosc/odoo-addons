@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record model="ir.ui.view" id="cleaning_database_form_view">
@@ -11,7 +11,7 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" readonly="1"/>
+                            <field name="name" readonly="1" />
                         </h1>
                     </div>
                     <group>
@@ -21,51 +21,108 @@
                                 <p>Sales:</p>
                                 <p>Sale Order Line, Sale Order.</p>
                                 <p>
-                                    <button name="action_delete_sale_operations" type="object" string="Cleaning Sale Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_sale_operations"
+                    type="object"
+                    string="Cleaning Sale Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Purchases:</p>
                                 <p>Purchase Order Line, Purchase Order.</p>
                                 <p>
-                                    <button name="action_delete_purchase_operations" type="object" string="Cleaning Purchase Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_purchase_operations"
+                    type="object"
+                    string="Cleaning Purchase Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Accounting:</p>
-                                <p>Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
+                                <p
+                >Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
                                 <p>
-                                    <button name="action_delete_analytic_operations" type="object" string="Cleaning Accounting Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_analytic_operations"
+                    type="object"
+                    string="Cleaning Accounting Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Manufacturing:</p>
                                 <p>MRP Workorder, MRP Production</p>
                                 <p>
-                                    <button name="action_delete_mrp_operations" type="object" string="Cleaning MRP Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_mrp_operations"
+                    type="object"
+                    string="Cleaning MRP Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Inventory:</p>
-                                <p>Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory, Stock Production Lot.</p>
+                                <p
+                >Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory, Stock Production Lot.</p>
                                 <p>
-                                    <button name="action_delete_stock_valuation_operations" type="object" string="Cleaning Valuation Layers" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_stock_valuation_operations"
+                    type="object"
+                    string="Cleaning Valuation Layers"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>
-                                    <button name="action_delete_stock_operations" type="object" string="Cleaning Stock Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_stock_operations"
+                    type="object"
+                    string="Cleaning Stock Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>
-                                    <button name="action_delete_stock_production_lot" type="object" string="Cleaning Lots" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_stock_production_lot"
+                    type="object"
+                    string="Cleaning Lots"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Others</p>
                                 <p>Transport Carrier Lines To Invoice</p>
                                 <p>
-                                    <button name="action_delete_transport_operations" type="object" string="Cleaning Transport Operations" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_transport_operations"
+                    type="object"
+                    string="Cleaning Transport Operations"
+                    class="oe_highlight"
+                  />
                                 </p>
                                 <p>Squence</p>
                                 <p>Reset sequences</p>
                                 <p>
-                                    <button name="action_delete_sequance_operations" type="object" string="Cleaning Sequences" class="oe_highlight"/>
+                                    <button
+                    name="action_delete_sequance_operations"
+                    type="object"
+                    string="Cleaning Sequences"
+                    class="oe_highlight"
+                  />
                                 </p>
                             </div>
                         </group>
                         <group>
-                            <separator string="Companies" colspan="4"/>
-                            <field name="company_ids" nolabel="1" colspan="4" required="1">
-                                <tree string="Companies" delete="0" create="0" editable="top">
-                                    <field name="name" readonly="1"/>
+                            <separator string="Companies" colspan="4" />
+                            <field
+                name="company_ids"
+                nolabel="1"
+                colspan="4"
+                required="1"
+              >
+                                <tree
+                  string="Companies"
+                  delete="0"
+                  create="0"
+                  editable="top"
+                >
+                                    <field name="name" readonly="1" />
                                 </tree>
                             </field>
                         </group>
@@ -92,8 +149,17 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem name="Cleaning Database" id="cleaning_database" sequence="100" web_icon="cleaning_database_operations,static/description/boom_icon.png"/>
+    <menuitem
+    name="Cleaning Database"
+    id="cleaning_database"
+    sequence="100"
+    web_icon="cleaning_database_operations,static/description/boom_icon.png"
+  />
 
-    <menuitem action="action_cleaning_database_view" id="menu_view_cleaning_database"
-              parent="cleaning_database" sequence="1"/>
+    <menuitem
+    action="action_cleaning_database_view"
+    id="menu_view_cleaning_database"
+    parent="cleaning_database"
+    sequence="1"
+  />
 </odoo>

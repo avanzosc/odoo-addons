@@ -4,8 +4,11 @@
         <field name="model">product.pricelist</field>
         <field name="inherit_id" ref="product.product_pricelist_view" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='item_ids']/tree/field[@name='min_quantity']" position="before">
-                <field name="product_default_code"/>
+            <xpath
+        expr="//field[@name='item_ids']/tree/field[@name='min_quantity']"
+        position="before"
+      >
+                <field name="product_default_code" />
             </xpath>
         </field>
     </record>

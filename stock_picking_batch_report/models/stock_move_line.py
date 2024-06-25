@@ -4,11 +4,12 @@ from odoo import fields, models
 
 
 class StockMoveLine(models.Model):
-    _inherit = 'stock.move.line'
+    _inherit = "stock.move.line"
 
     sale_order_customer_reference = fields.Char(
         string="Sale order customer reference",
-        compute="_compute_sale_order_customer_reference")
+        compute="_compute_sale_order_customer_reference",
+    )
 
     def _compute_sale_order_customer_reference(self):
         for line in self:

@@ -7,9 +7,9 @@
         <field name="arch" type="xml">
             <label for="journal_id" position="before">
                 <field
-                    name="purchase_type_id"
-                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
-                />
+          name="purchase_type_id"
+          attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'in_refund'])]}"
+        />
             </label>
         </field>
     </record>
@@ -19,7 +19,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
             <field name="invoice_origin" position="after">
-                <field name="purchase_type_id" optional="show"/>
+                <field name="purchase_type_id" optional="show" />
             </field>
         </field>
     </record>
@@ -29,10 +29,15 @@
         <field name="inherit_id" ref="account.view_account_invoice_filter" />
         <field name="arch" type="xml">
             <field name="date" position="after">
-                <field name="purchase_type_id"/>
+                <field name="purchase_type_id" />
             </field>
             <filter name="duedate" position="after">
-                <filter string="Purchase type" name="sale-type" domain="[]" context="{'group_by': 'purchase_type_id'}"/>
+                <filter
+          string="Purchase type"
+          name="sale-type"
+          domain="[]"
+          context="{'group_by': 'purchase_type_id'}"
+        />
             </filter>
         </field>
     </record>

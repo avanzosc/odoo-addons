@@ -7,22 +7,24 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     principal_activity_id = fields.Many2one(
-        string="Principal Activity",
-        comodel_name="principal.activity")
+        string="Principal Activity", comodel_name="principal.activity"
+    )
     principal_activity_water = fields.Boolean(
         string="Water Principal Activity",
         related="principal_activity_id.water",
-        store=True)
+        store=True,
+    )
     principal_activity_industry = fields.Boolean(
         string="Industry Principal Activity",
         related="principal_activity_id.industry",
-        store=True)
+        store=True,
+    )
     water_subactivity_id = fields.Many2one(
-        string="Water Subactivity",
-        comodel_name="water.subactivity")
+        string="Water Subactivity", comodel_name="water.subactivity"
+    )
     general_industry_subactivity_id = fields.Many2one(
-        string="General Industry Subactivity",
-        comodel_name="industry.subactivity")
+        string="General Industry Subactivity", comodel_name="industry.subactivity"
+    )
 
     @api.onchange("principal_activity_id")
     def _onchange_principal_activity(self):

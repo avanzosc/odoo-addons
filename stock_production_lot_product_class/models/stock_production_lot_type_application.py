@@ -7,5 +7,4 @@ class StockProductionLotTypeApplication(models.Model):
     _name = "stock.production.lot.type.application"
     _description = "Type of application"
 
-    name = fields.Char(
-        string="Description", copy=False)
+    name = fields.Char(string="Description", copy=False)

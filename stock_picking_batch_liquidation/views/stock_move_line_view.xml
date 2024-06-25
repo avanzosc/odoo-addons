@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_move_line_batch_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree"/>
+        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree" />
         <field name="arch" type="xml">
             <tree position="attributes">
                 <attribute name="editable">bottom</attribute>
@@ -25,47 +24,62 @@
                 <attribute name="readonly">1</attribute>
             </field>
             <field name="product_id" position="after">
-                <field name="move_type_id" optional="show"/>
-                <field name="days" optional="show"/>
-                <field name="amount_days" optional="show" sum="Total Amount"/>
-                <field name="average_weight" optional="show"/>
-                <field name="weight_area" optional="show"/>
-                <field name="type_category_id" optional="show"/>
+                <field name="move_type_id" optional="show" />
+                <field name="days" optional="show" />
+                <field name="amount_days" optional="show" sum="Total Amount" />
+                <field name="average_weight" optional="show" />
+                <field name="weight_area" optional="show" />
+                <field name="type_category_id" optional="show" />
             </field>
             <field name="qty_done" position="after">
-                <field name="standard_price"/>
-                <field name="amount"/>
+                <field name="standard_price" />
+                <field name="amount" />
             </field>
         </field>
     </record>
 
     <record id="view_move_line_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="date" position="after">
-                <field name="days" optional="show"/>
+                <field name="days" optional="show" />
             </field>
             <field name="product_id" position="after">
-                <field name="move_type_id" optional="show"/>
-                <field name="average_weight" optional="show"/>
-                <field name="weight_area" optional="show"/>
-                <field name="type_category_id" optional="show"/>
+                <field name="move_type_id" optional="show" />
+                <field name="average_weight" optional="show" />
+                <field name="weight_area" optional="show" />
+                <field name="type_category_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="stock_move_line_view_search" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock.stock_move_line_view_search"/>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search" />
         <field name="arch" type="xml">
             <filter name="groupby_product_id" position="after">
-                <filter string="Move Type" name="move_type" domain="[]" context="{'group_by': 'move_type_id'}"/>
-                <filter string="Picking Type Category" name="type_category" domain="[]" context="{'group_by': 'type_category_id'}"/>
+                <filter
+          string="Move Type"
+          name="move_type"
+          domain="[]"
+          context="{'group_by': 'move_type_id'}"
+        />
+                <filter
+          string="Picking Type Category"
+          name="type_category"
+          domain="[]"
+          context="{'group_by': 'type_category_id'}"
+        />
             </filter>
             <group position="inside">
-                <separator/>
-                <filter string="Cleaned Date" name="move_cleaned_date" domain="[]" context="{'group_by': 'cleaned_date'}"/>
+                <separator />
+                <filter
+          string="Cleaned Date"
+          name="move_cleaned_date"
+          domain="[]"
+          context="{'group_by': 'cleaned_date'}"
+        />
             </group>
         </field>
     </record>

@@ -4,11 +4,11 @@
         <field name="model">account.move.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="account_code"/>
-                <field name="account_description"/>
-                <field name="partner_ref"/>
-                <field name="partner_name"/>
-                <separator/>
+                <field name="account_code" />
+                <field name="account_description" />
+                <field name="partner_ref" />
+                <field name="partner_name" />
+                <separator />
                 <filter
           string="Errored"
           name="error"
@@ -36,7 +36,7 @@
             string="Partner"
             context="{'group_by': 'partner_id'}"
           />
-                    <separator/>
+                    <separator />
                     <filter
             string="Status"
             name="state_group"
@@ -79,17 +79,17 @@
             class="oe_read_only"
             states="error,pass"
           />
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="account_code"/>
-                            <field name="account_description"/>
-                            <field name="partner_ref"/>
-                            <field name="partner_name"/>
-                            <field name="debit"/>
-                            <field name="credit"/>
+                            <field name="account_code" />
+                            <field name="account_description" />
+                            <field name="partner_ref" />
+                            <field name="partner_name" />
+                            <field name="debit" />
+                            <field name="credit" />
                         </group>
                         <group>
                             <field
@@ -111,7 +111,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -131,19 +131,19 @@
           decoration-muted="action == 'nothing'"
           decoration-info="action == 'create'"
         />
-                <field name="import_id" invisible="1"/>
+                <field name="import_id" invisible="1" />
                 <field name="account_code" />
-                <field name="account_description"/>
-                <field name="account_id" optional="hide"/>
-                <field name="partner_ref"/>
-                <field name="partner_name"/>
-                <field name="partner_id" optional="hide"/>
-                <field name="debit"/>
-                <field name="credit"/>
-                <field name="account_move_line_id" optional="hide" readonly="1"/>
-                <field name="state" optional="show"/>
-                <field name="action" optional="hide"/>
-                <field name="log_info" optional="show"/>
+                <field name="account_description" />
+                <field name="account_id" optional="hide" />
+                <field name="partner_ref" />
+                <field name="partner_name" />
+                <field name="partner_id" optional="hide" />
+                <field name="debit" />
+                <field name="credit" />
+                <field name="account_move_line_id" optional="hide" readonly="1" />
+                <field name="state" optional="show" />
+                <field name="action" optional="hide" />
+                <field name="log_info" optional="show" />
             </tree>
         </field>
     </record>

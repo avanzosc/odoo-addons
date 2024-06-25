@@ -1,19 +1,20 @@
-
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class EventEvent(models.Model):
-    _inherit = 'event.event'
+    _inherit = "event.event"
 
     website_require_login = fields.Boolean(
         string="Require login for website registrations",
-        default=lambda self: self.event_type_id.website_require_login)
+        default=lambda self: self.event_type_id.website_require_login,
+    )
     create_user_check = fields.Boolean(
         "Create user for attendee",
-        default=lambda self: self.event_type_id.create_user_check)
+        default=lambda self: self.event_type_id.create_user_check,
+    )
     privacy_policy = fields.Html(
-        string="Privacy policy",
-        default=lambda self: self.event_type_id.privacy_policy)
+        string="Privacy policy", default=lambda self: self.event_type_id.privacy_policy
+    )
 
     @api.onchange("event_type_id")
     def _onchange_event_type(self):

@@ -7,11 +7,8 @@ class FeedRate(models.Model):
     _name = "feed.rate"
     _description = "Feep Rate"
 
-    feed = fields.Integer(
-        string="Feep")
-    price = fields.Float(
-        string="Price",
-        digits="Feep Decimal Precision")
+    feed = fields.Integer(string="Feep")
+    price = fields.Float(string="Price", digits="Feep Decimal Precision")
     contract_id = fields.Many2one(
-        string="Contract",
-        comodel_name="liquidation.contract")
+        string="Contract", comodel_name="liquidation.contract"
+    )

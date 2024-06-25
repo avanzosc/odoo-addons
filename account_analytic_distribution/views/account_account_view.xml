@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
      <record model="ir.ui.view" id="view_account_form">
          <field name="model">account.account</field>
@@ -7,11 +7,14 @@
             <xpath expr="//sheet" position="inside">
                 <notebook>
                     <page name="analytic_account" string="Analytic Distribution">
-                        <field name="analytic_template_ids" context="{'default_account_id': active_id}">
+                        <field
+              name="analytic_template_ids"
+              context="{'default_account_id': active_id}"
+            >
                             <tree editable="bottom">
-                                <field name="account_id" invisible="1"/>
-                                <field name="account_analytic_id"/>
-                                <field name="percentage"/>
+                                <field name="account_id" invisible="1" />
+                                <field name="account_analytic_id" />
+                                <field name="percentage" />
                             </tree>
                         </field>
                     </page>

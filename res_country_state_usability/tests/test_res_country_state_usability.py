@@ -1,13 +1,13 @@
 # Copyright 2021 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from ._common import ResCountryStateUsability
 from odoo.tests import tagged
+
+from ._common import ResCountryStateUsability
 
 
 @tagged("post_install", "-at_install")
 class TestResCountryStateUsability(ResCountryStateUsability):
-
     def test_archive_unarchive_country(self):
         self.assertTrue(self.country.active)
         self.assertTrue(all(self.country.mapped("state_ids.active")))
@@ -31,11 +31,11 @@ class TestResCountryStateUsability(ResCountryStateUsability):
         self.assertTrue(self.country.active)
         self.assertFalse(self.state_1.active)
         self.assertTrue(self.state_2.active)
-        self.country.toggle_active()   # archive country
+        self.country.toggle_active()  # archive country
         self.assertFalse(self.country.active)
         self.assertFalse(self.state_1.active)
         self.assertFalse(self.state_2.active)
-        self.state_1.toggle_active()   # unarchive state
+        self.state_1.toggle_active()  # unarchive state
         self.assertTrue(self.country.active)
         self.assertTrue(self.state_1.active)
         self.assertFalse(self.state_2.active)

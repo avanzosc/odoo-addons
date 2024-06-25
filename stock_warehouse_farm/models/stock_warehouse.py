@@ -25,22 +25,21 @@ class StockWarehouse(models.Model):
         related="partner_id.partner_longitude",
         store=True,
     )
-    farmer_id = fields.Many2one(
-        string='Farmer',
-        comodel_name='res.partner')
-    tax_entity_id = fields.Many2one(
-        string='Tax Entity',
-        comodel_name='res.partner')
+    farmer_id = fields.Many2one(string="Farmer", comodel_name="res.partner")
+    tax_entity_id = fields.Many2one(string="Tax Entity", comodel_name="res.partner")
     activity = fields.Selection(
-        [('fattening', 'Fattening'),
-         ('incubation', 'Incubation'),
-         ('reproduction', 'Reproduction'),
-         ('recry', 'Recry'),
-         ('birth', 'Birth')], string="Activity", copy=False)
-    other_activity = fields.Char(string='Other Activity')
+        [
+            ("fattening", "Fattening"),
+            ("incubation", "Incubation"),
+            ("reproduction", "Reproduction"),
+            ("recry", "Recry"),
+            ("birth", "Birth"),
+        ],
+        string="Activity",
+        copy=False,
+    )
+    other_activity = fields.Char(string="Other Activity")
     farm_type = fields.Selection(
-        [('integrated', 'Integrated'),
-         ('own', 'Own')], string="Farm Type", copy=False)
-    type_id = fields.Many2one(
-        string='Section',
-        comodel_name='category.type')
+        [("integrated", "Integrated"), ("own", "Own")], string="Farm Type", copy=False
+    )
+    type_id = fields.Many2one(string="Section", comodel_name="category.type")

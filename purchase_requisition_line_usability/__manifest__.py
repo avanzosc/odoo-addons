@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase Requisition Line Usability",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Purchase Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -16,5 +16,5 @@
         "views/purchase_requisition_views.xml",
         "views/purchase_requisition_line_view.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

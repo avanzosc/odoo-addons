@@ -9,9 +9,7 @@ class SaleOrder(models.Model):
     def _create_invoices(
         self, grouped=False, final=False, date=None, start_date=None, end_date=None
     ):
-        moves = super(SaleOrder, self)._create_invoices(
-            grouped=grouped, final=final, date=date
-        )
+        moves = super()._create_invoices(grouped=grouped, final=final, date=date)
         if start_date or end_date:
             vals = {
                 "start_date_period": start_date or "",
@@ -20,14 +18,14 @@ class SaleOrder(models.Model):
             moves.write(vals)
         else:
             vals = {}
-            if ("timesheet_start_date" in self.env.context and
-                    self.env.context.get("timesheet_start_date", False)):
-                vals["start_date_period"] = (
-                    self.env.context.get("timesheet_start_date"))
-            if ("timesheet_end_date" in self.env.context and
-                    self.env.context.get("timesheet_end_date", False)):
-                vals["end_date_period"] = (
-                    self.env.context.get("timesheet_end_date"))
+            if "timesheet_start_date" in self.env.context and self.env.context.get(
+                "timesheet_start_date", False
+            ):
+                vals["start_date_period"] = self.env.context.get("timesheet_start_date")
+            if "timesheet_end_date" in self.env.context and self.env.context.get(
+                "timesheet_end_date", False
+            ):
+                vals["end_date_period"] = self.env.context.get("timesheet_end_date")
             if vals:
                 moves.write(vals)
         return moves

@@ -10,9 +10,7 @@
         "event_zoom_link",
         "website_event_track",
     ],
-    "data": [
-        "views/event_track_views.xml"
-    ],
+    "data": ["views/event_track_views.xml"],
     "license": "AGPL-3",
     "installable": True,
     "auto_install": True,

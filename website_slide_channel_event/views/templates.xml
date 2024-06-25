@@ -1,15 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="courses_all" inherit_id="website_slides.courses_all">
         <xpath expr="//t[@t-foreach='channels']" position="before">
             <t t-if="events" t-foreach="events" t-as="event">
                 <div class="col-12">
-                    <t t-call="website_slide_channel_event.course_event_card"/>
+                    <t t-call="website_slide_channel_event.course_event_card" />
                 </div>
             </t>
         </xpath>
         <xpath expr="//t[@t-foreach='channels']" position="inside">
-            <t t-set="user_channels" t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"/>
+            <t
+        t-set="user_channels"
+        t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"
+      />
         </xpath>
         <xpath expr="//t[@t-foreach='channels']" position="attributes">
             <attribute name="t-if">not events and channels</attribute>
@@ -18,15 +21,29 @@
     <template id="course_event_card" name="Course Event Card">
         <div t-if="event and event.slides_ids" class="event_div card mb-5">
             <div class="card-body">
-                <h3 class="card-title"><t t-esc="event.display_name"/></h3>
+                <h3 class="card-title"><t t-esc="event.display_name" /></h3>
                 <div class="row">
-                    <t t-if="event.training_itinerary_id" t-set="event_channels" t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"/>
-                    <t t-else="" t-set="event_channels" t-value="event.slides_ids"/>
-                    <t t-set="user_channels" t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"/>
-                    <t t-if="user_channels and event_channels and channel_partner_ids" t-foreach="event_channels.filtered(lambda c: c.website_published and event.id in c.event_ids.ids)" t-as="channel">
-                        <t t-set="user_channel" t-value="user_channels.filtered(lambda c: c.channel_id.id == channel.id)"/>
+                    <t
+            t-if="event.training_itinerary_id"
+            t-set="event_channels"
+            t-value="event.training_itinerary_id.tag_course_ids.mapped('slide_channel_id')"
+          />
+                    <t t-else="" t-set="event_channels" t-value="event.slides_ids" />
+                    <t
+            t-set="user_channels"
+            t-value="channel_partner_ids.filtered(lambda cp: cp.partner_id.id == user.partner_id.id)"
+          />
+                    <t
+            t-if="user_channels and event_channels and channel_partner_ids"
+            t-foreach="event_channels.filtered(lambda c: c.website_published and event.id in c.event_ids.ids)"
+            t-as="channel"
+          >
+                        <t
+              t-set="user_channel"
+              t-value="user_channels.filtered(lambda c: c.channel_id.id == channel.id)"
+            />
                         <div class="col-md-4" t-if="user_channel">
-                            <t t-call="website_slides.course_card"/>
+                            <t t-call="website_slides.course_card" />
                         </div>
                     </t>
                 </div>

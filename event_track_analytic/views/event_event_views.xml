@@ -1,54 +1,81 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_form" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='seats_expected']/.." position="after">
-                <button name="button_show_sale_order_from_event"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-tasks">
-                    <field name="count_sale_orders" string="Sale orders" widget="statinfo"/>
+                <button
+          name="button_show_sale_order_from_event"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-tasks"
+        >
+                    <field
+            name="count_sale_orders"
+            string="Sale orders"
+            widget="statinfo"
+          />
                 </button>
-                <button name="button_show_sale_order_line_from_event"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-tasks">
-                    <field name="count_sale_orders_lines" string="Sale orders lines" widget="statinfo"/>
+                <button
+          name="button_show_sale_order_line_from_event"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-tasks"
+        >
+                    <field
+            name="count_sale_orders_lines"
+            string="Sale orders lines"
+            widget="statinfo"
+          />
                 </button>
-                <button name="button_open_analytic_lines"
-                        type="object"
-                        class="oe_stat_button"
-                        icon="fa-bars"
-                        attrs="{'invisible': [('analytic_account_id','=',False)]}">
-                    <field name="count_analytic_lines" string="Analytic Lines"
-                           widget="statinfo"/>
+                <button
+          name="button_open_analytic_lines"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-bars"
+          attrs="{'invisible': [('analytic_account_id','=',False)]}"
+        >
+                    <field
+            name="count_analytic_lines"
+            string="Analytic Lines"
+            widget="statinfo"
+          />
                 </button>
             </xpath>
             <field name="active" position="before">
                 <field name="project_id" />
                 <field name="task_id" />
-                <field name="analytic_account_id" invisible="1"/>
+                <field name="analytic_account_id" invisible="1" />
             </field>
             <page name="event_notes" position="after">
                 <page string="Analytic lines" name="analytic-lines">
-                    <field name="account_analytic_line_ids"
-                            context="{'default_account_id':analytic_account_id}">
-                        <tree editable="bottom" string="Analytic Entries" create="0" >
-                            <field name="date"/>
+                    <field
+            name="account_analytic_line_ids"
+            context="{'default_account_id':analytic_account_id}"
+          >
+                        <tree editable="bottom" string="Analytic Entries" create="0">
+                            <field name="date" />
                             <field name="employee_id" />
-                            <field name="project_id" invisible="1"/>
-                            <field name="task_id" invible="1"/>
-                            <field name="name" optional="show" required="0"/>
-                            <field name="unit_amount" optional="show" widget="timesheet_uom" sum="Total" decoration-danger="unit_amount &gt; 24"/>
-                            <field name="company_id" invisible="1"/>
-                            <field name="user_id" invisible="1"/>
-                            <field name="account_id" invisible="1"/>
-                            <field name="event_id" invisible="1"/>
-                            <field name="event_track_id"
-                                required="1"
-                                domain="[('event_id','=',event_id)]"/>
+                            <field name="project_id" invisible="1" />
+                            <field name="task_id" invible="1" />
+                            <field name="name" optional="show" required="0" />
+                            <field
+                name="unit_amount"
+                optional="show"
+                widget="timesheet_uom"
+                sum="Total"
+                decoration-danger="unit_amount &gt; 24"
+              />
+                            <field name="company_id" invisible="1" />
+                            <field name="user_id" invisible="1" />
+                            <field name="account_id" invisible="1" />
+                            <field name="event_id" invisible="1" />
+                            <field
+                name="event_track_id"
+                required="1"
+                domain="[('event_id','=',event_id)]"
+              />
                         </tree>
                     </field>
                 </page>
@@ -57,19 +84,30 @@
     </record>
     <record id="view_event_search" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_search"/>
+        <field name="inherit_id" ref="event.view_event_search" />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="project_id"/>
+                <field name="project_id" />
                 <field name="task_id" />
-                <field name="analytic_account_id"/>
+                <field name="analytic_account_id" />
             </field>
             <filter name="responsible" position="after">
-                <filter string="Project" name="project" context="{'group_by': 'project_id'}"/>
-                <filter string="Task" name="project" context="{'group_by': 'task_id'}"/>
-                <filter string="Analytic account" name="analytic_account" context="{'group_by': 'analytic_account_id'}"/>
+                <filter
+          string="Project"
+          name="project"
+          context="{'group_by': 'project_id'}"
+        />
+                <filter
+          string="Task"
+          name="project"
+          context="{'group_by': 'task_id'}"
+        />
+                <filter
+          string="Analytic account"
+          name="analytic_account"
+          context="{'group_by': 'analytic_account_id'}"
+        />
             </filter>
         </field>
     </record>
 </odoo>
-

@@ -1,199 +1,392 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
      <record id="action_report_pickingbatch_estimation" model="ir.actions.report">
          <field name="name">With packages and invoices</field>
          <field name="model">stock.picking.batch</field>
          <field name="report_type">qweb-pdf</field>
-         <field name="report_name">stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
-         <field name="report_file">stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
-         <field name="print_report_name">'Picking Batch - %s - %s' % (object.name, object.consignee_id.name or '')</field>
-         <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+         <field
+      name="report_name"
+    >stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
+         <field
+      name="report_file"
+    >stock_picking_batch_package_invoice_report.report_pickingbatch_estimation</field>
+         <field
+      name="print_report_name"
+    >'Picking Batch - %s - %s' % (object.name, object.consignee_id.name or '')</field>
+         <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
          <field name="binding_type">report</field>
-         <field name="paperformat_id" ref="stock_picking_batch_package_invoice_report.paperformat_pickingbatch_estimation"/>
+         <field
+      name="paperformat_id"
+      ref="stock_picking_batch_package_invoice_report.paperformat_pickingbatch_estimation"
+    />
      </record>
 
     <template id="report_pickingbatch_estimation_document">
         <t t-call="web.html_container">
-            <t t-call="stock_picking_batch_package_invoice_report.external_layout_picking_batch_estimation">
+            <t
+        t-call="stock_picking_batch_package_invoice_report.external_layout_picking_batch_estimation"
+      >
                 <div class="page">
-                    <div class="oe_structure"/>
+                    <div class="oe_structure" />
                     <table class="table table-sm" style="font-size:8px !important;">
                         <thead style="display: table-row-group">
                             <tr style="font-size:8px !important;">
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:7px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:7px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(0, 0, 0) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(0, 0, 0) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" colspan="3" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid; font-size:8px !important;">
-                                    <strong style="color: red; font-size: 8px !important;">SPECS: </strong>
-                                    <strong style="color: black; font-size: 8px !important;">MASTER BOXES &amp; PACKS</strong>
+                                <th
+                  class="text-center"
+                  colspan="3"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(0, 0, 0) solid; border-left: 1px rgb(0, 0, 0) solid;  border-right: 1px rgb(0, 0, 0) solid; font-size:8px !important;"
+                >
+                                    <strong
+                    style="color: red; font-size: 8px !important;"
+                  >SPECS: </strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >MASTER BOXES &amp; PACKS</strong>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
-                                <th class="text-center" style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;">
+                                <th
+                  class="text-center"
+                  style="border-bottom: 1px rgb(255, 255, 255) solid; border-top: 1px rgb(255, 255, 255) solid; border-left: 1px rgb(255, 255, 255) solid;  border-right: 1px rgb(255, 255, 255) solid; font-size:8px !important;"
+                >
                                     <span Style="color:black">&amp;nbsp;</span>
                                 </th>
                             </tr>
-                            
+
 
                             <tr style="font-size:8px !important;">
                                 <th name="th_package" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">CRATE<br/>Number</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >CRATE<br />Number</strong>
                                 </th>
                                 <th name="th_parcel" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">PARCEL<br/>Number</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >PARCEL<br />Number</strong>
                                 </th>
                                 <th name="th_invoice_line_number" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">INVOICE<br/>LINE<br/>NUMBER</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >INVOICE<br />LINE<br />NUMBER</strong>
                                 </th>
                                 <th name="th_part_number" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">ITEM<br/>PART<br/>NUMBER</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEM<br />PART<br />NUMBER</strong>
                                 </th>
                                 <th name="th_description" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">ITEM<br/>DESCRIPTION</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEM<br />DESCRIPTION</strong>
                                 </th>
                                 <th name="th_ean13_code" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">ITEM<br/>EAN13 CODE</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEM<br />EAN13 CODE</strong>
                                 </th>
-                                <th name="th_qty" class="text-center" style="background-color:#C4C4C4 !important;">
-                                    <strong style="color: black; font-size: 8px !important;">ITEM<br/>QTY</strong>
+                                <th
+                  name="th_qty"
+                  class="text-center"
+                  style="background-color:#C4C4C4 !important;"
+                >
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEM<br />QTY</strong>
                                 </th>
                                 <th name="th_packaging_format" class="text-center">
-                                    <strong style="color: black; font-size: 7px !important;">PACKAGING<br/>FORMAT</strong>
+                                    <strong
+                    style="color: black; font-size: 7px !important;"
+                  >PACKAGING<br />FORMAT</strong>
                                 </th>
                                 <th name="th_item_per_master" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">ITEMS per<br/>MASTER<br/>BOX<br/>or PACK
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEMS per<br />MASTER<br />BOX<br />or PACK
                                     </strong>
                                 </th>
                                 <th name="th_master_boxes" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">MASTER<br/>BOXES<br/>and<br/>PACKS QTY.
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >MASTER<br />BOXES<br />and<br />PACKS QTY.
                                     </strong>
                                 </th>
                                 <th name="th_item_weight_kg" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">ITEM<br/>WEIGHT<br/>KG</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >ITEM<br />WEIGHT<br />KG</strong>
                                 </th>
                                 <th name="th_dimensions" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">DIMENSIONS<br/>METERS<br/>H x W x D
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >DIMENSIONS<br />METERS<br />H x W x D
                                     </strong>
                                 </th>
                                 <th name="th_weight_kg" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">WEIGHT<br/>KG</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >WEIGHT<br />KG</strong>
                                 </th>
                                 <th name="th_volume_m3" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">VOLUME<br/>M3</strong>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >VOLUME<br />M3</strong>
                                 </th>
-                                <th name="th_total_weight_kg" class="text-center" style="background-color:#C4C4C4 !important;">
-                                    <strong style="color: black; font-size: 8px !important;">TOTAL<br/>WEIGHT<br/>KG</strong>
+                                <th
+                  name="th_total_weight_kg"
+                  class="text-center"
+                  style="background-color:#C4C4C4 !important;"
+                >
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >TOTAL<br />WEIGHT<br />KG</strong>
                                 </th>
-                                <th name="th_total_volume_m3" class="text-center" style="background-color:#C4C4C4 !important;">
-                                    <strong style="color: black; font-size: 8px !important;">TOTAL<br/>VOLUME<br/>M3</strong>
+                                <th
+                  name="th_total_volume_m3"
+                  class="text-center"
+                  style="background-color:#C4C4C4 !important;"
+                >
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >TOTAL<br />VOLUME<br />M3</strong>
                                 </th>
                                 <th name="th_invoice_line_numberw" class="text-center">
-                                    <strong style="color: black; font-size: 8px !important;">INVOICE<br/>LINE<br/>NUMBER</strong></th>
+                                    <strong
+                    style="color: black; font-size: 8px !important;"
+                  >INVOICE<br />LINE<br />NUMBER</strong></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <t t-foreach="o.invoice_ids.sorted(key=lambda x:(x.name))" t-as="invoice">
-                                <t t-set="sales" t-value="o.get_invoice_sales(invoice)" />
+                            <t
+                t-foreach="o.invoice_ids.sorted(key=lambda x:(x.name))"
+                t-as="invoice"
+              >
+                                <t
+                  t-set="sales"
+                  t-value="o.get_invoice_sales(invoice)"
+                />
                                 <t t-foreach="sales" t-as="sale">
                                     <tr style="font-size:10px !important;">
-                                        <td colspan="20" style="background-color:#C4C4C4 !important;">
+                                        <td
+                      colspan="20"
+                      style="background-color:#C4C4C4 !important;"
+                    >
                                             <strong>
-                                                <span>INVOICE NUMBER</span>&amp;nbsp;&amp;nbsp;
-                                                <span t-field="invoice.name" />&amp;nbsp;&amp;nbsp;
+                                                <span
+                        >INVOICE NUMBER</span>&amp;nbsp;&amp;nbsp;
+                                                <span
+                          t-field="invoice.name"
+                        />&amp;nbsp;&amp;nbsp;
                                                 <span>PO #</span>&amp;nbsp;&amp;nbsp;
-                                                <span t-if="not sale.client_order_ref" t-field="sale.name" />
-                                                <span t-if="sale.client_order_ref" t-field="sale.client_order_ref" />
+                                                <span
+                          t-if="not sale.client_order_ref"
+                          t-field="sale.name"
+                        />
+                                                <span
+                          t-if="sale.client_order_ref"
+                          t-field="sale.client_order_ref"
+                        />
                                             </strong>
                                         </td>
                                     </tr>
-                                    <t t-set="lines" t-value="o.get_lines_to_print(invoice, sale)"/>
+                                    <t
+                    t-set="lines"
+                    t-value="o.get_lines_to_print(invoice, sale)"
+                  />
                                     <t t-foreach="lines" t-as="line">
-                                        <tr style="border-top: 1px solid black; font-size:8px !important;">
+                                        <tr
+                      style="border-top: 1px solid black; font-size:8px !important;"
+                    >
                                             <td class="text-center">
-                                                <span Style="color:black" t-esc="line.get('result_package')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('parcel_number')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('invoice_line_number')"/>
-                                            </td>
-                                            <td >
-                                                <span Style="color:black" t-esc="line.get('part_number')"/>
-                                            </td>
-                                            <td >
-                                                <span Style="color:black" t-esc="line.get('product_name')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('ean13_code')"/>
-                                            </td>
-                                            <td class="text-center" style="background-color:#C4C4C4 !important;">
-                                                <strong><span Style="color:black" t-esc="int(line.get('qty'))"/></strong>
-                                            </td>
-                                            <td class="text-center" style="font-size:7px !important;">
-                                                <span Style="color:black" t-esc="line.get('packaging_format')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('items_per_master_box_o_pack')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('master_boxes_and_packs_qty')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('product_weight')"/>
-                                            </td>
-                                            <td class="text-center" >
-                                                <span Style="color:black" t-esc="line.get('result_package_dimensions')"/>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('result_package')"
+                        />
                                             </td>
                                             <td class="text-center">
-                                                <span Style="color:black" t-esc="'%.4f'% line.get('weight_kg')"/>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('parcel_number')"
+                        />
                                             </td>
                                             <td class="text-center">
-                                                <span Style="color:black" t-esc="'%.4f'% line.get('volume_m3')"/>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('invoice_line_number')"
+                        />
+                                            </td>
+                                            <td>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('part_number')"
+                        />
+                                            </td>
+                                            <td>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('product_name')"
+                        />
                                             </td>
                                             <td class="text-center">
-                                                <span Style="color:black" t-esc="'%.4f'% line.get('total_weight_kg')" />
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('ean13_code')"
+                        />
+                                            </td>
+                                            <td
+                        class="text-center"
+                        style="background-color:#C4C4C4 !important;"
+                      >
+                                                <strong><span
+                            Style="color:black"
+                            t-esc="int(line.get('qty'))"
+                          /></strong>
+                                            </td>
+                                            <td
+                        class="text-center"
+                        style="font-size:7px !important;"
+                      >
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('packaging_format')"
+                        />
                                             </td>
                                             <td class="text-center">
-                                                <span Style="color:black" t-esc="'%.4f'% line.get('total_volume_m3')"/>
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('items_per_master_box_o_pack')"
+                        />
                                             </td>
-                                            <td class="text-center" style="background-color:white !important;">
-                                                <span Style="color:black" t-esc="line.get('invoice_line_number')"/>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('master_boxes_and_packs_qty')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('product_weight')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('result_package_dimensions')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="'%.4f'% line.get('weight_kg')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="'%.4f'% line.get('volume_m3')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="'%.4f'% line.get('total_weight_kg')"
+                        />
+                                            </td>
+                                            <td class="text-center">
+                                                <span
+                          Style="color:black"
+                          t-esc="'%.4f'% line.get('total_volume_m3')"
+                        />
+                                            </td>
+                                            <td
+                        class="text-center"
+                        style="background-color:white !important;"
+                      >
+                                                <span
+                          Style="color:black"
+                          t-esc="line.get('invoice_line_number')"
+                        />
                                             </td>
                                         </tr>
                                     </t>
@@ -201,118 +394,210 @@
                             </t>
                         </tbody>
                     </table>
-                    <br/>
+                    <br />
                     <div class="row" style="page-break-inside:avoid !important;">
                         <div class="col-6">
                             <table style="border: 0px; font-size:10px !important;">
-                                <tr style="border-top: 0px solid white;border-bottom: 1px solid black;border-right: 0px solid white;border-left: 0px solid white !important;">
+                                <tr
+                  style="border-top: 0px solid white;border-bottom: 1px solid black;border-right: 0px solid white;border-left: 0px solid white !important;"
+                >
                                     <th width="20%">
-                                        <span Style="color:black">SIGNATURE, STAMP AND DATE:</span>
+                                        <span
+                      Style="color:black"
+                    >SIGNATURE, STAMP AND DATE:</span>
                                     </th>
                                 </tr>
                             </table>
                         </div>
                         <div class="col-6">
                             <div class="row justify-content-end">
-                                <t t-set="total" t-value="o.get_totals_to_print()"/>
-                                <table style="margin-right: 15px; font-size:10px !important;">
-                                    <tr t-if="o.num_boxes"
-                                        style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                <t t-set="total" t-value="o.get_totals_to_print()" />
+                                <table
+                  style="margin-right: 15px; font-size:10px !important;"
+                >
+                                    <tr
+                    t-if="o.num_boxes"
+                    style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;"
+                  >
                                         <th class="text-left">
-                                            <span Style="color:black">&amp;nbsp;&amp;nbsp;NUMBER OF PARCELS:</span>
-                                            
+                                            <span
+                        Style="color:black"
+                      >&amp;nbsp;&amp;nbsp;NUMBER OF PARCELS:</span>
+
                                         </th>
                                         <th class="text-right">
-                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                            <strong style="color: black"><span t-field="o.num_boxes"/></strong>
+                                            <span
+                      >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <strong style="color: black"><span
+                          t-field="o.num_boxes"
+                        /></strong>
                                             <span>&amp;nbsp;&amp;nbsp;</span>
                                         </th>
                                     </tr>
-                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                    <tr
+                    style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;"
+                  >
                                         <th>
-                                            <span Style="color:black">&amp;nbsp;&amp;nbsp;TOTAL VOLUME </span>
+                                            <span
+                        Style="color:black"
+                      >&amp;nbsp;&amp;nbsp;TOTAL VOLUME </span>
                                             <strong style="color: black">(M3):</strong>
                                         </th>
                                         <th class="text-right">
-                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                            <span Style="color:black" t-esc="'%.4f'% total.get('total_net_volume')"/>
+                                            <span
+                      >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span
+                        Style="color:black"
+                        t-esc="'%.4f'% total.get('total_net_volume')"
+                      />
                                             <span>&amp;nbsp;&amp;nbsp;</span>
                                         </th>
                                     </tr>
-                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                    <tr
+                    style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;"
+                  >
                                         <th>
-                                            <span Style="color:black">&amp;nbsp;&amp;nbsp;TOTAL GROSS VOLUME </span>
+                                            <span
+                        Style="color:black"
+                      >&amp;nbsp;&amp;nbsp;TOTAL GROSS VOLUME </span>
                                             <strong style="color: black">(M3):</strong>
                                         </th>
                                         <th class="text-right">
-                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                            <span Style="color:black"
-                                                t-if="not o.total_gross_volume_m3" t-esc="'%.4f'% total.get('total_net_volume')"/>
-                                            <span Style="color:black"
-                                                t-if="o.total_gross_volume_m3" t-esc="'%.4f'% o.total_gross_volume_m3"/>
+                                            <span
+                      >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span
+                        Style="color:black"
+                        t-if="not o.total_gross_volume_m3"
+                        t-esc="'%.4f'% total.get('total_net_volume')"
+                      />
+                                            <span
+                        Style="color:black"
+                        t-if="o.total_gross_volume_m3"
+                        t-esc="'%.4f'% o.total_gross_volume_m3"
+                      />
                                             <span>&amp;nbsp;&amp;nbsp;</span>
                                         </th>
                                     </tr>
-                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                    <tr
+                    style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;"
+                  >
                                         <th>
-                                            <span Style="color:black">&amp;nbsp;&amp;nbsp;TOTAL WEIGHT </span>
+                                            <span
+                        Style="color:black"
+                      >&amp;nbsp;&amp;nbsp;TOTAL WEIGHT </span>
                                             <strong style="color: black">(KG):</strong>
                                         </th>
                                         <th class="text-right">
-                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                            <span Style="color:black" t-esc="'%.4f'% total.get('total_net_weight')"/>
+                                            <span
+                      >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span
+                        Style="color:black"
+                        t-esc="'%.4f'% total.get('total_net_weight')"
+                      />
                                             <span>&amp;nbsp;&amp;nbsp;</span>
                                         </th>
                                     </tr>
-                                    <tr style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;">
+                                    <tr
+                    style="border-top: 1px solid black;border-bottom: 1px solid black;border-right: 1px solid black;border-left: 1px solid black !important;"
+                  >
                                         <th>
-                                            <span Style="color:black">&amp;nbsp;&amp;nbsp;TOTAL GROSS WEIGHT </span>
+                                            <span
+                        Style="color:black"
+                      >&amp;nbsp;&amp;nbsp;TOTAL GROSS WEIGHT </span>
                                             <strong style="color: black">(KG):</strong>
                                         </th>
                                         <th class="text-right">
-                                            <span>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
-                                            <span Style="color:black" 
-                                                t-if="not o.total_gross_weight_kg" t-esc="'%.4f'% total.get('total_gross_weight')"/>
-                                            <span Style="color:black"
-                                                t-if="o.total_gross_weight_kg" t-esc="'%.4f'% o.total_gross_weight_kg"/>
+                                            <span
+                      >&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</span>
+                                            <span
+                        Style="color:black"
+                        t-if="not o.total_gross_weight_kg"
+                        t-esc="'%.4f'% total.get('total_gross_weight')"
+                      />
+                                            <span
+                        Style="color:black"
+                        t-if="o.total_gross_weight_kg"
+                        t-esc="'%.4f'% o.total_gross_weight_kg"
+                      />
                                             <span>&amp;nbsp;&amp;nbsp;</span>
                                         </th>
                                     </tr>
                                 </table>
                             </div>
-                            <br/>
+                            <br />
                             <div class="row justify-content-end">
-                            <table class="table table-sm" style="width:80mm; margin-right: 15px; font-size:10px !important;">
+                            <table
+                  class="table table-sm"
+                  style="width:80mm; margin-right: 15px; font-size:10px !important;"
+                >
                                 <thead style="display: table-row-group">
                                     <tr>
-                                        <th t-if="o.num_boxes" name="th_crate_number" class="text-center" width="20%">
-                                            <span Style="color:black">NUMBER OF PARCELS</span>
-                                        </th>   
-                                        <th name="th_dimensions" class="text-center" width="20%">
+                                        <th
+                        t-if="o.num_boxes"
+                        name="th_crate_number"
+                        class="text-center"
+                        width="20%"
+                      >
+                                            <span
+                          Style="color:black"
+                        >NUMBER OF PARCELS</span>
+                                        </th>
+                                        <th
+                        name="th_dimensions"
+                        class="text-center"
+                        width="20%"
+                      >
                                             <span Style="color:black">DIMENSIONS</span>
                                         </th>
                                     </tr>
                                     <t t-if="not o.stock_picking_batch_total_box_ids">
-                                        <t t-set="lines" t-value="o.get_package_total_info()" />
+                                        <t
+                        t-set="lines"
+                        t-value="o.get_package_total_info()"
+                      />
                                         <t t-foreach="lines" t-as="line">
                                             <tr>
-                                                <th t-if="line.get('boxes')" class="text-center" width="20%">
-                                                    <span Style="color:black" t-esc="line.get('boxes')" />
+                                                <th
+                            t-if="line.get('boxes')"
+                            class="text-center"
+                            width="20%"
+                          >
+                                                    <span
+                              Style="color:black"
+                              t-esc="line.get('boxes')"
+                            />
                                                 </th>
                                                 <th class="text-center" width="20%">
-                                                    <span Style="color:black" t-esc="line.get('dimensions')" />
+                                                    <span
+                              Style="color:black"
+                              t-esc="line.get('dimensions')"
+                            />
                                                 </th>
                                             </tr>
                                         </t>
                                     </t>
                                     <t t-if="o.stock_picking_batch_total_box_ids">
-                                        <t t-foreach="o.stock_picking_batch_total_box_ids" t-as="line">
+                                        <t
+                        t-foreach="o.stock_picking_batch_total_box_ids"
+                        t-as="line"
+                      >
                                             <tr>
-                                                <th t-if="line.boxes_number" class="text-center" width="20%">
-                                                    <span Style="color:black" t-if="line.boxes_number" t-esc="line.boxes_number" />
+                                                <th
+                            t-if="line.boxes_number"
+                            class="text-center"
+                            width="20%"
+                          >
+                                                    <span
+                              Style="color:black"
+                              t-if="line.boxes_number"
+                              t-esc="line.boxes_number"
+                            />
                                                 </th>
                                                 <th class="text-center" width="20%">
-                                                    <span Style="color:black" t-esc="line.dimensions" />
+                                                    <span
+                              Style="color:black"
+                              t-esc="line.dimensions"
+                            />
                                                 </th>
                                             </tr>
                                         </t>
@@ -324,7 +609,7 @@
 
 
                     </div>
-                    <p style="page-break-after: always;"/>
+                    <p style="page-break-after: always;" />
                 </div>
             </t>
          </t>
@@ -332,8 +617,10 @@
 
     <template id="report_pickingbatch_estimation">
         <t t-foreach="docs" t-as="o">
-            <t t-call="stock_picking_batch_package_invoice_report.report_pickingbatch_estimation_document"
-                t-lang="en_US"/>
+            <t
+        t-call="stock_picking_batch_package_invoice_report.report_pickingbatch_estimation_document"
+        t-lang="en_US"
+      />
         </t>
     </template>
 </odoo>

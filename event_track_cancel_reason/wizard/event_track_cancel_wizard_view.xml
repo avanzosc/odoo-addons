@@ -7,15 +7,19 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="event_track_id" invisible="1"/>
-                        <field name="notification_date"/>
-                        <field name="time_type_id" domain="[('code','!=', 'GX')]"/>
-                        <field name="cancel_reason_id"/>
-                        <field name="observation"/>
+                        <field name="event_track_id" invisible="1" />
+                        <field name="notification_date" />
+                        <field name="time_type_id" domain="[('code','!=', 'GX')]" />
+                        <field name="cancel_reason_id" />
+                        <field name="observation" />
                     </group>
                     <footer>
-                        <button name="button_generate_cancel" string="Cancel Track"
-                                    type="object" class="oe_highlight" />
+                        <button
+              name="button_generate_cancel"
+              string="Cancel Track"
+              type="object"
+              class="oe_highlight"
+            />
                         or
                         <button special="cancel" string="Cancel" class="oe_link" />
                     </footer>

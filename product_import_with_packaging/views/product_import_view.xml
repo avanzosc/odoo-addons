@@ -2,19 +2,26 @@
 <odoo>
     <record id="product_import_view_form" model="ir.ui.view">
         <field name="model">product.import</field>
-        <field name="inherit_id" ref="product_import_wizard.product_import_view_form"/>
+        <field name="inherit_id" ref="product_import_wizard.product_import_view_form" />
         <field name="arch" type="xml">
             <header position="inside">
-                <button name="action_import_packaging" string="Import Packagings"
-                        type="object"
-                        attrs="{'invisible': [('show_packaging_import', '=', False)]}"/>
+                <button
+          name="action_import_packaging"
+          string="Import Packagings"
+          type="object"
+          attrs="{'invisible': [('show_packaging_import', '=', False)]}"
+        />
                 <field name="show_packaging_import" invisible="True" />
             </header>
             <xpath expr="//div[@name='help']/ul" position="inside">
-                <li><code>Packaging Name</code>: this will fill <b>Packaging Name.</b></li>
-                <li><code>Packaging Barcode</code>: this will fill <b>Packaging Barcode.</b></li>
-                <li><code>Packaging Quantity</code>: this will fill <b>Packaging Quantity.</b></li>
-                <li><code>Max Weight</code>: this will fill <b>Packaging Max Weight.</b></li>
+                <li><code>Packaging Name</code>: this will fill <b
+          >Packaging Name.</b></li>
+                <li><code>Packaging Barcode</code>: this will fill <b
+          >Packaging Barcode.</b></li>
+                <li><code>Packaging Quantity</code>: this will fill <b
+          >Packaging Quantity.</b></li>
+                <li><code>Max Weight</code>: this will fill <b
+          >Packaging Max Weight.</b></li>
                 <li><code>Weight</code>: this will fill <b>Packaging Weight.</b></li>
                 <li><code>Length</code>: this will fill <b>Packaging Length.</b></li>
                 <li><code>Width</code>: this will fill <b>Packaging Width.</b></li>

@@ -8,7 +8,4 @@ class RamType(models.Model):
     _name = "ram.type"
     _description = "Ram Type"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

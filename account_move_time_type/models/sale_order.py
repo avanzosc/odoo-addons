@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     def _create_invoices(
         self, grouped=False, final=False, date=None, start_date=None, end_date=None
     ):
-        invoices = super(SaleOrder, self)._create_invoices(
+        invoices = super()._create_invoices(
             grouped=grouped,
             final=final,
             date=date,

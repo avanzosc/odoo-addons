@@ -1,7 +1,8 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
 import pytz
+
+from odoo import api, fields, models
 
 
 class RepairOrder(models.Model):
@@ -45,38 +46,50 @@ class RepairOrder(models.Model):
         string="Is repair", compute="_compute_is_repair", store=True, copy=False
     )
     commitment_date = fields.Date(
-        string="Order Delivery Date", compute="_compute_commitment_date",
-        store=True, copy=False
+        string="Order Delivery Date",
+        compute="_compute_commitment_date",
+        store=True,
+        copy=False,
     )
     deadline_delivery = fields.Date(
         string="Repair start date", default=False, copy=False
     )
     line_color = fields.Char(
-        string="Line color", compute="_compute_line_color", store=True,
-        copy=False
+        string="Line color", compute="_compute_line_color", store=True, copy=False
     )
 
     @api.depends("sale_order_id", "sale_order_id.commitment_date")
     def _compute_commitment_date(self):
-        timezone = pytz.timezone(self.env.user.tz or 'UTC')
+        timezone = pytz.timezone(self.env.user.tz or "UTC")
         for repair in self:
             commitment_date = False
             if repair.sale_order_id and repair.sale_order_id.commitment_date:
-                commitment_date = repair.sale_order_id.commitment_date.replace(
-                    tzinfo=pytz.timezone('UTC')).astimezone(timezone).date()
+                commitment_date = (
+                    repair.sale_order_id.commitment_date.replace(
+                        tzinfo=pytz.timezone("UTC")
+                    )
+                    .astimezone(timezone)
+                    .date()
+                )
             repair.commitment_date = commitment_date
 
-    @api.depends("sale_order_id", "sale_order_id.commitment_date",
-                 "deadline_delivery")
+    @api.depends("sale_order_id", "sale_order_id.commitment_date", "deadline_delivery")
     def _compute_line_color(self):
-        timezone = pytz.timezone(self.env.user.tz or 'UTC')
+        timezone = pytz.timezone(self.env.user.tz or "UTC")
         for repair in self:
             line_color = "None"
-            if (repair.sale_order_id and
-                repair.sale_order_id.commitment_date and
-                    repair.deadline_delivery):
-                commitment_date = repair.sale_order_id.commitment_date.replace(
-                    tzinfo=pytz.timezone('UTC')).astimezone(timezone).date()
+            if (
+                repair.sale_order_id
+                and repair.sale_order_id.commitment_date
+                and repair.deadline_delivery
+            ):
+                commitment_date = (
+                    repair.sale_order_id.commitment_date.replace(
+                        tzinfo=pytz.timezone("UTC")
+                    )
+                    .astimezone(timezone)
+                    .date()
+                )
                 if commitment_date < repair.deadline_delivery:
                     line_color = "green"
                 else:
@@ -91,7 +104,7 @@ class RepairOrder(models.Model):
             )
 
     def action_repair_end(self):
-        result = super(RepairOrder, self).action_repair_end()
+        result = super().action_repair_end()
         for repair in self:
             repair.price_in_sale_budget = repair.amount_untaxed
         for repair in self.filtered(lambda r: r.sale_order_id):
@@ -135,7 +148,7 @@ class RepairOrder(models.Model):
         return vals
 
     def write(self, values):
-        result = super(RepairOrder, self).write(values)
+        result = super().write(values)
         if "price_in_sale_budget" in values:
             self._put_price_bugdet_in_sale_order_line()
         return result

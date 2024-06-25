@@ -1,12 +1,10 @@
-
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    certification_header_image = fields.Binary(
-        "Certifications Header Image")
+    certification_header_image = fields.Binary("Certifications Header Image")
 
 
 class ResConfigSettings(models.TransientModel):
@@ -15,4 +13,5 @@ class ResConfigSettings(models.TransientModel):
     certification_header_image = fields.Binary(
         "Certifications Header Image",
         related="company_id.certification_header_image",
-        readonly=False,)
+        readonly=False,
+    )

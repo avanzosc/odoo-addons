@@ -2,6 +2,6 @@
 <odoo>
     <record id="group_allow_mod_partner_payment" model="res.groups">
         <field name="name">Allow modifying mode and form of payment</field>
-        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
     </record>
 </odoo>

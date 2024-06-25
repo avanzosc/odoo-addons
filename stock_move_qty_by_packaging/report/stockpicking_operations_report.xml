@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="report_picking" inherit_id="stock.report_picking">
         <th name="th_product" position="after">
@@ -8,7 +8,7 @@
         </th>
         <xpath expr="//span[@t-field='ml.product_uom_id']/.." position="before">
             <td t-if="o.picking_type_id.code == 'outgoing'" style="text-align:center">
-                <span t-field="ml.boxes_sacks"/>
+                <span t-field="ml.boxes_sacks" />
             </td>
         </xpath>
     </template>

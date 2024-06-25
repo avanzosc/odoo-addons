@@ -1,90 +1,96 @@
-
-.weight_table{
-    th, td, input{
-        text-align: center;
-    }
-    border: 1px solid #cccccc;
-    tbody{
-        tr {
-            border-bottom: 1px solid black !important;
-        }
-        th, td {
-            padding: 2px;
-            border-left: 1px solid black !important;
-        }
-    }
-}
-.td_saca_form{
-    border: 1px solid #595959;
-    width: 60%;
-}
-
-.th_saca_form{
-    min-width: 8em;
-}
-
-#weight_table{
-    border: 1px solid #595959 !important;
-}
-#weight_table > thead > tr{
-    border-bottom: 1px solid #595959 !important;
-}
-#weight_table > tbody > tr{
-    border-bottom: 1px solid #595959 !important;
-}
-#weight_table > tbody > tr > th{
-    border-right: 1px solid #595959 !important;
-}
-#weight_table > tbody > tr > td{
-    border-right: 1px solid #595959 !important;
-}
-#saca_modal_dialog{
-    pointer-events: auto !important;
-}
-select.unload_input, input.unload_input, input.saca_input, input.weight_input {
-    max-width: 70%;
-}
-.saca_line_card{
+.weight_table {
+  th,
+  td,
+  input {
     text-align: center;
+  }
+  border: 1px solid #cccccc;
+  tbody {
+    tr {
+      border-bottom: 1px solid black !important;
+    }
+    th,
+    td {
+      padding: 2px;
+      border-left: 1px solid black !important;
+    }
+  }
 }
-.saca_line_div{
-    text-align: left;
+.td_saca_form {
+  border: 1px solid #595959;
+  width: 60%;
 }
-.saca_line_div_left{
+
+.th_saca_form {
+  min-width: 8em;
+}
+
+#weight_table {
+  border: 1px solid #595959 !important;
+}
+#weight_table > thead > tr {
+  border-bottom: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr {
+  border-bottom: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr > th {
+  border-right: 1px solid #595959 !important;
+}
+#weight_table > tbody > tr > td {
+  border-right: 1px solid #595959 !important;
+}
+#saca_modal_dialog {
+  pointer-events: auto !important;
+}
+select.unload_input,
+input.unload_input,
+input.saca_input,
+input.weight_input {
+  max-width: 70%;
+}
+.saca_line_card {
+  text-align: center;
+}
+.saca_line_div {
+  text-align: left;
+}
+.saca_line_div_left {
+  padding-left: 10%;
+}
+.saca_input,
+.unload_input {
+  width: 40%;
+  margin-left: 5%;
+}
+.real_weight_input {
+  width: 40%;
+}
+
+@media (max-width: 400px) {
+  .saca_line_div {
+    padding-top: 5%;
     padding-left: 10%;
-}
-.saca_input, .unload_input{
+    b {
+    }
+  }
+  .saca_line_div_left {
+    padding-left: auto;
+  }
+  input.saca_input,
+  input.unload_input {
     width: 40%;
     margin-left: 5%;
+  }
+  .weight_input {
+    padding-right: 0%;
+    min-width: 100%;
+  }
+  .weight_col {
+    padding: 0;
+  }
 }
-.real_weight_input{
-    width: 40%;
-}
-
-@media (max-width: 400px){
-    .saca_line_div{
-        padding-top: 5%;
-        padding-left: 10%;
-        b {
-
-        }
-    }
-    .saca_line_div_left{
-        padding-left: auto;
-    }
-    input.saca_input, input.unload_input{
-        width: 40%;
-        margin-left: 5%;
-    }
-    .weight_input{
-        padding-right: 0%;
-        min-width: 100%;
-    }
-    .weight_col{
-        padding: 0;
-    }
-}
-.timesheet_table{
-    border:none;
-    width: -webkit-fill-available;
+.timesheet_table {
+  border: none;
+  width: -webkit-fill-available;
 }

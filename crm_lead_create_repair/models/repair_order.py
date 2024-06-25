@@ -7,4 +7,5 @@ class RepairOrder(models.Model):
     _inherit = "repair.order"
 
     crm_lead_id = fields.Many2one(
-        string="Initiative/Opportunity", comodel_name="crm.lead", copy=False)
+        string="Initiative/Opportunity", comodel_name="crm.lead", copy=False
+    )

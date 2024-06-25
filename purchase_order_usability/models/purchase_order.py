@@ -10,5 +10,5 @@ class PurchaseOrder(models.Model):
         string="Warehouse",
         comodel_name="stock.warehouse",
         related="picking_type_id.warehouse_id",
-        store=True
+        store=True,
     )

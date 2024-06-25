@@ -13,7 +13,6 @@
         "stock",
         "account",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }

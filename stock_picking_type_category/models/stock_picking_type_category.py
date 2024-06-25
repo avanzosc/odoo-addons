@@ -7,5 +7,4 @@ class StockPickingTypeCategory(models.Model):
     _name = "stock.picking.type.category"
     _description = "Stock Picking Type Category"
 
-    name = fields.Char(
-        string="Name")
+    name = fields.Char(string="Name")

@@ -12,7 +12,7 @@ class SlideChannelPartner(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(SlideChannelPartner, self).create(vals)
+        res = super().create(vals)
         res._create_slide_channel_survey()
         return res
 

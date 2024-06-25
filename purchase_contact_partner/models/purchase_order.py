@@ -11,7 +11,9 @@ class PurchaseOrder(models.Model):
         comodel_name="res.partner",
         string="Contact",
         readonly=False,
-        states={"purchase": [("readonly", True)],
-                "done": [("readonly", True)],
-                "cancel": [("readonly", True)]},
+        states={
+            "purchase": [("readonly", True)],
+            "done": [("readonly", True)],
+            "cancel": [("readonly", True)],
+        },
     )

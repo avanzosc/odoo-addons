@@ -1,12 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="sale_order_package_usability.view_stock_move_line_detailed_operation_tree"/>
+        <field
+      name="inherit_id"
+      ref="sale_order_package_usability.view_stock_move_line_detailed_operation_tree"
+    />
         <field name="arch" type="xml">
             <field name="container" position="replace" />
             <field name="product_packaging" position="after">
-                <field name="container" optional="show" sum="Total Container"/>
+                <field name="container" optional="show" sum="Total Container" />
             </field>
         </field>
     </record>

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Slide partner menu",
-    'version': '14.0.1.1.0',
+    "version": "14.0.1.1.0",
     "author": "Avanzosc",
     "category": "Sales/CRM",
     "depends": [
@@ -10,7 +10,7 @@
         "event_slides",
         "website_slides_survey",
         "contacts",
-        "website_event_track_claim"
+        "website_event_track_claim",
     ],
     "data": [
         "views/slide_slide_partner_views.xml",
@@ -22,5 +22,5 @@
         "views/event_track_views.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

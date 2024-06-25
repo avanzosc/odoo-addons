@@ -1,7 +1,6 @@
 # Copyright 2023 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import _, models
-from collections import OrderedDict
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -9,17 +8,18 @@ class AccountMove(models.Model):
 
     def lines_grouped_by_picking(self):
         self.ensure_one()
-        print ('************************')
-        print ('*** self.move_type: ' + str(self.move_type))
+        print("************************")
+        print("*** self.move_type: " + str(self.move_type))
         if self.move_type != "out_refund":
-            return super(AccountMove, self).lines_grouped_by_picking()
-        
-        
+            return super().lines_grouped_by_picking()
+
         result = []
-        for line in self.invoice_line_ids.filtered(
-            lambda x: not x.display_type):
+        for line in self.invoice_line_ids.filtered(lambda x: not x.display_type):
             result.append(
-                {"picking": self.env["stock.picking"],
-                 "line": line,
-                 "quantity": line.quantity})
+                {
+                    "picking": self.env["stock.picking"],
+                    "line": line,
+                    "quantity": line.quantity,
+                }
+            )
         return result

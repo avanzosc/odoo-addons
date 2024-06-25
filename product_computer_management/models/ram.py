@@ -8,7 +8,4 @@ class Ram(models.Model):
     _name = "ram"
     _description = "Ram"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

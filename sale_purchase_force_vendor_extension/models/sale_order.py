@@ -46,4 +46,5 @@ class SaleOrderLine(models.Model):
 
     def check_valid_vendor(self, vendor):
         return vendor in self.env["res.partner"].search(
-            safe_eval(self.vendor_id_domain))
+            safe_eval(self.vendor_id_domain)
+        )

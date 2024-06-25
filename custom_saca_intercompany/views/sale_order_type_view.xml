@@ -1,34 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="sot_sale_order_type_form_view">
         <field name="model">sale.order.type</field>
-        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view"/>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view" />
         <field name="arch" type="xml">
             <field name="incoterm_id" position="after">
-                <field name="license_plate"/>
+                <field name="license_plate" />
             </field>
         </field>
     </record>
 
     <record model="ir.ui.view" id="sot_sale_order_type_tree_view">
         <field name="model">sale.order.type</field>
-        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_tree_view"/>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_tree_view" />
         <field name="arch" type="xml">
             <field name="incoterm_id" position="after">
-                <field name="license_plate"/>
+                <field name="license_plate" />
             </field>
         </field>
     </record>
 
     <record model="ir.ui.view" id="sot_sale_order_type_search_view">
         <field name="model">sale.order.type</field>
-        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_search_view"/>
+        <field
+      name="inherit_id"
+      ref="sale_order_type.sot_sale_order_type_search_view"
+    />
         <field name="arch" type="xml">
             <field name="incoterm_id" position="after">
                 <field name="license_plate" />
             </field>
             <filter name="incoterm" position="after">
-                <filter string="License Plate" name="licenseplate" domain="[]" context="{'group_by': 'license_plate'}"/>
+                <filter
+          string="License Plate"
+          name="licenseplate"
+          domain="[]"
+          context="{'group_by': 'license_plate'}"
+        />
             </filter>
         </field>
     </record>

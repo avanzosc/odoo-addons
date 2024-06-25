@@ -7,12 +7,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "sale_purchase",
-        "purchase_stock",
-        "stock_dropshipping"
-    ],
-    "data": [
-    ],
-    'installable': True,
+    "depends": ["sale_purchase", "purchase_stock", "stock_dropshipping"],
+    "data": [],
+    "installable": True,
 }

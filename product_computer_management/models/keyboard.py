@@ -8,7 +8,4 @@ class Keyboard(models.Model):
     _name = "keyboard"
     _description = "Keyboard Configuration"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

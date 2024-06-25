@@ -1,19 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="liquidation_contract_line_view_tree" model="ir.ui.view">
         <field name="name">liquidation.contract.line.tree</field>
         <field name="model">liquidation.contract.line</field>
         <field name="arch" type="xml">
             <tree string="Liquidation Contract Line" editable="top">
-                <field name="contract_id" invisible="1"/>
-                <field name="product_id"/>
-                <field name="type" optional="show"/>
-                <field name="obligatory" optional="show"/>
-                <field name="quantity_type" optional="show"/>
-                <field name="price_type" optional="show"/>
-                <field name="price" optional="show" attrs="{'required': [('price_type', '=', 'contract')]}"/>
-                <field name="move_type_id" optional="show" attrs="{'required': ['|', '|', ('quantity_type', '=', 'kg'), ('quantity_type', '=', 'unit'), ('price_type', '=', 'average')]}"/>
+                <field name="contract_id" invisible="1" />
+                <field name="product_id" />
+                <field name="type" optional="show" />
+                <field name="obligatory" optional="show" />
+                <field name="quantity_type" optional="show" />
+                <field name="price_type" optional="show" />
+                <field
+          name="price"
+          optional="show"
+          attrs="{'required': [('price_type', '=', 'contract')]}"
+        />
+                <field
+          name="move_type_id"
+          optional="show"
+          attrs="{'required': ['|', '|', ('quantity_type', '=', 'kg'), ('quantity_type', '=', 'unit'), ('price_type', '=', 'average')]}"
+        />
             </tree>
         </field>
     </record>

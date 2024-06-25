@@ -1,9 +1,12 @@
 <odoo>
     <data noupdate="1">
-        <record forcecreate="True" id="decimal_precision_in_out_qty" model="decimal.precision">
+        <record
+      forcecreate="True"
+      id="decimal_precision_in_out_qty"
+      model="decimal.precision"
+    >
             <field name="name">In/Out Qty Decimal Precision</field>
             <field name="digits">1</field>
         </record>
     </data>
 </odoo>
-

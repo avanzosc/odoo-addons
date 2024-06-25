@@ -1,6 +1,7 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from dateutil.relativedelta import relativedelta
+
 from odoo import api, fields, models
 
 
@@ -26,7 +27,7 @@ class RepairOrder(models.Model):
             self._check_if_it_is_under_warranty()
 
     def action_repair_end(self):
-        result = super(RepairOrder, self).action_repair_end()
+        result = super().action_repair_end()
         for repair in self.filtered(lambda x: x.lot_id):
             repair.lot_id.warranty_repair_date = fields.Datetime.now() + relativedelta(
                 months=repair.lot_id.product_id.repair_warranty_period
@@ -35,7 +36,7 @@ class RepairOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        repair = super(RepairOrder, self).create(vals)
+        repair = super().create(vals)
         if repair.company_id.check_lot_is_under_warranty:
             repair._check_if_it_is_under_warranty()
         return repair

@@ -7,10 +7,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "calendar",
-        "website_event_track"
-    ],
+    "depends": ["calendar", "website_event_track"],
     "data": [
         "security/ir.model.access.csv",
         "report/event_track_report_views.xml",

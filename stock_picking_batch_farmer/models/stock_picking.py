@@ -11,4 +11,5 @@ class StockPicking(models.Model):
         string="Batch Location",
         comodel_name="stock.location",
         related="batch_id.location_id",
-        store=True)
+        store=True,
+    )

@@ -7,5 +7,9 @@ class StockProductionLot(models.Model):
     _inherit = "stock.production.lot"
 
     product_brand_id = fields.Many2one(
-        string="Product brand", comodel_name="product.brand",
-        related="product_id.product_brand_id", store=True, copy=False)
+        string="Product brand",
+        comodel_name="product.brand",
+        related="product_id.product_brand_id",
+        store=True,
+        copy=False,
+    )

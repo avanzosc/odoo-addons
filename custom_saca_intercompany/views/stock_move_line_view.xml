@@ -1,22 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
      <record model="ir.ui.view" id="view_stock_move_line_detailed_operation_tree">
          <field name="model">stock.move.line</field>
-         <field name="inherit_id"
-                ref="stock_move_qty_by_packaging.view_stock_move_line_detailed_operation_tree"/>
+         <field
+      name="inherit_id"
+      ref="stock_move_qty_by_packaging.view_stock_move_line_detailed_operation_tree"
+    />
          <field name="arch" type="xml">
             <field name="product_packaging_id" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+                <attribute
+          name="attrs"
+        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
             </field>
             <field name="product_packaging_qty" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
-                <field name="container" optional="show" sum="Total Container"/>
+                <attribute
+          name="attrs"
+        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+                <field name="container" optional="show" sum="Total Container" />
             </field>
             <field name="palet_id" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+                <attribute
+          name="attrs"
+        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
             </field>
             <field name="palet_qty" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+                <attribute
+          name="attrs"
+        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
             </field>
          </field>
      </record>

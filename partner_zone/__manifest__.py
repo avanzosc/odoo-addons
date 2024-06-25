@@ -8,16 +8,11 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "contacts",
-        "sales_team"
-    ],
+    "depends": ["contacts", "sales_team"],
     "data": [
         "views/partner_view.xml",
         "security/ir.model.access.csv",
     ],
-    "demo": [
-        "demo/zone_demo.xml"
-    ],
+    "demo": ["demo/zone_demo.xml"],
     "installable": True,
 }

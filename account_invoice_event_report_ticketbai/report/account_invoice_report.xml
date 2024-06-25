@@ -1,13 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_invoice_event_document_ticketbai" inherit_id="account_invoice_event_report.report_invoice_event_document">
+    <template
+    id="report_invoice_event_document_ticketbai"
+    inherit_id="account_invoice_event_report.report_invoice_event_document"
+  >
         <div t-if="o.partner_bank_id" position="after">
-            <div id="ticketbai" style="padding-top:50px;" class="text-center" t-if="o.tbai_enabled and o.tbai_invoice_id.tbai_identifier and o.tbai_invoice_id.qr">
+            <div
+        id="ticketbai"
+        style="padding-top:50px;"
+        class="text-center"
+        t-if="o.tbai_enabled and o.tbai_invoice_id.tbai_identifier and o.tbai_invoice_id.qr"
+      >
                 <ul id="tbai_identifier" class="list-inline mb4">
-                    <strong t-field="o.tbai_invoice_id.tbai_identifier"/>
+                    <strong t-field="o.tbai_invoice_id.tbai_identifier" />
                 </ul>
                 <ul id="tbai_qr" class="list-inline mb4">
-                    <img t-att-src="'data:image/png;base64,%s' % to_text(o.tbai_invoice_id.qr)" style="min-width: 30mm; max-width: 40mm"/>
+                    <img
+            t-att-src="'data:image/png;base64,%s' % to_text(o.tbai_invoice_id.qr)"
+            style="min-width: 30mm; max-width: 40mm"
+          />
                 </ul>
             </div>
         </div>

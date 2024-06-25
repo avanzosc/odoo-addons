@@ -9,7 +9,7 @@ class StockMove(models.Model):
 
     def _prepare_data_for_create_analytic_line(self):
         self.ensure_one()
-        vals = super(StockMove, self)._prepare_data_for_create_analytic_line()
+        vals = super()._prepare_data_for_create_analytic_line()
         if self.picking_id.task_id:
             vals.update(
                 {

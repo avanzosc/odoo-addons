@@ -7,7 +7,7 @@ from odoo.tests import common
 class AccountBankingMandateUsabilityCommon(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(AccountBankingMandateUsabilityCommon, cls).setUpClass()
+        super().setUpClass()
         cls.bank_model = cls.env["res.partner.bank"]
         cls.mandate_model = cls.env["account.banking.mandate"]
         cls.mandate_wiz_model = cls.env["res.partner.bank.mandate.generator"]

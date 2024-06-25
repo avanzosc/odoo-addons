@@ -7,16 +7,11 @@
     "website": "http://www.avanzosc.es",
     "category": "Marketing/Events",
     "license": "AGPL-3",
-    "depends": [
-        "event",
-        "website_event_track",
-        "resource",
-        "event_zoom_link"
-    ],
+    "depends": ["event", "website_event_track", "resource", "event_zoom_link"],
     "data": [
         "views/event_event_views.xml",
         "views/event_track_views.xml",
-        "views/resource_resource_views.xml"
+        "views/resource_resource_views.xml",
     ],
     "installable": True,
 }

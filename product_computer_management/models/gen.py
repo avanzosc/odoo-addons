@@ -8,7 +8,4 @@ class Gen(models.Model):
     _name = "gen"
     _description = "Gen"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

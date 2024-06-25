@@ -13,16 +13,17 @@ class SaleOrderLine(models.Model):
             purchase_order = purchase_line.order_id
             if section_sale_line:
                 purchase_order.find_sale_line_sequence_in_purchase_order(
-                    section_sale_line)
+                    section_sale_line
+                )
             if notes_sale_line:
                 purchase_order.find_sale_line_sequence_in_purchase_order(
-                    notes_sale_line)
+                    notes_sale_line
+                )
 
     def find_line_section(self):
         sequence = self.sequence
         section_sale_line = self.env["sale.order.line"]
-        lines = self.order_id.order_line.filtered(
-            lambda x: x.sequence < sequence)
+        lines = self.order_id.order_line.filtered(lambda x: x.sequence < sequence)
         if lines:
             lines = sorted(lines, key=lambda r: r.sequence, reverse=True)
             for line in lines:
@@ -34,8 +35,7 @@ class SaleOrderLine(models.Model):
     def find_line_notes(self):
         sequence = self.sequence
         notes_sale_line = self.env["sale.order.line"]
-        lines = self.order_id.order_line.filtered(
-            lambda x: x.sequence > sequence)
+        lines = self.order_id.order_line.filtered(lambda x: x.sequence > sequence)
         if lines:
             lines = sorted(lines, key=lambda r: r.sequence)
             for line in lines:
@@ -45,10 +45,9 @@ class SaleOrderLine(models.Model):
         return notes_sale_line
 
     def write(self, values):
-        result = super(SaleOrderLine, self).write(values)
+        result = super().write(values)
         if "sequence" in values:
             for line in self:
                 if line.purchase_line_ids:
-                    line.purchase_line_ids.write({
-                        "sequence": values.get("sequence")})
+                    line.purchase_line_ids.write({"sequence": values.get("sequence")})
         return result

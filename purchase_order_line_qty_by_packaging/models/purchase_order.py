@@ -7,13 +7,16 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     def button_confirm(self):
-        result = super(PurchaseOrder, self).button_confirm()
+        result = super().button_confirm()
         for purchase in self:
             for picking in purchase.picking_ids:
                 for move in picking.move_ids_without_package:
                     if move.purchase_line_id:
                         for line in move.move_line_ids:
-                            line.write({
-                                "product_packaging_id": move.purchase_line_id.product_packaging.id,
-                                "product_packaging_qty": move.purchase_line_id.product_packaging_qty})
+                            line.write(
+                                {
+                                    "product_packaging_id": move.purchase_line_id.product_packaging.id,
+                                    "product_packaging_qty": move.purchase_line_id.product_packaging_qty,
+                                }
+                            )
         return result

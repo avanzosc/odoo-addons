@@ -7,9 +7,7 @@
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
     "category": "Warehouse",
-    "depends": [
-        "stock"
-    ],
+    "depends": ["stock"],
     "data": [
         "views/stock_picking_view.xml",
     ],

@@ -11,9 +11,7 @@
         "account_invoice_event_report",
         "l10n_es_ticketbai",
     ],
-    "data": [
-        "report/account_invoice_report.xml"
-    ],
+    "data": ["report/account_invoice_report.xml"],
     "installable": True,
     "auto_install": True,
 }

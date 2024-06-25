@@ -7,12 +7,9 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "event_schedule",
-        "resource"
-    ],
+    "depends": ["event_schedule", "resource"],
     "data": [
-        'views/event_event_views.xml',
+        "views/event_event_views.xml",
     ],
-    'installable': True,
+    "installable": True,
 }

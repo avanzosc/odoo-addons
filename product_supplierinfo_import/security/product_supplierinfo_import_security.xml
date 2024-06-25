@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="product_supplierinfo_import_rule" model="ir.rule">
         <field name="name">Product supplierinfo company rule</field>
-        <field name="model_id" ref="model_product_supplierinfo_import"/>
+        <field name="model_id" ref="model_product_supplierinfo_import" />
         <field
       name="domain_force"
     >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>

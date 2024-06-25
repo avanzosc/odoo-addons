@@ -1,105 +1,104 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_production_lot_form" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="categ_id"/>
-                <field name="manufacturer_id"/>
+                <field name="categ_id" />
+                <field name="manufacturer_id" />
             </field>
             <field name="ref" position="after">
-                <field name="purchase_order_id"/>
+                <field name="purchase_order_id" />
             </field>
             <page name="description" position="before">
                 <page name="computer_data" string="Computer Data">
                     <group col="3">
                         <group>
-                            <field name="model_id"/>
-                            <field name="chassis_id"/>
-                            <field name="part_number"/>
-                            <field name="size_id"/>
-                            <field name="resolution_id"/>
-                            <field name="processor_id"/>
-                            <field name="speed_id"/>
+                            <field name="model_id" />
+                            <field name="chassis_id" />
+                            <field name="part_number" />
+                            <field name="size_id" />
+                            <field name="resolution_id" />
+                            <field name="processor_id" />
+                            <field name="speed_id" />
                         </group>
                         <group>
-                            <field name="gen_id"/>
-                            <field name="optical"/>
-                            <field name="keyb_id"/>
-                            <field name="webcam"/>
-                            <field name="videocard"/>
-                            <field name="observ_code"/>
-                            <field name="observ_notes"/>
+                            <field name="gen_id" />
+                            <field name="optical" />
+                            <field name="keyb_id" />
+                            <field name="webcam" />
+                            <field name="videocard" />
+                            <field name="observ_code" />
+                            <field name="observ_notes" />
                         </group>
                         <group>
-                            <field name="grade_id"/>
-                            <field name="os_restore"/>
-                            <field name="videocard2"/>
-                            <field name="lan"/>
-                            <field name="wifi"/>
-                            <field name="bluetooth"/>
-                            <field name="wwan"/>
-                            <field name="touch_screen"/>
+                            <field name="grade_id" />
+                            <field name="os_restore" />
+                            <field name="videocard2" />
+                            <field name="lan" />
+                            <field name="wifi" />
+                            <field name="bluetooth" />
+                            <field name="wwan" />
+                            <field name="touch_screen" />
                         </group>
                         <group>
-                            <field name="grade_tested" readonly="1"/>
+                            <field name="grade_tested" readonly="1" />
                         </group>
                     </group>
                     <group>
                         <group string="RAM">
-                            <field name="ram_id"/>
-                            <field name="ram1_size_id"/>
-                            <field name="ram1_type_id"/>
-                            <field name="ram1_serial"/>
-                            <field name="ram2_size_id"/>
-                            <field name="ram2_type_id"/>
-                            <field name="ram2_serial"/>
-                            <field name="ram_slots"/>
+                            <field name="ram_id" />
+                            <field name="ram1_size_id" />
+                            <field name="ram1_type_id" />
+                            <field name="ram1_serial" />
+                            <field name="ram2_size_id" />
+                            <field name="ram2_type_id" />
+                            <field name="ram2_serial" />
+                            <field name="ram_slots" />
                         </group>
                         <group string="Storage">
-                            <field name="storage1_size_id"/>
-                            <field name="storage1_type_id"/>
-                            <field name="storage1_model"/>
-                            <field name="storage1_serial"/>
-                            <field name="storage2_size"/>
-                            <field name="storage2_type_id"/>
+                            <field name="storage1_size_id" />
+                            <field name="storage1_type_id" />
+                            <field name="storage1_model" />
+                            <field name="storage1_serial" />
+                            <field name="storage2_size" />
+                            <field name="storage2_type_id" />
                         </group>
                         <group string="Battery">
-                            <field name="battery_duration"/>
-                            <field name="battery_model_id"/>
-                            <label for="battery_size"/>
+                            <field name="battery_duration" />
+                            <field name="battery_model_id" />
+                            <label for="battery_size" />
                             <div class="o_row">
-                                <field name="battery_size"/><span>%%</span>
+                                <field name="battery_size" /><span>%%</span>
                             </div>
-                            <field name="battery_cycles"/>
-                            <field name="battery_charge"/>
+                            <field name="battery_cycles" />
+                            <field name="battery_charge" />
                         </group>
                         <group string="COA">
-                            <field name="coa_id"/>
-                            <field name="coa_part"/>
-                            <field name="coa_number"/>
-                            <field name="coa_serial"/>
+                            <field name="coa_id" />
+                            <field name="coa_part" />
+                            <field name="coa_number" />
+                            <field name="coa_serial" />
                         </group>
                     </group>
                 </page>
                 <page name="components" string="Components">
                     <field name="lot_compotent_ids">
                         <tree editable="bottom">
-                            <field name="lot_id" invisible="1"/>
-                            <field name="name"/>
-                            <field name="didx"/>
-                            <field name="manufacturer_id"/>
-                            <field name="model_id"/>
-                            <field name="serial"/>
-                            <field name="size"/>
-                            <field name="speed_id"/>
-                            <field name="info1"/>
-                            <field name="info2"/>
-                            <field name="info3"/>
-                            <field name="secured"/>
-                            <field name="tested"/>
+                            <field name="lot_id" invisible="1" />
+                            <field name="name" />
+                            <field name="didx" />
+                            <field name="manufacturer_id" />
+                            <field name="model_id" />
+                            <field name="serial" />
+                            <field name="size" />
+                            <field name="speed_id" />
+                            <field name="info1" />
+                            <field name="info2" />
+                            <field name="info3" />
+                            <field name="secured" />
+                            <field name="tested" />
                         </tree>
                     </field>
                 </page>
@@ -109,80 +108,138 @@
 
     <record id="view_production_lot_tree" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="inherit_id" ref="stock.view_production_lot_tree" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="categ_id" optional="show"/>
-                <field name="manufacturer_id" optional="show"/>
-                <field name="model_id" optional="show"/>
-                <field name="chassis_id" optional="show"/>
-                <field name="part_number" optional="show"/>
-                <field name="size_id" optional="show"/>
-                <field name="resolution_id" optional="show"/>
-                <field name="processor_id" optional="show"/>
-                <field name="speed_id" optional="show"/>
-                <field name="gen_id" optional="show"/>
-                <field name="ram_id" optional="show"/>
-                <field name="storage1_size_id" optional="hide"/>
-                <field name="storage1_type_id" optional="hide"/>
-                <field name="storage1_model" optional="hide"/>
-                <field name="storage1_serial" optional="hide"/>
-                <field name="optical" optional="show"/>
-                <field name="keyb_id" optional="show"/>
-                <field name="webcam" optional="hide"/>
-                <field name="videocard" optional="hide"/>
-                <field name="videocard2" optional="hide"/>
-                <field name="coa_id" optional="hide"/>
-                <field name="os_restore" optional="hide"/>
-                <field name="observ_code" optional="hide"/>
-                <field name="grade_id" optional="show"/>
-                <field name="grade_tested" optional="show" readonly="1"/>
-                <field name="ram1_size_id" optional="hide"/>
-                <field name="ram1_type_id" optional="hide"/>
-                <field name="storage2_size" optional="hide"/>
-                <field name="ram2_size_id" optional="hide"/>
-                <field name="ram2_type_id" optional="hide"/>
-                <field name="battery_duration" optional="hide"/>
-                <field name="coa_number" optional="hide"/>
-                <field name="coa_serial" optional="hide"/>
-                <field name="battery_model_id" optional="show"/>
-                <field name="battery_size" optional="show"/>
-                <field name="battery_cycles" optional="hide"/>
-                <field name="lan" optional="hide"/>
-                <field name="wifi" optional="hide"/>
-                <field name="bluetooth" optional="hide"/>
-                <field name="wwan" optional="hide"/>
-                <field name="touch_screen" optional="hide"/>
-                <field name="ram_slots" optional="hide"/>
-                <field name="ram1_serial" optional="hide"/>
-                <field name="ram2_serial" optional="hide"/>
-                <field name="storage2_type_id" optional="hide"/>
-                <field name="coa_part" optional="hide"/>
+                <field name="categ_id" optional="show" />
+                <field name="manufacturer_id" optional="show" />
+                <field name="model_id" optional="show" />
+                <field name="chassis_id" optional="show" />
+                <field name="part_number" optional="show" />
+                <field name="size_id" optional="show" />
+                <field name="resolution_id" optional="show" />
+                <field name="processor_id" optional="show" />
+                <field name="speed_id" optional="show" />
+                <field name="gen_id" optional="show" />
+                <field name="ram_id" optional="show" />
+                <field name="storage1_size_id" optional="hide" />
+                <field name="storage1_type_id" optional="hide" />
+                <field name="storage1_model" optional="hide" />
+                <field name="storage1_serial" optional="hide" />
+                <field name="optical" optional="show" />
+                <field name="keyb_id" optional="show" />
+                <field name="webcam" optional="hide" />
+                <field name="videocard" optional="hide" />
+                <field name="videocard2" optional="hide" />
+                <field name="coa_id" optional="hide" />
+                <field name="os_restore" optional="hide" />
+                <field name="observ_code" optional="hide" />
+                <field name="grade_id" optional="show" />
+                <field name="grade_tested" optional="show" readonly="1" />
+                <field name="ram1_size_id" optional="hide" />
+                <field name="ram1_type_id" optional="hide" />
+                <field name="storage2_size" optional="hide" />
+                <field name="ram2_size_id" optional="hide" />
+                <field name="ram2_type_id" optional="hide" />
+                <field name="battery_duration" optional="hide" />
+                <field name="coa_number" optional="hide" />
+                <field name="coa_serial" optional="hide" />
+                <field name="battery_model_id" optional="show" />
+                <field name="battery_size" optional="show" />
+                <field name="battery_cycles" optional="hide" />
+                <field name="lan" optional="hide" />
+                <field name="wifi" optional="hide" />
+                <field name="bluetooth" optional="hide" />
+                <field name="wwan" optional="hide" />
+                <field name="touch_screen" optional="hide" />
+                <field name="ram_slots" optional="hide" />
+                <field name="ram1_serial" optional="hide" />
+                <field name="ram2_serial" optional="hide" />
+                <field name="storage2_type_id" optional="hide" />
+                <field name="coa_part" optional="hide" />
             </field>
         </field>
     </record>
 
     <record id="search_product_lot_filter" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="inherit_id" ref="stock.search_product_lot_filter" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <filter string="With Wifi" name="wifi" domain="[('wifi', '=', True)]"/>
-                <filter string="With Bluetooth" name="bluetooth" domain="[('bluetooth', '=', True)]"/>
-                <filter string="With WWAN" name="wwan" domain="[('wwan', '=', True)]"/>
-                <filter string="With Touch Screen" name="touch_screen" domain="[('touch_screen', '=', True)]"/>
+                <filter string="With Wifi" name="wifi" domain="[('wifi', '=', True)]" />
+                <filter
+          string="With Bluetooth"
+          name="bluetooth"
+          domain="[('bluetooth', '=', True)]"
+        />
+                <filter string="With WWAN" name="wwan" domain="[('wwan', '=', True)]" />
+                <filter
+          string="With Touch Screen"
+          name="touch_screen"
+          domain="[('touch_screen', '=', True)]"
+        />
             </field>
             <filter name="group_by_product" position="after">
-                <filter name="categ" string="Category" domain="[]" context="{'group_by': 'categ_id'}"/>
-                <filter name="manufacturer" string="Manufacturer" domain="[]" context="{'group_by': 'manufacturer_id'}"/>
-                <filter name="model" string="Model" domain="[]" context="{'group_by': 'model_id'}"/>
-                <filter name="chassis" string="Chassis" domain="[]" context="{'group_by': 'chassis_id'}"/>
-                <filter name="screen_size" string="Screen Size" domain="[]" context="{'group_by': 'size_id'}"/>
-                <filter name="resolution" string="Resolution" domain="[]" context="{'group_by': 'resolution_id'}"/>
-                <filter name="processor" string="Processor" domain="[]" context="{'group_by': 'processor_id'}"/>
-                <filter name="speed" string="Speed" domain="[]" context="{'group_by': 'speed_id'}"/>
-                <filter name="gen" string="Gen" domain="[]" context="{'group_by': 'gen_id'}"/>
-                <filter name="ram" string="Ram" domain="[]" context="{'group_by': 'ram_id'}"/>
+                <filter
+          name="categ"
+          string="Category"
+          domain="[]"
+          context="{'group_by': 'categ_id'}"
+        />
+                <filter
+          name="manufacturer"
+          string="Manufacturer"
+          domain="[]"
+          context="{'group_by': 'manufacturer_id'}"
+        />
+                <filter
+          name="model"
+          string="Model"
+          domain="[]"
+          context="{'group_by': 'model_id'}"
+        />
+                <filter
+          name="chassis"
+          string="Chassis"
+          domain="[]"
+          context="{'group_by': 'chassis_id'}"
+        />
+                <filter
+          name="screen_size"
+          string="Screen Size"
+          domain="[]"
+          context="{'group_by': 'size_id'}"
+        />
+                <filter
+          name="resolution"
+          string="Resolution"
+          domain="[]"
+          context="{'group_by': 'resolution_id'}"
+        />
+                <filter
+          name="processor"
+          string="Processor"
+          domain="[]"
+          context="{'group_by': 'processor_id'}"
+        />
+                <filter
+          name="speed"
+          string="Speed"
+          domain="[]"
+          context="{'group_by': 'speed_id'}"
+        />
+                <filter
+          name="gen"
+          string="Gen"
+          domain="[]"
+          context="{'group_by': 'gen_id'}"
+        />
+                <filter
+          name="ram"
+          string="Ram"
+          domain="[]"
+          context="{'group_by': 'ram_id'}"
+        />
             </filter>
         </field>
     </record>

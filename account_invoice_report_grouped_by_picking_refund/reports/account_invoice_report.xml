@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <template id="report_invoice_document"
-                inherit_id="account_invoice_report_grouped_by_picking.report_invoice_document">
+        <template
+      id="report_invoice_document"
+      inherit_id="account_invoice_report_grouped_by_picking.report_invoice_document"
+    >
             <t t-if="picking != last_picking" position="replace" />
             <tr t-if="picking != next_picking[0]" position="replace" />
         </template>

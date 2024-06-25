@@ -9,12 +9,7 @@ class StockPickingBatchCustomPackage(models.Model):
     _order = "picking_batch_id, name"
 
     picking_batch_id = fields.Many2one(
-        string="Stock Picking Batch", comodel_name="stock.picking.batch",
-        copy=False
+        string="Stock Picking Batch", comodel_name="stock.picking.batch", copy=False
     )
-    name = fields.Char(
-        string="Box name", copy=False
-        )
-    box_new_name = fields.Char(
-        sring="New box name", copy=False
-        )
+    name = fields.Char(string="Box name", copy=False)
+    box_new_name = fields.Char(sring="New box name", copy=False)

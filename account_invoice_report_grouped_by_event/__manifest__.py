@@ -15,11 +15,8 @@
         "sale_order_line_contract",
         "event_sale",
         "event_registration_student",
-        "event_registration_sale_line_contract"
+        "event_registration_sale_line_contract",
     ],
-    "data": [
-        "report/account_invoice_report.xml",
-        "views/res_partner_views.xml"
-    ],
+    "data": ["report/account_invoice_report.xml", "views/res_partner_views.xml"],
     "installable": True,
 }

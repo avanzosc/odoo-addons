@@ -7,11 +7,7 @@
     "license": "AGPL-3",
     "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": [
-        "crm",
-        "repair",
-        "stock"
-    ],
+    "depends": ["crm", "repair", "stock"],
     "data": [
         "views/crm_lead_views.xml",
         "views/repair_order_views.xml",

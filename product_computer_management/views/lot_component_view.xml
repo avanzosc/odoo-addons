@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="lot_component_view_tree" model="ir.ui.view">
@@ -7,19 +6,19 @@
         <field name="model">lot.component</field>
         <field name="arch" type="xml">
             <tree string="Lot Components" editable="top">
-                <field name="name"/>
-                <field name="lot_id"/>
-                <field name="didx" optional="show"/>
-                <field name="manufacturer_id" optional="show"/>
-                <field name="model_id" optional="show"/>
-                <field name="serial" optional="show"/>
-                <field name="size" optional="show"/>
-                <field name="speed_id" optional="show"/>
-                <field name="info1" optional="show"/>
-                <field name="info2" optional="show"/>
-                <field name="info3" optional="show"/>
-                <field name="secured" optional="show"/>
-                <field name="tested" optional="show"/>
+                <field name="name" />
+                <field name="lot_id" />
+                <field name="didx" optional="show" />
+                <field name="manufacturer_id" optional="show" />
+                <field name="model_id" optional="show" />
+                <field name="serial" optional="show" />
+                <field name="size" optional="show" />
+                <field name="speed_id" optional="show" />
+                <field name="info1" optional="show" />
+                <field name="info2" optional="show" />
+                <field name="info3" optional="show" />
+                <field name="secured" optional="show" />
+                <field name="tested" optional="show" />
             </tree>
         </field>
     </record>
@@ -31,8 +30,12 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="lot_component_inventory" name="Lot Components"
-            action="lot_components_action"
-            parent="stock.menu_stock_inventory_control" sequence="1000"/>
+    <menuitem
+    id="lot_component_inventory"
+    name="Lot Components"
+    action="lot_components_action"
+    parent="stock.menu_stock_inventory_control"
+    sequence="1000"
+  />
 
 </odoo>

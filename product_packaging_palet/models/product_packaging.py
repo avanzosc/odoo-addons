@@ -10,10 +10,12 @@ class ProductPackaging(models.Model):
         string="Palet",
         comodel_name="product.packaging",
         copy=False,
-        domain="[('is_generic', '=', True)]")
+        domain="[('is_generic', '=', True)]",
+    )
     palet_qty = fields.Float(
-        string="Contained Palet Quantity", default=1,
-        digits="Product Unit of Measure", copy=False)
-    is_generic = fields.Boolean(
-        string="Is generic",
-        default=False)
+        string="Contained Palet Quantity",
+        default=1,
+        digits="Product Unit of Measure",
+        copy=False,
+    )
+    is_generic = fields.Boolean(string="Is generic", default=False)

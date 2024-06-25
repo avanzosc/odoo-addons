@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_crossovered_budget_line_search" model="ir.ui.view">
         <field name="model">crossovered.budget.lines</field>
-        <field name="inherit_id" ref="account_budget_oca.view_crossovered_budget_line_search"/>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_search"
+    />
         <field name="arch" type="xml">
             <field name="analytic_account_id" position="before">
                 <field name="general_budget_id" />
@@ -13,10 +16,18 @@
                 <field name="date_to" />
                 <field name="paid_date" groups="base.group_no_one" />
                     <group expand="0" string="Group By">
-                        <filter string="Budgetary Position" name="by_budget_position" domain="[]"
-                            context="{'group_by': 'general_budget_id'}"/>
-                        <filter string="Analytic account" name="by_analytic_account" domain="[]"
-                            context="{'group_by': 'analytic_account_id'}"/>
+                        <filter
+            string="Budgetary Position"
+            name="by_budget_position"
+            domain="[]"
+            context="{'group_by': 'general_budget_id'}"
+          />
+                        <filter
+            string="Analytic account"
+            name="by_analytic_account"
+            domain="[]"
+            context="{'group_by': 'analytic_account_id'}"
+          />
                     </group>
             </field>
         </field>
@@ -44,11 +55,11 @@
     </record>
 
     <menuitem
-        id="menu_act_crossovered_budget_line_view"
-        parent="account.menu_finance_entries_management"
-        name="Budgets lines"
-        action="act_crossovered_budget_lines2_view"
-        sequence="70"
-        groups="account.group_account_user"
-    />
+    id="menu_act_crossovered_budget_line_view"
+    parent="account.menu_finance_entries_management"
+    name="Budgets lines"
+    action="act_crossovered_budget_lines2_view"
+    sequence="70"
+    groups="account.group_account_user"
+  />
 </odoo>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="employee_skill_view_tree" model="ir.ui.view">
         <field name="model">hr.skill</field>
-        <field name="inherit_id" ref="hr_skills.employee_skill_view_tree"/>
+        <field name="inherit_id" ref="hr_skills.employee_skill_view_tree" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="code" />
@@ -11,7 +11,7 @@
     </record>
     <record id="employee_skill_view_form" model="ir.ui.view">
         <field name="model">hr.skill</field>
-        <field name="inherit_id" ref="hr_skills.hr_skill_view_form"/>
+        <field name="inherit_id" ref="hr_skills.hr_skill_view_form" />
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="code" />

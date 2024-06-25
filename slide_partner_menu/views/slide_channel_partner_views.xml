@@ -1,30 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="slide_channel_partner_tree_view" model="ir.ui.view">
         <field name="model">slide.channel.partner</field>
-        <field name="inherit_id" ref="event_slides.slide_channel_partner_view_tree"/>
+        <field name="inherit_id" ref="event_slides.slide_channel_partner_view_tree" />
         <field name="arch" type="xml">
             <field name="event_registration_id" position="attributes">
                 <attribute name="optional">show</attribute>
             </field>
             <field name="event_registration_id" position="after">
-                <field name="event_id" optional="show"/>
+                <field name="event_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="slide_channel_partner_view_search" model="ir.ui.view">
         <field name="model">slide.channel.partner</field>
-        <field name="inherit_id" ref="website_slides.slide_channel_partner_view_search"/>
+        <field
+      name="inherit_id"
+      ref="website_slides.slide_channel_partner_view_search"
+    />
         <field name="arch" type="xml">
             <field name="channel_id" position="after">
-                <field name="event_registration_id"/>
-                <field name="event_id"/>
-                <filter name="channel" string="Channel" domain="[]" context="{'group_by' : 'channel_id'}"/>
-                <filter name="partner" string="Student" domain="[]" context="{'group_by' : 'partner_id'}"/>
-                <filter name="event_registration" string="Event Registration" domain="[]" context="{'group_by' : 'event_registration_id'}"/>
-                <filter name="event" string="Event" domain="[]" context="{'group_by' : 'event_id'}"/>
+                <field name="event_registration_id" />
+                <field name="event_id" />
+                <filter
+          name="channel"
+          string="Channel"
+          domain="[]"
+          context="{'group_by' : 'channel_id'}"
+        />
+                <filter
+          name="partner"
+          string="Student"
+          domain="[]"
+          context="{'group_by' : 'partner_id'}"
+        />
+                <filter
+          name="event_registration"
+          string="Event Registration"
+          domain="[]"
+          context="{'group_by' : 'event_registration_id'}"
+        />
+                <filter
+          name="event"
+          string="Event"
+          domain="[]"
+          context="{'group_by' : 'event_id'}"
+        />
             </field>
         </field>
     </record>
@@ -38,9 +61,12 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_slide_channel_partner"
-        action="action_slide_channel_partner"
-        name="Students" parent="website_slides.website_slides_menu_courses"
-        sequence="5"/>
+    <menuitem
+    id="menu_slide_channel_partner"
+    action="action_slide_channel_partner"
+    name="Students"
+    parent="website_slides.website_slides_menu_courses"
+    sequence="5"
+  />
 
 </odoo>

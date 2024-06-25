@@ -7,4 +7,4 @@ class Coya(models.Model):
     _name = "coya"
     _description = "Coya"
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string="Name", required=True)

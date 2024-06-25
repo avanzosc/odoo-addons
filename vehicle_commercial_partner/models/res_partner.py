@@ -9,4 +9,5 @@ class ResPartner(models.Model):
     vehicle_ids = fields.One2many(
         string="Vehicles",
         comodel_name="fleet.vehicle",
-        inverse_name="commercial_partner_id")
+        inverse_name="commercial_partner_id",
+    )

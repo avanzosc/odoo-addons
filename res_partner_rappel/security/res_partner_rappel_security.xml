@@ -2,7 +2,7 @@
 <odoo noupdate="1">
     <record id="res_partner_rappel_rule" model="ir.rule">
         <field name="name">Res partner rappel company rule</field>
-        <field name="model_id" ref="model_res_partner_rappel"/>
+        <field name="model_id" ref="model_res_partner_rappel" />
         <field
       name="domain_force"
     >['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]</field>

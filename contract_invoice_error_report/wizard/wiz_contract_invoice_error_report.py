@@ -13,10 +13,9 @@ class WizContractInvoiceErrorReport(models.TransientModel):
         contract_obj = self.env["contract.contract"]
         contracts = contract_obj.sudo().search([])
         contracts.write(
-            {"with_invoice_generation_error": False,
-             "invoice_generation_error": ""})
-        self.sudo()._cron_recurring_create(
-            date_ref=fields.Date.context_today(self))
+            {"with_invoice_generation_error": False, "invoice_generation_error": ""}
+        )
+        self.sudo()._cron_recurring_create(date_ref=fields.Date.context_today(self))
 
     @api.model
     def _cron_recurring_create(self, date_ref=False, create_type="invoice"):
@@ -74,15 +73,18 @@ class WizContractInvoiceErrorReport(models.TransientModel):
                 )
             )
             if not journal:
-                error = (
-                    _("Please define a %s journal for the company '%s'.") %
-                    (contract.contract_type, contract.company_id.name or ""))
+                error = _("Please define a %s journal for the company '%s'.") % (
+                    contract.contract_type,
+                    contract.company_id.name or "",
+                )
                 contract.sudo().write(
-                    {"with_invoice_generation_error": True,
-                     "invoice_generation_error": error})
+                    {
+                        "with_invoice_generation_error": True,
+                        "invoice_generation_error": error,
+                    }
+                )
             else:
-                self.sudo()._prepare_recurring_invoices_values(
-                    contract, date_ref)
+                self.sudo()._prepare_recurring_invoices_values(contract, date_ref)
 
     def _prepare_recurring_invoices_values(self, contracts, date_ref=False):
         for contract in contracts:

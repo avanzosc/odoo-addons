@@ -7,10 +7,7 @@
     "website": "http://www.avanzosc.es",
     "category": "Marketing/Events",
     "license": "AGPL-3",
-    "depends": [
-        "calendar",
-        "resource"
-    ],
+    "depends": ["calendar", "resource"],
     "data": [
         "views/calendar_event_views.xml",
     ],

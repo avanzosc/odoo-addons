@@ -2,7 +2,10 @@
 <odoo>
     <record id="event_track_cancel_view_form" model="ir.ui.view">
         <field name="model">event.track.cancel.wizard</field>
-        <field name="inherit_id" ref="event_track_cancel_reason.event_track_cancel_view_form"/>
+        <field
+      name="inherit_id"
+      ref="event_track_cancel_reason.event_track_cancel_view_form"
+    />
         <field name="arch" type="xml">
             <field name="time_type_id" position="attributes">
                 <attribute name="invisible">1</attribute>

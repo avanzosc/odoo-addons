@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record id="ircron_update_event_published" model="ir.cron">
         <field name="name">Unpublish outdated events on website</field>
-        <field name="model_id" ref="event.model_event_event"/>
+        <field name="model_id" ref="event.model_event_event" />
         <field name="state">code</field>
         <field name="code">model.cron_compute_unpublish_website()</field>
-        <field name="user_id" ref="base.user_root"/>
+        <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>

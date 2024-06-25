@@ -1,17 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="quant_search_view" model="ir.ui.view">
         <field name="model">stock.quant</field>
-        <field name="inherit_id" ref="stock.quant_search_view"/>
+        <field name="inherit_id" ref="stock.quant_search_view" />
         <field name="arch" type="xml">
             <field name="owner_id" position="after">
-                <field name="real_stock_location"/>
+                <field name="real_stock_location" />
             </field>
             <filter name="filter_in_date" position="after">
-                <filter string="Real Stock Location" name="realstock"
-                    domain="[('real_stock_location','=',True)]"/>
-                <filter string="NO Real Stock Location" name="norealstock"
-                    domain="[('real_stock_location','=',False)]"/>
+                <filter
+          string="Real Stock Location"
+          name="realstock"
+          domain="[('real_stock_location','=',True)]"
+        />
+                <filter
+          string="NO Real Stock Location"
+          name="norealstock"
+          domain="[('real_stock_location','=',False)]"
+        />
             </filter>
         </field>
     </record>

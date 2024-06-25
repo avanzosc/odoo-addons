@@ -8,7 +8,6 @@ class StockproductionLot(models.Model):
 
     def action_create_lot(self, product, name, company):
         lot = self.env["stock.production.lot"].create(
-            {"name": name,
-             "product_id": product.id,
-             "company_id": company.id})
+            {"name": name, "product_id": product.id, "company_id": company.id}
+        )
         return lot

@@ -8,30 +8,32 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     picking_done = fields.Boolean(
-        string="Pickings are done",
-        compute="_compute_picking_done",
-        store=True)
+        string="Pickings are done", compute="_compute_picking_done", store=True
+    )
 
     @api.depends("picking_ids", "picking_ids.state")
     def _compute_picking_done(self):
         for purchase in self:
             purchase.picking_done = False
-            if (
-                purchase.picking_ids) and any(
-                    [picking.state == (
-                        "done") for picking in purchase.picking_ids]):
+            if (purchase.picking_ids) and any(
+                [picking.state == ("done") for picking in purchase.picking_ids]
+            ):
                 purchase.picking_done = True
 
     def button_confirm_pickings(self):
         for purchase in self:
             purchase.button_confirm()
             for purchase_line in purchase.order_line:
-                if purchase_line.product_id and (
-                    purchase_line.tracking != "none") and not (
-                        purchase_line.lot_id):
+                if (
+                    purchase_line.product_id
+                    and (purchase_line.tracking != "none")
+                    and not (purchase_line.lot_id)
+                ):
                     raise ValidationError(
                         _("The product {} has not lot").format(
-                            purchase_line.product_id.name))
+                            purchase_line.product_id.name
+                        )
+                    )
             for picking in purchase.picking_ids:
                 picking.do_unreserve()
                 picking.button_force_done_detailed_operations()

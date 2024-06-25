@@ -8,10 +8,8 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     sale_discount2 = fields.Float(
-        related="sale_line.discount2", readonly=True,
-        string="Sale discount 2(%)"
+        related="sale_line.discount2", readonly=True, string="Sale discount 2(%)"
     )
     sale_discount3 = fields.Float(
-        related="sale_line.discount3", readonly=True,
-        string="Sale discount 3(%)"
+        related="sale_line.discount3", readonly=True, string="Sale discount 3(%)"
     )

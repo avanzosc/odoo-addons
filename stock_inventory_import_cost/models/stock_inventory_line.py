@@ -25,21 +25,16 @@ class StockInventoryLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        res = super(StockInventoryLine, self).create(vals_list)
+        res = super().create(vals_list)
         for line in res:
             line.onchange_cost()
             line.onchange_amount()
         return res
 
     def _get_move_values(self, qty, location_id, location_dest_id, out):
-        values = super(StockInventoryLine, self)._get_move_values(
-            qty, location_id, location_dest_id, out)
-        values.update({
-            "standard_price": self.cost,
-            "amount": self.amount
-        })
-        values["move_line_ids"][0][2].update({
-            "standard_price": self.cost,
-            "amount": self.amount
-        })
+        values = super()._get_move_values(qty, location_id, location_dest_id, out)
+        values.update({"standard_price": self.cost, "amount": self.amount})
+        values["move_line_ids"][0][2].update(
+            {"standard_price": self.cost, "amount": self.amount}
+        )
         return values

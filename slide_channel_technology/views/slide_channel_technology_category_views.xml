@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="slide_channel_technology_category_tree" model="ir.ui.view">
         <field name="model">slide.channel.technology.category</field>
         <field name="arch" type="xml">
-            <tree string="Technology categories" >
+            <tree string="Technology categories">
                 <field name="name" />
             </tree>
         </field>
@@ -12,11 +12,11 @@
     <record id="slide_channel_technology_category_form" model="ir.ui.view">
         <field name="model">slide.channel.technology.category</field>
         <field name="arch" type="xml">
-            <form string="Technology category" >
+            <form string="Technology category">
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" />
                         </h1>
                     </div>
                </sheet>
@@ -36,15 +36,19 @@
         </field>
     </record>
 
-    
-    <menuitem id="menu_slide_channel_technology"
-        name="Technologies"
-        parent="website_slides.website_slides_menu_configuration"
-        sequence="3" />
 
-    <menuitem id="menu_slide_channel_technology_category"
-        action="slide_channel_technology_category_action"
-        parent="menu_slide_channel_technology"
-        sequence="5" />
+    <menuitem
+    id="menu_slide_channel_technology"
+    name="Technologies"
+    parent="website_slides.website_slides_menu_configuration"
+    sequence="3"
+  />
+
+    <menuitem
+    id="menu_slide_channel_technology_category"
+    action="slide_channel_technology_category_action"
+    parent="menu_slide_channel_technology"
+    sequence="5"
+  />
 
 </odoo>

@@ -10,7 +10,7 @@ class EventEvent(models.Model):
 
     @api.model
     def create(self, values):
-        event = super(EventEvent, self).create(values)
+        event = super().create(values)
         name = ""
         if event.lang_id and event.lang_id.code:
             name = event.lang_id.code
@@ -67,5 +67,5 @@ class EventEvent(models.Model):
                         else "{}-{}".format(name, self.level_id)
                     )
             values["name"] = name
-        result = super(EventEvent, self).write(values)
+        result = super().write(values)
         return result

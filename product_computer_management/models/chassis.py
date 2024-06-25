@@ -8,7 +8,4 @@ class Chassis(models.Model):
     _name = "chassis"
     _description = "Chassis"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

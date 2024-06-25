@@ -28,7 +28,12 @@
                 <field name="user_id" />
             </field>
             <filter name="associatedpartner" position="after">
-                <filter string="Salesperson" name="partneruser" domain="[]" context="{'group_by':'user_id'}"/>
+                <filter
+          string="Salesperson"
+          name="partneruser"
+          domain="[]"
+          context="{'group_by':'user_id'}"
+        />
             </filter>
         </field>
     </record>

@@ -8,7 +8,4 @@ class BatteryModel(models.Model):
     _name = "battery.model"
     _description = "Battery Model"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

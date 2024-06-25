@@ -1,10 +1,10 @@
 # Copyright 2021 Berezi - Iker - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import fields, models
 
 
 class ResPartnerType(models.Model):
-    _name = 'res.partner.type'
-    _description = 'Partner types'
+    _name = "res.partner.type"
+    _description = "Partner types"
 
     name = fields.Char(string="Description", required=True)

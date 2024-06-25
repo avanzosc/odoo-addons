@@ -7,7 +7,7 @@ from odoo.tests import common, tagged
 class TestStockPickingWithAnalyticAccount(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestStockPickingWithAnalyticAccount, cls).setUpClass()
+        super().setUpClass()
         picking_type = cls.env.ref("stock.picking_type_in")
         location = cls.env["stock.location"].search(
             [("usage", "=", "supplier")], limit=1

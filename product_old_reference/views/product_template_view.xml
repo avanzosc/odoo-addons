@@ -5,7 +5,10 @@
       <field name="inherit_id" ref="product.product_template_only_form_view" />
       <field name="arch" type="xml">
           <field name="default_code" position="after">
-              <field name="product_old_reference" attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"/>
+              <field
+          name="product_old_reference"
+          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+        />
           </field>
       </field>
   </record>
@@ -15,7 +18,7 @@
       <field name="inherit_id" ref="product.product_template_tree_view" />
       <field name="arch" type="xml">
           <field name="default_code" position="after">
-              <field name="product_old_reference" optional="show"/>
+              <field name="product_old_reference" optional="show" />
           </field>
       </field>
   </record>

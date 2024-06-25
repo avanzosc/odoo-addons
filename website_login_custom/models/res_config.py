@@ -5,14 +5,16 @@ from odoo import fields, models
 
 
 class Company(models.Model):
-    _inherit = 'res.company'
+    _inherit = "res.company"
 
     portal_login_custom_text = fields.Html("Portal Login Custom Text")
 
 
 class ResConfigSettings(models.TransientModel):
-    _inherit = 'res.config.settings'
+    _inherit = "res.config.settings"
 
     portal_login_custom_text = fields.Html(
-        'Portal Login Custom Text',
-        related='company_id.portal_login_custom_text', readonly=False)
+        "Portal Login Custom Text",
+        related="company_id.portal_login_custom_text",
+        readonly=False,
+    )

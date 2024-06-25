@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <notebook position="before">
                 <group>
                     <group>
-                        <field name="product_class_id"/>
+                        <field name="product_class_id" />
                     </group>
-                    <group/>
+                    <group />
                 </group>
             </notebook>
         </field>
@@ -17,7 +17,7 @@
 
     <record id="view_stock_product_template_tree" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
         <field name="arch" type="xml">
             <field name="responsible_id" position="after">
                 <field name="product_class_id" optional="show" />
@@ -27,14 +27,18 @@
 
     <record id="product_template_search_view" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="inherit_id" ref="product.product_template_search_view" />
         <field name="arch" type="xml">
             <field name="categ_id" position="after">
-                <field name="product_class_id"/>
+                <field name="product_class_id" />
             </field>
             <filter name="categ_id" position="after">
-                <filter name="group_by_product-class" string="Pump type"
-                    domain="[]" context="{'group_by': 'product_class_id'}"/>
+                <filter
+          name="group_by_product-class"
+          string="Pump type"
+          domain="[]"
+          context="{'group_by': 'product_class_id'}"
+        />
             </filter>
         </field>
     </record>

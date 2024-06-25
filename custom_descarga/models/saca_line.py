@@ -82,7 +82,9 @@ class SacaLine(models.Model):
     )
     craw = fields.Float(copy=False)
     weight_uom_name = fields.Char(
-        string="Weight UOM", default=_get_default_weight_uom, copy=False,
+        string="Weight UOM",
+        default=_get_default_weight_uom,
+        copy=False,
     )
     color_name = fields.Selection(
         string="Color",
@@ -142,11 +144,12 @@ class SacaLine(models.Model):
     historic_line_ids = fields.One2many(
         string="Historic Lines",
         comodel_name="saca.line",
-        inverse_name="historic_id", copy=False,
+        inverse_name="historic_id",
+        copy=False,
     )
     historic_id = fields.Many2one(
-        string="Historic",
-        comodel_name="saca.line", copy=False)
+        string="Historic", comodel_name="saca.line", copy=False
+    )
     hard_chicken = fields.Integer(string="Hard Chicken %", copy=False)
     yellowish_chicken = fields.Boolean(default=False)
     burned_leg = fields.Boolean(string="Burned Legs", default=False)
@@ -155,9 +158,7 @@ class SacaLine(models.Model):
     descarga_order = fields.Char(
         string="Deccarga Order", compute="_compute_descarga_order"
     )
-    img_origin = fields.Binary(
-        string="Ticket Farm", attachment=True, copy=False
-    )
+    img_origin = fields.Binary(string="Ticket Farm", attachment=True, copy=False)
     img_dest = fields.Binary(string="Ticket Slaughterhouse", copy=False)
     staff_crew = fields.Integer(copy=False)
     floor = fields.Selection(
@@ -327,8 +328,7 @@ class SacaLine(models.Model):
     def _compute_puchase_price(self):
         for line in self:
             if line.purchase_order_id:
-                line.purchase_price = (
-                    line.purchase_order_id.amount_untaxed)
+                line.purchase_price = line.purchase_order_id.amount_untaxed
 
     def write(self, values):
         result = super().write(values)
@@ -414,9 +414,9 @@ class SacaLine(models.Model):
         stage_matanza = self.env.ref("custom_descarga.stage_matanza")
         stage_clasificado = self.env.ref("custom_descarga.stage_clasificado")
         if self.stage_id == stage_matanza:
-            pickings = (
-                self.sudo().purchase_order_id.picking_ids + (
-                    self.sudo().sale_order_id.picking_ids))
+            pickings = self.sudo().purchase_order_id.picking_ids + (
+                self.sudo().sale_order_id.picking_ids
+            )
             for picking in pickings:
                 if picking.state != "done":
                     if not picking.custom_date_done:
@@ -430,17 +430,25 @@ class SacaLine(models.Model):
                         name = "{}".format(self.sudo().breeding_id.name)
                     else:
                         name = "E{}".format(self.lot)
-                    lot = self.env["stock.production.lot"].sudo().search(
-                        [
-                            ("product_id", "=", move.product_id.id),
-                            ("name", "=", name),
-                            ("company_id", "=", picking.company_id.id),
-                        ],
-                        limit=1,
+                    lot = (
+                        self.env["stock.production.lot"]
+                        .sudo()
+                        .search(
+                            [
+                                ("product_id", "=", move.product_id.id),
+                                ("name", "=", name),
+                                ("company_id", "=", picking.company_id.id),
+                            ],
+                            limit=1,
+                        )
                     )
                     if not lot:
-                        lot = self.env["stock.production.lot"].sudo().action_create_lot(
-                            move.product_id, name, picking.company_id
+                        lot = (
+                            self.env["stock.production.lot"]
+                            .sudo()
+                            .action_create_lot(
+                                move.product_id, name, picking.company_id
+                            )
                         )
                 if picking.state != "done":
                     picking.custom_date_done = self.date + timedelta(days=1)
@@ -448,7 +456,9 @@ class SacaLine(models.Model):
                     picking.action_assign()
                     picking.button_force_done_detailed_operations()
                     for line in picking.move_line_ids_without_package:
-                        line.write({"lot_id": lot.id, "download_unit": self.download_unit})
+                        line.write(
+                            {"lot_id": lot.id, "download_unit": self.download_unit}
+                        )
                     picking.sudo().button_validate()
             for picking in self.purchase_order_id.picking_ids:
                 picking.custom_date_done = self.date + timedelta(days=1)

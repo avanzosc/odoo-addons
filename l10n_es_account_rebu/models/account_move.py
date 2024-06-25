@@ -6,6 +6,4 @@ from odoo import fields, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    is_rebu = fields.Boolean(
-        string="Is Rebu", related="journal_id.is_rebu",
-        store=True)
+    is_rebu = fields.Boolean(string="Is Rebu", related="journal_id.is_rebu", store=True)

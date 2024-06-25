@@ -8,11 +8,11 @@ class PurchaseRequisition(models.Model):
     _inherit = "purchase.requisition"
 
     def name_get(self):
-        super(PurchaseRequisition, self).name_get()
+        super().name_get()
         result = []
         for req in self:
             name = req.name
             if req.origin:
-                name = u'{} - {}'.format(name, req.origin)
+                name = "{} - {}".format(name, req.origin)
             result.append((req.id, name))
         return result

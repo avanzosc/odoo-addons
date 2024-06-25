@@ -1,20 +1,19 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
 from datetime import datetime, timedelta
+
 from dateutil import rrule
+
+from odoo import api, fields, models
 
 
 class StockInventory(models.Model):
     _inherit = "stock.inventory"
 
-    batch_id = fields.Many2one(
-        string="Batch",
-        comodel_name="stock.picking.batch")
+    batch_id = fields.Many2one(string="Batch", comodel_name="stock.picking.batch")
     accounting_date_week = fields.Integer(
-        string="Date Weeks",
-        compute="_compute_date_week",
-        store=True)
+        string="Date Weeks", compute="_compute_date_week", store=True
+    )
 
     def calculate_weeks_start(self, start_date):
         self.ensure_one()
@@ -22,23 +21,22 @@ class StockInventory(models.Model):
         if weekday <= 3:
             return start_date - timedelta(days=weekday)
         else:
-            return start_date + timedelta(days=(7-weekday))
+            return start_date + timedelta(days=(7 - weekday))
 
     @api.depends("accounting_date")
     def _compute_date_week(self):
         for line in self:
             accounting_date_week = 0
             if line.accounting_date:
-                start_date = datetime(
-                    line.accounting_date.year, 1, 1, 0, 0).date()
+                start_date = datetime(line.accounting_date.year, 1, 1, 0, 0).date()
                 start_date = line.calculate_weeks_start(start_date)
                 end_date = line.accounting_date
                 if end_date < start_date:
                     start_date = datetime(
-                        line.accounting_date.year - 1, 1, 1, 0, 0).date()
+                        line.accounting_date.year - 1, 1, 1, 0, 0
+                    ).date()
                     start_date = line.calculate_weeks_start(start_date)
-                    end_date = datetime(
-                        line.accounting_date.year, 1, 1, 0, 0).date()
+                    end_date = datetime(line.accounting_date.year, 1, 1, 0, 0).date()
                 week = line.weeks_between(start_date, end_date)
                 if week == 53:
                     week = 1
@@ -50,15 +48,16 @@ class StockInventory(models.Model):
         return weeks.count()
 
     def action_validate(self):
-        result = super(StockInventory, self).action_validate()
+        result = super().action_validate()
         if self.batch_id and self.move_ids:
             for move in self.move_ids:
                 for line in move.move_line_ids:
                     if not line.standard_price:
                         ml = self.batch_id.move_line_ids.filtered(
-                            lambda c: c.lot_id == line.lot_id and (
-                                c.product_id == line.product_id) and (
-                                    c.location_dest_id == line.location_id))
+                            lambda c: c.lot_id == line.lot_id
+                            and (c.product_id == line.product_id)
+                            and (c.location_dest_id == line.location_id)
+                        )
                         if ml:
                             ml = max(ml, key=lambda x: x.date)
                             line.standard_price = ml.standard_price

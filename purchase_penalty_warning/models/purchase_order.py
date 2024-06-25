@@ -7,8 +7,8 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     penalty_warning_id = fields.Many2one(
-        string="Penalty warning", comodel_name="penalty.warning",
-        copy=False)
+        string="Penalty warning", comodel_name="penalty.warning", copy=False
+    )
     penalty_warning_description = fields.Char(
-        string="Penalty warning description",
-        related="penalty_warning_id.description")
+        string="Penalty warning description", related="penalty_warning_id.description"
+    )

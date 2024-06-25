@@ -8,20 +8,18 @@ class EventTrack(models.Model):
     _inherit = "event.track"
 
     teacher_zoom = fields.Char(
-        string="Teacher Zoom URL",
-        related="event_id.teacher_zoom")
+        string="Teacher Zoom URL", related="event_id.teacher_zoom"
+    )
     student_zoom = fields.Char(
-        string="Student Zoom URL",
-        related="event_id.student_zoom")
+        string="Student Zoom URL", related="event_id.student_zoom"
+    )
     teacher_zoom_email = fields.Char(
-        string="Email Address",
-        related="event_id.teacher_zoom_email")
+        string="Email Address", related="event_id.teacher_zoom_email"
+    )
     teacher_zoom_pwd = fields.Char(
-        string="Zoom Password",
-        related="event_id.teacher_zoom_pwd")
+        string="Zoom Password", related="event_id.teacher_zoom_pwd"
+    )
     student_zoom_meetingid = fields.Char(
-        string="Meeting ID",
-        related="event_id.student_zoom_meetingid")
-    student_zoom_key = fields.Char(
-        string="Key",
-        related="event_id.student_zoom_key")
+        string="Meeting ID", related="event_id.student_zoom_meetingid"
+    )
+    student_zoom_key = fields.Char(string="Key", related="event_id.student_zoom_key")

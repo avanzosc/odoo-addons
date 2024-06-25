@@ -7,4 +7,5 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     purchase_type_id = fields.Many2one(
-        comodel_name="purchase.order.type", string="Purchase type")
+        comodel_name="purchase.order.type", string="Purchase type"
+    )

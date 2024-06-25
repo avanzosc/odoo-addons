@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="action_report_evaluate_certification" model="ir.actions.report">
         <field name="name">Evaluations</field>
         <field name="model">survey.user_input</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">slide_channel_survey.report_evaluation_certification_printing</field>
-        <field name="report_file">slide_channel_survey.report_evaluation_certification_printing</field>
-        <field name="print_report_name">'Evaluation: - %s' % (object.survey_id.title)</field>
-        <field name="binding_model_id" ref="model_survey_user_input"/>
+        <field
+      name="report_name"
+    >slide_channel_survey.report_evaluation_certification_printing</field>
+        <field
+      name="report_file"
+    >slide_channel_survey.report_evaluation_certification_printing</field>
+        <field
+      name="print_report_name"
+    >'Evaluation: - %s' % (object.survey_id.title)</field>
+        <field name="binding_model_id" ref="model_survey_user_input" />
         <field name="binding_type">report</field>
     </record>
 
@@ -19,7 +25,9 @@
             <attribute name="t-if">answer</attribute>
         </xpath>
         <xpath expr="//table" position="attributes">
-            <attribute name="class">table table-hover o_survey_question_matrix text-center mb-0</attribute>
+            <attribute
+        name="class"
+      >table table-hover o_survey_question_matrix text-center mb-0</attribute>
         </xpath>
         <xpath expr="//tbody/tr" position="attributes">
             <attribute name="class">bg-white</attribute>
@@ -31,109 +39,206 @@
             <t t-if="not company">
                 <!-- Multicompany -->
                 <t t-if="company_id">
-                    <t t-set="company" t-value="company_id"/>
+                    <t t-set="company" t-value="company_id" />
                 </t>
                 <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                    <t t-set="company" t-value="o.company_id.sudo()" />
                 </t>
                 <t t-else="else">
-                    <t t-set="company" t-value="res_company"/>
+                    <t t-set="company" t-value="res_company" />
                 </t>
             </t>
-            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
                 <div class="row">
                     <div class="col-3 mb4">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                        <img
+              t-if="company.logo"
+              t-att-src="image_data_uri(company.logo)"
+              style="max-height: 45px;"
+              alt="Logo"
+            />
                     </div>
-                    <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+                    <div
+            class="col-9 text-right"
+            style="margin-top:22px;"
+            t-field="company.report_header"
+            name="moto"
+          />
                 </div>
-                <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div
+          t-if="company.logo or company.report_header"
+          class="row zero_min_height"
+        >
                     <div class="col-12">
-                        <div style="border-bottom: 1px solid black;"/>
+                        <div style="border-bottom: 1px solid black;" />
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6" name="company_address">
-                        <div t-field="company.partner_id"
-                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
-                        />
+                        <div
+              t-field="company.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+            />
                     </div>
                 </div>
             </div>
             <page>
-                <t t-set="survey_form_readonly" t-value="true"/>
-                <br/>
-                <br/>
+                <t t-set="survey_form_readonly" t-value="true" />
+                <br />
+                <br />
                 <div class="wrap">
                     <div class="o_survey_print container">
                         <div class='py-5 mt32 mb5'>
                             <h1>
-                                <span t-if="o.event_id and o.event_id.training_itinerary_id">
-                                    <t t-esc="o.event_id.training_itinerary_id.display_name"/>
+                                <span
+                  t-if="o.event_id and o.event_id.training_itinerary_id"
+                >
+                                    <t
+                    t-esc="o.event_id.training_itinerary_id.display_name"
+                  />
                                 </span>
-                                <span t-else="" t-field='o.survey_id.title'/>
+                                <span t-else="" t-field='o.survey_id.title' />
                             </h1>
-                            <t t-if="o.survey_id.intro_text"><div t-field='o.survey_id.intro_text' class="oe_no_empty mb-3"/></t>
-                            <t t-if="o.survey_id.description"><div t-field='o.survey_id.description' class="oe_no_empty"/></t>
-                            <t t-if="review" t-call="o.survey_id.survey_button_retake"/>
+                            <t t-if="o.survey_id.intro_text"><div
+                  t-field='o.survey_id.intro_text'
+                  class="oe_no_empty mb-3"
+                /></t>
+                            <t t-if="o.survey_id.description"><div
+                  t-field='o.survey_id.description'
+                  class="oe_no_empty"
+                /></t>
+                            <t
+                t-if="review"
+                t-call="o.survey_id.survey_button_retake"
+              />
                         </div>
                         <div role="form">
                             <fieldset disabled="disabled">
-                                <t t-set="questions_to_display" t-value="o._get_print_questions()"/>
-                                <t t-foreach="o.survey_id.question_and_page_ids" t-as='question'>
-                                    <t t-if="question.is_page and
+                                <t
+                  t-set="questions_to_display"
+                  t-value="o._get_print_questions()"
+                />
+                                <t
+                  t-foreach="o.survey_id.question_and_page_ids"
+                  t-as='question'
+                >
+                                    <t
+                    t-if="question.is_page and
                                                 (any(q in questions_to_display for q in question.question_ids)
-                                                or not is_html_empty(question.description))">
-                                        <hr t-if="question != o.survey_id.page_ids[0]" />
+                                                or not is_html_empty(question.description))"
+                  >
+                                        <hr
+                      t-if="question != o.survey_id.page_ids[0]"
+                    />
                                         <div class="o_page_header">
                                             <h1 t-field='question.title' />
-                                            <div t-if="question.description" t-field='question.description' class="oe_no_empty"/>
+                                            <div
+                        t-if="question.description"
+                        t-field='question.description'
+                        class="oe_no_empty"
+                      />
                                         </div>
                                     </t>
-                                    <t t-if="not question.is_page and not o or (question in o.predefined_question_ids)" >
-                                        <t t-set="answer_lines" t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)"/>
-                                        <div class="js_question-wrapper" t-att-id="question.id">
+                                    <t
+                    t-if="not question.is_page and not o or (question in o.predefined_question_ids)"
+                  >
+                                        <t
+                      t-set="answer_lines"
+                      t-value="o.user_input_line_ids.filtered(lambda line: line.question_id == question)"
+                    />
+                                        <div
+                      class="js_question-wrapper"
+                      t-att-id="question.id"
+                    >
                                             <h2>
-                                                <span t-field='question.title'/>
-                                                <span t-if="question.constr_mandatory" class="text-danger">*</span>
-                                                <span t-if="scoring_display_correction" class="badge badge-pill" t-att-data-score-question="question.id"></span>
+                                                <span t-field='question.title' />
+                                                <span
+                          t-if="question.constr_mandatory"
+                          class="text-danger"
+                        >*</span>
+                                                <span
+                          t-if="scoring_display_correction"
+                          class="badge badge-pill"
+                          t-att-data-score-question="question.id"
+                        />
                                             </h2>
-                                            <t t-if="question.description"><div class="text-muted oe_no_empty" t-field='question.description'/></t>
-                                            <t t-if="question.question_type == 'text_box'"><t t-call="survey.question_text_box"/></t>
-                                            <t t-if="question.question_type == 'char_box'"><t t-call="survey.question_char_box"/></t>
-                                            <t t-if="question.question_type == 'numerical_box'"><t t-call="survey.question_numerical_box"/></t>
-                                            <t t-if="question.question_type == 'date'"><t t-call="survey.question_date"/></t>
-                                            <t t-if="question.question_type == 'datetime'"><t t-call="survey.question_datetime"/></t>
-                                            <t t-if="question.question_type == 'simple_choice'"><t t-call="survey.question_simple_choice"/></t>
-                                            <t t-if="question.question_type == 'multiple_choice'"><t t-call="survey.question_multiple_choice"/></t>
-                                            <t t-if="question.question_type == 'matrix'"><t t-call="survey.question_matrix"/></t>
-                                            <div class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger" role="alert"></div>
+                                            <t t-if="question.description"><div
+                          class="text-muted oe_no_empty"
+                          t-field='question.description'
+                        /></t>
+                                            <t
+                        t-if="question.question_type == 'text_box'"
+                      ><t t-call="survey.question_text_box" /></t>
+                                            <t
+                        t-if="question.question_type == 'char_box'"
+                      ><t t-call="survey.question_char_box" /></t>
+                                            <t
+                        t-if="question.question_type == 'numerical_box'"
+                      ><t t-call="survey.question_numerical_box" /></t>
+                                            <t
+                        t-if="question.question_type == 'date'"
+                      ><t t-call="survey.question_date" /></t>
+                                            <t
+                        t-if="question.question_type == 'datetime'"
+                      ><t t-call="survey.question_datetime" /></t>
+                                            <t
+                        t-if="question.question_type == 'simple_choice'"
+                      ><t t-call="survey.question_simple_choice" /></t>
+                                            <t
+                        t-if="question.question_type == 'multiple_choice'"
+                      ><t t-call="survey.question_multiple_choice" /></t>
+                                            <t
+                        t-if="question.question_type == 'matrix'"
+                      ><t t-call="survey.question_matrix" /></t>
+                                            <div
+                        class="o_survey_question_error overflow-hidden border-0 py-0 px-3 alert alert-danger"
+                        role="alert"
+                      />
                                         </div>
                                     </t>
                                 </t>
                                 <div class="text-right">
-                                    <t t-esc="company.city"/>, <t t-esc="o.write_date"  t-options='{"widget": "date"}'/>
+                                    <t t-esc="company.city" />, <t
+                    t-esc="o.write_date"
+                    t-options='{"widget": "date"}'
+                  />
                                 </div>
                             </fieldset>
                         </div>
                     </div>
                 </div>
             </page>
-            <div style="display:none;" t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div
+        style="display:none;"
+        t-attf-class="footer o_standard_footer o_company_#{company.id}_layout"
+      >
                 <div class="text-center" style="border-top: 1px solid black;">
                     <ul class="list-inline mb4">
                         <!-- using the list-inline-item class from bootstrap causes weird behaviours in pdf report
                              adding d-inline class fixes the problem-->
-                        <li t-if="company.phone" class="list-inline-item d-inline"><span class="o_force_ltr" t-field="company.phone"/></li>
-                        <li t-if="company.email" class="list-inline-item d-inline"><span t-field="company.email"/></li>
-                        <li t-if="company.website" class="list-inline-item d-inline"><span t-field="company.website"/></li>
-                        <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                        <li t-if="company.phone" class="list-inline-item d-inline"><span
+                class="o_force_ltr"
+                t-field="company.phone"
+              /></li>
+                        <li t-if="company.email" class="list-inline-item d-inline"><span
+                t-field="company.email"
+              /></li>
+                        <li
+              t-if="company.website"
+              class="list-inline-item d-inline"
+            ><span t-field="company.website" /></li>
+                        <li t-if="company.vat" class="list-inline-item d-inline"><t
+                t-esc="company.country_id.vat_label or 'Tax ID'"
+              />: <span t-field="company.vat" /></li>
                     </ul>
                     <div name="financial_infos">
-                        <span t-field="company.report_footer"/>
+                        <span t-field="company.report_footer" />
                     </div>
                     <div t-if="report_type == 'pdf'" class="text-muted">
-                        Page: <span class="page"/> / <span class="topage"/>
+                        Page: <span class="page" /> / <span class="topage" />
                     </div>
                 </div>
             </div>
@@ -143,28 +248,42 @@
     <template id="report_evaluation_certification_printing">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
-                <t t-call="slide_channel_survey.report_evaluation_certification_doc" t-lang="o.partner_id.lang">
-                    <t t-set="show_evaluations_header" t-value="1"/>
+                <t
+          t-call="slide_channel_survey.report_evaluation_certification_doc"
+          t-lang="o.partner_id.lang"
+        >
+                    <t t-set="show_evaluations_header" t-value="1" />
                 </t>
             </t>
         </t>
     </template>
 
-    <template id="external_layout_boxed_evaluation_header" inherit_id="web.external_layout_boxed">
+    <template
+    id="external_layout_boxed_evaluation_header"
+    inherit_id="web.external_layout_boxed"
+  >
         <xpath expr="//div[@class='o_boxed_header']" position="before">
-            <t t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)">
+            <t
+        t-if="o and o._name=='survey.user_input' and show_evaluations_header and (company.certification_header_image or o.survey_id.header_image)"
+      >
                 <div class="o_boxed_header">
                     <div class="row mb8">
                         <div class="col-12 text-center">
-                            <t t-set="header_image" t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"/>
-                            <img t-att-src="image_data_uri(header_image)" style="max-height:240px !important; max-width:1000px !important;"/>
+                            <t
+                t-set="header_image"
+                t-value="o.survey_id.header_image if o.survey_id.header_image else company.certification_header_image"
+              />
+                            <img
+                t-att-src="image_data_uri(header_image)"
+                style="max-height:240px !important; max-width:1000px !important;"
+              />
                         </div>
                     </div>
                 </div>
             </t>
         </xpath>
         <xpath expr="//div[@class='o_boxed_header']" position="attributes">
-            <attribute name="t-else"></attribute>
+            <attribute name="t-else" />
         </xpath>
     </template>
 </odoo>

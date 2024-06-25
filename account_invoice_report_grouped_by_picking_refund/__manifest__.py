@@ -6,9 +6,7 @@
     "author": "Avanzosc",
     "category": "Invoices & Payments",
     "website": "http://www.avanzosc.es",
-    "depends": [
-        "account_invoice_report_grouped_by_picking"
-    ],
+    "depends": ["account_invoice_report_grouped_by_picking"],
     "data": [
         "reports/account_invoice_report.xml",
     ],

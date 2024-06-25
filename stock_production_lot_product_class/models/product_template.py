@@ -7,5 +7,5 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     product_class_id = fields.Many2one(
-        string="Pump type", comodel_name="product.class",
-        copy=False)
+        string="Pump type", comodel_name="product.class", copy=False
+    )

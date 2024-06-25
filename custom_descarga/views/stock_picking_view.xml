@@ -2,10 +2,12 @@
 <odoo>
     <record id="view_picking_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock_move_line_force_done.view_picking_form"/>
+        <field name="inherit_id" ref="stock_move_line_force_done.view_picking_form" />
         <field name="arch" type="xml">
             <button name="button_force_done_detailed_operations" position="attributes">
-                <attribute name="attrs">{'invisible': [('state', 'in', ('done', 'cancel'))]}</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': [('state', 'in', ('done', 'cancel'))]}</attribute>
             </button>
         </field>
     </record>

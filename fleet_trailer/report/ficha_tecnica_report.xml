@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
     <data>
         <record id="report_technical_sheet_report" model="ir.actions.report">
@@ -7,32 +7,60 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">fleet_trailer.technical_sheet_printing</field>
             <field name="report_file">fleet_trailer.technical_sheet_printing</field>
-            <field name="print_report_name">'Tecnical sheet - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="model_fleet_vehicle"/>
+            <field
+        name="print_report_name"
+      >'Tecnical sheet - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_fleet_vehicle" />
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="fleet_trailer.paperformat_technical_sheet"/>
+            <field
+        name="paperformat_id"
+        ref="fleet_trailer.paperformat_technical_sheet"
+      />
         </record>
 
         <record id="report_reverse_technical_sheet_report" model="ir.actions.report">
             <field name="name">Reverse tecnical sheet</field>
             <field name="model">fleet.vehicle</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">fleet_trailer.reverse_technical_sheet_printing</field>
-            <field name="report_file">fleet_trailer.reverse_technical_sheet_printing</field>
-            <field name="print_report_name">'Reverse tecnical sheet - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="model_fleet_vehicle"/>
+            <field
+        name="report_name"
+      >fleet_trailer.reverse_technical_sheet_printing</field>
+            <field
+        name="report_file"
+      >fleet_trailer.reverse_technical_sheet_printing</field>
+            <field
+        name="print_report_name"
+      >'Reverse tecnical sheet - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="model_fleet_vehicle" />
             <field name="binding_type">report</field>
-            <field name="paperformat_id" ref="fleet_trailer.paperformat_technical_sheet"/>
+            <field
+        name="paperformat_id"
+        ref="fleet_trailer.paperformat_technical_sheet"
+      />
         </record>
 
         <template id="report_technical_sheet_printing_doc">
             <page>
                 <!-- DATOS EMPRESA -->
-                <span style="font-size: 26px;position:absolute;width:100%; left:15mm;top:7mm  !important;" t-esc="o.company_id.name.upper()" />
-                <span style="font-size: 26px;position:absolute;width:100%; left:15mm;top:14mm  !important;" t-field="o.company_id.company_street" />
-                <span style="font-size: 26px;position:absolute;width:100%; left:15mm;top:21mm  !important;" t-field="o.company_id.company_zip" />
-                <span style="font-size: 26px;position:absolute;width:100%; left:35mm;top:21mm  !important;" t-field="o.company_id.company_city" />
-                <span style="font-size: 26px;position:absolute;width:100%; left:105mm;top:21mm  !important;">
+                <span
+          style="font-size: 26px;position:absolute;width:100%; left:15mm;top:7mm  !important;"
+          t-esc="o.company_id.name.upper()"
+        />
+                <span
+          style="font-size: 26px;position:absolute;width:100%; left:15mm;top:14mm  !important;"
+          t-field="o.company_id.company_street"
+        />
+                <span
+          style="font-size: 26px;position:absolute;width:100%; left:15mm;top:21mm  !important;"
+          t-field="o.company_id.company_zip"
+        />
+                <span
+          style="font-size: 26px;position:absolute;width:100%; left:35mm;top:21mm  !important;"
+          t-field="o.company_id.company_city"
+        />
+                <span
+          style="font-size: 26px;position:absolute;width:100%; left:105mm;top:21mm  !important;"
+        >
                     <span>(</span>
                     <span t-field="o.company_id.state_id.name" />
                     <span>)</span>
@@ -42,95 +70,237 @@
                 -->
                 <!-- COLUMNAS DE LA DERECHA -->
                 <!-- G -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:54mm !important;" t-if="o.tare_on_axes" t-field="o.tare_on_axes" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:54mm !important;"
+          t-if="o.tare_on_axes"
+          t-field="o.tare_on_axes"
+        />
                 <!-- F.1 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:62mm !important;" t-if="o.vehicle_mmta_id" t-field="o.vehicle_mmta_id" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:62mm !important;"
+          t-if="o.vehicle_mmta_id"
+          t-field="o.vehicle_mmta_id"
+        />
                 <!-- F.1.1 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:70mm !important;" t-if="o.f11" t-field="o.f11" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:70mm !important;"
+          t-if="o.f11"
+          t-field="o.f11"
+        />
                 <!-- F.2 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:78mm !important;" t-if="o.vehicle_mma_id" t-field="o.vehicle_mma_id" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:78mm !important;"
+          t-if="o.vehicle_mma_id"
+          t-field="o.vehicle_mma_id"
+        />
                 <!-- F.2.1 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:86mm !important;" t-if="o.f12" t-field="o.f12" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:86mm !important;"
+          t-if="o.f12"
+          t-field="o.f12"
+        />
                 <!-- O.3 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:94mm !important;" t-if="o.vehicle_service_brake_type_id" t-field="o.vehicle_service_brake_type_id" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:94mm !important;"
+          t-if="o.vehicle_service_brake_type_id"
+          t-field="o.vehicle_service_brake_type_id"
+        />
                 <!-- F.5 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:102mm !important;" t-if="o.total_width" t-field="o.total_width" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:102mm !important;"
+          t-if="o.total_width"
+          t-field="o.total_width"
+        />
                 <!-- F.6 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:110mm !important;" t-if="o.total_lenght" t-field="o.total_lenght" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:110mm !important;"
+          t-if="o.total_lenght"
+          t-field="o.total_lenght"
+        />
                 <!-- F.7 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:118mm !important;" t-if="o.previous_way" t-field="o.previous_way" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:118mm !important;"
+          t-if="o.previous_way"
+          t-field="o.previous_way"
+        />
                 <!-- F.7.1 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:126mm !important;" t-if="o.posterior_pathway" t-field="o.posterior_pathway" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:126mm !important;"
+          t-if="o.posterior_pathway"
+          t-field="o.posterior_pathway"
+        />
                 <!-- F.8 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:134mm !important;" t-if="o.posterior_overhang" t-field="o.posterior_overhang" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:134mm !important;"
+          t-if="o.posterior_overhang"
+          t-field="o.posterior_overhang"
+        />
                 <!-- M.1 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:142mm !important;" t-if="o.distance_between_axis" t-field="o.distance_between_axis" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:142mm !important;"
+          t-if="o.distance_between_axis"
+          t-field="o.distance_between_axis"
+        />
                 <!-- L -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:150mm !important;" t-if="o.l" t-field="o.l" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:150mm !important;"
+          t-if="o.l"
+          t-field="o.l"
+        />
                 <!-- L.0 -->
-                <span style="font-size:22px;position:absolute; left:325mm;top:158mm !important;" t-if="o.number_position_axles_with_twin_wheels" t-field="o.number_position_axles_with_twin_wheels" />
+                <span
+          style="font-size:22px;position:absolute; left:325mm;top:158mm !important;"
+          t-if="o.number_position_axles_with_twin_wheels"
+          t-field="o.number_position_axles_with_twin_wheels"
+        />
                 <!-- L.2 -->
-                <span style="font-size:20px;position:absolute; left:325mm;top:164mm !important;" t-if="o.l2" t-field="o.l2" />
+                <span
+          style="font-size:20px;position:absolute; left:325mm;top:164mm !important;"
+          t-if="o.l2"
+          t-field="o.l2"
+        />
                 <!-- COLUMNAS DE LA IZQUIERDA -->
                 <!-- Matricula
                 <span style="font-size:22px;position:absolute; left:40mm;top:70mm !important;" t-if="o.license_plate" t-field="o.license_plate" />
                 -->
                 <!-- Certificado número -->
-                <span style="font-size:22px;position:absolute; left:190mm;top:70mm  !important;" t-if="o.sequence" t-field="o.sequence" />
+                <span
+          style="font-size:22px;position:absolute; left:190mm;top:70mm  !important;"
+          t-if="o.sequence"
+          t-field="o.sequence"
+        />
                 <!-- C.L. -->
-                <span style="font-size:22px;position:absolute; left:40mm;top:95mm !important;" t-if="o.vehicle_classification_id" t-field="o.vehicle_classification_id" />
+                <span
+          style="font-size:22px;position:absolute; left:40mm;top:95mm !important;"
+          t-if="o.vehicle_classification_id"
+          t-field="o.vehicle_classification_id"
+        />
                 <!-- C.I. -->
-                <span style="font-size:22px;position:absolute; left:40mm;top:103mm !important;">*********</span>
+                <span
+          style="font-size:22px;position:absolute; left:40mm;top:103mm !important;"
+        >*********</span>
                 <!-- A.1 -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:111mm !important;" t-esc="o.company_id.name.upper()" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:111mm !important;"
+          t-esc="o.company_id.name.upper()"
+        />
                 <!-- A.2 -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:119mm !important;" t-field="o.company_id.company_city" />
-                <span style="font-size: 22px;position:absolute;width:100%; left:103mm;top:119mm !important;">
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:119mm !important;"
+          t-field="o.company_id.company_city"
+        />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:103mm;top:119mm !important;"
+        >
                     <span>(</span>
                     <span t-field="o.company_id.state_id.name" />
                     <span>)</span>
                 </span>
                 <!-- D.1 -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:127mm !important;" t-if="o.brand_id" t-field="o.brand_id" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:127mm !important;"
+          t-if="o.brand_id"
+          t-field="o.brand_id"
+        />
                 <!-- D.2 -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:135mm !important;" t-if="o.d2" t-field="o.d2" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:135mm !important;"
+          t-if="o.d2"
+          t-field="o.d2"
+        />
                 <!-- D.3 -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:143mm !important;" t-if="o.model_id" t-field="o.model_id" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:143mm !important;"
+          t-if="o.model_id"
+          t-field="o.model_id"
+        />
                 <!-- E -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:151mm !important;" t-if="o.serial_number_id" t-field="o.serial_number_id" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:151mm !important;"
+          t-if="o.serial_number_id"
+          t-field="o.serial_number_id"
+        />
                 <!-- J -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:158mm !important;" t-if="o.vehicle_category_id" t-field="o.vehicle_category_id" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:158mm !important;"
+          t-if="o.vehicle_category_id"
+          t-field="o.vehicle_category_id"
+        />
                 <!-- D.6 -->
-                <span style="font-size:22px;position:absolute; left:40mm;top:164mm !important;">*********</span>
+                <span
+          style="font-size:22px;position:absolute; left:40mm;top:164mm !important;"
+        >*********</span>
                 <!-- K -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:40mm;top:172mm !important;" t-if="o.password_for_total" t-field="o.password_for_total" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:40mm;top:172mm !important;"
+          t-if="o.password_for_total"
+          t-field="o.password_for_total"
+        />
                 <!-- El abajo firmante, legalmente autorizado por -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:15mm;top:250mm !important;" t-field="o.company_id.name" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:15mm;top:250mm !important;"
+          t-field="o.company_id.name"
+        />
                 <!-- Certifica que el vehiculo cuyas caracteristicas se reseñan es completamente conforme con el numero de homologacion -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:15mm;top:289mm !important;" t-if="o.password_for_total" t-field="o.password_for_total" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:15mm;top:289mm !important;"
+          t-if="o.password_for_total"
+          t-field="o.password_for_total"
+        />
                 <!-- Fecha de emision -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:60mm;top:310mm !important;" t-if="o.date_issue_technical_data_sheet" t-field="o.date_issue_technical_data_sheet" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:60mm;top:310mm !important;"
+          t-if="o.date_issue_technical_data_sheet"
+          t-field="o.date_issue_technical_data_sheet"
+        />
                 <!-- Firma autorizada -->
-                <span style="font-size: 22px;position:absolute;width:100%; left:250mm;top:320mm !important;" t-if="o.authorized_signature_id" t-field="o.authorized_signature_id" />
+                <span
+          style="font-size: 22px;position:absolute;width:100%; left:250mm;top:320mm !important;"
+          t-if="o.authorized_signature_id"
+          t-field="o.authorized_signature_id"
+        />
                 <!-- Observaciones -->
-                <span style="text-align:justify; max-height:5cm; max-width:25cm; font-size: 22px;position:absolute;width:100%; left:115mm;top:250mm !important;" t-if="o.description" t-field="o.description" />
+                <span
+          style="text-align:justify; max-height:5cm; max-width:25cm; font-size: 22px;position:absolute;width:100%; left:115mm;top:250mm !important;"
+          t-if="o.description"
+          t-field="o.description"
+        />
                 <!-- Observaciones -->
-                <span style="text-align:justify; max-height:5cm; max-width:15cm; font-size: 22px;position:absolute;width:100%; left:385mm;top:260mm !important;" t-if="o.options_included" t-field="o.options_included" />
+                <span
+          style="text-align:justify; max-height:5cm; max-width:15cm; font-size: 22px;position:absolute;width:100%; left:385mm;top:260mm !important;"
+          t-if="o.options_included"
+          t-field="o.options_included"
+        />
             </page>
         </template>
 
         <template id="report_reverse_technical_sheet_printing_doc">
             <page>
-                <span style="font-size: 16px;position:absolute;width:100%; left:25mm;top:196mm !important;" t-if="o.driver_id" t-field="o.driver_id" />
-                <span style="font-size: 16px;position:absolute;width:100%; left:25mm;top:202mm !important;" t-if="o.driver_id.vat" t-field="o.driver_id.vat" />
-                <span style="text-align:justify; max-height:5cm; max-width:14cm; font-size: 16px;position:absolute;width:100%; left:25mm;top:208mm !important;" t-if="o.reforms_in_vehicle" t-field="o.reforms_in_vehicle" />
+                <span
+          style="font-size: 16px;position:absolute;width:100%; left:25mm;top:196mm !important;"
+          t-if="o.driver_id"
+          t-field="o.driver_id"
+        />
+                <span
+          style="font-size: 16px;position:absolute;width:100%; left:25mm;top:202mm !important;"
+          t-if="o.driver_id.vat"
+          t-field="o.driver_id.vat"
+        />
+                <span
+          style="text-align:justify; max-height:5cm; max-width:14cm; font-size: 16px;position:absolute;width:100%; left:25mm;top:208mm !important;"
+          t-if="o.reforms_in_vehicle"
+          t-field="o.reforms_in_vehicle"
+        />
             </page>
         </template>
 
         <template id="technical_sheet_printing">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="fleet_trailer.report_technical_sheet_printing_doc" t-lang="o.company_id.lang"/>
+                    <t
+            t-call="fleet_trailer.report_technical_sheet_printing_doc"
+            t-lang="o.company_id.lang"
+          />
                 </t>
             </t>
         </template>
@@ -138,7 +308,10 @@
         <template id="reverse_technical_sheet_printing">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-call="fleet_trailer.report_reverse_technical_sheet_printing_doc" t-lang="o.company_id.lang"/>
+                    <t
+            t-call="fleet_trailer.report_reverse_technical_sheet_printing_doc"
+            t-lang="o.company_id.lang"
+          />
                 </t>
             </t>
         </template>

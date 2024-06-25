@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Res Partner Allow Modify Payment",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,6 +15,6 @@
         "security/res_partner_allow_modify_payment_groups.xml",
         "views/res_partner_views.xml",
     ],
-    'installable': True,
-    'auto_install': False,
+    "installable": True,
+    "auto_install": False,
 }

@@ -7,13 +7,13 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     allow_modify_payment = fields.Boolean(
-        string="Allow modify payment",
-        compute="_compute_allow_modify_payment"
-        )
+        string="Allow modify payment", compute="_compute_allow_modify_payment"
+    )
 
     def _compute_allow_modify_payment(self):
         group = self.env.ref(
-            "res_partner_allow_modify_payment.group_allow_mod_partner_payment")
+            "res_partner_allow_modify_payment.group_allow_mod_partner_payment"
+        )
         allow_modify_payment = True if self.env.user in group.users else False
         for partner in self:
             partner.allow_modify_payment = allow_modify_payment

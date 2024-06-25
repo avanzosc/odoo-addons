@@ -1,12 +1,12 @@
 # Copyright 2021 Berezi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields, api
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    vat_price = fields.Float(string='VAT price', compute='_compute_vat_price')
+    vat_price = fields.Float(string="VAT price", compute="_compute_vat_price")
 
     @api.depends("list_price", "taxes_id")
     def _compute_vat_price(self):

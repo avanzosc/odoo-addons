@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_production_lot_form" model="ir.ui.view">
         <field name="model">stock.production.lot</field>
-        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
         <field name="arch" type="xml">
             <page name="description" position="after">
                 <page name="pump-information" string="Pump information">
@@ -30,7 +30,7 @@
                     </group>
                     <group colspan="4">
                         <separator string="Application description" colspan="4" />
-                        <field name="application_description" colspan="4" nolabel="1"/>
+                        <field name="application_description" colspan="4" nolabel="1" />
                     </group>
                     <group>
                         <group>
@@ -42,11 +42,18 @@
                     </group>
                     <group colspan="4">
                         <separator string="Maintenance status" colspan="4" />
-                        <field name="maintenance_status" colspan="4" nolabel="1"/>
-                        <separator string="Modifications made to the pump" colspan="4" />
-                        <field name="modifications_made_to_the_pump" colspan="4" nolabel="1"/>
+                        <field name="maintenance_status" colspan="4" nolabel="1" />
+                        <separator
+              string="Modifications made to the pump"
+              colspan="4"
+            />
+                        <field
+              name="modifications_made_to_the_pump"
+              colspan="4"
+              nolabel="1"
+            />
                         <separator string="Notes" colspan="4" />
-                        <field name="notes" colspan="4" nolabel="1"/>
+                        <field name="notes" colspan="4" nolabel="1" />
                     </group>
                 </page>
             </page>

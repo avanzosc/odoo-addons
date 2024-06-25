@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record model="ir.ui.view" id="view_stock_move_line_report_tree">
@@ -6,16 +6,16 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <tree string="Movement Analysis">
-                <field name="date"/>
-                <field name="picking_id"/>
-                <field name="location_id"/>
-                <field name="company_id" optional="hide"/>
-                <field name="owner_id" optional="hide"/>
-                <field name="product_id"/>
-                <field name="lot_id"/>
-                <field name="entry_qty"/>
-                <field name="output_qty"/>
-                <field name="qty_done"/>
+                <field name="date" />
+                <field name="picking_id" />
+                <field name="location_id" />
+                <field name="company_id" optional="hide" />
+                <field name="owner_id" optional="hide" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="entry_qty" />
+                <field name="output_qty" />
+                <field name="qty_done" />
             </tree>
         </field>
     </record>
@@ -26,26 +26,26 @@
         <field name="arch" type="xml">
             <form string="Movement Analysis">
                 <sheet>
-                    <div class="oe_button_box" name="button_box"></div>
+                    <div class="oe_button_box" name="button_box" />
                     <group>
                         <group string="Location" name="location">
-                            <field name="location_id"/>
-                            <field name="company_id"/>
-                            <field name="owner_id"/>
+                            <field name="location_id" />
+                            <field name="company_id" />
+                            <field name="owner_id" />
                         </group>
                         <group string="Detail" name="detail">
-                            <field name="product_id"/>
-                            <field name="lot_id"/>
+                            <field name="product_id" />
+                            <field name="lot_id" />
                         </group>
                         <group string="Origin">
-                            <field name="picking_id"/>
-                            <field name="move_line_id"/>
-                            <field name="move_id"/>
+                            <field name="picking_id" />
+                            <field name="move_line_id" />
+                            <field name="move_id" />
                         </group>
                         <group string="Qty" name="qty">
-                            <field name="entry_qty"/>
-                            <field name="output_qty"/>
-                            <field name="qty_done"/>
+                            <field name="entry_qty" />
+                            <field name="output_qty" />
+                            <field name="qty_done" />
                         </group>
                     </group>
                 </sheet>
@@ -58,10 +58,10 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <pivot string="Movement Analysis">
-                <field name="location_id" type="row"/>
-                <field name="entry_qty" type="measure"/>
-                <field name="output_qty" type="measure"/>
-                <field name="qty_done" type="measure"/>
+                <field name="location_id" type="row" />
+                <field name="entry_qty" type="measure" />
+                <field name="output_qty" type="measure" />
+                <field name="qty_done" type="measure" />
             </pivot>
         </field>
     </record>
@@ -70,25 +70,53 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <search>
-                <field name="product_id"/>
-                <field name="lot_id"/>
-                <field name="location_id"/>
-                <field name="picking_id"/>
-                <filter string="Internal Location" name="internal" domain="[('location_id.usage', '=', 'internal')]"/>
-                <filter string="Supplier Location" name="supplier" domain="[('location_id.usage', '=', 'supplier')]"/>
-                <filter string="Customer Location" name="customer" domain="[('location_id.usage', '=', 'customer')]"/>
-                <filter string="Inventory Loss" name="inventory" domain="[('location_id.usage', '=', 'inventory')]"/>
-                <separator/>
-                <filter name="filter_date" date="date"/>
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="location_id" />
+                <field name="picking_id" />
+                <filter
+          string="Internal Location"
+          name="internal"
+          domain="[('location_id.usage', '=', 'internal')]"
+        />
+                <filter
+          string="Supplier Location"
+          name="supplier"
+          domain="[('location_id.usage', '=', 'supplier')]"
+        />
+                <filter
+          string="Customer Location"
+          name="customer"
+          domain="[('location_id.usage', '=', 'customer')]"
+        />
+                <filter
+          string="Inventory Loss"
+          name="inventory"
+          domain="[('location_id.usage', '=', 'inventory')]"
+        />
+                <separator />
+                <filter name="filter_date" date="date" />
                 <group expand="0" string="Group By">
-                    <filter name="groupby_product" string="Product"
-                            context="{'group_by':'product_id'}" />
-                    <filter name="groupby_lot" string="Lot/Serial Number"
-                            context="{'group_by':'lot_id'}" />
-                    <filter name="groupby_location" string="Location"
-                            context="{'group_by':'location_id'}" />
-                    <filter name="groupby_picking" string="Picking"
-                            context="{'group_by':'picking_id'}" />
+                    <filter
+            name="groupby_product"
+            string="Product"
+            context="{'group_by':'product_id'}"
+          />
+                    <filter
+            name="groupby_lot"
+            string="Lot/Serial Number"
+            context="{'group_by':'lot_id'}"
+          />
+                    <filter
+            name="groupby_location"
+            string="Location"
+            context="{'group_by':'location_id'}"
+          />
+                    <filter
+            name="groupby_picking"
+            string="Picking"
+            context="{'group_by':'picking_id'}"
+          />
                 </group>
             </search>
         </field>
@@ -98,12 +126,14 @@
         <field name="name">Movement Report</field>
         <field name="res_model">stock.move.line.report</field>
         <field name="view_mode">pivot,tree,form</field>
-        <field name="view_id"></field>
+        <field name="view_id" />
     </record>
 
-    <menuitem id="stock_move_line_report_menuitem"
-              name="Entries/Outputs Report"
-              action="stock_move_line_report_action"
-              parent="stock.menu_warehouse_report"
-              sequence="10" />
+    <menuitem
+    id="stock_move_line_report_menuitem"
+    name="Entries/Outputs Report"
+    action="stock_move_line_report_action"
+    parent="stock.menu_warehouse_report"
+    sequence="10"
+  />
 </odoo>

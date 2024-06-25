@@ -1,11 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <template
+      id="report_invoice_document"
+      inherit_id="account.report_invoice_document"
+    >
             <span t-field="line.name" position="after">
                 <t t-set="pickings" t-value="line._get_picking_no_grouped()" />
                 <span t-if="pickings">
-                    <br/>
+                    <br />
                     <span t-esc="pickings" />
                 </span>
             </span>

@@ -6,5 +6,4 @@ from odoo import fields, models
 class CategoryType(models.Model):
     _inherit = "category.type"
 
-    monthly_closing_date = fields.Date(
-        string="Monthly Closing Date")
+    monthly_closing_date = fields.Date(string="Monthly Closing Date")

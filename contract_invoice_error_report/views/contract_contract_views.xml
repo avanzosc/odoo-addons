@@ -1,14 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="contract_contract_form_view" model="ir.ui.view">
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_form_view" />
         <field name="arch" type="xml">
             <group name="recurring_type" position="after">
-                <group col="4" name="contract-invoice-error" string="Error when generating invoice"
-                    attrs="{'invisible': [('invoice_generation_error', '=', False)]}">
-                    <field name="invoice_generation_error" colspan="4" nolabel="1"/>
-                    <field name="with_invoice_generation_error" colspan="4" invisible="1" />
+                <group
+          col="4"
+          name="contract-invoice-error"
+          string="Error when generating invoice"
+          attrs="{'invisible': [('invoice_generation_error', '=', False)]}"
+        >
+                    <field name="invoice_generation_error" colspan="4" nolabel="1" />
+                    <field
+            name="with_invoice_generation_error"
+            colspan="4"
+            invisible="1"
+          />
                 </group>
             </group>
         </field>
@@ -39,8 +47,11 @@
         <field name="view_id" ref="contract_contract_error_tree_view" />
     </record>
 
-    <menuitem id="menu_contract_error_invoice_generation"
-            action="action_contract_error_generating_invoice"
-            parent="account.menu_finance_entries"
-            sequence="65" groups="account.group_account_manager"/> 
+    <menuitem
+    id="menu_contract_error_invoice_generation"
+    action="action_contract_error_generating_invoice"
+    parent="account.menu_finance_entries"
+    sequence="65"
+    groups="account.group_account_manager"
+  />
 </odoo>

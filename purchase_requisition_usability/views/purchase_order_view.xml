@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="purchase_order_kpis_tree" model="ir.ui.view">
         <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
-                <field name="requisition_id" optional="show"/>
-                <field name="requisition_origin" optional="show"/>
+                <field name="requisition_id" optional="show" />
+                <field name="requisition_origin" optional="show" />
             </field>
         </field>
     </record>

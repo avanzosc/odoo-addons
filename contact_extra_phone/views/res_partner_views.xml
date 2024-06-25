@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
      <record model="ir.ui.view" id="view_partner_form">
          <field name="model">res.partner</field>
@@ -8,10 +8,10 @@
                 <page name="extra_phone" string="Extra Phones">
                     <field name="extra_phone_ids">
                         <tree editable="bottom">
-                            <field name="partner_id" invisible="1"/>
-                            <field name="description"/>
-                            <field name="phone" widget="phone"/>
-                            <field name="email" widget="email"/>
+                            <field name="partner_id" invisible="1" />
+                            <field name="description" />
+                            <field name="phone" widget="phone" />
+                            <field name="email" widget="email" />
                         </tree>
                     </field>
                 </page>

@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def _action_confirm(self):
-        result = super(SaleOrder, self)._action_confirm()
+        result = super()._action_confirm()
         self.treatment_storable_product_generate_task()
         return result
 

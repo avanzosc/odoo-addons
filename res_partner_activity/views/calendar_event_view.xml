@@ -2,43 +2,69 @@
 <odoo>
     <record id="view_calendar_event_form" model="ir.ui.view">
         <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form" />
         <field name="arch" type="xml">
             <field name="user_id" position="after">
-                <field name="principal_activity_id"/>
-                <field name="principal_activity_water" invisible="1"/>
-                <field name="principal_activity_industry" invisible="1"/>
-                <field name="water_subactivity_id" attrs="{'invisible': [('principal_activity_water', '=', False)]}"/>
-                <field name="general_industry_subactivity_id" attrs="{'invisible': [('principal_activity_industry', '=', False)]}"/>
+                <field name="principal_activity_id" />
+                <field name="principal_activity_water" invisible="1" />
+                <field name="principal_activity_industry" invisible="1" />
+                <field
+          name="water_subactivity_id"
+          attrs="{'invisible': [('principal_activity_water', '=', False)]}"
+        />
+                <field
+          name="general_industry_subactivity_id"
+          attrs="{'invisible': [('principal_activity_industry', '=', False)]}"
+        />
             </field>
             <field name="allday" position="after">
-                <field name="customer_id"/>
+                <field name="customer_id" />
             </field>
         </field>
     </record>
 
     <record id="view_calendar_event_tree" model="ir.ui.view">
         <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar.view_calendar_event_tree"/>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree" />
         <field name="arch" type="xml">
             <field name="partner_ids" position="after">
-                <field name="customer_id" optional="show"/>
-                <field name="principal_activity_id" optional="show"/>
-                <field name="water_subactivity_id" optional="show"/>
-                <field name="general_industry_subactivity_id" optional="show"/>
+                <field name="customer_id" optional="show" />
+                <field name="principal_activity_id" optional="show" />
+                <field name="water_subactivity_id" optional="show" />
+                <field name="general_industry_subactivity_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_calendar_event_search" model="ir.ui.view">
         <field name="model">calendar.event</field>
-        <field name="inherit_id" ref="calendar.view_calendar_event_search"/>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search" />
         <field name="arch" type="xml">
             <filter name="availability" position="after">
-                <filter string="Customer" name="customer" domain="[]" context="{'group_by': 'customer_id'}"/>
-                <filter string="Principal Activity" name="principal_activity" domain="[]" context="{'group_by': 'principal_activity_id'}"/>
-                <filter string="Water Subactivity" name="water_subactivity" domain="[]" context="{'group_by': 'water_subactivity_id'}"/>
-                <filter string="General Industry Subactivity" name="general_industry_subactivity" domain="[]" context="{'group_by': 'general_industry_subactivity_id'}"/>
+                <filter
+          string="Customer"
+          name="customer"
+          domain="[]"
+          context="{'group_by': 'customer_id'}"
+        />
+                <filter
+          string="Principal Activity"
+          name="principal_activity"
+          domain="[]"
+          context="{'group_by': 'principal_activity_id'}"
+        />
+                <filter
+          string="Water Subactivity"
+          name="water_subactivity"
+          domain="[]"
+          context="{'group_by': 'water_subactivity_id'}"
+        />
+                <filter
+          string="General Industry Subactivity"
+          name="general_industry_subactivity"
+          domain="[]"
+          context="{'group_by': 'general_industry_subactivity_id'}"
+        />
             </filter>
         </field>
     </record>

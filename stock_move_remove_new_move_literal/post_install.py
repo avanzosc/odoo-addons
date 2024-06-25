@@ -6,8 +6,11 @@ from odoo import SUPERUSER_ID, api
 def stock_move_remove_literal(cr, registry):
     with api.Environment.manage():
         env = api.Environment(cr, SUPERUSER_ID, {})
-        cond = ["|", ("name", "ilike", "Nuevo movimiento:%"),
-                ("name", "ilike", "New Move:%")]
+        cond = [
+            "|",
+            ("name", "ilike", "Nuevo movimiento:%"),
+            ("name", "ilike", "New Move:%"),
+        ]
         moves = env["stock.move"].search(cond)
         for move in moves:
             name = False

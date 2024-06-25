@@ -10,16 +10,19 @@ class SaleOrderLine(models.Model):
         string="Palet",
         comodel_name="product.packaging",
         copy=False,
-        domain="[('is_generic', '=', True)]")
+        domain="[('is_generic', '=', True)]",
+    )
     palet_qty = fields.Float(
-        string="Contained Palet Quantity", default=1,
-        digits="Product Unit of Measure", copy=False)
-    no_update_palet_qty = fields.Boolean(
-        string="No update palet_qty", default=False)
+        string="Contained Palet Quantity",
+        default=1,
+        digits="Product Unit of Measure",
+        copy=False,
+    )
+    no_update_palet_qty = fields.Boolean(string="No update palet_qty", default=False)
 
     @api.onchange("product_packaging")
     def _onchange_product_packaging(self):
-        result = super(SaleOrderLine, self)._onchange_product_packaging()
+        result = super()._onchange_product_packaging()
         if self.product_packaging and self.product_packaging.palet_id.id:
             self.palet_id = self.product_packaging.palet_id.id
         else:
@@ -33,7 +36,7 @@ class SaleOrderLine(models.Model):
     @api.onchange("product_packaging_qty")
     def _onchange_product_packaging_qty(self):
         self.no_update_palet_qty = True
-        result = super(SaleOrderLine, self)._onchange_product_packaging_qty()
+        result = super()._onchange_product_packaging_qty()
         if self.palet_id and self.product_uom_qty:
             self.palet_qty = self._get_palet_qty()
             self.no_update_palet_qty = False
@@ -42,28 +45,34 @@ class SaleOrderLine(models.Model):
     @api.onchange("product_uom_qty")
     def _onchange_product_uom_qty(self):
         self.no_update_palet_qty = True
-        result = super(SaleOrderLine, self)._onchange_product_uom_qty()
+        result = super()._onchange_product_uom_qty()
         if self.palet_id and self.product_uom_qty:
             self.palet_qty = self._get_palet_qty()
             self.no_update_palet_qty = False
         return result
 
     def _get_palet_qty(self):
-        return (self.product_uom_qty /
-                (self.product_packaging.qty *
-                 self.product_packaging.palet_qty))
+        return self.product_uom_qty / (
+            self.product_packaging.qty * self.product_packaging.palet_qty
+        )
 
     @api.onchange("palet_qty")
     def _onchange_palet_qty(self):
-        if (not self.no_update_palet_qty and self.product_id and
-            self.product_packaging and self.palet_id and
-                self.product_id.packaging_ids and self.palet_qty):
+        if (
+            not self.no_update_palet_qty
+            and self.product_id
+            and self.product_packaging
+            and self.palet_id
+            and self.product_id.packaging_ids
+            and self.palet_qty
+        ):
             line = self.product_id.packaging_ids.filtered(
-                lambda x: x.name and x.palet_id and
-                x.name == self.product_packaging.name and
-                x.palet_id == self.palet_id)
+                lambda x: x.name
+                and x.palet_id
+                and x.name == self.product_packaging.name
+                and x.palet_id == self.palet_id
+            )
             if line and len(line) == 1:
-                self.product_packaging_qty = (
-                    self.palet_qty * line.palet_qty)
+                self.product_packaging_qty = self.palet_qty * line.palet_qty
         elif self.no_update_palet_qty:
             self.no_update_palet_qty = False

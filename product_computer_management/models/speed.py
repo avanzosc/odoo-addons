@@ -8,7 +8,4 @@ class Speed(models.Model):
     _name = "speed"
     _description = "Speed"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

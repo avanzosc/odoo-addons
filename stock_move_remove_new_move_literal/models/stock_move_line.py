@@ -9,6 +9,6 @@ class StockMoveLine(models.Model):
     @api.model
     def _prepare_stock_move_vals(self):
         self.ensure_one()
-        values = super(StockMoveLine, self)._prepare_stock_move_vals()
+        values = super()._prepare_stock_move_vals()
         values["name"] = self.product_id.display_name
         return values

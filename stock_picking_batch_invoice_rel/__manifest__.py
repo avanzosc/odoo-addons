@@ -7,11 +7,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
-    "depends": [
-        "account",
-        "stock_picking_batch",
-        "stock_picking_invoice_link"
-    ],
+    "depends": ["account", "stock_picking_batch", "stock_picking_invoice_link"],
     "data": [
         "views/account_move_views.xml",
         "views/stock_picking_batch_views.xml",

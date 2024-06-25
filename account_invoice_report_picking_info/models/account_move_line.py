@@ -12,8 +12,7 @@ class AccountMoveLine(models.Model):
         if self.move_line_ids:
             pickings = self.mapped("move_line_ids.picking_id")
             for picking in pickings:
-                name = (picking.name if not name else
-                        "{}, {}".format(name, picking.name))
+                name = picking.name if not name else "{}, {}".format(name, picking.name)
         if pickings and len(pickings) == 1:
             name = _("Picking: {}").format(name)
         if pickings and len(pickings) > 1:

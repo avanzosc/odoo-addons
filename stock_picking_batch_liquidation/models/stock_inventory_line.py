@@ -6,8 +6,7 @@ from odoo import api, fields, models
 class StockInventoryLine(models.Model):
     _inherit = "stock.inventory.line"
 
-    casualty_qty = fields.Float(
-        string="Casualties")
+    casualty_qty = fields.Float(string="Casualties")
 
     @api.onchange("casualty_qty")
     def onchange_casualty_qty(self):

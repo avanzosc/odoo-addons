@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
 
     @api.onchange("type")
     def _onchange_type(self):
-        res = super(ProductTemplate, self)._onchange_type() or {}
+        res = super()._onchange_type() or {}
         if "warning" in res and self.env.user.has_group(
             "product_type_allow_change.group_product_allow_type_change"
         ):
@@ -43,4 +43,4 @@ class ProductTemplate(models.Model):
                     )
                 )
                 existing_move_lines.mapped("move_id")._do_unreserve()
-        return super(ProductTemplate, self).write(vals)
+        return super().write(vals)

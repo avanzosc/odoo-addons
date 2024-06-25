@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="liquidation_contract_view_tree" model="ir.ui.view">
         <field name="name">liquidation.contract.tree</field>
         <field name="model">liquidation.contract</field>
         <field name="arch" type="xml">
             <tree string="Liquidation Contract">
-                <field name="name"/>
-                <field name="chicken_load" optional="show"/>
-                <field name="correction_factor" optional="show"/>
-                <field name="liquidation_min" optional="show"/>
-                <field name="liquidation_max" optional="show"/>
-                <field name="initial_feed" optional="show"/>
-                <field name="final_feed" optional="show"/>
-                <field name="feed_ratio" optional="show"/>
-                <field name="feed_inital_price" optional="show"/>
+                <field name="name" />
+                <field name="chicken_load" optional="show" />
+                <field name="correction_factor" optional="show" />
+                <field name="liquidation_min" optional="show" />
+                <field name="liquidation_max" optional="show" />
+                <field name="initial_feed" optional="show" />
+                <field name="final_feed" optional="show" />
+                <field name="feed_ratio" optional="show" />
+                <field name="feed_inital_price" optional="show" />
             </tree>
         </field>
     </record>
@@ -29,42 +28,50 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" />
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="liquidation_min"/>
-                            <field name="liquidation_max"/>
-                            <field name="invoice_product_id"/>
-                            <field name="overhead"/>
+                            <field name="liquidation_min" />
+                            <field name="liquidation_max" />
+                            <field name="invoice_product_id" />
+                            <field name="overhead" />
                         </group>
                         <group>
-                            <field name="chicken_load"/>
-                            <field name="correction_factor"/>
-                            <label for="initial_feed" string="Start/End FEEP"/>
+                            <field name="chicken_load" />
+                            <field name="correction_factor" />
+                            <label for="initial_feed" string="Start/End FEEP" />
                             <div class="o_row" name="feed">
                                 <field name="initial_feed" />
-                                <field name="final_feed"/>
+                                <field name="final_feed" />
                             </div>
-                            <field name="feed_ratio"/>
-                            <field name="feed_inital_price"/>
+                            <field name="feed_ratio" />
+                            <field name="feed_inital_price" />
                         </group>
                     </group>
                     <notebook>
                         <page name="Contract Lines" string="Contract Lines">
-                            <field name="contract_line_ids"/>
+                            <field name="contract_line_ids" />
                         </page>
                         <page name="feed_rate" string="Feep Rate">
-                            <button name="action_create_feed_rate" string="Calculate FEEP Ratio" type="object" class="oe_highlight"/>
-                            <field name="feed_rate_ids" attrs="{'invisible':[('feed_rate_ids', '=', [])]}"/>
+                            <button
+                name="action_create_feed_rate"
+                string="Calculate FEEP Ratio"
+                type="object"
+                class="oe_highlight"
+              />
+                            <field
+                name="feed_rate_ids"
+                attrs="{'invisible':[('feed_rate_ids', '=', [])]}"
+              />
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
                 </div>
             </form>
         </field>
@@ -77,6 +84,11 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-<menuitem action="action_liquidation_contract_view" id="menu_view_liquidation_contract_integ" parent="custom_breeding_apps.menu_conf_integr" sequence="20"/>
+<menuitem
+    action="action_liquidation_contract_view"
+    id="menu_view_liquidation_contract_integ"
+    parent="custom_breeding_apps.menu_conf_integr"
+    sequence="20"
+  />
 
 </odoo>

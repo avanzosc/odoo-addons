@@ -4,10 +4,10 @@
         <field name="model">purchase.order.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -62,20 +62,22 @@
                     </div>
                     <group>
                         <group>
-                            <field name="filename"/>
-                            <field name="data" filename="filename"/>
-                            <field name="file_date"/>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
                         </group>
                         <group>
-                            <field name="warehouse_id"/>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}"/>
+                            <field name="warehouse_id" />
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
                         </group>
                     </group>
                     <notebook>
                         <page string="Imported Lines">
-                            <field name="import_line_ids"/>
+                            <field name="import_line_ids" />
                         </page>
                         <page
               string="Error Log"
@@ -94,33 +96,33 @@
                                     <p
                   >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
-                                        <li><code>CodigoProveedor</code>: this will fill <b
-                      >Supplier</b></li>
-                                        <li><code>NombreProveedor</code>: this will fill <b
-                      >Supplier</b></li>
+                                        <li><code
+                      >CodigoProveedor</code>: this will fill <b>Supplier</b></li>
+                                        <li><code
+                      >NombreProveedor</code>: this will fill <b>Supplier</b></li>
                                         <li><code>FechaCreada</code>: this will fill <b
                       >Date Order</b></li>
-                                        <li><code>FechaConfirmada</code>: this will fill <b
-                      >Date Confirm</b></li>
+                                        <li><code
+                      >FechaConfirmada</code>: this will fill <b>Date Confirm</b></li>
                                         <li><code>Entrada</code>: this will fill <b
                       >Partner Ref</b></li>
-                                        <li><code>CodigoProducto</code>: this will fill <b
-                      >Product</b></li>
-                                        <li><code>NombreProducto</code>: this will fill <b
-                      >Product</b></li>
+                                        <li><code
+                      >CodigoProducto</code>: this will fill <b>Product</b></li>
+                                        <li><code
+                      >NombreProducto</code>: this will fill <b>Product</b></li>
                                         <li><code>KgProveedor</code>: this will fill <b
                       >Product Quantity</b></li>
                                         <li><code>KgNeto</code>: this will fill <b
                       >Quantity Received</b></li>
-                                        
-                                        <li><code>PrecioUnitario</code>: this will fill <b
-                      >Price Unit</b></li>
+
+                                        <li><code
+                      >PrecioUnitario</code>: this will fill <b>Price Unit</b></li>
                                         <li><code>Descuento</code>: this will fill <b
                       >Discount</b></li>
                                         <li><code>Estado</code>: this will fill <b
                       >State</b></li>
-                                        <li><code>CodigoAlmacen</code>: this will fill <b
-                      >Warehouse</b></li>
+                                        <li><code
+                      >CodigoAlmacen</code>: this will fill <b>Warehouse</b></li>
                                     </ul>
                                 </div>
                             </group>
@@ -128,9 +130,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -173,7 +175,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">purchase.order.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="purchase_order_import_view_tree"/>
+        <field name="view_id" ref="purchase_order_import_view_tree" />
     </record>
 
     <menuitem

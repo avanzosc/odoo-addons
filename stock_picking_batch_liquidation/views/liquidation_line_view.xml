@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="liquidation_line_view_tree" model="ir.ui.view">
         <field name="name">liquidation.line.tree</field>
         <field name="model">liquidation.line</field>
         <field name="arch" type="xml">
             <tree string="Liquidation Line" editable="bottom">
-                <field name="batch_id" invisible="1"/>
-                <field name="product_id" options="{'no_create': True}"/>
-                <field name="type"/>
-                <field name="unit"/>
-                <field name="quantity"/>
-                <field name="price"/>
-                <field name="amount_charge"/>
-                <field name="amount_pay"/>
-                <field name="amount" sum="Total Amount"/>
+                <field name="batch_id" invisible="1" />
+                <field name="product_id" options="{'no_create': True}" />
+                <field name="type" />
+                <field name="unit" />
+                <field name="quantity" />
+                <field name="price" />
+                <field name="amount_charge" />
+                <field name="amount_pay" />
+                <field name="amount" sum="Total Amount" />
             </tree>
         </field>
     </record>

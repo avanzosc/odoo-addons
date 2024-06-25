@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_form" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <notebook position="inside">
                 <page name="zoom_link" string='Zoom Link'>
                     <group>
                         <group name="teacher_zoom" string="Teacher Zoom">
-                            <field name="teacher_zoom" widget="url"/>
-                            <field name="teacher_zoom_email" widget="email"/>
-                            <field name="teacher_zoom_pwd"/>
+                            <field name="teacher_zoom" widget="url" />
+                            <field name="teacher_zoom_email" widget="email" />
+                            <field name="teacher_zoom_pwd" />
                         </group>
                         <group name="student_zoom" string="Student Zoom">
-                            <field name="student_zoom" widget="url"/>
-                            <field name="student_zoom_meetingid"/>
-                            <field name="student_zoom_key"/>
+                            <field name="student_zoom" widget="url" />
+                            <field name="student_zoom_meetingid" />
+                            <field name="student_zoom_key" />
                         </group>
                     </group>
                 </page>

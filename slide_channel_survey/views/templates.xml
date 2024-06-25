@@ -1,31 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="display_certificate" inherit_id="website_slides_survey.display_certificate">
+    <template
+    id="display_certificate"
+    inherit_id="website_slides_survey.display_certificate"
+  >
         <xpath expr="//a[hasclass('float-right')]" position="after">
-            <a role="button" t-att-href="'/survey/%s/get_evaluation' % certificate.survey_id.id">
-                <i class="fa fa-certificate m-1" aria-label="Download evaluation" title="Download Evaluation"/>
+            <a
+        role="button"
+        t-att-href="'/survey/%s/get_evaluation' % certificate.survey_id.id"
+      >
+                <i
+          class="fa fa-certificate m-1"
+          aria-label="Download evaluation"
+          title="Download Evaluation"
+        />
             </a>
         </xpath>
         <xpath expr="//div[hasclass('card', 'mb-2')]" position="attributes">
             <attribute name="t-if">certificate.slide_id</attribute>
         </xpath>
-        <xpath expr="//t[@t-call='website_slides.slide_share_modal']" position="attributes">
+        <xpath
+      expr="//t[@t-call='website_slides.slide_share_modal']"
+      position="attributes"
+    >
             <attribute name="t-if">certificate.slide_id</attribute>
         </xpath>
         <xpath expr="//div[hasclass('card', 'mb-2')]" position="after">
             <div t-else="" class="card mb-2">
                 <div class="card-body o_wprofile_slides_course_card_body p-0 d-flex">
-                    <div class="pl-5 pr-4 rounded-left" t-attf-style="background-position: center"/>
+                    <div
+            class="pl-5 pr-4 rounded-left"
+            t-attf-style="background-position: center"
+          />
                     <div class="p-2 w-100">
-                        <h5 class="mt-0 mb-1" t-esc="certificate.survey_id.title"/>
+                        <h5 class="mt-0 mb-1" t-esc="certificate.survey_id.title" />
                         <div t-if="user.id == uid">
-                            <small class="font-weight-bold">Score : <span t-esc="certificate.scoring_percentage"/> %</small>
+                            <small class="font-weight-bold">Score : <span
+                  t-esc="certificate.scoring_percentage"
+                /> %</small>
                             <div class="float-right">
-                                <a role="button" t-att-href="'/survey/%s/get_evaluation' % certificate.survey_id.id">
-                                    <i class="fa fa-certificate m-1" aria-label="Download evaluation" title="Download Evaluation"/>
+                                <a
+                  role="button"
+                  t-att-href="'/survey/%s/get_evaluation' % certificate.survey_id.id"
+                >
+                                    <i
+                    class="fa fa-certificate m-1"
+                    aria-label="Download evaluation"
+                    title="Download Evaluation"
+                  />
                                 </a>
-                                <a role="button" class="float-right" t-att-href="'/survey/%s/get_certification' % certificate.survey_id.id">
-                                    <i class="fa fa-download" aria-label="Download certification" title="Download Certification"/>
+                                <a
+                  role="button"
+                  class="float-right"
+                  t-att-href="'/survey/%s/get_certification' % certificate.survey_id.id"
+                >
+                                    <i
+                    class="fa fa-download"
+                    aria-label="Download certification"
+                    title="Download Certification"
+                  />
                                 </a>
                             </div>
                         </div>

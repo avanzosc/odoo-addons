@@ -55,7 +55,7 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
 
     @api.model
     def default_get(self, fields_list):
-        res = super(ResPartnerBankMandateGenerator, self).default_get(fields_list)
+        res = super().default_get(fields_list)
         if self.env.context.get("active_model") == "res.partner.bank":
             res.update({"bank_ids": [(6, 0, self.env.context.get("active_ids"))]})
         return res
@@ -99,8 +99,8 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
     def button_generate_mandates(self):
         mandate_obj = self.env["account.banking.mandate"]
         signature_date = (
-            fields.Date.context_today(self) if (self.signed or
-                                                self.validate) else False)
+            fields.Date.context_today(self) if (self.signed or self.validate) else False
+        )
         for bank in self.bank_ids:
             if not bank._check_active_mandate():
                 mandate_dict = bank._get_mandate_vals()

@@ -1,6 +1,7 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from dateutil.relativedelta import relativedelta
+
 from odoo import fields
 from odoo.tests import common, tagged
 
@@ -9,7 +10,7 @@ from odoo.tests import common, tagged
 class TestAccountInvoiceWithStartEndDatePeriod(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestAccountInvoiceWithStartEndDatePeriod, cls).setUpClass()
+        super().setUpClass()
         cls.product_obj = cls.env["product.product"]
         cls.sale_obj = cls.env["sale.order"]
         cls.contract_obj = cls.env["contract.contract"]

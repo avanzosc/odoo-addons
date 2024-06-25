@@ -2,23 +2,34 @@
 <odoo>
     <record id="product_template_form_view_procurement_button" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field
+      name="inherit_id"
+      ref="stock.product_template_form_view_procurement_button"
+    />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <button string="Stock Moves" type="object" name="action_view_stock_moves" attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}" class="oe_stat_button" icon="fa-exchange" groups="stock.group_stock_user"/>
+                <button
+          string="Stock Moves"
+          type="object"
+          name="action_view_stock_moves"
+          attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}"
+          class="oe_stat_button"
+          icon="fa-exchange"
+          groups="stock.group_stock_user"
+        />
             </div>
         </field>
     </record>
 
     <record id="product_template_tree_view" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
             <field name="list_price" position="attributes">
-                <attribute name="widget"></attribute>
+                <attribute name="widget" />
             </field>
             <field name="standard_price" position="attributes">
-                <attribute name="widget"></attribute>
+                <attribute name="widget" />
             </field>
         </field>
     </record>

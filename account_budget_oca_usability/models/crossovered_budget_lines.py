@@ -6,20 +6,27 @@ from odoo import api, fields, models
 class CrossoveredBudgetLines(models.Model):
     _inherit = "crossovered.budget.lines"
 
-    practical_amount = fields.Float(
-        store=True, copy=False)
+    practical_amount = fields.Float(store=True, copy=False)
     difference = fields.Float(
-        string="Difference", store=True, copy=False, digits=0,
-        compute="_compute_difference")
+        string="Difference",
+        store=True,
+        copy=False,
+        digits=0,
+        compute="_compute_difference",
+    )
 
-    @api.depends("general_budget_id", "general_budget_id.account_ids",
-                 "date_from", "date_to", "analytic_account_id",
-                 "analytic_account_id.line_ids",
-                 "analytic_account_id.line_ids.date",
-                 "analytic_account_id.line_ids.general_account_id")
+    @api.depends(
+        "general_budget_id",
+        "general_budget_id.account_ids",
+        "date_from",
+        "date_to",
+        "analytic_account_id",
+        "analytic_account_id.line_ids",
+        "analytic_account_id.line_ids.date",
+        "analytic_account_id.line_ids.general_account_id",
+    )
     def _compute_practical_amount(self):
-        result = super(
-            CrossoveredBudgetLines, self)._compute_practical_amount()
+        result = super()._compute_practical_amount()
         return result
 
     @api.depends("planned_amount", "practical_amount")

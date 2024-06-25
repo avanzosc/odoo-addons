@@ -4,25 +4,30 @@ from odoo import models
 
 
 class SaleOrder(models.Model):
-    _inherit = 'sale.order'
+    _inherit = "sale.order"
 
     def action_confirm(self):
         for sale in self:
             for line in sale.order_line.filtered(
-                lambda x: x.event_id and x.event_ticket_id and not
-                    x.project_id):
+                lambda x: x.event_id and x.event_ticket_id and not x.project_id
+            ):
                 vals = line.catch_project_and_task_from_event_and_ticket(line)
                 if vals:
                     line.write(vals)
-        result = super(SaleOrder, self).action_confirm()
+        result = super().action_confirm()
         for sale in self:
-            events = self.env['event.event']
+            events = self.env["event.event"]
             for line in sale.order_line.filtered(
-                lambda x: x.event_id and x.event_ticket_id and
-                    x.project_id and x.task_id):
-                cond = [('id', '=', line.event_ticket_id.id),
-                        ('event_id', '=', line.event_id.id)]
-                event_ticket = self.env['event.event.ticket'].search(cond)
+                lambda x: x.event_id
+                and x.event_ticket_id
+                and x.project_id
+                and x.task_id
+            ):
+                cond = [
+                    ("id", "=", line.event_ticket_id.id),
+                    ("event_id", "=", line.event_id.id),
+                ]
+                event_ticket = self.env["event.event.ticket"].search(cond)
                 if event_ticket and len(event_ticket) == 1:
                     if event_ticket.event_id not in events:
                         events += event_ticket.event_id
@@ -32,9 +37,8 @@ class SaleOrder(models.Model):
                         event_ticket.task_id = line.task_id.id
             for event in events:
                 if event and not event.task_id:
-                    tasks = self.env['project.task']
-                    lines = event.event_ticket_ids.filtered(
-                        lambda x: x.task_id)
+                    tasks = self.env["project.task"]
+                    lines = event.event_ticket_ids.filtered(lambda x: x.task_id)
                     for line in lines:
                         if line.task_id not in tasks:
                             tasks += line.task_id

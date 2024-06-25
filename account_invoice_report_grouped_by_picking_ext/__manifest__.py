@@ -11,7 +11,7 @@
         "account_invoice_report_grouped_by_picking",
     ],
     "data": [
-#        "views/event_event_views.xml",
+        #        "views/event_event_views.xml",
     ],
     "installable": True,
 }

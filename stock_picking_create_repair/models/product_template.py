@@ -13,7 +13,7 @@ class ProductTemplate(models.Model):
 
     @api.onchange("type")
     def _onchange_type(self):
-        result = super(ProductTemplate, self)._onchange_type()
+        result = super()._onchange_type()
         for template in self:
             if template.type != "service":
                 template.is_repair = False
@@ -21,11 +21,11 @@ class ProductTemplate(models.Model):
 
     @api.model
     def create(self, vals):
-        product = super(ProductTemplate, self).create(vals)
+        product = super().create(vals)
         return product
 
     def write(self, vals):
-        result = super(ProductTemplate, self).write(vals)
+        result = super().write(vals)
         if (
             "no_update_product" not in self.env.context
             and "default_product_manufacturing_operations" in vals
