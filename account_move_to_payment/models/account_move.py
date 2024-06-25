@@ -1,6 +1,6 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class AccountMove(models.Model):
@@ -9,10 +9,11 @@ class AccountMove(models.Model):
     payment_ids = fields.Many2many(
         string="Payments",
         comodel_name="account.payment",
-        compute="_compute_payment_ids")
+        compute="_compute_payment_ids",
+    )
     payment_count = fields.Integer(
-        string="Payments Count",
-        compute="_compute_payment_count")
+        string="Payments Count", compute="_compute_payment_count"
+    )
 
     def _compute_payment_count(self):
         for move in self:
@@ -32,5 +33,5 @@ class AccountMove(models.Model):
             "res_model": "account.payment",
             "domain": [("id", "in", self.payment_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": self.env.context
-            }
+            "context": self.env.context,
+        }
