@@ -7,7 +7,8 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     sequence = fields.Integer(
-        compute="_compute_sequence", store=True, copy=False, readonly=True)
+        compute="_compute_sequence", store=True, copy=False, readonly=True
+    )
 
     @api.depends("sale_line_id", "sale_line_id.sequence")
     def _compute_sequence(self):
