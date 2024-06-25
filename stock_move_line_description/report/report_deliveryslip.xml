@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="stock_report_delivery_has_serial_move_line" inherit_id="stock.stock_report_delivery_has_serial_move_line">
+    <template
+    id="stock_report_delivery_has_serial_move_line"
+    inherit_id="stock.stock_report_delivery_has_serial_move_line"
+  >
          <xpath expr="//td[1]" position="replace">
              <td t-if="show_description">
-                 <span t-field="move_line.move_id.name"/>
+                 <span t-field="move_line.move_id.name" />
              </td>
              <t t-else="">
                  <td>
-                     <span t-field="move_line.product_id"/>
+                     <span t-field="move_line.product_id" />
                      <!-- this is an annoying workaround for the multiple types of descriptions (often auto-filled) that we do not want to print -->
                      <!-- this makes it so we can pre-filter the descriptions in inherited templates since we cannot extend the standard "if" condition -->
                      <!-- let's agree that pre-filtered descriptions will be set to "" -->
                      <t t-if="not description and description != ''">
-                         <t t-set="description" t-value="move_line.move_id.description_picking"/>
+                         <t
+              t-set="description"
+              t-value="move_line.move_id.description_picking"
+            />
                      </t>
-                     <p t-if="description !='' and description != move_line.product_id.name">
-                         <span t-esc="description"/>
+                     <p
+            t-if="description !='' and description != move_line.product_id.name"
+          >
+                         <span t-esc="description" />
                      </p>
                  </td>
              </t>
         </xpath>
     </template>
     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
-        <xpath expr="//table[@name='stock_move_table']/tbody/tr[@t-foreach='lines']/td[1]" position="replace">
+        <xpath
+      expr="//table[@name='stock_move_table']/tbody/tr[@t-foreach='lines']/td[1]"
+      position="replace"
+    >
             <td>
-                <span t-field="move.name"/>
+                <span t-field="move.name" />
             </td>
         </xpath>
     </template>
     <template id="report_deliveryslip" inherit_id="stock.report_deliveryslip">
         <xpath expr="//t[@t-call='stock.report_delivery_document']" position="before">
-            <t t-set="show_description" t-value="1"/>
+            <t t-set="show_description" t-value="1" />
         </xpath>
     </template>
 </odoo>

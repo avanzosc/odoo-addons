@@ -3,11 +3,11 @@
     <template id="report_invoice_document" inherit_id="account.report_invoice_document">
         <xpath expr="//td[@name='account_invoice_line_name']/span" position="replace">
             <t t-if="len(line.sale_line_ids)==0">
-                <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                <span t-field="line.name" t-options="{'widget': 'text'}" />
             </t>
             <t t-else="">
                 <t t-foreach="line.sale_line_ids" t-as="sale_line">
-                    <span><t t-esc="sale_line.name"/></span>
+                    <span><t t-esc="sale_line.name" /></span>
                 </t>
             </t>
         </xpath>
