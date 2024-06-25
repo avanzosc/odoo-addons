@@ -18,8 +18,8 @@ class Machine(models.Model):
         required=True,
         default=_def_company,
     )
-    year = fields.Char(string="Year")
-    model = fields.Char(string="Model")
+    year = fields.Char()
+    model = fields.Char()
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Associated product",
@@ -33,7 +33,6 @@ class Machine(models.Model):
     )
     model_type_id = fields.Many2one(string="Type", comodel_name="machine.model")
     status = fields.Selection(
-        string="Status",
         selection=[
             ("active", "Active"),
             ("inactive", "InActive"),
@@ -43,8 +42,11 @@ class Machine(models.Model):
         default="active",
     )
     ownership = fields.Selection(
-        string="Ownership",
-        selection=[("own", "Own"), ("lease", "Lease"), ("rental", "Rental")],
+        selection=[
+            ("own", "Own"),
+            ("lease", "Lease"),
+            ("rental", "Rental"),
+        ],
         default="own",
         required=True,
     )
@@ -54,7 +56,6 @@ class Machine(models.Model):
         default=lambda self: fields.Date.context_today(self),
     )
     ambit = fields.Selection(
-        string="Ambit",
         selection=[
             ("local", "Local"),
             ("national", "National"),
@@ -62,7 +63,7 @@ class Machine(models.Model):
         ],
         default="local",
     )
-    card = fields.Char(string="Card")
+    card = fields.Char()
     cardexp = fields.Date(string="Card Expiration")
     frame = fields.Char(string="Frame Number")
     phone = fields.Char(string="Phone number")
