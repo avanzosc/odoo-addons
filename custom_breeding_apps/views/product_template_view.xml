@@ -3,10 +3,10 @@
 
     <record id="product_template_form_view" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="arch" type="xml">
             <group name="group_general" position="inside">
-                <field name="entire_chick_percentage"/>
+                <field name="entire_chick_percentage" />
             </group>
         </field>
     </record>

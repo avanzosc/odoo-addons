@@ -10,6 +10,7 @@ class StockQuant(models.Model):
         string="Mother",
         comodel_name="stock.picking.batch",
         related="lot_id.batch_id",
-        store=True)
+        store=True,
+    )
     broken = fields.Integer(string="Broken")
     waste = fields.Integer(string="Waste")
