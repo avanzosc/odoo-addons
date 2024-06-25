@@ -11,30 +11,29 @@ class PurchaseOrderLine(models.Model):
         comodel_name="saca",
         related="saca_line_id.saca_id",
         store=True,
-        copy=False)
-    saca_line_id = fields.Many2one(
-        string="Saca Line",
-        comodel_name="saca.line")
+        copy=False,
+    )
+    saca_line_id = fields.Many2one(string="Saca Line", comodel_name="saca.line")
     farm_id = fields.Many2one(
         string="Farm",
         comodel_name="res.partner",
         related="saca_line_id.farm_id",
-        store=True)
+        store=True,
+    )
     farmer_id = fields.Many2one(
         string="Farmer",
         comodel_name="res.partner",
         related="saca_line_id.farmer_id",
-        store=True)
-    price_unit = fields.Float(
-        digits="Weight Decimal Precision")
-    price_subtotal = fields.Float(
-        digits="Weight Decimal Precision")
+        store=True,
+    )
+    price_unit = fields.Float(digits="Weight Decimal Precision")
+    price_subtotal = fields.Float(digits="Weight Decimal Precision")
 
-    @api.onchange('product_id')
+    @api.onchange("product_id")
     def onchange_product_id(self):
-        result = super(PurchaseOrderLine, self).onchange_product_id()
+        result = super().onchange_product_id()
         if self.saca_line_id and self.saca_line_id.estimate_burden:
-            self.product_qty = (
-                self.saca_line_id.estimate_burden * (
-                    self.saca_line_id.estimate_weight))
+            self.product_qty = self.saca_line_id.estimate_burden * (
+                self.saca_line_id.estimate_weight
+            )
         return result
