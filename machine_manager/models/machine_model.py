@@ -7,5 +7,5 @@ class MachineModel(models.Model):
     _name = "machine.model"
     _description = "Machine model"
 
-    name = fields.Char(string="Name")
+    name = fields.Char()
     model_type = fields.Char(string="Type")
