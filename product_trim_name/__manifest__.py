@@ -11,7 +11,6 @@
     "depends": [
         "product",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }
