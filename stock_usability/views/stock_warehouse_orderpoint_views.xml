@@ -1,51 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
         <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
         <field name="arch" type="xml">
             <field name="route_id" position="before">
-                <field name="incoming_qty" optional="show"/>
-                <field name="outgoing_qty" optional="show"/>
-                <field name="consumed_last_twelve_months" optional="show"/>
-                <field name="months_with_stock" optional="show"/>
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
+                <field name="consumed_last_twelve_months" optional="show" />
+                <field name="months_with_stock" optional="show" />
             </field>
         </field>
     </record>
 
-    <record id="view_warehouse_orderpoint_tree_editable_inherited_mr" model="ir.ui.view">
+    <record
+    id="view_warehouse_orderpoint_tree_editable_inherited_mr"
+    model="ir.ui.view"
+  >
         <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="purchase_stock.view_warehouse_orderpoint_tree_editable_inherited_mrp"/>
+        <field
+      name="inherit_id"
+      ref="purchase_stock.view_warehouse_orderpoint_tree_editable_inherited_mrp"
+    />
         <field name="arch" type="xml">
             <field name="supplier_id" position="after">
-                <field name="supplier_pending_to_receive" optional="show"/>
+                <field name="supplier_pending_to_receive" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_warehouse_orderpoint_tree_editable_config" model="ir.ui.view">
         <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable_config"/>
+        <field
+      name="inherit_id"
+      ref="stock.view_warehouse_orderpoint_tree_editable_config"
+    />
         <field name="arch" type="xml">
             <field name="route_id" position="before">
-                <field name="incoming_qty" optional="show"/>
-                <field name="outgoing_qty" optional="show"/>
-                <field name="consumed_last_twelve_months" optional="show"/>
-                <field name="months_with_stock" optional="show"/>
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
+                <field name="consumed_last_twelve_months" optional="show" />
+                <field name="months_with_stock" optional="show" />
             </field>
             <field name="route_id" position="after">
-                <field name="supplier_id" optional="show"/>
-                <field name="supplier_pending_to_receive" optional="show"/>
+                <field name="supplier_id" optional="show" />
+                <field name="supplier_pending_to_receive" optional="show" />
             </field>
             <field name="qty_multiple" position="after">
-                <field name="qty_to_order" optional="show"/>
+                <field name="qty_to_order" optional="show" />
             </field>
             <field name="route_id" position="attributes">
                 <attribute name="optional">show</attribute>
             </field>
             <field name="location_id" position="after">
-                <field name="qty_on_hand" optional="show"/>
-                <field name="qty_forecast" optional="show"/>
+                <field name="qty_on_hand" optional="show" />
+                <field name="qty_forecast" optional="show" />
             </field>
         </field>
     </record>
