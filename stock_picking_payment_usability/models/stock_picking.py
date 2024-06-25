@@ -9,16 +9,17 @@ class StockPicking(models.Model):
     account_payment_ids = fields.One2many(
         string="Account Payments",
         comodel_name="account.payment",
-        inverse_name="picking_id")
+        inverse_name="picking_id",
+    )
 
     def action_view_payments(self):
         context = self.env.context.copy()
-        context.update({'default_picking_id': self.id})
+        context.update({"default_picking_id": self.id})
         return {
-            'name': _("Account Payments"),
-            'view_mode': 'tree,form',
-            'res_model': 'account.payment',
-            'domain': [('id', 'in', self.account_payment_ids.ids)],
-            'type': 'ir.actions.act_window',
-            'context': context
+            "name": _("Account Payments"),
+            "view_mode": "tree,form",
+            "res_model": "account.payment",
+            "domain": [("id", "in", self.account_payment_ids.ids)],
+            "type": "ir.actions.act_window",
+            "context": context,
         }
