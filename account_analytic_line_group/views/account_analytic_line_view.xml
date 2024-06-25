@@ -1,34 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="view_account_analytic_line_tree">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
             <field name="company_id" position="before">
-                <field name="financial_account_group_id" optional="hide"/>
+                <field name="financial_account_group_id" optional="hide" />
             </field>
         </field>
     </record>
 
     <record model="ir.ui.view" id="view_account_analytic_line_form">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
-                <field name="financial_account_group_id"/>
+                <field name="financial_account_group_id" />
             </field>
         </field>
     </record>
 
     <record model="ir.ui.view" id="view_account_analytic_line_filter">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter"/>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter" />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
-                <field name="financial_account_group_id"/>
+                <field name="financial_account_group_id" />
             </field>
             <filter name="group_date" position="after">
-                <filter string="Financial Account Group" name="account_id" context="{'group_by': 'financial_account_group_id'}"/>
+                <filter
+          string="Financial Account Group"
+          name="account_id"
+          context="{'group_by': 'financial_account_group_id'}"
+        />
             </filter>
         </field>
     </record>
