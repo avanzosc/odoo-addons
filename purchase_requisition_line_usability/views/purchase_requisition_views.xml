@@ -2,13 +2,22 @@
 <odoo>
     <record id="view_purchase_requisition_form" model="ir.ui.view">
         <field name="model">purchase.requisition</field>
-        <field name="inherit_id" ref="purchase_requisition.view_purchase_requisition_form"/>
+        <field
+      name="inherit_id"
+      ref="purchase_requisition.view_purchase_requisition_form"
+    />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='line_ids']/tree/field[@name='qty_ordered']" position="after">
-                <field name="dif_qty" optional="show"/>
+            <xpath
+        expr="//field[@name='line_ids']/tree/field[@name='qty_ordered']"
+        position="after"
+      >
+                <field name="dif_qty" optional="show" />
             </xpath>
-            <xpath expr="//field[@name='line_ids']/tree/field[@name='price_unit']" position="after">
-                <field name="shipping_cost" optional="show"/>
+            <xpath
+        expr="//field[@name='line_ids']/tree/field[@name='price_unit']"
+        position="after"
+      >
+                <field name="shipping_cost" optional="show" />
             </xpath>
         </field>
     </record>

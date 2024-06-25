@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="action_stock_by_breeding_wizard" model="ir.actions.act_window">
         <field name="name">Stock By Breeding</field>
         <field name="res_model">stock.by.breeding.wizard</field>
-        <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>

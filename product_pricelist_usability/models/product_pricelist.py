@@ -16,11 +16,12 @@ class ProductPricelist(models.Model):
                 [
                     self.env.ref(
                         "product.product_pricelist_item_tree_view_from_product"
-                    ).id, "tree"
+                    ).id,
+                    "tree",
                 ]
             ],
             "res_model": "product.pricelist.item",
             "domain": [("id", "in", self.item_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }

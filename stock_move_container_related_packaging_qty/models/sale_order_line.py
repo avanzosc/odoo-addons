@@ -8,5 +8,7 @@ class SaleOrderLine(models.Model):
 
     container = fields.Float(
         string="Quantity contained per package",
-        related="product_packaging.qty", store=True, copy=False
-        )
+        related="product_packaging.qty",
+        store=True,
+        copy=False,
+    )

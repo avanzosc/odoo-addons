@@ -7,11 +7,7 @@
     "license": "AGPL-3",
     "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": [
-        "product",
-        "stock",
-        "sale_order_line_qty_by_packaging"
-    ],
+    "depends": ["product", "stock", "sale_order_line_qty_by_packaging"],
     "data": [
         "views/product_packaging_views.xml",
         "views/sale_order_views.xml",

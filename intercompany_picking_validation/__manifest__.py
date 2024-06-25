@@ -11,7 +11,6 @@
     "depends": [
         "purchase_sale_inter_company",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
 }

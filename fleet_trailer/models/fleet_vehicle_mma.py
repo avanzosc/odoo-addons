@@ -1,10 +1,10 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models, fields
+from odoo import fields, models
 
 
 class FleetVehicleMma(models.Model):
-    _name = 'fleet.vehicle.mma'
-    _description = 'Vehicle MMA'
+    _name = "fleet.vehicle.mma"
+    _description = "Vehicle MMA"
 
-    name = fields.Char(string='Description')
+    name = fields.Char(string="Description")

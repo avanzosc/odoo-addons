@@ -8,7 +8,4 @@ class StorageType(models.Model):
     _name = "storage.type"
     _description = "Storage Type"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

@@ -1,28 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="action_report_liquidation_cost" model="ir.actions.report">
             <field name="name">Liquidation Cost</field>
             <field name="model">stock.picking.batch</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">batch_liquidation_report.report_liquidation_cost</field>
-            <field name="report_file">batch_liquidation_report.report_liquidation_cost</field>
-            <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+            <field
+        name="report_name"
+      >batch_liquidation_report.report_liquidation_cost</field>
+            <field
+        name="report_file"
+      >batch_liquidation_report.report_liquidation_cost</field>
+            <field
+        name="binding_model_id"
+        ref="stock_picking_batch.model_stock_picking_batch"
+      />
             <field name="binding_type">report</field>
         </record>
 
     <template id="external_layout_standard_liquidation_cost">
-        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
             <div class="row">
-                <t t-foreach="docs" t-as="o"/>
+                <t t-foreach="docs" t-as="o" />
             </div>
         </div>
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
-            <t t-raw="0"/>
+        <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
+            <t t-raw="0" />
             <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="row">
-                <div class="col-9 text-middle" style="margin-bottom:30px;font-size:20px!important;">
-                    <span t-field="o.company_id.partner_id" t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                <div
+              class="col-9 text-middle"
+              style="margin-bottom:30px;font-size:20px!important;"
+            >
+                    <span
+                t-field="o.company_id.partner_id"
+                t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'
+              />
                 </div>
             </div>
         </div>
@@ -30,205 +51,406 @@
     </template>
 
     <template id="external_layout_liquidation_cost">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="batch_liquidation_report.external_layout_standard_liquidation_cost"><t t-raw="0"/></t>
+        <t
+        t-call="batch_liquidation_report.external_layout_standard_liquidation_cost"
+      ><t t-raw="0" /></t>
     </template>
 
         <template id="batch_liquidation_report.report_liquidation_cost">
             <t t-name="batch_liquidation_report.report_liquidation_cost">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <t t-set="liquidation_line_ids" t-value="o.mapped('liquidation_line_ids')"/>
-                    <t t-set="analytic_line_ids" t-value="o.mapped('analytic_line_ids')"/>
-                    <t t-set="entry_chicks_qty" t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_dest_id == o.location_id).mapped('qty_done'))"/>
-                    <t t-set="output_chicks_qty" t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_id == o.location_id).mapped('qty_done'))"/>
-                    <t t-set="entry_chicks_amount" t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_dest_id == o.location_id).mapped('amount'))"/>
-                    <t t-set="output_chicks_amount" t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_id == o.location_id).mapped('amount'))"/>
-                    <t t-set="feed_type" t-value="env.ref('stock_picking_batch_liquidation.move_type5')"/>
-                    <t t-set="feed_qty" t-value="sum(o.move_line_ids.filtered(lambda c: c.move_type_id == feed_type and (c.state == 'done') and c.location_id == (o.location_id) and not c.picking_id).mapped('qty_done'))"/>
-                    <t t-set="feed_amount" t-value="sum(o.move_line_ids.filtered(lambda c: c.move_type_id == feed_type and (c.state == 'done') and c.location_id == (o.location_id) and not c.picking_id).mapped('amount'))"/>
-                    <t t-set="costs_analytic_lines" t-value="o.analytic_line_ids.filtered(lambda c: 0 &gt; c.amount)"/>
-                    <t t-set="sale_analytic_lines" t-value="o.analytic_line_ids.filtered(lambda c: c.amount &gt; 0)"/>
-                    <t t-call="batch_liquidation_report.external_layout_liquidation_cost">
+                    <t
+              t-set="liquidation_line_ids"
+              t-value="o.mapped('liquidation_line_ids')"
+            />
+                    <t
+              t-set="analytic_line_ids"
+              t-value="o.mapped('analytic_line_ids')"
+            />
+                    <t
+              t-set="entry_chicks_qty"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_dest_id == o.location_id).mapped('qty_done'))"
+            />
+                    <t
+              t-set="output_chicks_qty"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_id == o.location_id).mapped('qty_done'))"
+            />
+                    <t
+              t-set="entry_chicks_amount"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_dest_id == o.location_id).mapped('amount'))"
+            />
+                    <t
+              t-set="output_chicks_amount"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.picking_id and c.product_id.one_day_chicken and c.location_id == o.location_id).mapped('amount'))"
+            />
+                    <t
+              t-set="feed_type"
+              t-value="env.ref('stock_picking_batch_liquidation.move_type5')"
+            />
+                    <t
+              t-set="feed_qty"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.move_type_id == feed_type and (c.state == 'done') and c.location_id == (o.location_id) and not c.picking_id).mapped('qty_done'))"
+            />
+                    <t
+              t-set="feed_amount"
+              t-value="sum(o.move_line_ids.filtered(lambda c: c.move_type_id == feed_type and (c.state == 'done') and c.location_id == (o.location_id) and not c.picking_id).mapped('amount'))"
+            />
+                    <t
+              t-set="costs_analytic_lines"
+              t-value="o.analytic_line_ids.filtered(lambda c: 0 &gt; c.amount)"
+            />
+                    <t
+              t-set="sale_analytic_lines"
+              t-value="o.analytic_line_ids.filtered(lambda c: c.amount &gt; 0)"
+            />
+                    <t
+              t-call="batch_liquidation_report.external_layout_liquidation_cost"
+            >
                         <div class="page" style="font-size: 13px !important;">
                             <div class="row">
-                                <table class="table-bodered table-sm o_main_table table-sm rs-table-bordered" name="breeding_data" style="width:60mm;border: 1px solid black;height:55mm;">
+                                <table
+                    class="table-bodered table-sm o_main_table table-sm rs-table-bordered"
+                    name="breeding_data"
+                    style="width:60mm;border: 1px solid black;height:55mm;"
+                  >
                                     <thead>
                                         <tr>
-                                            <th style="font-weight: bold; font-size: 20px;">Liquidation</th>
-                                            <th/>
+                                            <th
+                          style="font-weight: bold; font-size: 20px;"
+                        >Liquidation</th>
+                                            <th />
                                         </tr>
                                         <tr style="font-weight: bold; font-size: 18px;">
-                                            <th name="th_description" class="text-left"><span>Breeding Nº:</span></th>
-                                            <th name="th_quantity" class="text-right" t-field="o.name"><span/></th>
+                                            <th
+                          name="th_description"
+                          class="text-left"
+                        ><span>Breeding Nº:</span></th>
+                                            <th
+                          name="th_quantity"
+                          class="text-right"
+                          t-field="o.name"
+                        ><span /></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <t>
                                             <tr name="line1">
                                                 <td name="entry_date">
-                                                    <strong t-if="o.entry_date">Entry: </strong>
-                                                    <span t-if="o.entry_date" t-field="o.entry_date"/>
+                                                    <strong
+                              t-if="o.entry_date"
+                            >Entry: </strong>
+                                                    <span
+                              t-if="o.entry_date"
+                              t-field="o.entry_date"
+                            />
                                                 </td>
-                                                <td name="entry_date" class="text-right">
-                                                    <strong t-if="o.entry_date">Week: </strong>
-                                                    <span t-if="o.entry_week" t-field="o.entry_week"/>
+                                                <td
+                            name="entry_date"
+                            class="text-right"
+                          >
+                                                    <strong
+                              t-if="o.entry_date"
+                            >Week: </strong>
+                                                    <span
+                              t-if="o.entry_week"
+                              t-field="o.entry_week"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="line2">
                                                 <td name="cleaned_date">
-                                                    <strong t-if="o.cleaned_date">Cleaned: </strong>
-                                                    <span t-if="o.cleaned_date" t-field="o.cleaned_date"/>
+                                                    <strong
+                              t-if="o.cleaned_date"
+                            >Cleaned: </strong>
+                                                    <span
+                              t-if="o.cleaned_date"
+                              t-field="o.cleaned_date"
+                            />
                                                 </td>
-                                                <td name="cleaned_week" class="text-right">
-                                                    <strong t-if="o.cleaned_week">Week: </strong>
-                                                    <span t-if="o.cleaned_week" t-field="o.cleaned_week"/>
+                                                <td
+                            name="cleaned_week"
+                            class="text-right"
+                          >
+                                                    <strong
+                              t-if="o.cleaned_week"
+                            >Week: </strong>
+                                                    <span
+                              t-if="o.cleaned_week"
+                              t-field="o.cleaned_week"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="line3">
                                                 <td name="liquidation_date">
-                                                    <strong t-if="o.liquidation_date">Liquidation: </strong>
-                                                    <span t-if="o.liquidation_date" t-field="o.liquidation_date"/>
+                                                    <strong
+                              t-if="o.liquidation_date"
+                            >Liquidation: </strong>
+                                                    <span
+                              t-if="o.liquidation_date"
+                              t-field="o.liquidation_date"
+                            />
                                                 </td>
-                                                <td name="liquidation_week" class="text-right">
-                                                    <strong t-if="o.liquidation_week">Week: </strong>
-                                                    <span t-if="o.liquidation_week" t-field="o.liquidation_week"/>
+                                                <td
+                            name="liquidation_week"
+                            class="text-right"
+                          >
+                                                    <strong
+                              t-if="o.liquidation_week"
+                            >Week: </strong>
+                                                    <span
+                              t-if="o.liquidation_week"
+                              t-field="o.liquidation_week"
+                            />
                                                 </td>
                                             </tr>
                                         </t>
                                     </tbody>
                                 </table>
-                                <div style="width:10px"/>
-                                <table class="table-bodered table-sm o_main_table table-sm rs-table-bordered" name="farm_data" style="width:85mm;border: 1px solid black;height:55mm;">
+                                <div style="width:10px" />
+                                <table
+                    class="table-bodered table-sm o_main_table table-sm rs-table-bordered"
+                    name="farm_data"
+                    style="width:85mm;border: 1px solid black;height:55mm;"
+                  >
                                     <tbody>
                                         <t>
                                             <tr name="farm1">
                                                 <td name="farm">
-                                                    <strong t-if="o.warehouse_id">Farm: </strong>
-                                                    <span t-if="o.warehouse_id" t-field="o.warehouse_id.name"/>
+                                                    <strong
+                              t-if="o.warehouse_id"
+                            >Farm: </strong>
+                                                    <span
+                              t-if="o.warehouse_id"
+                              t-field="o.warehouse_id.name"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm2">
                                                 <td name="street">
-                                                    <span t-if="o.warehouse_id.street" t-field="o.warehouse_id.street"/>
+                                                    <span
+                              t-if="o.warehouse_id.street"
+                              t-field="o.warehouse_id.street"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm3">
                                                 <td name="city">
-                                                    <span t-if="o.warehouse_id.city" t-field="o.warehouse_id.city"/>
+                                                    <span
+                              t-if="o.warehouse_id.city"
+                              t-field="o.warehouse_id.city"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm4" class="text-right">
                                                 <td name="city">
-                                                    <strong t-if="o.warehouse_id.farm_area">M2: </strong>
-                                                    <span t-if="o.warehouse_id.farm_area" t-esc="'{:,}'.format(int(o.warehouse_id.farm_area)).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <strong
+                              t-if="o.warehouse_id.farm_area"
+                            >M2: </strong>
+                                                    <span
+                              t-if="o.warehouse_id.farm_area"
+                              t-esc="'{:,}'.format(int(o.warehouse_id.farm_area)).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm5">
                                                 <td name="city">
-                                                    <strong t-if="o.farmer_id">Farmer: </strong>
-                                                    <span t-if="o.farmer_id" t-field="o.farmer_id.name"/>
+                                                    <strong
+                              t-if="o.farmer_id"
+                            >Farmer: </strong>
+                                                    <span
+                              t-if="o.farmer_id"
+                              t-field="o.farmer_id.name"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm6">
                                                 <td name="farm">
-                                                    <strong t-if="o.farmer_id">Liquidation: </strong>
-                                                    <span t-if="o.tax_entity_id" t-field="o.tax_entity_id.name"/>
+                                                    <strong
+                              t-if="o.farmer_id"
+                            >Liquidation: </strong>
+                                                    <span
+                              t-if="o.tax_entity_id"
+                              t-field="o.tax_entity_id.name"
+                            />
                                                 </td>
                                             </tr>
                                             <tr name="farm7">
                                                 <td name="farm_street">
-                                                    <span t-if="o.tax_entity_id.street" t-field="o.tax_entity_id.street"/>
+                                                    <span
+                              t-if="o.tax_entity_id.street"
+                              t-field="o.tax_entity_id.street"
+                            />
                                                 </td>
                                             </tr>
                                         </t>
                                     </tbody>
                                 </table>
-                                <div style="width:10px"/>
-                                <table class="table-bodered table-sm" name="farm_data" style="width:78mm;border: 1px solid black;height:55mm;">
+                                <div style="width:10px" />
+                                <table
+                    class="table-bodered table-sm"
+                    name="farm_data"
+                    style="width:78mm;border: 1px solid black;height:55mm;"
+                  >
                                     <thead>
                                         <tr>
-                                            <th name="th_mother" class="text-left" style="width:75%;"><span>Mother</span></th>
-                                            <th name="th_mo_units" class="text-center" style="width:15%;"><span>Units</span></th>
-                                            <th name="th_percentage" class="text-center" style="width:10%;"><span>%</span></th>
+                                            <th
+                          name="th_mother"
+                          class="text-left"
+                          style="width:75%;"
+                        ><span>Mother</span></th>
+                                            <th
+                          name="th_mo_units"
+                          class="text-center"
+                          style="width:15%;"
+                        ><span>Units</span></th>
+                                            <th
+                          name="th_percentage"
+                          class="text-center"
+                          style="width:10%;"
+                        ><span>%</span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr t-foreach="o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_dest_id == o.location_id)" t-as="line">
+                                        <tr
+                        t-foreach="o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_dest_id == o.location_id)"
+                        t-as="line"
+                      >
                                             <td name="td_mother">
-                                                <span t-if="line.lot_id.batch_id" t-field="line.lot_id.batch_id.name"/>
-                                                <span t-if="line.lot_id.batch_id.location_id.warehouse_id" t-field="line.lot_id.batch_id.location_id.warehouse_id.name"/>
+                                                <span
+                            t-if="line.lot_id.batch_id"
+                            t-field="line.lot_id.batch_id.name"
+                          />
+                                                <span
+                            t-if="line.lot_id.batch_id.location_id.warehouse_id"
+                            t-field="line.lot_id.batch_id.location_id.warehouse_id.name"
+                          />
                                             </td>
                                             <td name="td_mo_units" class="text-center">
-                                                <span t-esc="'{:,}'.format(int(line.qty_done - sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_id == o.location_id and c.lot_id == line.lot_id and c.picking_id).mapped('qty_done')))).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                <span
+                            t-esc="'{:,}'.format(int(line.qty_done - sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_id == o.location_id and c.lot_id == line.lot_id and c.picking_id).mapped('qty_done')))).replace(',','~').replace('.',',').replace('~','.')"
+                          />
                                             </td>
                                             <td name="td_percentage" class="text-right">
-                                                <span t-if="o.chick_units" t-esc="'{0:,.2f}'.format(round((line.qty_done - sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_id == o.location_id and c.lot_id == line.lot_id and c.picking_id).mapped('qty_done'))) * 100 / o.chick_units,2)).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <span
+                            t-if="o.chick_units"
+                            t-esc="'{0:,.2f}'.format(round((line.qty_done - sum(o.move_line_ids.filtered(lambda c: c.state == 'done' and c.product_id.one_day_chicken and c.location_id == o.location_id and c.lot_id == line.lot_id and c.picking_id).mapped('qty_done'))) * 100 / o.chick_units,2)).replace(',','x').replace('.',',').replace('x','.')"
+                          />
                                             </td>
                                         </tr>
                                         <tr name="total_units">
                                             <td name="total_units">
-                                                <strong t-if="o.chick_units">Total</strong>
+                                                <strong
+                            t-if="o.chick_units"
+                          >Total</strong>
                                             </td>
                                             <td>
-                                                <span t-if="o.chick_units" t-esc="'{:,}'.format(int(o.chick_units)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                <span
+                            t-if="o.chick_units"
+                            t-esc="'{:,}'.format(int(o.chick_units)).replace(',','~').replace('.',',').replace('~','.')"
+                          />
                                             </td>
-                                            <td/>
+                                            <td />
                                         </tr>
                                         <tr name="feed">
                                             <td name="feed">
-                                                <strong t-if="o.feed_family">Feed Type: </strong>
-                                                <span t-if="o.feed_family" t-field="o.feed_family.name"/>
+                                                <strong
+                            t-if="o.feed_family"
+                          >Feed Type: </strong>
+                                                <span
+                            t-if="o.feed_family"
+                            t-field="o.feed_family.name"
+                          />
                                             </td>
-                                            <td/>
-                                            <td/>
+                                            <td />
+                                            <td />
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div style="height:20px"/>
+                            <div style="height:20px" />
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th name="th_concept" class="text-left" style="width:45%;"><span>Concept</span></th>
-                                        <th name="th_units" class="text-center" style="width:10%;"><span>Units</span></th>
-                                        <th name="th_kilos" class="text-center" style="width:10%;"><span>Quantity</span></th>
-                                        <th name="th_price" class="text-center" style="width:15%;"><span>Price</span></th>
-                                        <th name="th_charge" class="text-center" style="width:10%;"><span>Charge</span></th>
-                                        <th name="th_pay" class="text-center" style="width:10%;"><span>Pay</span></th>
+                                        <th
+                        name="th_concept"
+                        class="text-left"
+                        style="width:45%;"
+                      ><span>Concept</span></th>
+                                        <th
+                        name="th_units"
+                        class="text-center"
+                        style="width:10%;"
+                      ><span>Units</span></th>
+                                        <th
+                        name="th_kilos"
+                        class="text-center"
+                        style="width:10%;"
+                      ><span>Quantity</span></th>
+                                        <th
+                        name="th_price"
+                        class="text-center"
+                        style="width:15%;"
+                      ><span>Price</span></th>
+                                        <th
+                        name="th_charge"
+                        class="text-center"
+                        style="width:10%;"
+                      ><span>Charge</span></th>
+                                        <th
+                        name="th_pay"
+                        class="text-center"
+                        style="width:10%;"
+                      ><span>Pay</span></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr t-foreach="liquidation_line_ids.filtered(lambda c: c.amount_pay &gt; 0)" t-as="line">
+                                    <tr
+                      t-foreach="liquidation_line_ids.filtered(lambda c: c.amount_pay &gt; 0)"
+                      t-as="line"
+                    >
                                         <td name="pay_product">
-                                            <span t-field="line.product_id.name"/>
+                                            <span t-field="line.product_id.name" />
                                         </td>
                                         <td name="pay_units" class="text-center">
-                                            <span t-esc="'{:,}'.format(int(line.unit)).replace(',','x').replace('.',',').replace('x','.')"/>
+                                            <span
+                          t-esc="'{:,}'.format(int(line.unit)).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                         <td name="pay_quantity" class="text-center">
-                                            <span t-field="line.quantity"/>
+                                            <span t-field="line.quantity" />
                                         </td>
                                         <td name="pay_price" class="text-center">
-                                            <span t-esc="'{0:,.7f}'.format(line.price).replace(',','x').replace('.',',').replace('x','.')"/>
+                                            <span
+                          t-esc="'{0:,.7f}'.format(line.price).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                         <td name="pay_charge" class="text-center">
-                                            <span t-esc="'{0:,.2f}'.format(line.amount_charge).replace(',','x').replace('.',',').replace('x','.')"/>
+                                            <span
+                          t-esc="'{0:,.2f}'.format(line.amount_charge).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
-                                        <td name="pay_pay" style="background-color:#e9ecef;" class="text-center">
-                                            <span t-esc="'{0:,.2f}'.format(line.amount_pay).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="pay_pay"
+                        style="background-color:#e9ecef;"
+                        class="text-center"
+                      >
+                                            <span
+                          t-esc="'{0:,.2f}'.format(line.amount_pay).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -237,34 +459,74 @@
                                 <tbody style="background-color:#b68119;">
                                     <t>
                                         <td name="total_pay" style="width:65%;">
-                                            <strong style="color:white; font-weight: bold;">Total to pay to the farmer:</strong>
+                                            <strong
+                          style="color:white; font-weight: bold;"
+                        >Total to pay to the farmer:</strong>
                                         </td>
-                                        <td name="total_pay_data" style="width:35%;" class="text-center">
-                                            <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount_pay'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="total_pay_data"
+                        style="width:35%;"
+                        class="text-center"
+                      >
+                                            <span
+                          style="color:white; font-weight: bold;"
+                          t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount_pay'))).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                     </t>
                                 </tbody>
                             </table>
                             <table class="table table-bordered">
                                 <tbody>
-                                    <tr t-foreach="liquidation_line_ids.filtered(lambda c: c.amount_charge &gt; 0)" t-as="line">
+                                    <tr
+                      t-foreach="liquidation_line_ids.filtered(lambda c: c.amount_charge &gt; 0)"
+                      t-as="line"
+                    >
                                         <td name="charge_product" style="width:45%;">
-                                            <span t-field="line.product_id.name"/>
+                                            <span t-field="line.product_id.name" />
                                         </td>
-                                        <td name="charge_units" class="text-center" style="width:10%;">
-                                            <span t-esc="'{:,}'.format(int(line.unit)).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="charge_units"
+                        class="text-center"
+                        style="width:10%;"
+                      >
+                                            <span
+                          t-esc="'{:,}'.format(int(line.unit)).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
-                                        <td name="charge_quantity" class="text-center" style="width:10%;">
-                                            <span t-field="line.quantity"/>
+                                        <td
+                        name="charge_quantity"
+                        class="text-center"
+                        style="width:10%;"
+                      >
+                                            <span t-field="line.quantity" />
                                         </td>
-                                        <td name="charge_price" class="text-center" style="width:15%;">
-                                            <span t-esc="'{0:,.7f}'.format(line.price).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="charge_price"
+                        class="text-center"
+                        style="width:15%;"
+                      >
+                                            <span
+                          t-esc="'{0:,.7f}'.format(line.price).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
-                                        <td name="charge_charge" style="background-color:#e9ecef; width:10%;" class="text-center">
-                                            <span t-esc="'{0:,.2f}'.format(line.amount_charge).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="charge_charge"
+                        style="background-color:#e9ecef; width:10%;"
+                        class="text-center"
+                      >
+                                            <span
+                          t-esc="'{0:,.2f}'.format(line.amount_charge).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
-                                        <td name="charge_pay" class="text-center" style="width:10%;">
-                                            <span t-esc="'{0:,.2f}'.format(line.amount_pay).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="charge_pay"
+                        class="text-center"
+                        style="width:10%;"
+                      >
+                                            <span
+                          t-esc="'{0:,.2f}'.format(line.amount_pay).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -273,65 +535,131 @@
                                 <tbody style="background-color:#b68119;">
                                     <t>
                                         <td name="total_charge" style="width:65%;">
-                                            <strong style="color:white; font-weight: bold;">Total to charge to the farmer:</strong>
+                                            <strong
+                          style="color:white; font-weight: bold;"
+                        >Total to charge to the farmer:</strong>
                                         </td>
-                                        <td name="total_charge_data" style="width:35%;"  class="text-center">
-                                            <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount_charge'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                        <td
+                        name="total_charge_data"
+                        style="width:35%;"
+                        class="text-center"
+                      >
+                                            <span
+                          style="color:white; font-weight: bold;"
+                          t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount_charge'))).replace(',','x').replace('.',',').replace('x','.')"
+                        />
                                         </td>
                                     </t>
                                 </tbody>
                             </table>
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="min_max_data" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="min_max_data"
+                      style="width:110mm;"
+                    >
                                         <tbody>
                                             <t>
                                                 <tr name="total_breeding">
-                                                    <td name="total_breeding" style="width:75%;">
+                                                    <td
+                              name="total_breeding"
+                              style="width:75%;"
+                            >
                                                         <strong>Total Breeding</strong>
                                                     </td>
-                                                    <td name="total_breeding_data" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="total_breeding_data"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(sum(liquidation_line_ids.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="min">
                                                     <td name="min" style="width:75%;">
-                                                        <strong>Liquidation Minimum Per Chicken</strong>
+                                                        <strong
+                              >Liquidation Minimum Per Chicken</strong>
                                                     </td>
-                                                    <td name="min_data" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.min).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="min_data"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.min).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="max">
                                                     <td name="max" style="width:75%;">
-                                                        <strong>Liquidation Maximun Per Chicken</strong>
+                                                        <strong
+                              >Liquidation Maximun Per Chicken</strong>
                                                     </td>
-                                                    <td name="max_data" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.max).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="max_data"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.max).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
-                                                <tr name="teorical_liquidation" style="width:75%;">
+                                                <tr
+                            name="teorical_liquidation"
+                            style="width:75%;"
+                          >
                                                     <td name="teorical_liquidation">
-                                                        <strong>Teorical Liquidation</strong>
+                                                        <strong
+                              >Teorical Liquidation</strong>
                                                     </td>
-                                                    <td name="liquidation_amount" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.liquidation_amount).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="liquidation_amount"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.liquidation_amount).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
-                                                <tr name="chick_liquidation" style="width:75%;">
+                                                <tr
+                            name="chick_liquidation"
+                            style="width:75%;"
+                          >
                                                     <td name="chick_liquidation">
-                                                        <strong>Liquidated per chicken</strong>
+                                                        <strong
+                              >Liquidated per chicken</strong>
                                                     </td>
-                                                    <td name="chick_liq_amount" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.7f}'.format(o.chick_liquidation).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="chick_liq_amount"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.7f}'.format(o.chick_liquidation).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
-                                                <tr name="liquidation_area" style="width:75%;">
+                                                <tr
+                            name="liquidation_area"
+                            style="width:75%;"
+                          >
                                                     <td name="liquidation_area">
-                                                        <strong>Liquidation per area</strong>
+                                                        <strong
+                              >Liquidation per area</strong>
                                                     </td>
-                                                    <td name="liquidation_area_amount" class="text-right" style="width:25%;">
-                                                        <span t-esc="'{0:,.7f}'.format(o.liquidation_area).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="liquidation_area_amount"
+                              class="text-right"
+                              style="width:25%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.7f}'.format(o.liquidation_area).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                             </t>
@@ -339,14 +667,34 @@
                                     </table>
                                 </div>
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="other_data" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="other_data"
+                      style="width:110mm;"
+                    >
                                         <thead>
                                             <tr>
-                                                <th style="width:20%;"/>
-                                                <th name="unit" class="text-center" style="width:20%;">Units</th>
-                                                <th name="kilos" class="text-center" style="width:20%;">Kilos</th>
-                                                <th name="price" class="text-center" style="width:20%;">Price</th>
-                                                <th name="percentage" class="text-center" style="width:20%;">%</th>
+                                                <th style="width:20%;" />
+                                                <th
+                            name="unit"
+                            class="text-center"
+                            style="width:20%;"
+                          >Units</th>
+                                                <th
+                            name="kilos"
+                            class="text-center"
+                            style="width:20%;"
+                          >Kilos</th>
+                                                <th
+                            name="price"
+                            class="text-center"
+                            style="width:20%;"
+                          >Price</th>
+                                                <th
+                            name="percentage"
+                            class="text-center"
+                            style="width:20%;"
+                          >%</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -355,68 +703,142 @@
                                                     <td name="entries">
                                                         <strong>Entries</strong>
                                                     </td>
-                                                    <td name="entry_chick" class="text-center">
-                                                        <span t-esc="'{:,}'.format(int(o.chick_units)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                    <td
+                              name="entry_chick"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{:,}'.format(int(o.chick_units)).replace(',','~').replace('.',',').replace('~','.')"
+                              />
                                                     </td>
-                                                    <td name="entry_kilo" class="text-center">
-                                                        <span/>
+                                                    <td
+                              name="entry_kilo"
+                              class="text-center"
+                            >
+                                                        <span />
                                                     </td>
-                                                    <td name="entry_price" class="text-center">
-                                                        <span t-if="(entry_chicks_qty - output_chicks_qty) != 0" t-esc="'{0:,.7f}'.format((entry_chicks_amount - output_chicks_amount)/(entry_chicks_qty - output_chicks_qty)).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="entry_price"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-if="(entry_chicks_qty - output_chicks_qty) != 0"
+                                t-esc="'{0:,.7f}'.format((entry_chicks_amount - output_chicks_amount)/(entry_chicks_qty - output_chicks_qty)).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="entry_percentage" class="text-center">
-                                                        <strong style="font-weight: normal;">100,00</strong>
+                                                    <td
+                              name="entry_percentage"
+                              class="text-center"
+                            >
+                                                        <strong
+                                style="font-weight: normal;"
+                              >100,00</strong>
                                                     </td>
                                                 </tr>
                                                 <tr name="saca">
                                                     <td name="saca">
                                                         <strong>Saca</strong>
                                                     </td>
-                                                    <td name="saca_units" class="text-center">
-                                                        <span t-esc="'{:,}'.format(int(o.output_units)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                    <td
+                              name="saca_units"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{:,}'.format(int(o.output_units)).replace(',','~').replace('.',',').replace('~','.')"
+                              />
                                                     </td>
-                                                    <td name="saca_kilo" class="text-center">
-                                                        <span t-esc="'{:,}'.format(int(o.meat_kilos)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                    <td
+                              name="saca_kilo"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{:,}'.format(int(o.meat_kilos)).replace(',','~').replace('.',',').replace('~','.')"
+                              />
                                                     </td>
-                                                    <td name="saca_price" class="text-center">
-                                                        <span t-if="o.meat_kilos" t-esc="'{0:,.7f}'.format(o.output_amount / o.meat_kilos).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="saca_price"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-if="o.meat_kilos"
+                                t-esc="'{0:,.7f}'.format(o.output_amount / o.meat_kilos).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="saca_percentage" class="text-center">
-                                                        <span t-if="o.chick_units" t-esc="'{0:,.2f}'.format(o.output_units * 100 / o.chick_units).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="saca_percentage"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-if="o.chick_units"
+                                t-esc="'{0:,.2f}'.format(o.output_units * 100 / o.chick_units).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="cancellation">
                                                     <td name="cancellations">
                                                         <strong>Cancellation</strong>
                                                     </td>
-                                                    <td name="cancellation_units" class="text-center">
-                                                        <span t-esc="'{:,}'.format(int(o.chick_units - o.output_units)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                    <td
+                              name="cancellation_units"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{:,}'.format(int(o.chick_units - o.output_units)).replace(',','~').replace('.',',').replace('~','.')"
+                              />
                                                     </td>
-                                                    <td name="cancellation_kilos" class="text-center">
-                                                        <strong/>
+                                                    <td
+                              name="cancellation_kilos"
+                              class="text-center"
+                            >
+                                                        <strong />
                                                     </td>
-                                                    <td name="cancellation_price" class="text-center">
-                                                        <strong/>
+                                                    <td
+                              name="cancellation_price"
+                              class="text-center"
+                            >
+                                                        <strong />
                                                     </td>
-                                                    <td name="feed_percentage" class="text-center">
-                                                        <span t-esc="'{0:,.2f}'.format(o.cancellation_percentage).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="feed_percentage"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.cancellation_percentage).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="feed">
                                                     <td name="feed">
                                                         <strong>Feed</strong>
                                                     </td>
-                                                    <td name="feed_units" class="text-center">
-                                                        <span/>
+                                                    <td
+                              name="feed_units"
+                              class="text-center"
+                            >
+                                                        <span />
                                                     </td>
-                                                    <td name="feed_kilo" class="text-center">
-                                                        <span t-esc="'{:,}'.format(int(o.consume_feed)).replace(',','~').replace('.',',').replace('~','.')"/>
+                                                    <td
+                              name="feed_kilo"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-esc="'{:,}'.format(int(o.consume_feed)).replace(',','~').replace('.',',').replace('~','.')"
+                              />
                                                     </td>
-                                                    <td name="feed_price" class="text-center">
-                                                        <span t-if="feed_qty" t-esc="'{0:,.7f}'.format(feed_amount / feed_qty).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="feed_price"
+                              class="text-center"
+                            >
+                                                        <span
+                                t-if="feed_qty"
+                                t-esc="'{0:,.7f}'.format(feed_amount / feed_qty).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="feed_percentage" class="text-center">
-                                                        <span/>
+                                                    <td
+                              name="feed_percentage"
+                              class="text-center"
+                            >
+                                                        <span />
                                                     </td>
                                                 </tr>
                                             </t>
@@ -424,143 +846,281 @@
                                     </table>
                                 </div>
                             </div>
-                            <div style="height:10px"/>
+                            <div style="height:10px" />
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="amount_total_data" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="amount_total_data"
+                      style="width:110mm;"
+                    >
                                         <tbody style="background-color:#b68119;">
                                             <t>
-                                                <td name="total_liquidation_euro" style="width:70%;">
-                                                    <strong style="color:white; font-weight: bold;">TOTAL LIQUIDATION EURO</strong>
+                                                <td
+                            name="total_liquidation_euro"
+                            style="width:70%;"
+                          >
+                                                    <strong
+                              style="color:white; font-weight: bold;"
+                            >TOTAL LIQUIDATION EURO</strong>
                                                 </td>
-                                                <td name="total_liquidation_data" style="width:30%;" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format(o.liquidation_amount).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="total_liquidation_data"
+                            style="width:30%;"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.2f}'.format(o.liquidation_amount).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </t>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div style="height:20px"/>
+                            <div style="height:20px" />
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="cost_data" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="cost_data"
+                      style="width:110mm;"
+                    >
                                         <thead>
                                             <tr>
-                                                <th name="costs" class="text-center" style="width:25%;">COSTS</th>
-                                                <th name="amount" class="text-center" style="width:25%;">Amount</th>
-                                                <th name="per_kilo" class="text-center" style="width:25%;">Per Kilo</th>
-                                                <th name="per_chick" class="text-center" style="width:25%;">Per Chick</th>
+                                                <th
+                            name="costs"
+                            class="text-center"
+                            style="width:25%;"
+                          >COSTS</th>
+                                                <th
+                            name="amount"
+                            class="text-center"
+                            style="width:25%;"
+                          >Amount</th>
+                                                <th
+                            name="per_kilo"
+                            class="text-center"
+                            style="width:25%;"
+                          >Per Kilo</th>
+                                                <th
+                            name="per_chick"
+                            class="text-center"
+                            style="width:25%;"
+                          >Per Chick</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr t-foreach="analytic_line_ids" t-as="line">
-                                                <td name="description" style="font-weight: bold;">
-                                                    <span t-field="line.name"/>
+                                            <tr
+                          t-foreach="analytic_line_ids"
+                          t-as="line"
+                        >
+                                                <td
+                            name="description"
+                            style="font-weight: bold;"
+                          >
+                                                    <span t-field="line.name" />
                                                 </td>
                                                 <td name="amount" class="text-right">
-                                                    <span t-esc="'{0:,.2f}'.format(line.amount).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <span
+                              t-esc="'{0:,.2f}'.format(line.amount).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                                 <td name="per_kilo" class="text-right">
-                                                    <span t-esc="'{0:,.3f}'.format(line.amount_kilo).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <span
+                              t-esc="'{0:,.3f}'.format(line.amount_kilo).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                                 <td name="per_chick" class="text-right">
-                                                    <span t-esc="'{0:,.3f}'.format(line.amount_chicken).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <span
+                              t-esc="'{0:,.3f}'.format(line.amount_chicken).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="col-6">
-                                    <table class="no-table table-sm" name="m2" style="border: 1px solid black;width:110mm;">
+                                    <table
+                      class="no-table table-sm"
+                      name="m2"
+                      style="border: 1px solid black;width:110mm;"
+                    >
                                         <tbody>
                                             <t>
                                                 <tr name="avergae" style="width:110mm;">
-                                                    <td name="average_weight" style="width:33%;">
+                                                    <td
+                              name="average_weight"
+                              style="width:33%;"
+                            >
                                                         <strong>Avergage Weight</strong>
                                                     </td>
-                                                    <td name="conversion" style="width:33%;">
+                                                    <td
+                              name="conversion"
+                              style="width:33%;"
+                            >
                                                         <strong>Conversion</strong>
                                                     </td>
-                                                    <td name="farm_days" style="width:33%;">
+                                                    <td
+                              name="farm_days"
+                              style="width:33%;"
+                            >
                                                         <strong>Farm Days</strong>
                                                     </td>
                                                 </tr>
                                                 <tr name="average_data">
-                                                    <td name="weight_data" style="width:35%;">
-                                                        <span t-if="o.output_units" t-esc="'{0:,.3f}'.format(o.meat_kilos / o.output_units).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="weight_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-if="o.output_units"
+                                t-esc="'{0:,.3f}'.format(o.meat_kilos / o.output_units).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="conversion_date" style="width:30%;">
-                                                        <span t-esc="'{0:,.3f}'.format(o.conversion).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="conversion_date"
+                              style="width:30%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.3f}'.format(o.conversion).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="farm_days_data" style="width:35%;">
-                                                        <span t-field="o.farm_day"/>
+                                                    <td
+                              name="farm_days_data"
+                              style="width:35%;"
+                            >
+                                                        <span t-field="o.farm_day" />
                                                     </td>
                                                 </tr>
                                                 <tr name="average_age">
-                                                    <td name="average_age" style="width:35%;">
+                                                    <td
+                              name="average_age"
+                              style="width:35%;"
+                            >
                                                         <strong>Average Age</strong>
                                                     </td>
                                                     <td name="feep" style="width:30%;">
                                                         <strong>FEEP</strong>
                                                     </td>
-                                                    <td name="growth_speed" style="width:35%;">
+                                                    <td
+                              name="growth_speed"
+                              style="width:35%;"
+                            >
                                                         <strong>Growth Speed</strong>
                                                     </td>
                                                 </tr>
                                                 <tr name="average_age_data">
-                                                    <td name="average_age_data" style="width:35%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.average_age).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="average_age_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.average_age).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="feep_data" style="width:30%;">
-                                                        <span t-field="o.feed"/>
+                                                    <td
+                              name="feep_data"
+                              style="width:30%;"
+                            >
+                                                        <span t-field="o.feed" />
                                                     </td>
-                                                    <td name="growth_speed_data" style="width:35%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.growth_speed).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="growth_speed_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.growth_speed).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="area">
                                                     <td name="area" style="width:35%;">
                                                         <strong>Entry Area</strong>
                                                     </td>
-                                                    <td name="output_area" style="width:30%;">
+                                                    <td
+                              name="output_area"
+                              style="width:30%;"
+                            >
                                                         <strong>Output Area</strong>
                                                     </td>
-                                                    <td name="meat_area" style="width:35%;">
+                                                    <td
+                              name="meat_area"
+                              style="width:35%;"
+                            >
                                                         <strong>Meat Area</strong>
                                                     </td>
                                                 </tr>
                                                 <tr name="area_data">
-                                                    <td name="area_data" style="width:35%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.entry_area).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="area_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.entry_area).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="output_area_area" style="width:30%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.output_area).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="output_area_area"
+                              style="width:30%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.output_area).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="meat_area_data" style="width:35%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.meat_area).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="meat_area_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.meat_area).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
                                                 </tr>
                                                 <tr name="cancellation_percentage">
-                                                    <td name="cancellation_percentage" style="width:35%;">
+                                                    <td
+                              name="cancellation_percentage"
+                              style="width:35%;"
+                            >
                                                         <strong>Cancellation %</strong>
                                                     </td>
-                                                    <td name="cancellation_em" style="width:30%;">
-                                                        <strong>Cancellation Area</strong>
+                                                    <td
+                              name="cancellation_em"
+                              style="width:30%;"
+                            >
+                                                        <strong
+                              >Cancellation Area</strong>
                                                     </td>
-                                                    <td name="cancellation_area" style="width:35%;">
-                                                        <strong/>
+                                                    <td
+                              name="cancellation_area"
+                              style="width:35%;"
+                            >
+                                                        <strong />
                                                     </td>
                                                 </tr>
                                                 <tr name="cancellation_percentage">
-                                                    <td name="cancellation_percentage_data" style="width:35%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.cancellation_percentage).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="cancellation_percentage_data"
+                              style="width:35%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.cancellation_percentage).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="cancellation_area_data" style="width:30%;">
-                                                        <span t-esc="'{0:,.2f}'.format(o.cancellation_area).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                    <td
+                              name="cancellation_area_data"
+                              style="width:30%;"
+                            >
+                                                        <span
+                                t-esc="'{0:,.2f}'.format(o.cancellation_area).replace(',','x').replace('.',',').replace('x','.')"
+                              />
                                                     </td>
-                                                    <td name="cancellation_em_data" style="width:35%;">
-                                                        <span/>
+                                                    <td
+                              name="cancellation_em_data"
+                              style="width:35%;"
+                            >
+                                                        <span />
                                                     </td>
                                                 </tr>
                                             </t>
@@ -568,23 +1128,53 @@
                                     </table>
                                 </div>
                             </div>
-                            <div style="height:10px"/>
+                            <div style="height:10px" />
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="total_cost" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="total_cost"
+                      style="width:110mm;"
+                    >
                                         <tbody style="background-color:#b68119;">
                                             <t>
-                                                <td name="profit_loss" style="width:25%">
-                                                    <strong style="color:white; font-weight: bold;">Costs total</strong>
+                                                <td
+                            name="profit_loss"
+                            style="width:25%"
+                          >
+                                                    <strong
+                              style="color:white; font-weight: bold;"
+                            >Costs total</strong>
                                                 </td>
-                                                <td name="profit_loss_amount" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format((-1)*sum(costs_analytic_lines.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_amount"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.2f}'.format((-1)*sum(costs_analytic_lines.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_kilo" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format((-1)*sum(costs_analytic_lines.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_kilo"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format((-1)*sum(costs_analytic_lines.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_chicken" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format((-1)*sum(costs_analytic_lines.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_chicken"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format((-1)*sum(costs_analytic_lines.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </t>
                                         </tbody>
@@ -593,20 +1183,50 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="total_cost" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="total_cost"
+                      style="width:110mm;"
+                    >
                                         <tbody style="background-color:#b68119;">
                                             <t>
-                                                <td name="profit_loss" style="width:25%">
-                                                    <strong style="color:white; font-weight: bold;">Sales</strong>
+                                                <td
+                            name="profit_loss"
+                            style="width:25%"
+                          >
+                                                    <strong
+                              style="color:white; font-weight: bold;"
+                            >Sales</strong>
                                                 </td>
-                                                <td name="profit_loss_amount" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format(sum(sale_analytic_lines.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_amount"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.2f}'.format(sum(sale_analytic_lines.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_kilo" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format(sum(sale_analytic_lines.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_kilo"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format(sum(sale_analytic_lines.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_chicken" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format(sum(sale_analytic_lines.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_chicken"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format(sum(sale_analytic_lines.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </t>
                                         </tbody>
@@ -615,27 +1235,57 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <table class="table-bordered table-sm" name="amount_total_data" style="width:110mm;">
+                                    <table
+                      class="table-bordered table-sm"
+                      name="amount_total_data"
+                      style="width:110mm;"
+                    >
                                         <tbody style="background-color:#b68119;">
                                             <t>
-                                                <td name="profit_loss" style="width:25%">
-                                                    <strong style="color:white; font-weight: bold;">Profit/Loss</strong>
+                                                <td
+                            name="profit_loss"
+                            style="width:25%"
+                          >
+                                                    <strong
+                              style="color:white; font-weight: bold;"
+                            >Profit/Loss</strong>
                                                 </td>
-                                                <td name="profit_loss_amount" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.2f}'.format(sum(o.analytic_line_ids.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_amount"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.2f}'.format(sum(o.analytic_line_ids.mapped('amount'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_kilo" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format(sum(o.analytic_line_ids.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_kilo"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format(sum(o.analytic_line_ids.mapped('amount_kilo'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
-                                                <td name="profit_loss_chicken" style="width:25%" class="text-right">
-                                                    <span style="color:white; font-weight: bold;" t-esc="'{0:,.3f}'.format(sum(o.analytic_line_ids.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"/>
+                                                <td
+                            name="profit_loss_chicken"
+                            style="width:25%"
+                            class="text-right"
+                          >
+                                                    <span
+                              style="color:white; font-weight: bold;"
+                              t-esc="'{0:,.3f}'.format(sum(o.analytic_line_ids.mapped('amount_chicken'))).replace(',','x').replace('.',',').replace('x','.')"
+                            />
                                                 </td>
                                             </t>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <p style="page-break-after: always;"/>
+                            <p style="page-break-after: always;" />
                         </div>
                     </t>
                 </t>

@@ -5,8 +5,10 @@
         <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
         <field name="arch" type="xml">
             <field name="product_id" position="after">
-                <field name="product_default_code"
-                    attrs="{'invisible':[('applied_on', 'not in', ('1_product', '0_product_variant'))]}"/>
+                <field
+          name="product_default_code"
+          attrs="{'invisible':[('applied_on', 'not in', ('1_product', '0_product_variant'))]}"
+        />
             </field>
         </field>
     </record>
@@ -16,17 +18,20 @@
         <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
         <field name="arch" type="xml">
             <field name="pricelist_id" position="before">
-                <field name="product_default_code" optional="show"/>
+                <field name="product_default_code" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="product_pricelist_item_tree_view_from_product" model="ir.ui.view">
         <field name="model">product.pricelist.item</field>
-        <field name="inherit_id" ref="product.product_pricelist_item_tree_view_from_product" />
+        <field
+      name="inherit_id"
+      ref="product.product_pricelist_item_tree_view_from_product"
+    />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="product_default_code" optional="show"/>
+                <field name="product_default_code" optional="show" />
             </field>
         </field>
     </record>
@@ -39,24 +44,33 @@
                 <field name="product_default_code" />
             </field>
             <filter name="groupby_product" position="before">
-                <filter string="Product Internal Reference"
-                    name="groupby_product-default-code" domain="[]"
-                    context="{'group_by': 'product_default_code'}"/>
+                <filter
+          string="Product Internal Reference"
+          name="groupby_product-default-code"
+          domain="[]"
+          context="{'group_by': 'product_default_code'}"
+        />
             </filter>
         </field>
     </record>
 
     <record id="product_pricelist_item_view_search2" model="ir.ui.view">
         <field name="model">product.pricelist.item</field>
-        <field name="inherit_id" ref="product_pricelist_item_menu.product_pricelist_item_view_search" />
+        <field
+      name="inherit_id"
+      ref="product_pricelist_item_menu.product_pricelist_item_view_search"
+    />
         <field name="arch" type="xml">
             <field name="product_id" position="before">
                 <field name="product_default_code" />
             </field>
             <filter name="group-product" position="before">
-                <filter string="Product Internal Reference"
-                    name="groupby_product-default-code" domain="[]"
-                    context="{'group_by': 'product_default_code'}"/>
+                <filter
+          string="Product Internal Reference"
+          name="groupby_product-default-code"
+          domain="[]"
+          context="{'group_by': 'product_default_code'}"
+        />
             </filter>
         </field>
     </record>

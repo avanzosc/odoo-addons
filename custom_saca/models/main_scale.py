@@ -7,4 +7,4 @@ class MainScale(models.Model):
     _name = "main.scale"
     _description = "Main Scale"
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string="Name", required=True)

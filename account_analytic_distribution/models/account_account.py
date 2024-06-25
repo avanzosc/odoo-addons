@@ -9,4 +9,5 @@ class AccountAccount(models.Model):
     analytic_template_ids = fields.One2many(
         string="Analytic Distribution",
         comodel_name="account.analytic.template",
-        inverse_name="account_id")
+        inverse_name="account_id",
+    )

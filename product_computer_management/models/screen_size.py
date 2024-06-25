@@ -8,7 +8,4 @@ class ScreenSize(models.Model):
     _name = "screen.size"
     _description = "Screen Size"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)

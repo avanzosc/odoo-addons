@@ -1,24 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <template id="external_layout_standard_saca_info" inherit_id="web.external_layout_standard">
+        <template
+      id="external_layout_standard_saca_info"
+      inherit_id="web.external_layout_standard"
+    >
             <xpath expr="//div[hasclass('pt-5')]" position="after">
                 <div class="pt-5">
                     <!-- This div adds saca info to the header. -->
-                    <t t-call="website_custom_saca.saca_layout"/>
+                    <t t-call="website_custom_saca.saca_layout" />
                 </div>
             </xpath>
         </template>
         <template id="saca_layout">
-            <t t-set="colclass" t-value="('col-md-5' if report_type == 'html' else 'col-5') + ' ml-auto'"/>
+            <t
+        t-set="colclass"
+        t-value="('col-md-5' if report_type == 'html' else 'col-5') + ' ml-auto'"
+      />
             <t t-if="doc and doc._name == 'saca.line'">
                 <div class="saca_info row">
                     <div name="address" t-att-class="colclass">
-                            <small><b t-if="doc.date">Date:</b> <t t-if="doc.date" t-esc="doc.date"/></small><br t-if="doc.date"/>
-                            <small><b t-if="doc.lot">Lot:</b> <t t-if="doc.lot" t-esc="doc.lot"/> - <t t-if="doc.sudo().sudo().seq" t-esc="doc.seq"/></small><br t-if="doc.lot"/>
-                            <small><b t-if="doc.sudo().sudo().breeding_id">Breeding:</b> <t t-if="doc.sudo().sudo().breeding_id" t-esc="doc.sudo().breeding_id.name"/></small><br t-if="doc.sudo().sudo().breeding_id"/>
-                            <small><b t-if="doc.sudo().sudo().guide_number">Guia:</b> <t t-if="doc.sudo().sudo().guide_number" t-esc="doc.sudo().guide_number"/></small><br t-if="doc.sudo().sudo().guide_number"/>
-                            <small><b t-if="doc.sudo().product_id">Product:</b> <t t-if="doc.sudo().product_id" t-esc="doc.sudo().product_id.name"/></small>
+                            <small><b t-if="doc.date">Date:</b> <t
+                t-if="doc.date"
+                t-esc="doc.date"
+              /></small><br t-if="doc.date" />
+                            <small><b t-if="doc.lot">Lot:</b> <t
+                t-if="doc.lot"
+                t-esc="doc.lot"
+              /> - <t t-if="doc.sudo().sudo().seq" t-esc="doc.seq" /></small><br
+              t-if="doc.lot"
+            />
+                            <small><b
+                t-if="doc.sudo().sudo().breeding_id"
+              >Breeding:</b> <t
+                t-if="doc.sudo().sudo().breeding_id"
+                t-esc="doc.sudo().breeding_id.name"
+              /></small><br t-if="doc.sudo().sudo().breeding_id" />
+                            <small><b t-if="doc.sudo().sudo().guide_number">Guia:</b> <t
+                t-if="doc.sudo().sudo().guide_number"
+                t-esc="doc.sudo().guide_number"
+              /></small><br t-if="doc.sudo().sudo().guide_number" />
+                            <small><b t-if="doc.sudo().product_id">Product:</b> <t
+                t-if="doc.sudo().product_id"
+                t-esc="doc.sudo().product_id.name"
+              /></small>
                     </div>
                 </div>
             </t>
@@ -27,7 +52,7 @@
             <t t-call="web.external_layout">
                 <t t-set="doc" t-value="doc.with_context(lang=doc.supplier_id.lang)" />
                 <div class="page">
-                    <br/>
+                    <br />
                     <div class="row">
                         <div class="col-12">
                             <table class="col-12 text-center">
@@ -39,7 +64,7 @@
                             </table>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="row">
                         <div class="col-12">
                             <table>
@@ -49,108 +74,170 @@
                                             <td style="width:130mm;">
                                                 <strong>Nave: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.breeding_id" t-esc="doc.sudo().breeding_id.location_id.display_name"/>
+                                                <span
+                          t-if="doc.breeding_id"
+                          t-esc="doc.sudo().breeding_id.location_id.display_name"
+                        />
                                             </td>
                                             <td>
                                                 <strong>Phone: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.phone" t-esc="doc.phone"/>
-                                                <span t-if="doc.phone and doc.mobile"> / </span>
-                                                <span t-if="doc.mobile" t-esc="doc.mobile"/>
+                                                <span
+                          t-if="doc.phone"
+                          t-esc="doc.phone"
+                        />
+                                                <span
+                          t-if="doc.phone and doc.mobile"
+                        > / </span>
+                                                <span
+                          t-if="doc.mobile"
+                          t-esc="doc.mobile"
+                        />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <strong>City: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.city" t-esc="doc.sudo().city"/>
+                                                <span
+                          t-if="doc.city"
+                          t-esc="doc.sudo().city"
+                        />
                                             </td>
                                             <td>
                                                 <strong>Kms: </strong>
                                                 <strong>&#160;</strong>
-                                                <span if="doc.distance" t-esc="doc.distance"/>
+                                                <span
+                          if="doc.distance"
+                          t-esc="doc.distance"
+                        />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <strong>Farmer: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.farm_warehouse_id" t-esc="doc.sudo().farm_warehouse_id.name"/>
-                                                <span t-if="doc.farm_id and not doc.farm_warehouse_id" t-esc="doc.sudo().farm_id.name"/>
+                                                <span
+                          t-if="doc.farm_warehouse_id"
+                          t-esc="doc.sudo().farm_warehouse_id.name"
+                        />
+                                                <span
+                          t-if="doc.farm_id and not doc.farm_warehouse_id"
+                          t-esc="doc.sudo().farm_id.name"
+                        />
                                             </td>
                                             <td>
                                                 <strong>Planta: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.floor" t-field="doc.floor"/>
+                                                <span
+                          t-if="doc.floor"
+                          t-field="doc.floor"
+                        />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <strong>Driver: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.driver_id" t-esc="doc.sudo().driver_id.name"/>
+                                                <span
+                          t-if="doc.driver_id"
+                          t-esc="doc.sudo().driver_id.name"
+                        />
                                             </td>
-                                            <td></td>
+                                            <td />
                                         </tr>
                                         <tr>
                                             <td>
                                                 <strong>Vehicle - Trailer: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.vehicle_id" t-esc="doc.sudo().vehicle_id.name"/>
-                                                <span t-if="doc.remolque_id and doc.vehicle_id"> - </span>
-                                                <span t-if="doc.remolque_id" t-esc="doc.sudo().remolque_id.name"/>
+                                                <span
+                          t-if="doc.vehicle_id"
+                          t-esc="doc.sudo().vehicle_id.name"
+                        />
+                                                <span
+                          t-if="doc.remolque_id and doc.vehicle_id"
+                        > - </span>
+                                                <span
+                          t-if="doc.remolque_id"
+                          t-esc="doc.sudo().remolque_id.name"
+                        />
                                             </td>
-                                            <td></td>
+                                            <td />
                                         </tr>
                                         <tr>
                                             <td>
                                                 <strong>Bascula: </strong>
                                                 <strong>&#160;</strong>
-                                                <span t-if="doc.main_scale" t-esc="doc.sudo().main_scale.name"/>
+                                                <span
+                          t-if="doc.main_scale"
+                          t-esc="doc.sudo().main_scale.name"
+                        />
                                             </td>
-                                            <td></td>
+                                            <td />
                                         </tr>
                                     </t>
                                 </tbody>
                             </table>
                         </div>
-                        <br/>
+                        <br />
                     </div>
-                    <br/>
+                    <br />
                     <div class="row">
                         <div class="col-6">
                             <table>
-                                <t t-set="chofer" t-value="doc.sudo().timesheet_ids.filtered(lambda t: t.task_id.name == 'Chofer')"/>
-                                <t t-set="carga" t-value="doc.sudo().timesheet_ids.filtered(lambda t: t.task_id.name == 'Carga')"/>
+                                <t
+                  t-set="chofer"
+                  t-value="doc.sudo().timesheet_ids.filtered(lambda t: t.task_id.name == 'Chofer')"
+                />
+                                <t
+                  t-set="carga"
+                  t-value="doc.sudo().timesheet_ids.filtered(lambda t: t.task_id.name == 'Carga')"
+                />
                                 <thead>
                                     <tr>
-                                        <th style="width:50mm;"/>
+                                        <th style="width:50mm;" />
                                         <th class="text-center">Hours</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th class="th_saca_form">Slaughterhouse exit</th>
+                                        <th
+                      class="th_saca_form"
+                    >Slaughterhouse exit</th>
                                         <td class="td_saca_form text-center">
-                                            <t t-esc="chofer.sudo().time_start" t-options="{'widget': 'float_time'}"/>
+                                            <t
+                        t-esc="chofer.sudo().time_start"
+                        t-options="{'widget': 'float_time'}"
+                      />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="th_saca_form">Load start</th>
                                         <td class="td_saca_form text-center">
-                                            <t t-esc="carga.sudo().time_start" t-options="{'widget': 'float_time'}"/>
+                                            <t
+                        t-esc="carga.sudo().time_start"
+                        t-options="{'widget': 'float_time'}"
+                      />
                                         </td>
                                     </tr>
                                     <tr>
                                         <th class="th_saca_form">Load end </th>
                                         <td class="td_saca_form text-center">
-                                            <t t-esc="carga.sudo().time_stop" t-options="{'widget': 'float_time'}"/>
+                                            <t
+                        t-esc="carga.sudo().time_stop"
+                        t-options="{'widget': 'float_time'}"
+                      />
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th class="th_saca_form">Slaughterhouse arrival</th>
+                                        <th
+                      class="th_saca_form"
+                    >Slaughterhouse arrival</th>
                                         <td class="td_saca_form text-center">
-                                            <t t-esc="chofer.sudo().time_stop" t-options="{'widget': 'float_time'}"/>
+                                            <t
+                        t-esc="chofer.sudo().time_stop"
+                        t-options="{'widget': 'float_time'}"
+                      />
                                         </td>
                                     </tr>
                                 </tbody>
@@ -161,30 +248,40 @@
                                 <tbody>
                                     <tr>
                                         <th class="th_saca_form">Num. per.</th>
-                                        <td class="td_saca_form text-center"><t t-esc="doc.staff_crew"/></td>
+                                        <td class="td_saca_form text-center"><t
+                        t-esc="doc.staff_crew"
+                      /></td>
                                     </tr>
                                     <tr>
                                         <th class="th_saca_form">Kms rec. </th>
-                                        <td class="td_saca_form text-center"><t t-esc="doc.distance_done"/></td>
+                                        <td class="td_saca_form text-center"><t
+                        t-esc="doc.distance_done"
+                      /></td>
                                     </tr>
                                     <tr>
                                         <th class="th_saca_form">N. cages</th>
-                                        <td class="td_saca_form text-center"><t t-esc="doc.cages_num"/></td>
+                                        <td class="td_saca_form text-center"><t
+                        t-esc="doc.cages_num"
+                      /></td>
                                         </tr>
                                     <tr>
                                         <th class="th_saca_form">N. per cage</th>
-                                        <td class="td_saca_form text-center"><t t-esc="doc.unit_burden"/></td>
+                                        <td class="td_saca_form text-center"><t
+                        t-esc="doc.unit_burden"
+                      /></td>
                                     </tr>
                                     <tr>
                                         <th class="th_saca_form">TOTAL LOAD</th>
-                                        <td class="td_saca_form text-center"><t t-esc="doc.download_unit"/></td>
+                                        <td class="td_saca_form text-center"><t
+                        t-esc="doc.download_unit"
+                      /></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <div class="row">
                         <div class="col-12">
                             <table class="col-12 text-center">
@@ -196,13 +293,13 @@
                             </table>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="row">
                         <div class="col-9">
                             <table class="col-9 weight_table text-center">
                                 <thead>
                                     <tr class="tr_table_weight">
-                                        <th/>
+                                        <th />
                                         <th>Peso Granja</th>
                                         <th>Peso Matadero</th>
                                     </tr>
@@ -211,28 +308,40 @@
                                     <tr class="tr_table_weight">
                                         <th class="td_table_weight">Bruto</th>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.gross_origin"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.gross_origin"
+                        /></span>
                                         </td>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.gross_dest"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.gross_dest"
+                        /></span>
                                         </td>
                                     </tr>
                                     <tr class="tr_table_weight">
                                         <th class="td_table_weight">Tara</th>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.tara_origin"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.tara_origin"
+                        /></span>
                                         </td>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.tara_dest"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.tara_dest"
+                        /></span>
                                         </td>
                                     </tr>
                                     <tr class="tr_table_weight">
                                         <th class="td_table_weight">Neto</th>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.net_origin"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.net_origin"
+                        /></span>
                                         </td>
                                         <td class="td_table_weight">
-                                            <span class="info_span"><t t-esc="doc.net_dest"/></span>
+                                            <span class="info_span"><t
+                          t-esc="doc.net_dest"
+                        /></span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -247,8 +356,13 @@
                                     <tr>
                                         <td class="td_table_weight">
                                             <span class="info_span">
-                                                <t t-esc="doc.estimate_weight" t-options='{"widget": "float", "precision": 2}'/>
-                                                <t t-esc="doc.sudo().weight_uom_id.name"/>
+                                                <t
+                          t-esc="doc.estimate_weight"
+                          t-options='{"widget": "float", "precision": 2}'
+                        />
+                                                <t
+                          t-esc="doc.sudo().weight_uom_id.name"
+                        />
                                             </span>
                                         </td>
                                     </tr>
@@ -258,8 +372,13 @@
                                     <tr>
                                         <td>
                                             <span class="info_span">
-                                                <t t-esc="doc.average_weight_origin" t-options='{"widget": "float", "precision": 2}'/>
-                                                <t t-esc="doc.sudo().weight_uom_id.name"/>
+                                                <t
+                          t-esc="doc.average_weight_origin"
+                          t-options='{"widget": "float", "precision": 2}'
+                        />
+                                                <t
+                          t-esc="doc.sudo().weight_uom_id.name"
+                        />
                                             </span>
                                         </td>
                                     </tr>
@@ -267,23 +386,29 @@
                             </table>
                         </div>
                     </div>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <div class="row">
                         <div class="col-3">
                             <h6>Observations</h6>
                         </div>
-                        <div class="col-9"><t t-if="doc.note" t-esc="doc.note"/></div>
+                        <div class="col-9"><t t-if="doc.note" t-esc="doc.note" /></div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="row">
                         <div class="col-6">
                             <h6>Farmer</h6>
-                            <img t-if="doc.sudo().signature_farm" t-att-src="'data:image/png;base64,%s' % to_text(doc.sudo().signature_farm)"/>
+                            <img
+                t-if="doc.sudo().signature_farm"
+                t-att-src="'data:image/png;base64,%s' % to_text(doc.sudo().signature_farm)"
+              />
                         </div>
                         <div class="col-6">
                             <h6>Driver</h6>
-                            <img t-if="doc.sudo().signature_driver" t-att-src="'data:image/png;base64,%s' % to_text(doc.sudo().signature_driver)"/>
+                            <img
+                t-if="doc.sudo().signature_driver"
+                t-att-src="'data:image/png;base64,%s' % to_text(doc.sudo().signature_driver)"
+              />
                         </div>
                     </div>
                 </div>
@@ -293,7 +418,10 @@
         <template id="report_driver_saca">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <t t-call="website_custom_saca.report_driver_saca_document" t-lang="doc.supplier_id.lang"/>
+                    <t
+            t-call="website_custom_saca.report_driver_saca_document"
+            t-lang="doc.supplier_id.lang"
+          />
                 </t>
             </t>
         </template>
@@ -304,8 +432,10 @@
             <field name="report_type">qweb-pdf</field>
             <field name="report_name">website_custom_saca.report_driver_saca</field>
             <field name="report_file">website_custom_saca.report_driver_saca</field>
-            <field name="print_report_name">'Driver saca form  - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="custom_saca.model_saca_line"/>
+            <field
+        name="print_report_name"
+      >'Driver saca form  - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="custom_saca.model_saca_line" />
             <field name="binding_type">report</field>
         </record>
     </data>

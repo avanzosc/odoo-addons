@@ -7,8 +7,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     def find_sale_line_sequence_in_purchase_order(self, sale_line):
-        line = self.order_line.filtered(
-            lambda x: x.sequence == sale_line.sequence)
+        line = self.order_line.filtered(lambda x: x.sequence == sale_line.sequence)
         if not line:
             vals = {
                 "order_id": self.id,
@@ -17,5 +16,6 @@ class PurchaseOrder(models.Model):
                 "sale_line_id": sale_line.id,
                 "sale_order_id": sale_line.order_id.id,
                 "display_type": sale_line.display_type,
-                "product_qty": 0}
+                "product_qty": 0,
+            }
             self.env["purchase.order.line"].create(vals)
