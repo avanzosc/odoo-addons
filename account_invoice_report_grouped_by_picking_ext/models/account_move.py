@@ -1,7 +1,8 @@
 # Copyright 2023 Alfredo de la fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import models
 from collections import OrderedDict
+
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -9,7 +10,7 @@ class AccountMove(models.Model):
 
     def lines_grouped_by_picking(self):
         self.ensure_one()
-        result = super(AccountMove, self).lines_grouped_by_picking()
+        result = super().lines_grouped_by_picking()
         picking_dict = OrderedDict()
         so_dict = {x.sale_id: x for x in self.picking_ids if x.sale_id}
         for line in self.invoice_line_ids.filtered(lambda x: not x.display_type):
@@ -23,8 +24,7 @@ class AccountMove(models.Model):
                         picking_dict[key] += qty
                         remaining_qty -= qty
         with_picking = [
-            {"picking": key[0],
-             "line": key[1], "quantity": value}
+            {"picking": key[0], "line": key[1], "quantity": value}
             for key, value in picking_dict.items()
         ]
         new_result = []
@@ -32,18 +32,23 @@ class AccountMove(models.Model):
             if picking.get("picking") == self.env["stock.picking"]:
                 found = False
                 for r in result:
-                    if (not r.get("picking") and
-                            r.get("line") == picking.get("line")):
+                    if not r.get("picking") and r.get("line") == picking.get("line"):
                         found = True
                         break
                 if not found:
                     new_result.append(
-                        {"picking": False,
-                         "line": picking.get("line"),
-                         "quantity": picking.get("quantity")})
+                        {
+                            "picking": False,
+                            "line": picking.get("line"),
+                            "quantity": picking.get("quantity"),
+                        }
+                    )
         for r in result:
             new_result.append(
-                {"picking": r.get("picking"),
-                 "line": r.get("line"),
-                 "quantity": r.get("quantity")})
+                {
+                    "picking": r.get("picking"),
+                    "line": r.get("line"),
+                    "quantity": r.get("quantity"),
+                }
+            )
         return new_result
