@@ -2,20 +2,31 @@
 <odoo>
     <record id="product_pricelist_item_tree_view_from_product" model="ir.ui.view">
         <field name="model">product.pricelist.item</field>
-        <field name="inherit_id" ref="product.product_pricelist_item_tree_view_from_product"/>
+        <field
+      name="inherit_id"
+      ref="product.product_pricelist_item_tree_view_from_product"
+    />
         <field name="arch" type="xml">
             <field name="name" position="after">
-                <field name="product_code"/>
-                <field name="product_tmpl_id" readonly="1"/>
-                <field name="compute_price"/>
-                <field name="price"/>
+                <field name="product_code" />
+                <field name="product_tmpl_id" readonly="1" />
+                <field name="compute_price" />
+                <field name="price" />
             </field>
             <field name="fixed_price" position="attributes">
-                <attribute name="attrs">{'invisible': [('compute_price', '!=', 'fixed')]}</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': [('compute_price', '!=', 'fixed')]}</attribute>
             </field>
             <field name="fixed_price" position="after">
-                <field name="percent_price" attrs="{'invisible': [('compute_price', '!=', 'percentage')]}"/>
-                <field name="price_surcharge" attrs="{'invisible': [('compute_price', '!=', 'formula')]}"/>
+                <field
+          name="percent_price"
+          attrs="{'invisible': [('compute_price', '!=', 'percentage')]}"
+        />
+                <field
+          name="price_surcharge"
+          attrs="{'invisible': [('compute_price', '!=', 'formula')]}"
+        />
             </field>
         </field>
     </record>
