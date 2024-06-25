@@ -6,22 +6,14 @@ from odoo import api, fields, models
 class StockLot(models.Model):
     _inherit = "stock.lot"
 
-    in_qty = fields.Float(
-        string="Incoming Qty",
-        compute="_compute_in_qty",
-        store=True)
+    in_qty = fields.Float(string="Incoming Qty", compute="_compute_in_qty", store=True)
     out_qty = fields.Float(
-        string="Outgoing Qty",
-        compute="_compute_out_qty",
-        store=True)
-    dif_qty = fields.Float(
-        string="Difference",
-        compute="_compute_dif_qty",
-        store=True)
+        string="Outgoing Qty", compute="_compute_out_qty", store=True
+    )
+    dif_qty = fields.Float(string="Difference", compute="_compute_dif_qty", store=True)
     move_line_ids = fields.One2many(
-        string="Move Lines",
-        comodel_name="stock.move.line",
-        inverse_name="lot_id")
+        string="Move Lines", comodel_name="stock.move.line", inverse_name="lot_id"
+    )
 
     @api.depends("move_line_ids", "move_line_ids.in_qty", "move_line_ids.state")
     def _compute_in_qty(self):
