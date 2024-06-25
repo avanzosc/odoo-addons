@@ -2,7 +2,10 @@
 <odoo>
     <record id="view_purchase_order_line_input_tree" model="ir.ui.view">
         <field name="model">purchase.order.line</field>
-        <field name="inherit_id" ref="purchase_order_line_input.view_purchase_order_line_input_tree" />
+        <field
+      name="inherit_id"
+      ref="purchase_order_line_input.view_purchase_order_line_input_tree"
+    />
         <field name="arch" type="xml">
             <field name="price_total" position="after">
                 <field name="update_price_on_tab" />
