@@ -7,17 +7,14 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     saca_id = fields.Many2one(
-        string="Saca",
-        comodel_name="saca",
-        related="saca_line_id.saca_id",
-        store=True)
+        string="Saca", comodel_name="saca", related="saca_line_id.saca_id", store=True
+    )
     saca_line_id = fields.Many2one(
-        string="Saca Line",
-        comodel_name="saca.line",
-        copy=False)
+        string="Saca Line", comodel_name="saca.line", copy=False
+    )
 
     def button_confirm(self):
-        result = super(PurchaseOrder, self).button_confirm()
+        result = super().button_confirm()
         for picking in self.picking_ids:
             for m in picking.move_ids_without_package:
                 if m.purchase_line_id:

@@ -9,17 +9,17 @@ class Saca(models.Model):
     purchase_order_line_ids = fields.One2many(
         string="Purchase Order Lines",
         comodel_name="purchase.order.line",
-        inverse_name="saca_id")
+        inverse_name="saca_id",
+    )
     purchase_line_count = fields.Integer(
-        string="# Purchase Order Lines",
-        compute="_compute_purchase_line_count")
+        string="# Purchase Order Lines", compute="_compute_purchase_line_count"
+    )
     purchase_order_ids = fields.One2many(
-        string="Purchase Order",
-        comodel_name="purchase.order",
-        inverse_name="saca_id")
+        string="Purchase Order", comodel_name="purchase.order", inverse_name="saca_id"
+    )
     purchase_count = fields.Integer(
-        string="# Purchase Orders",
-        compute="_compute_purchase_count")
+        string="# Purchase Orders", compute="_compute_purchase_count"
+    )
 
     def _compute_purchase_line_count(self):
         for saca in self:
@@ -38,7 +38,7 @@ class Saca(models.Model):
             "res_model": "purchase.order.line",
             "domain": [("id", "in", self.purchase_order_line_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
 
     def action_view_purchase_order(self):
@@ -50,5 +50,5 @@ class Saca(models.Model):
             "res_model": "purchase.order",
             "domain": [("id", "in", self.purchase_order_ids.ids)],
             "type": "ir.actions.act_window",
-            "context": context
+            "context": context,
         }
