@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="fleet_vehicle_version_tree_view" model="ir.ui.view">
         <field name="name">fleet.vehicle.version.tree.view</field>
         <field name="model">fleet.vehicle.version</field>
         <field name="arch" type="xml">
             <tree string="Vehicle versions" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -19,9 +19,12 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_fleet_vehicle_version"
-        action="action_fleet_vehicle_version"
-        name="Vehicle versions" parent="fleet.fleet_configuration"
-        sequence="7"/>
+    <menuitem
+    id="menu_fleet_vehicle_version"
+    action="action_fleet_vehicle_version"
+    name="Vehicle versions"
+    parent="fleet.fleet_configuration"
+    sequence="7"
+  />
 
 </odoo>

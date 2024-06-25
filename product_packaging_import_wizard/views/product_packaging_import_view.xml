@@ -4,10 +4,10 @@
         <field name="model">product.packaging.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="state"/>
-                <field name="company_id"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="state" />
+                <field name="company_id" />
             </tree>
         </field>
     </record>
@@ -17,24 +17,55 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_import_file" string="Import" type="object" class="oe_read_only" states="draft,2validate,pass,error"/>
-                    <button name="action_validate" string="Validate" type="object" class="oe_read_only" states="2validate,pass,error"/>
-                    <button name="action_process" string="Process" type="object" class="oe_read_only" states="pass,error"/>
-                    <field name="state" widget="statusbar"/>
+                    <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_read_only"
+            states="draft,2validate,pass,error"
+          />
+                    <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,pass,error"
+          />
+                    <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass,error"
+          />
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button string="Import Lines" type="object" name="button_open_import_line" attrs="{'invisible':[('import_line_ids', '=', [])]}" class="oe_stat_button" icon="fa-bars"/>
-                        <button type="object" name="button_open_product_packaging" attrs="{'invisible':[('packaging_count', '=', 0)]}" class="oe_stat_button" icon="fa-folder-open">
-                            <field name="packaging_count" widget="statinfo"/>
+                        <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+                        <button
+              type="object"
+              name="button_open_product_packaging"
+              attrs="{'invisible':[('packaging_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+                            <field name="packaging_count" widget="statinfo" />
                         </button>
                     </div>
                     <group>
                         <group>
-                            <field name="filename"/>
-                            <field name="data" filename="filename"/>
-                            <field name="file_date"/>
-                            <field name="company_id"/>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
+                            <field name="company_id" />
                         </group>
                         <group>
                         </group>
@@ -42,44 +73,77 @@
                     <notebook>
                         <page string="Imported Lines">
                             <field name="import_line_ids">
-                                <tree decoration-danger="state == 'error'" decoration-muted="state == 'done'" decoration-it="log_info" editable="top">
-                                    <field name="action" optional="show"/>
-                                    <field name="product_name"/>
-                                    <field name="product_default_code" optional="show"/>
-                                    <field name="product_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
-                                    <field name="packaging_name" optional="show"/>
-                                    <field name="product_packaging_id" optional="hide" options="{'no_create': True, 'no_open': True}"/>
-                                    <field name="barcode" optional="show"/>
-                                    <field name="quantity" optional="show"/>
-                                    <field name="max_weight" optional="show"/>
-                                    <field name="max_weight" optional="show"/>
-                                    <field name="length" optional="show"/>
-                                    <field name="width" optional="show"/>
-                                    <field name="height" optional="show"/>
-                                    <field name="state" optional="hide"/>
-                                    <field name="log_info"/>
+                                <tree
+                  decoration-danger="state == 'error'"
+                  decoration-muted="state == 'done'"
+                  decoration-it="log_info"
+                  editable="top"
+                >
+                                    <field name="action" optional="show" />
+                                    <field name="product_name" />
+                                    <field
+                    name="product_default_code"
+                    optional="show"
+                  />
+                                    <field
+                    name="product_id"
+                    optional="hide"
+                    options="{'no_create': True, 'no_open': True}"
+                  />
+                                    <field name="packaging_name" optional="show" />
+                                    <field
+                    name="product_packaging_id"
+                    optional="hide"
+                    options="{'no_create': True, 'no_open': True}"
+                  />
+                                    <field name="barcode" optional="show" />
+                                    <field name="quantity" optional="show" />
+                                    <field name="max_weight" optional="show" />
+                                    <field name="max_weight" optional="show" />
+                                    <field name="length" optional="show" />
+                                    <field name="width" optional="show" />
+                                    <field name="height" optional="show" />
+                                    <field name="state" optional="hide" />
+                                    <field name="log_info" />
                                 </tree>
                             </field>
                         </page>
-                        <page string="Error Log" attrs="{'invisible':[('log_info','=','')]}">
-                            <field name="log_info"/>
+                        <page
+              string="Error Log"
+              attrs="{'invisible':[('log_info','=','')]}"
+            >
+                            <field name="log_info" />
                         </page>
-                        <page string="Help" attrs="{'invisible': [('state', '=', 'done')]}">
+                        <page
+              string="Help"
+              attrs="{'invisible': [('state', '=', 'done')]}"
+            >
                             <group>
                                 <div name="help" style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
-                                    <p>You must use this column names in order to fill the table:</p>
+                                    <p
+                  >You must use this column names in order to fill the table:</p>
                                     <ul>
-                                        <li><code>Product Name</code>: this will fill <b>Product Name.</b></li>
-                                        <li><code>Product Code</code>: this will fill <b>Product Code.</b></li>
-                                        <li><code>Packaging Name</code>: this will fill <b>Packaging Name.</b></li>
-                                        <li><code>Barcode</code>: this will fill <b>Barcode.</b></li>
-                                        <li><code>Quantity</code>: this will fill <b>Quantity</b></li>
-                                        <li><code>Max Weight</code>: this will fill <b>Max Weight.</b></li>
-                                        <li><code>Weight</code>: this will fill <b>Weight.</b></li>
-                                        <li><code>Length</code>: this will fill <b>Length.</b></li>
-                                        <li><code>Width</code>: this will fill <b>Width.</b></li>
-                                        <li><code>Height</code>: this will fill <b>Height. </b></li>
+                                        <li><code>Product Name</code>: this will fill <b
+                      >Product Name.</b></li>
+                                        <li><code>Product Code</code>: this will fill <b
+                      >Product Code.</b></li>
+                                        <li><code
+                      >Packaging Name</code>: this will fill <b>Packaging Name.</b></li>
+                                        <li><code>Barcode</code>: this will fill <b
+                      >Barcode.</b></li>
+                                        <li><code>Quantity</code>: this will fill <b
+                      >Quantity</b></li>
+                                        <li><code>Max Weight</code>: this will fill <b
+                      >Max Weight.</b></li>
+                                        <li><code>Weight</code>: this will fill <b
+                      >Weight.</b></li>
+                                        <li><code>Length</code>: this will fill <b
+                      >Length.</b></li>
+                                        <li><code>Width</code>: this will fill <b
+                      >Width.</b></li>
+                                        <li><code>Height</code>: this will fill <b
+                      >Height. </b></li>
                                     </ul>
                                 </div>
                             </group>
@@ -87,9 +151,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>
@@ -99,12 +163,29 @@
         <field name="model">product.packaging.import</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
-                <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]"/>
-                <filter name="finished" string="Done" domain="[('state', '=', 'done')]"/>
-                <filter name="errored" string="Error" domain="[('state', '=', 'error')]"/>
+                <field name="name" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
                 <group expand="0" string="Group By">
-                    <filter string="Status" name="state_group" domain="[]" context="{'group_by':'state'}"/>
+                    <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
                 </group>
             </search>
         </field>
@@ -115,9 +196,14 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.packaging.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="product_packaging_import_view_tree"/>
+        <field name="view_id" ref="product_packaging_import_view_tree" />
     </record>
 
-    <menuitem id="product_packaging_import_menu" action="product_packaging_import_action" parent="base_import_wizard.base_import_menu" sequence="10"/>
+    <menuitem
+    id="product_packaging_import_menu"
+    action="product_packaging_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
 
 </odoo>

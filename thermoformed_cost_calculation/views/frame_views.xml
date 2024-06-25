@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_frame_tree" model="ir.ui.view">
@@ -7,11 +6,11 @@
         <field name="model">frame</field>
         <field name="arch" type="xml">
             <tree string="Frame" editable="bottom">
-                <field name="name"/>
-                <field name="description"/>
-                <field name="width"/>
-                <field name="step"/>
-                <field name="workcenter_id"/>
+                <field name="name" />
+                <field name="description" />
+                <field name="width" />
+                <field name="step" />
+                <field name="workcenter_id" />
             </tree>
         </field>
     </record>
@@ -25,9 +24,12 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_frame"
-        action="action_frame"
-        name="Frame" parent="mrp.menu_mrp_configuration"
-        sequence="3"/>
+    <menuitem
+    id="menu_frame"
+    action="action_frame"
+    name="Frame"
+    parent="mrp.menu_mrp_configuration"
+    sequence="3"
+  />
 
 </odoo>

@@ -7,13 +7,12 @@ class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
     @api.model
-    def _prepare_purchase_order_line_from_procurement(self, product_id,
-                                                      product_qty, product_uom,
-                                                      company_id, values, po):
-        vals = super(PurchaseOrderLine,
-                     self)._prepare_purchase_order_line_from_procurement(
-                         product_id, product_qty, product_uom, company_id,
-                         values, po)
+    def _prepare_purchase_order_line_from_procurement(
+        self, product_id, product_qty, product_uom, company_id, values, po
+    ):
+        vals = super()._prepare_purchase_order_line_from_procurement(
+            product_id, product_qty, product_uom, company_id, values, po
+        )
         if "sequence" in values:
             vals["sequence"] = values.get("sequence")
         return vals

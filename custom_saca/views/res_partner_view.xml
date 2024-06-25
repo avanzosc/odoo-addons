@@ -3,23 +3,33 @@
 
     <record id="view_partner_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="category_id" position="after">
-                <field name="ates"/>
-                <label for="distance"/>
+                <field name="ates" />
+                <label for="distance" />
                 <div class="o_row" name="distance">
-                    <field name="distance"/>
+                    <field name="distance" />
                     <span>Km</span>
                 </div>
             </field>
             <xpath expr="//group/group" position="inside">
-                <field name="is_supplier" invisible="1"/>
-                <field name="is_farmer" invisible="1"/>
-                <field name="farm" invisible="1"/>
-                <field name="main_scale" attrs="{'invisible': [('farm', '=', False)]}"/>
-                <field name="chicken_supplier" attrs="{'invisible': [('is_supplier', '=', False)]}"/>
-                <field name="chicken_supplier_id" domain="[('chicken_supplier', '=', True)]" attrs="{'invisible': [('is_farmer', '=', False)]}"/>
+                <field name="is_supplier" invisible="1" />
+                <field name="is_farmer" invisible="1" />
+                <field name="farm" invisible="1" />
+                <field
+          name="main_scale"
+          attrs="{'invisible': [('farm', '=', False)]}"
+        />
+                <field
+          name="chicken_supplier"
+          attrs="{'invisible': [('is_supplier', '=', False)]}"
+        />
+                <field
+          name="chicken_supplier_id"
+          domain="[('chicken_supplier', '=', True)]"
+          attrs="{'invisible': [('is_farmer', '=', False)]}"
+        />
             </xpath>
         </field>
     </record>

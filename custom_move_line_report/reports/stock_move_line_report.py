@@ -1,7 +1,6 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import tools
-from odoo import api, fields, models
+from odoo import api, fields, models, tools
 
 
 class StockMoveLineReport(models.Model):
@@ -9,126 +8,89 @@ class StockMoveLineReport(models.Model):
     _description = "Stock Move Line Report"
     _auto = False
 
-    date = fields.Datetime(
-        string="Date", readonly=True)
+    date = fields.Datetime(string="Date", readonly=True)
     product_id = fields.Many2one(
-        string="Product",
-        comodel_name="product.product",
-        readonly=True)
+        string="Product", comodel_name="product.product", readonly=True
+    )
     lot_id = fields.Many2one(
-        string="Lot/Serial Number",
-        comodel_name="stock.production.lot",
-        readonly=True)
+        string="Lot/Serial Number", comodel_name="stock.production.lot", readonly=True
+    )
     location_id = fields.Many2one(
-        string="Location",
-        comodel_name="stock.location",
-        readonly=True)
+        string="Location", comodel_name="stock.location", readonly=True
+    )
     type_id = fields.Many2one(
-        string="Location Section",
-        comodel_name="category.type",
-        readonly=True)
+        string="Location Section", comodel_name="category.type", readonly=True
+    )
     product_category_type_id = fields.Many2one(
-        string="Product Category Section",
-        comodel_name="category.type",
-        readonly=True)
+        string="Product Category Section", comodel_name="category.type", readonly=True
+    )
     move_type_id = fields.Many2one(
-        string="Move Type",
-        comodel_name="move.type",
-        readonly=True)
+        string="Move Type", comodel_name="move.type", readonly=True
+    )
     type_category_id = fields.Many2one(
         string="Type Category",
         comodel_name="stock.picking.type.category",
-        readonly=True)
+        readonly=True,
+    )
     batch_id = fields.Many2one(
-        string="Egg Mother",
-        comodel_name="stock.picking.batch",
-        readonly=True)
+        string="Egg Mother", comodel_name="stock.picking.batch", readonly=True
+    )
     mother_id = fields.Many2one(
-        string="Mother",
-        comodel_name="stock.picking.batch",
-        readonly=True)
+        string="Mother", comodel_name="stock.picking.batch", readonly=True
+    )
     warehouse_id = fields.Many2one(
-        string="Warehouse",
-        comodel_name="stock.warehouse",
-        readonly=True)
+        string="Warehouse", comodel_name="stock.warehouse", readonly=True
+    )
     company_id = fields.Many2one(
-        string="Company",
-        comodel_name="res.company",
-        readonly=True)
-    qty_done = fields.Float(
-        string="Difference",
-        readonly=True)
-    entry_qty = fields.Float(
-        string="Entries",
-        readonly=True)
-    output_qty = fields.Float(
-        string="Outputs",
-        readonly=True)
-    amount = fields.Float(
-        string="Amount Difference",
-        readonly=True)
-    entry_amount = fields.Float(
-        string="Entries Amount",
-        readonly=True)
-    output_amount = fields.Float(
-        string="Outputs Amount",
-        readonly=True)
+        string="Company", comodel_name="res.company", readonly=True
+    )
+    qty_done = fields.Float(string="Difference", readonly=True)
+    entry_qty = fields.Float(string="Entries", readonly=True)
+    output_qty = fields.Float(string="Outputs", readonly=True)
+    amount = fields.Float(string="Amount Difference", readonly=True)
+    entry_amount = fields.Float(string="Entries Amount", readonly=True)
+    output_amount = fields.Float(string="Outputs Amount", readonly=True)
     owner_id = fields.Many2one(
-        string="Owner",
-        comodel_name="res.partner",
-        readonly=True)
+        string="Owner", comodel_name="res.partner", readonly=True
+    )
     move_line_id = fields.Many2one(
-        string="Move Line",
-        comodel_name="stock.move.line",
-        readonly=True)
-    move_id = fields.Many2one(
-        string="Move",
-        comodel_name="stock.move",
-        readonly=True)
+        string="Move Line", comodel_name="stock.move.line", readonly=True
+    )
+    move_id = fields.Many2one(string="Move", comodel_name="stock.move", readonly=True)
     picking_id = fields.Many2one(
-        string="Picking",
-        comodel_name="stock.picking",
-        readonly=True)
+        string="Picking", comodel_name="stock.picking", readonly=True
+    )
     production_id = fields.Many2one(
-        string="Production",
-        comodel_name="mrp.production",
-        readonly=True)
-    egg = fields.Boolean(
-        string="Egg",
-        readonly=True)
+        string="Production", comodel_name="mrp.production", readonly=True
+    )
+    egg = fields.Boolean(string="Egg", readonly=True)
     batch_location_id = fields.Many2one(
-        string="Mother Location",
-        comodel_name="stock.location",
-        readonly=True)
+        string="Mother Location", comodel_name="stock.location", readonly=True
+    )
     batch_category_type_id = fields.Many2one(
-        string="Batch Section",
-        comodel_name="category.type",
-        readonly=True)
+        string="Batch Section", comodel_name="category.type", readonly=True
+    )
     usage = fields.Selection(
-        string="Usage",
-        selection="_get_usage_selection",
-        readonly=True)
+        string="Usage", selection="_get_usage_selection", readonly=True
+    )
     partner_id = fields.Many2one(
-        string="Partner",
-        comodel_name="res.partner",
-        readonly=True)
+        string="Partner", comodel_name="res.partner", readonly=True
+    )
     picking_type_id = fields.Many2one(
-        string="Picking Type",
-        comodel_name="stock.picking.type",
-        readonly=True)
-    ref = fields.Char(
-        string="Reference",
-        readonly=True)
+        string="Picking Type", comodel_name="stock.picking.type", readonly=True
+    )
+    ref = fields.Char(string="Reference", readonly=True)
 
     @api.model
     def _get_usage_selection(self):
-        return self.env["stock.location"].fields_get(allfields=["usage"])[
-            "usage"
-        ]["selection"]
+        return self.env["stock.location"].fields_get(allfields=["usage"])["usage"][
+            "selection"
+        ]
 
     def init(self):
-        tools.drop_view_if_exists(self.env.cr, 'stock_move_line_report')
-        self.env.cr.execute("""
+        tools.drop_view_if_exists(self.env.cr, "stock_move_line_report")
+        self.env.cr.execute(
+            """
             CREATE OR REPLACE VIEW stock_move_line_report AS (
                 SELECT
                     row_number() OVER () AS id,
@@ -342,4 +304,5 @@ class StockMoveLineReport(models.Model):
                         line.qty_done IS NOT NULL AND
                         (line.show_in_report IS TRUE OR line.picking_id IS NULL)
             )
-        """)
+        """
+        )

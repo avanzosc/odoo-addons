@@ -7,11 +7,14 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     inventory_report_ids = fields.One2many(
-        string="Inventory report", comodel_name="stock.quant",
-        inverse_name="owner_id", copy=False)
+        string="Inventory report",
+        comodel_name="stock.quant",
+        inverse_name="owner_id",
+        copy=False,
+    )
     count_inventory_reports = fields.Integer(
-        string="Count inventory reports",
-        compute="_compute_count_inventory_reports")
+        string="Count inventory reports", compute="_compute_count_inventory_reports"
+    )
 
     def _compute_count_inventory_reports(self):
         for partner in self:
@@ -25,6 +28,7 @@ class ResPartner(models.Model):
         result = quant.with_context(
             search_default_internal_loc=1,
             search_default_productgroup=1,
-            search_default_locationgroup=1,).action_view_quants()
+            search_default_locationgroup=1,
+        ).action_view_quants()
         result["domain"] = [("id", "in", self.inventory_report_ids.ids)]
         return result

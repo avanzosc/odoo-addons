@@ -7,5 +7,4 @@ from odoo import fields, models
 class StockPickingImport(models.Model):
     _inherit = "stock.picking.import"
 
-    data = fields.Binary(
-        required=False)
+    data = fields.Binary(required=False)

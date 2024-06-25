@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase Order Line Sequence From Sale Line",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Inventory/Purchase",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -10,8 +10,7 @@
     "depends": [
         "sale_stock",
     ],
-    "data": [
-    ],
-    'installable': True,
-    'auto_install': False,
+    "data": [],
+    "installable": True,
+    "auto_install": False,
 }

@@ -2,10 +2,13 @@
 <odoo>
     <record id="product_pricelist_item_tree_view_from_product" model="ir.ui.view">
         <field name="model">product.pricelist.item</field>
-        <field name="inherit_id" ref="product.product_pricelist_item_tree_view_from_product"/>
+        <field
+      name="inherit_id"
+      ref="product.product_pricelist_item_tree_view_from_product"
+    />
         <field name="arch" type="xml">
             <field name="date_start" position="before">
-                <field name="product_pricelist_price" optional="show"/>
+                <field name="product_pricelist_price" optional="show" />
             </field>
         </field>
     </record>

@@ -13,7 +13,7 @@ class AccountMoveLine(models.Model):
         string="Sale Type",
         comodel_name="sale.order.type",
         related="move_id.sale_type_id",
-        store=True
+        store=True,
     )
 
     @api.onchange("percentage", "move_id")

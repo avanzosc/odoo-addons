@@ -8,7 +8,7 @@ from odoo.tests import common
 class TestProductPricelistItemMenu(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestProductPricelistItemMenu, cls).setUpClass()
+        super().setUpClass()
         cls.partner_model = cls.env["res.partner"]
 
     def test_product_pricelist_item_menu1(self):

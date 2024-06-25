@@ -6,14 +6,11 @@ from odoo import api, fields, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    product_packaging_qty = fields.Float(
-        compute=False,
-        inverse=False
-    )
+    product_packaging_qty = fields.Float(compute=False, inverse=False)
 
     @api.onchange("product_qty", "product_uom")
     def _onchange_quantity(self):
-        result = super(PurchaseOrderLine, self)._onchange_quantity()
+        result = super()._onchange_quantity()
         if "warning" in result:
             result = {}
         return result

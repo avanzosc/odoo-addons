@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="view_cancel_reason_tree" model="ir.ui.view">
@@ -7,7 +6,7 @@
         <field name="model">cancel.reason</field>
         <field name="arch" type="xml">
             <tree string="Cancel Reason" editable="bottom">
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -21,9 +20,12 @@
          <field name="context">{}</field>
     </record>
 
-    <menuitem id="menu_cancel_reason"
-        action="action_cancel_reason"
-        name="Cancel Reason" parent="event.menu_event_configuration"
-        sequence="35"/>
+    <menuitem
+    id="menu_cancel_reason"
+    action="action_cancel_reason"
+    name="Cancel Reason"
+    parent="event.menu_event_configuration"
+    sequence="35"
+  />
 
 </odoo>

@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
     <data>
-        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <template
+      id="report_invoice_document"
+      inherit_id="account.report_invoice_document"
+    >
             <p name="payment_communication" position="before">
                 <p t-if="o.timesheet_ids">
                     <strong>Timesheets</strong>
@@ -24,16 +27,22 @@
                         <t t-foreach="o.timesheet_ids" t-as="line">
                             <tr>
                                 <td name="td-timesheet_date">
-                                    <span t-field="line.date"
-                                        t-options='{"widget": "date"}'/>
+                                    <span
+                    t-field="line.date"
+                    t-options='{"widget": "date"}'
+                  />
                                 </td>
                                 <td name="td-timesheet_name">
-                                    <span t-field="line.name"
-                                        t-options="{'widget': 'text'}"/>
+                                    <span
+                    t-field="line.name"
+                    t-options="{'widget': 'text'}"
+                  />
                                 </td>
                                 <td name="td-timesheet_duration" class="text-right">
-                                    <span t-field="line.unit_amount"
-                                        t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                                    <span
+                    t-field="line.unit_amount"
+                    t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"
+                  />
                                 </td>
                             </tr>
                         </t>

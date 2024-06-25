@@ -30,7 +30,7 @@ class ResPartner(models.Model):
 
     # Inherited to reply on connector process
     def create(self, vals_list):
-        res = super(ResPartner, self).create(vals_list)
+        res = super().create(vals_list)
         if res and not res.user_id and not res.parent_id:
             res.onchange_lang()
         elif res and not res.user_id and res.parent_id and res.parent_id.user_id:

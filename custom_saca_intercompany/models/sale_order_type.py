@@ -7,5 +7,4 @@ from odoo import fields, models
 class SaleOrderType(models.Model):
     _inherit = "sale.order.type"
 
-    license_plate = fields.Char(
-        string="License Plate")
+    license_plate = fields.Char(string="License Plate")

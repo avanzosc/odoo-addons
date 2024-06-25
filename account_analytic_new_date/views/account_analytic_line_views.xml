@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
         <field name="arch" type="xml">
             <field name="date" position="after">
-                <field name="new_date"/>
+                <field name="new_date" />
             </field>
         </field>
     </record>
@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
             <field name="date" position="after">
-                <field name="new_date" optional="hide"/>
+                <field name="new_date" optional="hide" />
             </field>
         </field>
     </record>
@@ -25,10 +25,14 @@
         <field name="inherit_id" ref="analytic.view_account_analytic_line_filter" />
         <field name="arch" type="xml">
             <filter name="date" position="after">
-                <filter string="Other Date" name="new_date" date="new_date"/>
+                <filter string="Other Date" name="new_date" date="new_date" />
             </filter>
             <filter name="group_date" position="after">
-                <filter string="Other Date" name="group_new_date" context="{'group_by': 'new_date'}"/>
+                <filter
+          string="Other Date"
+          name="group_new_date"
+          context="{'group_by': 'new_date'}"
+        />
             </filter>
         </field>
     </record>

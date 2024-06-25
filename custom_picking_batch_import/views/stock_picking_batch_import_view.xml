@@ -4,10 +4,10 @@
         <field name="model">stock.picking.batch.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -83,10 +83,12 @@
                             <field name="file_date" />
                         </group>
                         <group>
-                            <field name="pickings_import_id"/>
-                            <field name="company_id"
-                                   groups="base.group_multi_company"
-                                   options="{'no_create': True}" />
+                            <field name="pickings_import_id" />
+                            <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
                         </group>
                     </group>
                     <notebook>
@@ -113,7 +115,8 @@
                                         <li><code>Entry Date</code>: this will fill <b
                       >Entry Date</b></li>
                                         <li><code>Type</code>: this will fill <b
-                      >Batch Type</b>. The field has to be <code>mother</code> if <b>Mother</b> and <code>breeding</code> if <b>Breeding</b></li>
+                      >Batch Type</b>. The field has to be <code>mother</code> if <b
+                      >Mother</b> and <code>breeding</code> if <b>Breeding</b></li>
                                         <li><code>Location</code>: this will fill <b
                       >Batch Location</b></li>
                                         <li><code>Name</code>: this will fill <b
@@ -124,7 +127,8 @@
                       >Mother</b></li>
                                         <li><code>Chick Code</code>: this will fill <b
                       >Chick Product Code</b></li>
-                                        <li><code>Chick Location</code>: this will fill <b
+                                        <li><code
+                      >Chick Location</code>: this will fill <b
                       >Chick Picking Source Location</b></li>
                                         <li><code>Chick Lot</code>: this will fill <b
                       >Chick Product Lot</b></li>
@@ -136,15 +140,18 @@
                       >Chicken Product Lot</b></li>
                                         <li><code>Chicken Qty</code>: this will fill <b
                       >Chicken Qty</b></li>
-                                        <li><code>Medicine Code</code>: this will fill <b
+                                        <li><code
+                      >Medicine Code</code>: this will fill <b
                       >Medicine Product Code</b></li>
-                                        <li><code>Medicine Location</code>: this will fill <b
+                                        <li><code
+                      >Medicine Location</code>: this will fill <b
                       >Medicine Picking Source Location</b></li>
                                         <li><code>Medicine Qty</code>: this will fill <b
                       >Medicine Qty</b></li>
                                         <li><code>Feed Code</code>: this will fill <b
                       >Feed Product Code</b></li>
-                                        <li><code>Feed Location</code>: this will fill <b
+                                        <li><code
+                      >Feed Location</code>: this will fill <b
                       >Feed Picking Source Location</b></li>
                                         <li><code>Feed Qty</code>: this will fill <b
                       >Feed Qty</b></li>
@@ -202,7 +209,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch.import</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="stock_picking_batch_import_view_tree"/>
+        <field name="view_id" ref="stock_picking_batch_import_view_tree" />
     </record>
 
     <menuitem

@@ -4,10 +4,10 @@
         <field name="model">account.move.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name"/>
-                <field name="file_date"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="state"/>
+                <field name="name" />
+                <field name="file_date" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -38,7 +38,7 @@
             class="oe_read_only"
             states="error,pass"
           />
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -58,27 +58,27 @@
               class="oe_stat_button"
               icon="fa-folder-open"
             >
-                            <field name="account_move_id" invisible="1"/>
+                            <field name="account_move_id" invisible="1" />
                         </button>
                     </div>
                     <group>
                         <group string="Import Data">
-                            <field name="filename"/>
-                            <field name="data" filename="filename"/>
-                            <field name="file_date"/>
+                            <field name="filename" />
+                            <field name="data" filename="filename" />
+                            <field name="file_date" />
                             <field
                 name="company_id"
                 groups="base.group_multi_company"
                 options="{'no_create': True}"
               />
-                            <field name="search_partner_by_ref"/>
+                            <field name="search_partner_by_ref" />
                         </group>
                         <group string="Account Move Information">
-                            <field name="ref"/>
-                            <field name="unbalance"/>
-                            <field name="accounting_date"/>
-                            <field name="journal_id"/>
-                            <field name="account_move_id" invisible="1"/>
+                            <field name="ref" />
+                            <field name="unbalance" />
+                            <field name="accounting_date" />
+                            <field name="journal_id" />
+                            <field name="account_move_id" invisible="1" />
                         </group>
                     </group>
                     <notebook>
@@ -121,9 +121,9 @@
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers"/>
-                    <field name="activity_ids" widget="mail_activity"/>
-                    <field name="message_ids" widget="mail_thread"/>
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="activity_ids" widget="mail_activity" />
+                    <field name="message_ids" widget="mail_thread" />
                 </div>
             </form>
         </field>

@@ -7,16 +7,14 @@ class AccountAnalyticTemplate(models.Model):
     _name = "account.analytic.template"
     _description = "Account Analytic Template"
 
-    account_id = fields.Many2one(
-        string="Account",
-        comodel_name="account.account")
+    account_id = fields.Many2one(string="Account", comodel_name="account.account")
     account_analytic_id = fields.Many2one(
-        string="Account Analytic",
-        comodel_name="account.analytic.account")
-    percentage = fields.Float(
-        string="%")
+        string="Account Analytic", comodel_name="account.analytic.account"
+    )
+    percentage = fields.Float(string="%")
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
         related="account_analytic_id.company_id",
-        store=True)
+        store=True,
+    )

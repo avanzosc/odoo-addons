@@ -12,7 +12,7 @@
         "purchase",
         "base_import_wizard",
         "purchase_discount",
-        "product_trim_name"
+        "product_trim_name",
     ],
     "data": [
         "security/ir.model.access.csv",
