@@ -16,8 +16,7 @@ class StockMove(models.Model):
             result = self.product_id.standard_price
         return result
 
-    standard_price = fields.Float(
-        string="Cost", default=_default_standard_price)
+    standard_price = fields.Float(string="Cost", default=_default_standard_price)
     amount = fields.Float(string="Amount")
 
     @api.onchange("sale_line_id")
@@ -49,10 +48,14 @@ class StockMove(models.Model):
         if self.standard_price:
             self.amount = self.standard_price * self.quantity_done
 
-    @api.depends('move_line_ids.qty_done', 'move_line_ids.product_uom_id',
-                 'move_line_nosuggest_ids.qty_done', 'picking_type_id')
+    @api.depends(
+        "move_line_ids.qty_done",
+        "move_line_ids.product_uom_id",
+        "move_line_nosuggest_ids.qty_done",
+        "picking_type_id",
+    )
     def _quantity_done_compute(self):
-        result = super(StockMove, self)._quantity_done_compute()
+        result = super()._quantity_done_compute()
         for line in self:
             line.onchange_standard_price()
         return result
