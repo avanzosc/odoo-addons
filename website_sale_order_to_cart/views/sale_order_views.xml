@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_unlock']" position="after">
+                    <button name="action_confirm_cart" string="Confirmar Carro" attrs="{'invisible': [('state', 'not in', ('draft', 'sent'))]}" class="btn-primary"/>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']/../.." position="after">
+                    <group>
+                        <button name="action_charge_cart" type="object" string="Charge Abandoned Cart"/>
+                        <field name="is_abandoned_cart"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_sale_order_tree_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="is_abandoned_cart"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="is_abandoned_cart"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_quotation_tree_with_onboarding_inherit" model="ir.ui.view">
+            <field name="name">sale.order.tree.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="inside">
+                    <field name="is_abandoned_cart"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
