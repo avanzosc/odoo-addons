@@ -11,7 +11,8 @@
         "product",
         "sale",
         "product_search_supplierinfo",
-        "product_supplierinfo_for_customer"],
+        "product_supplierinfo_for_customer",
+    ],
     "data": [
         "views/product_customerinfo_views.xml",
         "views/product_product_views.xml",
