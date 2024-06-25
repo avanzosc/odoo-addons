@@ -5,8 +5,17 @@
             <div class="row mx-2 mt-3">
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search here..." t-ref="search-input" t-on-keyup="searchArticles"/>
-                        <button class="btn btn-outline-primary" t-on-click="searchArticles">Search</button>
+                        <input
+              type="text"
+              class="form-control"
+              placeholder="Search here..."
+              t-ref="search-input"
+              t-on-keyup="searchArticles"
+            />
+                        <button
+              class="btn btn-outline-primary"
+              t-on-click="searchArticles"
+            >Search</button>
                     </div>
                 </div>
             </div>
@@ -25,31 +34,63 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr t-foreach="state.articleList" t-as="article" t-key="article.id">
+                            <tr
+                t-foreach="state.articleList"
+                t-as="article"
+                t-key="article.id"
+              >
                                 <td>
-                                    <span t-esc="article.id"/>
+                                    <span t-esc="article.id" />
                                 </td>
                                 <td>
-                                    <span t-esc="article.name" contenteditable="true" t-on-blur="(e) => this.editArticle(article,e,'name')"/>
+                                    <span
+                    t-esc="article.name"
+                    contenteditable="true"
+                    t-on-blur="(e) => this.editArticle(article,e,'name')"
+                  />
                                 </td>
                                 <td>
-                                    <span t-esc="article.error_text" contenteditable="true" t-on-blur="(e) => this.editArticle(article,e,'error_text')"/>
+                                    <span
+                    t-esc="article.error_text"
+                    contenteditable="true"
+                    t-on-blur="(e) => this.editArticle(article,e,'error_text')"
+                  />
                                 </td>
                                 <td>
-                                    <span t-esc="article.description" contenteditable="true" t-on-blur="(e) => this.editArticle(article,e,'description')"/>
+                                    <span
+                    t-esc="article.description"
+                    contenteditable="true"
+                    t-on-blur="(e) => this.editArticle(article,e,'description')"
+                  />
                                 </td>
                                 <td>
                                     <div style="display: flex; ">
                                         <div style="width: 200px;">
-                                            <span t-esc="article.question_normative_id"/>
+                                            <span
+                        t-esc="article.question_normative_id"
+                      />
                                         </div>
-                                        <label t-att-for="'integerInput_' + article.id">ID:</label>
-                                        <input style="width: 20%; margin-left: 5px;" type="number" t-model="article.question_normative_id" t-on-blur="(e) => this.editArticle(article,e,'question_normative_id')" t-att-id="'integerInput_' + article.id"/>
+                                        <label
+                      t-att-for="'integerInput_' + article.id"
+                    >ID:</label>
+                                        <input
+                      style="width: 20%; margin-left: 5px;"
+                      type="number"
+                      t-model="article.question_normative_id"
+                      t-on-blur="(e) => this.editArticle(article,e,'question_normative_id')"
+                      t-att-id="'integerInput_' + article.id"
+                    />
                                     </div>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary" t-on-click="() => this.duplicateArticle(article)">Duplicate</button>
-                                    <button class="btn btn-danger ms-2" t-on-click="() => this.deleteArticle(article)">Delete</button>
+                                    <button
+                    class="btn btn-primary"
+                    t-on-click="() => this.duplicateArticle(article)"
+                  >Duplicate</button>
+                                    <button
+                    class="btn btn-danger ms-2"
+                    t-on-click="() => this.deleteArticle(article)"
+                  >Delete</button>
                                 </td>
                             </tr>
                         </tbody>

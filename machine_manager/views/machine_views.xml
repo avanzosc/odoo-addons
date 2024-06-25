@@ -1,12 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <!-- Parent Menu on Right Panes -->
-        <menuitem id="menu_machine_manager" name="Machine Manager"
-                  sequence="85"/>
+        <menuitem id="menu_machine_manager" name="Machine Manager" sequence="85" />
 
-        <menuitem id="menu_machine_config" name="Configuration"
-            parent="menu_machine_manager" sequence="2" />
+        <menuitem
+      id="menu_machine_config"
+      name="Configuration"
+      parent="menu_machine_manager"
+      sequence="2"
+    />
 
         <!-- ========================== Machines ========================== -->
 
@@ -19,23 +22,30 @@
                         <separator string="Machine Details" colspan="4" />
                         <group>
                             <group>
-                                <field name="company_id" invisible="1"/>
+                                <field name="company_id" invisible="1" />
                                 <field name="name" />
-                                <field name="product_id" domain="[('machine_ok','=',True)]" />
+                                <field
+                  name="product_id"
+                  domain="[('machine_ok','=',True)]"
+                />
                             </group>
                             <group>
-                                <field name="serial_id" context="{'default_product_id': product_id}"
-                                        attrs="{'invisible':[('product_id','=', False)]}" />
+                                <field
+                  name="serial_id"
+                  context="{'default_product_id': product_id}"
+                  attrs="{'invisible':[('product_id','=', False)]}"
+                />
                             </group>
                         </group>
-                        <separator string="Analysis Information"
-                            colspan="4" />
+                        <separator string="Analysis Information" colspan="4" />
                         <notebook colspan="4">
                             <page string="Additional Details">
                                <group>
                                      <group>
-                                        <separator string="Current Details"
-                                            colspan="4" />
+                                        <separator
+                      string="Current Details"
+                      colspan="4"
+                    />
                                         <field name="status" />
                                         <field name="ownership" />
                                         <field name="power" />
@@ -44,21 +54,24 @@
                                         <field name="ambit" />
                                     </group>
                                     <group>
-                                        <separator string="Manufacture Details"
-                                        colspan="4" />
+                                        <separator
+                      string="Manufacture Details"
+                      colspan="4"
+                    />
                                         <field name="year" />
                                         <field name="model" />
                                         <field name="model_type_id" />
                                     </group>
                                     <group>
-                                        <separator string="Extra Information"
-                                            colspan="4" />
+                                        <separator
+                      string="Extra Information"
+                      colspan="4"
+                    />
                                         <field name="card" />
                                         <field name="cardexp" />
                                     </group>
                                     <group>
-                                        <separator string="Insurance"
-                                            colspan="4" />
+                                        <separator string="Insurance" colspan="4" />
                                         <field name="insurance" />
                                         <field name="policy" />
                                     </group>
@@ -76,9 +89,9 @@
                         </notebook>
                     </sheet>
                     <div class="oe_chatter">
-                        <field name="message_follower_ids"/>
-                        <field name="activity_ids"/>
-                        <field name="message_ids"/>
+                        <field name="message_follower_ids" />
+                        <field name="activity_ids" />
+                        <field name="message_ids" />
                     </div>
                 </form>
             </field>
@@ -89,14 +102,14 @@
             <field name="model">machine</field>
             <field name="arch" type="xml">
                 <tree string="Machines">
-                    <field name="product_categ_id" optional="show"/>
-                    <field name="product_id" optional="show"/>
-                    <field name="name"  optional="show"/>
-                    <field name="company_id" optional="show"/>
-                    <field name="year" optional="show"/>
-                    <field name="model" optional="show"/>
-                    <field name="model_type_id" optional="show"/>
-                    <field name="serial_id" optional="show"/>
+                    <field name="product_categ_id" optional="show" />
+                    <field name="product_id" optional="show" />
+                    <field name="name" optional="show" />
+                    <field name="company_id" optional="show" />
+                    <field name="year" optional="show" />
+                    <field name="model" optional="show" />
+                    <field name="model_type_id" optional="show" />
+                    <field name="serial_id" optional="show" />
                 </tree>
             </field>
         </record>
@@ -106,19 +119,31 @@
             <field name="model">machine</field>
             <field name="arch" type="xml">
                 <search string="Search machine">
-                   <field name="product_id"/>
-                   <field name="serial_id"/>
-                   <field name="model"/>
-                   <field name="model_type_id"/>
+                   <field name="product_id" />
+                   <field name="serial_id" />
+                   <field name="model" />
+                   <field name="model_type_id" />
                    <group expand="0" string="Group By">
-                       <filter name="group-model-type" string="Model type"
-                                context="{'group_by' : 'model_type_id'}"/>
-                       <filter name="group-model" string="Model"
-                                context="{'group_by' : 'model'}"/>
-                       <filter name="group-product" string="Product"
-                                context="{'group_by' : 'product_id'}"/>
-                       <filter name="group-product-categ" string="Product category"
-                                context="{'group_by' : 'product_categ_id'}"/>
+                       <filter
+              name="group-model-type"
+              string="Model type"
+              context="{'group_by' : 'model_type_id'}"
+            />
+                       <filter
+              name="group-model"
+              string="Model"
+              context="{'group_by' : 'model'}"
+            />
+                       <filter
+              name="group-product"
+              string="Product"
+              context="{'group_by' : 'product_id'}"
+            />
+                       <filter
+              name="group-product-categ"
+              string="Product category"
+              context="{'group_by' : 'product_categ_id'}"
+            />
                    </group>
                </search>
             </field>
@@ -130,8 +155,12 @@
             <field name="view_mode">tree,form</field>
         </record>
 
-        <menuitem id="menu_machines" name="Machines"
-            parent="menu_machine_config" action="machine_form_action"
-            sequence="1" />
+        <menuitem
+      id="menu_machines"
+      name="Machines"
+      parent="menu_machine_config"
+      action="machine_form_action"
+      sequence="1"
+    />
     </data>
 </odoo>

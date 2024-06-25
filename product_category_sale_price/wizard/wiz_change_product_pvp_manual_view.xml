@@ -24,13 +24,19 @@
                 </form>
             </field>
         </record>
-<record id="action_wiz_change_product_pvp_manual_sale_price" model="ir.actions.act_window">
+<record
+      id="action_wiz_change_product_pvp_manual_sale_price"
+      model="ir.actions.act_window"
+    >
     <field name="name">Change PsP manual in products</field>
     <field name="res_model">wiz.change.product.pvp.manual</field>
     <field name="binding_model_id" ref="model_product_product" />
     <field name="view_mode">form</field>
     <field name="target">new</field>
-    <field name="groups_id" eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]"/>
+    <field
+        name="groups_id"
+        eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]"
+      />
 </record>
 
     </data>

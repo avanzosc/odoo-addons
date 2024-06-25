@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="product_template_form_view" model="ir.ui.view">
@@ -14,10 +14,12 @@
         <record id="product_machine_action" model="ir.actions.act_window">
             <field name="name">Machine</field>
             <field name="res_model">machine</field>
-            <field name="view_id" ref="machine_manager.machine_tree_view"/>
+            <field name="view_id" ref="machine_manager.machine_tree_view" />
             <field name="view_mode">tree,form</field>
             <field name="domain">[('product_id', '=', active_id)]</field>
-            <field name="context">{'search_default_product_id': active_id, 'default_product_id': active_id}</field>
+            <field
+        name="context"
+      >{'search_default_product_id': active_id, 'default_product_id': active_id}</field>
         </record>
 
         <record id="product_normal_form_view" model="ir.ui.view">
@@ -25,15 +27,18 @@
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
                 <field name="default_code" position="after">
-                    <field name="machine_ids" invisible="1"/>
+                    <field name="machine_ids" invisible="1" />
                 </field>
                 <div name="button_box" position="inside">
-                    <button class="oe_stat_button" type="action"
-                            name="%(machine_manager.product_machine_action)d"
-                            icon="fa-gear">
+                    <button
+            class="oe_stat_button"
+            type="action"
+            name="%(machine_manager.product_machine_action)d"
+            icon="fa-gear"
+          >
                         <div class="o_field_widget o_stat_info">
                             <span class="o_stat_value">
-                                <field name="machine_count"/>
+                                <field name="machine_count" />
                             </span>
                             <span>
                                 Machines

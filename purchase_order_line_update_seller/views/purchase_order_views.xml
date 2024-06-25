@@ -4,10 +4,16 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+            <xpath
+        expr="//field[@name='order_line']/tree/field[@name='price_subtotal']"
+        position="after"
+      >
                 <field name="update_price_on_tab" />
             </xpath>
-            <xpath expr="//field[@name='order_line']/form/group/group[2]/field[2]" position="after">
+            <xpath
+        expr="//field[@name='order_line']/form/group/group[2]/field[2]"
+        position="after"
+      >
                 <field name="update_price_on_tab" />
             </xpath>
             <field name="company_id" position="after">
