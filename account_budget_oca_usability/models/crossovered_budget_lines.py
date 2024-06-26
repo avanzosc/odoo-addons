@@ -6,9 +6,7 @@ from odoo import fields, models
 class CrossoveredBudgetLines(models.Model):
     _inherit = "crossovered.budget.lines"
 
-    result_amount = fields.Float(
-        string="Result Amount",
-    )
+    result_amount = fields.Float()
 
     def action_recalculate_result_amount(self):
         for line in self:

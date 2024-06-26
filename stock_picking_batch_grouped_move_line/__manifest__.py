@@ -5,7 +5,7 @@
     "version": "16.0.1.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["stock_picking_batch"],
     "data": ["security/ir.model.access.csv", "views/stock_picking_batch_view.xml"],
     "license": "AGPL-3",

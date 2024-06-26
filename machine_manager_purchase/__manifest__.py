@@ -14,7 +14,7 @@
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
         "Esther Martín <esthermartin@avanzosc.es>",
     ],
-    "website": "http://avanzosc.com",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_stock",
         "machine_manager",
