@@ -9,3 +9,4 @@ from . import fleet_vehicle
 from . import main_scale
 from . import product_category
 from . import stock_warehouse
+from . import stock_picking

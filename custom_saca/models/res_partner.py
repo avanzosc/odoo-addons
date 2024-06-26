@@ -22,6 +22,8 @@ class ResPartner(models.Model):
         string="Is a Farm?", compute="_compute_is_supplier", store=True
     )
     main_scale = fields.Many2one(string="Scale", comodel_name="main.scale")
+    tractor_id = fields.Many2one(domain="[('category', '=', 'head')]")
+    semi_trailer_id = fields.Many2one(domain="[('category', '=', 'trailer')]")
 
     @api.depends("contact_type_id")
     def _compute_is_supplier(self):

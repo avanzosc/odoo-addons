@@ -15,6 +15,7 @@
         "partner_contact_type",
         "vehicle_commercial_partner",
         "stock_production_lot_fleet_vehicle",
+        "stock_picking_cmr_report_extension",
     ],
     "data": [
         "data/contact_type.xml",
@@ -33,6 +34,7 @@
         "views/product_category_view.xml",
         "views/stock_warehouse_view.xml",
         "views/burden_type_view.xml",
+        "views/stock_picking_view.xml",
     ],
     "installable": True,
 }
