@@ -1,21 +1,26 @@
 # Copyright 2024 Unai Beristain - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models, _
-
 import logging
+
+from odoo import _, fields, models
+
 _logger = logging.getLogger(__name__)
+
 
 class SurveyUserInputLine(models.Model):
     _inherit = "survey.user_input.line"
 
     question_normative_id = fields.Many2one(
-        string=_("Question Normative"), comodel_name="survey.question.normative",
+        string=_("Question Normative"),
+        comodel_name="survey.question.normative",
         copy=False,
     )
     notes = fields.Text(
-        string=_("Note"), help=_("Error Text"), copy=False,
+        string=_("Note"),
+        help=_("Error Text"),
+        copy=False,
     )
-    
+
     # @api.model_create_multi
     # def create(self, vals_list):
     #     lines = super(SurveyUserInputLine, self).create(vals_list)
@@ -55,9 +60,6 @@ class SurveyUserInputLine(models.Model):
     #             vals["notes"] = notes
     #         line.write(vals)
 
-
-
-
     # @api.model_create_multi
     # def create(self, vals_list):
     #     # Filtrar vals_list para crear solo las líneas que cumplan con los criterios de tratamiento
@@ -65,7 +67,7 @@ class SurveyUserInputLine(models.Model):
     #     for vals in vals_list:
     #         line = self.new(vals)
     #         if line.question_id and line.user_input_id.inspected_building_id.service_start_date and any(
-    #             normative.start_year <= int(line.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
+    #             normative.start_year <= int(line.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year
     #             for normative in line.question_id.question_normative_ids
     #         ):
     #             lines_filtered_vals.append(vals)
@@ -76,7 +78,7 @@ class SurveyUserInputLine(models.Model):
 
     #         # Filtrar las líneas creadas para el tratamiento
     #         lines_to_treat = lines_created.filtered(lambda x: any(
-    #             normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year 
+    #             normative.start_year <= int(x.user_input_id.inspected_building_id.service_start_date.year) < normative.end_year
     #             for normative in x.question_id.question_normative_ids
     #         ))
     #         _logger.info("2024okdeb - Lines to treat: %s", lines_to_treat)
@@ -89,8 +91,6 @@ class SurveyUserInputLine(models.Model):
     #         return lines_created
 
     #     return self.env['survey.user_input.line']
-
-
 
     # def _put_normative_in_line(self):
     #     for line in self:

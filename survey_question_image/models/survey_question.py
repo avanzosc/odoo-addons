@@ -1,11 +1,8 @@
-from odoo import api, fields, models, tools, _
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 
 class SurveyQuestion(models.Model):
-    _inherit = 'survey.question'
-    _description = 'Survey Question'
+    _inherit = "survey.question"
+    _description = "Survey Question"
 
-    image = fields.Image(
-        string='Question Image'
-    )
+    image = fields.Image(string="Question Image")

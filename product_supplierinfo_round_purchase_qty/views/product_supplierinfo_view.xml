@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="product_supplierinfo_tree_view" model="ir.ui.view">
@@ -17,7 +17,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='min_qty']/.." position="after">
                     <div class="o_row">
-                        <field name="round_quantity_purchase"/>
+                        <field name="round_quantity_purchase" />
                     </div>
                 </xpath>
             </field>

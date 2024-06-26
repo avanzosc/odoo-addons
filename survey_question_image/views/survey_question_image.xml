@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record model="ir.ui.view" id="survey_question_form_inherit">
             <field name="name">Survey Question Form Inherit Image</field>
             <field name="model">survey.question</field>
-            <field name="inherit_id" ref="survey.survey_question_form"/>
+            <field name="inherit_id" ref="survey.survey_question_form" />
             <field name="arch" type="xml">
                 <data>
                     <page name="survey_description" position="after">

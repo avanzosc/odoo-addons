@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record model="ir.ui.view" id="view_partner_form">
@@ -6,7 +6,7 @@
             <field name="inherit_id" ref="base.view_partner_form" />
             <field name="arch" type="xml">
                 <field name="vat" position="after">
-                    <field name="customer_business_area_id"/>
+                    <field name="customer_business_area_id" />
                 </field>
             </field>
         </record>
@@ -16,7 +16,7 @@
             <field name="inherit_id" ref="base.view_partner_tree" />
             <field name="arch" type="xml">
                 <field name="user_id" position="after">
-                    <field name="customer_business_area_id" optional="show"/>
+                    <field name="customer_business_area_id" optional="show" />
                 </field>
             </field>
         </record>
@@ -29,8 +29,11 @@
                     <field name="customer_business_area_id" />
                 </field>
                 <filter name="group_country" position="after">
-                    <filter string="Business area" name="group-business-area"
-                        context="{'group_by': 'customer_business_area_id'}"/>
+                    <filter
+            string="Business area"
+            name="group-business-area"
+            context="{'group_by': 'customer_business_area_id'}"
+          />
                 </filter>
             </field>
         </record>

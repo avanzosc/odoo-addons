@@ -8,19 +8,31 @@
                     <field name="manual_pvp" />
                 </group>
                 <footer>
-                    <button string="Change manual PsP" name="button_change_manual_pvp" type="object" default_focus="1" class="btn-primary" />
+                    <button
+            string="Change manual PsP"
+            name="button_change_manual_pvp"
+            type="object"
+            default_focus="1"
+            class="btn-primary"
+          />
                     <button string="Cancel" class="btn-secondary" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
-    <record id="action_wiz_change_product_temp_pvp_manual_sale_price" model="ir.actions.act_window">
+    <record
+    id="action_wiz_change_product_temp_pvp_manual_sale_price"
+    model="ir.actions.act_window"
+  >
         <field name="name">Change PsP manual in products</field>
         <field name="res_model">wiz.change.product.temp.pvp.manual</field>
         <field name="view_mode">form</field>
-        <field name="binding_model_id" ref="model_product_template"/>
-        <field name="view_id" ref="wiz_change_product_temp_pvp_manual_view_form"/>
+        <field name="binding_model_id" ref="model_product_template" />
+        <field name="view_id" ref="wiz_change_product_temp_pvp_manual_view_form" />
         <field name="target">new</field>
-        <field name="groups_id" eval="[(6, 0, [ref('product_sale_configuration.allow_change_sale_price')])]"/>
+        <field
+      name="groups_id"
+      eval="[(6, 0, [ref('product_sale_configuration.allow_change_sale_price')])]"
+    />
     </record>
 </odoo>
