@@ -1,8 +1,8 @@
 # (c) 2016 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 from dateutil.relativedelta import relativedelta
-from openerp import fields
 
+from odoo import fields
 from odoo.tests import common
 
 

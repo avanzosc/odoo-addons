@@ -81,7 +81,6 @@
     <record id="action_product_stock_forecast" model="ir.actions.act_window">
         <field name="name">Products stock forecast report</field>
         <field name="res_model">product.product.stock.forecast</field>
-        <field name="view_type">form</field>
         <field name="view_mode">pivot</field>
         <field name="context">{'group_by':['product_id','warehouse_id']}</field>
     </record>
@@ -95,7 +94,6 @@
     <record id="action_product_stock_forecast_from_sale" model="ir.actions.act_window">
         <field name="name">Products stock forecast report</field>
         <field name="res_model">product.product.stock.forecast</field>
-        <field name="view_type">form</field>
         <field name="view_mode">calendar</field>
     </record>
 </odoo>

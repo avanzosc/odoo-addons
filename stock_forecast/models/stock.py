@@ -12,9 +12,11 @@ class StockMove(models.Model):
         store=True,
     )
 
-    @api.depends("date_expected")
+    @api.depends("forecast_expected_date")
     def _compute_date_expected_without_hour(self):
         for move in self:
             move.date_expected_without_hour = (
-                move.date_expected.date() if move.date_expected else False
+                move.forecast_expected_date.date()
+                if move.forecast_expected_date
+                else False
             )

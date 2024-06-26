@@ -4,8 +4,6 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import _, fields, models
 
-from odoo.addons import decimal_precision as dp
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -44,17 +42,13 @@ class ProductProductStockForecast(models.Model):
         string="Product", comodel_name="product.product", required=True
     )
     qty_available = fields.Float(
-        string="Quantity On Hand", digits=dp.get_precision("Product Unit of Measure")
+        string="Quantity On Hand", digits="Product Unit of Measure"
     )
     virtual_available = fields.Float(
-        string="Forecast Quantity", digits=dp.get_precision("Product Unit of Measure")
+        string="Forecast Quantity", digits="Product Unit of Measure"
     )
-    incoming_qty = fields.Float(
-        string="Incoming", digits=dp.get_precision("Product Unit of Measure")
-    )
-    outgoing_qty = fields.Float(
-        string="Outgoing", digits=dp.get_precision("Product Unit of Measure")
-    )
+    incoming_qty = fields.Float(string="Incoming", digits="Product Unit of Measure")
+    outgoing_qty = fields.Float(string="Outgoing", digits="Product Unit of Measure")
     quantities_literal1 = fields.Char(string="Quantities literal 1")
     quantities_literal2 = fields.Char(string="Quantities literal 2")
 
