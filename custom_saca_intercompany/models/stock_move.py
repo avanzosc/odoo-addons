@@ -9,13 +9,12 @@ class StockMove(models.Model):
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line",
-        compute='_compute_saca_line_id',
-        store=True)
+        compute="_compute_saca_line_id",
+        store=True,
+    )
     saca_id = fields.Many2one(
-        string="Saca",
-        comodel_name="saca",
-        related="saca_line_id.saca_id",
-        store=True)
+        string="Saca", comodel_name="saca", related="saca_line_id.saca_id", store=True
+    )
 
     @api.depends("purchase_line_id", "sale_line_id")
     def _compute_saca_line_id(self):

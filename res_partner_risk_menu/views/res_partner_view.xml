@@ -5,39 +5,49 @@
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <tree string="Res Partner Risk">
-                <field name="ref"/>
-                <field name="name"/>
-                <field name="risk_sale_order"/>
-                <field name="risk_invoice_draft" optional="show"/>
-                <field name="risk_invoice_open"/>
-                <field name="risk_invoice_unpaid" optional="show"/>
-                <field name="risk_account_amount"/>
-                <field name="risk_account_amount_unpaid"/>
-                <field name="risk_remaining_value" optional="hide"/>
-                <field name="risk_sum"/>
-                <field name="credit_policy_amount"/>
-                <field name="risk_total_amount"/>
-                <field name="credit_limit" optional="hide"/>
-                <field name="risk_sale_order_limit" optional="hide"/>
-                <field name="risk_invoice_draft_limit" optional="hide"/>
-                <field name="risk_invoice_open_limit" optional="hide"/>
-                <field name="risk_invoice_unpaid_limit" optional="hide"/>
-                <field name="risk_account_amount_limit" optional="hide"/>
-                <field name="risk_account_amount_unpaid_limit" optional="hide"/>
+                <field name="ref" />
+                <field name="name" />
+                <field name="risk_sale_order" />
+                <field name="risk_invoice_draft" optional="show" />
+                <field name="risk_invoice_open" />
+                <field name="risk_invoice_unpaid" optional="show" />
+                <field name="risk_account_amount" />
+                <field name="risk_account_amount_unpaid" />
+                <field name="risk_remaining_value" optional="hide" />
+                <field name="risk_sum" />
+                <field name="credit_policy_amount" />
+                <field name="risk_total_amount" />
+                <field name="credit_limit" optional="hide" />
+                <field name="risk_sale_order_limit" optional="hide" />
+                <field name="risk_invoice_draft_limit" optional="hide" />
+                <field name="risk_invoice_open_limit" optional="hide" />
+                <field name="risk_invoice_unpaid_limit" optional="hide" />
+                <field name="risk_account_amount_limit" optional="hide" />
+                <field name="risk_account_amount_unpaid_limit" optional="hide" />
             </tree>
         </field>
     </record>
 
     <record id="res_partner_view_risk" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk"/>
+        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk" />
         <field name="arch" type="xml">
             <field name="risk_total" position="before">
-                <field name="risk_sum" colspan="3" widget="monetary" options="{'currency_field': 'risk_currency_id'}"/>
-                <field name="risk_total_amount" colspan="3" widget="monetary" options="{'currency_field': 'risk_currency_id'}"/>
+                <field
+          name="risk_sum"
+          colspan="3"
+          widget="monetary"
+          options="{'currency_field': 'risk_currency_id'}"
+        />
+                <field
+          name="risk_total_amount"
+          colspan="3"
+          widget="monetary"
+          options="{'currency_field': 'risk_currency_id'}"
+        />
             </field>
             <field name="risk_exception" position="after">
-                <field name="credit_policy_amount"/>
+                <field name="credit_policy_amount" />
             </field>
         </field>
     </record>
@@ -49,9 +59,16 @@
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="res_partner_risk_tree_view" />
         <field name="domain">[]</field>
-        <field name="context">{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
+        <field
+      name="context"
+    >{'search_default_customer': 1,'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}</field>
     </record>
 
-    <menuitem id="res_partner_risk_menu" action="action_res_partner_risk" parent="account.menu_finance_receivables" sequence="120"/>
+    <menuitem
+    id="res_partner_risk_menu"
+    action="action_res_partner_risk"
+    parent="account.menu_finance_receivables"
+    sequence="120"
+  />
 
 </odoo>

@@ -38,7 +38,9 @@ class StockMoveLine(models.Model):
                 if not line.result_package_id.width:
                     line.result_package_id.width = line.packaging_id.width
                 if not line.result_package_id.pack_length:
-                    line.result_package_id.pack_length = line.packaging_id.packaging_length
+                    line.result_package_id.pack_length = (
+                        line.packaging_id.packaging_length
+                    )
                 if not line.result_package_id.max_weight:
                     line.result_package_id.max_weight = line.packaging_id.max_weight
         return result

@@ -1,6 +1,6 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, models, fields
+from odoo import api, fields, models
 
 
 class StockPickingBatch(models.Model):
@@ -11,7 +11,7 @@ class StockPickingBatch(models.Model):
 
     @api.depends("company_id", "picking_type_id", "state")
     def _compute_allowed_picking_ids(self):
-        result = super(StockPickingBatch, self)._compute_allowed_picking_ids()
+        result = super()._compute_allowed_picking_ids()
         for batch in self:
             allowed_pickings = batch.allowed_picking_ids
             domain = [("state", "=", "done")]
@@ -23,18 +23,18 @@ class StockPickingBatch(models.Model):
         return result
 
     def action_confirm(self):
-        result = super(StockPickingBatch, self).action_confirm()
+        result = super().action_confirm()
         self.in_progress = True
         return result
 
     def action_done(self):
-        result = super(StockPickingBatch, self).action_done()
+        result = super().action_done()
         self.is_done = True
         return result
 
     @api.depends("picking_ids", "picking_ids.state", "in_progress", "is_done")
     def _compute_state(self):
-        result = super(StockPickingBatch, self)._compute_state()
+        result = super()._compute_state()
         for batch in self:
             if batch.in_progress is False and (batch.is_done) is False:
                 batch.state = "draft"

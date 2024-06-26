@@ -1,15 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_users_form" model="ir.ui.view">
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="inherit_id" ref="base.view_users_form" />
         <field name="arch" type="xml">
             <notebook position="before">
                 <group>
                     <group>
-                        <label for="authorized_signature"
-                                string="Authorized signature in tecnical sheet"/>
-                        <field name="authorized_signature" nolabel="1"/>
+                        <label
+              for="authorized_signature"
+              string="Authorized signature in tecnical sheet"
+            />
+                        <field name="authorized_signature" nolabel="1" />
                     </group>
                     <group />
                 </group>
@@ -19,33 +21,45 @@
 
     <record id="view_users_tree" model="ir.ui.view">
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="inherit_id" ref="base.view_users_tree" />
         <field name="arch" type="xml">
             <field name="login_date" position="after">
-                <field name="authorized_signature" optional="show"
-                    string="Authorized signature in tecnical sheet"/>
+                <field
+          name="authorized_signature"
+          optional="show"
+          string="Authorized signature in tecnical sheet"
+        />
             </field>
         </field>
     </record>
 
     <record id="view_users_search" model="ir.ui.view">
         <field name="model">res.users</field>
-        <field name="inherit_id" ref="base.view_users_search"/>
+        <field name="inherit_id" ref="base.view_users_search" />
         <field name="arch" type="xml">
             <field name="share" position="after">
                 <field name="authorized_signature" />
             </field>
             <filter name="Inactive" position="before">
-                <filter name="authorized-signature"
-                    string="WITH Authorized signature in tecnical sheet"
-                    domain="[('authorized_signature','=',True)]"/>
-                <filter name="no-authorized-signature"
-                    string="WITHOUT Authorized signature in tecnical sheet"
-                    domain="[('authorized_signature','=',False)]"/>
+                <filter
+          name="authorized-signature"
+          string="WITH Authorized signature in tecnical sheet"
+          domain="[('authorized_signature','=',True)]"
+        />
+                <filter
+          name="no-authorized-signature"
+          string="WITHOUT Authorized signature in tecnical sheet"
+          domain="[('authorized_signature','=',False)]"
+        />
             </filter>
             <filter name="Inactive" position="after">
                 <group expand="0" string="Group By">
-                    <filter string="Authorized signature" name="group-authorized-signature" domain="[]" context="{'group_by': 'authorized_signature'}"/>
+                    <filter
+            string="Authorized signature"
+            name="group-authorized-signature"
+            domain="[]"
+            context="{'group_by': 'authorized_signature'}"
+          />
                 </group>
             </filter>
         </field>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="report_mother_lineage_relation_xlsx" model="ir.actions.report">
         <field name="name">Breedings Report By Mother XLSX</field>
@@ -7,7 +7,10 @@
         <field name="report_name">mother_lineage_relation_xlsx</field>
         <field name="report_file">mother_lineage_relation_xlsx</field>
         <field name="print_report_name">'Breeding Repor By Mother XLSX'</field>
-        <field name="binding_model_id" ref="stock_picking_batch_breeding.model_mother_lineage_relation"/>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch_breeding.model_mother_lineage_relation"
+    />
         <field name="binding_type">report</field>
     </record>
 </odoo>

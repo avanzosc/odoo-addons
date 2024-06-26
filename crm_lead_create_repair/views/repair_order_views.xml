@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="repair.view_repair_order_tree" />
         <field name="arch" type="xml">
             <field name="user_id" position="after">
-                <field name="crm_lead_id" readonly="1" optional="show"/>
+                <field name="crm_lead_id" readonly="1" optional="show" />
             </field>
         </field>
     </record>
@@ -28,8 +28,12 @@
                 <field name="crm_lead_id" />
             </field>
             <filter name="product" position="after">
-                <filter string="Initiative/Opportunity" name="initiative-opportunity" domain="[]"
-                    context="{'group_by': 'crm_lead_id'}"/>
+                <filter
+          string="Initiative/Opportunity"
+          name="initiative-opportunity"
+          domain="[]"
+          context="{'group_by': 'crm_lead_id'}"
+        />
             </filter>
         </field>
     </record>

@@ -9,13 +9,13 @@
     "license": "AGPL-3",
     "depends": [
         "sale_stock",
-        "sale_order_package_usability", 
+        "sale_order_package_usability",
         "stock_picking_invoice_link",
         "stock_picking_batch",
         "stock_move_line_package_dimension",
         "stock_picking_batch_package",
         "stock_picking_package_usability",
-        "stock_picking_batch_invoice_rel"
+        "stock_picking_batch_invoice_rel",
     ],
     "data": [
         "security/ir.model.access.csv",

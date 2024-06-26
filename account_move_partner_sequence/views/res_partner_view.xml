@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
      <record model="ir.ui.view" id="view_partner_form">
          <field name="model">res.partner</field>
          <field name="inherit_id" ref="base.view_partner_form" />
          <field name="arch" type="xml">
             <field name="category_id" position="before">
-                <field name="account_sequence_id"/>
+                <field name="account_sequence_id" />
             </field>
          </field>
      </record>
@@ -15,7 +15,7 @@
          <field name="inherit_id" ref="base.view_partner_tree" />
          <field name="arch" type="xml">
             <field name="category_id" position="before">
-                <field name="account_sequence_id" optional="show"/>
+                <field name="account_sequence_id" optional="show" />
             </field>
          </field>
      </record>

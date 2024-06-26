@@ -5,16 +5,16 @@
         <field name="model">account.move.line</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="invoice_date"/>
-                <field name="partner_id"/>
-                <field name="product_id"/>
-                <field name="quantity"/>
-                <field name="price_unit"/>
-                <field name="price_subtotal"/>
-                <field name="price_total"/>
-                <field name="rappel_percentage"/>
-                <field name="rappel_period" optional="hide"/>
-                <field name="rappel_amount"/>
+                <field name="invoice_date" />
+                <field name="partner_id" />
+                <field name="product_id" />
+                <field name="quantity" />
+                <field name="price_unit" />
+                <field name="price_subtotal" />
+                <field name="price_total" />
+                <field name="rappel_percentage" />
+                <field name="rappel_period" optional="hide" />
+                <field name="rappel_amount" />
             </tree>
         </field>
     </record>
@@ -23,15 +23,31 @@
         <field name="model">account.move.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="partner_id"/>
-                <field name="product_id"/>
-                <separator/>
-                <field name="invoice_date"/>
-                <filter string="With Percentage" name="percentage" domain="[('rappel_percentage', '!=', 0)]"/>
-                <filter string="Wthout Percentage" name="no_percentage" domain="[('rappel_percentage', '=', 0)]"/>
+                <field name="partner_id" />
+                <field name="product_id" />
+                <separator />
+                <field name="invoice_date" />
+                <filter
+          string="With Percentage"
+          name="percentage"
+          domain="[('rappel_percentage', '!=', 0)]"
+        />
+                <filter
+          string="Wthout Percentage"
+          name="no_percentage"
+          domain="[('rappel_percentage', '=', 0)]"
+        />
                 <group expand="0" name="group_by" string="Group By">
-                    <filter name="group_partner" string="Partner" context="{'group_by': 'partner_id'}"/>
-                    <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+                    <filter
+            name="group_partner"
+            string="Partner"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <filter
+            name="group_product"
+            string="Product"
+            context="{'group_by': 'product_id'}"
+          />
                 </group>
             </search>
         </field>
@@ -42,8 +58,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">account.move.line</field>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="rappel_view_tree"/>
-        <field name="search_view_id" ref="rappel_view_search"/>
+        <field name="view_id" ref="rappel_view_tree" />
+        <field name="search_view_id" ref="rappel_view_search" />
         <field name="domain">[('partner_rappel_id', '!=', False)]</field>
     </record>
 
@@ -56,8 +72,8 @@
 
     <record id="action_recalculate_rappel" model="ir.actions.server">
     <field name="name">Recalculate Rappel</field>
-    <field name="model_id" ref="res_partner_rappel.model_account_move_line"/>
-    <field name="binding_model_id" ref="res_partner_rappel.model_account_move_line"/>
+    <field name="model_id" ref="res_partner_rappel.model_account_move_line" />
+    <field name="binding_model_id" ref="res_partner_rappel.model_account_move_line" />
     <field name="state">code</field>
     <field name="code">
         for record in records:

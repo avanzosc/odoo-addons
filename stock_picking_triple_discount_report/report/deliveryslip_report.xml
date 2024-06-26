@@ -1,30 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <template id="valued_report_picking" inherit_id="stock_picking_report_valued.valued_report_picking">
-            <xpath expr="//th[@groups='product.group_discount_per_so_line']" position="attributes">
+        <template
+      id="valued_report_picking"
+      inherit_id="stock_picking_report_valued.valued_report_picking"
+    >
+            <xpath
+        expr="//th[@groups='product.group_discount_per_so_line']"
+        position="attributes"
+      >
                 <attribute name="t-if">o.print_discount</attribute>
             </xpath>
-            <xpath expr="//th[@groups='product.group_discount_per_so_line']" position="after">
-                <th class="text-right" t-if="o.print_discount2" name="discount2" groups="product.group_discount_per_so_line">
+            <xpath
+        expr="//th[@groups='product.group_discount_per_so_line']"
+        position="after"
+      >
+                <th
+          class="text-right"
+          t-if="o.print_discount2"
+          name="discount2"
+          groups="product.group_discount_per_so_line"
+        >
                     <strong>Discount 2</strong>
                 </th>
-                <th class="text-right" t-if="o.print_discount3" name="discount3" groups="product.group_discount_per_so_line">
+                <th
+          class="text-right"
+          t-if="o.print_discount3"
+          name="discount3"
+          groups="product.group_discount_per_so_line"
+        >
                     <strong>Discount 3</strong>
                 </th>
             </xpath>
         </template>
 
-        <template id="valued_report_picking_has_serial_move_line" 
-                        inherit_id="stock_picking_report_valued.valued_report_picking_has_serial_move_line">
-            <xpath expr="//span[@t-field='move_line.sale_discount']/.." position="attributes">
+        <template
+      id="valued_report_picking_has_serial_move_line"
+      inherit_id="stock_picking_report_valued.valued_report_picking_has_serial_move_line"
+    >
+            <xpath
+        expr="//span[@t-field='move_line.sale_discount']/.."
+        position="attributes"
+      >
                 <attribute name="t-if">o.print_discount</attribute>
             </xpath>
-            <xpath expr="//span[@t-field='move_line.sale_discount']/.." position="after">
-                <td class="text-right" t-if="o.print_discount2" name="td-discount2" groups="product.group_discount_per_so_line">
+            <xpath
+        expr="//span[@t-field='move_line.sale_discount']/.."
+        position="after"
+      >
+                <td
+          class="text-right"
+          t-if="o.print_discount2"
+          name="td-discount2"
+          groups="product.group_discount_per_so_line"
+        >
                     <span t-field="move_line.sale_discount2" />
                 </td>
-                <td class="text-right" t-if="o.print_discount3" name="td-discount3" groups="product.group_discount_per_so_line">
+                <td
+          class="text-right"
+          t-if="o.print_discount3"
+          name="td-discount3"
+          groups="product.group_discount_per_so_line"
+        >
                     <span t-field="move_line.sale_discount3" />
                 </td>
             </xpath>

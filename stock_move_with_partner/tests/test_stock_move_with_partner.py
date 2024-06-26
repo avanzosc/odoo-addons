@@ -4,28 +4,27 @@ from odoo.tests import common
 
 
 class TestStockMoveWithPartner(common.SavepointCase):
-
     @classmethod
     def setUpClass(cls):
-        super(TestStockMoveWithPartner, cls).setUpClass()
-        picking_type = cls.env.ref('stock.picking_type_in')
-        location = cls.env['stock.location'].search(
-            [('usage', '=', 'supplier')], limit=1)
-        cls.product = cls.env['product.product'].search([], limit=1)
+        super().setUpClass()
+        picking_type = cls.env.ref("stock.picking_type_in")
+        location = cls.env["stock.location"].search(
+            [("usage", "=", "supplier")], limit=1
+        )
+        cls.product = cls.env["product.product"].search([], limit=1)
         move_vals = {
-            'product_id': cls.product.id,
-            'name': cls.product.name,
-            'quantity_done': 5.0,
-            'product_uom': cls.product.uom_po_id.id,
+            "product_id": cls.product.id,
+            "name": cls.product.name,
+            "quantity_done": 5.0,
+            "product_uom": cls.product.uom_po_id.id,
         }
         picking_vals = {
-            'location_id': location.id,
-            'location_dest_id': picking_type.default_location_dest_id.id,
-            'picking_type_id': picking_type.id,
-            'move_lines': [(0, 0, move_vals)],
+            "location_id": location.id,
+            "location_dest_id": picking_type.default_location_dest_id.id,
+            "picking_type_id": picking_type.id,
+            "move_lines": [(0, 0, move_vals)],
         }
-        cls.picking = cls.env['stock.picking'].create(picking_vals)
+        cls.picking = cls.env["stock.picking"].create(picking_vals)
 
     def test_stock_move_with_partner(self):
-        self.assertEqual(
-            self.picking.partner_id, self.picking.move_lines[0].partner_id)
+        self.assertEqual(self.picking.partner_id, self.picking.move_lines[0].partner_id)

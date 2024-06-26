@@ -1,6 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_invoice_document_inh_rebu" inherit_id="account.report_invoice_document">
+    <template
+    id="report_invoice_document_inh_rebu"
+    inherit_id="account.report_invoice_document"
+  >
         <th name="th_priceunit" position="attributes">
             <attribute name="t-if">not o.is_rebu</attribute>
         </th>
@@ -21,10 +24,16 @@
         </xpath>
         <xpath expr="//tbody/t[2]" position="replace">
             <t t-if="o.is_rebu">
-                <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True).filtered(lambda c: c.tax_ids and c.price_unit >= 0)"/>
+                <t
+          t-set="lines"
+          t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True).filtered(lambda c: c.tax_ids and c.price_unit >= 0)"
+        />
             </t>
             <t t-else="">
-                <t t-set="lines" t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"/>
+                <t
+          t-set="lines"
+          t-value="o.invoice_line_ids.sorted(key=lambda l: (-l.sequence, l.date, l.move_name, -l.id), reverse=True)"
+        />
             </t>
         </xpath>
         <xpath expr="//div[@id='total']/div/table/tr/td/.." position="attributes">

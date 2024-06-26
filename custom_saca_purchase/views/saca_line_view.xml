@@ -1,37 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="saca_line_form_view" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_form_view"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
         <field name="arch" type="xml">
             <header position="inside">
-                <field name="stage_id" widget="statusbar"/>
-                <field name="purchase_order_id" invisible="1"/>
-                <button name="action_create_purchase" type="object" string="Next Stage" class="oe_highlight" attrs="{'invisible': [('purchase_order_id','!=',False)]}"/>
+                <field name="stage_id" widget="statusbar" />
+                <field name="purchase_order_id" invisible="1" />
+                <button
+          name="action_create_purchase"
+          type="object"
+          string="Next Stage"
+          class="oe_highlight"
+          attrs="{'invisible': [('purchase_order_id','!=',False)]}"
+        />
             </header>
             <div name="button_box" position="inside">
-                <button class="oe_stat_button" icon="fa-shopping-cart" type="object" name="action_view_purchase_ids">
-                    <field string="Purchase Order" name="count_purchases" widget="statinfo"/>
+                <button
+          class="oe_stat_button"
+          icon="fa-shopping-cart"
+          type="object"
+          name="action_view_purchase_ids"
+        >
+                    <field
+            string="Purchase Order"
+            name="count_purchases"
+            widget="statinfo"
+          />
                 </button>
             </div>
             <field name="age" position="after">
-                <field name="product_id" domain="[('live_chicken', '=', True)]" required="1"/>
+                <field
+          name="product_id"
+          domain="[('live_chicken', '=', True)]"
+          required="1"
+        />
             </field>
             <page name="saca" position="inside">
                 <group string="Purchase" col="1">
-                    <field name="purchase_order_line_ids" options="{'create': false}" nolabel="1" context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}" attrs="{'invisible': [('purchase_order_id','=',False)]}">
+                    <field
+            name="purchase_order_line_ids"
+            options="{'create': false}"
+            nolabel="1"
+            context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}"
+            attrs="{'invisible': [('purchase_order_id','=',False)]}"
+          >
                         <tree editable="bottom">
-                            <field name="product_uom_category_id" invisible="1"/>
-                            <field name="order_id"/>
-                            <field name="product_id" domain="[('live_chicken', '=', True)]"/>
-                            <field name="name" optional="show"/>
-                            <field name="product_qty"/>
-                            <field name="product_uom" optional="show"/>
-                            <field name="price_unit" optional="show"/>
-                            <field name="taxes_id" optional="show" widget="many2many_tags"/>
-                            <field name="price_subtotal"/>
-                            <field name="state" optional="show" widget="badge" decoration-success="state == 'purchase' or state == 'done'" decoration-warning="state == 'to approve'" decoration-info="state == 'draft' or state == 'sent'"/>
+                            <field name="product_uom_category_id" invisible="1" />
+                            <field name="order_id" />
+                            <field
+                name="product_id"
+                domain="[('live_chicken', '=', True)]"
+              />
+                            <field name="name" optional="show" />
+                            <field name="product_qty" />
+                            <field name="product_uom" optional="show" />
+                            <field name="price_unit" optional="show" />
+                            <field
+                name="taxes_id"
+                optional="show"
+                widget="many2many_tags"
+              />
+                            <field name="price_subtotal" />
+                            <field
+                name="state"
+                optional="show"
+                widget="badge"
+                decoration-success="state == 'purchase' or state == 'done'"
+                decoration-warning="state == 'to approve'"
+                decoration-info="state == 'draft' or state == 'sent'"
+              />
                         </tree>
                     </field>
                 </group>
@@ -41,34 +80,38 @@
 
     <record id="saca_line_tree_view" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_tree_view"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_tree_view" />
         <field name="arch" type="xml">
             <field name="main_scale" position="before">
-                <field name="purchase_order_id" optional="show"/>
+                <field name="purchase_order_id" optional="show" />
             </field>
             <field name="box_weight" position="after">
-                <field name="price_unit"/>
+                <field name="price_unit" />
             </field>
         </field>
     </record>
 
     <record id="saca_line_view_search" model="ir.ui.view">
         <field name="model">saca.line</field>
-        <field name="inherit_id" ref="custom_saca.saca_line_view_search"/>
+        <field name="inherit_id" ref="custom_saca.saca_line_view_search" />
         <field name="arch" type="xml">
             <field name="coya_id" position="after">
-                <field name="purchase_order_id"/>
+                <field name="purchase_order_id" />
             </field>
             <filter name="coya" position="after">
-                <filter string="Purchase Order" name="purchase_order" context="{'group_by':'purchase_order_id'}"/>
+                <filter
+          string="Purchase Order"
+          name="purchase_order"
+          context="{'group_by':'purchase_order_id'}"
+        />
             </filter>
         </field>
     </record>
 
     <record id="action_create_purchase" model="ir.actions.server">
         <field name="name">From Presaca to Saca</field>
-        <field name="model_id" ref="custom_saca_purchase.model_saca_line"/>
-        <field name="binding_model_id" ref="custom_saca_purchase.model_saca_line"/>
+        <field name="model_id" ref="custom_saca_purchase.model_saca_line" />
+        <field name="binding_model_id" ref="custom_saca_purchase.model_saca_line" />
         <field name="state">code</field>
         <field name="code">
             for record in records:

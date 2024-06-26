@@ -7,15 +7,18 @@ class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     is_incubator = fields.Boolean(
-        string="Incubator", compute="_compute_type", store=True)
+        string="Incubator", compute="_compute_type", store=True
+    )
     is_integration = fields.Boolean(
-        string="Integration", compute="_compute_type", store=True)
+        string="Integration", compute="_compute_type", store=True
+    )
     is_reproductor = fields.Boolean(
-        string="Reproductor", compute="_compute_type", store=True)
+        string="Reproductor", compute="_compute_type", store=True
+    )
     is_feed_flour = fields.Boolean(
-        string="Feed/Flour", compute="_compute_type", store=True)
-    is_medicine = fields.Boolean(
-        string="Medicine", compute="_compute_type", store=True)
+        string="Feed/Flour", compute="_compute_type", store=True
+    )
+    is_medicine = fields.Boolean(string="Medicine", compute="_compute_type", store=True)
 
     @api.depends("category_type_id", "dest_category_type_id")
     def _compute_type(self):
@@ -31,25 +34,25 @@ class StockPickingType(models.Model):
             feed = self.env.ref("stock_warehouse_farm.categ_type4")
             flour = self.env.ref("stock_warehouse_farm.categ_type5")
             incubator = self.env.ref("stock_warehouse_farm.categ_type6")
-            if (
-                line.category_type_id == reproductor) or (
-                    line.dest_category_type_id == reproductor):
+            if (line.category_type_id == reproductor) or (
+                line.dest_category_type_id == reproductor
+            ):
                 is_reproductor = True
-            if (
-                line.category_type_id == integration) or (
-                    line.dest_category_type_id == integration):
+            if (line.category_type_id == integration) or (
+                line.dest_category_type_id == integration
+            ):
                 is_integration = True
-            if (
-                line.category_type_id == medicine) or (
-                    line.dest_category_type_id == medicine):
+            if (line.category_type_id == medicine) or (
+                line.dest_category_type_id == medicine
+            ):
                 is_medicine = True
-            if (
-                line.category_type_id in (feed, flour)) or (
-                    line.dest_category_type_id in (feed, flour)):
+            if (line.category_type_id in (feed, flour)) or (
+                line.dest_category_type_id in (feed, flour)
+            ):
                 is_feed_flour = True
-            if (
-                line.category_type_id == incubator) or (
-                    line.dest_category_type_id == incubator):
+            if (line.category_type_id == incubator) or (
+                line.dest_category_type_id == incubator
+            ):
                 is_incubator = True
             line.is_reproductor = is_reproductor
             line.is_integration = is_integration

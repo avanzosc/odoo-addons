@@ -1,28 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="mother_lineage_relation_view_search" model="ir.ui.view">
         <field name="name">mother.lineage.relation.view.search</field>
         <field name="model">mother.lineage.relation</field>
         <field name="arch" type="xml">
             <search>
-                <field name="breeding_id"/>
-                <field name="mother_id"/>
-                <field name="lineage_id"/>
-                <field name="warehouse_id"/>
-                <filter name="liquidated" string="Liquidated" domain="[('liquidated', '=', True)]"/>
-                <filter name="billed" string="Billed" domain="[('billed', '=', True)]"/>
-                <filter name="closed" string="Closed" domain="[('closed', '=', True)]"/>
-                <separator/>
-                <filter string="Entry Date" name="entry" date="entry_date"/>
-                <filter string="Cleaned Date" name="cleaned" date="cleaned_date"/>
+                <field name="breeding_id" />
+                <field name="mother_id" />
+                <field name="lineage_id" />
+                <field name="warehouse_id" />
+                <filter
+          name="liquidated"
+          string="Liquidated"
+          domain="[('liquidated', '=', True)]"
+        />
+                <filter
+          name="billed"
+          string="Billed"
+          domain="[('billed', '=', True)]"
+        />
+                <filter
+          name="closed"
+          string="Closed"
+          domain="[('closed', '=', True)]"
+        />
+                <separator />
+                <filter string="Entry Date" name="entry" date="entry_date" />
+                <filter string="Cleaned Date" name="cleaned" date="cleaned_date" />
                 <group expand="0" string="Group By">
-                    <filter string="Breeding" name="breeding" context="{'group_by':'breeding_id'}"/>
-                    <filter string="Mother" name="mother" context="{'group_by':'mother_id'}"/>
-                    <filter string="Lineage" name="lineage" context="{'group_by':'lineage_id'}"/>
-                    <filter string="Warehouse" name="warehouse" context="{'group_by':'warehouse_id'}"/>
-                    <filter string="Entry Date" name="entry" context="{'group_by':'entry_date'}"/>
-                    <filter string="Cleaned Date" name="cleaned" context="{'group_by':'cleaned_date'}"/>
+                    <filter
+            string="Breeding"
+            name="breeding"
+            context="{'group_by':'breeding_id'}"
+          />
+                    <filter
+            string="Mother"
+            name="mother"
+            context="{'group_by':'mother_id'}"
+          />
+                    <filter
+            string="Lineage"
+            name="lineage"
+            context="{'group_by':'lineage_id'}"
+          />
+                    <filter
+            string="Warehouse"
+            name="warehouse"
+            context="{'group_by':'warehouse_id'}"
+          />
+                    <filter
+            string="Entry Date"
+            name="entry"
+            context="{'group_by':'entry_date'}"
+          />
+                    <filter
+            string="Cleaned Date"
+            name="cleaned"
+            context="{'group_by':'cleaned_date'}"
+          />
                 </group>
             </search>
         </field>
@@ -33,38 +68,38 @@
         <field name="model">mother.lineage.relation</field>
         <field name="arch" type="xml">
             <tree string="Breeding Report By Mother">
-                <field name="breeding_id"/>
-                <field name="mother_id"/>
-                <field name="lineage_id"/>
-                <field name="percentage"/>
-                <field name="entry_date"/>
-                <field name="cleaned_date"/>
-                <field name="warehouse_id"/>
-                <field name="city"/>
-                <field name="chick_entry_qty" sum="Total Entry"/>
-                <field name="output_units" sum="Total Output"/>
-                <field name="cancellation_percentage"/>
-                <field name="density"/>
-                <field name="growth_speed"/>
-                <field name="feed"/>
-                <field name="meat_kilos" sum="Total Meat"/>
-                <field name="output_amount_days" sum="Total Amount"/>
-                <field name="consume_feed" sum="Total Feed"/>
-                <field name="output_feed_amount" sum="Total Amount Feed"/>
-                <field name="feed_family"/>
-                <field name="medicine_amount" sum="Total Medicine"/>
-                <field name="average_age"/>
-                <field name="farm_day"/>
-                <field name="average_weight"/>
-                <field name="conversion"/>
-                <field name="dif_weight"/>
-                <field name="liquidation_amount" sum="Liquidation Amount"/>
-                <field name="chick_liquidation"/>
-                <field name="liquidation_area"/>
-                <field name="cost_kilo"/>
-                <field name="liquidated" invisible="1"/>
-                <field name="billed" invisible="1"/>
-                <field name="closed" invisible="1"/>
+                <field name="breeding_id" />
+                <field name="mother_id" />
+                <field name="lineage_id" />
+                <field name="percentage" />
+                <field name="entry_date" />
+                <field name="cleaned_date" />
+                <field name="warehouse_id" />
+                <field name="city" />
+                <field name="chick_entry_qty" sum="Total Entry" />
+                <field name="output_units" sum="Total Output" />
+                <field name="cancellation_percentage" />
+                <field name="density" />
+                <field name="growth_speed" />
+                <field name="feed" />
+                <field name="meat_kilos" sum="Total Meat" />
+                <field name="output_amount_days" sum="Total Amount" />
+                <field name="consume_feed" sum="Total Feed" />
+                <field name="output_feed_amount" sum="Total Amount Feed" />
+                <field name="feed_family" />
+                <field name="medicine_amount" sum="Total Medicine" />
+                <field name="average_age" />
+                <field name="farm_day" />
+                <field name="average_weight" />
+                <field name="conversion" />
+                <field name="dif_weight" />
+                <field name="liquidation_amount" sum="Liquidation Amount" />
+                <field name="chick_liquidation" />
+                <field name="liquidation_area" />
+                <field name="cost_kilo" />
+                <field name="liquidated" invisible="1" />
+                <field name="billed" invisible="1" />
+                <field name="closed" invisible="1" />
             </tree>
         </field>
     </record>
@@ -74,10 +109,18 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">mother.lineage.relation</field>
         <field name="view_mode">tree,pivot</field>
-        <field name="view_id" ref="mother_lineage_relation_view_tree"/>
+        <field name="view_id" ref="mother_lineage_relation_view_tree" />
         <field name="domain">[('breeding_id', '!=', False)]</field>
-        <field name="context">{'search_default_breeding': 1, 'search_default_liquidated': 1, 'search_default_billed': 1, 'search_default_closed': 1}</field>
+        <field
+      name="context"
+    >{'search_default_breeding': 1, 'search_default_liquidated': 1, 'search_default_billed': 1, 'search_default_closed': 1}</field>
     </record>
 
-    <menuitem action="action_mother_lineage_relation_view" name="Breeding Report By Mother" id="menu_breeding_report_mother" parent="custom_breeding_apps.menu_breeding_integration" sequence="9"/>
+    <menuitem
+    action="action_mother_lineage_relation_view"
+    name="Breeding Report By Mother"
+    id="menu_breeding_report_mother"
+    parent="custom_breeding_apps.menu_breeding_integration"
+    sequence="9"
+  />
 </odoo>

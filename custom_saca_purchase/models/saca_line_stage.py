@@ -18,5 +18,7 @@ class SacaLineStage(models.Model):
             ("green", "Green"),
             ("yellow", "Yellow"),
             ("gray", "Gray"),
-            ("purple", "Purple")],
-        default="gray")
+            ("purple", "Purple"),
+        ],
+        default="gray",
+    )

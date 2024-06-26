@@ -1,27 +1,34 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+
+from odoo import _, fields, models
 
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     cmr_way_out_id = fields.Many2one(
-        string="Way out", comodel_name="res.city", copy=False)
+        string="Way out", comodel_name="res.city", copy=False
+    )
     cmr_destination_id = fields.Many2one(
-        string="Destination", comodel_name="res.city", copy=False)
+        string="Destination", comodel_name="res.city", copy=False
+    )
     cmr_loader_id = fields.Many2one(
-        string="Operator", comodel_name="res.partner", copy=False)
+        string="loader", comodel_name="res.partner", copy=False
+    )
     crm_transportation_id = fields.Many2one(
-        string="Transportations", comodel_name="res.partner", copy=False)
-    cmr_tractor_license_plate = fields.Char(
-        string="Tractor license plate", copy=False)
+        string="Transportations", comodel_name="res.partner", copy=False
+    )
+    cmr_tractor_license_plate = fields.Char(string="Tractor license plate", copy=False)
     cmr_semi_trailer_license_plate = fields.Char(
-        string="Semi-trailer license plate", copy=False)
+        string="Semi-trailer license plate", copy=False
+    )
     crm_driver_id = fields.Many2one(
-        string="Driver", comodel_name="res.partner", copy=False)
+        string="Driver", comodel_name="res.partner", copy=False
+    )
     site_date_info = fields.Char(
-        string="Site and date info", compute="_compute_site_date_info")
+        string="Site and date info", compute="_compute_site_date_info"
+    )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
@@ -60,4 +67,5 @@ class StockPicking(models.Model):
             if my_date.month == 12:
                 month = _("December")
             picking.site_date_info = "{}, {} of {} of {}".format(
-                city, my_date.day, month, my_date.year)
+                city, my_date.day, month, my_date.year
+            )

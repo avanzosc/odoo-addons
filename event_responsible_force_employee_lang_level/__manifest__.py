@@ -5,10 +5,7 @@
     "version": "14.0.1.0.0",
     "author": "Avanzosc",
     "category": "Marketing/Events",
-    "depends": [
-        "event_responsible_force_employee",
-        "event_lang_level"
-    ],
+    "depends": ["event_responsible_force_employee", "event_lang_level"],
     "data": [
         "views/event_event_views.xml",
     ],

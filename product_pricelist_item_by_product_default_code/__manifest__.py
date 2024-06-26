@@ -7,13 +7,10 @@
     "author": "AvanzOSC",
     "license": "AGPL-3",
     "website": "https://www.avanzosc.es",
-    "depends": [
-        "product",
-        "product_pricelist_item_menu"
-    ],
+    "depends": ["product", "product_pricelist_item_menu"],
     "data": [
         "views/product_pricelist_item_views.xml",
-        "views/product_pricelist_views.xml"
+        "views/product_pricelist_views.xml",
     ],
     "installable": True,
 }
