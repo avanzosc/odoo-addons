@@ -1,172 +1,213 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <record id="action_report_stock_picking_cmr_transporter" model="ir.actions.report">
+        <record
+      id="action_report_stock_picking_cmr_transporter"
+      model="ir.actions.report"
+    >
             <field name="name">CMR Transporter</field>
             <field name="model">stock.picking</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">stock_picking_cmr_report.report_stock_picking_cmr_transporter</field>
-            <field name="report_file">stock_picking_cmr_report.report_stock_picking_cmr_transporter</field>
+            <field
+        name="report_name"
+      >stock_picking_cmr_report.report_stock_picking_cmr_transporter</field>
+            <field
+        name="report_file"
+      >stock_picking_cmr_report.report_stock_picking_cmr_transporter</field>
             <field name="print_report_name">'CMR  - %s' % (object.name)</field>
-            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
             <field name="binding_type">report</field>
         </record>
 
         <template id="report_stock_picking_cmr_transporter">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="doc">
-                    <t t-call="stock_picking_cmr_report.report_stock_picking_cmr_transporter_document" t-lang="doc.partner_id.lang"/>
+                    <t
+            t-call="stock_picking_cmr_report.report_stock_picking_cmr_transporter_document"
+            t-lang="doc.partner_id.lang"
+          />
                 </t>
             </t>
         </template>
 
-        <template id="stock_picking_cmr_report.external_layout_standard_cmr_transporter">
-            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <template
+      id="stock_picking_cmr_report.external_layout_standard_cmr_transporter"
+    >
+            <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
                 <div class="row">
-                    <t t-foreach="docs" t-as="o"/>
+                    <t t-foreach="docs" t-as="o" />
                     <div class="col-2 mb4">
-                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 48px;" alt="Logo"/>
+                        <img
+              t-if="company.logo"
+              t-att-src="image_data_uri(company.logo)"
+              style="max-height: 48px;"
+              alt="Logo"
+            />
                     </div>
                 </div>
             </div>
-            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
                 <div class="pt-5">
-                    <t t-call="web.address_layout"/>
+                    <t t-call="web.address_layout" />
                 </div>
-                <t t-raw="0"/>
+                <t t-raw="0" />
             </div>
             <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="row">
-                <div class="col-9 text-middle" style="margin-bottom:20px;font-size:20px!important;">
-                     <span t-field="o.company_id.partner_id" t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'/>
+                <div
+            class="col-9 text-middle"
+            style="margin-bottom:20px;font-size:20px!important;"
+          >
+                     <span
+              t-field="o.company_id.partner_id"
+              t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'
+            />
                 </div>
             </div>
             </div>
         </template>
 
     <template id="external_layout_cmr_transporter">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="stock_picking_cmr_report.external_layout_standard_cmr_transporter"><t t-raw="0"/></t>
+        <t t-call="stock_picking_cmr_report.external_layout_standard_cmr_transporter"><t
+          t-raw="0"
+        /></t>
     </template>
 
-        <template id="stock_picking_cmr_report.report_stock_picking_cmr_transporter_document">
+        <template
+      id="stock_picking_cmr_report.report_stock_picking_cmr_transporter_document"
+    >
             <t t-call="stock_picking_cmr_report.external_layout_cmr_transporter">
                 <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
                 <div class="page">
-                    <div class="oe_structure"/>
+                    <div class="oe_structure" />
                     <h2 class="mt16; text-center">
                         <span>Control document for shipment of goods</span>
                     </h2>
-                    <br/>
+                    <br />
                     <div class="col-14">
-                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;"/>
+                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
                     </div>
-                    <br/>
+                    <br />
                      <div class="row mt32 mb32" id="informations">
-                        <div class="col-auto col-3 mw-100 mb-2" t-if="doc.company_id and doc.company_id.partner_id">
+                        <div
+              class="col-auto col-3 mw-100 mb-2"
+              t-if="doc.company_id and doc.company_id.partner_id"
+            >
                             <strong>Data of the shipper company</strong>
                             <p class="m-0" t-if="doc.company_id.partner_id.name">
-                                <span t-field="doc.company_id.partner_id.name"/>
+                                <span t-field="doc.company_id.partner_id.name" />
                             </p>
                             <p class="m-0" t-if="doc.company_id.partner_id.street">
-                                <span t-field="doc.company_id.partner_id.street"/>
+                                <span t-field="doc.company_id.partner_id.street" />
                             </p>
                             <p class="m-0" t-if="doc.company_id.partner_id.street2">
-                                <span t-field="doc.company_id.partner_id.street2"/>
+                                <span t-field="doc.company_id.partner_id.street2" />
                             </p>
                             <p class="m-0" t-if="doc.company_id.partner_id.vat">
                                 <span>
                                     <span>VAT:</span>
-                                    <span t-field="doc.company_id.partner_id.vat"/>
+                                    <span t-field="doc.company_id.partner_id.vat" />
                                 </span>
                             </p>
                             <p class="m-0" t-if="doc.company_id.partner_id.phone">
                                 <span>
                                     <span>PHONE:</span>
-                                    <span t-field="doc.company_id.partner_id.phone"/>
+                                    <span t-field="doc.company_id.partner_id.phone" />
                                 </span>
                             </p>
                         </div>
                         <div class="col-auto col-3 mw-100 mb-2; text-right">
                             <strong>Date:</strong>
-                            <span t-field="doc.custom_date_done" t-options='{"widget": "date"}'/>
-                            <br/>
-                            <br/>
+                            <span
+                t-field="doc.custom_date_done"
+                t-options='{"widget": "date"}'
+              />
+                            <br />
+                            <br />
                             <strong>Signature</strong>
                             <p class="m-0">
-                                <span/>
+                                <span />
                             </p>
                         </div>
                     </div>
                     <div class="col-14">
-                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;"/>
+                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
                     </div>
-                    <br/>
+                    <br />
                     <div class="row mt32 mb32" id="informations">
                        <div class="col-auto col-3 mw-100 mb-2" t-if="doc.cmr_loader_id">
                            <strong>Logistic operator data</strong>
                            <p class="m-0" t-if="doc.cmr_loader_id.name">
-                               <span t-field="doc.cmr_loader_id.name"/>
+                               <span t-field="doc.cmr_loader_id.name" />
                            </p>
                            <p class="m-0" t-if="doc.cmr_loader_id.street">
-                               <span t-field="doc.cmr_loader_id.street"/>
+                               <span t-field="doc.cmr_loader_id.street" />
                            </p>
                            <p class="m-0" t-if="doc.cmr_loader_id.street2">
-                               <span t-field="doc.cmr_loader_id.street2"/>
+                               <span t-field="doc.cmr_loader_id.street2" />
                            </p>
                            <p class="m-0" t-if="doc.cmr_loader_id.city">
-                               <span t-field="doc.cmr_loader_id.city"/>
-                               <span t-field="doc.cmr_loader_id.zip"/>
+                               <span t-field="doc.cmr_loader_id.city" />
+                               <span t-field="doc.cmr_loader_id.zip" />
                            </p>
                            <p class="m-0" t-if="doc.cmr_loader_id.vat">
                                <span>
                                    <span>VAT:</span>
-                                   <span t-field="doc.cmr_loader_id.vat"/>
+                                   <span t-field="doc.cmr_loader_id.vat" />
                                </span>
                            </p>
                        </div>
                        <div class="col-auto col-3 mw-100 mb-2; text-right">
                            <strong>Stamp and signature</strong>
                            <p class="m-0">
-                               <span/>
+                               <span />
                            </p>
                        </div>
                     </div>
                     <div class="col-14">
-                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;"/>
+                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
                     </div>
-                    <br/>
+                    <br />
                     <div class="row mt32 mb32" id="informations">
                        <div class="col-auto col-3 mw-100 mb-2" t-if="doc.crm_driver_id">
                            <strong>Carrier data</strong>
                            <p class="m-0" t-if="doc.crm_driver_id.name">
                                <span>
                                    <span>Name:</span>
-                                   <span t-field="doc.crm_driver_id.name"/>
+                                   <span t-field="doc.crm_driver_id.name" />
                                </span>
                            </p>
                            <p class="m-0" t-if="doc.crm_driver_id.vat">
                                <span>
                                    <span>VAT:</span>
-                                   <span t-field="doc.crm_driver_id.vat"/>
+                                   <span t-field="doc.crm_driver_id.vat" />
                                </span>
                            </p>
                            <p class="m-0" t-if="doc.crm_driver_id.phone">
                                <span>
                                    <span>Phone:</span>
-                                   <span t-field="doc.crm_driver_id.phone"/>
+                                   <span t-field="doc.crm_driver_id.phone" />
                                </span>
                            </p>
                        </div>
@@ -175,13 +216,13 @@
                            <p class="m-0" t-if="doc.cmr_tractor_license_plate">
                                <span>
                                    <span>Tractor License Plate:</span>
-                                   <span t-field="doc.cmr_tractor_license_plate"/>
+                                   <span t-field="doc.cmr_tractor_license_plate" />
                                </span>
                            </p>
                            <p class="m-0" t-if="doc.cmr_semi_trailer_license_plate">
                                <span>
                                    <span>Semi Trailer License Plate:</span>
-                                   <span t-field="doc.cmr_semi_trailer_license_plate"/>
+                                   <span t-field="doc.cmr_semi_trailer_license_plate" />
                                </span>
                            </p>
                        </div>
@@ -190,37 +231,37 @@
                        </div>
                     </div>
                     <div class="col-14">
-                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;"/>
+                        <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
                     </div>
-                    <br/>
+                    <br />
                     <div class="row mt32 mb32" id="informations">
                        <div class="col-auto col-3 mw-100 mb-2" t-if="doc.partner_id">
                            <strong>Destination data</strong>
                            <p class="m-0" t-if="doc.partner_id.name">
                                <span>
                                    <span>Name:</span>
-                                   <span t-field="doc.partner_id.name"/>
+                                   <span t-field="doc.partner_id.name" />
                                </span>
                            </p>
                            <p class="m-0" t-if="doc.partner_id.street">
-                                <span t-field="doc.partner_id.street"/>
+                                <span t-field="doc.partner_id.street" />
                             </p>
                             <p class="m-0" t-if="doc.partner_id.street2">
-                                <span t-field="doc.partner_id.street2"/>
+                                <span t-field="doc.partner_id.street2" />
                             </p>
                             <p class="m-0" t-if="doc.partner_id.city">
-                                <span t-field="doc.partner_id.city"/>
-                                <span t-field="doc.partner_id.zip"/>
+                                <span t-field="doc.partner_id.city" />
+                                <span t-field="doc.partner_id.zip" />
                             </p>
                            <p class="m-0" t-if="doc.partner_id.vat">
                                <span>
                                    <span>VAT:</span>
-                                   <span t-field="doc.partner_id.vat"/>
+                                   <span t-field="doc.partner_id.vat" />
                                </span>
                            </p>
                        </div>
                     </div>
-                    <br/>
+                    <br />
                     <table class="table table-sm" name="stock_picking_lines">
                         <thead>
                             <tr>
@@ -240,19 +281,34 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody >
-                            <t t-set="lines" t-if="doc.state=='done'"
-                                t-value="doc.move_line_ids.filtered(lambda x: x.qty_done)"/>
-                            <t t-set="lines" t-if="doc.state!='done'"
-                                t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                        <tbody>
+                            <t
+                t-set="lines"
+                t-if="doc.state=='done'"
+                t-value="doc.move_line_ids.filtered(lambda x: x.qty_done)"
+              />
+                            <t
+                t-set="lines"
+                t-if="doc.state!='done'"
+                t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"
+              />
                             <t t-foreach="lines" t-as="line">
                                 <tr>
                                     <td name="td_product" class="text-left">
-                                        <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
+                                        <span
+                      t-field="line.product_id.name"
+                      t-options="{'widget': 'text'}"
+                    />
                                     </td>
-                                    <td name="td_qty" class="text-left"
-                                            style="background-color:#FFFFFF !important;">
-                                        <span t-if="doc.state=='done' and line.qty_done" t-field="line.qty_done" />
+                                    <td
+                    name="td_qty"
+                    class="text-left"
+                    style="background-color:#FFFFFF !important;"
+                  >
+                                        <span
+                      t-if="doc.state=='done' and line.qty_done"
+                      t-field="line.qty_done"
+                    />
                                     </td>
                                 </tr>
                             </t>
