@@ -17,20 +17,23 @@
                         </group>
                     </group>
                     <group name="transportation">
-                        <separator string="Loader/Transportation" colspan="4"/>
+                        <separator string="Loader/Transportation" colspan="4" />
                         <group>
                             <field name="cmr_loader_id" />
                             <field name="crm_transportation_id" />
-                            <field name="crm_driver_id" force_save="1"/>
+                            <field name="crm_driver_id" force_save="1" />
                         </group>
                     </group>
                     <group name="license_plate">
-                        <separator string="License plates" colspan="4"/>
+                        <separator string="License plates" colspan="4" />
                         <group>
-                            <field name="cmr_tractor_license_plate" force_save="1"/>
+                            <field name="cmr_tractor_license_plate" force_save="1" />
                         </group>
                         <group>
-                            <field name="cmr_semi_trailer_license_plate" force_save="1"/>
+                            <field
+                name="cmr_semi_trailer_license_plate"
+                force_save="1"
+              />
                         </group>
                     </group>
                 </page>

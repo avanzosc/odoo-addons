@@ -1,7 +1,7 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class StockPicking(models.Model):
@@ -39,9 +39,7 @@ class StockPicking(models.Model):
     def _compute_site_date_info(self):
         my_date = fields.Date.context_today(self)
         for picking in self:
-            city = (
-                picking.cmr_way_out_id.name if picking.cmr_way_out_id else ""
-            )
+            city = picking.cmr_way_out_id.name if picking.cmr_way_out_id else ""
             if my_date.month == 1:
                 month = _("January")
             if my_date.month == 2:
