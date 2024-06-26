@@ -1,6 +1,6 @@
 # Copyright 2020 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 
 
 class ProductCategorySalePrice(models.Model):
@@ -8,7 +8,7 @@ class ProductCategorySalePrice(models.Model):
     _description = "Product category sale price"
     _order = "sequence, id"
 
-    name = fields.Char(string="Name", required=True)
+    name = fields.Char(required=True)
     percentage = fields.Float(string="% Increase", default=0.0)
     fixed_amount = fields.Float(string="Fixed amount")
     product_ids = fields.One2many(
@@ -19,7 +19,7 @@ class ProductCategorySalePrice(models.Model):
     count_products = fields.Integer(
         string="Products", compute="_compute_count_products"
     )
-    sequence = fields.Integer(string="Sequence", default=10)
+    sequence = fields.Integer(default=10)
 
     def _compute_count_products(self):
         for cat in self:

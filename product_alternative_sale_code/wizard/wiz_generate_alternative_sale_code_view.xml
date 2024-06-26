@@ -9,20 +9,29 @@
             >You are going to generate alternative sale code in selected products. Are you sure? </string>
                     </group>
                     <footer>
-                        <button string="Generate alternative sale code" name="button_generate_alternative_sale_code" type="object" default_focus="1" class="btn-primary" />
+                        <button
+              string="Generate alternative sale code"
+              name="button_generate_alternative_sale_code"
+              type="object"
+              default_focus="1"
+              class="btn-primary"
+            />
                      <button string="Cancel" class="btn-secondary" special="cancel" />
                     </footer>
                 </form>
             </field>
         </record>
-        <record id="action_wiz_generate_alternative_sale_code" model="ir.actions.act_window">
+        <record
+      id="action_wiz_generate_alternative_sale_code"
+      model="ir.actions.act_window"
+    >
             <field name="name">Generate alternative sale code</field>
             <field name="res_model">wiz.generate.alternative.sale.code</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <!-- <field name="groups" eval="[(4, ref('product_sale_configuration.allow_change_sale_price'))]" /> -->
-            <field name="binding_model_id" ref="model_product_product"/>
-            <field name="view_id" ref="wiz_generate_alternative_sale_code_view_form"/>
+            <field name="binding_model_id" ref="model_product_product" />
+            <field name="view_id" ref="wiz_generate_alternative_sale_code_view_form" />
         </record>
     </data>
 </odoo>

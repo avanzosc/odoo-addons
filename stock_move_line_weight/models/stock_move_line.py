@@ -7,7 +7,6 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     weight = fields.Float(
-        string="Weight",
         digits="Stock Weight",
         store=True,
         copy=False,

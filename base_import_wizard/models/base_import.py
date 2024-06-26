@@ -260,7 +260,8 @@ class BaseImport(models.AbstractModel):
         if req:
             raise UserError(
                 _(
-                    'Unable to load "{extension}" file: requires Python module "{modname}"'
+                    'Unable to load "{extension}" file: requires Python module'
+                    ' "{modname}"'
                 ).format(extension=file_extension, modname=req)
             )
         raise UserError(

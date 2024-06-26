@@ -2,134 +2,110 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
     building_use_id = fields.Many2one(
-        "building.use",
-        "Building use",
+        comodel_name="building.use",
+        string="Building use",
     )
     building_section_ids = fields.One2many(
-        "building.section",
-        "partner_id",
-        "Building Section/Area",
+        comodel_name="building.section",
+        inverse_name="partner_id",
+        string="Building Section/Area",
     )
-    service_start_date = fields.Date(
-        "Service Start Date",
-    )
-    service_end_date = fields.Date(
-        "Service End Date",
-    )
+    service_start_date = fields.Date()
+    service_end_date = fields.Date()
     alternative_text = fields.Char(
-        "Alternative Text",
         copy=False,
     )
-    number_of_floors = fields.Char(
-        "Number of Plants",
-    )
+    number_of_floors = fields.Char()
     risk = fields.Char(
-        "Risk",
         copy=False,
     )
     area = fields.Float(
-        "Surface",
+        string="Surface",
         default=0.0,
         copy=False,
     )
-    evacuation_height = fields.Float(
-        "Evacuation Height",
-    )
+    evacuation_height = fields.Float()
     configuration = fields.Selection(
-        [
+        selection=[
             ("A", "A"),
             ("B", "B"),
             ("C", "C"),
             ("D", "D"),
             ("E", "E"),
         ],
-        "Configuration",
     )
-    file_number = fields.Char(
-        "File Number",
-    )
-    installation_number = fields.Char(
-        "Installation Number",
-    )
-    certification_text = fields.Text(
-        "Certification Text",
-    )
+    file_number = fields.Char()
+    installation_number = fields.Char()
+    certification_text = fields.Text()
     degree_title = fields.Char(
-        "Degree Title",
         domain="[('is_company','=',False)]",
         help="Degree Title of the individual contact.",
     )
     membership_number = fields.Char(
-        "Membership Number",
         domain="[('is_company','=',False)]",
         help="Membership number of the individual contact.",
     )
     emi = fields.Char(
-        "EMI",
+        string="EMI",
     )
     epi = fields.Char(
-        "EPI",
+        string="EPI",
     )
     # Maintainer
     maintainer_id = fields.Many2one(
-        "res.partner",
-        "Maintainer",
+        comodel_name="res.partner",
+        string="Maintainer",
     )
     maintainer_emi = fields.Char(
-        "Maintainer EMI",
+        string="Maintainer EMI",
         related="maintainer_id.emi",
     )
     installer_id = fields.Many2one(
-        "res.partner",
-        "Installer",
+        comodel_name="res.partner",
+        string="Installer",
     )
     installer_epi = fields.Char(
-        "Installer EPI",
+        string="Installer EPI",
         related="installer_id.epi",
     )
     certification_date = fields.Date(
-        "Date of Certificate from Installation Company",
+        string="Date of Certificate from Installation Company",
     )
     administrator_id = fields.Many2one(
-        "res.partner",
-        "Administrator",
+        comodel_name="res.partner",
+        string="Administrator",
     )
     normativas_ids = fields.Many2many(
-        "survey.question.normative",
-        "Normativas",
+        comodel_name="survey.question.normative",
+        string="Normativas",
         compute="_compute_normativas_ids",
     )
     dof_author_degree = fields.Char(
-        "Director of Works Author Degree",
+        string="Director of Works Author Degree",
         related="inspected_building_id.dof_author_degree",
     )
     # Project
-    project_title = fields.Char(
-        "Project Title",
-    )
+    project_title = fields.Char()
     project_author_id = fields.Many2one(
-        "res.partner",
-        "Project Author",
+        comodel_name="res.partner",
+        string="Project Author",
     )
     project_author_degree = fields.Char(
-        "Project Author Degree",
         related="project_author_id.degree_title",
     )
     project_author_license = fields.Char(
-        "Project Author License",
         related="project_author_id.membership_number",
     )
-    project_approved_date = fields.Date(
-        "Project Approved Date",
-    )
+    project_approved_date = fields.Date()
     # Certificate of Final Work Direction
     dof_author_id = fields.Many2one(
-        "res.partner",
-        "Director of Works Author",
+        comodel_name="res.partner",
+        string="Director of Works Author",
     )
     dof_author_degree = fields.Char(
         "Director of Works Author Degree",

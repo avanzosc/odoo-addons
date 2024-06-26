@@ -1,6 +1,8 @@
 from datetime import datetime
-from odoo import models
+
 from dateutil.relativedelta import relativedelta
+
+from odoo import models
 
 
 class SaleOrder(models.Model):
@@ -13,7 +15,7 @@ class SaleOrder(models.Model):
     def action_charge_cart(self):
         for order in self:
             order.state = "draft"
-            
+
             if not order.website_id:
                 website = self.env["website"].sudo().search([], order="id asc", limit=1)
                 order.website_id = website.id if website else False
@@ -30,5 +32,5 @@ class SaleOrder(models.Model):
             cart_url = base_url.rstrip("/") + "/shop/cart"
 
             return {"type": "ir.actions.act_url", "url": cart_url, "target": "new"}
-    
+
         return {"type": "ir.actions.act_url", "url": "/", "target": "self"}

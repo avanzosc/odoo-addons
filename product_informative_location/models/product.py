@@ -9,7 +9,7 @@ class ProductInformativeLocationPrecision1(models.Model):
     _order = "name"
 
     name = fields.Char(string="Code")
-    description = fields.Char(string="Description")
+    description = fields.Char()
 
 
 class ProductInformativeLocationPrecision2(models.Model):
@@ -18,7 +18,7 @@ class ProductInformativeLocationPrecision2(models.Model):
     _order = "name"
 
     name = fields.Char(string="Code")
-    description = fields.Char(string="Description")
+    description = fields.Char()
 
 
 class ProductInformativeLocationPrecision3(models.Model):
@@ -27,7 +27,7 @@ class ProductInformativeLocationPrecision3(models.Model):
     _order = "name"
 
     name = fields.Char(string="Code")
-    description = fields.Char(string="Description")
+    description = fields.Char()
 
 
 class ProductInformativeLocation(models.Model):
@@ -36,12 +36,13 @@ class ProductInformativeLocation(models.Model):
     _order = "product_id, location_id, sequence"
 
     name = fields.Char(string="Code", compute="_compute_name", store=True)
-    description = fields.Char(string="Description", compute="_compute_name", store=True)
+    description = fields.Char(compute="_compute_name", store=True)
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
     location_id = fields.Many2one(string="Location", comodel_name="stock.location")
-    sequence = fields.Integer(string="Sequence", default=1)
+    sequence = fields.Integer(default=1)
     precision1_id = fields.Many2one(
-        string="Precision 1", comodel_name="product.informative.location.precision1"
+        string="Precision 1",
+        comodel_name="product.informative.location.precision1",
     )
     precision1_description = fields.Char(
         string="Precision 1 description",
@@ -49,7 +50,8 @@ class ProductInformativeLocation(models.Model):
         store=True,
     )
     precision2_id = fields.Many2one(
-        string="Precision 2", comodel_name="product.informative.location.precision2"
+        string="Precision 2",
+        comodel_name="product.informative.location.precision2",
     )
     precision2_description = fields.Char(
         string="Precision 2 description",
@@ -57,7 +59,8 @@ class ProductInformativeLocation(models.Model):
         store=True,
     )
     precision3_id = fields.Many2one(
-        string="Precision 3", comodel_name="product.informative.location.precision3"
+        string="Precision 3",
+        comodel_name="product.informative.location.precision3",
     )
     precision3_description = fields.Char(
         string="Precision 3 description",
