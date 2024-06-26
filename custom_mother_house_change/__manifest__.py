@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Mother House Change",
-    'version': '14.0.2.0.0',
+    "version": "14.0.2.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "website": "http://www.avanzosc.es",
@@ -14,8 +14,8 @@
     "data": [
         "security/ir.model.access.csv",
         "views/stock_picking_batch_views.xml",
-        "wizard/batch_house_change_wizard_views.xml"
+        "wizard/batch_house_change_wizard_views.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

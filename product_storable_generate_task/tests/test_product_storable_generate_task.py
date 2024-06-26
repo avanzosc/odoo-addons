@@ -7,7 +7,7 @@ from odoo.tests import common, tagged
 class TestProductStorableGenerateTask(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestProductStorableGenerateTask, cls).setUpClass()
+        super().setUpClass()
         cls.company = cls.env["res.company"]._company_default_get("sale.order")
         cls.uom_unit = cls.env.ref("uom.product_uom_unit")
         cls.partner = cls.env["res.partner"].create(

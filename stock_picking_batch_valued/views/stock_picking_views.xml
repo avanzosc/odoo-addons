@@ -1,26 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="view_picking_form">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position="after">
+            <xpath
+        expr="//field[@name='move_ids_without_package']/tree/field[@name='product_uom']"
+        position="after"
+      >
                 <field name="sale_price_unit" />
-                <field name="sale_price_subtotal" sum="Sale Price Subtotal"/>
+                <field name="sale_price_subtotal" sum="Sale Price Subtotal" />
             </xpath>
-            <xpath expr="//field[@name='move_ids_without_package']/form//field[@name='description_picking']" position="after">
+            <xpath
+        expr="//field[@name='move_ids_without_package']/form//field[@name='description_picking']"
+        position="after"
+      >
                 <field name="sale_price_unit" />
-                <field name="sale_price_subtotal" sum="Sale Price Subtotal"/>
+                <field name="sale_price_subtotal" sum="Sale Price Subtotal" />
             </xpath>
         </field>
     </record>
 
     <record model="ir.ui.view" id="vpicktree">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <field name="origin" position="after">
-                <field name="sale_price_subtotal" optional="show" sum="Total sale price subtotal"/>
+                <field
+          name="sale_price_subtotal"
+          optional="show"
+          sum="Total sale price subtotal"
+        />
             </field>
         </field>
     </record>

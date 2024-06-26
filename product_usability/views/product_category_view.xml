@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="product.product_category_form_view" />
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
-                <field name="root_category_id"/>
+                <field name="root_category_id" />
             </field>
         </field>
     </record>

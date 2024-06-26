@@ -7,7 +7,7 @@ from odoo.tests import common
 class TestFleetExtension(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestFleetExtension, cls).setUpClass()
+        super().setUpClass()
         cls.vehicle_obj = cls.env["fleet.vehicle"]
         cls.serial_number_obj = cls.env["stock.production.lot"]
         cls.product_obj = cls.env["product.template"]

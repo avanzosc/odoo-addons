@@ -3,42 +3,55 @@
 
     <record id="view_order_line_tree" model="ir.ui.view">
         <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="inherit_id" ref="sale.view_order_line_tree" />
         <field name="arch" type="xml">
             <field name="order_partner_id" position="after">
-                <field name="partner_shipping_id" optional="show"/>
+                <field name="partner_shipping_id" optional="show" />
             </field>
             <field name="name" position="after">
-                <field name="product_category_id" optional="show"/>
+                <field name="product_category_id" optional="show" />
             </field>
             <field name="product_uom_qty" position="after">
-                <field name="entire_chick_percentage" optional="show"/>
+                <field name="entire_chick_percentage" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_sales_order_line_input_tree" model="ir.ui.view">
         <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale_order_line_input.view_sales_order_line_input_tree"/>
+        <field
+      name="inherit_id"
+      ref="sale_order_line_input.view_sales_order_line_input_tree"
+    />
         <field name="arch" type="xml">
             <field name="order_partner_id" position="after">
-                <field name="partner_shipping_id" optional="show"/>
+                <field name="partner_shipping_id" optional="show" />
             </field>
             <field name="name" position="after">
-                <field name="product_category_id" optional="show"/>
-                <field name="product_packaging" optional="hide"/>
-                <field name="product_packaging_qty" optional="show"/>
+                <field name="product_category_id" optional="show" />
+                <field name="product_packaging" optional="hide" />
+                <field name="product_packaging_qty" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_sales_order_line_filter" model="ir.ui.view">
         <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale.view_sales_order_line_filter"/>
+        <field name="inherit_id" ref="sale.view_sales_order_line_filter" />
         <field name="arch" type="xml">
             <filter name="salesperson" position="after">
-            <filter string="Product Packaging" name="product_packaging" domain="[]" context="{'group_by':'packaging_name'}"/>
-                <filter string="Product Category" name="product_category" domain="[]" context="{'group_by':'product_category_id'}"/>
+            <filter
+          string="Product Packaging"
+          name="product_packaging"
+          domain="[]"
+          context="{'group_by':'packaging_name'}"
+        />
+                <filter
+          string="Product Category"
+          name="product_category"
+          domain="[]"
+          context="{'group_by':'product_category_id'}"
+        />
             </filter>
         </field>
     </record>

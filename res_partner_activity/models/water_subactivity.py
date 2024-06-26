@@ -7,15 +7,6 @@ class WaterSubactivity(models.Model):
     _name = "water.subactivity"
     _description = "Contacts Water Subactivity"
 
-    name = fields.Char(
-        string="Name",
-        required=True,
-        copy=False)
-    water = fields.Boolean(
-        string="Water",
-        default=False,
-        copy=False)
-    industry = fields.Boolean(
-        string="Industry",
-        default=False,
-        copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)
+    water = fields.Boolean(string="Water", default=False, copy=False)
+    industry = fields.Boolean(string="Industry", default=False, copy=False)

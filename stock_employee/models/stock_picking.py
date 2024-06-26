@@ -1,9 +1,7 @@
-from odoo import models, fields
+from odoo import fields, models
+
 
 class StockPicking(models.Model):
-    _inherit = 'stock.picking'
+    _inherit = "stock.picking"
 
-    employee_id = fields.Many2one(
-        'hr.employee', 
-        string='Responsible Employee'
-    )
+    employee_id = fields.Many2one("hr.employee", string="Responsible Employee")

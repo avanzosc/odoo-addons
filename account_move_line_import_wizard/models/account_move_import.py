@@ -5,7 +5,7 @@ from odoo import _, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str, check_number
+from odoo.addons.base_import_wizard.models.base_import import check_number, convert2str
 
 
 class AccountMoveImport(models.Model):
@@ -105,10 +105,7 @@ class AccountMoveImport(models.Model):
         action = self.env.ref("account.action_move_line_form")
         action_dict = action.read()[0] if action else {}
         domain = expression.AND(
-            [
-                [("id", "=", self.account_move_id.id)],
-                safe_eval(action.domain or "[]")
-            ]
+            [[("id", "=", self.account_move_id.id)], safe_eval(action.domain or "[]")]
         )
         action_dict.update({"domain": domain})
         return action_dict
@@ -133,11 +130,10 @@ class AccountMoveImportLine(models.Model):
         string="Account Move",
         comodel_name="account.move",
         related="import_id.account_move_id",
-        store=True
+        store=True,
     )
     account_move_line_id = fields.Many2one(
-        string="Account Move Line",
-        comodel_name="account.move.line"
+        string="Account Move Line", comodel_name="account.move.line"
     )
     account_code = fields.Char(
         string="Account Code",
@@ -214,8 +210,7 @@ class AccountMoveImportLine(models.Model):
             account_move = self.import_id.account_move_id
             if not account_move:
                 account_move = self.import_id._create_account_move()
-                self.import_id.write({
-                    "account_move_id": account_move.id})
+                self.import_id.write({"account_move_id": account_move.id})
             if not self.account_move_line_id:
                 account_move_line = self._create_account_move_line()
             update_values.update(
@@ -263,12 +258,7 @@ class AccountMoveImportLine(models.Model):
         search_domain = [("name", "=", self.partner_name)]
         if self.partner_ref:
             search_domain = expression.AND(
-                [
-                    [
-                        ("ref", "=", self.partner_ref)
-                    ],
-                    search_domain
-                ]
+                [[("ref", "=", self.partner_ref)], search_domain]
             )
             if self.import_id.search_partner_by_ref:
                 search_domain = [("ref", "=", self.partner_ref)]

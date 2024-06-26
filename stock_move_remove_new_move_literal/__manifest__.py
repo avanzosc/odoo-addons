@@ -10,8 +10,7 @@
     "depends": [
         "stock",
     ],
-    "data": [
-    ],
+    "data": [],
     "post_init_hook": "stock_move_remove_literal",
     "installable": True,
 }

@@ -7,4 +7,4 @@ class BurdenType(models.Model):
     _name = "burden.type"
     _description = "Burden Type"
 
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string="Name", required=True)

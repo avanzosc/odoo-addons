@@ -2,37 +2,70 @@
 <odoo>
     <record id="view_batch_move_line_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree"/>
+        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="lot_id" position="attributes">
-                <attribute name="context">{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}</attribute>
+                <attribute
+          name="context"
+        >{'default_product_id': product_id, 'default_company_id': company_id, 'active_picking_id': picking_id}</attribute>
             </field>
             <field name="company_id" position="before">
-                <field name="state" widget="badge" decoration-success="state == 'done'" decoration-info="state not in ('done', 'cancel')"/>
+                <field
+          name="state"
+          widget="badge"
+          decoration-success="state == 'done'"
+          decoration-info="state not in ('done', 'cancel')"
+        />
             </field>
             <field name="location_dest_id" position="after">
-                <field name="download_unit" optional="show" sum="Total Units" string="Units" force_save="1"/>
+                <field
+          name="download_unit"
+          optional="show"
+          sum="Total Units"
+          string="Units"
+          force_save="1"
+        />
             </field>
         </field>
     </record>
 
     <record id="view_move_line_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock.view_move_line_tree"/>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="qty_done" position="after">
-                <field name="download_unit" sum="Total Units" string="Units" optional="show" force_save="1" attrs="{'readonly': [('state', '=', 'done')]}"/>
-                <field name="product_uom_qty" optional="show" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                <field
+          name="download_unit"
+          sum="Total Units"
+          string="Units"
+          optional="show"
+          force_save="1"
+          attrs="{'readonly': [('state', '=', 'done')]}"
+        />
+                <field
+          name="product_uom_qty"
+          optional="show"
+          attrs="{'readonly': [('state', '=', 'done')]}"
+        />
             </field>
         </field>
     </record>
 
     <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
         <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
+        <field
+      name="inherit_id"
+      ref="stock.view_stock_move_line_detailed_operation_tree"
+    />
         <field name="arch" type="xml">
             <field name="qty_done" position="after">
-                <field name="download_unit" sum="Total Units" string="Units" optional="show" force_save="1"/>
+                <field
+          name="download_unit"
+          sum="Total Units"
+          string="Units"
+          optional="show"
+          force_save="1"
+        />
             </field>
         </field>
     </record>

@@ -213,7 +213,7 @@ class SaleOrder(models.Model):
                 )
 
     def action_confirm(self):
-        result = super(SaleOrder, self).action_confirm()
+        result = super().action_confirm()
         for sale in self:
             lines = sale.order_line.filtered(lambda x: x.is_repair)
             for line in lines:

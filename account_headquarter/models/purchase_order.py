@@ -4,10 +4,10 @@ from odoo import models
 
 
 class PurchaseOrder(models.Model):
-    _inherit = 'purchase.order'
+    _inherit = "purchase.order"
 
     def _prepare_invoice(self):
-        invoice_vals = super(PurchaseOrder, self)._prepare_invoice()
+        invoice_vals = super()._prepare_invoice()
         if self.headquarter_id:
-            invoice_vals['headquarter_id'] = self.headquarter_id.id
+            invoice_vals["headquarter_id"] = self.headquarter_id.id
         return invoice_vals

@@ -1,12 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_track_form" model="ir.ui.view">
         <field name="model">event.track</field>
-        <field name="inherit_id" ref="event_slides.view_event_track_form"/>
+        <field name="inherit_id" ref="event_slides.view_event_track_form" />
         <field name="arch" type="xml">
             <button name="button_show_event_courses" position="after">
-                <button name="button_show_event_itinerary_courses" type="object" class="oe_stat_button" icon="fa-tasks">
-                    <field name="training_itinerary_courses_count" string="Courses in itinerary" widget="statinfo"/>
+                <button
+          name="button_show_event_itinerary_courses"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-tasks"
+        >
+                    <field
+            name="training_itinerary_courses_count"
+            string="Courses in itinerary"
+            widget="statinfo"
+          />
                 </button>
             </button>
         </field>
@@ -14,7 +23,7 @@
 
     <record id="view_event_track_tree" model="ir.ui.view">
         <field name="model">event.track</field>
-        <field name="inherit_id" ref="website_event_track.view_event_track_tree"/>
+        <field name="inherit_id" ref="website_event_track.view_event_track_tree" />
         <field name="arch" type="xml">
             <field name="event_id" position="after">
                 <field name="training_itinerary_id" />
@@ -24,13 +33,17 @@
 
     <record id="view_event_track_search" model="ir.ui.view">
         <field name="model">event.track</field>
-        <field name="inherit_id" ref="website_event_track.view_event_track_search"/>
+        <field name="inherit_id" ref="website_event_track.view_event_track_search" />
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field name="training_itinerary_id" />
             </field>
             <filter name="location" position="after">
-                <filter string="Training itinerary" name="training-itinerry" context="{'group_by': 'training_itinerary_id'}"/>
+                <filter
+          string="Training itinerary"
+          name="training-itinerry"
+          context="{'group_by': 'training_itinerary_id'}"
+        />
             </filter>
         </field>
     </record>

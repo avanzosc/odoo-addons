@@ -8,7 +8,7 @@ class StockBackorderConfirmation(models.TransientModel):
     _inherit = "stock.backorder.confirmation"
 
     def process(self):
-        result = super(StockBackorderConfirmation, self).process()
+        result = super().process()
         pickings = self.pick_ids.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
             and x.is_repair
@@ -21,7 +21,7 @@ class StockBackorderConfirmation(models.TransientModel):
         return result
 
     def process_cancel_backorder(self):
-        result = super(StockBackorderConfirmation, self).process_cancel_backorder()
+        result = super().process_cancel_backorder()
         pickings = self.pick_ids.filtered(
             lambda x: x.picking_type_id.code == "outgoing"
             and x.is_repair

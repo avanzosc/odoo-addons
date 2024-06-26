@@ -10,25 +10,29 @@ class AccountMove(models.Model):
         string="Analytic Lines",
         comodel_name="account.analytic.line",
         inverse_name="account_move_id",
-        copy=False)
+        copy=False,
+    )
 
     def action_post(self):
-        result = super(AccountMove, self).action_post()
+        result = super().action_post()
         for line in self.invoice_line_ids:
             if line.account_id and line.account_id.analytic_template_ids:
                 for template in line.account_id.analytic_template_ids:
-                    analytic = self.env[("account.analytic.line")].create({
-                        "name": line.account_id.name,
-                        "account_id": template.account_analytic_id.id,
-                        "move_id": line.id,
-                        "date": line.move_id.date})
+                    analytic = self.env[("account.analytic.line")].create(
+                        {
+                            "name": line.account_id.name,
+                            "account_id": template.account_analytic_id.id,
+                            "move_id": line.id,
+                            "date": line.move_id.date,
+                        }
+                    )
                     if template.percentage:
                         if line.credit:
-                            analytic.amount = (
-                                (template.percentage * line.credit) / 100)
+                            analytic.amount = (template.percentage * line.credit) / 100
                         if line.debit:
-                            analytic.amount = ((
-                                (-1) * template.percentage * line.debit) / 100)
+                            analytic.amount = (
+                                (-1) * template.percentage * line.debit
+                            ) / 100
         return result
 
     def action_view_analytics(self):
@@ -38,8 +42,9 @@ class AccountMove(models.Model):
             "res_model": "account.analytic.line",
             "domain": [("id", "in", self.analytic_line_ids.ids)],
             "type": "ir.actions.act_window",
-            "views": [[self.env.ref(
-                "analytic.view_account_analytic_line_tree").id, "tree"],
-                [False, "form"]],
-            "context": self.env.context
+            "views": [
+                [self.env.ref("analytic.view_account_analytic_line_tree").id, "tree"],
+                [False, "form"],
+            ],
+            "context": self.env.context,
         }

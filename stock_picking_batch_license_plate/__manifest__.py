@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch License Plate",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "author": "Avanzosc",
     "category": "Inventory",
     "depends": [
@@ -13,5 +13,5 @@
         "views/stock_picking_batch_views.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

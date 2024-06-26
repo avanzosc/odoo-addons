@@ -6,5 +6,4 @@ from odoo import fields, models
 class ProductSupplierinfoImport(models.Model):
     _inherit = "product.supplierinfo.import"
 
-    data = fields.Binary(
-        required=False)
+    data = fields.Binary(required=False)

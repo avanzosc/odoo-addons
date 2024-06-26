@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="report_breeding_general_summary_xlsx" model="ir.actions.report">
         <field name="name">Breeding General Summary XLSX</field>
@@ -6,7 +6,10 @@
         <field name="report_type">xlsx</field>
         <field name="report_name">breeding_general_summary_xlsx</field>
         <field name="report_file">breeding_general_summary_xlsx</field>
-        <field name="binding_model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
         <field name="binding_type">report</field>
     </record>
 </odoo>

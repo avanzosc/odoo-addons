@@ -14,12 +14,12 @@
         "sale_order_line_contract",
         "event_sale",
         "event_registration_student",
-        "event_registration_sale_line_contract"
+        "event_registration_sale_line_contract",
     ],
     "data": [
         "views/account_move_views.xml",
         "views/sale_order_views.xml",
-        "report/account_invoice_report.xml"
+        "report/account_invoice_report.xml",
     ],
     "installable": True,
 }

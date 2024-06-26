@@ -5,7 +5,8 @@ from odoo import fields, models
 
 
 class ResUsers(models.Model):
-    _inherit = 'res.users'
+    _inherit = "res.users"
 
     template = fields.Boolean(
-        string='Template User', help="Template user to give internal access rights.")
+        string="Template User", help="Template user to give internal access rights."
+    )

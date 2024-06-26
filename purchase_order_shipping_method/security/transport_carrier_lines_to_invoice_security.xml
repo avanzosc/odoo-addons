@@ -4,7 +4,9 @@
 
     <record model="ir.rule" id="transport_carrier_lines_to_invoice_comp_rule">
         <field name="name">Transport multi-company</field>
-        <field name="model_id" ref="model_transport_carrier_lines_to_invoice"/>
-        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        <field name="model_id" ref="model_transport_carrier_lines_to_invoice" />
+        <field
+      name="domain_force"
+    >['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
     </record>
 </odoo>

@@ -10,33 +10,45 @@
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button class="oe_stat_button" icon="fa-truck" type="object" name="action_view_saca_line">
-                            <field string="Saca Lines" name="line_count" widget="statinfo"/>
+                        <button
+              class="oe_stat_button"
+              icon="fa-truck"
+              type="object"
+              name="action_view_saca_line"
+            >
+                            <field
+                string="Saca Lines"
+                name="line_count"
+                widget="statinfo"
+              />
                         </button>
                     </div>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" />
                         </h1>
                     </div>
                     <group>
                         <group>
-                            <field name="date"/>
+                            <field name="date" />
                         </group>
                         <group>
-                            <field name="company_id"/>
+                            <field name="company_id" />
                         </group>
                     </group>
                     <notebook>
                         <page string="Saca Lines">
-                            <field name="saca_line_ids" context="{'default_saca_id': active_id, 'default_lot': name}"/>
+                            <field
+                name="saca_line_ids"
+                context="{'default_saca_id': active_id, 'default_lot': name}"
+              />
                         </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
                 </div>
             </form>
         </field>
@@ -47,8 +59,8 @@
         <field name="model">saca</field>
         <field name="arch" type="xml">
             <tree string="Saca" default_order="date desc">
-                <field name="name"/>
-                <field name="date"/>
+                <field name="name" />
+                <field name="date" />
             </tree>
         </field>
     </record>
@@ -58,13 +70,29 @@
             <field name="model">saca</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="name" string="Saca"/>
-                    <filter string="Date" name="date" date="date"/>
-                    <filter string="Yesterday" name="yesterday" domain="[('date', '&lt;', context_today().strftime('%Y-%m-%d')), ('date','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]"/>
-                    <filter string="Today" name="today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
-                    <filter string="Last Week" name="last_week" domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"/>
+                    <field name="name" string="Saca" />
+                    <filter string="Date" name="date" date="date" />
+                    <filter
+          string="Yesterday"
+          name="yesterday"
+          domain="[('date', '&lt;', context_today().strftime('%Y-%m-%d')), ('date','&gt;', (context_today() - datetime.timedelta(days=2)).strftime('%Y-%m-%d'))]"
+        />
+                    <filter
+          string="Today"
+          name="today"
+          domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"
+        />
+                    <filter
+          string="Last Week"
+          name="last_week"
+          domain="[('date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"
+        />
                     <group expand="0" string="Group By">
-                        <filter string="Date" name="date" context="{'group_by':'date'}"/>
+                        <filter
+            string="Date"
+            name="date"
+            context="{'group_by':'date'}"
+          />
                     </group>
                 </search>
             </field>
@@ -77,14 +105,27 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_saca_view" id="menu_view_saca"
-              parent="stock.menu_stock_warehouse_mgmt" sequence="15"/>
+    <menuitem
+    action="action_saca_view"
+    id="menu_view_saca"
+    parent="stock.menu_stock_warehouse_mgmt"
+    sequence="15"
+  />
 
-    <menuitem name="Saca" id="saca" sequence="120" web_icon="custom_saca,static/description/icon.png"/>
+    <menuitem
+    name="Saca"
+    id="saca"
+    sequence="120"
+    web_icon="custom_saca,static/description/icon.png"
+  />
 
-    <menuitem name="Saca" id="menu_saca" parent="saca" sequence="1"/>
+    <menuitem name="Saca" id="menu_saca" parent="saca" sequence="1" />
 
-    <menuitem action="action_saca_view" id="menu_view_saca"
-              parent="menu_saca" sequence="1"/>
+    <menuitem
+    action="action_saca_view"
+    id="menu_view_saca"
+    parent="menu_saca"
+    sequence="1"
+  />
 
 </odoo>

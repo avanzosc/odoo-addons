@@ -1,15 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="fleet_vehicle_view_form" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_form"/>
+        <field
+      name="inherit_id"
+      ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_form"
+    />
         <field name="arch" type="xml">
             <label for="model_id" position="attributes">
-                <attribute name="string">(D-3) - Vehicle model or commercial name</attribute>
+                <attribute
+          name="string"
+        >(D-3) - Vehicle model or commercial name</attribute>
             </label>
             <field name="serial_number_id" position="before">
                 <field name="sequence" readonly="1" />
-                <field name="authorized_signature_id" domain="[('authorized_signature' ,'=', True)]" />
+                <field
+          name="authorized_signature_id"
+          domain="[('authorized_signature' ,'=', True)]"
+        />
                 <field name="serial_number_on_tecnical_sheet" />
                 <field name="manufacturing_year" />
                 <field name="date_issue_technical_data_sheet" />
@@ -17,13 +25,15 @@
                 <field name="responsible_commissioning_id" />
             </field>
             <field name="serial_number_id" position="attributes">
-                <attribute name="string">(E) - Serial number (Chassis number)</attribute>
+                <attribute
+          name="string"
+        >(E) - Serial number (Chassis number)</attribute>
             </field>
             <field name="type_id" position="before">
                 <field name="vehicle_classification_id" />
             </field>
             <field name="type_id" position="after">
-                <field name="brand_id" string="(D.1) - Vehicle brand"/>
+                <field name="brand_id" string="(D.1) - Vehicle brand" />
                 <field name="vehicle_variant_id" />
                 <field name="vehicle_version_id" />
                 <field name="vehicle_category_id" />
@@ -81,7 +91,7 @@
 
     <record id="fleet_vehicle_view_form2" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form" />
         <field name="arch" type="xml">
             <field name="driver_id" position="attributes">
                 <attribute name="string">Customer</attribute>
@@ -102,50 +112,60 @@
 
     <record id="fleet_vehicle_view_tree" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_tree"/>
+        <field
+      name="inherit_id"
+      ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_tree"
+    />
         <field name="arch" type="xml">
             <field name="serial_number_id" position="attributes">
-                <attribute name="string">(E) - Serial number (Chassis number)</attribute>
+                <attribute
+          name="string"
+        >(E) - Serial number (Chassis number)</attribute>
             </field>
             <field name="type_id" position="attributes">
                 <attribute name="string">(D.2) - Vehicle type</attribute>
             </field>
             <field name="serial_number_id" position="before">
-                <field name="authorized_signature_id" optional="show"/>
-                <field name="manufacturing_year" optional="show"/>
-                <field name="date_issue_technical_data_sheet" optional="show"/>
-                <field name="vehicle_start_up_date" optional="show"/>
-                <field name="responsible_commissioning_id" optional="show"/>
+                <field name="authorized_signature_id" optional="show" />
+                <field name="manufacturing_year" optional="show" />
+                <field name="date_issue_technical_data_sheet" optional="show" />
+                <field name="vehicle_start_up_date" optional="show" />
+                <field name="responsible_commissioning_id" optional="show" />
             </field>
             <field name="type_id" position="before">
-                <field name="vehicle_classification_id" optional="show"/>
+                <field name="vehicle_classification_id" optional="show" />
             </field>
             <field name="type_id" position="after">
-                <field name="brand_id" string="(D.1) - Vehicle brand" optional="show"/>
-                <field name="vehicle_variant_id" optional="show"/>
-                <field name="vehicle_version_id" optional="show"/>
-                <field name="vehicle_category_id" optional="show"/>
+                <field name="brand_id" string="(D.1) - Vehicle brand" optional="show" />
+                <field name="vehicle_variant_id" optional="show" />
+                <field name="vehicle_version_id" optional="show" />
+                <field name="vehicle_category_id" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="fleet_vehicle_view_tree2" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree" />
         <field name="arch" type="xml">
             <field name="license_plate" position="before">
-                <field name="sequence" optional="show"/>
-                <field name="serial_number_on_tecnical_sheet" optional="show"/>
+                <field name="sequence" optional="show" />
+                <field name="serial_number_on_tecnical_sheet" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="fleet_vehicle_view_search" model="ir.ui.view">
         <field name="model">fleet.vehicle</field>
-        <field name="inherit_id" ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_search"/>
+        <field
+      name="inherit_id"
+      ref="stock_production_lot_fleet_vehicle.fleet_vehicle_view_search"
+    />
         <field name="arch" type="xml">
             <field name="serial_number_id" position="attributes">
-                <attribute name="string">(E) - Serial number (Chassis number)</attribute>
+                <attribute
+          name="string"
+        >(E) - Serial number (Chassis number)</attribute>
             </field>
             <field name="type_id" position="attributes">
                 <attribute name="string">(D.2) - Vehicle type</attribute>
@@ -172,23 +192,75 @@
                 <attribute name="string">(D.2) - Vehicle type</attribute>
             </filter>
             <filter name="serial_number" position="attributes">
-                <attribute name="string">(E) - Serial number (Chassis number)</attribute>
+                <attribute
+          name="string"
+        >(E) - Serial number (Chassis number)</attribute>
             </filter>
             <filter name="serial_number" position="before">
-                <filter name="authorized-signature" string="Auhorized signature" domain="[]" context="{'group_by' : 'authorized_signature_id'}"/>
-                <filter name="manufacturing-year" string="Manufacturing year" domain="[]" context="{'group_by' : 'manufacturing_year'}"/>
-                <filter name="date-issue-technical-data-sheet" string="Date of issue of the technical data sheet" domain="[]" context="{'group_by' : 'date_issue_technical_data_sheet'}"/>
-                <filter name="vehicle-start-up-date" string="Vehicle start-up date" domain="[]" context="{'group_by' : 'vehicle_start_up_date'}"/>
-                <filter name="responsible-commissioning" string="Responsible of the commissioning" domain="[]" context="{'group_by' : 'responsible_commissioning_id'}"/>
+                <filter
+          name="authorized-signature"
+          string="Auhorized signature"
+          domain="[]"
+          context="{'group_by' : 'authorized_signature_id'}"
+        />
+                <filter
+          name="manufacturing-year"
+          string="Manufacturing year"
+          domain="[]"
+          context="{'group_by' : 'manufacturing_year'}"
+        />
+                <filter
+          name="date-issue-technical-data-sheet"
+          string="Date of issue of the technical data sheet"
+          domain="[]"
+          context="{'group_by' : 'date_issue_technical_data_sheet'}"
+        />
+                <filter
+          name="vehicle-start-up-date"
+          string="Vehicle start-up date"
+          domain="[]"
+          context="{'group_by' : 'vehicle_start_up_date'}"
+        />
+                <filter
+          name="responsible-commissioning"
+          string="Responsible of the commissioning"
+          domain="[]"
+          context="{'group_by' : 'responsible_commissioning_id'}"
+        />
             </filter>
             <filter name="type" position="before">
-                <filter name="vehicle-classification" string="(C.L) - Vehicle classification" domain="[]" context="{'group_by' : 'vehicle_classification_id'}"/>
+                <filter
+          name="vehicle-classification"
+          string="(C.L) - Vehicle classification"
+          domain="[]"
+          context="{'group_by' : 'vehicle_classification_id'}"
+        />
             </filter>
             <filter name="type" position="after">
-                <filter name="brand" string="(D.1) - Vehicle brand" domain="[]" context="{'group_by' : 'brand_id'}"/>
-                <filter name="vehicle-variant" string="(D.2) - Vehicle variant" domain="[]" context="{'group_by' : 'vehicle_variant_id'}"/>
-                <filter name="vehicle-version" string="(D.2) - Vehicle version" domain="[]" context="{'group_by' : 'vehicle_version_id'}"/>
-                <filter name="vehicle-category" string="(J) - Vehicle category" domain="[]" context="{'group_by' : 'vehicle_category_id'}"/>
+                <filter
+          name="brand"
+          string="(D.1) - Vehicle brand"
+          domain="[]"
+          context="{'group_by' : 'brand_id'}"
+        />
+                <filter
+          name="vehicle-variant"
+          string="(D.2) - Vehicle variant"
+          domain="[]"
+          context="{'group_by' : 'vehicle_variant_id'}"
+        />
+                <filter
+          name="vehicle-version"
+          string="(D.2) - Vehicle version"
+          domain="[]"
+          context="{'group_by' : 'vehicle_version_id'}"
+        />
+                <filter
+          name="vehicle-category"
+          string="(J) - Vehicle category"
+          domain="[]"
+          context="{'group_by' : 'vehicle_category_id'}"
+        />
             </filter>
         </field>
     </record>

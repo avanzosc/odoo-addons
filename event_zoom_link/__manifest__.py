@@ -9,9 +9,7 @@
     "depends": [
         "event",
     ],
-    "data": [
-        "views/event_event_views.xml"
-    ],
+    "data": ["views/event_event_views.xml"],
     "license": "AGPL-3",
     "installable": True,
 }

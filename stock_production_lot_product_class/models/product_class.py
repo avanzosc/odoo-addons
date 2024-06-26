@@ -7,5 +7,4 @@ class ProductClass(models.Model):
     _name = "product.class"
     _description = "Product class"
 
-    name = fields.Char(
-        string="Product class", required=True, copy=False)
+    name = fields.Char(string="Product class", required=True, copy=False)
