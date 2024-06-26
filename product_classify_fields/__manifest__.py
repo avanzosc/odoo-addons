@@ -1,18 +1,17 @@
 {
     "name": "Product Classification Fields",
-    "version": "1.0",
+    "version": "14.0.1.1.0",
     "category": "Product",
     "summary": "Adds classification fields to product template",
-    "description": """
-        This module adds the following fields to the product template:
-        - Series
-        - Model
-        - Application
-        - Family
-        - Packaging Type
-    """,
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["product"],
-    "data": ["views/product_template_views.xml"],
+    "data": [
+        "views/product_template_views.xml",
+        "views/product_series_view.xml",
+        "views/product_model_view.xml",
+        "views/product_application_view.xml",
+        "views/product_family_view.xml",
+],
     "installable": True,
     "application": False,
 }

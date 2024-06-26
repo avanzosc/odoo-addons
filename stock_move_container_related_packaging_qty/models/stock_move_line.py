@@ -6,6 +6,4 @@ from odoo import fields, models
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    container = fields.Integer(
-        string="Quantity contained per package"
-        )
+    container = fields.Integer(string="Quantity contained per package")

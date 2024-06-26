@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Website Event Member",
-    "version": '14.0.1.1.0',
+    "version": "14.0.1.1.0",
     "author": "Avanzosc",
     "license": "AGPL-3",
     "category": "Website",
@@ -11,8 +11,8 @@
         "event_registration_member",
     ],
     "data": [
-        'views/templates.xml',
-        'views/views.xml',
+        "views/templates.xml",
+        "views/views.xml",
     ],
     "installable": True,
 }

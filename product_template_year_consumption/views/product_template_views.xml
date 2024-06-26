@@ -1,30 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_stock_product_template_tree" model="ir.ui.view">
         <field name="model">product.template</field>
-        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree" />
         <field name="arch" type="xml">
             <field name="responsible_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
             <field name="virtual_available" position="after">
-                <field name="incoming_qty" optional="show"/>
-                <field name="outgoing_qty" optional="show"/>
-                <field name="month_forecast" optional="show"/>
-                <field name="year_consumption" optional="show"/>
-                <field name="seller_ids" optional="hide"/>
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
+                <field name="month_forecast" optional="show" />
+                <field name="year_consumption" optional="show" />
+                <field name="seller_ids" optional="hide" />
             </field>
             <field name="uom_id" position="after">
-                <button name="action_update_product_consumption" icon="fa-calendar" type="object"/>
+                <button
+          name="action_update_product_consumption"
+          icon="fa-calendar"
+          type="object"
+        />
             </field>
         </field>
     </record>
 
     <record id="action_update_product_consumption" model="ir.actions.server">
         <field name="name">Update Product Consumption</field>
-        <field name="model_id" ref="stock.model_product_template"/>
-        <field name="binding_model_id" ref="stock.model_product_template"/>
+        <field name="model_id" ref="stock.model_product_template" />
+        <field name="binding_model_id" ref="stock.model_product_template" />
         <field name="state">code</field>
         <field name="code">
             for record in records:

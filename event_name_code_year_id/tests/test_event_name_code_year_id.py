@@ -7,7 +7,7 @@ from odoo.tests import common, tagged
 class TestNameCodeYearId(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestNameCodeYearId, cls).setUpClass()
+        super().setUpClass()
         cls.event_obj = cls.env["event.event"]
         cls.skill_type_lang = cls.env.ref("hr_skills.hr_skill_type_lang")
         cls.skill_spanish = cls.env.ref("hr_skills.hr_skill_spanish")

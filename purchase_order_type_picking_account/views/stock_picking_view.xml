@@ -5,8 +5,10 @@
         <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <field name="origin" position="after">
-                <field name="purchase_type_id"
-                    attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"/>
+                <field
+          name="purchase_type_id"
+          attrs="{'invisible': [('picking_type_code', '!=', 'incoming')]}"
+        />
             </field>
         </field>
     </record>
@@ -16,7 +18,7 @@
         <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <field name="origin" position="after">
-                <field name="purchase_type_id" optional="show"/>
+                <field name="purchase_type_id" optional="show" />
             </field>
         </field>
     </record>
@@ -26,10 +28,15 @@
         <field name="inherit_id" ref="stock.view_picking_internal_search" />
         <field name="arch" type="xml">
             <field name="picking_type_id" position="after">
-                <field name="purchase_type_id"/>
+                <field name="purchase_type_id" />
             </field>
             <filter name="picking_type" position="after">
-                <filter string="Purchase type" name="purchase-type" domain="[]" context="{'group_by': 'purchase_type_id'}"/>
+                <filter
+          string="Purchase type"
+          name="purchase-type"
+          domain="[]"
+          context="{'group_by': 'purchase_type_id'}"
+        />
             </filter>
         </field>
     </record>

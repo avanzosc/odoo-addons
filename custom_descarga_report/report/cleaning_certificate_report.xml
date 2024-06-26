@@ -1,46 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="action_report_cleaning_certificate" model="ir.actions.report">
             <field name="name">Cleaning Certificate</field>
             <field name="model">saca.line</field>
             <field name="report_type">qweb-pdf</field>
-            <field name="report_name">custom_descarga_report.report_cleaning_certificate</field>
-            <field name="report_file">custom_descarga_report.report_cleaning_certificate</field>
-            <field name="binding_model_id" ref="custom_saca.model_saca_line"/>
+            <field
+        name="report_name"
+      >custom_descarga_report.report_cleaning_certificate</field>
+            <field
+        name="report_file"
+      >custom_descarga_report.report_cleaning_certificate</field>
+            <field name="binding_model_id" ref="custom_saca.model_saca_line" />
             <field name="binding_type">report</field>
         </record>
 
     <template id="external_layout_standard_saca_certificate">
-        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
             <div class="row">
-                <t t-foreach="docs" t-as="o"/>
+                <t t-foreach="docs" t-as="o" />
             </div>
         </div>
-        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <div
+        t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"
+        t-att-data-oe-model="o and o._name"
+        t-att-data-oe-id="o and o.id"
+        t-att-data-oe-lang="o and o.env.context.get('lang')"
+      >
             <div class="pt-5">
                 <!-- This div ensures that the address is not cropped by the header. -->
-                <t t-call="web.address_layout"/>
+                <t t-call="web.address_layout" />
             </div>
-            <t t-raw="0"/>
+            <t t-raw="0" />
         </div>
     </template>
 
     <template id="external_layout_saca_certificate">
-        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not o" t-set="o" t-value="doc" />
         <t t-if="not company">
             <!-- Multicompany -->
             <t t-if="company_id">
-                <t t-set="company" t-value="company_id"/>
+                <t t-set="company" t-value="company_id" />
             </t>
             <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
-                <t t-set="company" t-value="o.company_id.sudo()"/>
+                <t t-set="company" t-value="o.company_id.sudo()" />
             </t>
             <t t-else="else">
-                <t t-set="company" t-value="res_company"/>
+                <t t-set="company" t-value="res_company" />
             </t>
         </t>
-        <t t-call="custom_descarga_report.external_layout_standard_saca_certificate"><t t-raw="0"/></t>
+        <t t-call="custom_descarga_report.external_layout_standard_saca_certificate"><t
+          t-raw="0"
+        /></t>
     </template>
 
         <template id="custom_descarga_report.report_cleaning_certificate">
@@ -51,87 +65,198 @@
                             <strong>&#x2063;</strong>
                             <h2 style="text-align: center">
                                 <span>Certificado número:</span>
-                                <span t-if="o.cleaning_seal_number" t-field="o.cleaning_seal_number"/>
+                                <span
+                  t-if="o.cleaning_seal_number"
+                  t-field="o.cleaning_seal_number"
+                />
                             </h2>
                             <strong>&#x2063;</strong>
                             <h5 style="text-align: center">
-                                <span class="text-center" style="font-weight: bold;">CERTIFICADO DE LIMPIEZA Y DESINFECCIÓN DE VEHÍCULOS DESTINADO AL TRANSPORTE DE ANIMALES (RD 638/2019 y Orden Cª Agricultura y M.A. de 14/03/2002)</span>
+                                <span
+                  class="text-center"
+                  style="font-weight: bold;"
+                >CERTIFICADO DE LIMPIEZA Y DESINFECCIÓN DE VEHÍCULOS DESTINADO AL TRANSPORTE DE ANIMALES (RD 638/2019 y Orden Cª Agricultura y M.A. de 14/03/2002)</span>
                             </h5>
                             <div id="text">
-                                <div class="mt-4 mb-4" name="ref" style="font-weight: bold;">
-                                    <strong style="font-weight: normal;margin-left: 1cm;">D.</strong>
-                                    <t t-set="responsible" t-value="o._get_quality_responsible()"/>
-                                    <t t-if="responsible" t-esc="responsible.name"/>
+                                <div
+                  class="mt-4 mb-4"
+                  name="ref"
+                  style="font-weight: bold;"
+                >
+                                    <strong
+                    style="font-weight: normal;margin-left: 1cm;"
+                  >D.</strong>
+                                    <t
+                    t-set="responsible"
+                    t-value="o._get_quality_responsible()"
+                  />
+                                    <t t-if="responsible" t-esc="responsible.name" />
                                     <t t-if="not responsible">
-                                        <strong class="mt-4">RESPONSABLE NO ENCONTRADO</strong>
+                                        <strong
+                      class="mt-4"
+                    >RESPONSABLE NO ENCONTRADO</strong>
                                     </t>
-                                    <strong style="font-weight: normal;">, con DNI</strong>
-                                    <t t-if="responsible" t-esc="responsible.vat" style="font-weight: bold;"/>
+                                    <strong
+                    style="font-weight: normal;"
+                  >, con DNI</strong>
+                                    <t
+                    t-if="responsible"
+                    t-esc="responsible.vat"
+                    style="font-weight: bold;"
+                  />
                                     <t t-if="not responsible">
-                                        <strong class="mt-4">RESPONSABLE NO ENCONTRADO</strong>
+                                        <strong
+                      class="mt-4"
+                    >RESPONSABLE NO ENCONTRADO</strong>
                                     </t>
-                                    <strong style="font-weight: normal;">, en calidad de responsable del centro de limpieza y desinfección de vehículos destinados al transporte de animales, inscrito en el Registro Oficial de Centros de Limpieza y Desinfección de vehículos con código </strong>
-                                    <strong style="font-weight: bold;">CLD-02-2,</strong>
-                                    <strong style="font-weight: normal;"> situado en el matadero de aves PAASA, municipio de Albacete, provincia de Albacete, Comunidad Autónoma de Castilla-la Mancha.</strong>
+                                    <strong
+                    style="font-weight: normal;"
+                  >, en calidad de responsable del centro de limpieza y desinfección de vehículos destinados al transporte de animales, inscrito en el Registro Oficial de Centros de Limpieza y Desinfección de vehículos con código </strong>
+                                    <strong
+                    style="font-weight: bold;"
+                  >CLD-02-2,</strong>
+                                    <strong
+                    style="font-weight: normal;"
+                  > situado en el matadero de aves PAASA, municipio de Albacete, provincia de Albacete, Comunidad Autónoma de Castilla-la Mancha.</strong>
                                 </div>
                                 <div class="mt-4 mb-4">
-                                    <strong style="margin-left: 1cm;" class="mt-4">CERTIFICA:</strong>
+                                    <strong
+                    style="margin-left: 1cm;"
+                    class="mt-4"
+                  >CERTIFICA:</strong>
                                     <strong>&#160;</strong>
-                                    <strong style="font-weight: normal;">que el día</strong>
-                                    <span t-if="o.cleaned_date" t-esc="o.cleaned_date.strftime('%d de %B de %Y')"/>
+                                    <strong
+                    style="font-weight: normal;"
+                  >que el día</strong>
+                                    <span
+                    t-if="o.cleaned_date"
+                    t-esc="o.cleaned_date.strftime('%d de %B de %Y')"
+                  />
                                     <strong style="font-weight: normal;">a las</strong>
-                                    <span t-field="o.cleaned_time" t-options="{'widget': 'float_time'}"/>
-                                    <strong style="font-weight: normal;">horas, se ha procedido en dicho centro, a la limpieza y desinfección del vehículo matrícula</strong>
-                                    <span t-if="o.vehicle_id" t-field="o.vehicle_id.license_plate" style="font-weight: bold;"/>
+                                    <span
+                    t-field="o.cleaned_time"
+                    t-options="{'widget': 'float_time'}"
+                  />
+                                    <strong
+                    style="font-weight: normal;"
+                  >horas, se ha procedido en dicho centro, a la limpieza y desinfección del vehículo matrícula</strong>
+                                    <span
+                    t-if="o.vehicle_id"
+                    t-field="o.vehicle_id.license_plate"
+                    style="font-weight: bold;"
+                  />
                                     <strong style="font-weight: normal;">/</strong>
-                                    <span t-if="o.remolque_id" t-field="o.remolque_id.license_plate" style="font-weight: bold;"/>
-                                    <strong style="font-weight: normal;">con el desinfectante</strong>
-                                    <span t-if="o.disinfectant_id" t-field="o.disinfectant_id.name" style="font-weight: bold;"/>
-                                    <strong style="font-weight: normal;">y la colocación del precinto número</strong>
-                                    <span t-if="o.cleaning_seal_number" t-field="o.cleaning_seal_number" style="font-weight: bold;"/>
-                                    <strong style="font-weight: normal;">en las puertas de acceso de los animales a la estructura de carga del citado vehículo.</strong>
+                                    <span
+                    t-if="o.remolque_id"
+                    t-field="o.remolque_id.license_plate"
+                    style="font-weight: bold;"
+                  />
+                                    <strong
+                    style="font-weight: normal;"
+                  >con el desinfectante</strong>
+                                    <span
+                    t-if="o.disinfectant_id"
+                    t-field="o.disinfectant_id.name"
+                    style="font-weight: bold;"
+                  />
+                                    <strong
+                    style="font-weight: normal;"
+                  >y la colocación del precinto número</strong>
+                                    <span
+                    t-if="o.cleaning_seal_number"
+                    t-field="o.cleaning_seal_number"
+                    style="font-weight: bold;"
+                  />
+                                    <strong
+                    style="font-weight: normal;"
+                  >en las puertas de acceso de los animales a la estructura de carga del citado vehículo.</strong>
                                 </div>
                                 <div class="mt-4 mb-4" style="text-align: center">
-                                    <strong class="mt-4" style="font-weight: normal;">En Albacete, a</strong>
-                                    <span t-if="o.cleaned_date" t-esc="o.cleaned_date.strftime('%d de %B de %Y')"/>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >En Albacete, a</strong>
+                                    <span
+                    t-if="o.cleaned_date"
+                    t-esc="o.cleaned_date.strftime('%d de %B de %Y')"
+                  />
                                 </div>
-                                <div style="height:40px"></div>
+                                <div style="height:40px" />
                                 <div class="text-center">
-                                    <img t-if="o.company_id.stamp" t-att-src="image_data_uri(o.company_id.stamp)" style="max-height: 140px;" alt="Stamp"/>
+                                    <img
+                    t-if="o.company_id.stamp"
+                    t-att-src="image_data_uri(o.company_id.stamp)"
+                    style="max-height: 140px;"
+                    alt="Stamp"
+                  />
                                 </div>
-                                <div style="height:50px"></div>
+                                <div style="height:50px" />
                                 <div class="mt-4 mb-4" style="text-align: center">
                                     <strong>&#x2063;</strong>
-                                    <strong class="mt-4" style="font-weight: normal">Firmado:</strong>
-                                    <t t-if="responsible" t-esc="responsible.name"/>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal"
+                  >Firmado:</strong>
+                                    <t t-if="responsible" t-esc="responsible.name" />
                                     <t t-if="not responsible">
-                                        <strong class="mt-4">RESPONSABLE NO ENCONTRADO</strong>
+                                        <strong
+                      class="mt-4"
+                    >RESPONSABLE NO ENCONTRADO</strong>
                                     </t>
                                 </div>
                                 <div class="mt-4 mb-4">
-                                    <strong class="mt-4" style="font-weight: normal;">A RELLENAR POR EL TRANSPORTISTA / CONDUCTOR DEL VEHÍCULO</strong>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >A RELLENAR POR EL TRANSPORTISTA / CONDUCTOR DEL VEHÍCULO</strong>
                                 </div>
                                 <div class="mt-4 mb-4">
-                                    <strong class="mt-4" style="font-weight: normal;">D. .............................................................................................................................................. D.N.I. .................................................................................</strong>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >D. .............................................................................................................................................. D.N.I. .................................................................................</strong>
                                 </div>
                                 <div class="mt-4 mb-4">
-                                    <strong class="mt-4" style="font-weight: normal;margin-left: 1cm;" >Transportista / Conductor del vehículo con matrícula</strong>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;margin-left: 1cm;"
+                  >Transportista / Conductor del vehículo con matrícula</strong>
                                     <strong>&#160;</strong>
-                                    <span t-if="o.remolque_id" t-field="o.remolque_id.license_plate" style="font-weight: bold;"/>
-                                    <strong class="mt-4" style="font-weight: normal;">ATES /</strong>
-                                    <span t-if="o.remolque_id" t-field="o.ates" style="font-weight: bold;"/>
+                                    <span
+                    t-if="o.remolque_id"
+                    t-field="o.remolque_id.license_plate"
+                    style="font-weight: bold;"
+                  />
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >ATES /</strong>
+                                    <span
+                    t-if="o.remolque_id"
+                    t-field="o.ates"
+                    style="font-weight: bold;"
+                  />
                                 </div>
                                 <div class="mt-4 mb-4">
-                                    <strong class="mt-4" style="margin-left: 1cm;" >DECLARA:</strong>
+                                    <strong
+                    class="mt-4"
+                    style="margin-left: 1cm;"
+                  >DECLARA:</strong>
                                     <strong>&#160;</strong>
-                                    <strong class="mt-4" style="font-weight: normal;">que dicho vehículo ha sido desinfectado y se dispone a transportar a los animales de la especie Aviar amparados con el Certificado Sanitario / Guía de origen y Sanidad Pecuaria nº ___________________________</strong>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >que dicho vehículo ha sido desinfectado y se dispone a transportar a los animales de la especie Aviar amparados con el Certificado Sanitario / Guía de origen y Sanidad Pecuaria nº ___________________________</strong>
                                 </div>
-                                <div style="height:60px"></div>
+                                <div style="height:60px" />
                                 <div class="mt-4 mb-4">
-                                    <strong class="mt-4" style="font-weight: normal;">Firmado: .................................................................................................................................................................................</strong>
+                                    <strong
+                    class="mt-4"
+                    style="font-weight: normal;"
+                  >Firmado: .................................................................................................................................................................................</strong>
                                 </div>
                             </div>
-                            <p style="page-break-after: always;"/>
+                            <p style="page-break-after: always;" />
                          </div>
                      </t>
                  </t>

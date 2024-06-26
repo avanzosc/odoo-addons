@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record model="ir.ui.view" id="view_stock_move_line_report_tree">
@@ -6,30 +6,30 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <tree string="Movement Analysis" editable="bottom">
-                <field name="date"/>
-                <field name="ref"/>
-                <field name="picking_id"/>
-                <field name="partner_id"/>
-                <field name="production_id"/>
-                <field name="picking_type_id"/>
-                <field name="location_id"/>
-                <field name="type_id"/>
-                <field name="product_category_type_id"/>
-                <field name="move_type_id"/>
-                <field name="type_category_id"/>
-                <field name="batch_id"/>
-                <field name="mother_id"/>
-                <field name="warehouse_id"/>
-                <field name="company_id" optional="hide"/>
-                <field name="owner_id" optional="hide"/>
-                <field name="product_id"/>
-                <field name="lot_id"/>
-                <field name="entry_qty"/>
-                <field name="output_qty"/>
-                <field name="qty_done"/>
-                <field name="entry_amount"/>
-                <field name="output_amount"/>
-                <field name="amount"/>
+                <field name="date" />
+                <field name="ref" />
+                <field name="picking_id" />
+                <field name="partner_id" />
+                <field name="production_id" />
+                <field name="picking_type_id" />
+                <field name="location_id" />
+                <field name="type_id" />
+                <field name="product_category_type_id" />
+                <field name="move_type_id" />
+                <field name="type_category_id" />
+                <field name="batch_id" />
+                <field name="mother_id" />
+                <field name="warehouse_id" />
+                <field name="company_id" optional="hide" />
+                <field name="owner_id" optional="hide" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="entry_qty" />
+                <field name="output_qty" />
+                <field name="qty_done" />
+                <field name="entry_amount" />
+                <field name="output_amount" />
+                <field name="amount" />
             </tree>
         </field>
     </record>
@@ -40,44 +40,44 @@
         <field name="arch" type="xml">
             <form string="Movement Analysis">
                 <sheet>
-                    <div class="oe_button_box" name="button_box"></div>
+                    <div class="oe_button_box" name="button_box" />
                     <group>
                         <group string="Location">
-                            <field name="location_id"/>
-                            <field name="warehouse_id"/>
-                            <field name="company_id"/>
-                            <field name="owner_id"/>
-                            <field name="batch_id"/>
-                            <field name="mother_id"/>
+                            <field name="location_id" />
+                            <field name="warehouse_id" />
+                            <field name="company_id" />
+                            <field name="owner_id" />
+                            <field name="batch_id" />
+                            <field name="mother_id" />
                         </group>
                         <group string="Type">
-                            <field name="picking_type_id"/>
-                            <field name="type_id"/>
-                            <field name="product_category_type_id"/>
-                            <field name="move_type_id"/>
-                            <field name="type_category_id"/>
+                            <field name="picking_type_id" />
+                            <field name="type_id" />
+                            <field name="product_category_type_id" />
+                            <field name="move_type_id" />
+                            <field name="type_category_id" />
                         </group>
                         <group string="Detail">
-                            <field name="product_id"/>
-                            <field name="lot_id"/>
+                            <field name="product_id" />
+                            <field name="lot_id" />
                         </group>
                         <group string="Origin">
-                            <field name="ref"/>
-                            <field name="production_id"/>
-                            <field name="picking_id"/>
-                            <field name="partner_id"/>
-                            <field name="move_line_id"/>
-                            <field name="move_id"/>
+                            <field name="ref" />
+                            <field name="production_id" />
+                            <field name="picking_id" />
+                            <field name="partner_id" />
+                            <field name="move_line_id" />
+                            <field name="move_id" />
                         </group>
                         <group string="Qty">
-                            <field name="entry_qty"/>
-                            <field name="output_qty"/>
-                            <field name="qty_done"/>
+                            <field name="entry_qty" />
+                            <field name="output_qty" />
+                            <field name="qty_done" />
                         </group>
                         <group string="Amount">
-                            <field name="entry_amount"/>
-                            <field name="output_amount"/>
-                            <field name="amount"/>
+                            <field name="entry_amount" />
+                            <field name="output_amount" />
+                            <field name="amount" />
                         </group>
                     </group>
                 </sheet>
@@ -90,14 +90,14 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <pivot string="Movement Analysis">
-                <field name="type_id" type="row"/>
-                <field name="type_category_id" type="row"/>
-                <field name="entry_qty" type="measure"/>
-                <field name="output_qty" type="measure"/>
-                <field name="qty_done" type="measure"/>
-                <field name="entry_amount" type="measure"/>
-                <field name="output_amount" type="measure"/>
-                <field name="amount" type="measure"/>
+                <field name="type_id" type="row" />
+                <field name="type_category_id" type="row" />
+                <field name="entry_qty" type="measure" />
+                <field name="output_qty" type="measure" />
+                <field name="qty_done" type="measure" />
+                <field name="entry_amount" type="measure" />
+                <field name="output_amount" type="measure" />
+                <field name="amount" type="measure" />
             </pivot>
         </field>
     </record>
@@ -107,14 +107,14 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <pivot string="Movement Analysis">
-                <field name="batch_location_id" type="row"/>
-                <field name="batch_category_type_id" type="row"/>
-                <field name="entry_qty" type="measure"/>
-                <field name="output_qty" type="measure"/>
-                <field name="qty_done" type="measure"/>
-                <field name="entry_amount" type="measure"/>
-                <field name="output_amount" type="measure"/>
-                <field name="amount" type="measure"/>
+                <field name="batch_location_id" type="row" />
+                <field name="batch_category_type_id" type="row" />
+                <field name="entry_qty" type="measure" />
+                <field name="output_qty" type="measure" />
+                <field name="qty_done" type="measure" />
+                <field name="entry_amount" type="measure" />
+                <field name="output_amount" type="measure" />
+                <field name="amount" type="measure" />
             </pivot>
         </field>
     </record>
@@ -123,59 +123,128 @@
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
             <search>
-                <field name="ref"/>
-                <field name="product_id"/>
-                <field name="lot_id"/>
-                <field name="location_id"/>
-                <field name="warehouse_id"/>
-                <field name="move_type_id"/>
-                <field name="type_category_id"/>
-                <field name="type_id"/>
-                <field name="product_category_type_id"/>
-                <field name="picking_id"/>
-                <field name="batch_id"/>
-                <field name="mother_id"/>
-                <field name="production_id"/>
-                <filter string="Internal Location" name="internal" domain="[('location_id.usage', '=', 'internal')]"/>
-                <filter string="Supplier Location" name="supplier" domain="[('location_id.usage', '=', 'supplier')]"/>
-                <filter string="Customer Location" name="customer" domain="[('location_id.usage', '=', 'customer')]"/>
-                <filter string="Inventory Loss" name="inventory" domain="[('location_id.usage', '=', 'inventory')]"/>
-                <filter string="Production Location" name="production" domain="[('location_id.usage', '=', 'production')]"/>
-                <separator/>
-                <filter name="filter_date" date="date"/>
-                <separator/>
-                <filter string="Today" name="today" domain="[('date','&gt;', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <field name="ref" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="location_id" />
+                <field name="warehouse_id" />
+                <field name="move_type_id" />
+                <field name="type_category_id" />
+                <field name="type_id" />
+                <field name="product_category_type_id" />
+                <field name="picking_id" />
+                <field name="batch_id" />
+                <field name="mother_id" />
+                <field name="production_id" />
+                <filter
+          string="Internal Location"
+          name="internal"
+          domain="[('location_id.usage', '=', 'internal')]"
+        />
+                <filter
+          string="Supplier Location"
+          name="supplier"
+          domain="[('location_id.usage', '=', 'supplier')]"
+        />
+                <filter
+          string="Customer Location"
+          name="customer"
+          domain="[('location_id.usage', '=', 'customer')]"
+        />
+                <filter
+          string="Inventory Loss"
+          name="inventory"
+          domain="[('location_id.usage', '=', 'inventory')]"
+        />
+                <filter
+          string="Production Location"
+          name="production"
+          domain="[('location_id.usage', '=', 'production')]"
+        />
+                <separator />
+                <filter name="filter_date" date="date" />
+                <separator />
+                <filter
+          string="Today"
+          name="today"
+          domain="[('date','&gt;', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"
+        />
                 <group expand="0" string="Group By">
-                    <filter name="groupby_ref" string="Reference"
-                            context="{'group_by':'ref'}" />
-                    <filter name="groupby_product" string="Product"
-                            context="{'group_by':'product_id'}" />
-                    <filter name="groupby_lot" string="Lot/Serial Number"
-                            context="{'group_by':'lot_id'}" />
-                    <filter name="groupby_location" string="Location"
-                            context="{'group_by':'location_id'}" />
-                    <filter name="groupby_warehouse" string="Warehouse"
-                            context="{'group_by':'warehouse_id'}" />
-                    <filter name="groupby_section" string="Location Section"
-                            context="{'group_by':'type_id'}" />
-                    <filter name="groupby_product_section" string="Product Category Section"
-                            context="{'group_by':'product_category_type_id'}" />
-                    <filter name="groupby_move_type" string="Move Type"
-                            context="{'group_by':'move_type_id'}" />
-                    <filter name="groupby_type_category" string="Type Category"
-                            context="{'group_by':'type_category_id'}" />
-                    <filter name="groupby_picking" string="Picking"
-                            context="{'group_by':'picking_id'}" />
-                    <filter name="groupby_picking_type" string="Picking Type"
-                            context="{'group_by':'picking_type_id'}" />
-                    <filter name="groupby_batch" string="Egg Mother"
-                            context="{'group_by':'batch_id'}" />
-                    <filter name="groupby_mother" string="Mother"
-                            context="{'group_by':'mother_id'}" />
-                    <filter name="groupby_production" string="Production"
-                            context="{'group_by':'production_id'}" />
-                    <filter name="groupby_partner" string="Partner"
-                            context="{'group_by':'partner_id'}" />
+                    <filter
+            name="groupby_ref"
+            string="Reference"
+            context="{'group_by':'ref'}"
+          />
+                    <filter
+            name="groupby_product"
+            string="Product"
+            context="{'group_by':'product_id'}"
+          />
+                    <filter
+            name="groupby_lot"
+            string="Lot/Serial Number"
+            context="{'group_by':'lot_id'}"
+          />
+                    <filter
+            name="groupby_location"
+            string="Location"
+            context="{'group_by':'location_id'}"
+          />
+                    <filter
+            name="groupby_warehouse"
+            string="Warehouse"
+            context="{'group_by':'warehouse_id'}"
+          />
+                    <filter
+            name="groupby_section"
+            string="Location Section"
+            context="{'group_by':'type_id'}"
+          />
+                    <filter
+            name="groupby_product_section"
+            string="Product Category Section"
+            context="{'group_by':'product_category_type_id'}"
+          />
+                    <filter
+            name="groupby_move_type"
+            string="Move Type"
+            context="{'group_by':'move_type_id'}"
+          />
+                    <filter
+            name="groupby_type_category"
+            string="Type Category"
+            context="{'group_by':'type_category_id'}"
+          />
+                    <filter
+            name="groupby_picking"
+            string="Picking"
+            context="{'group_by':'picking_id'}"
+          />
+                    <filter
+            name="groupby_picking_type"
+            string="Picking Type"
+            context="{'group_by':'picking_type_id'}"
+          />
+                    <filter
+            name="groupby_batch"
+            string="Egg Mother"
+            context="{'group_by':'batch_id'}"
+          />
+                    <filter
+            name="groupby_mother"
+            string="Mother"
+            context="{'group_by':'mother_id'}"
+          />
+                    <filter
+            name="groupby_production"
+            string="Production"
+            context="{'group_by':'production_id'}"
+          />
+                    <filter
+            name="groupby_partner"
+            string="Partner"
+            context="{'group_by':'partner_id'}"
+          />
                 </group>
             </search>
         </field>
@@ -185,7 +254,7 @@
         <field name="name">Movement Report</field>
         <field name="res_model">stock.move.line.report</field>
         <field name="view_mode">pivot,tree,form</field>
-        <field name="view_id" ref="view_stock_move_line_report_pivot"></field>
+        <field name="view_id" ref="view_stock_move_line_report_pivot" />
         <field name="context">{"search_default_internal": 1}</field>
     </record>
 
@@ -194,18 +263,22 @@
         <field name="res_model">stock.move.line.report</field>
         <field name="view_mode">pivot,tree,form</field>
         <field name="domain">[('egg', '=', True)]</field>
-        <field name="view_id" ref="view_egg_move_line_report_pivot"></field>
+        <field name="view_id" ref="view_egg_move_line_report_pivot" />
     </record>
 
-    <menuitem id="egg_move_line_report_menuitem"
-              name="Egg Entries/Outputs"
-              action="egg_move_line_report_action"
-              parent="stock.menu_warehouse_report"
-              sequence="12" />
+    <menuitem
+    id="egg_move_line_report_menuitem"
+    name="Egg Entries/Outputs"
+    action="egg_move_line_report_action"
+    parent="stock.menu_warehouse_report"
+    sequence="12"
+  />
 
-    <menuitem id="stock_move_line_report_menuitem"
-              name="Entries/Outputs Report"
-              action="stock_move_line_report_action"
-              parent="stock.menu_warehouse_report"
-              sequence="10" />
+    <menuitem
+    id="stock_move_line_report_menuitem"
+    name="Entries/Outputs Report"
+    action="stock_move_line_report_action"
+    parent="stock.menu_warehouse_report"
+    sequence="10"
+  />
 </odoo>

@@ -6,6 +6,4 @@ from odoo import fields, models
 class AccountPayment(models.Model):
     _inherit = "account.payment"
 
-    picking_id = fields.Many2one(
-        string="Picking",
-        comodel_name="stock.picking")
+    picking_id = fields.Many2one(string="Picking", comodel_name="stock.picking")
