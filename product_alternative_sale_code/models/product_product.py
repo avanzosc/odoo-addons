@@ -128,15 +128,15 @@ class ProductProduct(models.Model):
         if "from_my_write" not in self.env.context:
             for product in self:
                 if product.default_code and not product.barcode:
-                    product.with_context(
-                        from_my_write=True
-                    ).barcode = product.default_code
+                    product.with_context(from_my_write=True).barcode = (
+                        product.default_code
+                    )
                 if product.barcode and not product.default_code:
-                    product.with_context(
-                        from_my_write=True
-                    ).default_code = product.barcode
+                    product.with_context(from_my_write=True).default_code = (
+                        product.barcode
+                    )
                 if product.default_code != product.barcode:
-                    product.with_context(
-                        from_my_write=True
-                    ).barcode = product.default_code
+                    product.with_context(from_my_write=True).barcode = (
+                        product.default_code
+                    )
         return result

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # Copyright 2015 Daniel Campos - AvanzOSC
 # Copyright 2015 Esther Martín - AvanzOSC
@@ -7,9 +6,7 @@
     "name": "Machine Manager Purchase Account",
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
-    "author": "OdooMRP team, "
-              "AvanzOSC, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza",
+    "author": "OdooMRP team, " "AvanzOSC, " "Serv. Tecnol. Avanzados - Pedro M. Baeza",
     "contributors": [
         "Daniel Campos <danielcampos@avanzosc.es>",
         "Pedro M. Baeza <pedro.baeza@serviciosbaeza.com>",

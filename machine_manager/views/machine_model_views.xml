@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
         <record id="machinemodel_tree_view" model="ir.ui.view">
@@ -20,7 +20,11 @@
             <field name="view_id" ref="machinemodel_tree_view" />
         </record>
 
-        <menuitem id="machinemodel_menu" name="Machine Model"
-            parent="menu_machine_config" action="machinemodel_action"/>
+        <menuitem
+      id="machinemodel_menu"
+      name="Machine Model"
+      parent="menu_machine_config"
+      action="machinemodel_action"
+    />
     </data>
 </odoo>

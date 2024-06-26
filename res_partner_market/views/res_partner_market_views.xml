@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record model="ir.ui.view" id="res_partner_market_tree_view">
         <field name="name">res.partner.market.tree.view</field>
@@ -18,8 +18,12 @@
         <field name="view_id" ref="res_partner_market_tree_view" />
     </record>
 
-    <menuitem id="market_tree_option_view" name="Markets"
-              action="action_market_tree_view" 
-              parent="contacts.res_partner_menu_config" sequence="21"
-              groups="base.group_erp_manager" />
+    <menuitem
+    id="market_tree_option_view"
+    name="Markets"
+    action="action_market_tree_view"
+    parent="contacts.res_partner_menu_config"
+    sequence="21"
+    groups="base.group_erp_manager"
+  />
 </odoo>
