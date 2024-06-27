@@ -1,0 +1,9 @@
+<odoo>
+    <template id="report_invoice_document_inherit" inherit_id="account.report_invoice_document">
+        <xpath expr="//p[@name='comment']" position="before">
+            <p>Internal Notes: 
+                <span style="font-style: italic;" t-esc="o.internal_notes"/>
+            </p>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_invoice_form_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.form.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//sheet/notebook" position="inside">
+                    <page string="Internal Notes">
+                        <field name="internal_notes" nolabel="1"/>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_inherit" model="ir.ui.view">
+        <field name="name">account.invoice.tree.inherit</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//tree" position="inside">
+                    <field name="internal_notes"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>
