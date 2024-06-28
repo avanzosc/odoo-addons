@@ -7,6 +7,7 @@ Website Portal ZIP Autocomplete
 ===============================
 
 * Autocomplete address fields from ZIP.
+
 Applied on /shop/address
 
 Bug Tracker

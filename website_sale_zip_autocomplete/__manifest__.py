@@ -7,7 +7,11 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "website",
     "version": "14.0.1.0.0",
-    "depends": ["website_sale", "base_location", "website_bootstrap_select"],
+    "depends": [
+        "website_sale",
+        "base_location",
+        "website_bootstrap_select",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/templates.xml",
