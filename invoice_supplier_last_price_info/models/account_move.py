@@ -8,7 +8,9 @@ class AccountMove(models.Model):
 
     def action_move_open(self):
         result = super().action_move_open()
-        for move in self.filtered(lambda x: x.state == "open" and x.type == "in_move"):
+        for move in self.filtered(
+            lambda x: x.state == "open" and x.move_type == "in_move"
+        ):
             for line in move.move_line_ids:
                 line.product_id.set_product_last_supplier_move(move.id)
         return result
@@ -16,7 +18,7 @@ class AccountMove(models.Model):
     def action_move_cancel(self):
         result = super().action_move_cancel()
         for move in self.filtered(
-            lambda x: x.state == "cancel" and x.type == "in_move"
+            lambda x: x.state == "cancel" and x.move_type == "in_move"
         ):
             for line in move.move_line_ids:
                 line.product_id.set_product_last_supplier_move()
