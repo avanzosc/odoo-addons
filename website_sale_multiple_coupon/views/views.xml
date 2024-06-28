@@ -29,7 +29,7 @@
         <field name="name">coupon_program_group_view_tree</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string="Coupon Program Group">
+            <tree>
                 <field name="name" />
                 <field name="apply_always" />
                 <field name="partner_category_ids" widget="many2many_tags" />
