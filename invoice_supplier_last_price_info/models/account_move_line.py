@@ -9,7 +9,7 @@ class AccountMoveLine(models.Model):
     def write(self, values):
         result = super().write(values)
         if "price_unit" in values and values.get("price_unit", False):
-            for line in self.filtered(lambda x: x.move_id.type == "in_move"):
+            for line in self.filtered(lambda x: x.move_id.move_type == "in_move"):
                 product = line.mapped("product_id")
                 if line.move_id.state in ("draft", "cancel"):
                     product.set_product_last_supplier_move()
