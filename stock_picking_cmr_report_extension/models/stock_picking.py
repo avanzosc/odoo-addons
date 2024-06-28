@@ -1,15 +1,21 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     cmr_tractor_id = fields.Many2one(
-        string="Tractor", comodel_name="fleet.vehicle", copy=False)
+        string="Tractor",
+        comodel_name="fleet.vehicle",
+        copy=False,
+    )
     cmr_semi_trailer_id = fields.Many2one(
-        string="Semi-Trailer", comodel_name="fleet.vehicle", copy=False)
+        string="Semi-Trailer",
+        comodel_name="fleet.vehicle",
+        copy=False,
+    )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
@@ -33,4 +39,3 @@ class StockPicking(models.Model):
     def onchange_crm_driver_id(self):
         if self.crm_driver_id:
             self.cmr_loader_id = self.crm_driver_id.parent_id.id
-
