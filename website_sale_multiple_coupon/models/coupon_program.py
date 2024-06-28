@@ -46,7 +46,8 @@ class CouponProgram(models.Model):
         elif not self._filter_on_mimimum_amount(order):
             message = {
                 "error": _(
-                    "A minimum of %(amount)s %(currency)s should be purchased to get the reward",
+                    "A minimum of %(amount)s %(currency)s should be purchased to get"
+                    " the reward",
                     amount=self.rule_minimum_amount,
                     currency=self.currency_id.name,
                 )
@@ -54,7 +55,11 @@ class CouponProgram(models.Model):
         elif not self._filter_programs_on_products(order):
             message = {
                 "error": _(
-                    "You don't have the required product quantities on your sales order. If the reward is same product quantity, please make sure that all the products are recorded on the sales order (Example: You need to have 3 T-shirts on your sales order if the promotion is 'Buy 2, Get 1 Free'."
+                    "You don't have the required product quantities on your sales"
+                    " order. If the reward is same product quantity, please make"
+                    " sure that all the products are recorded on the sales order"
+                    " (Example: You need to have 3 T-shirts on your sales order if"
+                    " the promotion is 'Buy 2, Get 1 Free'."
                 )
             }
         elif (
@@ -65,7 +70,8 @@ class CouponProgram(models.Model):
             if self not in applicable_programs:
                 message = {
                     "error": _(
-                        "At least one of the required conditions is not met to get the reward!"
+                        "At least one of the required conditions is not met to get the"
+                        " reward!"
                     )
                 }
         return message
