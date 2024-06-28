@@ -15,8 +15,9 @@ class SaleOrder(models.Model):
             )
         )
         for program in programs:
-            # VFE REF in master _get_applicable_no_code_programs already filters programs
-            # why do we need to reapply this bunch of checks in _check_promo_code ????
+            # VFE REF in master _get_applicable_no_code_programs already filters
+            # programs why do we need to reapply this bunch of checks in
+            # _check_promo_code ????
             # We should only apply a little part of the checks in _check_promo_code...
             error_status = program._check_promo_code(order, False)
             if not error_status.get("error"):
@@ -57,6 +58,6 @@ class SaleOrder(models.Model):
 
     def get_previous_line_amount_total(self, order, last_line):
         prev_amount_total = 0.0
-        for line in order.order_line.filtered(lambda l: l.id != last_line.id):
+        for line in order.order_line.filtered(lambda ln: ln.id != last_line.id):
             prev_amount_total = prev_amount_total + line.price_subtotal
         return prev_amount_total
