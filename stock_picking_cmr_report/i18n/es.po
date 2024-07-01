@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-21 10:27+0000\n"
-"PO-Revision-Date: 2024-06-21 10:27+0000\n"
+"POT-Creation-Date: 2024-07-01 11:24+0000\n"
+"PO-Revision-Date: 2024-07-01 11:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,7 @@ msgstr ""
 "<br/>\n"
 "                            <br/>\n"
 "                            <strong>Firma</strong>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid ""
@@ -45,6 +46,7 @@ msgstr ""
 "                                            NÚMERO DE BASTIDOR\n"
 "                                        </strong>\n"
 "                                    </span>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
@@ -60,6 +62,7 @@ msgstr ""
 "                                            PRODUCTO\n"
 "                                        </strong>\n"
 "                                    </span>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid ""
@@ -74,6 +77,7 @@ msgstr ""
 "                                            CANTIDAD\n"
 "                                        </strong>\n"
 "                                    </span>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid ""
@@ -82,6 +86,7 @@ msgid ""
 msgstr ""
 "<span>DESTINATARIO:</span>\n"
 "                                            <br/>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<span>Control document for shipment of goods</span>"
@@ -135,6 +140,7 @@ msgstr ""
 "                                            <br/>\n"
 "                                            <br/>\n"
 "                                        </strong>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid ""
@@ -156,6 +162,7 @@ msgstr ""
 "                                Fdo. Transportista\n"
 "                                <br/>\n"
 "                            </strong>"
+
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid "<strong>ADDRESSEE:</strong>"
@@ -189,12 +196,12 @@ msgstr "<strong>Fecha:</strong>"
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<strong>Destination data</strong>"
-msgstr "<strong>Dstos destinatario</strong>"
+msgstr "<strong>Datos destinatario</strong>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid "<strong>LOADER:</strong>"
-msgstr "<strong>CARGADOR:</strong>"
+msgstr "<strong>OPERADOR LOGÍSTICO:</strong>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
@@ -215,6 +222,11 @@ msgstr "<strong>MATRÍCULA REMOLQUE::</strong>"
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<strong>Signature</strong>"
 msgstr "<strong>Firma</strong>"
+
+#. module: stock_picking_cmr_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
+msgid "<strong>Source document</strong>"
+msgstr "<strong>Documento origen</strong>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
@@ -350,7 +362,7 @@ msgstr "Matrículas"
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.view_picking_form
 msgid "Loader/Transportation"
-msgstr "Cargador/Transporte"
+msgstr "Transporte"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.external_layout_standard_cmr_transporter
@@ -384,11 +396,6 @@ msgstr "Noviembre"
 #, python-format
 msgid "October"
 msgstr "Octubre"
-
-#. module: stock_picking_cmr_report
-#: model:ir.model.fields,field_description:stock_picking_cmr_report.field_stock_picking__cmr_loader_id
-msgid "Operator"
-msgstr "Transportista"
 
 #. module: stock_picking_cmr_report
 #: model:ir.model.fields,field_description:stock_picking_cmr_report.field_stock_picking__cmr_semi_trailer_license_plate
@@ -427,3 +434,8 @@ msgstr "Transportes"
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.view_picking_form
 msgid "Way out"
 msgstr "Salida"
+
+#. module: stock_picking_cmr_report
+#: model:ir.model.fields,field_description:stock_picking_cmr_report.field_stock_picking__cmr_loader_id
+msgid "loader"
+msgstr "Operario logístico"
