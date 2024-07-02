@@ -116,12 +116,7 @@
                 colspan="4"
                 required="1"
               >
-                                <tree
-                  string="Companies"
-                  delete="0"
-                  create="0"
-                  editable="top"
-                >
+                                <tree delete="0" create="0" editable="top">
                                     <field name="name" readonly="1" />
                                 </tree>
                             </field>
@@ -136,7 +131,7 @@
         <field name="name">cleaning.database.tree.view</field>
         <field name="model">cleaning.database</field>
         <field name="arch" type="xml">
-            <tree string="">
+            <tree>
                 <field name="name" />
             </tree>
         </field>
