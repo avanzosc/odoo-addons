@@ -435,7 +435,7 @@
         <field name="name">saca.line.tree.view</field>
         <field name="model">saca.line</field>
         <field name="arch" type="xml">
-            <tree string="Saca Line" default_order="unload_date, date">
+            <tree default_order="unload_date, date">
                 <field name="descarga_order" string="Order" />
                 <field name="name" optional="show" string="Saca Order" />
                 <field name="saca_id" optional="hide" />
