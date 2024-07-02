@@ -8,11 +8,11 @@ class SaleOrder(models.Model):
 
     def default_type_id(self):
         result = False
-        type = self.env["sale.order.type"].search(
+        so_type = self.env["sale.order.type"].search(
             [("company_id", "=", self.env.company.id)]
         )
-        if type and len(type) == 1:
-            result = type.id
+        if type and len(so_type) == 1:
+            result = so_type.id
         return result
 
     type_id = fields.Many2one(default=default_type_id)
