@@ -3,6 +3,7 @@
     <template
     id="report_saleorder_document_inherit_batch_liquidation"
     inherit_id="sale.report_saleorder_document"
+    priority="100"
   >
         <xpath expr="//th[@name='th_description']" position="after">
             <th name="th_lot" class="text-right">Lot</th>
