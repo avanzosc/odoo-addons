@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_attachment_form" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_form" />
+        <field name="arch" type="xml">
+            <field name="mimetype" position="after">
+                <field name="date_request"
+                    attrs="{'invisible': [('is_prl', '=', False)]}"/>
+                <field name="expiration_date"
+                    attrs="{'invisible': [('is_prl', '=', False)]}"/>
+                <field name="is_prl" invisible="1" />
+                <field name="contracting_company_id"
+                    attrs="{'invisible': [('is_prl', '=', False)], 'required': [('is_prl', '=', True)]}"/>
+                <field name="revision"
+                    attrs="{'invisible': [('is_prl', '=', False)]}"/>
+                <field name="document_type"
+                    attrs="{'invisible': [('is_prl', '=', False)]}"/>
+                <field name="worker_id"
+                    attrs="{'invisible': ['|',('is_prl','=',False),('document_type','!=','worker')],'required': [('document_type','=','worker')]}"/>
+                <field name="machinery"
+                    attrs="{'invisible': ['|', ('is_prl', '=', False), ('document_type', '!=', 'machinery')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_attachment_search" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_search" />
+        <field name="arch" type="xml">
+            <filter name="binary_filter" position="after">
+                <filter name="is_prl" string="Is PRL" domain="[('is_prl', '=', True)]"/>
+                <filter name="is_not_prl" string="Is Not PRL" domain="[('is_prl', '=', True)]"/>
+                <separator/>
+                <field name="date_request" />
+                <field name="expiration_date" />
+                <field name="is_prl" />
+                <field name="contracting_company_id" />
+                <field name="revision" />
+                <field name="document_type" />
+                <field name="worker_id"/>
+            </filter>
+            <filter name="creation_month" position="after">
+                <filter string="Is PRL" name="group-is_prl" domain="[]" 
+                            context="{'group_by':'is_prl'}"/>
+                <filter string="Date request" name="group-date_request" domain="[]"
+                            context="{'group_by':'date_request'}"/>
+                <filter string="Expiration date" name="group-expiration_date" domain="[]"
+                            context="{'group_by':'expiration_date'}"/>
+                <filter string="Contracting company" name="group-contracting_company" domain="[]"
+                            context="{'group_by':'contracting_company_id'}"/>
+                <filter string="Revision" name="group-revision" domain="[]"
+                            context="{'group_by':'revision'}"/>
+                <filter string="Document type" name="group-document_type" domain="[]"
+                            context="{'group_by':'document_type'}"/>
+                <filter string="Worker" name="group-worker" domain="[]"
+                            context="{'group_by':'worker_id'}"/>
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_attachment_tree_inh_prl" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_tree" />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="is_prl"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_attachment_tree_prl" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="arch" type="xml">
+            <tree string="Attachments">
+                <field name="name"/>
+                <field name="date_request" />
+                <field name="expiration_date" />
+                <field name="is_prl" invisible="1" />
+                <field name="state" />
+                <field name="contracting_company_id" />
+                <field name="revision" />
+                <field name="document_type" />
+                <field name="worker_id" />
+                <field name="machinery"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_attachment_is_prl" model="ir.actions.act_window">
+        <field name="name">PRL</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ir.attachment</field>
+        <field name="view_id" ref="ir_attachment_prl.view_attachment_tree_prl"/>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="base.view_attachment_search"/>
+        <field name="domain">[('is_prl', '=', True)]</field>
+        <field name="context">{'default_is_prl': True}</field>
+    </record>
+
+    <menuitem id="menu_ir_attachment_prl_root"
+        name="PRL" sequence="8"
+        action="ir_attachment_prl.action_attachment_is_prl"
+        web_icon="ir_attachment_prl,static/description/icon.png"
+        groups="ir_attachment_prl.group_view_ir_attachment_is_prl"/>
+</odoo>
