@@ -3,6 +3,7 @@
     <template
     id="address_bank_account"
     inherit_id="website_bank_account.address_bank_account"
+    priority="100"
   >
         <xpath expr="//input[@name='field_required']" position="replace">
             <input type="hidden" name="field_required" t-att-value="required_list" />
@@ -11,7 +12,7 @@
             <attribute name="t-if">acquirer_id</attribute>
         </xpath>
     </template>
-    <template id="payment" inherit_id="website_sale.payment">
+    <template id="payment" inherit_id="website_sale.payment" priority="100">
         <xpath
       expr="//div[@id='payment_method']/t/t[@t-set='submit_txt']"
       position="replace"
@@ -22,7 +23,11 @@
             </t>
         </xpath>
     </template>
-    <template id="short_cart_summary" inherit_id="website_sale.short_cart_summary">
+    <template
+    id="short_cart_summary"
+    inherit_id="website_sale.short_cart_summary"
+    priority="100"
+  >
         <xpath expr="//a/span" position="replace">
             <t t-if="submit_txt"><span><t t-esc="submit_txt" /></span></t>
             <t t-else=""><span>Process Checkout</span></t>

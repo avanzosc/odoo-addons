@@ -20,10 +20,8 @@ class WebsiteSale(WebsiteSale):
         submit_txt = None
         if acquirers and len(acquirers) == 1:
             acquirer_id = acquirers[0]
-            if (
-                acquirer_id.payment_mode_id
-                and acquirer_id.payment_mode_id.sudo().payment_method_id.bank_account_required
-            ):
+            payment_mode = acquirer_id.payment_mode_id.sudo()
+            if payment_mode and payment_mode.payment_method_id.bank_account_required:
                 redirection = self.checkout_check_iban_address(
                     order, acquirer_id=acquirer_id
                 )
