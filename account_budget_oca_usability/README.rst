@@ -7,7 +7,7 @@ Account budget oca usability
 ============================
 
 * New menu "Budget Lines" in Invoicing-Accounting-Management. New view of type
- "pivot" in this new menu.
+  "pivot" in this new menu.
 
 Bug Tracker
 ===========
