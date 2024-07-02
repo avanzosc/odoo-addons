@@ -3,7 +3,8 @@
 {
     "name": "Website Event Sale Confirm",
     "version": "14.0.1.1.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "category": "Website",
     "depends": [
