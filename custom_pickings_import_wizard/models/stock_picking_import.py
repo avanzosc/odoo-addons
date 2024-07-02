@@ -358,8 +358,12 @@ class StockPickingImportLine(models.Model):
                                     "product_uom_id": (
                                         line.picking_product_id.uom_id.id
                                     ),
-                                    "location_id": line.picking_type_id.default_location_src_id.id,
-                                    "location_dest_id": line.picking_type_id.default_location_dest_id.id,
+                                    "location_id": (
+                                        line.picking_type_id.default_location_src_id.id
+                                    ),
+                                    "location_dest_id": (
+                                        line.picking_type_id.default_location_dest_id.id
+                                    ),
                                     "standard_price": (
                                         line.picking_product_id.standard_price
                                     ),
