@@ -7,7 +7,7 @@
     "category": "Invoicing Management",
     "author": "AvanzOSC",
     "license": "AGPL-3",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["base", "account"],
     "data": [
         "views/account_invoice_fiscal_position_text_view.xml",
