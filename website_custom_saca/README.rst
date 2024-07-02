@@ -7,7 +7,7 @@ Website Custom Saca
 ===================
 
 * Saca management for website. Includes:
-- Saca forms for truck drivers.
+  - Saca forms for truck drivers.
 
 Bug Tracker
 ===========
