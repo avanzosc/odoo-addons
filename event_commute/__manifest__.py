@@ -4,7 +4,7 @@
     "name": "Event Commute",
     "version": "14.0.1.1.0",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "license": "AGPL-3",
     "depends": ["event_track_analytic", "sale_project", "product"],
