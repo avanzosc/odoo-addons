@@ -4,7 +4,7 @@
     "name": "Event Zoom Link",
     "version": "14.0.2.0.0",
     "author": "Avanzosc",
-    "website": "https://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": [
         "event",
