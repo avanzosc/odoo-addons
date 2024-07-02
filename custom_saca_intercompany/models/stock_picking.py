@@ -13,10 +13,21 @@ class StockPicking(models.Model):
         store=True,
     )
     saca_id = fields.Many2one(
-        string="Saca", comodel_name="saca", related="saca_line_id.saca_id", store=True
+        string="Saca",
+        comodel_name="saca",
+        related="saca_line_id.saca_id",
+        store=True,
     )
-    tolvasa = fields.Boolean(string="Tolvasa", related="company_id.tolvasa", store=True)
-    paasa = fields.Boolean(string="Paasa", related="company_id.paasa", store=True)
+    tolvasa = fields.Boolean(
+        string="Tolvasa",
+        related="company_id.tolvasa",
+        store=True,
+    )
+    paasa = fields.Boolean(
+        string="Paasa",
+        related="company_id.paasa",
+        store=True,
+    )
 
     @api.depends(
         "sale_id", "sale_id.saca_line_id", "purchase_id", "purchase_id.saca_line_id"
@@ -73,7 +84,9 @@ class StockPicking(models.Model):
                                             "location_id": (
                                                 purchase_picking.location_id.id
                                             ),
-                                            "location_dest_id": purchase_picking.location_dest_id.id,
+                                            "location_dest_id": (
+                                                purchase_picking.location_dest_id.id
+                                            ),
                                         }
                                     )
                                 )
