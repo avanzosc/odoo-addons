@@ -3,8 +3,8 @@
 {
     "name": "Vehicle License Plate Unique",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Fleet",
     "depends": [
         "fleet_extension",
