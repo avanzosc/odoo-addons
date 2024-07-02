@@ -3,9 +3,9 @@
 {
     "name": "Custom Breeding Apps",
     "version": "14.0.2.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale_stock",
         "stock_warehouse_farm",
