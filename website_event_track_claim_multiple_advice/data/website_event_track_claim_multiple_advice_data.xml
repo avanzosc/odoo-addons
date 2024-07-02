@@ -12,7 +12,6 @@
         <!--
         <field name="email_to">${(not object.partner_id and object.email_from)|safe}</field>
         -->
-        <field name="body_html" />
         <field name="lang">${object.partner_responsible_id.lang}</field>
         <field name="auto_delete" eval="True" />
         <field name="body_html" type="html">
