@@ -4,10 +4,13 @@
     "name": "Website Custom Portal",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "website",
     "version": "14.0.1.0.0",
-    "depends": ["website", "portal"],
+    "depends": [
+        "website",
+        "portal",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/templates.xml",
