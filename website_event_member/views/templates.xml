@@ -3,6 +3,7 @@
     <template
     id="event_description_full"
     inherit_id="website_event.registration_template"
+    priority="100"
   >
         <xpath expr="//t[@t-set='tickets']" position="replace">
             <t t-if="logged_partner and logged_partner.is_member">
