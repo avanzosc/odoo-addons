@@ -7,7 +7,7 @@
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["web", "custom_saca", "custom_descarga", "res_company_stamp"],
     "data": [
         "report/saca_report.xml",
