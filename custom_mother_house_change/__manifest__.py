@@ -3,9 +3,9 @@
 {
     "name": "Custom Mother House Change",
     "version": "14.0.2.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock_warehouse_farm",
         "stock_picking_batch_mother",
