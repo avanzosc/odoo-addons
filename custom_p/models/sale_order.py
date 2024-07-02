@@ -3,7 +3,7 @@
 
 from datetime import timedelta
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
