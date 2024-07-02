@@ -3,6 +3,7 @@
     <record id="view_picking_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button
@@ -115,7 +116,7 @@
           context="{'default_picking_id': active_id}"
           attrs="{'invisible': [('burden_to_incubator', '=', False)]}"
         >
-                    <tree string="Distribution Line" editable="top">
+                    <tree editable="top">
                         <field
               name="picking_id"
               domain="[('id', '=', parent.id)]"

@@ -44,42 +44,72 @@ class StockMoveLine(models.Model):
     broken = fields.Integer(string="Broken")
     waste = fields.Integer(string="Waste")
     date_week = fields.Integer(
-        string="Date Weeks", compute="_compute_date_week", store=True
+        string="Date Weeks",
+        compute="_compute_date_week",
+        store=True,
     )
     laying_week = fields.Integer(
-        string="Laying Weeks", compute="_compute_laying_week", store=True
+        string="Laying Weeks",
+        compute="_compute_laying_week",
+        store=True,
     )
-    stock = fields.Float(string="Stock", compute="_compute_stock")
+    stock = fields.Float(
+        string="Stock",
+        compute="_compute_stock",
+    )
     real_percentage = fields.Float(
-        string="Real %", compute="_compute_real_percentage", store=True
+        string="Real %",
+        compute="_compute_real_percentage",
+        store=True,
     )
     estimate_laying = fields.Float(
-        string="Laying estimate %", compute="_compute_estimate_laying"
+        string="Laying estimate %",
+        compute="_compute_estimate_laying",
     )
-    forecast = fields.Float(string="Forecast", compute="_compute_estimate_laying")
-    difference = fields.Float(string="Difference", compute="_compute_difference")
+    forecast = fields.Float(
+        string="Forecast",
+        compute="_compute_estimate_laying",
+    )
+    difference = fields.Float(
+        string="Difference",
+        compute="_compute_difference",
+    )
     estimate_birth = fields.Float(string="Birth estimate %")
     birth_estimate_qty = fields.Integer(
         string="Birth Estimate Quantity",
-        compute="compute_birth_estimate_qty",
+        compute="_compute_birth_estimate_qty",
         store=True,
     )
     standard_price = fields.Float(digits="Standard Cost Decimal Precision")
-    rest = fields.Float(string="Rest", compute="_compute_rest", store=True)
+    rest = fields.Float(
+        string="Rest",
+        compute="_compute_rest",
+        store=True,
+    )
     is_incubator = fields.Boolean(
-        string="Incubator", related="picking_id.is_incubator", store=True
+        string="Incubator",
+        related="picking_id.is_incubator",
+        store=True,
     )
     is_integration = fields.Boolean(
-        string="Integration", related="picking_id.is_integration", store=True
+        string="Integration",
+        related="picking_id.is_integration",
+        store=True,
     )
     is_reproductor = fields.Boolean(
-        string="Reproductor", related="picking_id.is_reproductor", store=True
+        string="Reproductor",
+        related="picking_id.is_reproductor",
+        store=True,
     )
     is_feed_flour = fields.Boolean(
-        string="Feed/Flour", related="picking_id.is_feed_flour", store=True
+        string="Feed/Flour",
+        related="picking_id.is_feed_flour",
+        store=True,
     )
     is_medicine = fields.Boolean(
-        string="Medicine", related="picking_id.is_medicine", store=True
+        string="Medicine",
+        related="picking_id.is_medicine",
+        store=True,
     )
     warehouse_id = fields.Many2one(
         string="Origin Warehouse",
@@ -89,11 +119,13 @@ class StockMoveLine(models.Model):
     )
     download_unit = fields.Integer(string="Units")
     lot_display_name = fields.Char(
-        string="Lot/Serial Nº Name", related="lot_id.name", store=True
+        string="Lot/Serial Nº Name",
+        related="lot_id.name",
+        store=True,
     )
 
     @api.depends("estimate_birth", "download_unit")
-    def compute_birth_estimate_qty(self):
+    def _compute_birth_estimate_qty(self):
         for line in self:
             birth_estimate_qty = 0
             if line.estimate_birth and line.download_unit:
