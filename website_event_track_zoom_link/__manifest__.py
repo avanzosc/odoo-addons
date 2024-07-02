@@ -3,8 +3,8 @@
 {
     "name": "Advanced Events Zoom Link",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
-    "website": "https://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing",
     "depends": [
         "event_zoom_link",
