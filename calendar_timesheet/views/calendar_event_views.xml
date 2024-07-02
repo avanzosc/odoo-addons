@@ -19,11 +19,7 @@
             name="timesheet_line_ids"
             context="{'default_task_id':task_id}"
           >
-                        <tree
-              editable="bottom"
-              string="Timesheet entries"
-              default_order="date"
-            >
+                        <tree editable="bottom" default_order="date">
                             <field name="date" />
                             <field name="employee_id" />
                             <field name="task_id" invisible="1" />
