@@ -49,7 +49,7 @@ class WebsiteSlides(WebsiteProfile):
         }
 
         attachment_obj = request.env["ir.attachment"]
-        new_attachment = attachment_obj.sudo().create(
+        attachment_obj.sudo().create(
             {
                 "datas": attachment.split("base64,")[1],
                 "type": "binary",
