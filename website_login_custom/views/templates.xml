@@ -7,7 +7,7 @@
             </div>
         </xpath>
     </template>
-    <template id="auth_login" inherit_id="auth_signup.login">
+    <template id="auth_login" inherit_id="auth_signup.login" priority="100">
         <xpath expr="//div[hasclass('justify-content-between')]" position="replace">
             <div class="col-lg-12 mt-2 small" t-if="signup_enabled">
                 ¿Es tu primera visita o todavía no estás registrado?

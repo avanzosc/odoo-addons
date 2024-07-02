@@ -15,7 +15,11 @@
       >tickets.sorted(key=lambda t:t.sequence)</attribute>
         </xpath>
     </template>
-    <template id="events_list_custom" inherit_id="website_event.events_list">
+    <template
+    id="events_list_custom"
+    inherit_id="website_event.events_list"
+    priority="100"
+  >
         <xpath expr="//div[@itemprop='location']" position="replace">
             <div
         itemprop="location"
@@ -24,7 +28,11 @@
       />
         </xpath>
     </template>
-    <template id="events_layout_custom" inherit_id="website_event.layout">
+    <template
+    id="events_layout_custom"
+    inherit_id="website_event.layout"
+    priority="100"
+  >
         <xpath expr="//a[@href='/event']" position="replace" />
     </template>
 </odoo>
