@@ -64,22 +64,22 @@ class AccountMoveLine(models.Model):
                     )
                 line.estimate_hour = sum(timesheets.mapped("unit_amount"))
                 line.hour_type1 = sum(
-                    timesheets.filtered(lambda l: l.time_type_id.id == type1).mapped(
+                    timesheets.filtered(lambda ln: ln.time_type_id.id == type1).mapped(
                         "unit_amount"
                     )
                 )
                 line.hour_type2 = sum(
-                    timesheets.filtered(lambda l: l.time_type_id.id == type2).mapped(
+                    timesheets.filtered(lambda ln: ln.time_type_id.id == type2).mapped(
                         "unit_amount"
                     )
                 )
                 line.hour_type3 = sum(
-                    timesheets.filtered(lambda l: l.time_type_id.id == type3).mapped(
+                    timesheets.filtered(lambda ln: ln.time_type_id.id == type3).mapped(
                         "unit_amount"
                     )
                 )
                 line.hour_type4 = sum(
-                    timesheets.filtered(lambda l: l.time_type_id.id == type4).mapped(
+                    timesheets.filtered(lambda ln: ln.time_type_id.id == type4).mapped(
                         "unit_amount"
                     )
                 )

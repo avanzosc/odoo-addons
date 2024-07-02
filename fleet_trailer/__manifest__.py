@@ -3,7 +3,7 @@
 {
     "name": "Fleet Trailer",
     "version": "14.0.1.1.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": [

@@ -164,16 +164,16 @@ class FleetVehicle(models.Model):
 
     def _compute_l(self):
         for vehicle in self:
-            l = ""
+            value = ""
             if vehicle.number_of_axes:
-                l = vehicle.number_of_axes
+                value = vehicle.number_of_axes
             if vehicle.total_wheels_number:
-                l = (
+                value = (
                     vehicle.total_wheels_number
-                    if not l
-                    else "{} // {}".format(l, vehicle.total_wheels_number)
+                    if not value
+                    else "{} // {}".format(value, vehicle.total_wheels_number)
                 )
-            self.l = l
+            self.l = value
 
     def _compute_l2(self):
         for vehicle in self:

@@ -26,7 +26,7 @@ class CustomerPortal(CustomerPortal):
             )
         )
         saca_lines_count_today = saca_lines.filtered(
-            lambda l: l.date and l.date <= today and l.date >= yesterday
+            lambda ln: ln.date and ln.date <= today and ln.date >= yesterday
         )
         values.update(
             {
