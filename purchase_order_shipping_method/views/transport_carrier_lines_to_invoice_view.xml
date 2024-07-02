@@ -4,7 +4,7 @@
         <field name="name">transport.carrier.lines.to.invoice.tree.view</field>
         <field name="model">transport.carrier.lines.to.invoice</field>
         <field name="arch" type="xml">
-            <tree string="Transport Carrier Lines to Invoice" editable="bottom">
+            <tree editable="bottom">
                 <field name="active" invisible="1" />
                 <field name="currency_id" invisible="1" />
                 <field name="description" optional="show" />

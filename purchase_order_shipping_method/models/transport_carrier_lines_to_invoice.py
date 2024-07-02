@@ -10,7 +10,8 @@ class TransportCarrierLinesToInvoice(models.Model):
 
     active = fields.Boolean(
         default=True,
-        help="Set active to false to hide the Transport Carrier Line without removing it.",
+        help="Set active to false to hide the Transport Carrier Line without"
+        " removing it.",
     )
     state = fields.Selection(
         selection=[("to_invoice", "To Invoice"), ("billed", "Billed")],
@@ -103,10 +104,11 @@ class TransportCarrierLinesToInvoice(models.Model):
                                 }
                             )
                         else:
+                            product_categ = line.product_id.categ_id
                             move_line.update(
                                 {
                                     "account_id": (
-                                        line.product_id.categ_id.property_account_expense_categ_id.id
+                                        product_categ.property_account_expense_categ_id.id
                                     )
                                 }
                             )
@@ -116,7 +118,6 @@ class TransportCarrierLinesToInvoice(models.Model):
                         new_lines = after_lines - before_lines
                         for new in new_lines:
                             taxes = new._get_computed_taxes()
-                            print(taxes)
                             if taxes and account_move.fiscal_position_id:
                                 taxes = account_move.fiscal_position_id.map_tax(
                                     taxes, partner=account_move.partner_id
