@@ -260,6 +260,17 @@
                                </span>
                            </p>
                        </div>
+                       <div
+              class="col-auto col-3 mw-100 mb-2; text-right"
+              t-if="doc.origin"
+            >
+                           <strong>Source document</strong>
+                           <p class="m-0" t-if="doc.origin">
+                               <span>
+                                   <span t-field="doc.origin" />
+                               </span>
+                           </p>
+                       </div>
                     </div>
                     <br />
                     <table class="table table-sm" name="stock_picking_lines">
