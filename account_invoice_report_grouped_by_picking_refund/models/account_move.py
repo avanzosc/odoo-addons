@@ -8,8 +8,6 @@ class AccountMove(models.Model):
 
     def lines_grouped_by_picking(self):
         self.ensure_one()
-        print("************************")
-        print("*** self.move_type: " + str(self.move_type))
         if self.move_type != "out_refund":
             return super().lines_grouped_by_picking()
 
