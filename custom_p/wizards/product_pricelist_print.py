@@ -8,9 +8,7 @@ from odoo.osv import expression
 class ProductPricelistPrint(models.TransientModel):
     _inherit = "product.pricelist.print"
 
-    show_only_defined_products = fields.Boolean(
-        default=True
-    )
+    show_only_defined_products = fields.Boolean(default=True)
 
     def get_products_domain(self):
         domain = super(ProductPricelistPrint, self).get_products_domain()
@@ -18,7 +16,10 @@ class ProductPricelistPrint(models.TransientModel):
             domain = [("sale_ok", "=", True)]
             aux_domain = []
             items_dic = {"categ_ids": [], "product_ids": [], "variant_ids": []}
-            items = self.pricelist_id.item_ids + self.pricelist_id.item_ids.base_pricelist_id.item_ids
+            items = (
+                self.pricelist_id.item_ids
+                + self.pricelist_id.item_ids.base_pricelist_id.item_ids
+            )
             for item in items:
                 if item.base_pricelist_id:
                     items += item.base_pricelist_id.item_ids
