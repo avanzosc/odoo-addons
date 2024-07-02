@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="address_bank_account" inherit_id="website_sale.address">
+    <template
+    id="address_bank_account"
+    inherit_id="website_sale.address"
+    priority="100"
+  >
         <xpath expr="//input[@name='field_required']" position="replace">
             <input
         type="hidden"
