@@ -17,6 +17,8 @@
         "sale_order_lot_selection_domain",
         "sale_order_line_commitment_date",
         "account",
+        "stock_picking_cmr_report",
+        "product_pricelist_direct_print_fix",
     ],
     "data": [
         "views/sale_order_view.xml",
