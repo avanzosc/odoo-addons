@@ -3,7 +3,8 @@
 {
     "name": "Website Event Track Claim",
     "version": "14.0.1.1.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "category": "Marketing/Events",
     "depends": ["crm_claim", "website_event_track", "event_registration_student"],
