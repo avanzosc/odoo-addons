@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_partner_business_area_tree_view">
+            <field name="name">res.partner.business.area.tree.view</field>
+            <field name="model">res.partner.business.area</field>
+            <field name="arch" type="xml">
+                <tree string="Business areas" editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_business_area_tree_view" model="ir.actions.act_window">
+            <field name="name">Business areas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.business.area</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="res_partner_business_area_tree_view" />
+        </record>
+
+        <menuitem
+      id="business_area_tree_option_view"
+      name="Business areas"
+      action="action_business_area_tree_view"
+      parent="contacts.res_partner_menu_config"
+      sequence="20"
+      groups="base.group_erp_manager"
+    />
+    </data>
+</odoo>

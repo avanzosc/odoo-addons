@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_purchase_order_line_input_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field
+      name="inherit_id"
+      ref="purchase_order_line_input.view_purchase_order_line_input_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="price_total" position="after">
+                <field name="update_price_on_tab" />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_form2" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
+        <field name="arch" type="xml">
+            <!-- <field name="account_analytic_id" position="after">
+                <field name="update_price_on_tab" />
+            </field> -->
+            <xpath expr="//form/sheet/group/group[2]/field[4]" position="after">
+                <field name="update_price_on_tab" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

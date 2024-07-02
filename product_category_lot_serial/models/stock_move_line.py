@@ -8,23 +8,31 @@ class StockMoveLine(models.Model):
 
     def _default_lot_name(self):
         lot_name = ""
-        if ("show_lots_text" in self.env.context and
-            self.env.context.get("show_lots_text", False) and
-            "default_picking_id" in self.env.context and
-            self.env.context.get("default_picking_id", False) and
-            "default_product_id" in self.env.context and
-                self.env.context.get("default_product_id", False)):
+        if (
+            "show_lots_text" in self.env.context
+            and self.env.context.get("show_lots_text", False)
+            and "default_picking_id" in self.env.context
+            and self.env.context.get("default_picking_id", False)
+            and "default_product_id" in self.env.context
+            and self.env.context.get("default_product_id", False)
+        ):
             picking = self.env["stock.picking"].browse(
-                self.env.context.get("default_picking_id"))
-            if (picking and picking.picking_type_id and
-                    picking.picking_type_id.code == "incoming"):
+                self.env.context.get("default_picking_id")
+            )
+            if (
+                picking
+                and picking.picking_type_id
+                and picking.picking_type_id.code == "incoming"
+            ):
                 product = self.env["product.product"].browse(
-                    self.env.context.get("default_product_id"))
+                    self.env.context.get("default_product_id")
+                )
                 if product.categ_id and product.categ_id.sequence_id:
                     lot_name = product.categ_id.sequence_id.next_by_id()
                 else:
                     lot_name = self.env.ref(
-                        "stock.sequence_production_lots").next_by_id()
+                        "stock.sequence_production_lots"
+                    ).next_by_id()
         return lot_name
 
     lot_name = fields.Char(default=_default_lot_name)

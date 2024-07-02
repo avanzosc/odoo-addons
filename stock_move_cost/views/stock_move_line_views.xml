@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="price_unit_cost" optional="show" />
+                <field name="cost" optional="show" sum="Total cost" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_line_form" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_form" />
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="price_unit_cost" />
+                <field name="cost" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="action_cost_in_move_line" model="ir.actions.server">
+        <field name="name">Put Cost</field>
+        <field name="model_id" ref="stock.model_stock_move_line" />
+        <field name="binding_model_id" ref="stock.model_stock_move_line" />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records._put_price_unit_cost_in_move_lines()
+        </field>
+    </record>
+</odoo>

@@ -2,15 +2,12 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Stock Lot Origin Global Gap",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "https://github.com/avanzosc/odoo-addons",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "stock",
-        "mrp"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["stock", "mrp"],
     "data": [
         "views/product_template_views.xml",
         "views/stock_move_line_views.xml",

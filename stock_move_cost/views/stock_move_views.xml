@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <field name="price_unit_cost" optional="show" />
+                <field name="cost" optional="show" sum="Total cost" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="location_dest_id" position="after">
+                <field name="price_unit_cost" />
+                <field name="cost" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -14,15 +14,21 @@ class StockLot(models.Model):
         for vals in vals_list:
             if "lot_by_category" in self.env.context:
                 del vals["name"]
-            if ("product_id" in vals and vals.get("product_id", False) and
-                ("name" not in vals or not vals.get("name") or
-                    vals.get("name") == "/")):
-                product = self.env["product.product"].browse(
-                    vals.get("product_id"))
+            if (
+                "product_id" in vals
+                and vals.get("product_id", False)
+                and (
+                    "name" not in vals
+                    or not vals.get("name")
+                    or vals.get("name") == "/"
+                )
+            ):
+                product = self.env["product.product"].browse(vals.get("product_id"))
                 if product.categ_id and product.categ_id.sequence_id:
                     vals["name"] = product.categ_id.sequence_id.next_by_id()
                 else:
                     vals["name"] = self.env.ref(
-                        "stock.sequence_production_lots").next_by_id()
-        a = super(StockLot, self).create(vals_list)
+                        "stock.sequence_production_lots"
+                    ).next_by_id()
+        a = super().create(vals_list)
         return a

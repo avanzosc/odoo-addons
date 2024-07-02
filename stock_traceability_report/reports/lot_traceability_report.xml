@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_lot_traceability_document">
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)" />
+            <div class="page">
+                <div class="oe_structure" />
+                  <div class="row">
+                      <h1 class="col-12">
+                          Lot Traceability Report
+                      </h1>
+                  </div>
+                  <br />
+                  <div class="row">
+                      <div class="col-12">
+                          <t
+              t-set="move_lines_entry"
+              t-value="o.stock_move_line_ids.filtered(lambda l: (l.location_usage not in ('internal','transit')) and (l.location_dest_usage in ('internal','transit'))).sorted(lambda l: l.date)"
+            />
+                          <t
+              t-set="move_lines_out"
+              t-value="o.stock_move_line_ids.filtered(lambda l: (l.location_usage in ('internal','transit')) and (l.location_dest_usage not in ('internal','transit'))).sorted(lambda l: l.date)"
+            />
+                          <t
+              t-if="move_lines_entry"
+              t-set="move_line_init"
+              t-value="move_lines_entry[0]"
+            />
+                          <b class="text-center">PRODUCT:</b> <span
+              style="background-color: white; border:none;"
+            ><t t-esc="o.product_id.name" /></span><br />
+                          <b class="text-center">LOT:</b><span
+              style="background-color: white; border:none;"
+            > <t t-esc="o.name" /></span><br />
+                          <b class="text-center">DATE:</b> <span
+              style="background-color: white; border:none;"
+            ><t t-if="move_line_init" t-esc="move_line_init.date" /></span><br />
+                          <b class="text-center">SUPPLIER:</b><span
+              style="background-color: white; border:none;"
+            > <t t-if="o.supplier_id" t-esc="o.supplier_id.name" /></span><br />
+                          <b class="text-center">QUANTITY:</b><span
+              style="background-color: white; border:none;"
+            > <t t-if="move_line_init" t-esc="move_line_init.qty_done" /> <t
+                t-if="move_line_init"
+                t-esc="move_line_init.product_uom_id.name"
+              /></span>
+                      </div>
+                  </div>
+                  <br />
+                  <br />
+                  <div class="row">
+                    <div class="col-12">
+                      <table
+              class="text-center"
+              style="background-color: white; width: 100%;"
+            >
+                        <thead>
+                          <tr>
+                            <th class="p-6">Client / Supplier</th>
+                            <th>Contact</th>
+                            <th>Sale Order</th>
+                            <th>Move</th>
+                            <th>Finished product lot</th>
+                            <th>Entry qty</th>
+                            <th>Outgoing qty</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <t
+                  t-foreach="o.stock_move_line_ids.sorted(key=lambda l: l.date)"
+                  t-as="stock_move_line"
+                >
+                              <t
+                    t-if="stock_move_line.production_id"
+                    t-set="line_partner"
+                    t-value="stock_move_line.production_id.partner_id"
+                  />
+                              <t
+                    t-else="stock_move_line.supplier_id"
+                    t-set="line_partner"
+                    t-value="stock_move_line.supplier_id"
+                  />
+                            <tr class="text-center">
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t t-esc="line_partner.name" /></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t t-esc="line_partner.phone" /><br /><t
+                        t-esc="line_partner.mobile"
+                      /><br /><t t-esc="line_partner.email" /></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t
+                        t-if="stock_move_line.production_id.sale_id"
+                        t-esc="stock_move_line.production_id.sale_id.name"
+                      /></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t t-esc="stock_move_line.reference" /></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t
+                        t-if="stock_move_line.move_id.order_finished_lot_id"
+                        t-esc="stock_move_line.move_id.order_finished_lot_id.name"
+                      /></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t
+                        t-if="stock_move_line.location_usage not in ('internal','transit')) and (stock_move_line.location_dest_usage in ('internal','transit')"
+                      ><span class="text-success"><t
+                            t-esc="stock_move_line.qty_done"
+                          /></span></t></td>
+                              <td
+                      style="padding:6px; background-color: white; color:black;"
+                    ><t
+                        t-if="stock_move_line.location_usage in ('internal','transit')) and (stock_move_line.location_dest_usage not in ('internal','transit')"
+                      ><span class="text-danger">-<t
+                            t-esc="stock_move_line.qty_done"
+                          /></span></t></td>
+                            </tr>
+                          </t>
+                          <tr>
+                            <td
+                    style="padding:6px; background-color: white; color:black;text-align: end;"
+                    colspan="6"
+                  ><b>Total:</b></td>
+                            <td
+                    style="padding:6px; background-color: white; color:black;"
+                  ><b><t t-esc="o.product_qty" /> <t
+                        t-esc="o.product_uom_id.name"
+                      /></b></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_lot_traceability">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t
+          t-set="lang"
+          t-value="o.supplier_id.lang or o.company_id.partner_id.lang"
+        />
+                <t
+          t-call="stock_traceability_report.report_lot_traceability_document"
+          t-lang="lang"
+        />
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="res_partner_state_tree_view">
+            <field name="name">res.partner.state.tree.view</field>
+            <field name="model">res.partner.state</field>
+            <field name="arch" type="xml">
+                <tree string="State" editable="bottom">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_state_tree_view" model="ir.actions.act_window">
+            <field name="name">States</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.state</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="res_partner_state_tree_view" />
+        </record>
+
+        <menuitem
+      id="state_tree_option_view"
+      name="States"
+      action="action_state_tree_view"
+      parent="contacts.res_partner_menu_config"
+      sequence="22"
+      groups="base.group_erp_manager"
+    />
+    </data>
+</odoo>

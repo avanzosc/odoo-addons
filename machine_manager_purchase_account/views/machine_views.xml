@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="machine_form_view" model="ir.ui.view">
+            <field name="model">machine</field>
+            <field name="inherit_id" ref="machine_manager_purchase.machine_form_view" />
+            <field name="arch" type="xml">
+                <field name="in_picking_id" position="after">
+                    <field name="purch_inv_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="machine_tree_view" model="ir.ui.view">
+            <field name="model">machine</field>
+            <field name="inherit_id" ref="machine_manager_purchase.machine_tree_view" />
+            <field name="arch" type="xml">
+                <field name="in_picking_id" position="after">
+                    <field name="purch_inv_id" optional="show" />
+                </field>
+            </field>
+        </record>
+
+        <record id="machine_search_view" model="ir.ui.view">
+            <field name="name">machine.search.view</field>
+            <field name="model">machine</field>
+            <field
+        name="inherit_id"
+        ref="machine_manager_purchase.machine_search_view"
+      />
+            <field name="arch" type="xml">
+                <field name="in_picking_id" position="after">
+                    <field name="purch_inv_id" />
+                </field>
+                <filter name="group-in_picking" position="after">
+                   <filter
+            name="group-purch_inv"
+            string="Purchase Invoice"
+            context="{'group_by' : 'purch_inv_id'}"
+          />
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>
