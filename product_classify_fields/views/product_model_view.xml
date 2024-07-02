@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
         <record id="view_product_model_tree" model="ir.ui.view">
             <field name="name">product.model.tree</field>
             <field name="model">product.model</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
+                    <field name="name" />
                 </tree>
             </field>
         </record>
@@ -14,9 +14,14 @@
             <field name="name">Product Model</field>
             <field name="res_model">product.model</field>
             <field name="view_mode">tree</field>
-            <field name="view_id" ref="view_product_model_tree"/>
+            <field name="view_id" ref="view_product_model_tree" />
         </record>
 
-        <menuitem id="menu_product_model" name="Product Models" parent="menu_product_root" action="action_product_model_tree"/>
+        <menuitem
+    id="menu_product_model"
+    name="Product Models"
+    parent="menu_product_root"
+    action="action_product_model_tree"
+  />
 
 </odoo>
