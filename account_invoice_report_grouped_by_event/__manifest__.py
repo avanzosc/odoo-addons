@@ -4,7 +4,7 @@
     "name": "Account Invoice Report Grouped By Event",
     "version": "14.0.1.0.0",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "depends": [
