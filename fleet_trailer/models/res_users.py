@@ -7,5 +7,5 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     authorized_signature = fields.Boolean(
-        strint="Authorized signature in tecnical sheet", default=False, copy=False
+        string="Authorized signature in tecnical sheet", default=False, copy=False
     )
