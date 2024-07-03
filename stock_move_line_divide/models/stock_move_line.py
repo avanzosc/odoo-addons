@@ -25,7 +25,7 @@ class StockMoveLine(models.Model):
                 "product_uom_qty": self.product_uom_qty,
                 "product_uom_id": self.product_uom_id.id,
             }
-            for i in range(1, self.divide):
+            for _cnt in range(1, self.divide):
                 line = self.env["stock.move.line"].create(vals)
                 line.picking_id._put_in_pack(line, create_package_level=True)
                 line.packaging_id = package_type
