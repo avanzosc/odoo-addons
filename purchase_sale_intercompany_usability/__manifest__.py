@@ -7,7 +7,7 @@
     "category": "Purchase Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_sale_inter_company",
     ],
