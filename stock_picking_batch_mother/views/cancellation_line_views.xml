@@ -4,7 +4,7 @@
         <field name="name">cancellation.line.tree</field>
         <field name="model">cancellation.line</field>
         <field name="arch" type="xml">
-            <tree string="Cancellation Line" editable="top">
+            <tree editable="top">
                 <field
           name="batch_id"
           attrs="{'readonly': [('picking_id', '!=', False)]}"
