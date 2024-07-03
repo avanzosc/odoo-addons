@@ -3,9 +3,9 @@
 {
     "name": "Stock Picking Batch Package",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "delivery_carrier_partner",
         "stock_picking_batch",
