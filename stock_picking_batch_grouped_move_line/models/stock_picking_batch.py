@@ -100,7 +100,7 @@ class StockPickingBatch(models.Model):
                     lines[key]["owners"] = owners
                     lines[key]["qty_done"] = qty_done
                     lines[key]["result_packages"] = result_packages
-            for key, val in lines.items():
+            for _key, val in lines.items():
                 grouped += grouped_obj.create(val)
             if grouped:
                 batch.grouped_move_line_ids = [(6, 0, grouped.ids)]
