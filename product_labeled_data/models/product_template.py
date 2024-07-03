@@ -9,56 +9,56 @@ class ProductTemplate(models.Model):
     labeled_length = fields.Char(
         string="Length",
         compute="_compute_labeled_length",
-        inverse="_set_labeled_length",
+        inverse="_inverse_labeled_length",
         store=True,
         copy=False,
     )
     description_label_es = fields.Char(
         string="Description label (es)",
         compute="_compute_description_label_es",
-        inverse="_set_description_label_es",
+        inverse="_inverse_description_label_es",
         store=True,
         copy=False,
     )
     description_label_fr = fields.Char(
         string="Description label (fr)",
         compute="_compute_description_label_fr",
-        inverse="_set_description_label_fr",
+        inverse="_inverse_description_label_fr",
         store=True,
         copy=False,
     )
     description_label_en = fields.Char(
         string="Description label (en)",
         compute="_compute_description_label_en",
-        inverse="_set_description_label_en",
+        inverse="_inverse_description_label_en",
         store=True,
         copy=False,
     )
     labeled_finished_code = fields.Char(
         string="Finished code",
         compute="_compute_labeled_finished_code",
-        inverse="_set_labeled_finished_code",
+        inverse="_inverse_labeled_finished_code",
         store=True,
         copy=False,
     )
     labeled_color_es = fields.Char(
         string="Color (es)",
         compute="_compute_labeled_color_es",
-        inverse="_set_labeled_color_es",
+        inverse="_inverse_labeled_color_es",
         store=True,
         copy=False,
     )
     labeled_color_fr = fields.Char(
         string="Color (fr)",
         compute="_compute_labeled_color_fr",
-        inverse="_set_labeled_color_fr",
+        inverse="_inverse_labeled_color_fr",
         store=True,
         copy=False,
     )
     labeled_color_en = fields.Char(
         string="Color (en)",
         compute="_compute_labeled_color_en",
-        inverse="_set_labeled_color_en",
+        inverse="_inverse_labeled_color_en",
         store=True,
         copy=False,
     )
@@ -73,7 +73,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.labeled_length = ""
 
-    def _set_labeled_length(self):
+    def _inverse_labeled_length(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.labeled_length = template.labeled_length
@@ -90,7 +90,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.description_label_es = ""
 
-    def _set_description_label_es(self):
+    def _inverse_description_label_es(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.description_label_es = (
@@ -109,7 +109,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.description_label_fr = ""
 
-    def _set_description_label_fr(self):
+    def _inverse_description_label_fr(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.description_label_fr = (
@@ -128,7 +128,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.description_label_en = ""
 
-    def _set_description_label_en(self):
+    def _inverse_description_label_en(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.description_label_en = (
@@ -147,7 +147,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.labeled_finished_code = ""
 
-    def _set_labeled_finished_code(self):
+    def _inverse_labeled_finished_code(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.labeled_finished_code = (
@@ -164,7 +164,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.labeled_color_es = ""
 
-    def _set_labeled_color_es(self):
+    def _inverse_labeled_color_es(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.labeled_color_es = (
@@ -181,7 +181,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.labeled_color_fr = ""
 
-    def _set_labeled_color_fr(self):
+    def _inverse_labeled_color_fr(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.labeled_color_fr = (
@@ -198,7 +198,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.labeled_color_en = ""
 
-    def _set_labeled_color_en(self):
+    def _inverse_labeled_color_en(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.labeled_color_en = (
