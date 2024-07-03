@@ -38,7 +38,7 @@ class StockMoveLine(models.Model):
             ("location_id", "=", location.id),
         ]
         if location.company_id:
-            ("company_id", "=", location.company_id.id)
+            cond.append(("company_id", "=", location.company_id.id))
         if self.lot_id:
             cond.append(("lot_id", "=", self.lot_id.id))
         else:
