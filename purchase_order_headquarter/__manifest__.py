@@ -6,7 +6,7 @@
     "category": "Inventory/Purchase",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "res_partner_headquarter",
         "purchase",
