@@ -3,6 +3,7 @@
     <template
     id="stock_report_delivery_has_serial_move_line"
     inherit_id="stock.stock_report_delivery_has_serial_move_line"
+    priority="100"
   >
          <xpath expr="//td[1]" position="replace">
              <td t-if="show_description">
@@ -29,7 +30,11 @@
              </t>
         </xpath>
     </template>
-    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+    <template
+    id="report_delivery_document"
+    inherit_id="stock.report_delivery_document"
+    priority="100"
+  >
         <xpath
       expr="//table[@name='stock_move_table']/tbody/tr[@t-foreach='lines']/td[1]"
       position="replace"
