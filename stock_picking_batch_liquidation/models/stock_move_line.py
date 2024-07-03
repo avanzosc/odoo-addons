@@ -75,24 +75,23 @@ class StockMoveLine(models.Model):
     )
     def _compute_type_category_id(self):
         for line in self:
-            categ = False
+            categ_id = False
             if line.picking_id:
-                categ = line.picking_type_id.category_id.id
+                categ_id = line.picking_type_id.category_id.id
             elif line.production_id:
-                categ = line.production_id.picking_type_id.category_id.id
+                categ_id = line.production_id.picking_type_id.category_id.id
             elif line.move_id and line.move_id.production_id:
-                categ = line.move_id.production_id.picking_type_id.category_id.id
+                categ_id = line.move_id.production_id.picking_type_id.category_id.id
             elif line.move_id and line.move_id.raw_material_production_id:
-                categ = (
-                    line.move_id.raw_material_production_id.picking_type_id.category_id.id
-                )
+                raw_production = line.move_id.raw_material_production_id
+                categ_id = raw_production.picking_type_id.category_id.id
             else:
                 regularization = self.env.ref(
                     "stock_picking_batch_liquidation.picking_type_categ_regu"
                 )
                 if regularization:
-                    categ = regularization.id
-            line.type_category_id = categ
+                    categ_id = regularization.id
+            line.type_category_id = categ_id
 
     @api.depends(
         "average_weight",
