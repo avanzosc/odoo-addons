@@ -3,7 +3,7 @@
 
 {
     "name": "Product Packaging Import Wizard",
-    "version": "14.0.1.0.0",
+    "version": "14.0.2.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
