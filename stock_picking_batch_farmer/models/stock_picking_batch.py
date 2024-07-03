@@ -20,14 +20,20 @@ class StockPickingBatch(models.Model):
         store=True,
     )
     operating_number = fields.Char(
-        related="location_id.warehouse_id.farm_numexp", store=True
+        related="location_id.warehouse_id.farm_numexp",
+        store=True,
     )
     picking_count = fields.Integer(
-        string="# Transfers", compute="_compute_picking_count"
+        string="# Transfers",
+        compute="_compute_picking_count",
     )
-    move_count = fields.Integer(string="# Stock Moves", compute="_compute_move_count")
+    move_count = fields.Integer(
+        string="# Stock Moves",
+        compute="_compute_move_count",
+    )
     move_line_count = fields.Integer(
-        string="# Stock Move Lines", compute="_compute_move_line_count"
+        string="# Stock Move Lines",
+        compute="_compute_move_line_count",
     )
 
     def _compute_picking_count(self):
@@ -84,8 +90,6 @@ class StockPickingBatch(models.Model):
                 ]
             )
             domain = expression.AND([[("id", "not in", lines.ids)], domain])
-        print(domain)
-        lines = self.env["stock.move"].search(domain)
         return {
             "name": _("Stock Moves"),
             "view_mode": "tree,form",
@@ -117,7 +121,6 @@ class StockPickingBatch(models.Model):
                 ]
             )
             domain = expression.AND([[("id", "not in", lines.ids)], domain])
-        print(domain)
         return {
             "name": _("Stock Move Lines"),
             "view_mode": "tree,form",
