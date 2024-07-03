@@ -44,7 +44,7 @@ class StockPicking(models.Model):
                     ]
                 )
                 out_ml = out_ml.filtered(
-                    lambda l: date < l.date.date() <= picking.expired_date
+                    lambda ln: date < ln.date.date() <= picking.expired_date
                 )
                 out_qty = sum(out_ml.mapped("qty_done"))
                 dif = date_stock - out_qty
