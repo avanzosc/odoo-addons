@@ -16,9 +16,10 @@ def migrate(env, version):
 
     env.cr.execute(
         "update product_pricelist_item "
-        "set product_default_code = (select t.default_code "
-        "                            from product_template t "
-        "                            where t.id = product_pricelist_item.product_tmpl_id) "
+        "set product_default_code = ("
+        "   select t.default_code "
+        "   from product_template t "
+        "   where t.id = product_pricelist_item.product_tmpl_id) "
         "where product_tmpl_id is not null "
         "  and product_id is null;"
     )
