@@ -28,7 +28,7 @@ class ProductImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    length = fields.Float(
+    packaging_length = fields.Float(
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -62,7 +62,7 @@ class ProductImportLine(models.Model):
                     "quantity": self.packaging_quantity,
                     "max_weight": self.max_weight,
                     "weight": self.weight,
-                    "length": self.length,
+                    "packaging_length": self.packaging_length,
                     "width": self.width,
                     "height": self.height,
                     "import_id": self.import_id.packaging_import_id.id,
