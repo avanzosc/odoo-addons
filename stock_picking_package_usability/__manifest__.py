@@ -5,7 +5,7 @@
     "version": "14.0.1.1.0",
     "author": "Avanzosc",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["delivery_package_number", "stock_quant_package_dimension"],
     "data": [
         "views/stock_quant_package_views.xml",
