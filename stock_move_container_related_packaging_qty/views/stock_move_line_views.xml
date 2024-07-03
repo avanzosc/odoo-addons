@@ -6,6 +6,7 @@
       name="inherit_id"
       ref="sale_order_package_usability.view_stock_move_line_detailed_operation_tree"
     />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="container" position="replace" />
             <field name="product_packaging" position="after">
