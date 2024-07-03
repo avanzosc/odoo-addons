@@ -6,7 +6,7 @@
     "category": "Accounting/Accounting",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["partner_contact_type", "sale", "analytic", "account", "contract"],
     "data": [
         "views/res_partner_type_views.xml",
