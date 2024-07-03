@@ -12,14 +12,26 @@ class EventTrack(models.Model):
     _inherit = "event.track"
 
     notice_deadline = fields.Datetime(
-        string="Notice Deadline", compute="_compute_notice_deadline"
+        string="Notice Deadline",
+        compute="_compute_notice_deadline",
     )
-    cancelled_company = fields.Boolean(string="Cancelled By Company", default=False)
-    payable = fields.Float(string="Payable", compute="compute_payable", store=True)
-    billable = fields.Float(string="Billable", compute="compute_billable", store=True)
+    cancelled_company = fields.Boolean(
+        string="Cancelled By Company",
+        default=False,
+    )
+    payable = fields.Float(
+        string="Payable",
+        compute="_compute_payable",
+        store=True,
+    )
+    billable = fields.Float(
+        string="Billable",
+        compute="_compute_billable",
+        store=True,
+    )
 
     @api.depends("time_type_id")
-    def compute_payable(self):
+    def _compute_payable(self):
         types = self.env.ref("event_track_cancel_reason.time_type1")
         types |= self.env.ref("event_track_cancel_reason.time_type2")
         for track in self:
@@ -28,7 +40,7 @@ class EventTrack(models.Model):
                 track.payable = track.duration
 
     @api.depends("time_type_id")
-    def compute_billable(self):
+    def _compute_billable(self):
         types = self.env.ref("event_track_cancel_reason.time_type1")
         types |= self.env.ref("event_track_cancel_reason.time_type2")
         types |= self.env.ref("event_track_cancel_reason.time_type3")
