@@ -3,7 +3,8 @@
 {
     "name": "Event Track Usability",
     "version": "14.0.3.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["website_event_track", "event_schedule"],
     "data": [
