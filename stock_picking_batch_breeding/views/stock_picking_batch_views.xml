@@ -113,7 +113,7 @@
         <field name="name">stock.picking.batch.tree.view</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            <tree string="Breeding">
+            <tree>
                 <field name="name" decoration-bf="1" string="Name" />
                 <field name="batch_type" invisible="1" />
                 <field name="user_id" optional="hide" />
