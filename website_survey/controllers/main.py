@@ -54,7 +54,6 @@ class CustomerPortal(CustomerPortal):
     )
     def survey_input(self, survey_input, **post):
         values = {}
-        request.env.user.partner_id
         print_url = survey_input.action_print_answers()
         print_certification_url = survey_input.action_print_certification()
         values.update(
@@ -89,13 +88,8 @@ class Survey(Survey):
         ):
             return self._redirect_with_error(access_data, access_data["validity_code"])
 
-        survey_sudo, answer_sudo = (
-            access_data["survey_sudo"],
-            access_data["answer_sudo"],
-        )
-
         return CustomerPortal()._show_report(
-            model=answer_sudo,
+            model=access_data["answer_sudo"],
             report_type="pdf",
             report_ref="website_survey.report_califications",
             download=True,
