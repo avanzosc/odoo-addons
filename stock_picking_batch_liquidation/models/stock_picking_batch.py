@@ -1036,6 +1036,7 @@ class StockPickingBatch(models.Model):
                 price = self.max
             if price < self.min:
                 price = self.min
+            product = self.liquidation_contract_id.invoice_product_id
             account_move = self.env["account.move"].create(
                 {
                     "partner_id": self.tax_entity_id.id,
@@ -1049,15 +1050,13 @@ class StockPickingBatch(models.Model):
                             0,
                             0,
                             {
-                                "product_id": (
-                                    self.liquidation_contract_id.invoice_product_id.id
+                                "product_id": product.id,
+                                "name": product.name,
+                                "account_id": (
+                                    product.categ_id.property_account_expense_categ_id.id
                                 ),
-                                "name": (
-                                    self.liquidation_contract_id.invoice_product_id.name
-                                ),
-                                "account_id": self.liquidation_contract_id.invoice_product_id.categ_id.property_account_expense_categ_id.id,
                                 "quantity": 1,
-                                "product_uom_id": self.liquidation_contract_id.invoice_product_id.uom_id.id,
+                                "product_uom_id": product.uom_id.id,
                                 "price_unit": price,
                                 "tax_ids": [(6, 0, tax)],
                             },
