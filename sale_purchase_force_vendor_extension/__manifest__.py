@@ -7,7 +7,7 @@
     "category": "Hidden",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale_purchase_force_vendor",
         "base_view_inheritance_extension",
