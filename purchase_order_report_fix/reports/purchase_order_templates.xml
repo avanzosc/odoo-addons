@@ -11,7 +11,7 @@
     <template
     id="report_purchaseorder_document2"
     inherit_id="purchase.report_purchaseorder_document"
-    priority="20"
+    priority="100"
   >
         <t t-if="o.dest_address_id" position="replace" />
         <t t-set="address" position="replace">
@@ -54,7 +54,7 @@
     <template
     id="report_purchasequotation_document2"
     inherit_id="purchase.report_purchasequotation_document"
-    priority="20"
+    priority="100"
   >
         <t t-if="o.dest_address_id" position="replace" />
         <t t-set="address" position="replace">
