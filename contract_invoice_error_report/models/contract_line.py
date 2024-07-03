@@ -19,7 +19,6 @@ class ContractLine(models.Model):
     ):
         self.ensure_one()
         if not recurring_next_date:
-            return False, False, False
             error = _("Contract without recurring next date")
             self.contract_id.sudo().write(
                 {
