@@ -3,7 +3,8 @@
 {
     "name": "Partner academic background",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["contacts", "crm_phonecall"],
     "data": [
