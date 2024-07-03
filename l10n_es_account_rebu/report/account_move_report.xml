@@ -3,6 +3,7 @@
     <template
     id="report_invoice_document_inh_rebu"
     inherit_id="account.report_invoice_document"
+    priority="100"
   >
         <th name="th_priceunit" position="attributes">
             <attribute name="t-if">not o.is_rebu</attribute>
