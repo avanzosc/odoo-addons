@@ -13,6 +13,3 @@ class StockMove(models.Model):
                 move_line._refresh_quants_by_picking_cancelation()
             move._do_unreserve()
             move.move_line_ids.unlink()
-        # If stock_account is installed, drop the stock_valuation_layer_ids
-        if "stock_valuation_layer_ids" in self._fields:
-            self.sudo().stock_valuation_layer_ids.unlink()

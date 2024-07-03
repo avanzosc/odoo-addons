@@ -6,7 +6,7 @@
 Stock picking cancel
 ====================
 
-* In pickings new button to cancel pickings in "done" status.
+In pickings new button to cancel pickings in "done" status.
 
 
 Bug Tracker
