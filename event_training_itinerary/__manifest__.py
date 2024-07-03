@@ -6,7 +6,7 @@
     "category": "Website/eLearning",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["website_slides", "event_slides", "slide_channel_technology"],
     "data": [
         "security/ir.model.access.csv",
