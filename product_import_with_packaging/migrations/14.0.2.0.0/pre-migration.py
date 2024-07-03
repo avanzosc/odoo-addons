@@ -4,12 +4,7 @@
 from openupgradelib import openupgrade  # pylint: disable=W7936
 
 fields_to_rename = [
-    (
-        "product.packaging.import.line",
-        "product_packaging_import_line",
-        "length",
-        "packaging_length",
-    ),
+    ("product.import.line", "product_import_line", "length", "packaging_length"),
 ]
 
 

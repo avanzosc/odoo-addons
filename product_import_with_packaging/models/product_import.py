@@ -37,7 +37,7 @@ class ProductImport(models.Model):
             packaging_quantity = row_values.get("Packaging Quantity", "")
             max_weight = row_values.get("Max Weight", "")
             weight = row_values.get("Weight", "")
-            length = row_values.get("Length", "")
+            packaging_length = row_values.get("Length", "")
             width = row_values.get("Width", "")
             height = row_values.get("Height", "")
             values.update(
@@ -47,7 +47,7 @@ class ProductImport(models.Model):
                     "packaging_quantity": convert2str(packaging_quantity),
                     "max_weight": convert2str(max_weight),
                     "weight": weight,
-                    "length": length,
+                    "packaging_length": packaging_length,
                     "width": width,
                     "height": height,
                 }
