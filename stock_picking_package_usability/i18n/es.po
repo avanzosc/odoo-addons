@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-26 16:28+0000\n"
-"PO-Revision-Date: 2022-04-26 16:28+0000\n"
+"POT-Creation-Date: 2024-09-27 08:46+0000\n"
+"PO-Revision-Date: 2024-09-27 08:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,38 +31,14 @@ msgid "Delivery Address"
 msgstr "Dirección de entrega"
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__display_name
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__id
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__id
-msgid "ID"
-msgstr ""
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking____last_update
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__max_weight
+msgid "Max Weight"
+msgstr "Peso máximo"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__max_weight
 msgid "Maximum Weight"
 msgstr "Peso máximo"
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_quant_package__max_weight
-msgid "Maximum weight shippable in this packaging"
-msgstr "Peso máximo enviable en este embalaje"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__qty_packages
@@ -93,11 +69,10 @@ msgid "Package Type"
 msgstr "Tipo de Paquete"
 
 #. module: stock_picking_package_usability
-#: code:addons/stock_picking_package_usability/models/stock_picking.py:0
+#. odoo-python
 #: code:addons/stock_picking_package_usability/models/stock_picking.py:0
 #: model:ir.model,name:stock_picking_package_usability.model_stock_quant_package
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__quant_package_ids
-#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_form
 #, python-format
 msgid "Packages"
@@ -120,6 +95,13 @@ msgstr "Volumen de paquetes"
 msgid "Packages Weight"
 msgstr "Peso de paquetes"
 
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__packaging_id
+msgid ""
+"Packaging of the product, used for internal logisticstransfers, put-away "
+"rules, ..."
+msgstr ""
+"Embalaje del producto, utilizado para traslados logísticos internos, normas de almacenamiento, ..."
 #. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
