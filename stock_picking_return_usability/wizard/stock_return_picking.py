@@ -21,18 +21,17 @@ class StockReturnPicking(models.TransientModel):
             and (self.picking_id.picking_type_id)
             and (self.picking_id.picking_type_id.return_picking_type_id)
         ):
+            return_type = self.picking_id.picking_type_id.return_picking_type_id
             location = (
-                self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id
-                if self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id.usage
-                and self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id.usage
-                != "view"
+                return_type.default_location_src_id
+                if return_type.default_location_src_id.usage
+                and return_type.default_location_src_id.usage != "view"
                 else return_line.move_id.location_dest_id
             )
             location_dest = (
-                self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id
-                if self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id.usage
-                and self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id.usage
-                != "view"
+                return_type.default_location_dest_id
+                if return_type.default_location_dest_id.usage
+                and return_type.default_location_dest_id.usage != "view"
                 else return_line.move_id.location_id
             )
             result.update(
@@ -48,18 +47,17 @@ class StockReturnPicking(models.TransientModel):
             and (self.picking_id.picking_type_id)
             and (self.picking_id.picking_type_id.return_picking_type_id)
         ):
+            return_type = self.picking_id.picking_type_id.return_picking_type_id
             location = (
-                self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id
-                if self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id.usage
-                and self.picking_id.picking_type_id.return_picking_type_id.default_location_src_id.usage
-                != "view"
+                return_type.default_location_src_id
+                if return_type.default_location_src_id.usage
+                and return_type.default_location_src_id.usage != "view"
                 else self.picking_id.location_dest_id
             )
             location_dest = (
-                self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id
-                if self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id.usage
-                and self.picking_id.picking_type_id.return_picking_type_id.default_location_dest_id.usage
-                != "view"
+                return_type.default_location_dest_id
+                if return_type.default_location_dest_id.usage
+                and return_type.default_location_dest_id.usage != "view"
                 else self.location_id
             )
             return_picking.write(
