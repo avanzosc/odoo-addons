@@ -3,7 +3,8 @@
 {
     "name": "Stock Move Line Package Dimension",
     "version": "14.0.2.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "depends": [
         "stock",
