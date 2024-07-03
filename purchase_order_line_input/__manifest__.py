@@ -7,6 +7,7 @@
     "version": "14.0.1.0.0",
     "category": "Inventory/Purchase",
     "author": "Tecnativa, Avanzosc, Odoo Community Association (OCA)",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "depends": [
         "purchase",
