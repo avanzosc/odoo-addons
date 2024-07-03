@@ -11,7 +11,6 @@ class StockInventoryImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if values and row_values:
-            values
             inventory_product_cost = row_values.get("Precio", "")
             inventory_product_amount = row_values.get("Importe", "")
             values.update(
