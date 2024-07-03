@@ -18,7 +18,7 @@
                     <notebook>
                         <page string="Birth Rate" name="birth_rate">
                             <field name="birth_rate_ids">
-                                <tree string="Birth Rate" editable="bottom">
+                                <tree editable="bottom">
                                     <field name="week" />
                                     <field name="percentage_birth" />
                                 </tree>
@@ -26,7 +26,7 @@
                         </page>
                         <page string="Laying Rate" name="laying_rate">
                             <field name="laying_rate_ids">
-                                <tree string="Laying Rate" editable="bottom">
+                                <tree editable="bottom">
                                     <field name="week" />
                                     <field name="percentage_laying" />
                                 </tree>
@@ -34,7 +34,7 @@
                         </page>
                         <page string="Mothers" name="mother">
                             <field name="mother_ids">
-                                <tree string="Mothers">
+                                <tree>
                                     <field name="name" />
                                     <field name="lineage_id" optional="show" />
                                     <field name="operating_number" optional="show" />
@@ -52,7 +52,7 @@
         <field name="name">lineage.tree</field>
         <field name="model">lineage</field>
         <field name="arch" type="xml">
-            <tree string="Lineage">
+            <tree>
                 <field name="name" />
                 <field name="code" />
             </tree>
