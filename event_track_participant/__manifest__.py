@@ -3,8 +3,8 @@
 {
     "name": "Event Track Participant",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
-    "website": "https://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": [
         "website_event_track_claim",

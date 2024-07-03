@@ -7,11 +7,12 @@ class EventEvent(models.Model):
     _inherit = "event.event"
 
     track_total_duration = fields.Float(
-        string="Track Total Duration", readonly=True, compute="_track_total_duration"
+        string="Track Total Duration", readonly=True,
+        compute="_compute_track_total_duration",
     )
 
     @api.depends("track_ids.duration")
-    def _track_total_duration(self):
+    def _compute_track_total_duration(self):
         for event in self:
             total_duration = 0.0
             for track in event.track_ids:
