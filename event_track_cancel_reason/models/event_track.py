@@ -7,21 +7,41 @@ class EventTrack(models.Model):
     _inherit = "event.track"
 
     cancel_reason_id = fields.Many2one(
-        string="Cancel Reason", comodel_name="cancel.reason"
+        string="Cancel Reason",
+        comodel_name="cancel.reason",
     )
-    observation = fields.Char(string="Cancel Observations")
-    notification_date = fields.Datetime(string="Notification Date")
-    time_type_id = fields.Many2one(string="Time Type", comodel_name="project.time.type")
-    is_cancel = fields.Boolean(string="Is Cancel", default=False, store=False)
+    observation = fields.Char(
+        string="Cancel Observations",
+    )
+    notification_date = fields.Datetime(
+        string="Notification Date",
+    )
+    time_type_id = fields.Many2one(
+        string="Time Type",
+        comodel_name="project.time.type",
+    )
+    is_cancel = fields.Boolean(
+        string="Is Cancel",
+        default=False,
+        store=False,
+    )
 
     def action_cancel_event_track(self):
         self.ensure_one()
         wiz_obj = self.env["event.track.cancel.wizard"]
         wiz = wiz_obj.with_context(
-            {"active_id": self.id, "active_model": "event.track"}
+            {
+                "active_id": self.id,
+                "active_model": "event.track",
+            }
         ).create({})
         context = self.env.context.copy()
-        context.update({"active_id": self.id, "active_model": "event.track"})
+        context.update(
+            {
+                "active_id": self.id,
+                "active_model": "event.track",
+            }
+        )
         return {
             "name": _("Event Track Cancel"),
             "type": "ir.actions.act_window",
@@ -39,7 +59,7 @@ class EventTrack(models.Model):
             stage = self.env["event.track.stage"].browse(vals["stage_id"])
             if stage.is_cancel and not self.is_cancel:
                 raise exceptions.Warning(
-                    "Please cancel the track by clicking the cancel track " + "button."
+                    _("Please cancel the track by clicking the cancel track button.")
                 )
             if stage.is_done:
                 self.time_type_id = self.env.ref(
