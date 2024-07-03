@@ -5,7 +5,7 @@
     "version": "14.0.1.0.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product",
