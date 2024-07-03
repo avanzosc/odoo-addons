@@ -4,7 +4,7 @@
         <field name="name">birth.rate.tree</field>
         <field name="model">birth.rate</field>
         <field name="arch" type="xml">
-            <tree string="Birth Rate" editable="top">
+            <tree editable="top">
                 <field name="mother_id" domain="[('batch_type', '=', 'mother')]" />
                 <field name="lineage_id" domain="[('mother_ids', '=', mother_id)]" />
                 <field name="week" />
