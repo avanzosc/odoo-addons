@@ -7,7 +7,8 @@ class EventEvent(models.Model):
     _inherit = "event.event"
 
     track_total_duration = fields.Float(
-        string="Track Total Duration", readonly=True,
+        string="Track Total Duration",
+        readonly=True,
         compute="_compute_track_total_duration",
     )
 
