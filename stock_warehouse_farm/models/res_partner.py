@@ -12,9 +12,10 @@ class ResPartner(models.Model):
             partner.warehouse_count = len(partner.warehouse_ids)
 
     warehouse_ids = fields.One2many(
-        string="Warehouses", comodel_name="stock.warehouse", inverse_name="farmer_id"
+        string="Warehouses", comodel_name="stock.warehouse", inverse_name="farmer_id",
     )
-    warehouse_count = fields.Integer("# Warehouses", compute="_compute_warehouse_count")
+    warehouse_count = fields.Integer("# Warehouses",
+                                     compute="_compute_warehouse_count",)
 
     def action_view_warehouse(self):
         context = self.env.context.copy()
