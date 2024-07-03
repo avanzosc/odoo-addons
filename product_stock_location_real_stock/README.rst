@@ -8,8 +8,8 @@ Product stock location real stock
 
 * In stock location new fields "Real Stock Location".
 * In product, and product variant new shortcut "On Hand In Location", to go to
-the quants of the locations marked as "Real Stock Location", and show the sum
-of the product quantity for this location.
+  the quants of the locations marked as "Real Stock Location", and show the sum
+  of the product quantity for this location.
 
 
 Bug Tracker
