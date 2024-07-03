@@ -65,7 +65,9 @@ class WizCreateProdVariant(models.TransientModel):
         self.env["product.product"].create(
             {
                 "product_tmpl_id": self.product_tmpl_id.id,
-                "product_template_attribute_value_ids": self.product_template_attribute_value_ids.ids,
+                "product_template_attribute_value_ids": (
+                    self.product_template_attribute_value_ids.ids
+                ),
                 "default_code": self.default_code,
                 "barcode": self.barcode,
                 "lst_price": self.lst_price,
