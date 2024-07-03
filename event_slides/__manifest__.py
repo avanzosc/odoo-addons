@@ -4,6 +4,7 @@
     "name": "Event Slides",
     "version": "14.0.2.1.0",
     "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Website/eLearning",
     "depends": [
         "event_registration_student",
