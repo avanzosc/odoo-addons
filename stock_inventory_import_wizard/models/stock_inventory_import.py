@@ -14,7 +14,8 @@ class StockInventoryImport(models.Model):
     _description = "Wizard to import inventory"
 
     import_inventory_id = fields.Many2one(
-        comodel_name="stock.inventory", string="Inventory"
+        comodel_name="stock.inventory",
+        string="Inventory",
     )
     import_line_ids = fields.One2many(
         comodel_name="stock.inventory.import.line",
@@ -34,7 +35,10 @@ class StockInventoryImport(models.Model):
         string="Create Lot",
         default=False,
     )
-    accounting_date = fields.Date(string="Accounting Date", default=fields.Date.today())
+    accounting_date = fields.Date(
+        string="Accounting Date",
+        default=fields.Date.today(),
+    )
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -46,11 +50,7 @@ class StockInventoryImport(models.Model):
             inventory_lot = row_values.get("Lote", "")
             inventory_product_qty = row_values.get("Cantidad", "")
             log_info = ""
-            if (
-                not inventory_product
-                and not (inventory_lot)
-                and not (inventory_location)
-            ):
+            if not inventory_product and not inventory_lot and not inventory_location:
                 return {}
             values.update(
                 {
