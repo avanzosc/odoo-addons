@@ -5,7 +5,7 @@
         <field name="name">grade.tree</field>
         <field name="model">grade</field>
         <field name="arch" type="xml">
-            <tree string="Grade" editable="top">
+            <tree editable="top">
                 <field name="name" />
                 <field name="tested" required="1" />
             </tree>
