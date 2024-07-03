@@ -6,6 +6,7 @@
 Stock Picking Package Usability
 ===============================
 
+* Packaging length, width and height fields float instead of integer.
 * One to many from stock piking to package.
 * In transfers, button to generate indicated packages.
 

@@ -9,7 +9,7 @@ class StockMoveLine(models.Model):
     packaging_id = fields.Many2one(
         string="Package Type",
         comodel_name="product.packaging",
-        related="result_package_id.packaging_id",
+        related="result_package_id.product_packaging_id",
         store=True,
         readonly=False,
     )

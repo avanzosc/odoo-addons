@@ -9,3 +9,4 @@ class ProductPackaging(models.Model):
     packaging_length = fields.Float(string="Pack Length")
     width = fields.Float(string="Pack Width")
     height = fields.Float(string="Pack Height")
+    max_weight = fields.Float()

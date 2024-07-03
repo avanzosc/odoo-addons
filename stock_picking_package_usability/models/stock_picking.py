@@ -45,12 +45,8 @@ class StockPicking(models.Model):
         string="# Packages", compute="_compute_packages_qty_weight", store=True
     )
     qty_packages = fields.Integer(string="Number of Packages")
-    packages_weight = fields.Float(
-        string="Packages Weight", compute="_compute_packages_weight", store=True
-    )
-    packages_volume = fields.Float(
-        string="Packages Volume", compute="_compute_packages_volume", store=True
-    )
+    packages_weight = fields.Float(compute="_compute_packages_weight", store=True)
+    packages_volume = fields.Float(compute="_compute_packages_volume", store=True)
     volume_uom_name = fields.Char(
         string="Volume UOM", compute="_compute_volume_uom_name", store=True
     )
