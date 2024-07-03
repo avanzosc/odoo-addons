@@ -13,7 +13,7 @@
         <field name="name">event.student.history.tree</field>
             <field name="model">event.student.history</field>
             <field name="arch" type="xml">
-                <tree string="Events history">
+                <tree>
                     <field name="event_name" />
                     <field name="event_type" readonly="1" />
                     <field name="event_state" readonly="1" />
