@@ -4,7 +4,7 @@
         <field name="name">product.state.tree</field>
         <field name="model">product.state</field>
         <field name="arch" type="xml">
-            <tree string="Product states" editable="bottom">
+            <tree editable="bottom">
                 <field name="name" />
                 <field name="sequence" required="1" />
                 <field name="first_state" readonly="1" />
