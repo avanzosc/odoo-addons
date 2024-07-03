@@ -250,4 +250,4 @@ class ProductProduct(models.Model):
                     ),
                 }
             )
-            self._cr.commit()
+            self._cr.commit()  # pylint: disable=E8102
