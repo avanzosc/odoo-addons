@@ -10,9 +10,12 @@ Event Registration Create Student
 
 On event.event -> Students, we can find different configuration variants
 that can be combined:
-    * Create student partner: if not set, set the Booked by as the Student field. Else, create new res.partner .
-    * Create user for student attendee: create portal user for Student.
-    * Generate student email: generate an email for student partner based on module *event_registration_generate_email*.
+
+  * Create student partner: if not set, set the Booked by as the Student field. Else,
+    create new res.partner .
+  * Create user for student attendee: create portal user for Student.
+  * Generate student email: generate an email for student partner based on module
+    *event_registration_generate_email*.
 
 Bug Tracker
 ===========
