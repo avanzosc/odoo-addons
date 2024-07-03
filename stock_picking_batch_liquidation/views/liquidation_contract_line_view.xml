@@ -4,7 +4,7 @@
         <field name="name">liquidation.contract.line.tree</field>
         <field name="model">liquidation.contract.line</field>
         <field name="arch" type="xml">
-            <tree string="Liquidation Contract Line" editable="top">
+            <tree editable="top">
                 <field name="contract_id" invisible="1" />
                 <field name="product_id" />
                 <field name="type" optional="show" />
