@@ -6,7 +6,7 @@
     "version": "14.0.2.0.0",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "base",
         "sales_team",
