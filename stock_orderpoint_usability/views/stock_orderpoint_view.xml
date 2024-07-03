@@ -6,6 +6,7 @@
       name="inherit_id"
       ref="stock.view_warehouse_orderpoint_tree_editable_config"
     />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="active" position="after">
                 <field name="name" readonly="1" />
