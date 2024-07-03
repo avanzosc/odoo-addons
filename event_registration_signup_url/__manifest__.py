@@ -4,7 +4,7 @@
     "name": "Event Registration Sing Up URL",
     "version": "14.0.1.0.0",
     "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["event_registration_student", "auth_signup"],
     "data": [
