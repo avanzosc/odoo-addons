@@ -9,6 +9,23 @@
         </field>
     </record>
 
+    <record id="view_product_series_search" model="ir.ui.view">
+        <field name="model">product.series</field>
+        <field name="arch" type="xml">
+            <search string="Search Product Series">
+                <field name="name" string="Name" />
+                <filter
+          string="Archived"
+          name="active"
+          domain="[('name', '=',False)]"
+        />
+                <group expand="0" string="Group By">
+                    <filter string="Name" name="name" context="{'group_by':'name'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_product_series_tree" model="ir.actions.act_window">
         <field name="name">Product Series</field>
         <field name="res_model">product.series</field>
@@ -19,7 +36,7 @@
     <menuitem
     id="menu_product_series"
     name="Product Series"
-    parent="menu_product_root"
+    parent="stock.menu_stock_inventory_control"
     action="action_product_series_tree"
   />
 

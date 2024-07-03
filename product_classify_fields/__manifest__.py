@@ -8,8 +8,10 @@
     "license": "AGPL-3",
     "depends": [
         "product",
+        "stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/product_template_views.xml",
         "views/product_series_view.xml",
         "views/product_model_view.xml",
