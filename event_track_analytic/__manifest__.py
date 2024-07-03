@@ -3,7 +3,8 @@
 {
     "name": "Event Track Analytic",
     "version": "14.0.1.4.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": [
         "project",
