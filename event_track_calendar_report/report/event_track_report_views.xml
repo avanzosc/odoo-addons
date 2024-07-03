@@ -27,7 +27,7 @@
     <record id="event_track_report_tree_view" model="ir.ui.view">
         <field name="model">event.track.report</field>
         <field name="arch" type="xml">
-            <tree string="Report" multi_edit="1">
+            <tree multi_edit="1">
                 <field name="name" string="Subject" readonly="1" />
                 <field name="allday" invisible="True" />
                 <field name="start" string="Start Date" />
