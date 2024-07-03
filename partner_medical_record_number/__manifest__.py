@@ -3,8 +3,8 @@
 {
     "name": "Partner medical record number",
     "version": "14.0.2.0.0",
-    "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Human Resources/Employees",
     "depends": ["contacts"],
     "data": [
