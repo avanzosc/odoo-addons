@@ -3,6 +3,7 @@
     <template
     id="stock_account_report_invoice_document_inh_origin_global_gap"
     inherit_id="stock_account.stock_account_report_invoice_document"
+    priority="100"
   >
         <t t-set="lot_values" position="replace" />
         <t t-if="lot_values" position="replace" />
