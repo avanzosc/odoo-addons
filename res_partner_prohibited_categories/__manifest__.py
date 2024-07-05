@@ -13,5 +13,8 @@
         "res_partner_pick_up_point",
         "website_sale",
     ],
+    "data": [
+        "views/res_partner_views.xml",
+    ],
     "installable": True,
 }
