@@ -5,11 +5,9 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     @api.onchange("partner_id")
-    def onchange_partner_id(self):
+    def onchange_pick_up_point_partner_id(self):
         if self.partner_id.pick_up_point_id:
             self.partner_shipping_id = self.partner_id.pick_up_point_id
-        else:
-            super().onchange_partner_id()
 
     @api.model
     def create(self, values):
