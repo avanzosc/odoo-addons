@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="allowed_location" optional="hide" />
+                <field name="name2" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>

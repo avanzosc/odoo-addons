@@ -36,12 +36,12 @@ class StockMoveLine(models.Model):
                 lambda x: x.move_id
                 and x.qty_done
                 and x.move_id.sale_line_id
-                and x.sale_line_id.product_packaging_qty
+                and x.move_id.sale_line_id.product_packaging_qty
             ):
-                line_key = self._generate_key_to_found()
-                if line_key == clave:
+                line_key = self._generate_keys_to_found()
+                if line_key in clave:
                     boxes_sacks = move_line._get_boxes_sacks()
-                    result[line_key]["boxes_sacks"] = boxes_sacks
+                    result[clave]["boxes_sacks"] = round(boxes_sacks, 2)
         return result
 
     def _generate_keys_to_found(self):
@@ -55,7 +55,7 @@ class StockMoveLine(models.Model):
         return line_key
 
     def _get_boxes_sacks(self):
-        sale_line = self.sale_line_id
+        sale_line = self.move_id.sale_line_id
         packaging_qty = sale_line.product_packaging_qty
         product_uom_qty = sale_line.product_uom_qty
         uom = self.product_uom_id

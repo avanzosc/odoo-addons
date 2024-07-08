@@ -44,4 +44,4 @@ class AccountAnalyticLine(models.Model):
     @api.depends("amount")
     def _compute_amount_type(self):
         for line in self:
-            line.amount_type = "cost" if line.amount < 0 else "revenue"
+            line.amount_type = "cost" if line.amount <= 0 else "revenue"

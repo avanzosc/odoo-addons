@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
         compute="_compute_consumed_last_twelve_months",
     )
     months_with_stock = fields.Integer(
-        string="Months with stock", compute="_compute_months_with_stock"
+        compute="_compute_months_with_stock",
     )
     main_seller_id = fields.Many2one(
         string="Main Seller",
@@ -21,7 +21,6 @@ class ProductTemplate(models.Model):
         copy=False,
     )
     main_seller_price = fields.Float(
-        string="Main Seller Price",
         compute="_compute_main_seller",
         store=True,
         copy=False,

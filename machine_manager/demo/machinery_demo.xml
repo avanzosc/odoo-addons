@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        Stock production lot for product
+    -->
+    <record id="production_lot_1" model="stock.lot">
+        <field name="name">L0004</field>
+        <field name="product_id" ref="product.product_product_3" />
+    </record>
+    <!--
+        Product converted to machine
+    -->
+    <record id="product.product_product_3" model="product.product">
+        <field name="machine_ok" eval="True" />
+    </record>
+    <!--
+        machinery resources
+    -->
+    <record id="machinery_1" model="machinery">
+        <field name="name">Personal PC</field>
+        <field name="purch_cost">800.0</field>
+        <field name="year">2013</field>
+        <field name="model">SC234</field>
+        <field name="product_id" ref="product.product_product_3" />
+        <field name="serial_id" ref="production_lot_1" />
+        <field name="user_ids" eval="[(4, ref('machinery_user_1'))]" />
+    </record>
+</odoo>
