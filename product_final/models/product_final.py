@@ -9,8 +9,12 @@ class ProductFinal(models.Model):
     _name = "product.final"
     _order = "code"
 
-    name = fields.Char(string="Name", required=True)
-    code = fields.Char(string="Code", required=True)
+    name = fields.Char(
+        required=True,
+    )
+    code = fields.Char(
+        required=True,
+    )
 
     def name_get(self):
         result = []
@@ -39,8 +43,13 @@ class ProductFinal(models.Model):
             if f:
                 raise UserError(
                     _(
-                        'You are putting the code "%s" to the name "%s", and '
-                        'that code already exists for the name "%s".'
+                        'You are putting the code "%(final_code)s" to the name '
+                        '"%(final_name)s", and that code already exists for the name '
+                        '"%(name)s".'
                     )
-                    % (final.code, final.name, f.name)
+                    % {
+                        "final_code": final.code,
+                        "final_name": final.name,
+                        "name": f.name,
+                    }
                 )

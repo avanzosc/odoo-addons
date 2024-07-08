@@ -2,10 +2,9 @@
 <odoo>
 
     <record id="view_lineal_tree" model="ir.ui.view">
-        <field name="name">product_lineal.tree</field>
         <field name="model">product.lineal</field>
         <field name="arch" type="xml">
-            <tree string="Lineal" editable="bottom">
+            <tree editable="bottom">
                 <field name="name" />
             </tree>
         </field>

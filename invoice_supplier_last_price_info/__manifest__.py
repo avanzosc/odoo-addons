@@ -7,12 +7,12 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["account"],
-    "excludes": [],
+    "depends": [
+        "account",
+    ],
     "data": [
         "views/product_product_views.xml",
         "views/product_template_views.xml",
     ],
     "installable": True,
-    "auto_install": False,
 }

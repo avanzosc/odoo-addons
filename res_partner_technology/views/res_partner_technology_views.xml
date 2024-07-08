@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-        <record model="ir.ui.view" id="res_partner_technology_tree_view">
-            <field name="name">res.partner.technology.tree.view</field>
-            <field name="model">res.partner.technology</field>
-            <field name="arch" type="xml">
-                <tree string="Technology" editable="bottom">
-                    <field name="name" />
-                </tree>
-            </field>
-        </record>
+    <record model="ir.ui.view" id="res_partner_technology_tree_view">
+        <field name="name">res.partner.technology.tree.view</field>
+        <field name="model">res.partner.technology</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
 
-        <record id="action_technology_tree_view" model="ir.actions.act_window">
-            <field name="name">Technologies</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">res.partner.technology</field>
-            <field name="view_mode">tree</field>
-            <field name="view_id" ref="res_partner_technology_tree_view" />
-        </record>
+    <record id="action_technology_tree_view" model="ir.actions.act_window">
+        <field name="name">Technologies</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.technology</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="res_partner_technology_tree_view" />
+    </record>
 
-        <menuitem
-      id="technology_tree_option_view"
-      name="Technologies"
-      action="action_technology_tree_view"
-      parent="contacts.res_partner_menu_config"
-      sequence="23"
-      groups="base.group_erp_manager"
-    />
-    </data>
+    <menuitem
+    id="technology_tree_option_view"
+    name="Technologies"
+    action="action_technology_tree_view"
+    parent="contacts.res_partner_menu_config"
+    sequence="23"
+    groups="base.group_erp_manager"
+  />
 </odoo>
