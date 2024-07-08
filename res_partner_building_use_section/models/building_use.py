@@ -8,8 +8,10 @@ class BuildingUse(models.Model):
     _description = "Building use"
 
     name = fields.Char(
-        string="Description",
+        "Description",
         required=True,
         copy=False,
     )
-    is_industrial = fields.Boolean(string="Industrial")
+    is_industrial = fields.Boolean(
+        "Industrial",
+    )

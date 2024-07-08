@@ -39,11 +39,9 @@ class AccountMoveImport(models.Model):
         string="Account Move Ref",
     )
     unbalance = fields.Boolean(
-        string="Unbalance",
         default=False,
     )
     accounting_date = fields.Date(
-        string="Accounting Date",
         required=True,
         default=default_accounting_date,
     )
@@ -133,36 +131,31 @@ class AccountMoveImportLine(models.Model):
         store=True,
     )
     account_move_line_id = fields.Many2one(
-        string="Account Move Line", comodel_name="account.move.line"
+        string="Account Move Line",
+        comodel_name="account.move.line",
     )
     account_code = fields.Char(
-        string="Account Code",
         states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     account_description = fields.Char(
-        string="Account Description",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     debit = fields.Float(
-        string="Debit",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     credit = fields.Float(
-        string="Credit",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_ref = fields.Char(
-        string="Partner Ref",
         states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_name = fields.Char(
-        string="Partner Name",
         states={"done": [("readonly", True)]},
         copy=False,
     )

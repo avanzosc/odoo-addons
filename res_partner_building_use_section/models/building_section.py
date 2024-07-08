@@ -12,21 +12,30 @@ class BuildingSection(models.Model):
         required=True,
         copy=False,
     )
-    risk = fields.Char(
+    partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Contact",
+        required=True,
         copy=False,
     )
     section_use = fields.Many2one(
         comodel_name="building.use",
     )
-    superficie = fields.Float(
+    risk = fields.Char(
+        copy=False,
+    )
+    area = fields.Float(
         string="Surface",
         default=0.0,
         copy=False,
     )
-    partner_id = fields.Many2one(
-        string="Contact",
-        comodel_name="res.partner",
-        required=True,
-        copy=False,
-    )
     evacuation_height = fields.Float()
+    configuration = fields.Selection(
+        selection=[
+            ("A", "A"),
+            ("B", "B"),
+            ("C", "C"),
+            ("D", "D"),
+            ("E", "E"),
+        ],
+    )

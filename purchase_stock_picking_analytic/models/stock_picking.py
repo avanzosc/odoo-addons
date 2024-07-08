@@ -9,6 +9,7 @@ class StockPicking(models.Model):
 
     @api.depends("picking_type_id", "picking_type_id.code")
     def _compute_show_analytic_account(self):
-        super()._compute_show_analytic_account()
+        result = super()._compute_show_analytic_account()
         for record in self.filtered("purchase_id"):
             record.show_analytic_account = False
+        return result
