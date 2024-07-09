@@ -5,13 +5,13 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     prohibited_category_ids = fields.Many2many(
-        "product.category",
+        "product.public.category",
         string="Prohibited Product Categories",
         help="These are the product categories that are prohibited for this partner.",
     )
 
     related_prohibited_category_ids = fields.Many2many(
-        comodel_name="product.category",
+        comodel_name="product.public.category",
         relation="partner_pick_up_point_prohibited_rel",
         column1="partner_id",
         column2="category_id",
