@@ -100,7 +100,7 @@ class CancellationLine(models.Model):
     def button_do_cancellation(self):
         self.ensure_one()
         location_dest = self.env["stock.location"].search(
-            [("usage", "=", "inventory"), ("scrap_location", "=", True)], limit=1
+            [("usage", "=", "inventory"), ("scrap_location", "=", True)]
         )
         if not location_dest:
             raise ValidationError(
@@ -113,7 +113,7 @@ class CancellationLine(models.Model):
             picking_type = self.env["stock.picking.type"].search(
                 [
                     ("default_location_src_id", "=", self.location_id.id),
-                    ("default_location_dest_id", "=", location_dest.id),
+                    ("default_location_dest_id", "in", location_dest.ids),
                 ],
                 limit=1,
             )
@@ -124,6 +124,7 @@ class CancellationLine(models.Model):
                         + "location {} and destination location {}."
                     ).format(self.location_id.name, location_dest.name)
                 )
+            location_dest = picking_type.default_location_dest_id
             if self.cancellation_qty != 0:
                 picking = self.env["stock.picking"].create(
                     {
