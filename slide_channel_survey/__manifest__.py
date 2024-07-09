@@ -4,7 +4,7 @@
     "name": "Slide Channel Survey",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "website",
     "version": "14.0.1.1.0",
     "depends": [
@@ -15,6 +15,7 @@
     ],
     "data": [
         "data/data.xml",
+        "security/ir.model.access.csv",
         "security/slide_channel_survey_security.xml",
         "report/evaluate_certification_report.xml",
         "views/views.xml",

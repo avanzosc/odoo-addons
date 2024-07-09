@@ -84,7 +84,7 @@
           attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
         >
                     <field name="birth_rate_ids">
-                        <tree string="Birth Rate" editable="bottom" limit="50">
+                        <tree editable="bottom" limit="50">
                             <field name="week" />
                             <field name="birth_start_date" />
                             <field name="percentage_birth" />
@@ -99,7 +99,7 @@
           attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
         >
                     <field name="laying_rate_ids">
-                        <tree string="Laying Rate" editable="bottom" limit="50">
+                        <tree editable="bottom" limit="50">
                             <field name="week" />
                             <field name="laying_start_date" />
                             <field name="percentage_laying" />
@@ -114,7 +114,7 @@
           attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
         >
                     <field name="cancellation_line_ids">
-                        <tree string="Cancellations" editable="bottom">
+                        <tree editable="bottom">
                             <field name="batch_id" invisible="1" />
                             <field
                 name="location_id"
@@ -164,7 +164,7 @@
         <field name="name">stock.picking.batch.tree.view</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            <tree string="Mother">
+            <tree>
                 <field name="name" decoration-bf="1" string="Code" />
                 <field name="batch_type" invisible="1" />
                 <field name="lineage_id" optional="hide" />

@@ -11,7 +11,7 @@ class FleetVehicle(models.Model):
         return fields.Date.context_today(self)
 
     authorized_signature_id = fields.Many2one(
-        strint="Authorized signature", comodel_name="res.users"
+        string="Authorized signature", comodel_name="res.users"
     )
     options_included = fields.Text(string="Options included in the type approval")
     reforms_in_vehicle = fields.Text(string="Reforms in vehicle")
@@ -101,7 +101,7 @@ class FleetVehicle(models.Model):
     )
     f11 = fields.Char(string="F11", compute="_compute_f11")
     f12 = fields.Char(string="F12", compute="_compute_f12")
-    l = fields.Char(string="L", compute="_compute_l")
+    l1 = fields.Char(string="L", compute="_compute_l")
     l2 = fields.Char(string="L2", compute="_compute_l2")
     d2 = fields.Char(string="D2", compute="_compute_d2")
 
@@ -164,16 +164,16 @@ class FleetVehicle(models.Model):
 
     def _compute_l(self):
         for vehicle in self:
-            l = ""
+            value = ""
             if vehicle.number_of_axes:
-                l = vehicle.number_of_axes
+                value = vehicle.number_of_axes
             if vehicle.total_wheels_number:
-                l = (
+                value = (
                     vehicle.total_wheels_number
-                    if not l
-                    else "{} // {}".format(l, vehicle.total_wheels_number)
+                    if not value
+                    else "{} // {}".format(value, vehicle.total_wheels_number)
                 )
-            self.l = l
+            self.l1 = value
 
     def _compute_l2(self):
         for vehicle in self:

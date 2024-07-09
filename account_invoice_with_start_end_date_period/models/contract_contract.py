@@ -33,5 +33,4 @@ class ContractContract(models.Model):
             vals["end_date_period"] = line_max_fec
         if vals:
             invoice_vals.update(vals)
-        print("fffffff salgo")
         return invoice_vals, move_form

@@ -3,7 +3,8 @@
 {
     "name": "Res Partner Birthdate Visibiliy",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Contact",
     "depends": [
         "partner_contact_birthdate",

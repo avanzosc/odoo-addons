@@ -5,7 +5,7 @@
     "version": "14.0.2.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",

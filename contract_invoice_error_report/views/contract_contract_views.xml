@@ -26,7 +26,7 @@
         <field name="name">contract.contract.error.tree.view</field>
         <field name="model">contract.contract</field>
         <field name="arch" type="xml">
-            <tree string="Contract with error in generation invoice">
+            <tree>
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="name" string="Name" />
                 <field name="code" />

@@ -6,7 +6,7 @@
     "category": "Marketing/Events",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["website_event_track", "event_schedule", "event_create_track"],
     "data": [
         "views/event_event_views.xml",

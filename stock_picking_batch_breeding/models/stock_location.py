@@ -7,13 +7,14 @@ class StockLocation(models.Model):
     _inherit = "stock.location"
 
     location_id_computed = fields.Boolean(
-        compute="compute_auxiliar", search="search_batch_type"
+        compute="_compute_auxiliar",
+        search="_search_batch_type",
     )
 
-    def compute_auxiliar(self):
+    def _compute_auxiliar(self):
         return True
 
-    def search_batch_type(self, operator, value):
+    def _search_batch_type(self, operator, value):
         batch_type = value
         if batch_type == "mother":
             reproductor = self.env.ref("stock_warehouse_farm.categ_type1")

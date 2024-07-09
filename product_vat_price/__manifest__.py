@@ -3,8 +3,8 @@
 {
     "name": "Product VAT price",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["product", "account", "sale_management"],
     "data": ["views/sale_order_views.xml", "views/product_template_views.xml"],

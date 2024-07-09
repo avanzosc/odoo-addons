@@ -4,7 +4,7 @@
         <field name="name">res.partner.academic.background.tree</field>
         <field name="model">res.partner.academic.background</field>
         <field name="arch" type="xml">
-            <tree string="Academic background">
+            <tree>
                 <field name="academic_year_id" />
                 <field name="course_level_id" />
                 <field name="linguistic_model" />
@@ -59,7 +59,7 @@
                     <notebook>
                         <page name="another_professional" string="Another professional">
                             <field name="another_professional_ids">
-                                <tree editable="bottom" string="Another professional">
+                                <tree editable="bottom">
                                     <field name="role" />
                                     <field name="professional_id" />
                                     <field name="phone" />

@@ -7,6 +7,7 @@ Website Payment Method Custom
 =============================
 
 * Show custom fields on Payment Address Form depending onthe payment method.
+
 Applied on /shop/add
 
 Bug Tracker

@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "summary": """Account Bank Multiple Partner""",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "account",
     ],

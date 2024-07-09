@@ -7,6 +7,6 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     lang = fields.Selection(string="Language", related="partner_id.lang")
-    company_city = fields.Char(string="City", related="partner_id.city")
-    company_zip = fields.Char(string="Zip", related="partner_id.zip")
-    company_street = fields.Char(string="Street", related="partner_id.street")
+    company_city = fields.Char(string="Partner City", related="partner_id.city")
+    company_zip = fields.Char(string="Partner Zip", related="partner_id.zip")
+    company_street = fields.Char(string="Partner Street", related="partner_id.street")

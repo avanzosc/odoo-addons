@@ -3,10 +3,10 @@
 {
     "name": "Website Event Track Claim Multiple Advice",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "license": "AGPL-3",
     "category": "Marketing/Events",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "crm_claim",
         "website_event_track_claim",

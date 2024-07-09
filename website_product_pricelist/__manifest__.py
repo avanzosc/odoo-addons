@@ -4,8 +4,13 @@
     "name": "Website Product Pricelist",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "version": "14.0.1.0.0",
-    "depends": ["website_sale"],
-    "data": ["views/templates.xml", "views/views.xml"],
+    "depends": [
+        "website_sale",
+    ],
+    "data": [
+        "views/templates.xml",
+        "views/views.xml",
+    ],
 }

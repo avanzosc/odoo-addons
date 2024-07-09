@@ -1,42 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-        <template
-      id="report_invoice_document2"
-      inherit_id="account.report_invoice_document"
-    >
-            <th name="th_price_unit" position="attributes">
-                <attribute name="t-if">display_discount and o.print_discount</attribute>
-            </th>
-            <xpath expr="//span[@t-field='line.discount']/.." position="attributes">
-                <attribute name="t-if">display_discount and o.print_discount</attribute>
-            </xpath>
-        </template>
+    <template
+    id="report_invoice_document2"
+    inherit_id="account.report_invoice_document"
+  >
+        <th name="th_price_unit" position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount</attribute>
+        </th>
+        <xpath expr="//span[@t-field='line.discount']/.." position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount</attribute>
+        </xpath>
+    </template>
 
-        <template
-      id="report_invoice_document"
-      inherit_id="account_invoice_triple_discount.report_invoice_document"
-    >
-            <th name="th_discount2" position="attributes">
-                <attribute
-          name="t-if"
-        >display_discount and o.print_discount2</attribute>
-            </th>
-            <th name="th_discount3" position="attributes">
-                <attribute
-          name="t-if"
-        >display_discount and o.print_discount3</attribute>
-            </th>
-            <xpath expr="//span[@t-field='line.discount2']/.." position="attributes">
-                <attribute
-          name="t-if"
-        >display_discount and o.print_discount2</attribute>
-            </xpath>
-            <xpath expr="//span[@t-field='line.discount3']/.." position="attributes">
-                <attribute
-          name="t-if"
-        >display_discount and o.print_discount3</attribute>
-            </xpath>
-        </template>
-    </data>
+    <template
+    id="report_invoice_document"
+    inherit_id="account_invoice_triple_discount.report_invoice_document"
+  >
+        <th name="th_discount2" position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount2</attribute>
+        </th>
+        <th name="th_discount3" position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount3</attribute>
+        </th>
+        <xpath expr="//span[@t-field='line.discount2']/.." position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount2</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='line.discount3']/.." position="attributes">
+            <attribute name="t-if">display_discount and o.print_discount3</attribute>
+        </xpath>
+    </template>
 </odoo>

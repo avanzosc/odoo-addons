@@ -3,12 +3,7 @@
     <record id="slide_channel_tag_course_view_tree" model="ir.ui.view">
         <field name="model">slide.channel.tag.course</field>
         <field name="arch" type="xml">
-            <tree
-        delete="0"
-        create="0"
-        string="Training itinerary courses"
-        editable="top"
-      >
+            <tree delete="0" create="0" editable="top">
                 <field name="sequence" widget="handle" />
                 <field name="slide_channel_id" readonly="1" />
                 <field name="slide_channel_name" invisible="1" />
@@ -28,12 +23,7 @@
     <record id="slide_channel_tag_course_view_tree2" model="ir.ui.view">
         <field name="model">slide.channel.tag.course</field>
         <field name="arch" type="xml">
-            <tree
-        delete="0"
-        create="0"
-        string="Training itinerary courses"
-        editable="top"
-      >
+            <tree delete="0" create="0" editable="top">
                 <field name="sequence" invisible="1" />
                 <field name="slide_channel_tag_id" readonly="1" />
                 <field name="slide_channel_id" readonly="1" />

@@ -4,7 +4,7 @@
     "name": "Event Track Cancel Reason",
     "version": "14.0.1.0.0",
     "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["event_track_analytic", "hr_timesheet_time_type"],
     "data": [
