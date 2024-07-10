@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* purchase_tracking_time_date
+#	* purchase_order_tracking_date
 #
 msgid ""
 msgstr ""
@@ -15,160 +15,160 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__cargo_ready
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__cargo_ready
 msgid "Cargo Ready Date"
 msgstr "Fecha de mercancía preparada"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__carrier_id
-#: model_terms:ir.ui.view,arch_db:purchase_tracking_time_date.view_purchase_order_carrier_form
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__carrier_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_tracking_date.view_purchase_order_carrier_form
 msgid "Carrier"
 msgstr "Naviera"
 
-#. module: purchase_tracking_time_date
-#: model:ir.ui.menu,name:purchase_tracking_time_date.menu_purchase_order_carriers_list
+#. module: purchase_order_tracking_date
+#: model:ir.ui.menu,name:purchase_order_tracking_date.menu_purchase_order_carriers_list
 msgid "Carrier List"
 msgstr "Lista de navieras"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__name
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__name
 msgid "Carrier Name"
 msgstr "Nombre del naviera"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model,name:purchase_tracking_time_date.model_purchase_order_carrier
+#. module: purchase_order_tracking_date
+#: model:ir.model,name:purchase_order_tracking_date.model_purchase_order_carrier
 msgid "Carrier for Purchase Orders"
 msgstr "Navieras para órdenes de compra"
 
-#. module: purchase_tracking_time_date
+#. module: purchase_order_tracking_date
 #: sql_constraint:purchase.order.carrier:0
 msgid "Carrier name must be unique!"
 msgstr "¡El nombre del naviera debe ser único!"
 
-#. module: purchase_tracking_time_date
-#: model:ir.actions.act_window,name:purchase_tracking_time_date.action_purchase_order_carrier_tree
-#: model:ir.ui.menu,name:purchase_tracking_time_date.menu_purchase_order_carriers
-#: model_terms:ir.ui.view,arch_db:purchase_tracking_time_date.view_purchase_order_carrier_tree
+#. module: purchase_order_tracking_date
+#: model:ir.actions.act_window,name:purchase_order_tracking_date.action_purchase_order_carrier_tree
+#: model:ir.ui.menu,name:purchase_order_tracking_date.menu_purchase_order_carriers
+#: model_terms:ir.ui.view,arch_db:purchase_order_tracking_date.view_purchase_order_carrier_tree
 msgid "Carriers"
 msgstr "Navieras"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__carrier_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__carrier_id
 msgid "Company responsible for the shipment."
 msgstr "Empresa responsable del envío."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__create_uid
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__create_date
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__create_date
 msgid "Created on"
 msgstr "Creado en"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__cut_off
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__cut_off
 msgid "Cut-off Date"
 msgstr "Fecha límite"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__date_sent
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_sent
 msgid "Date Sent"
 msgstr "Fecha de envío del pedido"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__date_eta
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_eta
 msgid "Date of arrival of the container at port."
 msgstr "Fecha de llegada al puerto."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__date_etd
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_etd
 msgid "Date of departure from port of the container."
 msgstr "Fecha de salida del puerto."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__date_sent
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_sent
 msgid "Date the email is sent to the supplier."
 msgstr "Fecha en la que se envía el correo al proveedor."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__cargo_ready
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__cargo_ready
 msgid "Date when the supplier confirms that the material will be finished."
 msgstr "Fecha en la que el proveedor confirma que la mercancía estará lista."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__cut_off
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__cut_off
 msgid "Deadline to deliver the material so it can be loaded onto that ship."
 msgstr "Fecha límite para entregar la mercancía para su carga en ese barco."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__display_name
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__date_eta
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_eta
 msgid "Estimated Time of Arrival (ETA)"
 msgstr "Fecha estimada de llegada (ETA)"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__date_etd
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_etd
 msgid "Estimated Time of Departure (ETD)"
 msgstr "Fecha estimada de salida (ETD)"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__forwarder_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__forwarder_id
 msgid "Forwarder"
 msgstr "Agencia de transporte"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__id
 msgid "ID"
 msgstr "ID"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier____last_update
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__write_uid
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order_carrier__write_date
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__write_date
 msgid "Last Updated on"
 msgstr "Última actualización en"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__pol_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__pol_id
 msgid "Port from which the goods depart."
 msgstr "Puerto desde el que salen las mercancías."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__pod_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__pod_id
 msgid "Port of Destination (POD)"
 msgstr "Puerto de destino (POD)"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,field_description:purchase_tracking_time_date.field_purchase_order__pol_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__pol_id
 msgid "Port of Origin (POL)"
 msgstr "Puerto de origen (POL)"
 
-#. module: purchase_tracking_time_date
-#: model:ir.model.fields,help:purchase_tracking_time_date.field_purchase_order__pod_id
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__pod_id
 msgid "Port of arrival of the goods."
 msgstr "Puerto de llegada de las mercancías."
 
-#. module: purchase_tracking_time_date
-#: model:ir.model,name:purchase_tracking_time_date.model_purchase_order
+#. module: purchase_order_tracking_date
+#: model:ir.model,name:purchase_order_tracking_date.model_purchase_order
 msgid "Purchase Order"
 msgstr "Orden de compra"
 
-#. module: purchase_tracking_time_date
-#: model_terms:ir.ui.view,arch_db:purchase_tracking_time_date.view_purchase_order_form_tracking
+#. module: purchase_order_tracking_date
+#: model_terms:ir.ui.view,arch_db:purchase_order_tracking_date.view_purchase_order_form_tracking
 msgid "Purchase Tracking"
 msgstr "Seguimiento de compra"
