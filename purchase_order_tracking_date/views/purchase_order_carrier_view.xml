@@ -4,7 +4,7 @@
         <field name="name">purchase.order.carrier.tree</field>
         <field name="model">purchase.order.carrier</field>
         <field name="arch" type="xml">
-            <tree string="Carriers">
+            <tree>
                 <field name="name" />
             </tree>
         </field>
@@ -31,5 +31,11 @@
         <field name="view_id" ref="view_purchase_order_carrier_tree" />
     </record>
 
-    <menuitem id="menu_purchase_order_carriers" name="Carriers" parent="purchase.menu_purchase_config" sequence="10" action="action_purchase_order_carrier_tree" />
+    <menuitem
+    id="menu_purchase_order_carriers"
+    name="Carriers"
+    parent="purchase.menu_purchase_config"
+    sequence="10"
+    action="action_purchase_order_carrier_tree"
+  />
 </odoo>
