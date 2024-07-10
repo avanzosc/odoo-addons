@@ -1,6 +1,6 @@
 {
     "name": "Purchase Order Tracking Date",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "summary": "Adds a purchase tracking tab to Purchase Orders",
     "category": "Purchases",
     "author": "AvanzOSC",
@@ -11,5 +11,6 @@
         "views/purchase_order_carrier_view.xml",
         "security/ir.model.access.csv",
     ],
+    "license": "AGPL-3",
     "installable": True,
 }
