@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_quant_tree_editable" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
+        <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
+                <field name="purchase_cost" />
+                <field name="purchase_amount_value" />
+            </field>
+            <field name="value" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
