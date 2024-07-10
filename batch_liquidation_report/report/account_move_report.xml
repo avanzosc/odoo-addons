@@ -244,4 +244,58 @@
             </t>
         </t>
     </template>
+
+    <template
+    id="report_invoice_document_view"
+    inherit_id="account_invoice_report_grouped_by_picking.report_invoice_document"
+  >
+        <xpath expr="//div[@name='origin']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@name='reference']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//td[5]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath
+      expr="//t[@name='account_invoice_line_accountable']"
+      position="attributes"
+    >
+            <attribute
+        name="t-if"
+      >not line.display_type and lines_group['quantity'] != 0</attribute>
+        </xpath>
+        <xpath expr="//td[3]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//td[3]" position="after">
+            <td
+        t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"
+      >
+                <span
+          class="text-nowrap"
+          t-esc="'{0:,.3f}'.format(line.price_unit).replace(',','~').replace('.',',').replace('~','.')"
+        />
+            </td>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="th_lot" class="text-right"><span>Lote</span></th>
+        </xpath>
+        <xpath expr="//td[@name='account_invoice_line_name']" position="after">
+            <td name="td_lot" class="text-right">
+                <span
+          t-if="line.sale_line_ids and len(line.sale_line_ids) == 1 and line.sale_line_ids[:1].lot_id"
+          t-field="line.sale_line_ids[:1].lot_id.name"
+        />
+            </td>
+        </xpath>
+        <xpath expr="//table[@name='invoice_snln_table']" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+    </template>
+
 </odoo>
