@@ -7,9 +7,12 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     last_supplier_move_price = fields.Float(
-        string="Last supplier move price", digits="Product Price"
+        string="Last supplier move price",
+        digits="Product Price",
     )
-    last_supplier_move_date = fields.Date(string="Last supplier move date")
+    last_supplier_move_date = fields.Date(
+        string="Last supplier move date",
+    )
     last_supplier_move_id = fields.Many2one(
         comodel_name="res.partner", string="Last supplier move"
     )

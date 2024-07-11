@@ -166,9 +166,9 @@ class IrModuleImportLine(models.Model):
         update_values.update(
             {
                 "import_module_id": module and module.id,
-                "migrate_module": False
-                if module and state != "error"
-                else self.migrate_module,
+                "migrate_module": (
+                    False if module and state != "error" else self.migrate_module
+                ),
                 "module_path": path or "",
                 "log_info": "\n".join(log_infos),
                 "state": state,
