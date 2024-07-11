@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="product_price_by_pricelist_view_tree" model="ir.ui.view">
-        <field name="name">product.price.by.pricelist.view.tree</field>
         <field name="model">product.price.by.pricelist</field>
         <field name="arch" type="xml">
-            <tree string="Product Pricelist" editable="bottom" sample="1">
+            <tree editable="bottom" sample="1">
                 <field name="product_id" />
                 <field name="pricelist_id" />
                 <field name="price_unit" />
@@ -13,7 +12,6 @@
     </record>
 
     <record id="product_price_by_pricelist_view_search" model="ir.ui.view">
-        <field name="name">product.price.by.pricelist.view.search</field>
         <field name="model">product.price.by.pricelist</field>
         <field name="arch" type="xml">
             <search>

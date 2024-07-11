@@ -9,9 +9,13 @@ class ProductLocationExploded(models.Model):
     _rec_name = "product_final_id"
 
     product_final_id = fields.Many2one(
-        comodel_name="product.final", string="Final Product", required=True
+        comodel_name="product.final",
+        string="Final Product",
+        required=True,
     )
-    position = fields.Char(string="Position")
+    position = fields.Char()
     product_id = fields.Many2one(
-        comodel_name="product.product", string="Product", required=True
+        comodel_name="product.product",
+        string="Product",
+        required=True,
     )

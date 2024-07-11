@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 10:14+0000\n"
-"PO-Revision-Date: 2024-05-16 10:14+0000\n"
+"POT-Creation-Date: 2024-06-20 10:02+0000\n"
+"PO-Revision-Date: 2024-06-20 10:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,16 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Administration Information"
-msgstr "Información de Administración"
-
-#. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__administrator_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__administrator_id
 msgid "Administrator"
 msgstr "Administrador"
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__alternative_text
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__alternative_text
+msgid "Alternative Text"
+msgstr "Texto Alternativo a la Fecha Registro en Industria"
 
 #. module: res_partner_building_use_section
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
@@ -33,8 +34,8 @@ msgstr "Edificio"
 
 #. module: res_partner_building_use_section
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Building Information"
-msgstr "Información del Edificio"
+msgid "Building Details"
+msgstr "Detalles de Edificio"
 
 #. module: res_partner_building_use_section
 #: model:ir.model,name:res_partner_building_use_section.model_building_section
@@ -52,13 +53,9 @@ msgid "Building Sections/Areas"
 msgstr "Secciones/Areas del Edificio"
 
 #. module: res_partner_building_use_section
+#: model:ir.model,name:res_partner_building_use_section.model_building_use
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__building_use_id
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__building_use_id
-msgid "Building Use"
-msgstr "Uso del Edificio"
-
-#. module: res_partner_building_use_section
-#: model:ir.model,name:res_partner_building_use_section.model_building_use
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_res_partner_filter
 msgid "Building use"
 msgstr "Uso del Edificio"
@@ -76,11 +73,34 @@ msgid "Buildings"
 msgstr "Edificios"
 
 #. module: res_partner_building_use_section
+#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
+msgid "Certificate of Final Work Direction"
+msgstr "Certificado Final"
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__certification_text
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__certification_text
+msgid "Certification Text"
+msgstr "Texto de Certificación"
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__configuration
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__configuration
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__configuration
+msgid "Configuration"
+msgstr "Configuración"
+
+#. module: res_partner_building_use_section
 #: model:ir.model,name:res_partner_building_use_section.model_res_partner
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__partner_id
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: res_partner_building_use_section
+#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
+msgid "Contractor"
+msgstr ""
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__create_uid
@@ -121,11 +141,6 @@ msgstr "Titulación del individuo"
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__name
 msgid "Description"
 msgstr "Descripción"
-
-#. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Director of Work Information"
-msgstr "Información del Director de Obra"
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__dof_approved_date
@@ -171,8 +186,16 @@ msgstr ""
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__evacuation_height
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__evacuation_height
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__evacuation_height
 msgid "Evacuation Height"
 msgstr "Altura de Evacuación"
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__file_number
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__file_number
+msgid "File Number"
+msgstr "Número de Expediente"
 
 #. module: res_partner_building_use_section
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
@@ -189,6 +212,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_use__is_industrial
 msgid "Industrial"
 msgstr ""
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__installation_number
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__installation_number
+msgid "Installation Number"
+msgstr "Numero de Instalación"
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__installer_id
@@ -249,6 +278,23 @@ msgid "Membership number of the individual contact."
 msgstr "Número de membresía del contacto individual."
 
 #. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__normativas_ids
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__normativas_ids
+msgid "Normativas"
+msgstr ""
+
+#. module: res_partner_building_use_section
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__number_of_floors
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__number_of_floors
+msgid "Number of Plants"
+msgstr "Numero de Plantas"
+
+#. module: res_partner_building_use_section
+#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_approved_date
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_approved_date
 msgid "Project Approved Date"
@@ -273,11 +319,6 @@ msgid "Project Author License"
 msgstr "Licencia del Autor del Proyecto"
 
 #. module: res_partner_building_use_section
-#: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.view_partner_form
-msgid "Project Information"
-msgstr "Información del Proyecto"
-
-#. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__project_title
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__project_title
 msgid "Project Title"
@@ -285,6 +326,8 @@ msgstr "Título del Proyecto"
 
 #. module: res_partner_building_use_section
 #: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__risk
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__risk
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__risk
 #: model_terms:ir.ui.view,arch_db:res_partner_building_use_section.building_section_view_filter
 msgid "Risk"
 msgstr "Riesgo"
@@ -314,6 +357,8 @@ msgid "Service Start Date"
 msgstr "Fecha Solicitud Licencia (Filtro Normativa)"
 
 #. module: res_partner_building_use_section
-#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__superficie
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_building_section__area
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_partner__area
+#: model:ir.model.fields,field_description:res_partner_building_use_section.field_res_users__area
 msgid "Surface"
 msgstr "Superficie"

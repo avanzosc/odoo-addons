@@ -6,12 +6,16 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    last_supplier_move_date = fields.Date(string="Last supplier move date")
+    last_supplier_move_date = fields.Date(
+        string="Last supplier move date",
+    )
     last_supplier_move_price = fields.Float(
-        string="Last supplier move price", digits="Product Price"
+        string="Last supplier move price",
+        digits="Product Price",
     )
     last_supplier_move_id = fields.Many2one(
-        comodel_name="res.partner", string="Last supplier move"
+        comodel_name="res.partner",
+        string="Last supplier move",
     )
 
     def set_product_last_supplier_move(self, move_id=False):
@@ -31,7 +35,7 @@ class ProductProduct(models.Model):
             else:
                 cond = [
                     ("product_id", "=", product.id),
-                    ("move_id.type", "=", "in_move"),
+                    ("move_id.move_type", "=", "in_move"),
                     ("move_id.state", "not in", ["draft", "cancel"]),
                 ]
                 lines = move_line_obj.search(cond).sorted(
