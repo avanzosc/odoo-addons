@@ -99,7 +99,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(n, 3, line.warehouse_id.name if line.warehouse_id else "")
             worksheet.write(n, 4, line.city if line.city else "")
-            worksheet.write(n, 5, line.chick_entry_qty, int_format)
+            worksheet.write(n, 5, line.chick_units, int_format)
             worksheet.write(n, 6, line.output_units, int_format)
             worksheet.write(
                 n, 7, round(line.cancellation_percentage, 2), two_decimal_format
@@ -133,7 +133,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(n, 25, round(line.cost_kilo, 3), three_decimal_format)
             n = n + 1
-        worksheet.write(n, 5, sum(objects.mapped("chick_entry_qty")), int_format)
+        worksheet.write(n, 5, sum(objects.mapped("chick_units")), int_format)
         worksheet.write(n, 6, sum(objects.mapped("output_units")), int_format)
         cancellation = (
             (
