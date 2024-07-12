@@ -110,7 +110,7 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         m = 0
         worksheet.write(n, m, _("Chick Input"))
         m += 2
-        chick_qty = sum(objects.mapped("chick_entry_qty"))
+        chick_qty = sum(objects.mapped("chick_units"))
         worksheet.write(n, m, chick_qty, int_format)
         m += 1
         worksheet.write(n, m, 100, two_decimal_format)
