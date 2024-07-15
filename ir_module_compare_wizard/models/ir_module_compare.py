@@ -26,17 +26,33 @@ class IrModuleImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
-            module_technical_name = row_values.get("Name", "")
+            module_technical_name = row_values.get(
+                _("Name"),
+                row_values.get("Name", ""),
+                _("Technical Name"),
+                row_values.get("Technical Name", ""),
+            )
             if not module_technical_name:
                 return {}
-            module_last_version = row_values.get("Last Version", "")
-            module_website = row_values.get("Website", "")
-            module_author = row_values.get("Author", "")
-            module_notes = row_values.get("Notes", "")
-            module_author_generic = row_values.get("Module Author Generic", "")
-            priority = row_values.get("Priority", 0)
-            migrate_module = row_values.get("Migrate Module", True)
-            install_module = row_values.get("Install Module", True)
+            module_last_version = row_values.get(
+                _("Last Version"),
+                row_values.get("Last Version", ""),
+                _("Latest Version"),
+                row_values.get("Latest Version", ""),
+            )
+            module_website = row_values.get(_("Website"), row_values.get("Website", ""))
+            module_author = row_values.get(_("Author"), row_values.get("Author", ""))
+            module_notes = row_values.get(_("Notes"), row_values.get("Notes", ""))
+            module_author_generic = row_values.get(
+                _("Module Author Generic"), row_values.get("Module Author Generic", "")
+            )
+            priority = row_values.get(_("Priority"), row_values.get("Priority", 0))
+            migrate_module = row_values.get(
+                _("Migrate Module"), row_values.get("Migrate Module", True)
+            )
+            install_module = row_values.get(
+                _("Install Module"), row_values.get("Install Module", True)
+            )
             log_info = ""
             values.update(
                 {
