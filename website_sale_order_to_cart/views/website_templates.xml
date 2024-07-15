@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="sale_order_cart_inherit" inherit_id="website_sale.cart">
+        <xpath
+      expr="//div[hasclass('justify-content-between')]/div[1]"
+      position="after"
+    >
+            <t t-if="website_sale_order.id">
+                <div>
+                    <a
+            class="btn btn-primary mb32"
+            role="button"
+            t-att-href="'/action_quotation_mark_send?order_id=' + str(website_sale_order.id)"
+          >
+                        <span>Confirm Cart</span>
+                    </a>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template
+    id="sale_order_portal_template_inherit"
+    inherit_id="sale.sale_order_portal_template"
+  >
+        <xpath expr="//a[@id='o_sale_portal_paynow']" position="after">
+            <t t-if="sale_order.id">
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <a
+              class="btn btn-primary mb32"
+              role="button"
+              t-att-href="'/sale_order_to_cart?order_id=' + str(sale_order.id)"
+            >
+                            <span>Change Order</span>
+                        </a>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
