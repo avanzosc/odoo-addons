@@ -9,7 +9,7 @@
     ],
     "author": "AvanzOSC",
     "license": "AGPL-3",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "data": [
         "views/partner_equal_ref_barcode_view.xml",
     ],

@@ -161,11 +161,25 @@
     inherit_id="stock.stock_report_delivery_aggregated_move_lines"
   >
         <td name="move_line_aggregated_qty_done" position="after">
-            <td t-if="print_with_amounts" class="text-right" name="move_line_aggregated_price_unit">
-                <span t-if="'price_unit' in aggregated_lines[line]" t-esc="aggregated_lines[line]['price_unit']" />
+            <td
+        t-if="print_with_amounts"
+        class="text-right"
+        name="move_line_aggregated_price_unit"
+      >
+                <span
+          t-if="'price_unit' in aggregated_lines[line]"
+          t-esc="aggregated_lines[line]['price_unit']"
+        />
             </td>
-            <td t-if="print_with_amounts" class="text-right" name="move_line_aggregated_amount">
-                <span t-if="print_with_amounts and 'move_line_amount' in aggregated_lines[line]" t-esc="aggregated_lines[line]['move_line_amount']" />
+            <td
+        t-if="print_with_amounts"
+        class="text-right"
+        name="move_line_aggregated_amount"
+      >
+                <span
+          t-if="print_with_amounts and 'move_line_amount' in aggregated_lines[line]"
+          t-esc="aggregated_lines[line]['move_line_amount']"
+        />
             </td>
         </td>
     </template>

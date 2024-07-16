@@ -31,7 +31,7 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
     )
     mandate_format = fields.Selection(
         selection="_get_format_selection",
-        string="Mandate Format",
+        string="Format",
         default=_default_mandate_format,
         required=True,
     )

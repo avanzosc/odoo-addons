@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="survey_question_form_inherit">
+        <field name="model">survey.question</field>
+        <field name="inherit_id" ref="survey.survey_question_form" />
+        <field name="arch" type="xml">
+            <data>
+                <page name="survey_description" position="after">
+                    <page string="Image" name="survey_image">
+                        <field name="image" widget="image" />
+                    </page>
+                </page>
+            </data>
+        </field>
+    </record>
+</odoo>
