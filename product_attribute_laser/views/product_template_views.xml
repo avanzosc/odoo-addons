@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <field name="detailed_type" position="after">
+                <field name="product_material_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <field name="default_code" position="after">
+                <field name="product_material_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="product_material_id" />
+            </field>
+            <filter name="categ_id" position="after">
+                <filter
+          string="Material"
+          name="produt-material"
+          context="{'group_by':'product_material_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
