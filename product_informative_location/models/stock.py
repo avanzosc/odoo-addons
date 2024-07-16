@@ -18,7 +18,7 @@ class StockMove(models.Model):
     )
 
     @api.onchange("product_id")
-    def onchange_product_id(self):
+    def _onchange_product_id(self):
         result = super().onchange_product_id()
         if self.product_id and self.picking_id.picking_type_id:
             mytext, mydescript = self._catch_informative_location()

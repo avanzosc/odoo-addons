@@ -4,7 +4,6 @@ from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
-
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
@@ -43,11 +42,15 @@ class ProductTemplate(models.Model):
     target_cost = fields.Float(string="Target cost", copy=False, default=0.0)
     manual_pvp = fields.Boolean(string="Manual PSP", default=False, copy=False)
     generate_last_price_change_date = fields.Boolean(
-        string="Generate last price change date", default=False, copy=False
+        string="Generate last price change date",
+        default=False,
+        copy=False,
     )
     last_price_change_date = fields.Date(string="Last price change date", copy=False)
     only_read_prices = fields.Boolean(
-        string="Only read prices", compute="_compute_only_read_prices", copy=False
+        string="Only read prices",
+        compute="_compute_only_read_prices",
+        copy=False,
     )
     my_standard_price = fields.Float(
         string="Total cost (base + extra)",
@@ -316,12 +319,6 @@ class ProductTemplate(models.Model):
             parent_combination=parent_combination,
             only_template=only_template,
         )
-        #        quantity = self.env.context.get('quantity', add_qty)
-        #        context = dict(self.env.context, quantity=quantity, pricelist=pricelist.id if pricelist else False)
-        #        product_template = self.with_context(context)
-        #        if product_template.sale_configuration and 'price' in result:
-        #            imp = result.get('price') + product_template.list_price
-        #            result['price'] = imp
         return result
 
     def put_template_info_in_product(self):

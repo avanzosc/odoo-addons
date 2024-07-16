@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=================================
-Res partner building type section
-=================================
+===========================
+Partner Bulding Use Section
+===========================
 
 * New objects "Building type" and "Building Section/Area".
 * Maintaining these 2 new tables in Contacts/Configuration.
@@ -23,7 +23,7 @@ Credits
 
 Contributors
 ------------
-* Ana Juaristi <ajuaristio@gmail.com>
+* Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.

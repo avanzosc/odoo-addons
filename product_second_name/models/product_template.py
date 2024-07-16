@@ -1,9 +1,9 @@
 # Copyright 2020 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import api, fields, models
 import json
-
 import logging
+
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -110,18 +110,17 @@ class ProductTemplate(models.Model):
 
             # Check if the translation field is empty for the current language
             if isinstance(self.name2, dict) and not self.name2.get(lang.code):
-                    vals[lang.code] = "to_translate" if not vals else "translated"
+                vals[lang.code] = "to_translate" if not vals else "translated"
 
             # Update or create the translation for the current language
             self.write(vals)
-
 
     def write(self, values):
         if "product_created_from_template" in self.env.context:
             return True
         if "from_cron" in self.env.context:
             return super().write(values)
-        
+
         name2_values = {}
 
         if "description_sale_es" in values:
@@ -146,15 +145,21 @@ class ProductTemplate(models.Model):
                     )
                     WHERE id = %s
                 """
-                self.env.cr.execute(query, (
-                    lang, 
-                    json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
-                    self.id
-                ))
+                self.env.cr.execute(
+                    query,
+                    (
+                        lang,
+                        json.dumps(
+                            name2_values[lang]
+                        ),  # Serialize the dictionary value to JSON
+                        self.id,
+                    ),
+                )
 
         result = super().write(values)
-        
-        # If name2 or any of the translation fields is updated, propagate the changes to product variant
+
+        # If name2 or any of the translation fields is updated, propagate the changes
+        # to product variant
         if "update_name2_data_from_product" not in self.env.context and (
             "name2" in values
             or "description_sale_es" in values
@@ -162,12 +167,12 @@ class ProductTemplate(models.Model):
             or "description_sale_en" in values
         ):
             for template in self.filtered(lambda x: x.product_variant_count == 1):
-                # Update the corresponding fields in the product variant with the same values
+                # Update the corresponding fields in the product variant with the
+                # same values
                 template.product_variant_ids[0].with_context(
                     update_name2_data_from_template=True
                 ).write(values)
-                
-                
+
                 # Update name2 with the accumulated translation values using SQL
                 if name2_values:
                     for lang in name2_values:
@@ -181,31 +186,37 @@ class ProductTemplate(models.Model):
                             )
                             WHERE id = %s
                         """
-                        self.env.cr.execute(query, (
-                            lang, 
-                            json.dumps(name2_values[lang]),  # Serialize the dictionary value to JSON
-                            template.product_variant_ids[0].id
-                        ))
+                        self.env.cr.execute(
+                            query,
+                            (
+                                lang,
+                                json.dumps(
+                                    name2_values[lang]
+                                ),  # Serialize the dictionary value to JSON
+                                template.product_variant_ids[0].id,
+                            ),
+                        )
 
         return result
-
 
     def put_description_sale_lang(self):
         for prod_template in self:
             description_sale_es = prod_template.name2.get("es_ES", False)
             if not description_sale_es:
                 description_sale_es = "*****"
-            
+
             description_sale_cat = prod_template.name2.get("ca_ES", False)
             if not description_sale_cat:
                 description_sale_cat = "*****"
-            
+
             description_sale_en = prod_template.name2.get("en_US", False)
             if not description_sale_en:
                 description_sale_en = "*****"
-            
-            prod_template.with_context(from_cron=True).write({
-                "description_sale_es": description_sale_es,
-                "description_sale_cat": description_sale_cat,
-                "description_sale_en": description_sale_en
-            })
+
+            prod_template.with_context(from_cron=True).write(
+                {
+                    "description_sale_es": description_sale_es,
+                    "description_sale_cat": description_sale_cat,
+                    "description_sale_en": description_sale_en,
+                }
+            )

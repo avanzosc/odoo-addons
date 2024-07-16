@@ -29,18 +29,12 @@
                             <field name="category_name" />
                         </group>
                         <group>
-                            <field
-                name="product_id"
-                options="{'no_create': True, 'no_open': True}"
-              />
+                            <field name="product_id" />
                             <field
                 name="product_uom_id"
                 options="{'no_create': True, 'no_open': True}"
               />
-                            <field
-                name="category_id"
-                options="{'no_create': True, 'no_open': True}"
-              />
+                            <field name="category_id" />
                         </group>
                     </group>
                     <field name="log_info" />
@@ -58,7 +52,7 @@
         decoration-it="log_info"
         editable="top"
       >
-                                <field
+                <field
           name="action"
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'create'"
@@ -66,11 +60,7 @@
         />
                 <field name="product_name" />
                 <field name="product_default_code" />
-                                <field
-          name="product_id"
-          optional="hide"
-          options="{'no_create': True}"
-        />
+                                <field name="product_id" optional="hide" />
                 <field name="sale_ok" optional="hide" />
                 <field name="purchase_ok" optional="hide" />
                 <field name="barcode" optional="show" />
@@ -96,11 +86,7 @@
         />
                 <field name="invoice_policy" optional="show" />
                 <field name="category_name" />
-                <field
-          name="category_id"
-          optional="hide"
-          options="{'no_create': True, 'no_open': True}"
-        />
+                <field name="category_id" optional="hide" />
                 <field name="product_type" optional="show" />
                 <field name="purchase_method" optional="show" />
                 <field name="description_purchase" optional="show" />

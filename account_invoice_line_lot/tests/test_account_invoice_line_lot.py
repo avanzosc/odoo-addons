@@ -15,7 +15,7 @@ class TestAccountInvoiceLineLot(TransactionCase):
         self.sale.picking_ids[0].button_validate()
         for move in self.sale.picking_ids[0].move_line_ids:
             vals = {"product_id": move.product_id.id, "product_qty": move.product_qty}
-            self.lot = self.env["stock.production.lot"].create(vals)
+            self.lot = self.env["stock.lot"].create(vals)
             move.lot_id = self.lot.id
 
     def test_account_invoice_line_lot(self):
