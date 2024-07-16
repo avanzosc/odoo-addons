@@ -8,7 +8,5 @@ class PenaltyWarning(models.Model):
     _description = "Penalty warnings"
     _order = "name asc"
 
-    name = fields.Char(
-        string="Name", required=True, copy=False)
-    description = fields.Char(
-        string="Description", copy=False)
+    name = fields.Char(string="Name", required=True, copy=False)
+    description = fields.Char(string="Description", copy=False)

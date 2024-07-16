@@ -1,45 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-    <data>
-        <template id="report_invoice_document" inherit_id="account.report_invoice_document">
-            <p name="payment_communication" position="before">
-                <p t-if="o.timesheet_ids">
-                    <strong>Timesheets</strong>
-                </p>
-                <table class="table" name="timesheet_table" t-if="o.timesheet_ids">
-                    <thead>
-                        <tr>
-                            <th name="th_timesheet_date" class="text-left">
-                                <span>Date</span>
-                            </th>
-                            <th name="th_timesheet_description" class="text-left">
-                                <span>Description</span>
-                             </th>
-                            <th name="th_timesheet_duration" class="text-right">
-                                <span>Duration</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <t t-foreach="o.timesheet_ids" t-as="line">
-                            <tr>
-                                <td name="td-timesheet_date">
-                                    <span t-field="line.date"
-                                        t-options='{"widget": "date"}'/>
-                                </td>
-                                <td name="td-timesheet_name">
-                                    <span t-field="line.name"
-                                        t-options="{'widget': 'text'}"/>
-                                </td>
-                                <td name="td-timesheet_duration" class="text-right">
-                                    <span t-field="line.unit_amount"
-                                        t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
-                                </td>
-                            </tr>
-                        </t>
-                    </tbody>
-                </table>
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <p name="payment_communication" position="before">
+            <p t-if="o.timesheet_ids">
+                <strong>Timesheets</strong>
             </p>
-        </template>
-    </data>
-</openerp>
+            <table class="table" name="timesheet_table" t-if="o.timesheet_ids">
+                <thead>
+                    <tr>
+                        <th name="th_timesheet_date" class="text-left">
+                            <span>Date</span>
+                        </th>
+                        <th name="th_timesheet_description" class="text-left">
+                            <span>Description</span>
+                         </th>
+                        <th name="th_timesheet_duration" class="text-right">
+                            <span>Duration</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="o.timesheet_ids" t-as="line">
+                        <tr>
+                            <td name="td-timesheet_date">
+                                <span
+                  t-field="line.date"
+                  t-options='{"widget": "date"}'
+                />
+                            </td>
+                            <td name="td-timesheet_name">
+                                <span
+                  t-field="line.name"
+                  t-options="{'widget': 'text'}"
+                />
+                            </td>
+                            <td name="td-timesheet_duration" class="text-right">
+                                <span
+                  t-field="line.unit_amount"
+                  t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"
+                />
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </p>
+    </template>
+</odoo>

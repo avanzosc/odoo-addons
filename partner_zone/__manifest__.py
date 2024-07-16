@@ -7,17 +7,12 @@
     "category": "Generic Modules",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "contacts",
-        "sales_team"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["contacts", "sales_team"],
     "data": [
         "views/partner_view.xml",
         "security/ir.model.access.csv",
     ],
-    "demo": [
-        "demo/zone_demo.xml"
-    ],
+    "demo": ["demo/zone_demo.xml"],
     "installable": True,
 }

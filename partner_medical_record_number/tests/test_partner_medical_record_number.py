@@ -7,14 +7,18 @@ from odoo.tests import common
 class TestPartnerMedicalRecordNumber(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestPartnerMedicalRecordNumber, cls).setUpClass()
-        cls.contact_obj = cls.env['res.partner']
-        cls.partner1 = cls.contact_obj.create({
-            'name': 'Parent1',
-        })
-        cls.partner2 = cls.contact_obj.create({
-            'name': 'Parent2',
-        })
+        super().setUpClass()
+        cls.contact_obj = cls.env["res.partner"]
+        cls.partner1 = cls.contact_obj.create(
+            {
+                "name": "Parent1",
+            }
+        )
+        cls.partner2 = cls.contact_obj.create(
+            {
+                "name": "Parent2",
+            }
+        )
 
     def test_partner_medical_record_number(self):
         self.assertEqual(self.partner1.last_adult_number, 0)

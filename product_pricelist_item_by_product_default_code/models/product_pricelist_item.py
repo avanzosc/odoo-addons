@@ -6,13 +6,11 @@ from odoo import api, fields, models
 class ProductPricelistItem(models.Model):
     _inherit = "product.pricelist.item"
 
-    product_default_code = fields.Char(
-        string="Product Internal Reference", copy=False
-    )
+    product_default_code = fields.Char(string="Product Internal Reference", copy=False)
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
-        result = super(ProductPricelistItem, self)._onchange_product_id()
+        result = super()._onchange_product_id()
         product_default_code = ""
         if self.product_id and self.product_id.default_code:
             product_default_code = self.product_id.default_code
@@ -21,15 +19,19 @@ class ProductPricelistItem(models.Model):
 
     @api.onchange("product_tmpl_id")
     def _onchange_product_tmpl_id(self):
-        result = super(ProductPricelistItem, self)._onchange_product_tmpl_id()
+        result = super()._onchange_product_tmpl_id()
         product_default_code = ""
         if self.product_tmpl_id and self.product_tmpl_id.default_code:
             product_default_code = self.product_tmpl_id.default_code
         self.product_default_code = product_default_code
         return result
 
-    @api.depends("product_tmpl_id", "product_tmpl_id.default_code",
-                 "product_id", "product_id.default_code")
+    @api.depends(
+        "product_tmpl_id",
+        "product_tmpl_id.default_code",
+        "product_id",
+        "product_id.default_code",
+    )
     def _compute_product_default_code(self):
         for item in self:
             product_default_code = ""

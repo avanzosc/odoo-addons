@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <odoo>
-    <menuitem id="penalty_warning_config_purchase"
-        name="Penalty warnings"
-        parent="purchase.menu_purchase_config"
-        action="base_penalty_warning.action_penalty_warning"
-        groups="base.group_erp_manager,purchase.group_purchase_manager" 
-        sequence="3"/>
+    <menuitem
+    id="penalty_warning_config_purchase"
+    name="Penalty warnings"
+    parent="purchase.menu_purchase_config"
+    action="base_penalty_warning.action_penalty_warning"
+    groups="base.group_erp_manager,purchase.group_purchase_manager"
+    sequence="3"
+  />
 </odoo>

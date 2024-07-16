@@ -4,7 +4,7 @@
     "name": "Account Invoice Report Grouped By Event",
     "version": "14.0.1.0.0",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Invoices & Payments",
     "license": "AGPL-3",
     "depends": [
@@ -15,11 +15,8 @@
         "sale_order_line_contract",
         "event_sale",
         "event_registration_student",
-        "event_registration_sale_line_contract"
+        "event_registration_sale_line_contract",
     ],
-    "data": [
-        "report/account_invoice_report.xml",
-        "views/res_partner_views.xml"
-    ],
+    "data": ["report/account_invoice_report.xml", "views/res_partner_views.xml"],
     "installable": True,
 }

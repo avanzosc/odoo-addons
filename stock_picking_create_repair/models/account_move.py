@@ -54,7 +54,7 @@ class AccountMove(models.Model):
             repairs = repair_obj.search(cond)
             if repairs:
                 repairs.write({"invoice_id": False})
-        return super(AccountMove, self).unlink()
+        return super().unlink()
 
     def action_repairs_from_sale(self):
         self.ensure_one()

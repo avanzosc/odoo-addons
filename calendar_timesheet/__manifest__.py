@@ -6,12 +6,8 @@
     "category": "Project",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "hr_timesheet",
-        "project_task_meeting",
-        "resource_time"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["hr_timesheet", "project_task_meeting", "resource_time"],
     "data": [
         "views/calendar_event_views.xml",
     ],

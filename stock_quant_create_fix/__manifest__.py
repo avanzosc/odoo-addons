@@ -7,12 +7,10 @@
     "category": "Stock",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
     ],
-    "data": [
-        "views/stock_production_lot_view.xml"
-    ],
+    "data": ["views/stock_production_lot_view.xml"],
     "installable": True,
 }

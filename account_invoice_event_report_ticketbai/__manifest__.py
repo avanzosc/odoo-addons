@@ -4,16 +4,14 @@
     "name": "Account Invoice Event Report Ticketbai",
     "version": "14.0.1.0.0",
     "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/odoo-addons.git",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Custom",
     "license": "AGPL-3",
     "depends": [
         "account_invoice_event_report",
         "l10n_es_ticketbai",
     ],
-    "data": [
-        "report/account_invoice_report.xml"
-    ],
+    "data": ["report/account_invoice_report.xml"],
     "installable": True,
     "auto_install": True,
 }

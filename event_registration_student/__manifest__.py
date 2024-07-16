@@ -2,19 +2,20 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Event Registration Student",
-    'version': '14.0.1.6.0',
-    "author": "Avanzosc",
+    "version": "14.0.1.6.0",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": [
         "event",
         "education_center",
         "event_schedule",
-        "event_registration_sale_line_contract"
+        "event_registration_sale_line_contract",
     ],
     "data": [
         "data/email_template_data.xml",
         "views/event_registration_views.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

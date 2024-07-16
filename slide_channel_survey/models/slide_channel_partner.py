@@ -12,7 +12,7 @@ class SlideChannelPartner(models.Model):
 
     @api.model
     def create(self, vals):
-        res = super(SlideChannelPartner, self).create(vals)
+        res = super().create(vals)
         res._create_slide_channel_survey()
         return res
 
@@ -38,7 +38,7 @@ class SlideChannelPartner(models.Model):
                         if record.event_id.main_responsible_id
                         else record.event_id.second_responsible_id
                     )
-                    survey_input = self.env["survey.user_input"].create(
+                    self.env["survey.user_input"].create(
                         {
                             "survey_id": slide.survey_id.id,
                             "event_id": record.event_id.id,

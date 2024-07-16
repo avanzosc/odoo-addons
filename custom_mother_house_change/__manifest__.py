@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Mother House Change",
-    'version': '14.0.2.0.0',
-    "author": "Avanzosc",
+    "version": "14.0.2.0.0",
+    "author": "AvanzOSC",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock_warehouse_farm",
         "stock_picking_batch_mother",
@@ -14,8 +14,8 @@
     "data": [
         "security/ir.model.access.csv",
         "views/stock_picking_batch_views.xml",
-        "wizard/batch_house_change_wizard_views.xml"
+        "wizard/batch_house_change_wizard_views.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

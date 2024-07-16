@@ -1,16 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="product_form_view_procurement_button" model="ir.ui.view">
         <field name="model">product.product</field>
-        <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+        <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
         <field name="arch" type="xml">
             <button type="object" name="action_open_quants" position="after">
-                <button type="object" name="action_open_quants_real_stock"
-                    attrs="{'invisible':[('type', '!=', 'product')]}" class="oe_stat_button" icon="fa-cubes">
+                <button
+          type="object"
+          name="action_open_quants_real_stock"
+          attrs="{'invisible':[('type', '!=', 'product')]}"
+          class="oe_stat_button"
+          icon="fa-cubes"
+        >
                     <div class="o_field_widget o_stat_info">
                         <span class="o_stat_value" widget="statinfo">
-                            <field name="location_qty_available" widget="statinfo" nolabel="1" class="mr4"/>
-                            <field name="uom_name"/>
+                            <field
+                name="location_qty_available"
+                widget="statinfo"
+                nolabel="1"
+                class="mr4"
+              />
+                            <field name="uom_name" />
                         </span>
                         <span class="o_stat_text">On Hand In Location</span>
                     </div>

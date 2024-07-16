@@ -7,13 +7,17 @@ from odoo.tests import common
 class ProductUsabilityCommon(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(ProductUsabilityCommon, cls).setUpClass()
+        super().setUpClass()
 
-        cls.category_model = cls.env['product.category']
-        cls.parent_category = cls.category_model.create({
-            'name': 'Test Parent Category',
-        })
-        cls.son_category = cls.category_model.create({
-            'name': 'Test Son Category',
-            'parent_id': cls.parent_category.id,
-        })
+        cls.category_model = cls.env["product.category"]
+        cls.parent_category = cls.category_model.create(
+            {
+                "name": "Test Parent Category",
+            }
+        )
+        cls.son_category = cls.category_model.create(
+            {
+                "name": "Test Son Category",
+                "parent_id": cls.parent_category.id,
+            }
+        )

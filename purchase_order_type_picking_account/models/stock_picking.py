@@ -7,4 +7,5 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     purchase_type_id = fields.Many2one(
-        comodel_name="purchase.order.type", string="Purchase type")
+        comodel_name="purchase.order.type", string="Purchase type"
+    )

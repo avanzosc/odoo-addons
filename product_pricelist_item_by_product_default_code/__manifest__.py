@@ -6,14 +6,11 @@
     "category": "Sales/Sales",
     "author": "AvanzOSC",
     "license": "AGPL-3",
-    "website": "https://www.avanzosc.es",
-    "depends": [
-        "product",
-        "product_pricelist_item_menu"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["product", "product_pricelist_item_menu"],
     "data": [
         "views/product_pricelist_item_views.xml",
-        "views/product_pricelist_views.xml"
+        "views/product_pricelist_views.xml",
     ],
     "installable": True,
 }

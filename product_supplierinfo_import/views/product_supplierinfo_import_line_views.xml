@@ -4,9 +4,9 @@
         <field name="model">product.supplierinfo.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="product_id"/>
-                <field name="supplier_id"/>
-                <separator/>
+                <field name="product_id" />
+                <field name="supplier_id" />
+                <separator />
                 <filter
           string="Errored"
           name="error"
@@ -38,7 +38,7 @@
             string="Supplierinfo"
             context="{'group_by': 'product_supplierinfo_id'}"
           />
-                    <separator/>
+                    <separator />
                     <filter
             name="group_status"
             string="Status"
@@ -78,31 +78,73 @@
             class="oe_read_only"
             states="error,pass"
           />
-                    <field name="state" widget="statusbar"/>
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="supplier_code"/>
-                            <field name="supplier_name"/>
-                            <field name="product_code"/>
-                            <field name="product_name"/>
-                            <field name="supplier_product_code" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="supplier_product_name" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="quantity" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="price" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="discount" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="delay" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="currency" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="date_start" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="date_end" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                            <field name="location" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                            <field name="min_qty" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                            <field name="max_qty" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                            <field name="multiple_qty" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                            <field name="trigger" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                            <field name="state"/>
-                            <field name="action"/>
+                            <field name="supplier_code" />
+                            <field name="supplier_name" />
+                            <field name="product_code" />
+                            <field name="product_name" />
+                            <field
+                name="supplier_product_code"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="supplier_product_name"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="quantity"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="price"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="discount"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="delay"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="currency"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="date_start"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="date_end"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+              />
+                            <field
+                name="location"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+              />
+                            <field
+                name="min_qty"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+              />
+                            <field
+                name="max_qty"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+              />
+                            <field
+                name="multiple_qty"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+              />
+                            <field
+                name="trigger"
+                attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+              />
+                            <field name="state" />
+                            <field name="action" />
                         </group>
                         <group>
                             <field
@@ -140,7 +182,7 @@
               />
                         </group>
                     </group>
-                    <field name="log_info"/>
+                    <field name="log_info" />
                 </sheet>
             </form>
         </field>
@@ -155,34 +197,110 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action" optional="hide"/>
-                <field name="supplier_code" optional="show"/>
-                <field name="supplier_name" optional="show"/>
-                <field name="supplier_id" optional="hide"/>
-                <field name="product_code" optional="show"/>
-                <field name="product_name" optional="show"/>
-                <field name="product_id" optional="hide"/>
-                <field name="supplier_product_code" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="supplier_product_name" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="product_supplierinfo_id" optional="hide" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="quantity" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="price" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="discount" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="delay" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="currency" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="currency_id" optional="hide" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="date_start" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="date_end" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"/>
-                <field name="location" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="location_id" optional="hide" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="route_id" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="min_qty" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="max_qty" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="multiple_qty" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="trigger" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="orderpoint_id" optional="show" attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"/>
-                <field name="state" optional="hide"/>
-                <field name="log_info" optional="show"/>
+                <field name="action" optional="hide" />
+                <field name="supplier_code" optional="show" />
+                <field name="supplier_name" optional="show" />
+                <field name="supplier_id" optional="hide" />
+                <field name="product_code" optional="show" />
+                <field name="product_name" optional="show" />
+                <field name="product_id" optional="hide" />
+                <field
+          name="supplier_product_code"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="supplier_product_name"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="product_supplierinfo_id"
+          optional="hide"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="quantity"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="price"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="discount"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="delay"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="currency"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="currency_id"
+          optional="hide"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="date_start"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="date_end"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'sourcing')]}"
+        />
+                <field
+          name="location"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="location_id"
+          optional="hide"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="route_id"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="min_qty"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="max_qty"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="multiple_qty"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="trigger"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field
+          name="orderpoint_id"
+          optional="show"
+          attrs="{'column_invisible': [('parent.import_type', '=', 'supplierinfo')]}"
+        />
+                <field name="state" optional="hide" />
+                <field name="log_info" optional="show" />
             </tree>
         </field>
     </record>
@@ -197,8 +315,8 @@
 
     <record id="action_validate_import_line" model="ir.actions.server">
         <field name="name">Validate</field>
-        <field name="model_id" ref="product.model_product_supplierinfo"/>
-        <field name="binding_model_id" ref="product.model_product_supplierinfo"/>
+        <field name="model_id" ref="product.model_product_supplierinfo" />
+        <field name="binding_model_id" ref="product.model_product_supplierinfo" />
         <field name="state">code</field>
         <field name="code">
             for record in records:
@@ -208,8 +326,8 @@
 
     <record id="action_process_import_line" model="ir.actions.server">
         <field name="name">Process</field>
-        <field name="model_id" ref="product.model_product_supplierinfo"/>
-        <field name="binding_model_id" ref="product.model_product_supplierinfo"/>
+        <field name="model_id" ref="product.model_product_supplierinfo" />
+        <field name="binding_model_id" ref="product.model_product_supplierinfo" />
         <field name="state">code</field>
         <field name="code">
             for record in records:

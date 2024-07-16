@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Owner From Dest Address",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -10,8 +10,7 @@
     "depends": [
         "purchase_stock",
     ],
-    "data": [
-    ],
+    "data": [],
     "installable": True,
     "auto_install": False,
 }

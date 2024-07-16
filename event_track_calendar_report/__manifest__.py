@@ -6,11 +6,8 @@
     "category": "Project",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "calendar",
-        "website_event_track"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["calendar", "website_event_track"],
     "data": [
         "security/ir.model.access.csv",
         "report/event_track_report_views.xml",

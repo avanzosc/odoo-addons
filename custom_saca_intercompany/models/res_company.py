@@ -6,9 +6,5 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    paasa = fields.Boolean(
-        string="PAASA",
-        default=False)
-    tolvasa = fields.Boolean(
-        string="Tolvasa",
-        default=False)
+    paasa = fields.Boolean(string="PAASA", default=False)
+    tolvasa = fields.Boolean(string="Tolvasa", default=False)

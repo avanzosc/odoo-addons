@@ -3,12 +3,10 @@
 {
     "name": "Account Invoice Report Grouped By Picking Refund",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "category": "Invoices & Payments",
-    "website": "http://www.avanzosc.es",
-    "depends": [
-        "account_invoice_report_grouped_by_picking"
-    ],
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "depends": ["account_invoice_report_grouped_by_picking"],
     "data": [
         "reports/account_invoice_report.xml",
     ],

@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Account Budget Oca Usability",
-    'version': '14.0.1.0.0',
+    "version": "14.0.1.0.0",
     "category": "Accounting",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "account",
         "account_budget_oca",

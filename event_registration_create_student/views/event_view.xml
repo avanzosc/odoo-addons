@@ -1,16 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_event_form" model="ir.ui.view">
         <field name="model">event.event</field>
-        <field name="inherit_id" ref="event.view_event_form"/>
+        <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <page name="event_notes" position="before">
                 <page string="Students" name="event_students">
                     <group>
-                        <field name="create_student_check"/>
-                        <field name="create_student_user_check"/>
-                        <field name="generate_student_email_check"/>
+                        <field name="create_student_check" />
+                        <field name="create_student_user_check" />
+                        <field name="generate_student_email_check" />
                     </group>
                 </page>
             </page>
@@ -18,7 +17,7 @@
     </record>
     <record id="action_create_student_partner" model="ir.actions.server">
         <field name="name">Force student create</field>
-        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="model_id" ref="event.model_event_registration" />
         <field name="binding_model_id" ref="event.model_event_registration" />
         <field name="state">code</field>
         <field name="code">
@@ -28,7 +27,7 @@
     </record>
     <record id="action_create_student_user" model="ir.actions.server">
         <field name="name">Force student user create</field>
-        <field name="model_id" ref="event.model_event_registration"/>
+        <field name="model_id" ref="event.model_event_registration" />
         <field name="binding_model_id" ref="event.model_event_registration" />
         <field name="state">code</field>
         <field name="code">

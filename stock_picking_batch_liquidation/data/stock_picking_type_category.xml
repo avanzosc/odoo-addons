@@ -1,7 +1,10 @@
-<odoo>
-    <data noupdate="1">
-        <record forcecreate="True" id="picking_type_categ_regu" model="stock.picking.type.category">
-            <field name="name">Regularización</field>
-        </record>
-    </data>
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record
+    forcecreate="True"
+    id="picking_type_categ_regu"
+    model="stock.picking.type.category"
+  >
+        <field name="name">Regularización</field>
+    </record>
 </odoo>

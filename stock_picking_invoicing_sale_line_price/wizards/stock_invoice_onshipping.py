@@ -7,8 +7,7 @@ class StockInvoiceOnshipping(models.TransientModel):
     _inherit = "stock.invoice.onshipping"
 
     def _get_invoice_line_values(self, moves, invoice_values, invoice):
-        result = super(StockInvoiceOnshipping, self)._get_invoice_line_values(
-            moves, invoice_values, invoice)
+        result = super()._get_invoice_line_values(moves, invoice_values, invoice)
         if len(moves) == 1 and moves.sale_line_id:
             result["price_unit"] = moves.sale_line_id.price_unit
         return result

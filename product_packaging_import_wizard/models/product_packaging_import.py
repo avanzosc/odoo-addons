@@ -40,7 +40,7 @@ class ProductPackagingImport(models.Model):
             quantity = row_values.get("Quantity", "")
             max_weight = row_values.get("Max Weight", "")
             weight = row_values.get("Weight", "")
-            length = row_values.get("Length", "")
+            packaging_length = row_values.get("Length", "")
             width = row_values.get("Width", "")
             height = row_values.get("Height", "")
             log_info = ""
@@ -61,7 +61,7 @@ class ProductPackagingImport(models.Model):
                     "quantity": quantity,
                     "max_weight": max_weight,
                     "weight": weight,
-                    "length": length,
+                    "packaging_length": packaging_length,
                     "width": width,
                     "height": height,
                     "log_info": log_info,
@@ -144,7 +144,7 @@ class ProductPackagingImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    length = fields.Float(
+    packaging_length = fields.Float(
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -278,7 +278,7 @@ class ProductPackagingImportLine(models.Model):
             "qty": self.quantity,
             "max_weight": self.max_weight,
             "weight": self.weight,
-            "packaging_length": self.length,
+            "packaging_length": self.packaging_length,
             "width": self.width,
             "height": self.height,
             "company_id": self.import_id.company_id.id,

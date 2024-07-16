@@ -1,34 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
     <record id="stock_valuation_layer_form" model="ir.ui.view">
         <field name="model">stock.valuation.layer</field>
-        <field name="inherit_id" ref="stock_account.stock_valuation_layer_form"/>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_form" />
         <field name="arch" type="xml">
             <field name="stock_move_id" position="after">
-                <field name="date"/>
+                <field name="date" />
             </field>
         </field>
     </record>
 
     <record id="stock_valuation_layer_tree" model="ir.ui.view">
         <field name="model">stock.valuation.layer</field>
-        <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+        <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree" />
         <field name="arch" type="xml">
             <field name="create_date" position="after">
-                <field name="date" optional="show"/>
+                <field name="date" optional="show" />
             </field>
         </field>
     </record>
 
     <record id="view_inventory_valuation_search" model="ir.ui.view">
         <field name="model">stock.valuation.layer</field>
-        <field name="inherit_id" ref="stock_account.view_inventory_valuation_search"/>
+        <field name="inherit_id" ref="stock_account.view_inventory_valuation_search" />
         <field name="arch" type="xml">
             <filter name="group_by_product_id" position="after">
-                <filter name="date" date="date"/>
-                <filter string="Move Date" name="date" domain="[]" context="{'group_by': 'date'}"/>
+                <filter name="date" date="date" />
+                <filter
+          string="Move Date"
+          name="date"
+          domain="[]"
+          context="{'group_by': 'date'}"
+        />
             </filter>
         </field>
     </record>

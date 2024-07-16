@@ -3,12 +3,10 @@
 {
     "name": "Event Responsible Force Employee Lang Level",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
-    "depends": [
-        "event_responsible_force_employee",
-        "event_lang_level"
-    ],
+    "depends": ["event_responsible_force_employee", "event_lang_level"],
     "data": [
         "views/event_event_views.xml",
     ],

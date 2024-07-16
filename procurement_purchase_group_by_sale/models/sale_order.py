@@ -7,5 +7,6 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     def action_confirm(self):
-        return super(SaleOrder, self.with_context(
-            sale_origin=self.name)).action_confirm()
+        return super(
+            SaleOrder, self.with_context(sale_origin=self.name)
+        ).action_confirm()

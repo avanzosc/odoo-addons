@@ -7,7 +7,5 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     requisition_origin = fields.Char(
-        string="Requisition Origin",
-        related="requisition_id.origin",
-        store=True
+        string="Requisition Origin", related="requisition_id.origin", store=True
     )

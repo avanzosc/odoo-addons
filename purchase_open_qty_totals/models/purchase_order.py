@@ -1,6 +1,6 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class PurchaseOrder(models.Model):
@@ -14,14 +14,14 @@ class PurchaseOrder(models.Model):
         compute="_compute_qty_received",
         string="Qty Received",
     )
+    qty_ordered = fields.Float(compute="_compute_qty_ordered", string="Ordered Qty")
 
     @api.depends("order_line", "order_line.qty_invoiced")
     def _compute_qty_invoiced(self):
         for purchase in self:
             qty_invoiced = 0
             if purchase.order_line:
-                qty_invoiced = sum(
-                    purchase.order_line.mapped("qty_invoiced"))
+                qty_invoiced = sum(purchase.order_line.mapped("qty_invoiced"))
             purchase.qty_invoiced = qty_invoiced
 
     @api.depends("order_line", "order_line.qty_received")
@@ -29,6 +29,13 @@ class PurchaseOrder(models.Model):
         for purchase in self:
             qty_received = 0
             if purchase.order_line:
-                qty_received = sum(
-                    purchase.order_line.mapped("qty_received"))
+                qty_received = sum(purchase.order_line.mapped("qty_received"))
             purchase.qty_received = qty_received
+
+    @api.depends("order_line", "order_line.product_qty")
+    def _compute_qty_ordered(self):
+        for purchase in self:
+            qty_ordered = 0
+            if purchase.order_line:
+                qty_ordered = sum(purchase.order_line.mapped("product_qty"))
+            purchase.qty_ordered = qty_ordered

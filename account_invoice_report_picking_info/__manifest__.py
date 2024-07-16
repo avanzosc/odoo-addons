@@ -3,16 +3,16 @@
 {
     "name": "Account Invoice Report Picking Info",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "category": "Invoices & Payments",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "web",
         "account",
         "sale",
         "stock",
         "sale_stock",
-        "stock_picking_invoice_link"
+        "stock_picking_invoice_link",
     ],
     "data": [
         "reports/account_invoice_report.xml",

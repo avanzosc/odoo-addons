@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Breeding Apps",
-    'version': '14.0.2.0.0',
-    "author": "Avanzosc",
+    "version": "14.0.2.0.0",
+    "author": "AvanzOSC",
     "category": "Inventory",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "sale_stock",
         "stock_warehouse_farm",
@@ -52,5 +52,5 @@
         "views/sale_order_view.xml",
     ],
     "license": "AGPL-3",
-    'installable': True,
+    "installable": True,
 }

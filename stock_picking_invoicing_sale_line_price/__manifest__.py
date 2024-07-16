@@ -7,10 +7,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Warehouse Management",
     "license": "AGPL-3",
-    "depends": [
-        "stock_picking_invoicing"
-    ],
-    "data": [
-    ],
+    "depends": ["stock_picking_invoicing"],
+    "data": [],
     "installable": True,
 }

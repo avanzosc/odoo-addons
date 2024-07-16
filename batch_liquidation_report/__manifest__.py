@@ -7,7 +7,7 @@
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "web",
         "purchase",
@@ -16,6 +16,7 @@
         "sale_order_lot_selection",
         "stock_picking_batch_liquidation",
         "report_qweb_element_page_visibility",
+        "account_invoice_report_grouped_by_picking",
     ],
     "data": [
         "security/ir.model.access.csv",
