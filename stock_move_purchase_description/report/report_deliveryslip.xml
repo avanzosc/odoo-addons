@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//tr[@t-as='move']/td[1]" position="attributes">
+            <attribute name="t-if">o.picking_type_id.code != 'incoming'</attribute>
+        </xpath>
+        <xpath expr="//tr[@t-as='move']/td[1]" position="after">
+            <td t-if="o.picking_type_id.code == 'incoming'">
+                <span t-field="move.name" />
+            </td>
+        </xpath>
+    </template>
+
+    <template
+    id="stock_report_delivery_has_serial_move_line"
+    inherit_id="stock.stock_report_delivery_has_serial_move_line"
+  >
+        <xpath expr="//span[@t-field='move_line.product_id']/.." position="attributes">
+            <attribute name="t-if">o.picking_type_id.code != 'incoming'</attribute>
+        </xpath>
+        <xpath expr="//span[@t-field='move_line.product_id']/.." position="after">
+            <td t-if="o.picking_type_id.code == 'incoming'">
+                <span t-field="move_line.move_id.name" />
+            </td>
+        </xpath>
+    </template>
+</odoo>
