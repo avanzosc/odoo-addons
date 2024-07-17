@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_saleorder_document_inh_centropuertas"
+    inherit_id="sale.report_saleorder_document"
+  >
+        <!--
+        <td name="td_amount_by_group_label_3" position="replace">
+           <td name="td_amount_by_group_label_3" class="o_tax">
+               <strong>IVA</strong>
+           </td>
+        </td>
+        -->
+        <xpath expr="//h2" position="replace" />
+        <p t-if="not is_html_empty(doc.payment_term_id.note)" position="replace" />
+        <xpath expr="//div[@id='informations']" position="replace">
+            <table class="table o_head_table">
+                <tbody class="sale_tbody">
+                    <tr>
+                        <th class="text-left o_head_title">PRESUPUESTO Nº.:</th>
+                        <td class="text-left"><t t-esc="doc.name" /></td>
+                        <th
+              name="th_quot_date"
+              class="text-left o_head_title"
+            >Fecha Presupuesto:</th>
+                        <td name="td_quot_date" class="text-left"><span
+                t-field="doc.date_order"
+                t-options='{"widget": "date"}'
+              /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table o_info_table p-5" border="0">
+                <tbody class="sale_tbody">
+                    <tr>
+                        <th class="text-left">Cliente:</th>
+                        <td class="text-left" colspan="7"><t
+                t-esc="doc.partner_id.name"
+              /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Dirección:</th>
+                        <td class="text-left" colspan="7"><t
+                t-esc="doc.partner_id.street"
+              /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Población:</th>
+                        <td class="text-left" colspan="3"><t
+                t-esc="doc.partner_id.city"
+              /></td>
+                        <th class="text-left">Provincia:</th>
+                        <td class="text-left"><t
+                t-esc="doc.partner_id.state_id.display_name"
+              /></td>
+                        <th class="text-left">C.P.:</th>
+                        <td class="text-left"><t t-esc="doc.partner_id.zip" /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Contacto:</th>
+                        <td class="text-left">
+                            <t t-foreach="doc.partner_id.child_ids" t-as="child">
+                                <span><t t-esc="child.name" /></span>
+                            </t>
+                        </td>
+                        <th class="text-left">Teléfono:</th>
+                        <td class="text-left"><t t-esc="doc.partner_id.phone" /></td>
+                        <th class="text-left">E-mail:</th>
+                        <td class="text-left" colspan="3"><t
+                t-esc="doc.partner_id.email"
+              /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Comercial:</th>
+                        <td class="text-left" colspan="3"><t
+                t-esc="doc.user_id.name"
+              /></td>
+                        <th class="text-left">Móvil:</th>
+                        <td class="text-left" colspan="3"><t
+                t-esc="doc.user_id.mobile"
+              /></td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Referencia:</th>
+                        <td class="text-left" colspan="3"><t
+                t-esc="doc.client_order_ref"
+              /></td>
+                        <th class="text-left">Forma de Pago:</th>
+                        <td class="text-left" colspan="3">
+                            <t t-esc="doc.payment_mode_id.name" />
+                            <t t-if="doc.payment_term_id">
+                                (<t t-esc="doc.payment_term_id.name" />)
+                            </t>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+        <xpath expr="//table[hasclass('o_main_table')]" position="replace">
+            <table class="table o_main_table">
+                <thead>
+                    <tr style="max-height: 10px !important;">
+                        <th name="th_reference" class="text-center">Referencia</th>
+                        <th name="th_quantity" class="text-center">Ud.</th>
+                        <th name="th_description" class="text-center">Descripción</th>
+                        <th name="th_priceunit" class="text-center">Precio</th>
+                        <th
+              name="th_discount"
+              t-if="display_discount"
+              class="text-center"
+              groups="product.group_discount_per_so_line"
+            >
+                            <span>Des.</span>
+                        </th>
+                        <th name="th_subtotal" class="text-center">
+                            <t
+                groups="account.group_show_line_subtotals_tax_excluded"
+              >Cantidad</t>
+                            <t
+                groups="account.group_show_line_subtotals_tax_included"
+              >Total</t>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+                    <t t-set="current_subtotal" t-value="0" />
+                    <t t-foreach="doc.order_line" t-as="line">
+                        <t
+              t-set="current_subtotal"
+              t-value="current_subtotal + line.price_subtotal"
+              groups="account.group_show_line_subtotals_tax_excluded"
+            />
+                        <t
+              t-set="current_subtotal"
+              t-value="current_subtotal + line.price_total"
+              groups="account.group_show_line_subtotals_tax_included"
+            />
+                        <tr
+              t-att-class="'bg-200 font-weight-bold o_line_section' if line.display_type == 'line_section' else 'font-italic o_line_note' if line.display_type == 'line_note' else ''"
+            >
+                            <t t-if="not line.display_type">
+                                <td class="align-top" name="td_ref"><span
+                    t-field="line.product_id.default_code"
+                  /></td>
+                                <td class="align-top" name="td_qty"><span
+                    t-if="line.product_uom_qty"
+                    t-field="line.product_uom_qty"
+                  /></td>
+                                <td class="align-top" name="td_name"><span
+                    t-field="line.name"
+                  /></td>
+                                <td class="text-right" name="td_price_unit"><span
+                    t-if="line.price_unit and line.print_details"
+                    t-field="line.price_unit"
+                  /></td>
+                                <td
+                  class="text-right"
+                  name="td_discount"
+                  t-if="display_discount"
+                ><span t-if="line.print_details" t-field="line.discount" /> %</td>
+                                <td class="text-right" name="td_price_subtotal"><span
+                    t-if="line.price_subtotal and line.print_details"
+                    t-field="line.price_subtotal"
+                  /></td>
+                            </t>
+                            <t t-if="line.display_type == 'line_section'">
+                                <td colspan="99">
+                                    <span t-field="line.name" />
+                                </td>
+                                <t t-set="current_section" t-value="line" />
+                                <t t-set="current_subtotal" t-value="0" />
+                            </t>
+                            <t t-if="line.display_type == 'line_note'">
+                                <td colspan="99">
+                                    <span t-field="line.name" />
+                                </td>
+                            </t>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </xpath>
+        <xpath expr="//div[@id='total']/div" position="attributes">
+            <attribute
+        name="t-attf-class"
+      >#{'col-4' if report_type != 'html' else 'col-sm-6 col-md-5'}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']/div/table" position="attributes">
+            <attribute name="class">table o_subtotal_table</attribute>
+        </xpath>
+        <!--
+        <xpath expr="//td[@name='td_amount_total_label']" position="replace">
+            <th name="td_amount_total_label"><strong>Total</strong></th>
+        </xpath>
+        -->
+        <xpath expr="//div[@id='total']/div" position="before">
+            <div
+        t-attf-class="#{'col-8' if report_type != 'html' else 'col-sm-6 col-md-7'}"
+      >
+                <table class="table o_confirm_table">
+                    <thead><tr><th>Conforme Cliente:</th></tr></thead>
+                    <tbody>
+                        <tr class="confirmation_td"><td /></tr>
+                    </tbody>
+                </table>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="after">
+            <t t-if="doc and doc._name == 'sale.order'">
+                <t t-call="centropuertas_reports.sale_terms" />
+            </t>
+        </xpath>
+    </template>
+    <template id="sale_terms">
+        <div class="page" style="page-break-before:always;">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="o_terms_conditions">
+                            <h7><b>CONFIRMACIÓN DE PEDIDO</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                Presupuesto válido para un mes. Deberán remitirnos copia firmada y sellada de la presente oferta como muestra de aceptación de la misma. <br
+              />
+                                Cualquier ampliación sobre lo contratado según presupuesto / pedido será facturado posteriormente y no supondrá un retraso sobre la facturación inicial.<br
+              />
+                                Cualquier cambio de características técnicas a las acordadas en la visita de obra comportará la valoración económica pertinente, de acuerdo con nuestras tarifas vigentes. Se entenderá como anexo al pedido inicial.<br
+              />
+                                En el caso de anulación del pedido por parte del comprador, los productos acabados o en curso de fabricación serán suministrados y facturados por el 100% de su valor, incluyendo los gastos de transporte derivados, si fuese el caso.
+                            </p>
+                            <h7><b>IMPUESTOS PRECIO</b></h7>
+                            <br />
+                            <p class="text-justify mb-0">
+                                No están incluidos en los precios y son a cargo del comprador. Se aplicarán los correspondientes según la legislación vigente en cada momento.<br
+              />
+                                Rogamos nos indiquen si los trabajos contratados se ajustan a la "inversión del sujeto pasivo", según queda recogido en la Ley 7/2012 de 29 de octubre de 2012:
+                                <ul>
+                                    <li
+                >□ SI, en tal caso emitiríamos la factura sin cuota de IVA repercutida, con la mención expresa "SUJETO PASIVO DESTINATARIO DE LA OPERACIÓN, art.84 Uno 2º f) de la Ley 37/1992 del Impuesto sobre el Valor Añadido".</li>
+                                    <li
+                >□ NO, la factura se emitirá con IVA repercutido.</li>
+                                </ul>
+                                Asimismo, indiquen si se trata de una obra para “autopromoción de vivienda familiar”, según lo previsto en la Ley 6/2002 de 27 de junio de 2002:
+                                <ul>
+                                    <li
+                >□ SI, en ese caso emitiríamos la factura con cuota de IVA reducido del 10%, de acuerdo al Art.91 Uno 3. 1º de la Ley 37/1992, de 28 de diciembre.</li>
+                                    <li
+                >□ NO, la factura se emitirá con IVA del 21%.</li>
+                                </ul>
+                            </p>
+                            <h7><b>PLAZOS DE SUMINISTRO/ENTREGA</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                El plazo de entrega empieza a contar a partir de la semana siguiente a la fecha de aceptación del presupuesto por escrito, presuponiendo aclarados todos los datos técnicos y económicos por escrito y de mutuo acuerdo.<br
+              />
+                                La modificación de un pedido en ampliación o variación de producto o medidas deberá ser comunicado y aceptado por escrito por Centropuertas Norte 2007 S.L., suponiendo de forma automática una modificación del plazo de entrega, no pudiendo considerarse como retraso en el suministro.<br
+              />
+                                Los plazos proporcionados son a título informativo y, en consecuencia, no se admitirán penalizaciones por causa de demoras en las entregas.<br
+              />
+                                Los retrasos en la entrega originados por causas de fuerza mayor o que no sean directamente imputables a Centropuertas Norte 2007 S.L., no serán causa justificada de anulación o penalización económica.<br
+              />
+                            </p>
+                            <h7><b>SUMINISTRO</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                Las mercancías se entienden entregadas en nuestros almacenes o en el destino indicado por el cliente.
+                            </p>
+                            <h7><b>RECEPCIÓN DE LA MERCANCÍA</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                El comprador facilitará a su cargo los medios necesarios para la descarga y recepción de la mercancía.<br
+              />
+                                La mercancía deberá ser verificada por el comprador, indicando por escrito si existiese algún defecto aparente, en el plazo máximo de 24 horas posteriores a la fecha de recepción de la mercancía. El comprador tiene la obligación de revisar la mercancía en el momento de la descarga y de anotar cualquier incidencia en el mismo albarán del transportista.<br
+              />
+                                La custodia de la mercancía es responsabilidad exclusiva del comprador y cualquier daño o extravío durante dicha custodia será asumido por el comprador.<br
+              />
+                                No se aceptará ninguna devolución que no esté previamente acordada por escrito con Centropuertas Norte 2007, S.L.
+                            </p>
+                            <h7><b>DEVOLUCIONES DE LA MERCANCÍA</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                Para proceder al abono, en su caso, de la mercancía devuelta, esta deberá estar en perfecto estado y, en su caso, en el embalaje original de Centropuertas Norte 2007 S.L.<br
+              />
+                                Centropuertas Norte 2007 S.L., se reserva el derecho a descontar los gastos ocasionados por la devolución
+                            </p>
+                            <h7><b>MONTAJE</b></h7>
+                            <br />
+                            <p class="text-justify mb-0">
+                                Las tarifas aplicadas se refieren siempre a trabajos efectuados en días laborables y dentro del horario laboral de Centropuertas Norte 2007 S.L.<br
+              />
+                                Los retrasos de obra imputables al comprador que afecten el inicio o duración del montaje deben ser comunicados por escrito a Centropuertas Norte 2007 S.L., quien se reserva el derecho de repercutir al comprador los gastos y costas ocasionados por dicha demora.<br
+              />
+                                El precio de montaje comprende la visita previa para definición de obra, medidas y requerimientos para la correcta instalación de los equipos. También están incluidos los portes.<br
+              />
+                                Centropuertas Norte 2007 S.L, solo realizará en obra aquellos trabajos que afecten exclusivamente a la instalación de su material, no siendo de su competencia:
+                                <ul class="mt-0">
+                                    <li
+                >Realización y puesta a punto de los huecos de obra.</li>
+                                    <li
+                >Protección adecuada de las acometidas eléctricas tanto a la maniobra como al motor, según la legislación vigente.</li>
+                                    <li>Trabajos de albañilería (obra civil).</li>
+                                    <li
+                >Instalación de cableado y / o entubado del sistema eléctrico fuera del ámbito de la puerta, motor a caja maniobra.</li>
+                                    <li
+                >Conexiones eléctricas definitivas, en aquellos casos en los que la instalación eléctrica no estuviera en funcionamiento en el momento de efectuar el montaje.</li>
+                                    <li
+                >Conexión de automatismos. Los presupuestos o pedidos que tengan instalación de automatismos incluyen la conexión de los mismos, siempre que ello pueda efectuarse en el momento mismo de su instalación. Los cargos adicionales se facturarán según las tarifas vigentes. Se consideran cargos adicionales.</li>
+                                    <li
+                >Los desplazamientos para montajes en caso de aviso del comprador y la obra no estuviesen en condiciones para realizar la instalación.</li>
+                                    <li
+                >Queda excluido del presupuesto cualquier tipo de remate (chapas, forros, ángulos, tubos…) o reparación (falsos techos, paredes, recubrimientos…) que eventualmente fuera necesario por causa de un deficiente acabado o preparación de los elementos circundantes al equipo instalado, errores en las medidas acordadas o cualquier otro incumplimiento o inexactitud en las instrucciones técnicas previas y necesarias para la instalación del equipo que han sido facilitadas por parte del comprador. También se excluyen aquellos desperfectos que se originen como imprevisto durante la instalación y que sean fruto de las circunstancias previas a la obra (paredes en mal estado, otros ejemplos…), es decir, no causados por nuestro trabajo realizado. Así mismo, se facturará aparte cualquier otra partida no especificada en la oferta.</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="o_terms_conditions">
+                            <h7><b>PAGO</b></h7>
+                            <br />
+                            <p class="text-justify mb-0">
+                                En función del análisis financiero, Centropuertas Norte 2007 S.L. y el comprador, acordarán una forma y un plazo de pago que deberá cumplir la Ley 15/2010, de 5 de julio, por la que se establecen medidas de lucha contra la morosidad en las operaciones comerciales. De acuerdo a esta ley en el art. 4 1.a), el plazo de pago será de “sesenta días después de la fecha de recepción de las mercancías o prestación de los servicios”.<br
+              />
+                                Plazo de pago debe ser respetado. En caso de incumplimiento, Centropuertas Norte 2007 S.L. se reserva el derecho a adoptar las medidas que considere convenientes.<br
+              />
+                                Centropuertas Norte 2007 S.L. se reserva el derecho de aceptar el pedido o de modificar las condiciones de pago en función de la valoración realizada por la compañía de seguros de crédito.<br
+              />
+                                El incumplimiento del pago supondrá:<br />
+                                <ul>
+                                    <li
+                >Recargo por demora del 1% de interés nominal mensual desde el momento del vencimiento de la factura.</li>
+                                    <li
+                >Recargo de posibles gastos por devoluciones bancarias.</li>
+                                    <li>Recargo por gastos administrativos</li>
+                                </ul>
+                            </p>
+                            <h7><b>RESERVA DE DOMINIO</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                Hasta que el comprador no haya procedido al pago total de los productos adquiridos, se establece una reserva de dominio de los mismos a favor de Centropuertas Norte 2007 S.L. En caso de embargo o traba de cualquier clase sobre sus bienes, el comprador se obliga a indicar que los productos no pagados son propiedad de Centropuertas Norte 2007 S.L.
+                            </p>
+                            <h7><b>GARANTÍA</b></h7>
+                            <ol class="text-justify">
+                                <li
+              >Centropuertas Norte 2007 S.L., no asumirá compromiso de garantía con clientes que no tengan su deuda con Centropuertas Norte 2007 S.L., saldada.</li>
+                                <li
+              >En los casos que el cliente sea consumidor y usuario (no aplicable a empresarios o industriales), según establece el Real Decreto Legislativo 1/2007 en su artículo 123, Centropuertas Norte 2007 S.L., responderá de las faltas de conformidad que se manifiesten en los productos durante un plazo de dos años desde la entrega
+                                    <ol class="ml-2">
+                                        <li
+                  >Si el defecto del producto se manifiesta durante los seis primeros meses desde la fecha de la entrega, se entiende que este defecto ya existía cuando lo entregaron, es decir, que era de origen. En ese caso, para que no opere la garantía, corresponderá a Centropuertas Norte 2007 S.L., demostrar lo contrario y que el defecto ha aparecido después a causa de un mal uso o de un mantenimiento defectuoso.</li>
+                                        <li
+                  >Si el defecto aparece después de los seis primeros meses y hasta los dos años de la fecha de entrega, para que opere la garantía, el cliente tendrá que probar que el defecto era de origen y que no se debe a un mal uso o al paso del tiempo.</li>
+                                    </ol>
+                                </li>
+                                <li
+              >La garantía cubre la reposición o reparación de las piezas y componentes que sean considerados defectuosos de fábrica, excluyéndose de la misma todos aquellos elementos anexos al producto que no hayan sido suministrados por Centropuertas Norte 2007 S.L, tales como instalaciones eléctricas, alarmas, elementos decorativos, etc. Quedan excluidos los elementos de desgaste mecánico.</li>
+                                <li
+              >Nuestra garantía queda automáticamente anulada por los motivos siguientes:</li>
+                                <ol class="ml-2">
+                                    <li
+                >Cuando no se respeten las instrucciones de servicio.</li>
+                                    <li
+                >Reparaciones o instalaciones inadecuadas efectuadas por personal ajeno o no autorizado por Centropuertas Norte 2007 S.L.</li>
+                                    <li
+                >Utilización de piezas de recambio que no sean originales Centropuertas Norte 2007 S.L.</li>
+                                    <li>Manipulación indebida.</li>
+                                    <li
+                >Falta de mantenimiento contratado con Centropuertas Norte 2007 S.L., o empresas colaboradoras de la red oficial Centropuertas Norte 2007 S.L.</li>
+                                </ol>
+                                <li
+              >Queda excluida cualquier responsabilidad por perjuicio sufrido en la instalación por causa de fuerza mayor.</li>
+                                <li
+              >El incumplimiento del pago puede suponer que Centropuertas Norte 2007 S.L. no responda ante peticiones de reparación o mantenimiento.</li>
+                            </ol>
+                            <h7><b>SEGURIDAD</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                El personal de Centropuertas Norte 2007 S.L. está debidamente asegurado contra accidentes, de acuerdo con las leyes vigentes y al corriente en el pago de las cuotas de la Seguridad Social. El contratante podrá exigir a Centropuertas Norte 2007 S.L. la presentación de los comprobantes, comunicado por parte del comprador, con una antelación de 7 días laborables.
+                            </p>
+                            <h7><b>MANTENIMIENTO</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                Centropuertas Norte 2007 S.L. tiene a su disposición varias modalidades de servicio de mantenimiento. Pueden ponerse en contacto en info@centropuertasnorte.es o en el teléfono 945 601 375.
+                            </p>
+                            <h7><b>PROTECCIÓN DE DATOS</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                De conformidad a la normativa vigente y conforme a la Política de Protección de Datos de Centropuertas Norte 2007 S.L le informamos que:<br
+              />
+
+                                El Responsable del tratamiento de sus datos es la empresa Centropuertas Norte 2007 S.L, CIF NIF: B26431866 con sede en el Polígono Los Castaños, nave 16, Paso el Prao Kalea, 01320 Oyón-Oion, Álava, Teléfono: 945601375 y Correo electrónico: INFO@CENTROPUERTASNORTE.ES<br
+              />
+                                Así mismo en Centropuertas Norte 2007 S.L tratamos la información que nos facilita con el fin de prestarles el servicio solicitado y realizar su facturación. Los datos proporcionados se conservarán mientras se mantenga la relación comercial o durante el tiempo necesario para cumplir con las obligaciones legales y atender las posibles responsabilidades que pudieran derivar del cumplimiento de la finalidad para la que los datos fueron recabados. Los datos no se cederán a terceros salvo en los casos en que exista una obligación legal. Usted tiene derecho a obtener información sobre si en Centropuertas Norte 2007 S.L estamos tratando sus datos personales, por lo que puede ejercer sus derechos de acceso, rectificación, supresión y portabilidad de datos y oposición y limitación a su tratamiento ante Centropuertas Norte 2007 S.L, Polígono Los Castaños, nave 16, Paso el Prao Kalea, 01320 Oyón-Oion, Álava o en la dirección de correo electrónico info@centropuertasnorte.es, adjuntando copia de su DNI o documento equivalente.  Asimismo, y especialmente si considera que no ha obtenido satisfacción plena en el ejercicio de sus derechos, podrá presentar una reclamación ante la autoridad nacional de control dirigiéndose a estos efectos a la Agencia Española de Protección de Datos, C/ Jorge Juan, 6 – 28001 Madrid.<br
+              />
+
+                                Asimismo, solicitamos su autorización para ofrecerle productos y servicios relacionados con los contratados y fidelizarle como cliente.:<br
+              />
+                                ⃝ SI<br />
+                                ⃝ NO<br />
+                            </p>
+                            <h7><b>JURISDICCIÓN</b></h7>
+                            <br />
+                            <p class="text-justify">
+                                El comprador y Centropuertas Norte 2007 S.L., se someten expresamente a los Tribunales y Juzgados de Álava.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </template>
+    <!--<template id="sale_terms">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <div class="page">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="o_terms_conditions">
+                            <h7><b>CONFIRMACIÓN DE PEDIDO</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                Presupuesto válido para tres meses. Deberán remitirnos copia firmada y sellada de la presente oferta como muestra de aceptación de la misma. <br/>
+                                Cualquier ampliación sobre lo contratado según presupuesto / pedido será facturado posteriormente y no supondrá un retraso sobre la facturación inicial.<br/>
+                                Cualquier cambio de características técnicas a las acordadas en la visita de obra comportará la valoración económica pertinente, de acuerdo con nuestras tarifas vigentes. Se entenderá como anexo al pedido inicial.<br/>
+                                En el caso de anulación del pedido por parte del comprador, los productos acabados o en curso de fabricación serán suministrados y facturados por el 100% de su valor, incluyendo los gastos de transporte derivados, si fuese el caso.
+                            </p>
+                            <h7><b>IMPUESTOS PRECIO</b></h7>
+                            <br/>
+                            <p class="text-justify mb-0">
+                                No están incluidos en los precios y son a cargo del comprador. Se aplicarán los correspondientes según la legislación vigente en cada momento.<br/>
+                                Rogamos nos indiquen si los trabajos contratados se ajustan a la "inversión del sujeto pasivo", según queda recogido en la Ley 7/2012 de 29 de octubre de 2012:
+                                <ul>
+                                    <li>□ SI, en tal caso emitiríamos la factura sin cuota de IVA repercutida, con la mención expresa "SUJETO PASIVO DESTINATARIO DE LA OPERACIÓN, art.84 Uno 2º f) de la Ley 37/1992 del Impuesto sobre el Valor Añadido".</li>
+                                    <li>□ NO, la factura se emitirá con IVA repercutido.</li>
+                                </ul>
+                                Asimismo, indiquen si se trata de una obra para “autopromoción de vivienda familiar”, según lo previsto en la Ley 6/2002 de 27 de junio de 2002:
+                                <ul>
+                                    <li>□ SI, en ese caso emitiríamos la factura con cuota de IVA reducido del 10%, de acuerdo al Art.91 Uno 3. 1º de la Ley 37/1992, de 28 de diciembre.</li>
+                                    <li>□ NO, la factura se emitirá con IVA del 21%.</li>
+                                </ul>
+                            </p>
+                            <h7><b>PLAZOS DE SUMINISTRO/ENTREGA</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                El plazo de entrega empieza a contar a partir de la semana siguiente a la fecha de aceptación del presupuesto por escrito, presuponiendo aclarados todos los datos técnicos y económicos por escrito y de mutuo acuerdo.<br/>
+                                La modificación de un pedido en ampliación o variación de producto o medidas deberá ser comunicado y aceptado por escrito por Centropuertas Norte 2007 S.L., suponiendo de forma automática una modificación del plazo de entrega, no pudiendo considerarse como retraso en el suministro.<br/>
+                                Los plazos proporcionados son a título informativo y, en consecuencia, no se admitirán penalizaciones por causa de demoras en las entregas.<br/>
+                                Los retrasos en la entrega originados por causas de fuerza mayor o que no sean directamente imputables a Centropuertas Norte 2007 S.L., no serán causa justificada de anulación o penalización económica.<br/>
+                            </p>
+                            <h7><b>SUMINISTRO</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                Las mercancías se entienden entregadas en nuestros almacenes o en el destino indicado por el cliente.
+                            </p>
+                            <h7><b>RECEPCIÓN DE LA MERCANCÍA</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                El comprador facilitará a su cargo los medios necesarios para la descarga y recepción de la mercancía.<br/>
+                                La mercancía deberá ser verificada por el comprador, indicando por escrito si existiese algún defecto aparente, en el plazo máximo de 24 horas posteriores a la fecha de recepción de la mercancía. El comprador tiene la obligación de revisar la mercancía en el momento de la descarga y de anotar cualquier incidencia en el mismo albarán del transportista.<br/>
+                                La custodia de la mercancía es responsabilidad exclusiva del comprador y cualquier daño o extravío durante dicha custodia será asumido por el comprador.<br/>
+                                No se aceptará ninguna devolución que no esté previamente acordada por escrito con Hörmann España, S.A.
+                            </p>
+                            <h7><b>DEVOLUCIONES DE LA MERCANCÍA</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                Para proceder al abono, en su caso, de la mercancía devuelta, esta deberá estar en perfecto estado y, en su caso, en el embalaje original de Centropuertas Norte 2007 S.L.<br/>
+                                Centropuertas Norte 2007 S.L., se reserva el derecho a descontar los gastos ocasionados por la devolución
+                            </p>
+                            <h7><b>MONTAJE</b></h7>
+                            <br/>
+                            <p class="text-justify mb-0">
+                                Las tarifas aplicadas se refieren siempre a trabajos efectuados en días laborables y dentro del horario laboral de Centropuertas Norte 2007 S.L.<br/>
+                                Los retrasos de obra imputables al comprador que afecten el inicio o duración del montaje deben ser comunicados por escrito a Centropuertas Norte 2007 S.L., quien se reserva el derecho de repercutir al comprador los gastos y costas ocasionados por dicha demora.<br/>
+                                El precio de montaje comprende la visita previa para definición de obra, medidas y requerimientos para la correcta instalación de los equipos. También están incluidos los portes.<br/>
+                                Centropuertas Norte 2007 S.L, solo realizará en obra aquellos trabajos que afecten exclusivamente a la instalación de su material, no siendo de su competencia:
+                                <ul class="mt-0">
+                                    <li>Realización y puesta a punto de los huecos de obra.</li>
+                                    <li>Protección adecuada de las acometidas eléctricas tanto a la maniobra como al motor, según la legislación vigente.</li>
+                                    <li>Trabajos de albañilería (obra civil).</li>
+                                    <li>Instalación de cableado y / o entubado del sistema eléctrico fuera del ámbito de la puerta, motor a caja maniobra.</li>
+                                    <li>Conexiones eléctricas definitivas, en aquellos casos en los que la instalación eléctrica no estuviera en funcionamiento en el momento de efectuar el montaje.</li>
+                                    <li>Conexión de automatismos. Los presupuestos o pedidos que tengan instalación de automatismos incluyen la conexión de los mismos, siempre que ello pueda efectuarse en el momento mismo de su instalación. Los cargos adicionales se facturarán según las tarifas vigentes. Se consideran cargos adicionales.</li>
+                                    <li>Los desplazamientos para montajes en caso de aviso del comprador y la obra no estuviesen en condiciones para realizar la instalación.</li>
+                                    <li>Queda excluido del presupuesto cualquier tipo de remate (chapas, forros, ángulos, tubos…) o reparación (falsos techos, paredes, recubrimientos…) que eventualmente fuera necesario por causa de un deficiente acabado o preparación de los elementos circundantes al equipo instalado, errores en las medidas acordadas o cualquier otro incumplimiento o inexactitud en las instrucciones técnicas previas y necesarias para la instalación del equipo que han sido facilitadas por parte del comprador. También se excluyen aquellos desperfectos que se originen como imprevisto durante la instalación y que sean fruto de las circunstancias previas a la obra (paredes en mal estado, otros ejemplos…), es decir, no causados por nuestro trabajo realizado. Así mismo, se facturará aparte cualquier otra partida no especificada en la oferta.</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="o_terms_conditions">
+                            <h7><b>PAGO</b></h7>
+                            <br/>
+                            <p class="text-justify mb-0">
+                                En función del análisis financiero, Centropuertas Norte 2007 S.L. y el comprador, acordarán una forma y un plazo de pago que deberá cumplir la Ley 15/2010, de 5 de julio, por la que se establecen medidas de lucha contra la morosidad en las operaciones comerciales. De acuerdo a esta ley en el art. 4 1.a), el plazo de pago será de “sesenta días después de la fecha de recepción de las mercancías o prestación de los servicios”.<br/>
+                                Plazo de pago debe ser respetado. En caso de incumplimiento, Centropuertas Norte 2007 S.L. se reserva el derecho a adoptar las medidas que considere convenientes.<br/>
+                                Centropuertas Norte 2007 S.L. se reserva el derecho de aceptar el pedido o de modificar las condiciones de pago en función de la valoración realizada por la compañía de seguros de crédito.<br/>
+                                El incumplimiento del pago supondrá:<br/>
+                                <ul>
+                                    <li>Recargo por demora del 1% de interés nominal mensual desde el momento del vencimiento de la factura.</li>
+                                    <li>Recargo de posibles gastos por devoluciones bancarias.</li>
+                                    <li>Recargo por gastos administrativos</li>
+                                </ul>
+                            </p>
+                            <h7><b>RESERVA DE DOMINIO</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                Hasta que el comprador no haya procedido al pago total de los productos adquiridos, se establece una reserva de dominio de los mismos a favor de Centropuertas Norte 2007 S.L. En caso de embargo o traba de cualquier clase sobre sus bienes, el comprador se obliga a indicar que los productos no pagados son propiedad de Centropuertas Norte 2007 S.L.
+                            </p>
+                            <h7><b>GARANTÍA</b></h7>
+                            <ol class="text-justify">
+                                <li>Centropuertas Norte 2007 S.L., no asumirá compromiso de garantía con clientes que no tengan su deuda con Centropuertas Norte 2007 S.L., saldada.</li>
+                                <li>En los casos que el cliente sea consumidor y usuario (no aplicable a empresarios o industriales), según establece el Real Decreto Legislativo 1/2007 en su artículo 123, Centropuertas Norte 2007 S.L., responderá de las faltas de conformidad que se manifiesten en los productos durante un plazo de dos años desde la entrega
+                                    <ol class="ml-2">
+                                        <li>Si el defecto del producto se manifiesta durante los seis primeros meses desde la fecha de la entrega, se entiende que este defecto ya existía cuando lo entregaron, es decir, que era de origen. En ese caso, para que no opere la garantía, corresponderá a Centropuertas Norte 2007 S.L., demostrar lo contrario y que el defecto ha aparecido después a causa de un mal uso o de un mantenimiento defectuoso.</li>
+                                        <li>Si el defecto aparece después de los seis primeros meses y hasta los dos años de la fecha de entrega, para que opere la garantía, el cliente tendrá que probar que el defecto era de origen y que no se debe a un mal uso o al paso del tiempo.</li>
+                                    </ol>
+                                </li>
+                                <li>La garantía cubre la reposición o reparación de las piezas y componentes que sean considerados defectuosos de fábrica, excluyéndose de la misma todos aquellos elementos anexos al producto que no hayan sido suministrados por Centropuertas Norte 2007 S.L, tales como instalaciones eléctricas, alarmas, elementos decorativos, etc. Quedan excluidos los elementos de desgaste mecánico.</li>
+                                <li>Nuestra garantía queda automáticamente anulada por los motivos siguientes:</li>
+                                <ol class="ml-2">
+                                    <li>Cuando no se respeten las instrucciones de servicio.</li>
+                                    <li>Reparaciones o instalaciones inadecuadas efectuadas por personal ajeno o no autorizado por Centropuertas Norte 2007 S.L.</li>
+                                    <li>Utilización de piezas de recambio que no sean originales Centropuertas Norte 2007 S.L.</li>
+                                    <li>Manipulación indebida.</li>
+                                    <li>Falta de mantenimiento contratado con Centropuertas Norte 2007 S.L., o empresas colaboradoras de la red oficial Centropuertas Norte 2007 S.L.</li>
+                                </ol>
+                                <li>Queda excluida cualquier responsabilidad por perjuicio sufrido en la instalación por causa de fuerza mayor.</li>
+                                <li>El incumplimiento del pago puede suponer que Centropuertas Norte 2007 S.L. no responda ante peticiones de reparación o mantenimiento.</li>
+                            </ol>
+                            <h7><b>SEGURIDAD</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                El personal de Centropuertas Norte 2007 S.L. está debidamente asegurado contra accidentes, de acuerdo con las leyes vigentes y al corriente en el pago de las cuotas de la Seguridad Social. El contratante podrá exigir a Centropuertas Norte 2007 S.L. la presentación de los comprobantes, comunicado por parte del comprador, con una antelación de 7 días laborables.
+                            </p>
+                            <h7><b>MANTENIMIENTO</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                Centropuertas Norte 2007 S.L. tiene a su disposición varias modalidades de servicio de mantenimiento. Pueden ponerse en contacto en info@centropuertasnorte.es o en el teléfono 945 601 375.
+                            </p>
+                            <h7><b>PROTECCIÓN DE DATOS</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                De conformidad a la normativa vigente y conforme a la Política de Protección de Datos de Centropuertas Norte 2007 S.L le informamos que:<br/>
+
+                                El Responsable del tratamiento de sus datos es la empresa Centropuertas Norte 2007 S.L, CIF NIF: B26431866 con sede en el Polígono Los Castaños, nave 16, Paso el Prao Kalea, 01320 Oyón-Oion, Álava, Teléfono: 945601375 y Correo electrónico: INFO@CENTROPUERTASNORTE.ES<br/>
+                                Así mismo en Centropuertas Norte 2007 S.L tratamos la información que nos facilita con el fin de prestarles el servicio solicitado y realizar su facturación. Los datos proporcionados se conservarán mientras se mantenga la relación comercial o durante el tiempo necesario para cumplir con las obligaciones legales y atender las posibles responsabilidades que pudieran derivar del cumplimiento de la finalidad para la que los datos fueron recabados. Los datos no se cederán a terceros salvo en los casos en que exista una obligación legal. Usted tiene derecho a obtener información sobre si en Centropuertas Norte 2007 S.L estamos tratando sus datos personales, por lo que puede ejercer sus derechos de acceso, rectificación, supresión y portabilidad de datos y oposición y limitación a su tratamiento ante Centropuertas Norte 2007 S.L, Polígono Los Castaños, nave 16, Paso el Prao Kalea, 01320 Oyón-Oion, Álava o en la dirección de correo electrónico info@centropuertasnorte.es, adjuntando copia de su DNI o documento equivalente.  Asimismo, y especialmente si considera que no ha obtenido satisfacción plena en el ejercicio de sus derechos, podrá presentar una reclamación ante la autoridad nacional de control dirigiéndose a estos efectos a la Agencia Española de Protección de Datos, C/ Jorge Juan, 6 – 28001 Madrid.<br/>
+
+                                Asimismo, solicitamos su autorización para ofrecerle productos y servicios relacionados con los contratados y fidelizarle como cliente.:<br/>
+                                ⃝ SI<br/>
+                                ⃝ NO<br/>
+                            </p>
+                            <h7><b>JURISDICCIÓN</b></h7>
+                            <br/>
+                            <p class="text-justify">
+                                El comprador y Centropuertas Norte 2007 S.L., se someten expresamente a los Tribunales y Juzgados de Álava.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </template>-->
+
+    <template id="report_saleorder_inherit" inherit_id="sale.report_saleorder">
+        <xpath expr="//t[@t-call='sale.report_saleorder_document']" position="replace">
+            <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang" />
+
+           <!-- <page>
+                <t t-set="terms_conditions" t-value="0"/>
+                <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </page>
+            <page>
+                <t t-set="terms_conditions" t-value="1"/>
+                <t t-call="centropuertas_reports.sale_terms" />
+            </page>-->
+        </xpath>
+    </template>
+    <record id="custom_centropuertas_paper" model="report.paperformat">
+        <field name="name">Centropuertas A4 low margins</field>
+        <field name="default" eval="True" />
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">30</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False" />
+        <field name="header_spacing">25</field>
+        <field name="dpi">90</field>
+    </record>
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <field
+      name="paperformat_id"
+      ref="centropuertas_reports.custom_centropuertas_paper"
+    />
+    </record>
+</odoo>

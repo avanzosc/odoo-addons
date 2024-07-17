@@ -1,0 +1,202 @@
+.o_tax,
+.o_secured_by {
+  color: $text-green !important;
+}
+.o_main_table {
+  thead {
+    display: table-row-group;
+  }
+  td,
+  th {
+    background-color: white !important;
+  }
+}
+.o_info_table {
+  td,
+  th {
+    padding: 2px !important;
+    padding-left: 6px !important;
+    border: none !important;
+    border-right: none !important;
+    background-color: white !important;
+  }
+  th {
+    color: $text-green !important;
+    margin-left: 5px !important;
+  }
+}
+.invoice_main_table {
+  th {
+    font-size: 14px !important;
+    max-height: 10px !important;
+  }
+}
+.sale_tbody {
+  th {
+    font-size: 14px;
+  }
+  td {
+    font-size: 13px;
+    vertical-align: bottom;
+  }
+}
+.o_head_table,
+.o_footer_table,
+.o_subtotal_table,
+.o_main_table,
+.o_confirm_table {
+  th {
+    color: $text-green !important;
+    background-color: $bg-green !important;
+  }
+  td:last-child {
+    background-color: white !important;
+  }
+}
+.o_head_table,
+.o_info_table,
+.o_footer_table,
+.o_terms_table,
+.o_main_table,
+.o_payment_table,
+.o_subtotal_table,
+.o_confirm_table {
+  border: 3px solid $border-green !important;
+  td {
+    border-right: none !important;
+  }
+}
+.o_head_table {
+  th {
+    padding: 2px !important;
+  }
+  td {
+    padding: 7px !important;
+  }
+}
+.o_terms_table > tbody > tr > td {
+  border-top: none !important;
+}
+.o_terms_table {
+  margin: 0px 50px 0px 30px !important;
+  color: $text-green !important;
+  min-width: 900px;
+  display: flex !important;
+  justify-content: space-between !important;
+  h4 {
+    color: $text-green !important;
+  }
+  div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    img {
+      align-self: flex-end;
+      max-height: 50px;
+      max-width: 200px;
+    }
+    p {
+      font-size: 12px !important;
+      text-align: right !important;
+    }
+  }
+}
+.confirmation_td {
+  height: 100px;
+}
+.o_tax {
+  color: $text-green !important;
+}
+ol {
+  counter-reset: item;
+}
+ol > li {
+  display: block;
+}
+ol > li:before {
+  content: counters(item, ".") " ";
+  counter-increment: item;
+}
+.o_terms_conditions {
+  font-size: 0.49em;
+}
+.header {
+  max-height: 100px !important;
+}
+.state_quotation,
+.o_terms_conditions {
+  color: $text-green !important;
+}
+.o_payment_table,
+.o_subtotal_table {
+  td,
+  th {
+    padding: 0.5rem !important;
+    border: none !important;
+    border-top: none !important;
+  }
+  th {
+    border-right: none !important;
+  }
+}
+.o_total {
+  border-top: 2px solid $border-green !important;
+  th {
+    color: $text-green !important;
+  }
+  td {
+    border-right: none !important;
+    border-top: 1px solid $border-green !important;
+  }
+}
+.o_total strong {
+  color: $text-green !important;
+}
+.o_subtotal_table {
+  min-height: 150px !important;
+}
+.o_subtotal_table,
+.o_payment_table {
+  tr {
+    td {
+      strong {
+        color: $text-green !important;
+      }
+    }
+  }
+}
+.vertical-text {
+  position: absolute;
+  margin: 250px 0px 0px -315px;
+  p {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    transform: rotate(180deg);
+    font: bold 10px Sans-Serif;
+    color: $text-green;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+}
+.extra_text {
+  font: italic 16px Sans-Serif;
+  color: $text-green;
+}
+.header_customer_info {
+  padding: 15px;
+  border: 1px solid #808080;
+  font-size: 12px;
+}
+.head_customer_text p {
+  margin-bottom: 0px;
+}

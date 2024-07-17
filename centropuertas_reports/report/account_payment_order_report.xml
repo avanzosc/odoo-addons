@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="print_account_payment_order_document"
+    inherit_id="account_payment_order.print_account_payment_order_document"
+  >
+        <xpath expr="//table[1]/thead/tr/th[3]" position="after">
+            <th class="text-center">Due Date</th>
+        </xpath>
+        <xpath expr="//span[@t-field='line.date']/.." position="before">
+            <td class="text-center">
+                <span t-field="line.ml_maturity_date" />
+            </td>
+        </xpath>
+    </template>
+</odoo>

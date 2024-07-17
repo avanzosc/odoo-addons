@@ -1,0 +1,119 @@
+.o_boxed_footer,
+.o_boxed_header,
+.o_report_layout_boxed {
+  color: black;
+  font-size: 15px;
+}
+.o_boxed_header {
+  border-bottom: none !important;
+  img {
+    max-height: 150px;
+  }
+  h4 {
+    color: #999999;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+.o_boxed_footer {
+  margin-top: 200px;
+  white-space: nowrap;
+  border-top: 2px solid $border-green !important;
+  ul {
+    margin: 4px 0;
+  }
+}
+.o_report_layout_boxed,
+.o_footer_table {
+  #total strong {
+    color: $o-default-report-primary-color;
+  }
+  #informations strong {
+    color: $text-green !important;
+  }
+  > h2 {
+    text-transform: uppercase;
+  }
+  h2 span {
+    color: $text-green !important;
+  }
+  table {
+    border: 2px solid $border-green !important;
+    thead {
+      border-bottom: None;
+      tr th {
+        background-color: $bg-green !important;
+        text-transform: uppercase;
+        border: 1px solid $border-green !important;
+        color: $text-green !important;
+      }
+    }
+    tbody {
+      color: black;
+      tr {
+        td {
+          // remove border-top from standard layout
+          border-top: none;
+          //  border-right: 1px solid $border-green !important;
+        }
+        &.o_line_section td,
+        &.o_line_note td,
+        &.is-subtotal td {
+          border-top: 1px solid gray("700");
+          border-bottom: 1px solid gray("700");
+        }
+        &.o_line_section td {
+          background-color: rgba($o-default-report-primary-color, 0.7);
+          color: #fff;
+        }
+        &.is-subtotal,
+        td.o_price_total {
+          background-color: None !important;
+        }
+      }
+    }
+  }
+  /* compat 12.0 */
+  .page > table:not(.o_main_table) tr td:last-child {
+    background-color: gray("200");
+  }
+  /* compat 12.0 */
+  .row:not(#total) > div > table tr:not(:first-child):not(:last-child) td:last-child {
+    background-color: gray("200");
+  }
+  /*Total table*/
+  /* row div rule compat 12.0 */
+  .row > div > table,
+  div#total table {
+    tr {
+      td {
+        //   border-top: 1px solid $border-green !important;
+      }
+      //   &:first-child,
+      &.o_subtotal {
+        border-bottom: 1px solid $border-green !important;
+      }
+      &.o_subtotal strong {
+        color: $text-green !important;
+      }
+      &:last-child td,
+      &.o_total td {
+        background-color: white !important;
+        // border-right: 1px solid $border-green !important;
+        color: black;
+      }
+      &.o_total strong {
+        color: $text-green !important;
+      }
+      td[name="td_amount_total_label"] {
+        background-color: $bg-green !important;
+      }
+    }
+  }
+}
+.o_main_table > tbody > tr > td,
+.o_subtotal > td,
+.o_total > td,
+.o_tax {
+  border-right: 1px solid $border-green !important;
+}

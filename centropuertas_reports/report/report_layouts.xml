@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="external_layout_standard_custom"
+    inherit_id="web.external_layout_standard"
+  >
+        <xpath expr="//div[@name='company_address']" position="replace" />
+        <xpath expr="//div[hasclass('zero_min_height')]" position="replace" />
+        <xpath expr="//div[3]" position="replace">
+<!--            <div t-if="terms_conditions and (doc and doc._name == 'sale.order')" t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">-->
+                <t t-call="centropuertas_reports.table_footer" />
+        </xpath>
+        <xpath expr="//div[1]" position="replace">
+            <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
+                <div class="row">
+                    <t t-if="not terms_conditions or not doc">
+                        <div class="col-6">
+                            <img
+                style="max-height: 150px;min-width: 250px !important;max-width: 300px !important;"
+                t-if="company.logo"
+                t-att-src="image_data_uri(company.logo)"
+                alt="Logo"
+              />
+                        </div>
+                        <div
+              t-if="doc and doc._name == 'sale.order'"
+              class="col-6 text-right mb-4"
+              style="display:flex;"
+            >
+                            <t t-if="doc.state in ('draft', 'sent')">
+                                <h1
+                  class="state_quotation"
+                  style="align-self: flex-end;font-size:55px !important;"
+                >PRESUPUESTO</h1>
+                            </t>
+                        </div>
+                        <div
+              t-if="o and o._name == 'account.move'"
+              class="col-6 text-right mb-4"
+              style="display:flex;"
+            >
+                            <h1
+                class="state_quotation"
+                style="text-align: right;font-size:55px !important;"
+              ><t
+                  t-if="o.move_type in ['out_refund', 'in_refund']"
+                >ABONO</t><t t-else="">FACTURA</t></h1>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="row">
+                            <div class="col-12 o_terms_table">
+                                <div class="col-3">
+                                    <img
+                    t-if="company.logo"
+                    t-att-src="image_data_uri(company.logo)"
+                    alt="Logo"
+                  />
+                                </div>
+                                <div class="col-6">
+                                    <p
+                    class="mt-1 mb-1"
+                    style="text-align: center !important;font-size: 20px !important;"
+                  >
+                                        <b>CONDICIONES GENERALES DE VENTA</b>
+                                    </p>
+                                </div>
+                                <div class="col-3">
+                                    <p class="mt-1 mb-1 mr-0 small-text text-sm-right">
+                                        <t t-esc="company.email" /><br />
+                                        <b><t t-esc="company.website" /></b>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="table_footer">
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center">
+                <table class="table table-sm o_footer_table">
+                <tbody class="sale_tbody">
+                    <tr
+              t-if="doc and doc._name == 'sale.order' or o and o._name == 'account.move'"
+            >
+                        <th><t t-if="doc">PEDIDO</t><t t-else="">FACTURA</t> Nº:
+                        </th> <td class="text-center"><t
+                  t-esc="doc.name if doc else o.name"
+                /></td>
+                        <td>Referencia:</td> <td class="text-center"><t
+                  t-if="doc and doc._name == 'sale.order'"
+                  t-esc="doc.client_order_ref"
+                /><t t-else="o and o._name == 'account.move'" t-esc="o.ref" /></td>
+                        <td>Página:</td> <td class="text-center"> <span
+                  class="page"
+                /> / <span class="topage" /></td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_boxed_custom" inherit_id="web.external_layout_boxed">
+        <xpath
+      expr="div[@t-attf-class='footer o_boxed_footer o_company_#{company.id}_layout']"
+      position="replace"
+    >
+<!--            <div t-if="not terms_conditions and (doc and doc._name == 'sale.order')" t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">-->
+            <div t-attf-class="footer o_boxed_footer o_company_#{company.id}_layout">
+                <t t-call="centropuertas_reports.table_footer" />
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('o_boxed_header')]/div" position="replace">
+            <div class="row mb8">
+                <t t-if="not terms_conditions">
+                    <div class="col-6" style="display:flex;">
+                        <img
+              style="align-self: flex-end !important;min-width: 250px !important;"
+              t-if="company.logo"
+              t-att-src="image_data_uri(company.logo)"
+              alt="Logo"
+            />
+                    </div>
+                    <div
+            t-if="doc and doc._name == 'sale.order'"
+            class="col-6 text-right mb4"
+            style="display:flex;"
+          >
+                        <t t-if="doc.state in ('draft', 'sent')">
+                            <h1
+                class="state_quotation"
+                style="align-self: flex-end;"
+              >PRESUPUESTO</h1>
+                        </t>
+                    </div>
+                </t>
+                <t t-else="else">
+                    <div class="row">
+                        <div class="col-12 o_terms_table">
+                            <div class="col-4">
+                                <img
+                  t-if="company.logo"
+                  t-att-src="image_data_uri(company.logo)"
+                  alt="Logo"
+                />
+                            </div>
+                            <div class="col-4">
+                                <h7>CONDICIONES GENERALES DE VENTA</h7>
+                            </div>
+                            <div class="col-4">
+                                <p>
+                                    <t t-esc="company.email" /><br />
+                                    <b><t t-esc="company.website" /></b>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <template id="contact_custom" inherit_id="base.contact">
+        <xpath expr="//address" position="replace" />
+    </template>
+    <template id="address_layout_custom" inherit_id="web.address_layout">
+        <xpath expr="//div[hasclass('address')]" position="replace">
+            <div class="address row mb-3" style="margin-bottom: 1px !important;">
+                <div class="col-6 pl-3" style="font-size: 12px;">
+                    <p>PUERTAS AUTOMÁTICAS</p>
+                    <div class="d-flex">
+                        <div>
+                            <p>
+                                <t t-esc="company.street" /><br />
+                                <t t-esc="company.street2" /><br />
+                                <t t-esc="company.city" />
+                            </p>
+                        </div>
+                        <div class="ml-5">
+                            <p>
+                                &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Tel.: <t t-esc="company.phone" /><br />
+                                &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<t t-esc="company.email" /><br />
+                                <b>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<t t-esc="company.website" /></b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+          t-if="o and o._name == 'account.move'"
+          class="col-6 text-left mb-4"
+          style="display:flex;"
+        >
+                    <div class="header_customer_info">
+                        <div class="head_customer_text">
+                            <p><t t-esc="o.partner_id.name" /></p>
+                            <p><t t-esc="o.partner_id.street" /></p>
+                            <p><t t-esc="o.partner_id.zip" /> <t
+                  t-esc="o.partner_id.city"
+                /></p>
+                            <p class="mb-0"><t t-esc="o.partner_id.state_id.name" /></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+<!--    <template id="report_assets_common" inherit_id="web.report_assets_common">-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <link-->
+<!--        rel="stylesheet"-->
+<!--        type="text/scss"-->
+<!--        href="/centropuertas_reports/static/src/scss/layout_boxed.scss"-->
+<!--      />-->
+<!--            <link-->
+<!--        rel="stylesheet"-->
+<!--        type="text/scss"-->
+<!--        href="/centropuertas_reports/static/src/scss/custom_layout.scss"-->
+<!--      />-->
+<!--        </xpath>-->
+<!--    </template>-->
+</odoo>
