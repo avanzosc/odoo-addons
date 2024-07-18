@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_brand_code" optional="show" readonly="1" />
+                <field name="brand_fabricators" optional="show" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="date_deadline" position="after">
+                <field name="product_brand_code" readonly="1" />
+                <field name="brand_fabricators" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_search" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="product_brand_code" />
+                <field name="brand_fabricators" />
+            </field>
+        </field>
+    </record>
+</odoo>
