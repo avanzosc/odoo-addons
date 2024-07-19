@@ -10,3 +10,5 @@ class ProductMaterial(models.Model):
 
     name = fields.Char(string="Description")
     density = fields.Float(default=1, copy=False)
+    weight_unit_id = fields.Many2one(comodel_name="uom.uom", copy=False)
+    volume_unit_id = fields.Many2one(comodel_name="uom.uom", copy=False)
