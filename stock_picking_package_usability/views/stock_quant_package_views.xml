@@ -21,13 +21,15 @@
             <field name="company_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-            <field name="packaging_id" position="after">
+            <field name="package_type_id" position="after">
                 <field name="volume" />
                 <field name="volume_uom_id" string=" " />
                 <field name="pack_length" />
+                <field name="length_uom_id" string=" " />
                 <field name="width" />
                 <field name="length_uom_id" string=" " />
                 <field name="height" />
+                <field name="length_uom_id" string=" " />
                 <field name="shipping_weight" sum="Total Shipping Weight" />
                 <field name="weight_uom_id" string=" " />
             </field>
@@ -40,18 +42,24 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="display_name" />
-                <field name="packaging_id" />
+                <field name="product_packaging_id" />
                 <field name="height" />
+                <field name="length_uom_name" string=' ' />
                 <field name="width" />
+                <field name="length_uom_name" string=' ' />
                 <field name="pack_length" />
                 <field name="length_uom_name" string=' ' />
                 <field name="volume" sum="Totat Volume" />
                 <field name="volume_uom_id" string=" " />
                 <field name="shipping_weight" sum="Total Shipping Weight" />
+                <field name="weight_uom_name" string=' ' />
                 <field name="max_weight" />
                 <field name="weight_uom_name" string=' ' />
                 <field name="partner_id" optional="show" />
                 <field name="company_id" invisible="1" />
+                <field name="length_uom_id" invisible="1" />
+                <field name="volume_uom_id" invisible="1" />
+                <field name="weight_uom_id" invisible="1" />
             </tree>
         </field>
     </record>

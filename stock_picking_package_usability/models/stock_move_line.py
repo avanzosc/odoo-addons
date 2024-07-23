@@ -9,7 +9,7 @@ class StockMoveLine(models.Model):
     packaging_id = fields.Many2one(
         string="Package Type",
         comodel_name="product.packaging",
-        related="result_package_id.packaging_id",
+        related="result_package_id.product_packaging_id",
         store=True,
         readonly=False,
     )
@@ -30,7 +30,6 @@ class StockMoveLine(models.Model):
                 line.result_package_id.height = line.packaging_id.height
                 line.result_package_id.width = line.packaging_id.width
                 line.result_package_id.pack_length = line.packaging_id.packaging_length
-                line.result_package_id.max_weight = line.packaging_id.max_weight
         if "packaging_id" in values:
             for line in self:
                 if not line.result_package_id.height:
@@ -41,6 +40,4 @@ class StockMoveLine(models.Model):
                     line.result_package_id.pack_length = (
                         line.packaging_id.packaging_length
                     )
-                if not line.result_package_id.max_weight:
-                    line.result_package_id.max_weight = line.packaging_id.max_weight
         return result
