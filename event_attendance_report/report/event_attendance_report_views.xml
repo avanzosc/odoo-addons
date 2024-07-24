@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_attendance_report_pivot" model="ir.ui.view">
+         <field name="name">event.attendance.report.pivot</field>
+         <field name="model">event.attendance.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Event attendance report" disable_linking="True" sample="1">
+                 <field name="session_date" interval="day" type="col" />
+                 <field name="event_id" type="row" />
+                 <field name="planned_hours" type="measure" />
+                 <field name="real_hours" type="measure" />
+             </pivot>
+         </field>
+    </record>
+
+    <record id="event_attendance_report_search" model="ir.ui.view">
+        <field name="name">event.attendance.report.search</field>
+        <field name="model">event.attendance.report</field>
+        <field name="arch" type="xml">
+            <search string="Event attendance report">
+                <field name="customer_id" />
+                <field name="event_id" />
+                <field name="student_id" />
+                <field name="session_date" />
+                <group expand="1" string="Group By">
+                    <filter
+            string="Customer"
+            name="customer"
+            context="{'group_by':'customer_id'}"
+          />
+                    <filter
+            string="Event"
+            name="event"
+            context="{'group_by':'event_id'}"
+          />
+                    <filter
+            string="Student"
+            name="student"
+            context="{'group_by':'student_id'}"
+          />
+                    <filter
+            string="Session Date"
+            name="session-date"
+            context="{'group_by':'session_date'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="event_attendance_report_tree">
+        <field name="name">event.attendance.report.tree</field>
+        <field name="model">event.attendance.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="customer_id" optional="show" />
+                <field name="event_id" optional="show" />
+                <field name="session_date" optional="show" />
+                <field name="student_id" optional="show" />
+                <field name="planned_hours" optional="show" />
+                <field name="real_hours" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_event_attendance_report" model="ir.actions.act_window">
+        <field name="name">Event attendances</field>
+        <field name="res_model">event.attendance.report</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="view_id" />
+        <field name="search_view_id" ref="event_attendance_report_search" />
+    </record>
+
+    <menuitem
+    name="Event attendances"
+    id="event_attendance_report_menu_pivot_report"
+    action="action_event_attendance_report"
+    parent="event.menu_reporting_events"
+    groups="event.group_event_manager"
+    sequence="50"
+  />
+</odoo>
