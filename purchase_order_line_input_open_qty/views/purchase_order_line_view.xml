@@ -1,55 +1,16 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <odoo>
     <record id="view_purchase_order_line_input_tree" model="ir.ui.view">
         <field name="model">purchase.order.line</field>
-        <field name="inherit_id" ref="purchase_order_line_input.view_purchase_order_line_input_tree" />
+        <field
+      name="inherit_id"
+      ref="purchase_order_line_input.view_purchase_order_line_input_tree"
+    />
         <field name="arch" type="xml">
             <field name="product_uom_qty" position="after">
                 <field name="qty_to_receive" sum="To receive" />
                 <field name="qty_received" sum="Received" />
                 <field name="qty_to_invoice" sum="To invoice" />
-            </field>
-            <field name="price_total" position="after">
-          <field
-          name="price_subtotal_to_receive"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_excluded"
-        />
-          <field
-          name="price_total_to_receive"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_included"
-        />
-          <field
-          name="price_subtotal_received"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_excluded"
-        />
-          <field
-          name="price_total_received"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_included"
-        />
-          <field
-          name="price_subtotal_to_invoice"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_excluded"
-        />
-          <field
-          name="price_total_to_invoice"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_included"
-        />
-          <field
-          name="price_subtotal_invoiced"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_excluded"
-        />
-          <field
-          name="price_total_invoiced"
-          widget="monetary"
-          groups="account.group_show_line_subtotals_tax_included"
-        />
             </field>
         </field>
     </record>
