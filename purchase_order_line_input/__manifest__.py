@@ -4,7 +4,7 @@
 {
     "name": "Purchase Order Line Input",
     "summary": "Search, create or modify directly purchase order lines",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Inventory/Purchase",
     "author": "Tecnativa, Avanzosc, Odoo Community Association (OCA)",
     "website": "https://github.com/avanzosc/odoo-addons",
