@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResActivity(models.Model):
-    _name = 'res.activity'
-    _description = 'Activities'
+    _name = "res.activity"
+    _description = "Activities"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

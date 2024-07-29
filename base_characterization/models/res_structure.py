@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResStructure(models.Model):
-    _name = 'res.structure'
-    _description = 'Structures'
+    _name = "res.structure"
+    _description = "Structures"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

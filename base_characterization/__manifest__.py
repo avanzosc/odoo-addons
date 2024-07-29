@@ -26,7 +26,7 @@
         "views/res_activity_view.xml",
         "views/res_activity_type_view.xml",
         "views/res_space_view.xml",
-        "data/base_characterization_data.xml"
+        "data/base_characterization_data.xml",
     ],
     "installable": True,
 }
