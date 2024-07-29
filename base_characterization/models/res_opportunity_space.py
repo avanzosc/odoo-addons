@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResOportunitySpace(models.Model):
-    _name = 'res.opportunity.space'
-    _description = 'Opportunity spaces'
+    _name = "res.opportunity.space"
+    _description = "Opportunity spaces"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

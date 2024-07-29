@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResSpace(models.Model):
-    _name = 'res.space'
-    _description = 'Spaces'
+    _name = "res.space"
+    _description = "Spaces"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

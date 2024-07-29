@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResCharacter(models.Model):
-    _name = 'res.character'
-    _description = 'Characters'
+    _name = "res.character"
+    _description = "Characters"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

@@ -5,10 +5,11 @@ from odoo import fields, models
 
 
 class ResActivityType(models.Model):
-    _name = 'res.activity.type'
-    _description = 'Activity Types'
+    _name = "res.activity.type"
+    _description = "Activity Types"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")
     activity_id = fields.Many2one(
-        comodel_name='res.activity', required=True, string='Activity')
+        comodel_name="res.activity", required=True, string="Activity"
+    )
