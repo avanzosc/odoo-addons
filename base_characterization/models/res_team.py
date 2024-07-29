@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class ResTeam(models.Model):
-    _name = 'res.team'
-    _description = 'Teams'
+    _name = "res.team"
+    _description = "Teams"
 
-    name = fields.Char(string='Name', required=True)
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True)
+    description = fields.Text(string="Description")

@@ -5,20 +5,24 @@ from odoo import api, fields, models
 
 
 class ResAreaType(models.Model):
-    _name = 'res.area.type'
-    _description = 'Area types'
-    _order = 'code,name'
+    _name = "res.area.type"
+    _description = "Area types"
+    _order = "code,name"
 
-    name = fields.Char(string='Name', required=True, translate=True)
-    code = fields.Char(string='Code')
-    description = fields.Text(string='Description')
+    name = fields.Char(string="Name", required=True, translate=True)
+    code = fields.Char(string="Code")
+    description = fields.Text(string="Description")
     area_ids = fields.Many2many(
-        string="Areas", comodel_name="res.area",
-        relation="rel_area_area_type", columm1="res_area_type_id",
-        columm2='res_area_id', copy=False)
+        string="Areas",
+        comodel_name="res.area",
+        relation="rel_area_area_type",
+        columm1="res_area_type_id",
+        columm2="res_area_id",
+        copy=False,
+    )
 
     def name_get(self):
-        """ name_get() -> [(id, name), ...]
+        """name_get() -> [(id, name), ...]
 
         Returns a textual representation for the records in ``self``.
         By default this is the value of the ``display_name`` field.
@@ -30,6 +34,6 @@ class ResAreaType(models.Model):
         for areatype in self:
             name = areatype.name
             if areatype.code:
-                name = '{}. {}'.format(areatype.code, name)
+                name = "{}. {}".format(areatype.code, name)
             res.append((areatype.id, name))
         return res
