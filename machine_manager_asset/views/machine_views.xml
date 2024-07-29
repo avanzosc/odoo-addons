@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="machine_form_view" model="ir.ui.view">
+        <field name="model">machine</field>
+        <field name="inherit_id" ref="machine_manager.machine_form_view" />
+        <field name="arch" type="xml">
+            <group name="finalcial-details2" position="inside">
+                <separator string="Other info" />
+                <field name="account_asset_id" />
+            </group>
+        </field>
+    </record>
+
+    <record id="machine_tree_view" model="ir.ui.view">
+        <field name="model">machine</field>
+        <field name="inherit_id" ref="machine_manager.machine_tree_view" />
+        <field name="arch" type="xml">
+            <field name="serial_id" position="after">
+                <field name="account_asset_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="machine_search_view" model="ir.ui.view">
+        <field name="name">machine.search.view</field>
+        <field name="model">machine</field>
+        <field name="inherit_id" ref="machine_manager.machine_search_view" />
+        <field name="arch" type="xml">
+            <field name="model_type_id" position="after">
+                <field name="account_asset_id" />
+            </field>
+            <filter name="group-product-categ" position="after">
+               <filter
+          name="group-asset"
+          string="Asset"
+          context="{'group_by' : 'account_asset_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
