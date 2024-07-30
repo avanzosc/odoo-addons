@@ -8,6 +8,7 @@ class ProductTemplate(models.Model):
     model_id = fields.Many2one("product.model", string="Model")
     application_id = fields.Many2one("product.application", string="Application")
     family_id = fields.Many2one("product.family", string="Family")
+    color_id = fields.Many2one("product.color", string="Color")
     packaging_type = fields.Selection(
         [("industrial", "Industrial"), ("standard", "Standard"), ("retail", "Retail")],
         string="Packaging Type",

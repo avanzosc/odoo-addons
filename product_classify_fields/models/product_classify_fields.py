@@ -27,3 +27,10 @@ class ProductFamily(models.Model):
     _description = "Product Family"
 
     name = fields.Char(string="Family", required=True)
+
+
+class ProductColor(models.Model):
+    _name = "product.color"
+    _description = "Product Color"
+
+    name = fields.Char(string="Color", required=True)
