@@ -98,10 +98,10 @@ class ResPartner(models.Model):
     foundation_year = fields.Integer(string='Foundation Year')
     incorporate_user_id = fields.Many2one(
         comodel_name='res.users', string='Incorporate EE',
-        domain="[('employee_ids', '!=', False)]")
+        domain="[('share', '!=', False)]")
     interlocutor_user_id = fields.Many2one(
         comodel_name='res.users', string='Interlocutor EE',
-        domain="[('employee_ids', '!=', False)]")
+        domain="[('share', '!=', False)]")
 
 
 class ResPartnerEconomicdata(models.Model):
