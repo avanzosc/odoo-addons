@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.date.grouping</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date']" position="after">
+                <field name="invoice_month" readonly="1" />
+                <field name="invoice_year" readonly="1" />
+                <field name="invoice_quarter" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_tree_inherit" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.date.grouping</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="invoice_month" optional="hide" />
+                <field name="invoice_year" optional="hide" />
+                <field name="invoice_quarter" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_inherit" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.date.grouping</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="invoice_month" optional="hide" />
+                <field name="invoice_year" optional="hide" />
+                <field name="invoice_quarter" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter_inherit" model="ir.ui.view">
+        <field name="name">account.move.search.inherit.date.grouping</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter
+          string="Invoice Month"
+          name="invoice_month"
+          context="{'group_by': 'invoice_month'}"
+        />
+                <filter
+          string="Invoice Year"
+          name="invoice_year"
+          context="{'group_by': 'invoice_year'}"
+        />
+                <filter
+          string="Invoice Quarter"
+          name="invoice_quarter"
+          context="{'group_by': 'invoice_quarter'}"
+        />
+            </xpath>
+            <xpath expr="//search" position="inside">
+                <filter string="Invoice Month" name="invoice_month" domain="[]" />
+                <filter string="Invoice Year" name="invoice_year" domain="[]" />
+                <filter string="Invoice Quarter" name="invoice_quarter" domain="[]" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
