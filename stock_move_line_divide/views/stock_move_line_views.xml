@@ -7,18 +7,20 @@
       ref="stock.view_stock_move_line_detailed_operation_tree"
     />
         <field name="arch" type="xml">
+            <field name="product_uom_id" position="after">
                 <field
-        name="divide"
-        optional="show"
-        attrs="{'invisible': [('state', '=', 'done')]}"
-      />
+          name="divide"
+          optional="show"
+          attrs="{'invisible': [('state', '=', 'done')]}"
+        />
                 <button
-        name="action_divide"
-        type="object"
-        string="Divide"
-        class="oe_highlight"
-        attrs="{'invisible': [('state', '=', 'done')]}"
-      />
+          name="action_divide"
+          type="object"
+          string="Divide"
+          class="oe_highlight"
+          attrs="{'invisible': [('state', '=', 'done')]}"
+        />
+            </field>
             <field name="package_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
