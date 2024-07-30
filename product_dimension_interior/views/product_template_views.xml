@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_product_template_form_inherit" model="ir.ui.view">
         <field name="name">product.template.form.inherit.dimension.interior</field>
@@ -10,6 +11,19 @@
                     <field name="interior_width" />
                     <field name="interior_height" />
                 </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_inherit" model="ir.ui.view">
+        <field name="name">product.template.tree.inherit.dimension.interior</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="interior_length" optional="show" />
+                <field name="interior_width" optional="show" />
+                <field name="interior_height" optional="show" />
             </xpath>
         </field>
     </record>
