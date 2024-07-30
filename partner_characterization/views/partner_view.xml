@@ -39,20 +39,14 @@
                         </group>
                     </group>
                     <group>
-                        <group name="business_interests" string="Countries with business interest"
-                               colspan="4">
-                            <field name="commercial_country_ids" nolabel="1"
-                                   options="{'no_create': True}" />
+                        <group name="business_interests" string="Countries with business interest" colspan="2">
+                            <field name="commercial_country_ids" nolabel="1" colspan="2" options="{'no_create': True}"/>
                         </group>
-                        <group name="external_implantation" string="Exterior Implantation" colspan="4">
-                            <group name="commercial_implantation"
-                                   string="Commercial Implantation" colspan="4">
-                                <field name="commercial_imp_ids" nolabel="1"/>
-                            </group>
-                            <group name="productive_implantation"
-                                   string="Productive Implantation" colspan="4">
-                                <field name="productive_imp_ids" nolabel="1" />
-                            </group>
+                        <group name="commercial_implantation" string="Commercial Implantation" colspan="2">
+                            <field name="commercial_imp_ids" nolabel="1" colspan="2"/>
+                        </group>
+                        <group name="productive_implantation" string="Productive Implantation" colspan="2">
+                            <field name="productive_imp_ids" nolabel="1" colspan="2"/>
                         </group>
                     </group>
                 </page>
@@ -121,7 +115,6 @@
                 </page>
                 <page name="success_stories" string="Success Stories"
                       attrs="{'invisible': [('is_company','=',False)]}">
-                    <label string="Success Stories"/>
                 </page>
             </page>
         </field>
