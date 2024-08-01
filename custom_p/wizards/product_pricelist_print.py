@@ -16,19 +16,18 @@ class ProductPricelistPrint(models.TransientModel):
             domain = [("sale_ok", "=", True)]
             aux_domain = []
             items_dic = {"categ_ids": [], "product_ids": [], "variant_ids": []}
-            items = (
-                self.pricelist_id.item_ids
-                + self.pricelist_id.item_ids.base_pricelist_id.item_ids
-            )
-            for item in items:
-                if item.base_pricelist_id:
-                    items += item.base_pricelist_id.item_ids
+            items = self.pricelist_id.item_ids
+            if (
+                len(self.pricelist_id.item_ids) == 1
+                and (self.pricelist_id.item_ids[:1].applied_on) == "3_global"
+            ):
+                items += self.pricelist_id.item_ids.base_pricelist_id.item_ids
             for item in items:
                 if item.applied_on == "0_product_variant":
                     items_dic["variant_ids"].append(item.product_id.id)
                 if item.applied_on == "1_product":
                     items_dic["product_ids"].append(item.product_tmpl_id.id)
-                if item.applied_on == "2_product_category" and item.categ_id.parent_id:
+                if item.applied_on == "2_product_category":
                     items_dic["categ_ids"].append(item.categ_id.id)
             if items_dic["categ_ids"]:
                 aux_domain = expression.OR(
