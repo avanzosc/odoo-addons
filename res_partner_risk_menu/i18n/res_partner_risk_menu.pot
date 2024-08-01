@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-05 08:20+0000\n"
-"PO-Revision-Date: 2024-06-05 08:20+0000\n"
+"POT-Creation-Date: 2024-08-01 10:22+0000\n"
+"PO-Revision-Date: 2024-08-01 10:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Amount"
@@ -28,6 +29,7 @@ msgid "Amount Risk"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Bank"
@@ -49,6 +51,14 @@ msgid "Contact Risk XLSX"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+#, python-format
+msgid "Credit Policy"
+msgstr ""
+
+#. module: res_partner_risk_menu
 #: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__credit_policy_amount
 #: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_users__credit_policy_amount
 msgid "Credit Policy Amount"
@@ -56,11 +66,13 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Date"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Delivery Pending Sales"
@@ -68,11 +80,13 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Description"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Discount Date"
@@ -86,11 +100,14 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
 #, python-format
 msgid "Draft Invoices"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Expiration Date"
@@ -104,6 +121,7 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Invoice"
 msgstr ""
@@ -111,11 +129,14 @@ msgstr ""
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Invoices/Balance Open"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Invoicing Pending Sales"
@@ -129,11 +150,18 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Number"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Open Invoice/Balance"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Order"
@@ -141,17 +169,30 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Other Open Account Balance"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Other Open Balance"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Other Unpaid Account Balance"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Other Unpaid Balance"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "Payment Date"
@@ -160,8 +201,19 @@ msgstr ""
 #. module: res_partner_risk_menu
 #: model:ir.actions.act_window,name:res_partner_risk_menu.action_res_partner_risk
 #: model:ir.ui.menu,name:res_partner_risk_menu.res_partner_risk_menu
-#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
 msgid "Res Partner Risk"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Risk Sum"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Sales Limit"
 msgstr ""
 
 #. module: res_partner_risk_menu
@@ -172,6 +224,24 @@ msgstr ""
 
 #. module: res_partner_risk_menu
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
 #, python-format
 msgid "The report cant be taken from a single contact."
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#, python-format
+msgid "Total Risk"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Unbilled Sales"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
+msgid "Unpaid Invoice/Balance"
 msgstr ""
