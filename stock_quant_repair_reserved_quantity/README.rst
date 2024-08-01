@@ -2,14 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===========================
-Stock move qty by packaging
-===========================
+====================================
+Stock Quant Repair Reserved Quantity
+====================================
 
-* New fields in move and move lines: Product Packaging, Packaging quantity,
-  palet, palet quantity and gross weight.
-* When confirming the sale order, it going to take packaging, palet and their
-  quantities to the picking move lines.
+Action to recalculate reserved quantities in quants.
 
 Bug Tracker
 ===========
@@ -24,13 +21,9 @@ Do not contact contributors directly about support or help with technical issues
 Credits
 =======
 
-Authors
-~~~~~~~
-
-* Avanzosc
-
 Contributors
-~~~~~~~~~~~~
+------------
 
+* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+

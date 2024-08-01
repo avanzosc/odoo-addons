@@ -2,14 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===========================
-Stock move qty by packaging
-===========================
+======================================
+Stock production lot consumed products
+======================================
 
-* New fields in move and move lines: Product Packaging, Packaging quantity,
-  palet, palet quantity and gross weight.
-* When confirming the sale order, it going to take packaging, palet and their
-  quantities to the picking move lines.
+* In lots, new tab for show "OF Consumed products" with lots.
 
 Bug Tracker
 ===========
@@ -24,13 +21,10 @@ Do not contact contributors directly about support or help with technical issues
 Credits
 =======
 
-Authors
-~~~~~~~
-
-* Avanzosc
-
 Contributors
-~~~~~~~~~~~~
-
-* Ana Juaristi <anajuaristi@avanzosc.es>
+------------
+* Ana Juaristi <ajuaristio@gmail.com>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+
+Do not contact contributors directly about support or help with technical issues.
+
