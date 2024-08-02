@@ -4,7 +4,7 @@
 from odoo.tests import common
 
 
-class TestBaseCharacterization(common.SavepointCase):
+class TestBaseCharacterization(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super(TestBaseCharacterization, cls).setUpClass()
