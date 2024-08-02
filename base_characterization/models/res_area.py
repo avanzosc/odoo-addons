@@ -17,8 +17,8 @@ class ResArea(models.Model):
         string="Area Types",
         comodel_name="res.area.type",
         relation="rel_area_area_type",
-        columm1="res_area_id",
-        columm2="res_area_type_id",
+        column1="res_area_id",
+        column2="res_area_type_id",
         copy=False,
     )
 
