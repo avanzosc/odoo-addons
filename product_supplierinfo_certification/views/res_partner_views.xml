@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="supplier_rank" />
+                <field
+          name="certification_id"
+          attrs="{'invisible': [('supplier_rank', '!=', 1)]}"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="certification_id" />
+            </field>
+            <filter name="group_country" position="after">
+                <filter
+          name="group_certification"
+          string="Supplier qualification"
+          context="{'group_by': 'certification_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="certification_id" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>

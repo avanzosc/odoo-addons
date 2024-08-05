@@ -2,21 +2,16 @@
 <odoo>
     <record id="contract_line_search_view" model="ir.ui.view">
         <field name="model">contract.line</field>
-        <field name="inherit_id" ref="contract.contract_line_search_view" />
         <field name="arch" type="xml">
-            <field name="contract_id" position="after">
-                <field name="partner_id" />
-            </field>
-            <field name="recurring_next_date" position="before">
+            <search string="Contract Line Search">
                 <field name="journal_id" />
                 <field name="pricelist_id" />
                 <field name="recurring_rule_type" />
-            </field>
-            <filter name="is_canceled" position="before">
+
                 <filter
           name="not_finished"
           string="In progress"
-          domain="['|', ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d')), '&amp;', ('date_end', '=', False), ('recurring_next_date', '!=', False)]"
+          domain="['|', ('date_end', '>=', context_today().strftime('%Y-%m-%d')), '&amp;', ('date_end', '=', False), ('recurring_next_date', '!=', False)]"
         />
                 <filter
           name="finished"
@@ -24,55 +19,42 @@
           domain="[('date_end', '&lt;', context_today().strftime('%Y-%m-%d')), ('recurring_next_date', '=', False)]"
         />
                 <filter
-          name="with-recurrence"
+          name="with_recurrence"
           string="With recurrence"
           domain="[('recurring_rule_type', '!=', False)]"
         />
                 <filter
-          name="without-recurrence"
+          name="without_recurrence"
           string="Without recurrence"
           domain="[('recurring_rule_type', '=', False)]"
         />
-                <separator />
-            </filter>
-            <filter name="group_by_contract" position="after">
                 <filter
-          string="Associated Partner"
-          name="group_by_partner"
-          domain="[]"
-          context="{'group_by':'partner_id'}"
-        />
-                <filter
+          name="group_by_recurring_type"
           string="Recurring type"
-          name="group_by_recurring-type"
-          domain="[]"
-          context="{'group_by':'recurring_rule_type'}"
+          context="{'group_by': 'recurring_rule_type'}"
         />
                 <filter
-          string="Journal"
           name="group_by_journal"
-          domain="[]"
-          context="{'group_by':'journal_id'}"
+          string="Journal"
+          context="{'group_by': 'journal_id'}"
         />
                 <filter
-          string="Pricelist"
           name="group_by_pricelist"
-          domain="[]"
-          context="{'group_by':'pricelist_id'}"
+          string="Pricelist"
+          context="{'group_by': 'pricelist_id'}"
         />
                 <filter
           name="group_by_next_invoice"
           string="Next Invoice"
           domain="[('recurring_next_date', '!=', False)]"
-          context="{'group_by':'recurring_next_date'}"
+          context="{'group_by': 'recurring_next_date'}"
         />
                 <filter
           name="group_by_date_end"
           string="Date End"
-          domain="[]"
-          context="{'group_by':'date_end'}"
+          context="{'group_by': 'date_end'}"
         />
-            </filter>
+            </search>
         </field>
     </record>
 
@@ -82,24 +64,14 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="sequence" position="after">
-                <field name="partner_id" />
                 <field name="contract_id" />
+                <field name="journal_id" optional="hide" />
+                <field name="pricelist_id" optional="hide" />
                 <field name="journal_id" optional="hide" />
                 <field name="pricelist_id" optional="hide" />
             </field>
             <field name="sequence" position="attributes">
                 <attribute name="invisible">1</attribute>
-            </field>
-        </field>
-    </record>
-
-    <record id="contract_line_report_tree_view" model="ir.ui.view">
-        <field name="model">contract.line</field>
-        <field name="inherit_id" ref="contract.contract_line_report_tree_view" />
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="journal_id" optional="hide" />
-                <field name="pricelist_id" optional="hide" />
             </field>
         </field>
     </record>
