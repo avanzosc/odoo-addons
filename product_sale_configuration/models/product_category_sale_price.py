@@ -28,8 +28,12 @@ class ProductCategorySalePrice(models.Model):
     def name_get(self):
         res = []
         for price in self:
-            name = _("{}: % Increment: {}, Fixed amount: {}").format(
-                price.name, price.percentage, price.fixed_amount
+            name = _(
+                "{price_name}: % Increment: {percentage}, Fixed amount: {fixed_amount}"
+            ).format(
+                price_name=price.name,
+                percentage=price.percentage,
+                fixed_amount=price.fixed_amount,
             )
             res.append((price.id, name))
         return res

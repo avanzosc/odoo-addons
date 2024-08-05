@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="building_use_view_tree" model="ir.ui.view">
-        <field name="name">building.use.view.tree</field>
         <field name="model">building.use</field>
         <field name="arch" type="xml">
-            <tree string="Building uses" editable="bottom" sample="1">
+            <tree editable="bottom" sample="1">
                 <field name="name" />
                 <field name="is_industrial" />
             </tree>

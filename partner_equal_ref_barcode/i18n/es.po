@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* partner_equal_ref_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-21 07:58+0000\n"
+"PO-Revision-Date: 2020-05-21 07:58+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_equal_ref_barcode
+#: selection:res.company,partner_barcode_unique:0
+msgid "All partners"
+msgstr "Todos los partners"
+
+#. module: partner_equal_ref_barcode
+#: model:ir.model,name:partner_equal_ref_barcode.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: partner_equal_ref_barcode
+#: model:ir.model,name:partner_equal_ref_barcode.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_equal_ref_barcode
+#: selection:res.company,partner_barcode_unique:0
+msgid "None"
+msgstr "Ninguno"
+
+#. module: partner_equal_ref_barcode
+#: selection:res.company,partner_barcode_unique:0
+msgid "Only companies"
+msgstr "Solo compañías"
+
+#. module: partner_equal_ref_barcode
+#: model_terms:ir.ui.view,arch_db:partner_equal_ref_barcode.view_company_form
+msgid "Partners"
+msgstr "Socios"
+
+#. module: partner_equal_ref_barcode
+#: code:addons/partner_equal_ref_barcode/models/res_partner.py:42
+#, python-format
+msgid "This barcode is equal to partner '%s'"
+msgstr "Este código de barras es igual al del parter '%s'"
+
+#. module: partner_equal_ref_barcode
+#: model:ir.model.fields,field_description:partner_equal_ref_barcode.field_res_company__partner_barcode_unique
+#: model:ir.model.fields,field_description:partner_equal_ref_barcode.field_res_partner__partner_barcode_unique
+#: model:ir.model.fields,field_description:partner_equal_ref_barcode.field_res_users__partner_barcode_unique
+msgid "Unique partner barcode for"
+msgstr "Código de barras único para el partner"
+

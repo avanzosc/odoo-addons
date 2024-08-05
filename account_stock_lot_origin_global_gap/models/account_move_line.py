@@ -7,7 +7,9 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     lot_id = fields.Many2one(
-        string="Lot", comodel_name="stock.lot", compute="_compute_country_global_gap"
+        string="Lot",
+        comodel_name="stock.lot",
+        compute="_compute_country_global_gap",
     )
     lot_country_id = fields.Many2one(
         string="Lot Origin",
@@ -15,16 +17,19 @@ class AccountMoveLine(models.Model):
         compute="_compute_country_global_gap",
     )
     lot_global_gap = fields.Char(
-        string="Lot Global Gap", compute="_compute_country_global_gap"
+        compute="_compute_country_global_gap",
     )
     lot_country_to_print = fields.Text(
-        string="Lot Origin OF", compute="_compute_country_global_gap"
+        string="Lot Origin OF",
+        compute="_compute_country_global_gap",
     )
     lot_global_gap_to_print = fields.Text(
-        string="Lot Global Gap OF", compute="_compute_country_global_gap"
+        string="Lot Global Gap OF",
+        compute="_compute_country_global_gap",
     )
     lot_country_gloval_gap_of = fields.Text(
-        string="Lot Origin/Global Gap OF", compute="_compute_country_global_gap"
+        string="Lot Origin/Global Gap OF",
+        compute="_compute_country_global_gap",
     )
 
     def _compute_country_global_gap(self):

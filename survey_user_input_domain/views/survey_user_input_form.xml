@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
-        <record id="survey_user_input_line_view_form" model="ir.ui.view">
-            <field name="name">survey.user_input.line.view.form</field>
-            <field name="model">survey.user_input.line</field>
-            <field name="inherit_id" ref="survey.survey_user_input_line_view_form" />
-            <field name="arch" type="xml">
-                <field name="suggested_answer_id" position="attributes">
-                    <attribute
-            name="domain"
-          >"[('question_id', '=', record.suggested_answer_id.question_id)]"</attribute>
-                </field>
-
-                <field name="matrix_row_id" position="attributes">
-                    <attribute
-            name="domain"
-          >"[('question_id', '=', record.matrix_row_id.question_id)]"</attribute>
-                </field>
+    <record id="survey_user_input_line_view_form" model="ir.ui.view">
+        <field name="model">survey.user_input.line</field>
+        <field name="inherit_id" ref="survey.survey_user_input_line_view_form" />
+        <field name="arch" type="xml">
+            <field name="suggested_answer_id" position="attributes">
+                <attribute
+          name="domain"
+        >"[('question_id', '=', record.suggested_answer_id.question_id)]"</attribute>
             </field>
-        </record>
-    </data>
+
+            <field name="matrix_row_id" position="attributes">
+                <attribute
+          name="domain"
+        >"[('question_id', '=', record.matrix_row_id.question_id)]"</attribute>
+            </field>
+        </field>
+    </record>
 </odoo>
