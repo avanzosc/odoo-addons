@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_line_search" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_search" />
+        <field name="arch" type="xml">
+            <filter name="groupby_product" position="after">
+                <filter
+          string="Product Section"
+          name="category_type"
+          domain="[]"
+          context="{'group_by' : 'category_type_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
