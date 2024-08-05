@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="certification_id" optional="show" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="certification_id" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_search_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_search_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="certification_id" />
+            </field>
+            <filter name="groupby_vendor" position="after">
+                <filter
+          string="Supplier qualification"
+          name="groupby_certification"
+          domain="[]"
+          context="{'group_by': 'certification_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
