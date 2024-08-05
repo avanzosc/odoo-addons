@@ -8,5 +8,5 @@ class ResTarget(models.Model):
     _name = "res.target"
     _description = "Targets"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()

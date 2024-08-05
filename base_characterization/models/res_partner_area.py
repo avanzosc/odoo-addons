@@ -8,5 +8,5 @@ class ResPartnerArea(models.Model):
     _name = "res.partner.area"
     _description = "Partner Areas"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()

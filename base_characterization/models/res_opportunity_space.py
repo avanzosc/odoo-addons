@@ -8,5 +8,5 @@ class ResOportunitySpace(models.Model):
     _name = "res.opportunity.space"
     _description = "Opportunity spaces"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()

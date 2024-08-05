@@ -8,8 +8,8 @@ class ResAreaSpecialization(models.Model):
     _name = "res.area.specialization"
     _description = "Areas Specializations"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()
     opportunity_space_id = fields.Many2one(
         comodel_name="res.opportunity.space", required=True, string="Opportunity Space"
     )
