@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_supplierinfo_certification_tree_view" model="ir.ui.view">
+        <field name="name">product.supplierinfo.certification.tree.view</field>
+        <field name="model">product.supplierinfo.certification</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record
+    id="action_product_supplierinfo_certification"
+    model="ir.actions.act_window"
+  >
+        <field name="name">Certifications in Supplier Pricelist</field>
+        <field name="res_model">product.supplierinfo.certification</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+    id="product_supplierinfo_certification_menu"
+    action="action_product_supplierinfo_certification"
+    parent="purchase.menu_purchase_config"
+    sequence="80"
+    groups="base.group_erp_manager"
+  />
+</odoo>
