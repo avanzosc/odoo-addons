@@ -8,5 +8,5 @@ class ResCommittee(models.Model):
     _name = "res.committee"
     _description = "Committees"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()

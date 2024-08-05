@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
 
@@ -6,10 +6,10 @@
         <field name="name">res.area.specialization.tree.view</field>
         <field name="model">res.area.specialization</field>
         <field name="arch" type="xml">
-            <tree string="Area">
-                <field name="name"/>
-                <field name="description"/>
-                <field name="opportunity_space_id"/>
+            <tree>
+                <field name="name" />
+                <field name="description" />
+                <field name="opportunity_space_id" />
             </tree>
         </field>
     </record>
@@ -20,7 +20,7 @@
         <field name="arch" type="xml">
             <search string="Search area">
                 <field name="name" />
-                <field name="opportunity_space_id"/>
+                <field name="opportunity_space_id" />
             </search>
         </field>
     </record>

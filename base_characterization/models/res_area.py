@@ -2,7 +2,7 @@
 # Copyright 2018 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResArea(models.Model):
@@ -10,9 +10,9 @@ class ResArea(models.Model):
     _description = "Areas"
     _order = "code,name"
 
-    name = fields.Char(string="Name", required=True)
-    code = fields.Char(string="Code")
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    code = fields.Char()
+    description = fields.Text()
     type_ids = fields.Many2many(
         string="Area Types",
         comodel_name="res.area.type",

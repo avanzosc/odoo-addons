@@ -8,5 +8,5 @@ class ResSpace(models.Model):
     _name = "res.space"
     _description = "Spaces"
 
-    name = fields.Char(string="Name", required=True)
-    description = fields.Text(string="Description")
+    name = fields.Char(required=True)
+    description = fields.Text()

@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="res_partner_area_tree_view" model="ir.ui.view">
         <field name="name">res.partner.area.tree.view</field>
         <field name="model">res.partner.area</field>
         <field name="arch" type="xml">
-            <tree string="Area">
-                <field name="name"/>
-                <field name="description"/>
+            <tree>
+                <field name="name" />
+                <field name="description" />
             </tree>
         </field>
     </record>
@@ -38,7 +38,7 @@
             </search>
         </field>
     </record>
-    
+
     <record id="res_partner_area_action" model="ir.actions.act_window">
         <field name="name">Area</field>
         <field name="res_model">res.partner.area</field>
