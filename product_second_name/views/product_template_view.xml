@@ -5,8 +5,8 @@
         <field name="inherit_id" ref="product.product_template_form_view" />
         <field name="priority">17</field>
         <field name="arch" type="xml">
-            <group name="group_standard_price" position="after">
-                <group name="second_name">
+            <group name="group_general" position="inside">
+                <group name="second_name" string="Second Name">
                     <field name="allowed_location" />
                     <field
             name="name2"

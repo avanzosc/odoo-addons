@@ -1,7 +1,7 @@
 # Copyright 2023 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
-    "name": "Res Partner State",
+    "name": "Partner Statuses",
     "summary": "State For Customers",
     "version": "16.0.1.0.0",
     "category": "Sales/CRM",

@@ -25,6 +25,18 @@ class ProductTemplate(models.Model):
         store=True,
         copy=False,
     )
+    root_category_id = fields.Many2one(
+        comodel_name="product.category",
+        string="Root Category",
+        related="categ_id.root_category_id",
+        store=True,
+    )
+    parent_category_id = fields.Many2one(
+        comodel_name="product.category",
+        string="Parent Category",
+        related="categ_id.parent_id",
+        store=True,
+    )
 
     def _compute_consumed_last_twelve_months(self):
         for template in self:

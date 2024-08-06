@@ -29,12 +29,12 @@ class ProductCategorySalePrice(models.Model):
         res = []
         for price in self:
             name = _(
-                "%(price_name)s: % Increment: %(percentage)s, Fixed amount: %(fixed_amount)s"
-            ) % {
-                "price_name": price.name,
-                "percentage": price.percentage,
-                "fixed_amount": price.fixed_amount,
-            }
+                "{price_name}: % Increment: {percentage}, Fixed amount: {fixed_amount}"
+            ).format(
+                price_name=price.name,
+                percentage=price.percentage,
+                fixed_amount=price.fixed_amount,
+            )
             res.append((price.id, name))
         return res
 
