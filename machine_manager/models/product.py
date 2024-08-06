@@ -18,9 +18,13 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     machine_ids = fields.One2many(
-        string="Machines", comodel_name="machine", inverse_name="product_id"
+        string="Machines",
+        comodel_name="machine",
+        inverse_name="product_id",
     )
-    machine_count = fields.Integer(compute="_compute_machine_count", string="Machines")
+    machine_count = fields.Integer(
+        compute="_compute_machine_count",
+    )
 
     def _compute_machine_count(self):
         for product in self:

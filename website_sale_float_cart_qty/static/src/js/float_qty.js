@@ -64,7 +64,7 @@ odoo.define("website_sale_float_cart_qty.float_qty", function (require) {
         return;
       }
       var value = $input.val().replace(",", ".");
-      value = parseFloat(value) || 1;
+      value = parseFloat(value);
       var $dom = $input.closest("tr");
       var $dom_optional = $dom.nextUntil(":not(.optional_product.info)");
       var line_id = parseInt($input.data("line-id"), 10);
