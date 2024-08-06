@@ -5,7 +5,11 @@ from odoo import fields, models
 
 class ResPartnerState(models.Model):
     _name = "res.partner.state"
-    _description = "Customer state"
+    _description = "Customer Status"
     _order = "name"
 
-    name = fields.Char(string="Description", required=True, copy=False)
+    name = fields.Char(
+        string="Description",
+        required=True,
+        copy=False,
+    )

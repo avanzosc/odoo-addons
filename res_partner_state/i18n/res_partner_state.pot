@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-13 09:20+0000\n"
-"PO-Revision-Date: 2024-05-13 09:20+0000\n"
+"POT-Creation-Date: 2024-08-06 10:32+0000\n"
+"PO-Revision-Date: 2024-08-06 10:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,16 @@ msgstr ""
 
 #. module: res_partner_state
 #: model:ir.model,name:res_partner_state.model_res_partner_state
-msgid "Customer state"
+#: model:ir.model.fields,field_description:res_partner_state.field_res_partner__customer_state_id
+#: model:ir.model.fields,field_description:res_partner_state.field_res_users__customer_state_id
+#: model_terms:ir.ui.view,arch_db:res_partner_state.view_res_partner_filter
+msgid "Customer Status"
+msgstr ""
+
+#. module: res_partner_state
+#: model:ir.actions.act_window,name:res_partner_state.action_state_tree_view
+#: model:ir.ui.menu,name:res_partner_state.state_tree_option_view
+msgid "Customer Statuses"
 msgstr ""
 
 #. module: res_partner_state
@@ -63,18 +72,4 @@ msgstr ""
 #. module: res_partner_state
 #: model:ir.model.fields,field_description:res_partner_state.field_res_partner_state__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: res_partner_state
-#: model:ir.model.fields,field_description:res_partner_state.field_res_partner__customer_state_id
-#: model:ir.model.fields,field_description:res_partner_state.field_res_users__customer_state_id
-#: model_terms:ir.ui.view,arch_db:res_partner_state.res_partner_state_tree_view
-#: model_terms:ir.ui.view,arch_db:res_partner_state.view_res_partner_filter
-msgid "State"
-msgstr ""
-
-#. module: res_partner_state
-#: model:ir.actions.act_window,name:res_partner_state.action_state_tree_view
-#: model:ir.ui.menu,name:res_partner_state.state_tree_option_view
-msgid "States"
 msgstr ""
