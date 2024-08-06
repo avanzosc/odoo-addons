@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 07:57+0000\n"
-"PO-Revision-Date: 2024-04-23 07:57+0000\n"
+"POT-Creation-Date: 2024-08-06 09:57+0000\n"
+"PO-Revision-Date: 2024-08-06 09:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,17 +19,42 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:machine_manager.product_normal_form_view
 msgid ""
 "<span>\n"
-"                                Machines\n"
-"                            </span>"
+"                            Machines\n"
+"                        </span>"
 msgstr ""
 "<span>\n"
-"                                Máquinas\n"
-"                            </span>"
+"                            Máquinas\n"
+"                        </span>"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_needaction
+msgid "Action Needed"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields.selection,name:machine_manager.selection__machine__status__active
 msgid "Active"
 msgstr "Activo"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
 
 #. module: machine_manager
 #: model_terms:ir.ui.view,arch_db:machine_manager.machine_form_view
@@ -50,6 +75,11 @@ msgstr "Analisis de información"
 #: model:ir.model.fields,field_description:machine_manager.field_machine__product_id
 msgid "Associated product"
 msgstr "Producto asociado"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_product_product__machine_ok
@@ -122,6 +152,21 @@ msgid "Financial Details"
 msgstr "Detalles financieros"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine__frame
 msgid "Frame Number"
 msgstr "Número Bastidor"
@@ -132,6 +177,11 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model,name:machine_manager.model_machine
 msgid "Holds Machine Records"
 msgstr "Registros de máquina"
@@ -140,7 +190,27 @@ msgstr "Registros de máquina"
 #: model:ir.model.fields,field_description:machine_manager.field_machine__id
 #: model:ir.model.fields,field_description:machine_manager.field_machine_model__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields.selection,name:machine_manager.selection__machine__status__inactive
@@ -168,6 +238,11 @@ msgid "International"
 msgstr "Internacional"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine____last_update
 #: model:ir.model.fields,field_description:machine_manager.field_machine_model____last_update
 msgid "Last Modified on"
@@ -193,7 +268,7 @@ msgstr "Arrendamiento"
 #. module: machine_manager
 #: model:ir.model.fields.selection,name:machine_manager.selection__machine__ambit__local
 msgid "Local"
-msgstr "Local"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine__mac
@@ -207,9 +282,19 @@ msgid "Machine"
 msgstr "Máquina"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_product_product__machine_count
+msgid "Machine Count"
+msgstr "Número de máquinas"
+
+#. module: machine_manager
 #: model_terms:ir.ui.view,arch_db:machine_manager.machine_form_view
 msgid "Machine Details"
 msgstr "Datos máquina"
+
+#. module: machine_manager
+#: model:ir.module.category,name:machine_manager.module_machinery_category
+msgid "Machine Management"
+msgstr "Gestión de maquinaria"
 
 #. module: machine_manager
 #: model:ir.ui.menu,name:machine_manager.menu_machine_manager
@@ -219,7 +304,6 @@ msgstr "Administrador de máquinas"
 #. module: machine_manager
 #: model:ir.actions.act_window,name:machine_manager.machinemodel_action
 #: model:ir.ui.menu,name:machine_manager.machinemodel_menu
-#: model_terms:ir.ui.view,arch_db:machine_manager.machinemodel_tree_view
 msgid "Machine Model"
 msgstr "Modelo máquina"
 
@@ -239,19 +323,17 @@ msgid "Machine policy"
 msgstr "Póliza máquina"
 
 #. module: machine_manager
-#: model:ir.module.category,name:machine_manager.module_machinery_category
-msgid "Machinery Management"
-msgstr "Gestión de Maquinaria"
-
-#. module: machine_manager
 #: model:ir.actions.act_window,name:machine_manager.machine_form_action
-#: model:ir.model.fields,field_description:machine_manager.field_product_product__machine_count
 #: model:ir.model.fields,field_description:machine_manager.field_product_product__machine_ids
 #: model:ir.model.fields,field_description:machine_manager.field_res_users__machine_ids
 #: model:ir.ui.menu,name:machine_manager.menu_machines
-#: model_terms:ir.ui.view,arch_db:machine_manager.machine_tree_view
 msgid "Machines"
 msgstr "Máquinas"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
 
 #. module: machine_manager
 #: model:res.groups,name:machine_manager.group_machine_manager
@@ -262,6 +344,16 @@ msgstr "Responsable"
 #: model_terms:ir.ui.view,arch_db:machine_manager.machine_form_view
 msgid "Manufacture Details"
 msgstr "Detalles fabricante"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_ids
+msgid "Messages"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine__model
@@ -275,6 +367,11 @@ msgid "Model type"
 msgstr "Tipo modelo"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine_model__name
 msgid "Name"
 msgstr "Nombre"
@@ -283,6 +380,41 @@ msgstr "Nombre"
 #: model:ir.model.fields.selection,name:machine_manager.selection__machine__ambit__national
 msgid "National"
 msgstr "Nacional"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields.selection,name:machine_manager.selection__machine__status__outofservice
@@ -336,6 +468,11 @@ msgid "Rental"
 msgstr "Renting"
 
 #. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: machine_manager
 #: model_terms:ir.ui.view,arch_db:machine_manager.machine_search_view
 msgid "Search machine"
 msgstr "Buscar máquina"
@@ -346,11 +483,22 @@ msgid "Status"
 msgstr "Estado"
 
 #. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model.fields,help:machine_manager.field_machine__product_id
 msgid ""
 "This product will contain information about the machine such as the "
 "manufacturer."
-msgstr "Este producto contendrá la información relativa a la maquina, p.e. el fabricante."
+msgstr ""
+"Este producto contendrá la información relativa a la maquina, p.e. el "
+"fabricante."
 
 #. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine__model_type_id
@@ -359,10 +507,25 @@ msgid "Type"
 msgstr "Tipo"
 
 #. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: machine_manager
 #: model:ir.model,name:machine_manager.model_res_users
 #: model:res.groups,name:machine_manager.group_machine_user
 msgid "User"
 msgstr "Usuario"
+
+#. module: machine_manager
+#: model:ir.model.fields,field_description:machine_manager.field_machine__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: machine_manager
+#: model:ir.model.fields,help:machine_manager.field_machine__website_message_ids
+msgid "Website communication history"
+msgstr ""
 
 #. module: machine_manager
 #: model:ir.model.fields,field_description:machine_manager.field_machine__year
