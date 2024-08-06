@@ -9,3 +9,4 @@ class ProductMaterial(models.Model):
     _order = "name"
 
     name = fields.Char(string="Description")
+    density = fields.Float(default=1, copy=False)
