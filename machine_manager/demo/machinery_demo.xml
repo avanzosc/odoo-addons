@@ -16,13 +16,11 @@
     <!--
         machinery resources
     -->
-    <record id="machinery_1" model="machinery">
+    <record id="machinery_1" model="machine">
         <field name="name">Personal PC</field>
-        <field name="purch_cost">800.0</field>
         <field name="year">2013</field>
         <field name="model">SC234</field>
         <field name="product_id" ref="product.product_product_3" />
         <field name="serial_id" ref="production_lot_1" />
-        <field name="user_ids" eval="[(4, ref('machinery_user_1'))]" />
     </record>
 </odoo>
