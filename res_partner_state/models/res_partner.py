@@ -7,5 +7,8 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     customer_state_id = fields.Many2one(
-        string="State", comodel_name="res.partner.state", copy=False
+        string="Customer Status",
+        comodel_name="res.partner.state",
+        copy=False,
+        tracking=True,
     )
