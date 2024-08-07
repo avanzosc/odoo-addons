@@ -35,7 +35,7 @@ class ProductProduct(models.Model):
         return product
 
     def write(self, vals):
-        result = super(ProductProduct, self).write(vals)
+        result = super().write(vals)
         if (
             "no_update_template" not in self.env.context
             and "default_product_manufacturing_operations" in vals

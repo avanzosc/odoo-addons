@@ -52,7 +52,7 @@ class RepairOrder(models.Model):
             )
 
     def action_repair_end(self):
-        result = super(RepairOrder, self).action_repair_end()
+        result = super().action_repair_end()
         for repair in self.filtered(lambda r: r.sale_order_id):
             repair.create_out_picking_repair()
         return result
@@ -94,7 +94,7 @@ class RepairOrder(models.Model):
         return vals
 
     def write(self, values):
-        result = super(RepairOrder, self).write(values)
+        result = super().write(values)
         if "price_in_sale_budget" in values:
             self._put_price_bugdet_in_sale_order_line()
         return result
