@@ -83,14 +83,8 @@ msgid "Repair warranty period (Months)"
 msgstr ""
 
 #. module: stock_production_lot_warranty_repair_date
-#: model_terms:ir.ui.view,arch_db:stock_production_lot_warranty_repair_date.view_company_form
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_warranty_repair_date.view_production_lot_form
 msgid "Repairs"
-msgstr ""
-
-#. module: stock_production_lot_warranty_repair_date
-#: model:ir.model.fields,field_description:stock_production_lot_warranty_repair_date.field_res_company__check_lot_is_under_warranty
-msgid "Check Repair Lot Is Under Warranty"
 msgstr ""
 
 #. module: stock_production_lot_warranty_repair_date
@@ -103,3 +97,10 @@ msgstr "调拨"
 #: model_terms:ir.ui.view,arch_db:stock_production_lot_warranty_repair_date.search_product_lot_filter
 msgid "warranty repair date"
 msgstr ""
+
+#. module: stock_production_lot_warranty_repair_date
+#: code:addons/stock_production_lot_warranty_repair_date/models/repair_order.py:0
+#, python-format
+msgid "You must confirm the sales order before starting the repair."
+msgstr ""
+
