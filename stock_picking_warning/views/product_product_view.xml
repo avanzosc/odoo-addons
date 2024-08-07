@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.sale.order</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <group name="description" position="after">
+                <t groups="sales_team.group_sale_salesman">
+                    <group
+            string="Warning in out pickings for this product"
+            name="warning-out-pickings"
+            groups="sale.group_warning_sale"
+          >
+                        <field name="out_picking_warn" nolabel="1" colspan="2" />
+                        <field
+              name="out_picking_warn_msg"
+              colspan="2"
+              nolabel="1"
+              placeholder="Type a message..."
+              attrs="{'required':[('out_picking_warn','!=','no-message')],'readonly':[('out_picking_warn','=','no-message')]}"
+            />
+                    </group>
+                </t>
+            </group>
+        </field>
+    </record>
+</odoo>
