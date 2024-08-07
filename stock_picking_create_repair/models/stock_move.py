@@ -51,7 +51,7 @@ class StockMove(models.Model):
             del vals["move_line_ids"]
         if "default_origin_from_devolution" in self.env.context:
             vals["origin"] = self.env.context.get("default_origin_from_devolution")
-        move = super(StockMove, self).create(vals)
+        move = super().create(vals)
         return move
 
     def unlink(self):
@@ -69,4 +69,4 @@ class StockMove(models.Model):
                     "report the units to be shipped."
                 ).format(move.repair_id.name)
             )
-        return super(StockMove, self).unlink()
+        return super().unlink()

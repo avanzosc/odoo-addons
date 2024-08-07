@@ -38,6 +38,6 @@ class PurchaseOrder(models.Model):
         return action_dict
 
     def _prepare_picking(self):
-        vals = super(PurchaseOrder, self)._prepare_picking()
+        vals = super()._prepare_picking()
         vals["is_repair"] = self.is_repair
         return vals
