@@ -23,9 +23,7 @@ class ContractContract(models.Model):
                 else:
                     if line.next_period_date_end < line_max_fec:
                         line_max_fec = line.next_period_date_end
-        values = super(ContractContract, self)._prepare_invoice(
-            date_invoice, journal=journal
-        )
+        values = super()._prepare_invoice(date_invoice, journal=journal)
         vals = {}
         if line_min_fec:
             vals["start_date_period"] = line_min_fec
