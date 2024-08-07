@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="product_template_only_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <group name="description" position="after">
+                <t groups="sales_team.group_sale_salesman">
+                    <group
+            string="Warning in out pickings for this product"
+            groups="sale.group_warning_sale"
+          >
+                        <field name="out_picking_warn" string="Warning" />
+                        <field
+              name="out_picking_warn_msg"
+              string="Message"
+              placeholder="Type a message..."
+              attrs="{'required':[('out_picking_warn','!=','no-message')],'readonly':[('out_picking_warn','=','no-message')]}"
+            />
+                    </group>
+                </t>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_product_supplier_inherit" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="purchase.view_product_supplier_inherit" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='purchase_line_warn']/.." position="after">
+                <group
+          string="Warning in in pickings for this product"
+          groups="purchase.group_warning_purchase"
+        >
+                    <field name="in_picking_warn" nolabel="1" colspan="2" />
+                    <field
+            name="in_picking_warn_msg"
+            colspan="2"
+            nolabel="1"
+            placeholder="Type a message..."
+            attrs="{'required':[('in_picking_warn','!=','no-message')],'readonly':[('in_picking_warn','=','no-message')]}"
+          />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

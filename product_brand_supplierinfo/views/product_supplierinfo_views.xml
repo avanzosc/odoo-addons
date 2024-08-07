@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+        <field name="arch" type="xml">
+            <field name="product_code" position="after">
+                <field name="product_brand_id" optional="show" />
+                <field name="brand_code" optional="show" readonly="1" />
+                <field name="brand_marking" optional="show" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='delay']/.." position="after">
+                <field name="product_brand_id" />
+                <field name="brand_code" readonly="1" />
+                <field name="brand_marking" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_search_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_search_view" />
+        <field name="arch" type="xml">
+            <field name="product_tmpl_id" position="after">
+                <field name="product_brand_id" />
+                <field name="brand_code" />
+                <field name="brand_marking" />
+            </field>
+            <filter name="groupby_vendor" position="after">
+                <filter
+          string="Product Brand"
+          name="groupby_brand"
+          domain="[]"
+          context="{'group_by': 'product_brand_id'}"
+        />
+                <filter
+          string="Brand Code"
+          name="groupby_brand_code"
+          domain="[]"
+          context="{'group_by': 'brand_code'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
