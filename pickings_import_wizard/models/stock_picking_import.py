@@ -201,9 +201,9 @@ class StockPickingImportLine(models.Model):
         for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
             help_msg = ""
-            picking_type = (
-                product
-            ) = lot = location = location_dest = lot_location = owner = False
+            picking_type = product = lot = location = location_dest = lot_location = (
+                owner
+            ) = False
             location, log_info_location = line._check_location()
             if log_info_location:
                 log_info += log_info_location
