@@ -103,7 +103,7 @@ class AccountMoveLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        result = super(AccountMoveLine, self).create(vals_list)
+        result = super().create(vals_list)
         for line in result:
             vals = {}
             if line.sale_line_ids and len(line.sale_line_ids) == 1:
