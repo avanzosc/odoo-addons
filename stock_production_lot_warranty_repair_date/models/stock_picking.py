@@ -8,7 +8,7 @@ class StockPicking(models.Model):
 
     def _find_lines_to_put_in_lot_expiration_date(self):
         normal_sale_order_type = self.env.ref("sale_order_type.normal_sale_type")
-        lines = super(StockPicking, self)._find_lines_to_put_in_lot_expiration_date()
+        lines = super()._find_lines_to_put_in_lot_expiration_date()
         if lines:
             my_lines = self.env["stock.move.line"]
             for line in lines:
