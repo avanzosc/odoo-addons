@@ -80,10 +80,10 @@
                                     <ul name="tutorial">
                                         <li><code
                       t-translation="off"
-                    >Name</code>: this will fill <b>Technical Name</b></li>
+                    >Technical Name</code>: this will fill <b>Technical Name</b></li>
                                         <li><code
                       t-translation="off"
-                    >Last Version</code>: this will fill <b>Last Version</b></li>
+                    >Latest Version</code>: this will fill <b>Last Version</b></li>
                                         <li><code
                       t-translation="off"
                     >Website</code>: this will fill <b>Website</b></li>
@@ -152,8 +152,15 @@
         </field>
     </record>
 
+        <menuitem
+    id="module_import_management_menu"
+    name="Compare Module to Install"
+    parent="base.menu_management"
+    sequence="100"
+  />
+
     <record id="ir_module_import_action" model="ir.actions.act_window">
-        <field name="name">Compare Module to Install</field>
+        <field name="name">Compare Module Wizards</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ir.module.import</field>
         <field name="view_mode">tree,form</field>
@@ -170,7 +177,7 @@
         <menuitem
     id="ir_module_import_management_menu"
     action="ir_module_import_action"
-    parent="base.menu_management"
-    sequence="100"
+    parent="module_import_management_menu"
+    sequence="10"
   />
 </odoo>
