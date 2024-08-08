@@ -12,11 +12,12 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "views/product_template_views.xml",
-        "views/product_series_view.xml",
-        "views/product_model_view.xml",
         "views/product_application_view.xml",
+        "views/product_color_view.xml",
         "views/product_family_view.xml",
+        "views/product_model_view.xml",
+        "views/product_series_view.xml",
+        "views/product_template_views.xml",
     ],
     "installable": True,
 }
