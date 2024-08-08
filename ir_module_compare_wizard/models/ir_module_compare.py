@@ -27,18 +27,22 @@ class IrModuleImport(models.Model):
         values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
             module_technical_name = row_values.get(
-                _("Name"),
-                row_values.get("Name", ""),
                 _("Technical Name"),
-                row_values.get("Technical Name", ""),
+                row_values.get(
+                    "Technical Name",
+                    row_values.get(_("Module Name"), row_values.get("Module Name", "")),
+                ),
             )
             if not module_technical_name:
                 return {}
             module_last_version = row_values.get(
-                _("Last Version"),
-                row_values.get("Last Version", ""),
-                _("Latest Version"),
-                row_values.get("Latest Version", ""),
+                _("Installed Version"),
+                row_values.get(
+                    "Installed Version",
+                    row_values.get(
+                        _("Latest Version"), row_values.get("Latest Version", "")
+                    ),
+                ),
             )
             module_website = row_values.get(_("Website"), row_values.get("Website", ""))
             module_author = row_values.get(_("Author"), row_values.get("Author", ""))
