@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <div id="manage_product_packaging" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" id="product-name_max_length">
+                    <div class="o_setting_left_pane">
+                        <field name="product_name_max_length" />
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="product_name_max_length" />
+                        <div class="text-muted">
+                            Enter the maximum number of characters allowed for the product name.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
