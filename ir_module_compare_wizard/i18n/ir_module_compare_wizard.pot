@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 08:32+0000\n"
-"PO-Revision-Date: 2024-07-15 08:32+0000\n"
+"POT-Creation-Date: 2024-08-08 12:24+0000\n"
+"PO-Revision-Date: 2024-08-08 12:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -118,13 +118,19 @@ msgstr ""
 #: model:ir.actions.act_window,name:ir_module_compare_wizard.ir_module_import_action
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_management_menu
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_menu
-msgid "Compare Module to Install"
+msgid "Compare Module Wizards"
 msgstr ""
 
 #. module: ir_module_compare_wizard
 #: model:ir.actions.act_window,name:ir_module_compare_wizard.ir_module_import_line_action
+#: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_line_management_menu
 #: model:ir.ui.menu,name:ir_module_compare_wizard.ir_module_import_line_menu
-msgid "Compare Module to Install Lines"
+msgid "Compare Module by Lines"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.ui.menu,name:ir_module_compare_wizard.module_import_management_menu
+msgid "Compare Module to Install"
 msgstr ""
 
 #. module: ir_module_compare_wizard
@@ -297,6 +303,13 @@ msgid "Install Module"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#. odoo-python
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#, python-format
+msgid "Installed Version"
+msgstr ""
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__message_is_follower
 msgid "Is Follower"
 msgstr ""
@@ -320,10 +333,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: ir_module_compare_wizard
-#. odoo-python
-#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_last_version
-#, python-format
 msgid "Last Version"
 msgstr ""
 
@@ -375,6 +385,7 @@ msgstr ""
 #. module: ir_module_compare_wizard
 #. odoo-python
 #: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #, python-format
 msgid "Module %(module_name)s not installable"
 msgstr ""
@@ -387,21 +398,20 @@ msgid "Module Author Generic"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#. odoo-python
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
+#, python-format
+msgid "Module Name"
+msgstr ""
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
 
 #. module: ir_module_compare_wizard
-#. odoo-python
-#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__name
-#, python-format
 msgid "Name"
-msgstr ""
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
 msgstr ""
 
 #. module: ir_module_compare_wizard
@@ -421,6 +431,7 @@ msgstr ""
 
 #. module: ir_module_compare_wizard
 #. odoo-python
+#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #, python-format
 msgid "No module %(module_name)s found."
@@ -534,6 +545,7 @@ msgid "Update"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#: model:ir.actions.server,name:ir_module_compare_wizard.action_button_validate
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_base_view_tree
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
@@ -546,16 +558,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_website
 #, python-format
 msgid "Website"
-msgstr ""
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__website_message_ids
-msgid "Website Messages"
-msgstr ""
-
-#. module: ir_module_compare_wizard
-#: model:ir.model.fields,help:ir_module_compare_wizard.field_ir_module_import__website_message_ids
-msgid "Website communication history"
 msgstr ""
 
 #. module: ir_module_compare_wizard

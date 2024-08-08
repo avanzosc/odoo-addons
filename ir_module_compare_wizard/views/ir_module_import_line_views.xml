@@ -4,8 +4,6 @@
         <field name="model">ir.module.import.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="import_id" />
-                <field name="import_module_id" />
                 <field name="module_technical_name" />
                 <field name="module_last_version" />
                 <field name="module_website" />
@@ -15,6 +13,8 @@
                 <field name="migrate_module" />
                 <field name="install_module" />
                 <field name="priority" />
+                <field name="import_id" />
+                <field name="import_module_id" />
                 <separator />
                 <filter
           string="Errored"
@@ -165,13 +165,14 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <field name="import_id" position="attributes">
-                <attribute name="invisible">0</attribute>
+                <attribute name="invisible" />
+                <attribute name="optional">hide</attribute>
             </field>
         </field>
     </record>
 
     <record id="ir_module_import_line_action" model="ir.actions.act_window">
-        <field name="name">Compare Module to Install Lines</field>
+        <field name="name">Compare Module by Lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ir.module.import.line</field>
         <field name="view_mode">tree,form</field>
@@ -184,4 +185,29 @@
     parent="base_import_wizard.base_import_menu"
     sequence="11"
   />
+
+        <menuitem
+    id="ir_module_import_line_management_menu"
+    action="ir_module_import_line_action"
+    parent="module_import_management_menu"
+    sequence="11"
+  />
+
+    <record id="action_button_validate" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field
+      name="model_id"
+      ref="ir_module_compare_wizard.model_ir_module_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="ir_module_compare_wizard.model_ir_module_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_validate()
+        </field>
+    </record>
 </odoo>
