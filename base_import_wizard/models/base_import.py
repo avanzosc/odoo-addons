@@ -273,7 +273,9 @@ class BaseImport(models.AbstractModel):
         self.import_line_ids.unlink()
         lines = self._read_file()
         if not lines:
-            raise ValidationError(_("This is not a valid file."))
+            raise ValidationError(
+                _("This is not a valid file.\n" "Unable to create wizard lines.")
+            )
         self.import_line_ids = lines
         return True
 
