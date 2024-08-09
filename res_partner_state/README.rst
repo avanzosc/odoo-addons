@@ -2,11 +2,11 @@
    :target: https://www.gnu.org/licenses/agpl
    :alt: License: AGPL-3
 
-=================
-Res partner state
-=================
-* New object "Customer state".
-* In partners new field "Customer State".
+================
+Partner Statuses
+================
+* New object "Customer Status".
+* In partners new field "Customer Status".
 
 
 Bug Tracker
