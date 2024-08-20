@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_crm_lead_form_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='opportunity_info']" position="after">
+                <group string="Competitor Details" attrs="{'invisible': [('stage_id.is_lost', '=', False)]}">
+                    <field name="competitor_manufacturer_id" />
+                    <field name="competitor_integrator_id" />
+                    <field name="competitor_reseller_id" />
+                    <field name="competitor_price" />
+                    <field name="lost_reason_notes" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_case_tree_view_leads" model="ir.ui.view">
+        <field name="name">crm.case.tree.view.leads</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_leads" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="competitor_manufacturer_id" optional="hide" />
+                <field name="competitor_integrator_id" optional="hide" />
+                <field name="competitor_reseller_id" optional="hide" />
+                <field name="competitor_price" optional="hide" />
+                <field name="lost_reason_notes" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

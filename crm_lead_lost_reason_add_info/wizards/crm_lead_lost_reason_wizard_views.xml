@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_crm_lead_lost_reason_wizard_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.lost.reason.wizard.inherit</field>
+        <field name="model">crm.lead.lost</field>
+        <field name="inherit_id" ref="crm.crm_lead_lost_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group string="Competitor Details">
+                    <field name="competitor_manufacturer_id" />
+                    <field name="competitor_integrator_id" />
+                    <field name="competitor_reseller_id" />
+                    <field name="competitor_price" />
+                    <field name="lost_reason_notes" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
