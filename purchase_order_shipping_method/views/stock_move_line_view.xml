@@ -12,4 +12,15 @@
             </field>
         </field>
     </record>
+
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <field name="qty_done" position="after">
+                <field name="picking_shipping_cost" optional="show" />
+                <field name="shipping_cost" sum="Total Shipping Cost" optional="show" />
+            </field>
+        </field>
+    </record>
 </odoo>
