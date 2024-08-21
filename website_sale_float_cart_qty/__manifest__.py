@@ -5,7 +5,7 @@
     "category": "Website",
     "license": "LGPL-3",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "author": "AvanzOSC",
+    "author": "AvanzOSC, Odoo Community Association (OCA)",
     "depends": [
         "website_sale",
     ],
