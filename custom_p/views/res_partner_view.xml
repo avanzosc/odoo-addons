@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_partner_view_risk" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk" />
+        <field name="arch" type="xml">
+            <field name="risk_invoice_open_include" position="attributes">
+                <attribute name="string">Invoice open/unpaid</attribute>
+            </field>
+            <field name="risk_invoice_unpaid_include" position="attributes">
+                <attribute name="string">Opening Entry</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="res_partner_risk_tree_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field
+      name="inherit_id"
+      ref="res_partner_risk_menu.res_partner_risk_tree_view"
+    />
+        <field name="arch" type="xml">
+            <field name="risk_invoice_open" position="attributes">
+                <attribute name="string">Invoice open/unpaid</attribute>
+            </field>
+            <field name="risk_invoice_unpaid" position="attributes">
+                <attribute name="string">Opening Entry</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
