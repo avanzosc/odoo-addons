@@ -21,6 +21,7 @@
         "data/category_type.xml",
         "data/picking_batch_stage.xml",
         "views/category_type_views.xml",
+        "views/product_family_view.xml",
         "views/product_category_views.xml",
         "views/product_template_views.xml",
         "views/stock_move_line_views.xml",

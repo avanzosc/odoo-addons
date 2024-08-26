@@ -4,6 +4,7 @@ from . import picking_batch_stage
 from . import stock_warehouse
 from . import res_partner
 from . import product_category
+from . import product_family
 from . import product_template
 from . import stock_move_line
 from . import stock_move

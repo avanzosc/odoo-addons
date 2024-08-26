@@ -21,3 +21,4 @@ class ProductTemplate(models.Model):
         related="categ_id.type_ids",
         store=True,
     )
+    product_family_id = fields.Many2one(string="Family", comodel_name="product.family")
