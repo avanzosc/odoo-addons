@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-23 10:35+0000\n"
-"PO-Revision-Date: 2024-05-23 10:35+0000\n"
+"POT-Creation-Date: 2024-08-27 07:09+0000\n"
+"PO-Revision-Date: 2024-08-27 07:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -101,6 +101,11 @@ msgid "Entries/Outputs Report"
 msgstr "Informe entradas/salidas"
 
 #. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__entry_unit
+msgid "Entry Units"
+msgstr "Unidades entradas"
+
+#. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Group By"
 msgstr "Agrupar por"
@@ -180,7 +185,6 @@ msgstr "Tipo de movimiento"
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_egg_move_line_report_pivot
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_pivot
-#: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_tree
 msgid "Movement Analysis"
 msgstr "Análisis entradas/salidas"
 
@@ -193,6 +197,11 @@ msgstr "Informe entradas/salidas"
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
 msgid "Origin"
 msgstr "Origen"
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__output_unit
+msgid "Output Units"
+msgstr "Unidades salidas"
 
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__output_qty
@@ -303,6 +312,12 @@ msgstr "Tipo"
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Type Category"
 msgstr "Tipo de categoría"
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__download_unit
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
+msgid "Units"
+msgstr "Unidades"
 
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__usage
