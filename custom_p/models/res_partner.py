@@ -29,6 +29,7 @@ class ResPartner(models.Model):
                     ("reconciled", "=", False),
                     ("account_internal_type", "=", "receivable"),
                     ("date_maturity", "!=", False),
+                    ("parent_state", "=", "posted"),
                 ],
                 "fields": ["partner_id", "account_id", "amount_residual"],
                 "group_by": ["partner_id", "account_id"],
