@@ -3,17 +3,14 @@
 from odoo.tests import common
 
 
-@common.at_install(False)
-@common.post_install(True)
-class TestProductPricelistItemMenu(common.SavepointCase):
+class TestProductPricelistItemMenu(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         cls.partner_model = cls.env["res.partner"]
 
     def test_product_pricelist_item_menu1(self):
-        cond = [("customer", "=", True)]
-        partners = self.partner_model.search(cond)
+        partners = self.partner_model.search([])
         for partner in partners:
             self.assertEqual(
                 partner.count_pricelists_item,
@@ -21,9 +18,8 @@ class TestProductPricelistItemMenu(common.SavepointCase):
             )
 
     def test_product_pricelist_item_menu2(self):
-        cond = [("customer", "=", True)]
-        partner = self.partner_model.search(cond, limit=1)
+        partner = self.partner_model.search([], limit=1)
         res = partner.button_show_partner_pricelist_items()
-        self.assertEqual(res.get("name"), "Pricelists item")
+        self.assertEqual(res.get("name"), "Pricelist Items")
         cond = [("pricelist_id", "=", partner.property_product_pricelist.id)]
         self.assertEqual(res.get("domain"), cond)
