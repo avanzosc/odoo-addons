@@ -24,3 +24,9 @@ class StockMoveLine(models.Model):
         related="picking_id.picking_type_id.dest_category_type_id",
         store=True,
     )
+    product_family_id = fields.Many2one(
+        string="Family",
+        comodel_name="product.family",
+        related="product_id.product_family_id",
+        store=True,
+    )
