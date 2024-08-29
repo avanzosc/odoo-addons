@@ -725,6 +725,24 @@ class StockPickingBatch(models.Model):
             self.liquidation_max = self.liquidation_contract_id.liquidation_max
             self.correction_factor = self.liquidation_contract_id.correction_factor
 
+    def action_view_picking(self):
+        result = super(StockPickingBatch, self).action_view_picking()
+        if self.closed:
+            result.update(
+                {
+                    "views": [
+                        [
+                            self.env.ref(
+                                "stock_picking_batch_liquidation.closed_picking_tree_view"
+                            ).id,
+                            "tree",
+                        ],
+                        [False, "form"],
+                    ],
+                }
+            )
+        return result
+
     def action_view_inventory_ids(self):
         context = self.env.context.copy()
         context.update({"default_batch_id": self.id})
@@ -739,14 +757,33 @@ class StockPickingBatch(models.Model):
                     ]
                 }
             )
-        return {
-            "name": _("Inventory adjustment"),
-            "view_mode": "tree,form",
-            "res_model": "stock.inventory",
-            "domain": [("id", "in", self.inventory_ids.ids)],
-            "type": "ir.actions.act_window",
-            "context": context,
-        }
+        if self.closed:
+            return {
+                "name": _("Inventory adjustment"),
+                "view_mode": "tree,form",
+                "views": [
+                    [
+                        self.env.ref(
+                            "stock_picking_batch_liquidation.closed_inventory_tree_view"
+                        ).id,
+                        "tree",
+                    ],
+                    [False, "form"],
+                ],
+                "res_model": "stock.inventory",
+                "domain": [("id", "in", self.inventory_ids.ids)],
+                "type": "ir.actions.act_window",
+                "context": context,
+            }
+        else:
+            return {
+                "name": _("Inventory adjustment"),
+                "view_mode": "tree,form",
+                "res_model": "stock.inventory",
+                "domain": [("id", "in", self.inventory_ids.ids)],
+                "type": "ir.actions.act_window",
+                "context": context,
+            }
 
     def action_view_account_move(self):
         context = self.env.context.copy()
