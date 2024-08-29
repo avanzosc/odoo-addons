@@ -535,6 +535,7 @@ class PurchaseOrderImportLine(models.Model):
                         "name": self.purchase_product_id.display_name,
                         "order_id": purchase_order,
                         "price_unit": self.purchase_product_cost,
+                        "date_planned": self.purchase_date_planned,
                     },
                 )
             ]
@@ -545,6 +546,7 @@ class PurchaseOrderImportLine(models.Model):
             "picking_type_id": self.purchase_picking_type_id.id,
             "partner_ref": self.purchase_origin,
             "date_planned": self.purchase_date_planned,
+            "date_order": self.purchase_date_planned,
             "shipping_cost": self.purchase_product_shipping_cost,
             "shipping_method_id": self.purchase_shipping_method_id.id,
         }
