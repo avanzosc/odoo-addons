@@ -19,4 +19,20 @@
             <attribute name="t-if">False</attribute>
         </xpath>
     </template>
+
+    <template
+    id="sale_order_portal_template_inherit"
+    inherit_id="sale.sale_order_portal_template"
+  >
+        <xpath expr="//a[@id='o_sale_portal_paynow']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//div[@id='quote_content']/div[8]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='quote_content']/div[1]/div[2]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
 </odoo>
