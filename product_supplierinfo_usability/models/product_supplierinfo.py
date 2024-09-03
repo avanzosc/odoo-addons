@@ -68,7 +68,7 @@ class ProductSupplierInfo(models.Model):
             pending_to_receive = 0
             cond = [
                 ("state", "not in", ("done", "draft", "cancel")),
-                ("picking_id.partner_id", "=", supplierinfo.name.id),
+                ("picking_id.partner_id", "=", supplierinfo.partner_id.id),
                 ("location_id", "!=", False),
                 ("location_id.usage", "=", "supplier"),
                 "|",
