@@ -6,7 +6,9 @@
 Stock ordepoint usability
 =========================
 
-* In "Procurement Order" tree editable view, show name.
+* In "Procurement Order" tree editable view, show name, and new fields: 
+  "Quantity On Hand", "Incoming", "Outgoing", "Consumed last twelve months",
+  "Months with stock", and "Pending receipt from supplier".
 
 Bug Tracker
 ===========

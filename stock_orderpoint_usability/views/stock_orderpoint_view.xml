@@ -25,6 +25,12 @@
           icon="fa-external-link"
         />
             </button>
+            <field name="route_id" position="before">
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
+                <field name="consumed_last_twelve_months" optional="show" />
+                <field name="months_with_stock" optional="show" />
+            </field>
         </field>
     </record>
 
@@ -58,6 +64,22 @@
                     </div>
                 </group>
             </xpath>
+        </field>
+    </record>
+
+    <record
+    id="view_warehouse_orderpoint_tree_editable_inherited_mr"
+    model="ir.ui.view"
+  >
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field
+      name="inherit_id"
+      ref="purchase_stock.view_warehouse_orderpoint_tree_editable_inherited_mrp"
+    />
+        <field name="arch" type="xml">
+            <field name="supplier_id" position="after">
+                <field name="supplier_pending_to_receive" optional="show" />
+            </field>
         </field>
     </record>
 </odoo>

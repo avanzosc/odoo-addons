@@ -2,10 +2,13 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Stock Orderpoint Usability",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "license": "AGPL-3",
     "depends": [
         "stock",
+        "purchase_stock",
+        "product_usability",
+        "product_supplierinfo_usability",
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
