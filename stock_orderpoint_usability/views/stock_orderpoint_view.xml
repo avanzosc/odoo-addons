@@ -26,6 +26,9 @@
         />
             </button>
         </field>
+        <xpath expr="//tree" position="inside">
+            <field name="qty_forecast" optional="show" />
+        </xpath>
     </record>
 
     <record id="stock_warehouse_orderpoint_view_form" model="ir.ui.view">
