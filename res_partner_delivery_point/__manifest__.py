@@ -9,6 +9,7 @@
     "depends": [
         "base",
         "sale",
+        "stock",
     ],
     "data": [
         "views/res_partner_views.xml",

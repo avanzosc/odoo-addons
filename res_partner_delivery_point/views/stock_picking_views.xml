@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_stock_picking_tree" model="ir.ui.view">
         <field name="name">stock.picking.tree</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="sale_order_id" string="Sales Order" optional="show"/>
+                <field name="sale_order_id" string="Sales Order" optional="show" />
             </xpath>
         </field>
     </record>
@@ -14,10 +14,10 @@
     <record id="view_stock_picking_form" model="ir.ui.view">
         <field name="name">stock.picking.form</field>
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="inherit_id" ref="stock.view_picking_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="sale_order_id" string="Sales Order"/>
+                <field name="sale_order_id" string="Sales Order" />
             </xpath>
         </field>
     </record>

@@ -12,7 +12,7 @@ class ResPartner(models.Model):
 
     related_prohibited_category_ids = fields.Many2many(
         comodel_name="product.public.category",
-        relation="partner_pick_up_point_prohibited_rel",
+        relation="partner_delivery_point_prohibited_rel",
         column1="partner_id",
         column2="category_id",
         compute="_compute_related_prohibited_category_ids",
@@ -20,9 +20,9 @@ class ResPartner(models.Model):
         help="Prohibited product categories from the pick up point.",
     )
 
-    @api.depends("pick_up_point_id.prohibited_category_ids")
+    @api.depends("delivery_point.prohibited_category_ids")
     def _compute_related_prohibited_category_ids(self):
         for partner in self:
             partner.related_prohibited_category_ids = (
-                partner.pick_up_point_id.prohibited_category_ids
+                partner.delivery_point.prohibited_category_ids
             )
