@@ -8,6 +8,20 @@ from odoo import api, fields, models
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Partner",
+        related="account_id.partner_id",
+        store=True,
+        readonly=True,
+    )
+    product_category_id = fields.Many2one(
+        "product.category",
+        string="Product Category",
+        related="product_id.categ_id",
+        store=True,
+        readonly=True,
+    )
     amount_type = fields.Selection(
         selection=[("cost", "Cost"), ("revenue", "Revenue")],
         compute="_compute_amount_type",
