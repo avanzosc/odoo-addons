@@ -61,22 +61,21 @@ class RepairOrder(models.Model):
         cond = [
             ("sale_order_id", "=", self.sale_order_id.id),
             ("from_repair_picking_out_id", "!=", False),
-            (
-                "from_repair_picking_out_id.state",
-                "in",
-                ["draft", "confirmed", "waiting", "partially_available", "assigned"],
-            ),
+            ("from_repair_picking_out_id.state", "not in", ["done", "cancel"]),
         ]
-        repair = self.env["repair.order"].search(cond)
-        if repair:
-            picking = repair.from_repair_picking_out_id[:1]
+        existing_picking = self.env["stock.picking"].search(cond, limit=1)
+
+        if existing_picking:
+            picking = existing_picking
         else:
             vals = self._catch_data_for_create_out_picking_repair()
             picking = self.env["stock.picking"].create(vals)
+
         lots = self.sale_order_id.mapped("repair_ids.move_id.lot_ids")
         if self.move_id:
             new_move = self.move_id.find_or_create_from_repair(picking)
             new_move.with_context(force_lots=lots)._action_assign()
+
         self.from_repair_picking_out_id = picking.id
 
     def _catch_data_for_create_out_picking_repair(self):
@@ -151,7 +150,7 @@ class RepairOrder(models.Model):
                 "product_id": self.product_id.id,
                 "product_uom": self.product_uom.id or self.product_id.uom_id.id,
                 "product_uom_qty": self.product_qty,
-                "partner_id": self.address_id.id,
+                "partner_id": self.sale_order_id.partner_id.id,
                 "location_id": location.id,
                 "location_dest_id": location_dest.id,
                 "repair_id": self.id,
@@ -161,5 +160,5 @@ class RepairOrder(models.Model):
                 "sale_line_id": self.sale_line_id.id,
             }
         )
-        #        move.move_line_ids[0]._onchange_serial_number()
+        #    move.move_line_ids[0]._onchange_serial_number()
         self.move_id = move.id
