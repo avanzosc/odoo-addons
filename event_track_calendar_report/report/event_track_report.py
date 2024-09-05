@@ -38,7 +38,7 @@ UNION ALL (
         event_track.id * -1 AS id,
         null AS meeting_id,
         event_track.id AS track_id,
-        event_track.name,
+        event_track.name_for_calendar_report,
         False AS allday,
         event_track.date AS start,
         event_track.date_end as stop,
