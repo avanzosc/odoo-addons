@@ -7,7 +7,7 @@
       ref="stock_inventory_import_wizard.stock_inventory_import_line_view_tree"
     />
         <field name="arch" type="xml">
-            <field name="inventory_product_qty" position="after">
+            <field name="qty_to_move" position="after">
                 <field name="inventory_product_cost" optional="show" />
                 <field name="inventory_product_amount" optional="show" />
             </field>
@@ -21,7 +21,7 @@
       ref="stock_inventory_import_wizard.stock_inventory_import_line_view_form"
     />
         <field name="arch" type="xml">
-            <field name="inventory_product_qty" position="after">
+            <field name="qty_to_move" position="after">
                 <field name="inventory_product_cost" optional="show" />
                 <field name="inventory_product_amount" optional="show" />
             </field>
