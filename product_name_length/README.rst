@@ -6,8 +6,9 @@
 Product name length
 ===================
 
-* In Inventory - Configuration- Settings new field "Max. Length product name"
-  by default it has a value of 55.
+* In Inventory - Configuration- Settings new fields: "Max. Length product name"
+  by default it has a value of 250, and "Max. Length Product Name For Labels"
+  by default it has a value of 55
 
 
 Bug Tracker

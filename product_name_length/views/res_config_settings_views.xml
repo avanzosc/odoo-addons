@@ -5,17 +5,69 @@
         <field name="inherit_id" ref="stock.res_config_settings_view_form" />
         <field name="arch" type="xml">
             <div id="manage_product_packaging" position="after">
-                <div class="col-12 col-lg-6 o_setting_box" id="product-name_max_length">
-                    <div class="o_setting_left_pane">
-                        <field name="product_name_max_length" />
-                    </div>
+                <div class="col-12 col-lg-6 o_setting_box">
                     <div class="o_setting_right_pane">
                         <label for="product_name_max_length" />
+                        <span
+              class="fa fa-lg fa-building-o"
+              title="Max. Length Product Name."
+              aria-label="Max. Length Product Name."
+            />
                         <div class="text-muted">
                             Enter the maximum number of characters allowed for the product name.
                         </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <span><field
+                    name="product_name_max_length"
+                    class="oe_inline"
+                  /> characters</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="product_name_max_length_for_labels" />
+                        <span
+              class="fa fa-lg fa-building-o"
+              title="Max. Length Product Name For Labels."
+              aria-label="Max. Length Product Name For Labels."
+            />
+                        <div class="text-muted">
+                            Enter the maximum number of characters allowed to print labels for the product name.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <span><field
+                    name="product_name_max_length_for_labels"
+                    class="oe_inline"
+                  /> characters</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <!--
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label for="product_name_max_length_for_labels" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Max. Length Product Name For Labels."
+                            aria-label="Max. Length Product Name For Labels."
+                        />
+                        <div class="text-muted">
+                            Enter the maximum number of characters allowed to print labels for the product name.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <span><field
+                                        name="product_name_max_length_for_labels"
+                                        class="oe_inline"
+                                    /> characters</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
             </div>
         </field>
     </record>
