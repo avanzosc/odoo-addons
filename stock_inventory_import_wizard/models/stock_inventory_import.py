@@ -13,6 +13,10 @@ class StockInventoryImport(models.Model):
     _inherit = "base.import"
     _description = "Wizard to import inventory"
 
+    def _default_accounting_date(self):
+        result = fields.Datetime.now()
+        return result
+
     import_inventory_id = fields.Many2one(
         comodel_name="stock.inventory",
         string="Inventory",
@@ -35,9 +39,10 @@ class StockInventoryImport(models.Model):
         string="Create Lot",
         default=False,
     )
-    accounting_date = fields.Date(
+    accounting_date = fields.Datetime(
+        default=_default_accounting_date,
         string="Accounting Date",
-        default=fields.Date.today(),
+        required=True,
     )
 
     def _get_line_values(self, row_values, datemode=False):
@@ -49,6 +54,7 @@ class StockInventoryImport(models.Model):
             inventory_location = row_values.get("Ubicacion", "")
             inventory_lot = row_values.get("Lote", "")
             inventory_product_qty = row_values.get("Cantidad", "")
+            qty_to_move = row_values.get("CantidadMovimiento", 0)
             log_info = ""
             if not inventory_product and not inventory_lot and not inventory_location:
                 return {}
@@ -59,6 +65,7 @@ class StockInventoryImport(models.Model):
                     "inventory_location": convert2str(inventory_location),
                     "inventory_lot": convert2str(inventory_lot),
                     "inventory_product_qty": convert2str(inventory_product_qty),
+                    "qty_to_move": qty_to_move,
                     "log_info": log_info,
                 }
             )
@@ -77,7 +84,7 @@ class StockInventoryImport(models.Model):
             "company_id": self.company_id.id,
             "date": self.file_date,
             "start_empty": True,
-            "accounting_date": self.accounting_date,
+            "accounting_date": self.accounting_date.date(),
         }
         inventory = self.env["stock.inventory"].create(values)
         inventory.action_start()
@@ -119,6 +126,22 @@ class StockInventoryImport(models.Model):
         )
         action_dict.update({"domain": domain})
         return action_dict
+
+    def button_open_move_line(self):
+        self.ensure_one()
+        move_lines = self.mapped("import_line_ids.move_line_id")
+        action = self.env.ref("stock.stock_move_line_action")
+        action_dict = action.read()[0] if action else {}
+        domain = expression.AND(
+            [[("id", "in", move_lines.ids)], safe_eval(action.domain or "[]")]
+        )
+        action_dict.update({"domain": domain})
+        return action_dict
+
+    def button_creat_quants(self):
+        self.ensure_one()
+        for line in self.import_line_ids.filtered(lambda c: c.state == "pass"):
+            line.create_quant()
 
 
 class StockInventoryImportLine(models.Model):
@@ -194,6 +217,131 @@ class StockInventoryImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    move_line_id = fields.Many2one(
+        string="Move Lines",
+        comodel_name="stock.move.line",
+        copy=False,
+        readonly=True,
+    )
+    qty_to_move = fields.Float(
+        string="Qty To Move",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+
+    def create_quant(self):
+        self.ensure_one()
+        log_infos = []
+        movelines = False
+        if not self.inventory_product_id:
+            log_info_product = _("Product is required.")
+            if log_info_product:
+                log_infos.append(log_info_product)
+        if not self.inventory_location_id:
+            log_info_location = _("Location is required.")
+            if log_info_location:
+                log_infos.append(log_info_location)
+        domain = [
+            ("product_id", "=", self.inventory_product_id.id),
+            ("location_id", "=", self.inventory_location_id.id),
+            ("company_id", "=", self.import_id.company_id.id),
+        ]
+        if self.inventory_product_id.tracking != "none":
+            if not self.inventory_lot_id:
+                log_info_lot = _("Lot is required.")
+                if log_info_lot:
+                    log_infos.append(log_info_lot)
+            else:
+                domain.append(("lot_id", "=", self.inventory_lot_id.id))
+        if not log_infos:
+            out_movelines = self.env["stock.move.line"].search(
+                [
+                    ("product_id", "=", self.inventory_product_id.id),
+                    ("location_id", "=", self.inventory_location_id.id),
+                    ("company_id", "=", self.import_id.company_id.id),
+                    ("lot_id", "=", self.inventory_lot_id.id),
+                    ("date", ">", self.import_id.accounting_date),
+                    ("state", "=", "done"),
+                ]
+            )
+            out_qty = sum(out_movelines.mapped("qty_done"))
+            in_movelines = self.env["stock.move.line"].search(
+                [
+                    ("product_id", "=", self.inventory_product_id.id),
+                    ("location_dest_id", "=", self.inventory_location_id.id),
+                    ("company_id", "=", self.import_id.company_id.id),
+                    ("lot_id", "=", self.inventory_lot_id.id),
+                    ("date", ">", self.import_id.accounting_date),
+                    ("state", "=", "done"),
+                ]
+            )
+            in_qty = sum(in_movelines.mapped("qty_done"))
+            done_movelines = in_movelines + out_movelines
+            movelines = False
+            if done_movelines.filtered(
+                lambda c: c.location_id
+                == (self.inventory_product_id.property_stock_inventory)
+                or c.location_dest_id
+                == (self.inventory_product_id.property_stock_inventory)
+            ):
+                log_infos.append(_("It has inventory adjustment line after the date."))
+            else:
+                if self.inventory_product_qty:
+                    quant = self.env["stock.quant"].search(domain)
+                    quant_qty = 0
+                    if quant:
+                        quant_qty = quant[:1].quantity
+                    dif = in_qty - out_qty
+                    new_move_qty = float(self.inventory_product_qty) - (quant_qty - dif)
+                if self.qty_to_move:
+                    new_move_qty = self.qty_to_move
+                if new_move_qty >= 0:
+                    location_dest = self.inventory_location_id
+                    location = self.inventory_product_id.property_stock_inventory
+                if new_move_qty < 0:
+                    new_move_qty = (-1) * new_move_qty
+                    location = self.inventory_location_id
+                    location_dest = self.inventory_product_id.property_stock_inventory
+                move = self.env["stock.move"].create(
+                    {
+                        "product_id": self.inventory_product_id.id,
+                        "name": self.import_id.filename,
+                        "product_uom": self.inventory_product_id.uom_id.id,
+                        "product_uom_qty": new_move_qty,
+                        "location_id": location.id,
+                        "location_dest_id": location_dest.id,
+                        "move_line_ids": [
+                            (
+                                0,
+                                0,
+                                {
+                                    "product_id": self.inventory_product_id.id,
+                                    "product_uom_id": self.inventory_product_id.uom_id.id,
+                                    "qty_done": new_move_qty,
+                                    "location_id": location.id,
+                                    "location_dest_id": location_dest.id,
+                                    "lot_id": self.inventory_lot_id.id,
+                                },
+                            )
+                        ],
+                    }
+                )
+                move._action_confirm()
+                move._action_assign()
+                move._action_done()
+                move.date = self.import_id.accounting_date
+                move.move_line_ids.date = self.import_id.accounting_date
+                movelines = move.move_line_ids[:1].id
+        state = "error" if log_infos else "done"
+        action = "nothing"
+        self.write(
+            {
+                "log_info": "\n".join(log_infos),
+                "state": state,
+                "action": action,
+                "move_line_id": movelines,
+            }
+        )
 
     def _action_validate(self):
         self.ensure_one()
