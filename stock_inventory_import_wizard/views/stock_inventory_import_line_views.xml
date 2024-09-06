@@ -84,7 +84,8 @@
                             <field name="inventory_product_code" />
                             <field name="inventory_location" />
                             <field name="inventory_lot" />
-                            <field name="inventory_product_qty" />
+                            <field name="inventory_product_qty" optional="show" />
+                            <field name="qty_to_move" optional="hide" />
                         </group>
                         <group>
                             <field
@@ -128,8 +129,13 @@
                 <field name="inventory_location" />
                 <field name="inventory_location_id" optional="hide" />
                 <field name="inventory_lot" />
-                <field name="inventory_lot_id" optional="hide" />
-                <field name="inventory_product_qty" />
+                <field
+          name="inventory_lot_id"
+          domain="[('product_id', '=', inventory_product_id)]"
+          optional="hide"
+        />
+                <field name="inventory_product_qty" optional="show" />
+                <field name="qty_to_move" optional="hide" />
                 <field name="state" />
                 <field name="log_info" optional="show" />
             </tree>
