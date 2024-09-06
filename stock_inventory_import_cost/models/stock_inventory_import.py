@@ -51,3 +51,13 @@ class StockInventoryImportLine(models.Model):
                 }
             )
         return result
+
+    def create_quant(self):
+        super(StockInventoryImportLine, self).create_quant()
+        if self.move_line_id and self.inventory_product_cost:
+            self.move_line_id.write(
+                {
+                    "standard_price": self.inventory_product_cost,
+                    "amount": self.move_line_id.qty_done * self.inventory_product_cost,
+                }
+            )
