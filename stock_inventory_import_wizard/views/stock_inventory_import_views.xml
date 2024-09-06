@@ -70,6 +70,13 @@
             >
                             <field name="inventory_line_count" />
                         </button>
+                        <button
+              string="Move Lines"
+              type="object"
+              name="button_open_move_line"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            />
                     </div>
                     <group>
                         <group>
@@ -118,6 +125,8 @@
                       >Inventory Lot</b></li>
                                         <li><code>Cantidad</code>: this will fill <b
                       >Inventory Product Quantity</b></li>
+                      <li><code>CantidadMovimiento</code>: this will fill <b
+                      >Move Product Quantity</b></li>
                                     </ul>
                                 </div>
                             </group>
