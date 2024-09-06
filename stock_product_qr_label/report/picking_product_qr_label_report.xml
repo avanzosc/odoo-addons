@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="picking_product_qr_label_document">
+        <t t-call="stock_product_qr_label.external_layout_quant_product_label">
+            <t t-foreach="doc.move_line_ids" t-as="line">
+                <div
+          class="page"
+          style="font-size: 19px; font-family: ubuntu condensed; padding-top: 5px;  margin-right: -10px; margin-left: -10px; margin-bottom: -10px;"
+        >
+                    <div class="row">
+                        <div class="col-3">
+                            <b><span
+                  t-field="line.product_id.code"
+                  style="text-align: left;"
+                /></b>
+                        </div>
+                        <div class="col-5">
+                            <b><span
+                  t-field="line.picking_id.name"
+                  style="text-align: left;"
+                /></b>
+                        </div>
+                        <div class="col-4" style="text-align: right;">
+                            <b><span
+                  t-field="line.picking_id.date_done"
+                  t-options='{"widget": "date"}'
+                /></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                          <b><span t-esc="line.product_id.name_for_labels" /></b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <b>
+                                <span>Lot.: </span>
+                                <span t-field="line.lot_id.name" />
+                                <br />
+                                <span>Bin: </span>
+                                <span t-field="line.lot_id.ref" />
+                                <br />
+                                <span>Loc.: </span>
+                                <span t-field="line.location_dest_id.name" />
+                                <br />
+                                <span>Qty.: </span>
+                                <span t-esc="int(line.qty_done)" />
+                            </b>
+                        </div>
+                        <div class="col-4">
+                            <img
+                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', line.qr_code, 115, 115)"
+                style="margin-left: -30px;"
+              />
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_picking_product_qr_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-call="stock_product_qr_label.picking_product_qr_label_document"
+          t-lang="doc.company_id.partner_id.lang"
+        />
+            </t>
+        </t>
+    </template>
+
+    <record id="action_picking_product_qr_label_report" model="ir.actions.report">
+        <field name="name">Product QR Label</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_product_qr_label.report_picking_product_qr_label</field>
+        <field
+      name="report_file"
+    >stock_product_qr_label.report_picking_product_qr_label</field>
+        <field
+      name="print_report_name"
+    >('QR Products Label For Picking - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+        <field
+      name="paperformat_id"
+      ref="stock_product_qr_label.paperformat_product_qr_label"
+    />
+    </record>
+</odoo>
