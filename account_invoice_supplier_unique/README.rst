@@ -1,15 +1,13 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 
-===================
-Product name length
-===================
+===============================
+Account invoice supplier unique
+===============================
 
-* In Inventory - Configuration- Settings new fields: "Max. Length product name"
-  by default it has a value of 250, and "Max. Length Product Name For Labels"
-  by default it has a value of 55
-
+* When confirming a supplier invoice, verify that there is no other invoice with
+  the same supplier, date, and reference.
 
 Bug Tracker
 ===========

@@ -16,6 +16,25 @@ class StockQuant(models.Model):
         store=True,
         copy=False,
     )
+    brand_fabricator_id = fields.Many2one(
+        "res.partner",
+        string="Brand Fabricator",
+        compute="_compute_brand_fabricator",
+        store=True,
+        copy=False,
+    )
+
+    @api.depends("product_id")
+    def _compute_brand_fabricator(self):
+        for quant in self:
+            if quant.product_id:
+                sellers = quant.product_id.seller_ids.filtered(
+                    lambda x: x.product_brand_id and x.product_brand_id.code
+                )
+                if sellers:
+                    quant.brand_fabricator_id = sellers[0].partner_id
+                else:
+                    quant.brand_fabricator_id = False
 
     @api.depends(
         "product_id",
@@ -27,13 +46,17 @@ class StockQuant(models.Model):
         "product_id.product_tmpl_id.seller_ids.product_brand_id",
     )
     def _compute_brand_info(self):
-        for move in self:
+        for quant in self:
             product_brand_code = ""
             brand_fabricators = ""
-            if move.product_id:
-                sellers = move.product_id.seller_ids.filtered(
+            if quant.product_id:
+                sellers = quant.product_id.seller_ids.filtered(
                     lambda x: x.product_brand_id and x.product_brand_id.code
                 )
+                if quant.brand_fabricator_id:
+                    sellers = sellers.filtered(
+                        lambda x: x.partner_id == quant.brand_fabricator_id
+                    )
                 for seller in sellers:
                     brand_code = seller.product_brand_id.code
                     product_brand_code = (
@@ -47,5 +70,5 @@ class StockQuant(models.Model):
                         if not brand_fabricators
                         else "{}, {}".format(brand_fabricators, partner_name)
                     )
-            move.product_brand_code = product_brand_code
-            move.brand_fabricators = brand_fabricators
+            quant.product_brand_code = product_brand_code
+            quant.brand_fabricators = brand_fabricators
