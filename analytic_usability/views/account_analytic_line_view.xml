@@ -9,7 +9,7 @@
             </field>
             <field name="amount" position="after">
                 <field name="amount_type" optional="hide" />
-                <field name="partner_id" optional="hide" />
+                <field name="account_partner_id" optional="hide" />
                 <field name="product_category_id" optional="hide" />
             </field>
         </field>
@@ -28,7 +28,7 @@
                 <field name="invoice_reference" optional="show" />
                 <field name="invoice_partner_id" optional="show" />
                 <field name="invoice_user_id" optional="show" />
-                <field name="partner_id" optional="show" />
+                <field name="account_partner_id" optional="show" />
                 <field name="product_category_id" optional="show" />
             </field>
         </field>
@@ -47,7 +47,7 @@
                 <field name="invoice_reference" />
                 <field name="invoice_partner_id" />
                 <field name="invoice_user_id" />
-                <field name="partner_id" />
+                <field name="account_partner_id" />
                 <field name="product_category_id" />
 
             </field>
@@ -112,7 +112,7 @@
         <field name="arch" type="xml">
             <field name="move_id" position="after">
                 <field name="account_move_id" readonly="1" />
-                <field name="partner_id" readonly="1" />
+                <field name="account_partner_id" readonly="1" />
                 <field name="product_category_id" readonly="1" />
 
             </field>
