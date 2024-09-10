@@ -11,6 +11,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
+        "security/ir.model.access.csv",
         "wizard/wiz_create_auto_reordering_rule_view.xml",
         "views/stock_location_views.xml",
     ],

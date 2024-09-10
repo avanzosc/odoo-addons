@@ -1,15 +1,12 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 
-===================
-Product name length
-===================
+======================
+Stock product QR label
+======================
 
-* In Inventory - Configuration- Settings new fields: "Max. Length product name"
-  by default it has a value of 250, and "Max. Length Product Name For Labels"
-  by default it has a value of 55
-
+* In "stock.quant" and "stock.picking" new report "Product QR Label".
 
 Bug Tracker
 ===========
@@ -27,5 +24,6 @@ Credits
 Contributors
 ------------
 
-* Ana Juaristi <anajuaristi@avanzosc.es>
+* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Ana Juaristi <anajuaristi@avanzosc.es>
