@@ -8,7 +8,7 @@ from odoo import api, fields, models
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
-    partner_id = fields.Many2one(
+    account_partner_id = fields.Many2one(
         "res.partner",
         string="Partner",
         related="account_id.partner_id",
