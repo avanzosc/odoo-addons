@@ -10,6 +10,7 @@
     "depends": ["purchase_last_price_info"],
     "data": [
         "data/product_cost_groups.xml",
+        "data/res_groups.xml",
         "views/product_product_views.xml",
         "views/product_template_views.xml",
     ],

@@ -12,6 +12,11 @@
           name="groups"
         >product_cost_visible.group_product_cost_visible</attribute>
             </group>
+            <xpath expr="//page[@name='purchase']" position="attributes">
+                <attribute
+          name="groups"
+        >base.group_user,product_cost_visible.group_product_cost_visible</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -27,6 +32,12 @@
           name="groups"
         >product_cost_visible.group_product_cost_visible</attribute>
             </field>
+            <field name="cost_price" position="attributes">
+                <attribute
+          name="groups"
+        >product_cost_visible.group_commercial_permissions</attribute>
+            </field>
+
         </field>
     </record>
 </odoo>
