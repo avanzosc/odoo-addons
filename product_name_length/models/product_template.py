@@ -12,7 +12,7 @@ class ProductTemplate(models.Model):
         product_name_max_length = int(
             self.env["ir.config_parameter"]
             .sudo()
-            .get_param("product_name_max_length", default=55)
+            .get_param("product_name_max_length", default=250)
         )
         for template in self:
             if len(template.name) > product_name_max_length:

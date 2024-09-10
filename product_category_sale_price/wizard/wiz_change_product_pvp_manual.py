@@ -7,7 +7,7 @@ class WizChangeProductPvpManual(models.TransientModel):
     _name = "wiz.change.product.pvp.manual"
     _description = "Wizard for change in product field manual PsP"
 
-    manual_pvp = fields.Boolean(string="Manual PSP", value=False)
+    manual_pvp = fields.Boolean(string="Manual PSP", default=False)
 
     def button_change_manual_pvp(self):
         context = dict(self._context or {})

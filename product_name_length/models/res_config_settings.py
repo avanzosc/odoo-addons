@@ -9,6 +9,9 @@ class ResConfigSettings(models.TransientModel):
     product_name_max_length = fields.Integer(
         string="Max. Length Product Name",
     )
+    product_name_max_length_for_labels = fields.Integer(
+        string="Max. Length Product Name For Labels",
+    )
 
     @api.model
     def get_values(self):
@@ -17,8 +20,13 @@ class ResConfigSettings(models.TransientModel):
             product_name_max_length=int(
                 self.env["ir.config_parameter"]
                 .sudo()
-                .get_param("product_name_max_length", default=55)
-            )
+                .get_param("product_name_max_length", default=250)
+            ),
+            product_name_max_length_for_labels=int(
+                self.env["ir.config_parameter"]
+                .sudo()
+                .get_param("product_name_max_length_for_labels", default=55)
+            ),
         )
         return res
 
@@ -26,5 +34,9 @@ class ResConfigSettings(models.TransientModel):
         result = super().set_values()
         self.env["ir.config_parameter"].sudo().set_param(
             "product_name_max_length", self.product_name_max_length
+        )
+        self.env["ir.config_parameter"].sudo().set_param(
+            "product_name_max_length_for_labels",
+            self.product_name_max_length_for_labels,
         )
         return result
