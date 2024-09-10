@@ -91,6 +91,18 @@ class StockMoveLineReport(models.Model):
         string="Outputs Amount",
         readonly=True,
     )
+    download_unit = fields.Integer(
+        string="Units",
+        readonly=True,
+    )
+    entry_unit = fields.Integer(
+        string="Entry Units",
+        readonly=True,
+    )
+    output_unit = fields.Integer(
+        string="Output Units",
+        readonly=True,
+    )
     owner_id = fields.Many2one(
         string="Owner",
         comodel_name="res.partner",
@@ -186,6 +198,9 @@ class StockMoveLineReport(models.Model):
                     line.warehouse_id,
                     line.owner_id,
                     line.date,
+                    line.download_unit,
+                    line.entry_unit,
+                    line.output_unit,
                     line.entry_qty,
                     line.output_qty,
                     line.qty_done,
@@ -221,6 +236,9 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.batch_category_type_id
                                 AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
+                            stock_move_line.download_unit * (-1) AS download_unit,
+                            0 AS entry_unit,
+                            stock_move_line.download_unit * (-1) AS output_unit,
                             stock_move_line.qty_done * (-1) AS qty_done,
                             0 AS entry_qty,
                             stock_move_line.qty_done * (-1) AS output_qty,
@@ -265,6 +283,9 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.batch_category_type_id
                                AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
+                            stock_move_line.download_unit AS download_unit,
+                            stock_move_line.download_unit AS entry_unit,
+                            0 AS output_unit,
                             stock_move_line.qty_done AS qty_done,
                             stock_move_line.qty_done AS entry_qty,
                             0 AS output_qty,
@@ -308,6 +329,9 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
+                            stock_move_line.download_unit * (-1) AS download_unit,
+                            0 AS entry_unit,
+                            stock_move_line.download_unit * (-1) AS output_unit,
                             stock_move_line.qty_done * (-1) AS qty_done,
                             0 AS entry_qty,
                             stock_move_line.qty_done * (-1) AS output_qty,
@@ -354,6 +378,9 @@ class StockMoveLineReport(models.Model):
                             stock_move_line.batch_location_id AS batch_location_id,
                             stock_move_line.batch_category_type_id AS batch_category_type_id,
                             stock_move_line.owner_id AS owner_id,
+                            stock_move_line.download_unit AS download_unit,
+                            stock_move_line.download_unit AS entry_unit,
+                            0 AS output_unit,
                             stock_move_line.qty_done AS qty_done,
                             stock_move_line.qty_done AS entry_qty,
                             0 AS output_qty,
