@@ -1,11 +1,69 @@
 # Copyright 2021 Daniel Campos - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 
-from odoo import _, models
+from odoo import _, api, fields, models
 
 
 class StockWarehouseOrderpoint(models.Model):
     _inherit = "stock.warehouse.orderpoint"
+
+    qty_available = fields.Float(
+        string="Quantity On Hand",
+        digits="Product Unit of Measure",
+        related="product_id.qty_available",
+    )
+    incoming_qty = fields.Float(
+        string="Incoming",
+        digits="Product Unit of Measure",
+        compute="_compute_incoming_qty",
+    )
+    outgoing_qty = fields.Float(
+        string="Outgoing",
+        digits="Product Unit of Measure",
+        compute="_compute_outgoing_qty",
+    )
+    consumed_last_twelve_months = fields.Float(
+        string="Consumed last twelve months",
+        digits="Product Unit of Measure",
+        related="product_id.consumed_last_twelve_months",
+    )
+    months_with_stock = fields.Integer(
+        string="Months with stock", related="product_id.months_with_stock"
+    )
+
+    @api.depends("product_id")
+    def _compute_incoming_qty(self):
+        for record in self:
+            ctx = dict(self.env.context, location=record.location_id.id)
+            quantities_dict = record.product_id.with_context(
+                ctx
+            )._compute_quantities_dict(
+                lot_id=None,
+                owner_id=None,
+                package_id=None,
+                from_date=False,
+                to_date=False,
+            )
+            record.incoming_qty = quantities_dict.get(record.product_id.id, {}).get(
+                "incoming_qty", 0.0
+            )
+
+    @api.depends("product_id")
+    def _compute_outgoing_qty(self):
+        for record in self:
+            ctx = dict(self.env.context, location=record.location_id.id)
+            quantities_dict = record.product_id.with_context(
+                ctx
+            )._compute_quantities_dict(
+                lot_id=None,
+                owner_id=None,
+                package_id=None,
+                from_date=False,
+                to_date=False,
+            )
+            record.outgoing_qty = quantities_dict.get(record.product_id.id, {}).get(
+                "outgoing_qty", 0.0
+            )
 
     def button_recompute_qty_to_order(self):
         fnames = ["qty_to_order"]

@@ -28,6 +28,10 @@
         </field>
         <xpath expr="//tree" position="inside">
             <field name="qty_forecast" optional="show" />
+            <field name="incoming_qty" optional="show" />
+            <field name="outgoing_qty" optional="show" />
+            <field name="consumed_last_twelve_months" optional="show" />
+            <field name="months_with_stock" optional="show" />
         </xpath>
     </record>
 
@@ -61,6 +65,25 @@
                     </div>
                 </group>
             </xpath>
+            <field name="route_id" position="before">
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
+                <field name="consumed_last_twelve_months" optional="show" />
+                <field name="months_with_stock" optional="show" />
+            </field>
+            <field name="route_id" position="after">
+                <field name="supplier_id" optional="show" />
+            </field>
+            <field name="qty_multiple" position="after">
+                <field name="qty_to_order" optional="show" />
+            </field>
+            <field name="route_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
+            <field name="location_id" position="after">
+                <field name="qty_on_hand" optional="show" />
+                <field name="qty_forecast" optional="show" />
+            </field>
         </field>
     </record>
 </odoo>
