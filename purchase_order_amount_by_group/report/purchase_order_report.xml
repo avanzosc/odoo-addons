@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_purchaseorder_amountbygroup_document"
+    inherit_id="purchase.report_purchaseorder_document"
+  >
+        <xpath expr="//div[@id='total']//tr[2]" position="attributes">
+            <attribute name="style">display:none;</attribute>
+        </xpath>
+        <xpath expr="//div[@id='total']//tr[2]" position="after">
+            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                <tr style="">
+                    <td name="td_amount_by_group_label">
+                        <span t-esc="amount_by_group[0]" />
+                    </td>
+                    <td name="td_amount_by_group" class="text-right o_price_total">
+                        <span
+              t-esc="amount_by_group[1]"
+              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+            />
+                    </td>
+                </tr>
+            </t>
+        </xpath>
+    </template>
+</odoo>
