@@ -7,8 +7,6 @@
             <field name="route_id" position="before">
                 <field name="incoming_qty" optional="show" />
                 <field name="outgoing_qty" optional="show" />
-                <field name="consumed_last_twelve_months" optional="show" />
-                <field name="months_with_stock" optional="show" />
             </field>
         </field>
     </record>
@@ -39,8 +37,6 @@
             <field name="route_id" position="before">
                 <field name="incoming_qty" optional="show" />
                 <field name="outgoing_qty" optional="show" />
-                <field name="consumed_last_twelve_months" optional="show" />
-                <field name="months_with_stock" optional="show" />
             </field>
             <field name="route_id" position="after">
                 <field name="supplier_id" optional="show" />
