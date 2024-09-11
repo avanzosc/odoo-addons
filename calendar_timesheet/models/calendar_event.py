@@ -1,6 +1,6 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
 
@@ -23,6 +23,12 @@ class CalendarEvent(models.Model):
         tracking=3,
         default="created",
     )
+
+    @api.model
+    def _get_public_fields(self):
+        result = super(CalendarEvent, self)._get_public_fields()
+        result |= {"state"}
+        return result
 
     def _catch_values_for_create_timesheet_line(self):
         timesheet_line_vals = {
