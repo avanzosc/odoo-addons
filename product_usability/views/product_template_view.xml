@@ -13,14 +13,6 @@
           name="outgoing_qty"
           attrs="{'invisible':[('type', '!=', 'product')]}"
         />
-                <field
-          name="consumed_last_twelve_months"
-          attrs="{'invisible':[('type', '!=', 'product')]}"
-        />
-                <field
-          name="months_with_stock"
-          attrs="{'invisible':[('type', '!=', 'product')]}"
-        />
             </field>
         </field>
     </record>
