@@ -10,7 +10,9 @@
         "stock",
     ],
     "data": [
+        "views/product_product_views.xml",
         "views/product_template_views.xml",
+        "views/stock_warehouse_orderpoint_views.xml",
     ],
     "license": "AGPL-3",
     "installable": True,
