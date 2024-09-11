@@ -9,7 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["purchase_last_price_info"],
     "data": [
-        "data/product_cost_groups.xml",
+        "security/product_cost_groups.xml",
         "views/product_product_views.xml",
         "views/product_template_views.xml",
     ],
