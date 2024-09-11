@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_second_name
+# 	* product_second_name
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-26 07:48+0000\n"
-"PO-Revision-Date: 2022-10-26 07:48+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2024-09-11 07:42+0000\n"
+"PO-Revision-Date: 2024-09-11 07:42+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,19 +48,18 @@ msgstr "Nombre del producto en ventas (Español)"
 #. module: product_second_name
 #: model:ir.actions.server,name:product_second_name.ir_cron_fix_invoice_line_section_ir_actions_server
 #: model:ir.cron,cron_name:product_second_name.ir_cron_fix_invoice_line_section
-#: model:ir.cron,name:product_second_name.ir_cron_fix_invoice_line_section
 msgid "Poner descripcion venta por idioma a productos"
-msgstr ""
+msgstr "Poner descripcion venta por idioma a productos"
 
 #. module: product_second_name
-#: model:ir.model,name:product_second_name.model_product_product
+#: model:ir.model,name:product_second_name.model_product_template
 msgid "Product"
 msgstr "Producto"
 
 #. module: product_second_name
-#: model:ir.model,name:product_second_name.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+#: model:ir.model,name:product_second_name.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
 
 #. module: product_second_name
 #: model:ir.model.fields,field_description:product_second_name.field_product_product__name2
@@ -69,7 +68,6 @@ msgid "Product name on sales"
 msgstr "Nombre de producto en ventas"
 
 #. module: product_second_name
-#: model:ir.model,name:product_second_name.model_ir_translation
-msgid "Translation"
-msgstr "Traducción"
-
+#: model_terms:ir.ui.view,arch_db:product_second_name.product_template_form_view
+msgid "Second Name"
+msgstr "Segundo Nombre"
