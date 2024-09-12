@@ -10,6 +10,12 @@ class StockMoveLine(models.Model):
     shipping_cost = fields.Float(
         digits="Shipping Cost Decimal Precision",
     )
+    picking_shipping_cost = fields.Float(
+        string="Picking Shipping Cost",
+        digits="Shipping Cost Decimal Precision",
+        related="picking_id.shipping_cost",
+        store=True,
+    )
 
     @api.onchange("qty_done", "product_id", "picking_id")
     def onchange_shipping_cost(self):
