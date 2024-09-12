@@ -29,6 +29,7 @@
         "views/product_pricelist_item_view.xml",
         "views/purchase_order_line_view.xml",
         "views/res_partner_view.xml",
+        "views/account_invoice_report_view.xml",
         "wizards/sale_order_line_price_history_view.xml",
     ],
     "installable": True,
