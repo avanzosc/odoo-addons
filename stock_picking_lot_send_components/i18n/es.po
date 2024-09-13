@@ -1,0 +1,75 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_lot_send_components
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-07-06 12:27+0000\n"
+"PO-Revision-Date: 2023-07-06 12:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model.fields,help:stock_picking_lot_send_components.field_stock_quant__location_usage
+msgid ""
+"* Vendor Location: Virtual location representing the source location for products coming from your vendors\n"
+"* View: Virtual location used to create a hierarchical structures for your warehouse, aggregating its child locations ; can't directly contain products\n"
+"* Internal Location: Physical locations inside your own warehouses,\n"
+"* Customer Location: Virtual location representing the destination location for products sent to your customers\n"
+"* Inventory Loss: Virtual location serving as counterpart for inventory operations used to correct stock levels (Physical inventories)\n"
+"* Production: Virtual counterpart location for production operations: this location consumes the components and produces finished products\n"
+"* Transit Location: Counterpart location that should be used in inter-company or inter-warehouses operations"
+msgstr ""
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_immediate_transfer__display_name
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_quant__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_immediate_transfer__id
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_picking__id
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_quant__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model,name:stock_picking_lot_send_components.model_stock_immediate_transfer
+msgid "Immediate Transfer"
+msgstr "Transferencia inmediata"
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_immediate_transfer____last_update
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_quant____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model.fields,field_description:stock_picking_lot_send_components.field_stock_quant__location_usage
+msgid "Location Usage"
+msgstr "Tipo de ubicación"
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model,name:stock_picking_lot_send_components.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: stock_picking_lot_send_components
+#: code:addons/stock_picking_lot_send_components/models/stock_picking.py:0
+#, python-format
+msgid "This lot {} has been produced in more than one production order."
+msgstr "Este lote {} ha sido producido en más de una órden de producción."
+
+#. module: stock_picking_lot_send_components
+#: model:ir.model,name:stock_picking_lot_send_components.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
