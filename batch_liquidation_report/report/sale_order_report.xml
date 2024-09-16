@@ -88,7 +88,7 @@
                         </div>
                     </h6>
                     <br />
-                    <table class="table" style="font-size: 13px;">
+                    <table class="table table-sm" style="font-size: 13px;">
                         <thead>
                             <tr>
                                 <th class="text-left"><span>Product</span></th>
@@ -107,7 +107,7 @@
                                     <span t-field="line.qty_delivered" />
                                 </td>
                                 <td class="text-center">
-                                    <span t-field="line.price_unit" />
+                                    <span t-esc="round(line.price_unit, 2)" />
                                 </td>
                                 <td class="text-center">
                                     <span
