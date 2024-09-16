@@ -10,7 +10,7 @@
     "license": "AGPL-3",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "res_partner_pick_up_point",
+        "res_partner_delivery_point",
         "website_sale",
     ],
     "data": [

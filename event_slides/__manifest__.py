@@ -1,0 +1,24 @@
+# Copyright 2021 Berezi - Iker - AvanzOSC
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+{
+    "name": "Event Slides",
+    "version": "16.0.1.0.0",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "category": "Website/eLearning",
+    "depends": [
+        "event_registration_student",
+        "website_slides",
+        "event_attendee_birthdate",
+        "website_event_track",
+    ],
+    "data": [
+        "views/event_event_views.xml",
+        "views/slide_channel_views.xml",
+        "views/slide_channel_partner_views.xml",
+        "views/event_track_views.xml",
+    ],
+    "license": "AGPL-3",
+    "installable": True,
+    "auto_install": True,
+}

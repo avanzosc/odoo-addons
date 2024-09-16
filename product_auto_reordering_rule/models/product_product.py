@@ -41,7 +41,7 @@ class ProductProduct(models.Model):
     def _catch_values_create_orderpoint(self, warehouse, location):
         vals = {
             "product_id": self.id,
-            "warehout_id": warehouse.id,
+            "warehouse_id": warehouse.id,
             "location_id": location.id,
             "product_min_qty": 0,
             "product_max_qty": 0,

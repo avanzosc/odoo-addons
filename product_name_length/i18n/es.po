@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-08 08:50+0000\n"
-"PO-Revision-Date: 2024-08-08 08:50+0000\n"
+"POT-Creation-Date: 2024-09-06 07:46+0000\n"
+"PO-Revision-Date: 2024-09-06 07:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,38 @@ msgstr ""
 
 #. module: product_name_length
 #: model_terms:ir.ui.view,arch_db:product_name_length.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Max. Length Product Name For "
+"Labels.\" aria-label=\"Max. Length Product Name For Labels.\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Longitud max. Nombre producto"
+" para etiquetas.\" aria-label=\"Longitud max. Nombre producto para "
+"etiquetas.\"/>"
+
+#. module: product_name_length
+#: model_terms:ir.ui.view,arch_db:product_name_length.res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Max. Length Product Name.\" "
+"aria-label=\"Max. Length Product Name.\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Longitud max. Nombre "
+"producto.\" aria-label=\"Longitud max. Nombre producto.\"/>"
+
+#. module: product_name_length
+#: model_terms:ir.ui.view,arch_db:product_name_length.res_config_settings_view_form
 msgid "Enter the maximum number of characters allowed for the product name."
-msgstr "Introduzca el número máximo de caracteres permitidos para el nombre del producto."
+msgstr ""
+"Introduzca el número máximo de caracteres permitidos para el nombre del "
+"producto."
+
+#. module: product_name_length
+#: model_terms:ir.ui.view,arch_db:product_name_length.res_config_settings_view_form
+msgid ""
+"Enter the maximum number of characters allowed to print labels for the "
+"product name."
+msgstr ""
+"Introduzca el número máximo de caracteres permitidos para imprimir el nombre"
+" producto en etiquetas."
 
 #. module: product_name_length
 #: model:ir.model.fields,field_description:product_name_length.field_res_config_settings__product_name_max_length
@@ -26,9 +56,19 @@ msgid "Max. Length Product Name"
 msgstr "Longitud max. Nombre producto"
 
 #. module: product_name_length
+#: model:ir.model.fields,field_description:product_name_length.field_res_config_settings__product_name_max_length_for_labels
+msgid "Max. Length Product Name For Labels"
+msgstr "Longitud max. Nombre producto para etiquetas"
+
+#. module: product_name_length
+#: model:ir.model.fields,field_description:product_name_length.field_product_product__name_for_labels
+msgid "Name for labels"
+msgstr "Nombre para etiquetas"
+
+#. module: product_name_length
 #: model:ir.model,name:product_name_length.model_res_config_settings
 msgid "Procurement purchase grouping settings"
-msgstr "Configuración de la agrupación de compras"
+msgstr ""
 
 #. module: product_name_length
 #: model:ir.model,name:product_name_length.model_product_template
@@ -36,8 +76,19 @@ msgid "Product"
 msgstr "Producto"
 
 #. module: product_name_length
+#: model:ir.model,name:product_name_length.model_product_product
+msgid "Product Variant"
+msgstr "Variante producto"
+
+#. module: product_name_length
 #. odoo-python
+#: code:addons/product_name_length/models/product_template.py:0
 #: code:addons/product_name_length/models/product_template.py:0
 #, python-format
 msgid "The length of the product name exceeds %s characters."
 msgstr "La longitud del nombre del producto, supera los %s caracteres."
+
+#. module: product_name_length
+#: model_terms:ir.ui.view,arch_db:product_name_length.res_config_settings_view_form
+msgid "characters"
+msgstr "caracteres"

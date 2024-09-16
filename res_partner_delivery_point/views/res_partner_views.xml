@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_partner_form_inherited" model="ir.ui.view">
+        <field name="name">res.partner.form.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='contact_addresses']" position="inside">
+                <group>
+                    <field name="delivery_point" string="Pick Up Point" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_inherited" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="delivery_point" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_search_inherited" model="ir.ui.view">
+        <field name="name">res.partner.search.inherited</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter
+          string="Pick Up Point"
+          name="delivery_point"
+          context="{'group_by': 'delivery_point'}"
+        />
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <separator />
+                <field name="delivery_point" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
