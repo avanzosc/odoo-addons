@@ -2,16 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-====================
-Product Cost Visible
-====================
+==============================
+Stock picking report user lang
+==============================
 
-Two new groups created to avoid by default the view of purchasing data:
-
-* Show purchase tab in products, if this group is not selected user won't be able to
-  see the tab regarding to purchases
-* Visible last purchase info in products, if this group is not selected even with the
-  previous group selected, user won't be able to see last purchase info.
+* In stock picking new report "Delivery Slip User Lang", to obtain the report
+  of picking in the language of the user connected to Odoo.
 
 Bug Tracker
 ===========
