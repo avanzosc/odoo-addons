@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_crossovered_budget_lines_tree_inherit" model="ir.ui.view">
+            <field name="name">crossovered.budget.lines.tree.inherit</field>
+            <field name="model">crossovered.budget.lines</field>
+            <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_tree"
+    />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='theoretical_amount']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+                <xpath expr="//field[@name='percentage']" position="attributes">
+                    <attribute name="optional">hide</attribute>
+                </xpath>
+            </field>
+        </record>
+</odoo>
