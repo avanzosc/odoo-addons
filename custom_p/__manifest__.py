@@ -24,6 +24,7 @@
         "res_partner_risk_menu",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/sale_order_view.xml",
         "views/account_move_view.xml",
         "views/product_pricelist_item_view.xml",
@@ -31,6 +32,7 @@
         "views/res_partner_view.xml",
         "views/account_invoice_report_view.xml",
         "wizards/sale_order_line_price_history_view.xml",
+        "wizards/stock_inventory_warning_wizard_view.xml",
     ],
     "installable": True,
 }

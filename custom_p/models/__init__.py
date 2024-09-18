@@ -4,3 +4,4 @@ from . import product_pricelist_item
 from . import stock_picking
 from . import purchase_order_line
 from . import res_partner
+from . import stock_inventory
