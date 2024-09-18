@@ -47,7 +47,6 @@ class StockProductionLot(models.Model):
     observ_notes = fields.Text(string="Observ Notes")
     grade_id = fields.Many2one(string="Grade", comodel_name="grade")
     grade_tested = fields.Selection(
-        selection=[("ok", "OK"), ("no_ok", "No OK")],
         string="Grade tested",
         related="grade_id.tested",
         store=True,
