@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_purchase_requisition_form" model="ir.ui.view">
+        <field name="model">purchase.requisition</field>
+        <field
+      name="inherit_id"
+      ref="purchase_requisition.view_purchase_requisition_form"
+    />
+        <field name="arch" type="xml">
+            <field name="vendor_id" position="after">
+                <field name="description2" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_tree" model="ir.ui.view">
+        <field name="model">purchase.requisition</field>
+        <field
+      name="inherit_id"
+      ref="purchase_requisition.view_purchase_requisition_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="description2" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_purchase_requisition_filter" model="ir.ui.view">
+        <field name="model">purchase.requisition</field>
+        <field
+      name="inherit_id"
+      ref="purchase_requisition.view_purchase_requisition_filter"
+    />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="description2" />
+            </field>
+        </field>
+    </record>
+</odoo>
