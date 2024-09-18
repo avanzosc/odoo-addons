@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_purchaserequisitions"
+    inherit_id="purchase_requisition.report_purchaserequisitions"
+  >
+        <h2 position="after">
+            <div class="row my-2" t-if="o.description2">
+                <strong><span>Description: </span></strong>
+                <span t-field="o.description2" />
+            </div>
+        </h2>
+    </template>
+</odoo>
