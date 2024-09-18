@@ -12,6 +12,6 @@ class Grade(models.Model):
     tested = fields.Selection(
         selection=[("ok", "OK"), ("no_ok", "No OK")],
         string="Tested",
-        requited=True,
+        required=True,
         copy=False,
     )
