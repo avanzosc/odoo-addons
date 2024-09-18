@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-07 09:59+0000\n"
-"PO-Revision-Date: 2024-06-07 09:59+0000\n"
+"POT-Creation-Date: 2024-09-25 11:11+0000\n"
+"PO-Revision-Date: 2024-09-25 11:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,14 @@ msgstr ""
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_purchase_order_ticket
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_sale_order_ticket
 msgid "'Ticket - %s' % (object.name)"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
+msgid ""
+"- Page:\n"
+"                    <span class=\"page\"/> / \n"
+"                    <span class=\"topage\"/>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -159,6 +167,11 @@ msgid "<span>Lot</span>"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_invoice_document_view
+msgid "<span>Lote</span>"
+msgstr ""
+
+#. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid "<span>Medicine</span>"
 msgstr ""
@@ -255,12 +268,12 @@ msgstr ""
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
 msgid ""
-"<span>garantiza la protección y confidencialidad de los datos personales que nos proporcionen \n"
-"                                            de acuerdo con lo dispuesto en el Reglamento General de Protección de Datos de Carácter Personal \n"
-"                                            (UE) 2016/679 del Parlamento Europeo y del Consejo, de 26 de abril de 2016 (en adelante, RGPD). \n"
-"                                            Le informamos que sus datos de carácter personal tienen como finalidad gestionar las comunicaciones \n"
-"                                            y relaciones empresariales. En cumplimiento de lo establecido en el RGPD, usted podrá ejercer sus \n"
-"                                            derechos de acceso, rectificación, cancelación/supresión, oposición, limitación o portabilidad en los \n"
+"<span>garantiza la protección y confidencialidad de los datos personales que nos proporcionen\n"
+"                                            de acuerdo con lo dispuesto en el Reglamento General de Protección de Datos de Carácter Personal\n"
+"                                            (UE) 2016/679 del Parlamento Europeo y del Consejo, de 26 de abril de 2016 (en adelante, RGPD).\n"
+"                                            Le informamos que sus datos de carácter personal tienen como finalidad gestionar las comunicaciones\n"
+"                                            y relaciones empresariales. En cumplimiento de lo establecido en el RGPD, usted podrá ejercer sus\n"
+"                                            derechos de acceso, rectificación, cancelación/supresión, oposición, limitación o portabilidad en los\n"
 "                                            términos establecidos en la dirección</span>"
 msgstr ""
 
@@ -355,7 +368,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Average Age: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -368,7 +381,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Average Weight: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -381,7 +394,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Cancellation %: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -405,7 +418,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Cancellation/M2: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -423,7 +436,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Conversion: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -446,7 +459,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Difference: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -458,7 +471,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Entries/M2: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -482,7 +495,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>FEEP: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -506,7 +519,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Growth Speed: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -570,7 +583,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Meat/M2: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -588,7 +601,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
 msgid ""
 "<strong>Output/M2: </strong>\n"
-"                                            <strong> </strong>"
+"                                        <strong> </strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -741,6 +754,7 @@ msgid "Difference"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model:ir.model.fields,field_description:batch_liquidation_report.field_ir_actions_report__display_name
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_report_stock_by_breeding_xlsx__display_name
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_stock_by_breeding_wizard__display_name
 msgid "Display Name"
@@ -812,6 +826,7 @@ msgid "Feed Type:"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model:ir.model.fields,field_description:batch_liquidation_report.field_ir_actions_report__id
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_report_stock_by_breeding_xlsx__id
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_stock_by_breeding_wizard__id
 msgid "ID"
@@ -824,6 +839,7 @@ msgid "Kilos"
 msgstr ""
 
 #. module: batch_liquidation_report
+#: model:ir.model.fields,field_description:batch_liquidation_report.field_ir_actions_report____last_update
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_report_stock_by_breeding_xlsx____last_update
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_stock_by_breeding_wizard____last_update
 msgid "Last Modified on"
@@ -969,6 +985,11 @@ msgstr ""
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
 msgid "RECIBÍ - CONFORME"
+msgstr ""
+
+#. module: batch_liquidation_report
+#: model:ir.model,name:batch_liquidation_report.model_ir_actions_report
+msgid "Report Action"
 msgstr ""
 
 #. module: batch_liquidation_report
