@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="view_calendar_event_tree" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="state" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_calendar_event_form" model="ir.ui.view">
         <field name="model">calendar.event</field>
         <field name="inherit_id" ref="calendar.view_calendar_event_form" />
@@ -40,4 +50,18 @@
             </page>
         </field>
     </record>
+
+    <record id="view_calendar_event_search" model="ir.ui.view">
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_search" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="state" />
+            </field>
+            <filter name="availability" position="after">
+                <filter name="group-state" domain="[]" context="{'group_by':'state'}" />
+            </filter>
+        </field>
+    </record>
+
 </odoo>

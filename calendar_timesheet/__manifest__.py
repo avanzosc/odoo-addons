@@ -7,7 +7,12 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["hr_timesheet", "project_task_meeting", "resource_time"],
+    "depends": [
+        "calendar",
+        "hr_timesheet",
+        "project_task_meeting",
+        "resource_time",
+    ],
     "data": [
         "views/calendar_event_views.xml",
     ],

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-29 11:33+0000\n"
-"PO-Revision-Date: 2024-07-29 11:33+0000\n"
+"POT-Creation-Date: 2024-08-21 12:04+0000\n"
+"PO-Revision-Date: 2024-08-21 12:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,11 @@ msgid "Commitment Date"
 msgstr "Fecha de entrega"
 
 #. module: custom_p
+#: model:ir.model,name:custom_p.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: custom_p
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__order_partner_id
 msgid "Customer"
 msgstr "Cliente"
@@ -39,6 +44,7 @@ msgstr "Cliente"
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__display_name
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print__display_name
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:custom_p.field_res_partner__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__display_name
@@ -50,6 +56,7 @@ msgstr "Nombre a mostrar"
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__id
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print__id
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:custom_p.field_res_partner__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__id
@@ -58,9 +65,16 @@ msgid "ID"
 msgstr "ID (identificación)"
 
 #. module: custom_p
+#: model_terms:ir.ui.view,arch_db:custom_p.res_partner_risk_tree_view
+#: model_terms:ir.ui.view,arch_db:custom_p.res_partner_view_risk
+msgid "Invoice open/unpaid"
+msgstr "Factura principal abierta/impagada"
+
+#. module: custom_p
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item____last_update
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print____last_update
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:custom_p.field_res_partner____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line____last_update
@@ -72,6 +86,12 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__lot_id
 msgid "Lot/Serial Number"
 msgstr "Lote/Nº de serie"
+
+#. module: custom_p
+#: model_terms:ir.ui.view,arch_db:custom_p.res_partner_risk_tree_view
+#: model_terms:ir.ui.view,arch_db:custom_p.res_partner_view_risk
+msgid "Opening Entry"
+msgstr "Asiento de apertura"
 
 #. module: custom_p
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__product_pricelist_price
