@@ -87,6 +87,8 @@
                             <field name="profile_id" />
                             <field name="date" />
                             <field name="amount" />
+                            <field name="account_analytic" />
+                            <field name="account_analytic_id" />
                         </group>
                     </group>
                     <field name="log_info" />
@@ -119,6 +121,8 @@
                 <field name="profile_id" optional="hide" />
                 <field name="date" />
                 <field name="amount" />
+                <field name="account_analytic" optional="show" />
+                <field name="account_analytic_id" optional="hide" />
                 <field name="state" optional="show" />
                 <field name="log_info" optional="show" />
             </tree>
