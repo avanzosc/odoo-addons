@@ -3,13 +3,17 @@
     :alt: License: AGPL-3
 
 ===============
-Stock usability
+Stock Usability
 ===============
 
-* In "Supplier Minimum Inventory Rule" new field
-     "Pending receipt from supplier".
-* In "Replenishment" and "Reordering rules" menus, show the fields:
-  "Incoming" and "Outgoing".
+New fields added to minimum inventory rules:
+
+* *Forecasted*: It does not take into account quantity in progress.
+* *Incoming*: Quantity of planned incoming products.
+* *Outgoing*: Quantity of planned outgoing products
+* *Pending Incoming*
+* *Pending Outgoing*
+* *Forecasted with Pending*: (*Forecasted* + *Pending Incoming* - *Pending Outgoing*).
 
 Bug Tracker
 ===========

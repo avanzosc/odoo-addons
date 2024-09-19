@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-28 06:33+0000\n"
-"PO-Revision-Date: 2023-09-28 06:33+0000\n"
+"POT-Creation-Date: 2024-09-19 12:08+0000\n"
+"PO-Revision-Date: 2024-09-19 12:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,32 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__display_name
-msgid "Display Name"
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__future_virtual_available
+msgid ""
+"Forecast quantity (computed as Forecasted - Pending Outgoing + Pending Incoming)\n"
+"In a context with a single Stock Location, this includes goods stored in this location, or any of its children."
 msgstr ""
 
 #. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__id
-msgid "ID"
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__virtual_available
+msgid ""
+"Forecast quantity (computed as Quantity On Hand - Outgoing + Incoming)\n"
+"In a context with a single Stock Location, this includes goods stored in this location, or any of its children."
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__virtual_available
+msgid "Forecasted"
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__future_virtual_available
+msgid "Forecasted with Pending"
 msgstr ""
 
 #. module: stock_usability
 #: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__incoming_qty
 msgid "Incoming"
-msgstr ""
-
-#. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_usability
@@ -46,21 +55,39 @@ msgid "Outgoing"
 msgstr ""
 
 #. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__qty_available
-msgid "Quantity Available"
+#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__incoming_qty2
+msgid "Pending Incoming"
 msgstr ""
 
 #. module: stock_usability
 #: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__outgoing_qty2
-msgid "Outgoing2"
+msgid "Pending Outgoing"
 msgstr ""
 
 #. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__incoming_qty2
-msgid "Incoming2"
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__incoming_qty2
+msgid ""
+"Quantity of planned incoming products including pending movements.\n"
+"In a context with a single Stock Location, this includes goods arriving to this Location, or any of its children."
 msgstr ""
 
 #. module: stock_usability
-#: model:ir.model.fields,field_description:stock_usability.field_stock_warehouse_orderpoint__future_virtual_available
-msgid "Future Virtual Available"
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__incoming_qty
+msgid ""
+"Quantity of planned incoming products.\n"
+"In a context with a single Stock Location, this includes goods arriving to this Location, or any of its children."
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__outgoing_qty
+msgid ""
+"Quantity of planned outgoing products including pending movements.\n"
+"In a context with a single Stock Location, this includes goods leaving this Location, or any of its children."
+msgstr ""
+
+#. module: stock_usability
+#: model:ir.model.fields,help:stock_usability.field_stock_warehouse_orderpoint__outgoing_qty2
+msgid ""
+"Quantity of planned outgoing products.\n"
+"In a context with a single Stock Location, this includes goods leaving this Location, or any of its children."
 msgstr ""

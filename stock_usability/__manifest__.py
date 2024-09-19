@@ -9,7 +9,6 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
-        "purchase_stock",
     ],
     "data": [
         "views/stock_warehouse_orderpoint_views.xml",
