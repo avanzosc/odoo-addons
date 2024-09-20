@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_res_partner_form_inherit_last_dates" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.last.dates</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[2]" position="inside">
+                <group string="Last Dates">
+                    <field name="last_lead_date" />
+                    <field name="last_meeting_date" />
+                    <field name="last_invoice_date" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
