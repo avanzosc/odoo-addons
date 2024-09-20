@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="warehouse_id" position="after">
                 <field name="paasa" invisible="1" />
+                <field name="tolvasa" invisible="1" />
             </field>
             <xpath
         expr="//field[@name='order_line']/tree/field[@name='customer_lead']"
@@ -15,7 +16,7 @@
                 <field
           name="surplus"
           optional="show"
-          attrs="{'column_invisible':[('parent.paasa', '=', False)]}"
+          attrs="{'column_invisible':[('parent.tolvasa', '=', True)]}"
         />
             </xpath>
             <field name="warehouse_id" position="attributes">
