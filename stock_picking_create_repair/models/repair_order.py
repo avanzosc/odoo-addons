@@ -85,7 +85,8 @@ class RepairOrder(models.Model):
             "picking_type_id": picking_type.id,
             "location_id": picking_type.default_location_src_id.id,
             "location_dest_id": picking_type.default_location_dest_id.id,
-            "partner_id": self.sale_order_id.partner_id.id,
+            "partner_id": self.address_id.id
+            or self.sale_order_id.partner_shipping_id.id,
             "origin": self.sale_order_id.name,
             "sale_order_id": self.sale_order_id.id,
             "company_id": self.sale_order_id.company_id.id,
