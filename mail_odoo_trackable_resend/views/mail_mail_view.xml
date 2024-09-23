@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_mail_mail_form_inherit" model="ir.ui.view">
+        <field name="name">mail.mail.form.inherit.trackable</field>
+        <field name="model">mail.mail</field>
+        <field name="inherit_id" ref="mail.mail_mail_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group>
+                    <field name="received" />
+                    <field name="opened" />
+                    <field name="click_count" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
