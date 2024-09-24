@@ -1,27 +1,39 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- VISTA DE FORMULARIO -->
     <record id="partner_form_view_inh_res_partner" model="ir.ui.view">
         <field name="name">partner.form.view.inh.res.partner</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <field name="category_id" position="after">
-                <field name="main_contact" attrs="{'invisible': [('is_company','=',True)]}"/>
-                <field name="joint" attrs="{'invisible': [('is_company','=',True)]}"/>
-                <field name="assembly" attrs="{'invisible': [('is_company','=',True)]}"/>
-                <field name="bidding" attrs="{'invisible': [('is_company','=',True)]}"/>
+                <field
+          name="main_contact"
+          attrs="{'invisible': [('is_company','=',True)]}"
+        />
+                <field name="joint" attrs="{'invisible': [('is_company','=',True)]}" />
+                <field
+          name="assembly"
+          attrs="{'invisible': [('is_company','=',True)]}"
+        />
+                <field
+          name="bidding"
+          attrs="{'invisible': [('is_company','=',True)]}"
+        />
             </field>
             <page name="internal_notes" position="after">
-                <page name="general_data" string="General data"
-                      attrs="{'invisible': [('is_company','=',False)]}">
+                <page
+          name="general_data"
+          string="General data"
+          attrs="{'invisible': [('is_company','=',False)]}"
+        >
                     <group>
                         <group>
                             <field name="subscription_date" />
                             <field name="unsubscription_date" />
                         </group>
                     </group>
-                    <newline/>
+                    <newline />
                     <group>
                         <group name="company_type">
                             <field name="associated" />
@@ -39,73 +51,105 @@
                         </group>
                     </group>
                     <group>
-                        <group name="business_interests" string="Countries with business interest" colspan="2">
-                            <field name="commercial_country_ids" nolabel="1" colspan="2" options="{'no_create': True}"/>
+                        <group
+              name="business_interests"
+              string="Countries with business interest"
+              colspan="2"
+            >
+                            <field
+                name="commercial_country_ids"
+                nolabel="1"
+                colspan="2"
+                options="{'no_create': True}"
+              />
                         </group>
-                        <group name="commercial_implantation" string="Commercial Implantation" colspan="2">
-                            <field name="commercial_imp_ids" nolabel="1" colspan="2"/>
+                        <group
+              name="commercial_implantation"
+              string="Commercial Implantation"
+              colspan="2"
+            >
+                            <field name="commercial_imp_ids" nolabel="1" colspan="2" />
                         </group>
-                        <group name="productive_implantation" string="Productive Implantation" colspan="2">
-                            <field name="productive_imp_ids" nolabel="1" colspan="2"/>
+                        <group
+              name="productive_implantation"
+              string="Productive Implantation"
+              colspan="2"
+            >
+                            <field name="productive_imp_ids" nolabel="1" colspan="2" />
                         </group>
                     </group>
                 </page>
-                <page name="economic_data" string="Economic Data"
-                      attrs="{'invisible': [('is_company','=',False)]}">
+                <page
+          name="economic_data"
+          string="Economic Data"
+          attrs="{'invisible': [('is_company','=',False)]}"
+        >
                     <field name="economic_data_ids">
-                        <tree string="Economic Data">
+                        <tree>
                             <field name="economic_date" />
-                            <field name="real_total_turnover"/>
-                            <field name="real_number_employees"/>
-                            <field name="real_external_billing"/>
-                            <field name="real_external_employees_number"/>
-                            <field name="real_investment_RD"/>
-                            <field name="expected_total_billing"/>
-                            <field name="expected_total_employees_number"/>
-                            <field name="expected_external_billing"/>
-                            <field name="expected_external_employees_number"/>
-                            <field name="expected_investment_RD"/>
+                            <field name="real_total_turnover" />
+                            <field name="real_number_employees" />
+                            <field name="real_external_billing" />
+                            <field name="real_external_employees_number" />
+                            <field name="real_investment_RD" />
+                            <field name="expected_total_billing" />
+                            <field name="expected_total_employees_number" />
+                            <field name="expected_external_billing" />
+                            <field name="expected_external_employees_number" />
+                            <field name="expected_investment_RD" />
                         </tree>
                         <form>
                             <group>
                                 <label for="economic_date" />
                                 <field name="economic_date" />
                                 <group>
-                                    <field name="real_total_turnover"/>
-                                    <field name="real_number_employees"/>
-                                    <field name="real_external_billing"/>
-                                    <field name="real_external_employees_number"/>
-                                    <field name="real_investment_RD"/>
+                                    <field name="real_total_turnover" />
+                                    <field name="real_number_employees" />
+                                    <field name="real_external_billing" />
+                                    <field name="real_external_employees_number" />
+                                    <field name="real_investment_RD" />
                                 </group>
                                 <group>
-                                    <field name="expected_total_billing"/>
-                                    <field name="expected_total_employees_number"/>
-                                    <field name="expected_external_billing"/>
-                                    <field name="expected_external_employees_number"/>
-                                    <field name="expected_investment_RD"/>
+                                    <field name="expected_total_billing" />
+                                    <field name="expected_total_employees_number" />
+                                    <field name="expected_external_billing" />
+                                    <field name="expected_external_employees_number" />
+                                    <field name="expected_investment_RD" />
                                 </group>
                             </group>
                         </form>
                     </field>
                 </page>
-                <page name="activities" string="Activity / Activity Types"
-                      attrs="{'invisible': [('is_company','=',False)]}">
+                <page
+          name="activities"
+          string="Activity / Activity Types"
+          attrs="{'invisible': [('is_company','=',False)]}"
+        >
                     <group name="activity">
                         <field name="activity_id" />
-                        <field name="activity_type_ids" widget="many2many_checkboxes"
-                               context="{'show_activity_name': True}"/>
+                        <field
+              name="activity_type_ids"
+              widget="many2many_checkboxes"
+              context="{'show_activity_name': True}"
+            />
                     </group>
                 </page>
-                <page name="specializations" string="Specializations"
-                      attrs="{'invisible': [('is_company','=',False)]}">
+                <page
+          name="specializations"
+          string="Specializations"
+          attrs="{'invisible': [('is_company','=',False)]}"
+        >
                     <field name="specialization_ids" />
                 </page>
-                <page name="Newsletters_and_committees" string="Newsletters and Committees"
-                      attrs="{'invisible': [('is_company','=',True)]}">
+                <page
+          name="Newsletters_and_committees"
+          string="Newsletters and Committees"
+          attrs="{'invisible': [('is_company','=',True)]}"
+        >
                     <label for="area_ids" />
-                    <field name="area_ids" >
-                        <tree string="Areas">
-                            <field name="name" string="Newsletter receivers"/>
+                    <field name="area_ids">
+                        <tree>
+                            <field name="name" string="Newsletter receivers" />
                         </tree>
                     </field>
                     <label for="committee_ids" />
@@ -113,8 +157,11 @@
                     <label for="structure_ids" />
                     <field name="structure_ids" />
                 </page>
-                <page name="success_stories" string="Success Stories"
-                      attrs="{'invisible': [('is_company','=',False)]}">
+                <page
+          name="success_stories"
+          string="Success Stories"
+          attrs="{'invisible': [('is_company','=',False)]}"
+        >
                 </page>
             </page>
         </field>
@@ -129,10 +176,22 @@
                 <field name="committee_ids" />
                 <field name="team_ids" />
                 <field name="structure_ids" />
-                <filter string="Main Contact" name="is_main_contact" domain="[('main_contact','=',True)]"/>
-                <filter string="Assembly" name="is_assembly" domain="[('assembly','=',True)]"/>
-                <filter string="Joint" name="is_joint" domain="[('joint','=',True)]"/>
-                <filter string="Bidding" name="is_bidding" domain="[('bidding','=',True)]"/>
+                <filter
+          string="Main Contact"
+          name="is_main_contact"
+          domain="[('main_contact','=',True)]"
+        />
+                <filter
+          string="Assembly"
+          name="is_assembly"
+          domain="[('assembly','=',True)]"
+        />
+                <filter string="Joint" name="is_joint" domain="[('joint','=',True)]" />
+                <filter
+          string="Bidding"
+          name="is_bidding"
+          domain="[('bidding','=',True)]"
+        />
             </field>
         </field>
     </record>

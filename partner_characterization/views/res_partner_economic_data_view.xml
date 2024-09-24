@@ -55,8 +55,16 @@
                 <field name="partner_id" />
                 <field name="economic_date" />
                 <group expand="0" name="group_by" string="Group By">
-                   <filter name="partner" string="Partner" context="{'group_by': 'partner_id'}"/>
-                   <filter name="economic_date" string="Economic Data Date" context="{'group_by': 'economic_date:year'}"/>
+                   <filter
+            name="partner"
+            string="Partner"
+            context="{'group_by': 'partner_id'}"
+          />
+                   <filter
+            name="economic_date"
+            string="Economic Data Date"
+            context="{'group_by': 'economic_date:year'}"
+          />
                 </group>
             </search>
         </field>
@@ -66,7 +74,7 @@
         <field name="model">res.partner.economic_data</field>
         <field name="arch" type="xml">
             <pivot>
-                <field name="economic_date" type="row" interval="year"/>
+                <field name="economic_date" type="row" interval="year" />
                 <field name="partner_id" type="row" />
                 <field name="real_total_turnover" type="measure" />
                 <field name="real_number_employees" type="measure" />
@@ -84,8 +92,10 @@
         <field name="context">{"search_default_associated_yes":True}</field>
     </record>
 
-    <menuitem id="res_partner_economic_data_menuitem"
-              parent="characterization_config_menuitem"
-              action="res_partner_economic_data_action" />
+    <menuitem
+    id="res_partner_economic_data_menuitem"
+    parent="characterization_config_menuitem"
+    action="res_partner_economic_data_action"
+  />
 
 </odoo>
