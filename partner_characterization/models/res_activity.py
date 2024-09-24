@@ -5,11 +5,12 @@ from odoo import models
 
 
 class ResActivityType(models.Model):
-    _inherit = 'res.activity.type'
+    _inherit = "res.activity.type"
 
     def name_get(self):
-        if not self.env.context.get('show_activity_name'):
-            return super(ResActivityType, self).name_get()
-        return [(value.id,
-                 "{} / {}".format(value.activity_id.name, value.name))
-                for value in self]
+        if not self.env.context.get("show_activity_name"):
+            return super().name_get()
+        return [
+            (value.id, "{} / {}".format(value.activity_id.name, value.name))
+            for value in self
+        ]
