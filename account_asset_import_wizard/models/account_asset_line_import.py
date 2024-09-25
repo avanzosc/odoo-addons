@@ -36,6 +36,11 @@ class AccountAssetLineImport(models.Model):
         default=False,
         states={"done": [("readonly", True)]},
     )
+    update_data = fields.Boolean(
+        string="Update Data",
+        default=False,
+        states={"done": [("readonly", True)]},
+    )
 
     def _compute_account_asset_count(self):
         for record in self:
@@ -63,6 +68,7 @@ class AccountAssetLineImport(models.Model):
                     if date:
                         date = datetime.strptime(date, "%d/%m/%Y").date()
             amount = row_values.get("Amount", "")
+            account_analytic = row_values.get("Account Analytic", "")
             log_info = ""
             values.update(
                 {
@@ -73,6 +79,7 @@ class AccountAssetLineImport(models.Model):
                     "profile": convert2str(profile),
                     "date": date or False,
                     "amount": check_number(amount),
+                    "account_analytic": convert2str(account_analytic),
                     "log_info": log_info,
                 }
             )
@@ -181,11 +188,22 @@ class AccountAssetLineImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    account_analytic = fields.Char(
+        string="Account Analytic",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    account_analytic_id = fields.Many2one(
+        string="Account Analytic",
+        comodel_name="account.analytic.account",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
 
     def _action_validate(self):
         update_values = super()._action_validate()
         log_infos = []
-        profile = False
+        profile = account_analytic = False
         account_asset, log_info_account_asset = self._check_account_asset()
         if not account_asset:
             if (
@@ -198,18 +216,24 @@ class AccountAssetLineImportLine(models.Model):
                     log_infos.append(log_info_profile)
             else:
                 log_infos.append(_("Error: Some field is missing to create the asset."))
+        if self.account_analytic:
+            account_analytic, log_info_account_analytic = self._check_account_analytic()
+            if log_info_account_analytic:
+                log_infos.append(log_info_account_analytic)
         if log_info_account_asset:
             log_infos.append(log_info_account_asset)
         if (
             account_asset
             and not log_info_account_asset
             and (account_asset.state != "draft")
+            and not self.import_id.update_data
         ):
             log_infos.append(_("Error: The asset is not in draft state."))
         if (
             account_asset
             and not log_info_account_asset
             and (account_asset.state == "draft")
+            and not self.import_id.update_data
         ):
             account_asset.depreciation_line_ids.filtered(
                 lambda c: c.type == "depreciate"
@@ -219,6 +243,7 @@ class AccountAssetLineImportLine(models.Model):
             and self.date
             and account_asset.date_start
             and (account_asset.date_start > self.date)
+            and not self.import_id.update_data
         ):
             log_infos.append(
                 _("Error: The date can't be before than the asset date start.")
@@ -229,6 +254,7 @@ class AccountAssetLineImportLine(models.Model):
             {
                 "account_asset_id": account_asset and account_asset.id,
                 "profile_id": profile and profile.id,
+                "account_analytic_id": account_analytic and account_analytic.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -248,7 +274,14 @@ class AccountAssetLineImportLine(models.Model):
                         self.account_asset_id = account_asset.id
                     else:
                         log_info = _("To create the asset, the name is required.")
-            if self.account_asset_id and self.date and self.amount:
+            if self.account_asset_id and self.import_id.update_data:
+                self._update_account_asset_values()
+            if (
+                self.account_asset_id
+                and self.date
+                and self.amount
+                and not self.import_id.update_data
+            ):
                 same_asset_lines = self.import_id.import_line_ids.filtered(
                     lambda c: c.account_asset_name == (self.account_asset_name)
                     and c.account_asset_ref == self.account_asset_ref
@@ -265,7 +298,13 @@ class AccountAssetLineImportLine(models.Model):
                             "The sum of the amount of the same asset has to"
                             + " be the same as the depreciation base amount."
                         )
-            if self.account_asset_id and self.date and self.amount and not (log_info):
+            if (
+                self.account_asset_id
+                and self.date
+                and self.amount
+                and not (log_info)
+                and not self.import_id.update_data
+            ):
                 self._create_account_asset_line()
             state = "error" if log_info else "done"
             update_values.update(
@@ -310,6 +349,36 @@ class AccountAssetLineImportLine(models.Model):
             assets = False
             log_info = _("Error: More than one asset found.")
         return assets and assets[:1], log_info
+
+    def _check_account_analytic(self):
+        self.ensure_one()
+        log_info = ""
+        if self.account_analytic_id:
+            return self.account_analytic_id, log_info
+        account_analytic_obj = self.env["account.analytic.account"]
+        search_domain = [("code", "=", self.account_analytic)]
+        if self.import_id.company_id:
+            search_domain = expression.AND(
+                [
+                    [
+                        "|",
+                        ("company_id", "=", self.import_id.company_id.id),
+                        ("company_id", "=", False),
+                    ],
+                    search_domain,
+                ]
+            )
+            account_analytic_obj = account_analytic_obj.with_company(
+                self.import_id.company_id
+            )
+        account_analytics = account_analytic_obj.search(search_domain)
+        if not account_analytics:
+            account_analytics = False
+            log_info = _("Error: Account analytic not found.")
+        elif len(account_analytics) > 1:
+            account_analytics = False
+            log_info = _("Error: More than one account analytic found.")
+        return account_analytics and account_analytics[:1], log_info
 
     def _check_profile(self):
         self.ensure_one()
@@ -377,7 +446,8 @@ class AccountAssetLineImportLine(models.Model):
             "prorata": self.profile_id.prorata,
             "days_calc": self.profile_id.days_calc,
             "use_leap_years": self.profile_id.use_leap_years,
-            "account_analytic_id": self.profile_id.account_analytic_id.id,
+            "account_analytic_id": self.account_analytic_id.id
+            or self.profile_id.account_analytic_id.id,
         }
         return vals
 
@@ -390,3 +460,9 @@ class AccountAssetLineImportLine(models.Model):
             asset = asset_obj.with_company(self.import_id.company_id).create(values)
             log_info = ""
         return asset, log_info
+
+    def _update_account_asset_values(self):
+        self.ensure_one()
+        self.account_asset_id.write(
+            {"account_analytic_id": self.account_analytic_id.id}
+        )
