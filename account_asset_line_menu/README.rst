@@ -2,16 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============
-Stock usability
-===============
+=======================
+Account asset line menu
+=======================
 
-New fields in Minimum Inventory Rules:
-
-* Quantity On Hand
-* Incoming
-* Outgoing
-* Pending receipt from supplier
+* New menu "Assets lines".
 
 Bug Tracker
 ===========
