@@ -24,9 +24,14 @@
         </div>
 
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
-            <div class="row mt-4 mb-4; last-page">
-                <div class="col-auto col-3 mw-100 mb-2">
+            <div class="row mt48 mb32">
+                <div class="col-auto">
                     <strong>Mantener la mercancía entre 0-4 grados.</strong>
+                </div>
+                <div class="col-auto">
+                    <span t-field="o.name" />- Page:
+                    <span class="page" /> /
+                    <span class="topage" />
                 </div>
             </div>
             <br />
