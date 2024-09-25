@@ -21,9 +21,6 @@ class RepairOrder(models.Model):
     purchase_order_id = fields.Many2one(
         string="Purchase order", comodel_name="purchase.order", copy=False
     )
-    sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
-    )
     sale_line_id = fields.Many2one(
         string="Sale line",
         comodel_name="sale.order.line",
