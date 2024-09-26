@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-25 07:22+0000\n"
-"PO-Revision-Date: 2024-06-25 07:22+0000\n"
+"POT-Creation-Date: 2024-09-26 12:11+0000\n"
+"PO-Revision-Date: 2024-09-26 12:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_product_qr_label
+#: model:ir.actions.report,print_report_name:stock_product_qr_label.action_product_template_qr_label_report
+msgid "('QR Label For Product - %s' % (object.name))"
+msgstr "('Etiqueta QR para producto - %s' % (object.name))"
+
+#. module: stock_product_qr_label
 #: model:ir.actions.report,print_report_name:stock_product_qr_label.action_stock_product_qr_label_report
 msgid "('QR Label For Product - %s' % (object.product_id.name))"
 msgstr "('Etiqueta QR para producto - %s' % (object.product_id.name))"
+
+#. module: stock_product_qr_label
+#: model:ir.actions.report,print_report_name:stock_product_qr_label.action_product_product_qr_label_report
+msgid "('QR Label For Product Variant- %s' % (object.name))"
+msgstr "('Etiqueta QR para varienta producto- %s' % (object.name))"
 
 #. module: stock_product_qr_label
 #: model:ir.actions.report,print_report_name:stock_product_qr_label.action_picking_product_qr_label_report
@@ -86,12 +96,30 @@ msgid "<span>Lot.: </span>"
 msgstr "<span>Lote: </span>"
 
 #. module: stock_product_qr_label
+#: model:ir.model.fields,field_description:stock_product_qr_label.field_product_product__company_for_label_id
+#: model:ir.model.fields,field_description:stock_product_qr_label.field_product_template__company_for_label_id
+msgid "Company For Label"
+msgstr "Compañía para etiqueta"
+
+#. module: stock_product_qr_label
+#: model:ir.model.fields,field_description:stock_product_qr_label.field_product_template__name_for_labels
+msgid "Name for labels"
+msgstr "Nombre para etiquetas"
+
+#. module: stock_product_qr_label
+#: model:ir.model,name:stock_product_qr_label.model_product_template
+msgid "Product"
+msgstr "Plantilla de producto"
+
+#. module: stock_product_qr_label
 #: model:ir.model,name:stock_product_qr_label.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos productos (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: stock_product_qr_label
 #: model:ir.actions.report,name:stock_product_qr_label.action_picking_product_qr_label_report
+#: model:ir.actions.report,name:stock_product_qr_label.action_product_product_qr_label_report
+#: model:ir.actions.report,name:stock_product_qr_label.action_product_template_qr_label_report
 #: model:ir.actions.report,name:stock_product_qr_label.action_stock_product_qr_label_report
 msgid "Product QR Label"
 msgstr "Etiqueta QR Producto"
@@ -106,3 +134,9 @@ msgstr "Código QR"
 #: model:ir.model,name:stock_product_qr_label.model_stock_quant
 msgid "Quants"
 msgstr "Cantidades"
+
+#. module: stock_product_qr_label
+#: model:ir.model.fields,field_description:stock_product_qr_label.field_product_product__user_for_label_id
+#: model:ir.model.fields,field_description:stock_product_qr_label.field_product_template__user_for_label_id
+msgid "User For Label"
+msgstr "Usuario para etiqueta"

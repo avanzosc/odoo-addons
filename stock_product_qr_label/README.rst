@@ -6,7 +6,8 @@
 Stock product QR label
 ======================
 
-* In "stock.quant" and "stock.picking" new report "Product QR Label".
+* In Product, Product Variant, Picking and "stock.quant" new report
+  "Product QR Label".
 
 Bug Tracker
 ===========

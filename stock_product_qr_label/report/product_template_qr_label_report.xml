@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_template_qr_label_document">
+        <t t-call="stock_product_qr_label.external_layout_quant_product_label">
+            <div
+        class="page"
+        style="font-size: 19px; font-family: ubuntu condensed; padding-top: 5px;  margin-right: -10px; margin-left: -10px; margin-bottom: -10px;"
+      >
+                <div class="row">
+                    <div class="col-12">
+                        <table style="width: 6.8cm; border-collapse: collapse;">
+                            <tr>
+                                <td
+                  style="width: 2.4cm; border: 1px solid black; padding-left: 5px; padding-right: 5px; background-color: red;"
+                >
+                                    <b><span t-field="doc.default_code" /></b>
+                                </td>
+                                <td
+                  style="width: 4.4cm; border: 1px solid black; padding-left: 5px; padding-right: 5px; background-color: grey;"
+                >
+                                    <b><span t-field="doc.list_price" />
+                                        <span
+                      t-field="doc.company_for_label_id.currency_id"
+                    />
+                                    </b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                  style="width: 2.4cm; border: 1px solid black; padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;"
+                >
+                                    <img
+                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', doc.default_code, 80, 80)"
+                  />
+                                </td>
+                                <td
+                  style="width: 4.4cm; border: 1px solid black; padding-left: 5px; padding-right: 5px; padding-bottom: 5px; vertical-align: top;"
+                >
+                                    <span t-field="doc.name_for_labels" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_product_template_qr_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-call="stock_product_qr_label.product_template_qr_label_document"
+          t-lang="doc.user_for_label_id.lang"
+        />
+            </t>
+        </t>
+    </template>
+
+    <record id="action_product_template_qr_label_report" model="ir.actions.report">
+        <field name="name">Product QR Label</field>
+        <field name="model">product.product</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_product_qr_label.report_product_template_qr_label</field>
+        <field
+      name="report_file"
+    >stock_product_qr_label.report_product_template_qr_label</field>
+        <field
+      name="print_report_name"
+    >('QR Label For Product - %s' % (object.name))</field>
+        <field name="binding_model_id" ref="product.model_product_template" />
+        <field name="binding_type">report</field>
+        <field
+      name="paperformat_id"
+      ref="stock_product_qr_label.paperformat_product_qr_label"
+    />
+    </record>
+</odoo>
