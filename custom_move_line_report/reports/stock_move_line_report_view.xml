@@ -5,7 +5,7 @@
         <field name="name">stock.move.line.report.tree</field>
         <field name="model">stock.move.line.report</field>
         <field name="arch" type="xml">
-            <tree string="Movement Analysis" editable="bottom">
+            <tree editable="bottom">
                 <field name="date" />
                 <field name="ref" />
                 <field name="picking_id" />
@@ -24,6 +24,9 @@
                 <field name="owner_id" optional="hide" />
                 <field name="product_id" />
                 <field name="lot_id" />
+                <field name="entry_unit" optional="hide" />
+                <field name="output_unit" optional="hide" />
+                <field name="download_unit" />
                 <field name="entry_qty" />
                 <field name="output_qty" />
                 <field name="qty_done" />
@@ -69,6 +72,11 @@
                             <field name="move_line_id" />
                             <field name="move_id" />
                         </group>
+                        <group string="Units">
+                            <field name="entry_unit" />
+                            <field name="output_unit" />
+                            <field name="download_unit" />
+                        </group>
                         <group string="Qty">
                             <field name="entry_qty" />
                             <field name="output_qty" />
@@ -92,6 +100,9 @@
             <pivot string="Movement Analysis">
                 <field name="type_id" type="row" />
                 <field name="type_category_id" type="row" />
+                <field name="entry_unit" type="measure" />
+                <field name="output_unit" type="measure" />
+                <field name="download_unit" type="measure" />
                 <field name="entry_qty" type="measure" />
                 <field name="output_qty" type="measure" />
                 <field name="qty_done" type="measure" />

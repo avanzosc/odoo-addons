@@ -9,6 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
+        "product_usability",
     ],
     "data": [
         "views/stock_quant_views.xml",

@@ -725,6 +725,24 @@ class StockPickingBatch(models.Model):
             self.liquidation_max = self.liquidation_contract_id.liquidation_max
             self.correction_factor = self.liquidation_contract_id.correction_factor
 
+    def action_view_picking(self):
+        result = super(StockPickingBatch, self).action_view_picking()
+        if self.closed:
+            result.update(
+                {
+                    "views": [
+                        [
+                            self.env.ref(
+                                "stock_picking_batch_liquidation.closed_picking_tree_view"
+                            ).id,
+                            "tree",
+                        ],
+                        [False, "form"],
+                    ],
+                }
+            )
+        return result
+
     def action_view_inventory_ids(self):
         context = self.env.context.copy()
         context.update({"default_batch_id": self.id})
@@ -739,14 +757,33 @@ class StockPickingBatch(models.Model):
                     ]
                 }
             )
-        return {
-            "name": _("Inventory adjustment"),
-            "view_mode": "tree,form",
-            "res_model": "stock.inventory",
-            "domain": [("id", "in", self.inventory_ids.ids)],
-            "type": "ir.actions.act_window",
-            "context": context,
-        }
+        if self.closed:
+            return {
+                "name": _("Inventory adjustment"),
+                "view_mode": "tree,form",
+                "views": [
+                    [
+                        self.env.ref(
+                            "stock_picking_batch_liquidation.closed_inventory_tree_view"
+                        ).id,
+                        "tree",
+                    ],
+                    [False, "form"],
+                ],
+                "res_model": "stock.inventory",
+                "domain": [("id", "in", self.inventory_ids.ids)],
+                "type": "ir.actions.act_window",
+                "context": context,
+            }
+        else:
+            return {
+                "name": _("Inventory adjustment"),
+                "view_mode": "tree,form",
+                "res_model": "stock.inventory",
+                "domain": [("id", "in", self.inventory_ids.ids)],
+                "type": "ir.actions.act_window",
+                "context": context,
+            }
 
     def action_view_account_move(self):
         context = self.env.context.copy()
@@ -1036,6 +1073,7 @@ class StockPickingBatch(models.Model):
                 price = self.max
             if price < self.min:
                 price = self.min
+            product = self.liquidation_contract_id.invoice_product_id
             account_move = self.env["account.move"].create(
                 {
                     "partner_id": self.tax_entity_id.id,
@@ -1049,15 +1087,13 @@ class StockPickingBatch(models.Model):
                             0,
                             0,
                             {
-                                "product_id": (
-                                    self.liquidation_contract_id.invoice_product_id.id
+                                "product_id": product.id,
+                                "name": product.name,
+                                "account_id": (
+                                    product.categ_id.property_account_expense_categ_id.id
                                 ),
-                                "name": (
-                                    self.liquidation_contract_id.invoice_product_id.name
-                                ),
-                                "account_id": self.liquidation_contract_id.invoice_product_id.categ_id.property_account_expense_categ_id.id,
                                 "quantity": 1,
-                                "product_uom_id": self.liquidation_contract_id.invoice_product_id.uom_id.id,
+                                "product_uom_id": product.uom_id.id,
                                 "price_unit": price,
                                 "tax_ids": [(6, 0, tax)],
                             },

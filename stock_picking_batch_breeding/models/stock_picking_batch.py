@@ -17,32 +17,46 @@ class StockPickingBatch(models.Model):
         return today
 
     batch_type = fields.Selection(
-        string="Batch Type", selection_add=[("breeding", "Breeding")]
+        string="Batch Type",
+        selection_add=[("breeding", "Breeding")],
     )
     description = fields.Text(string="Description")
     observation = fields.Text(string="Observation")
     entry_date = fields.Date(
-        string="Entry date", default=lambda self: self._default_entry_date()
+        string="Entry date",
+        default=lambda self: self._default_entry_date(),
     )
     entry_week = fields.Integer(
-        string="Entry Weeks", compute="_compute_entry_week", store=True
+        string="Entry Weeks",
+        compute="_compute_entry_week",
+        store=True,
     )
     cleaned_date = fields.Date(string="Cleaned Date")
     cleaned_week = fields.Integer(
-        string="Cleaned Weeks", compute="_compute_cleaned_week", store=True
+        string="Cleaned Weeks",
+        compute="_compute_cleaned_week",
+        store=True,
     )
     liquidation_date = fields.Date(string="Liquidation Date")
     liquidation_week = fields.Integer(
-        string="Liquidation Week", compute="_compute_liquidation_week", store=True
+        string="Liquidation Week",
+        compute="_compute_liquidation_week",
+        store=True,
     )
     billing_date = fields.Date(string="Billing Date")
     billing_week = fields.Integer(
-        string="Billing Weeks", compute="_compute_billing_week", store=True
+        string="Billing Weeks",
+        compute="_compute_billing_week",
+        store=True,
     )
-    feed_family = fields.Many2one(string="Feed Family", comodel_name="breeding.feed")
+    feed_family = fields.Many2one(
+        string="Feed Family",
+        comodel_name="breeding.feed",
+    )
     picking_ids = fields.One2many(
         string="Transfers",
-        domain="['|', ('location_id', '=', location_id), ('location_dest_id', '=', location_id)]",
+        domain="['|', ('location_id', '=', location_id), "
+        "('location_dest_id', '=', location_id)]",
     )
     state = fields.Selection(default="draft")
     lineage_percentage_ids = fields.One2many(
@@ -62,7 +76,9 @@ class StockPickingBatch(models.Model):
         inverse_name="breeding_id",
     )
     farm_type = fields.Selection(
-        string="Farm Type", related="warehouse_id.farm_type", store=True
+        string="Farm Type",
+        related="warehouse_id.farm_type",
+        store=True,
     )
 
     @api.depends("entry_date")
@@ -151,17 +167,11 @@ class StockPickingBatch(models.Model):
 
     @api.onchange("stage_id")
     def onchange_stage_id(self):
-        if (self.stage_id.id) == (
-            self.env.ref("stock_picking_batch_breeding.batch_stage4").id
-        ):
+        if self.stage_id == self.env.ref("stock_picking_batch_breeding.batch_stage4"):
             self.cleaned_date = fields.Date.today()
-        if (self.stage_id.id) == (
-            self.env.ref("stock_picking_batch_breeding.batch_stage5").id
-        ):
+        if self.stage_id == self.env.ref("stock_picking_batch_breeding.batch_stage5"):
             self.liquidation_date = fields.Date.today()
-        if (self.stage_id.id) == (
-            self.env.ref("stock_picking_batch_breeding.batch_stage6").id
-        ):
+        if self.stage_id == self.env.ref("stock_picking_batch_breeding.batch_stage6"):
             self.billing_date = fields.Date.today()
 
     def _sanity_check(self):
@@ -187,14 +197,14 @@ class StockPickingBatch(models.Model):
             lineage = []
             lines = self.move_line_ids.filtered(
                 lambda c: c.location_dest_id == self.location_id
-                and (c.product_id.one_day_chicken)
+                and c.product_id.one_day_chicken
                 and c.lineage_id
             )
             if not lines:
                 raise ValidationError(
                     _(
-                        "No line has been found for the purchase of chicks "
-                        + "with lineage."
+                        "No line has been found for the purchase of chicks with "
+                        "lineage."
                     )
                 )
             if lines:
@@ -229,15 +239,12 @@ class StockPickingBatch(models.Model):
             mother = []
             lines = self.move_line_ids.filtered(
                 lambda c: c.location_dest_id == self.location_id
-                and (c.product_id.one_day_chicken)
+                and c.product_id.one_day_chicken
                 and c.lot_id.batch_id
             )
             if not lines:
                 raise ValidationError(
-                    _(
-                        "No line has been found for the purchase of chicks "
-                        + "with mother."
-                    )
+                    _("No line has been found for the purchase of chicks with mother.")
                 )
             if lines:
                 total_qty = sum(lines.mapped("qty_done"))
@@ -271,15 +278,14 @@ class StockPickingBatch(models.Model):
                 if line.real_weight or line.casualties:
                     raise ValidationError(
                         _(
-                            "Cannot be upgraded as there is at least one "
-                            + "real weight o casualties."
+                            "Cannot be upgraded as there is at least one real weight "
+                            "or casualties."
                         )
                     )
                 else:
                     line.unlink()
         self.action_calculate_lineage_percentage()
         self.action_calculate_mother_lineage_relation()
-        print("action calculate lineage percentage")
         if not self.lineage_percentage_ids:
             raise ValidationError(_("You must introduce the lineage percentages."))
         for lineage in self.lineage_percentage_ids:
@@ -302,14 +308,14 @@ class StockPickingBatch(models.Model):
                 unit = sum(
                     self.move_line_ids.filtered(
                         lambda c: c.product_id.one_day_chicken
-                        and (c.state == "done")
-                        and (c.location_dest_id == self.location_id)
+                        and c.state == "done"
+                        and c.location_dest_id == self.location_id
                     ).mapped("qty_done")
                 ) - sum(
                     self.move_line_ids.filtered(
-                        lambda c: (c.product_id.one_day_chicken)
-                        and (c.state == "done")
-                        and (c.location_id == (self.location_id))
+                        lambda c: c.product_id.one_day_chicken
+                        and c.state == "done"
+                        and c.location_id == self.location_id
                     ).mapped("qty_done")
                 )
                 self.estimate_weight_ids = [
@@ -337,8 +343,8 @@ class StockPickingBatch(models.Model):
         for line in self:
             if (
                 "stage_id" in vals
-                and (vals["stage_id"] == stage_active.id)
-                and (line.batch_type == "breeding")
+                and vals["stage_id"] == stage_active.id
+                and line.batch_type == "breeding"
             ):
                 vals.update(
                     {

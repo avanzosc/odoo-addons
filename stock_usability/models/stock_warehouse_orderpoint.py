@@ -9,27 +9,32 @@ class StockWarehouseOrderpoint(models.Model):
     qty_available = fields.Float(
         string="Quantity On Hand",
         digits="Product Unit of Measure",
-        related="product_id.qty_available",
+        computed="_compute_quantities",
     )
     incoming_qty = fields.Float(
         string="Incoming",
         digits="Product Unit of Measure",
-        related="product_id.incoming_qty",
+        computed="_compute_quantities",
     )
     outgoing_qty = fields.Float(
         string="Outgoing",
         digits="Product Unit of Measure",
-        related="product_id.outgoing_qty",
-    )
-    consumed_last_twelve_months = fields.Float(
-        string="Consumed last twelve months",
-        digits="Product Unit of Measure",
-        related="product_id.consumed_last_twelve_months",
-    )
-    months_with_stock = fields.Integer(
-        string="Months with stock", related="product_id.months_with_stock"
+        computed="_compute_quantities",
     )
     supplier_pending_to_receive = fields.Float(
         string="Pending receipt from supplier",
         related="supplier_id.supplier_pending_to_receive",
     )
+
+    def _compute_quantities(self):
+        for record in self:
+            location_product = record.product_id.with_context(
+                location=record.location_id.id
+            )
+            record.update(
+                {
+                    "qty_available": location_product.qty_available,
+                    "incoming_qty": location_product.incoming_qty,
+                    "outgoing_qty": location_product.outgoing_qty,
+                }
+            )

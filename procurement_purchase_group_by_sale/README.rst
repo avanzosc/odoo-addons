@@ -7,7 +7,7 @@ Procurement purchase group by sale
 ==================================
 
 * When creating a purchase order by confirming a sales order, always create a
- new purchase order.
+  new purchase order.
 
 Bug Tracker
 ===========

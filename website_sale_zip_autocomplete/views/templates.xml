@@ -20,6 +20,7 @@
     id="address"
     name="Address ZIP Autocomplete"
     inherit_id="website_sale.address"
+    priority="100"
   >
         <xpath expr="//input[@name='zip']" position="attributes">
             <attribute name="style">display:none;</attribute>

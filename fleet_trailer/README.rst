@@ -10,6 +10,7 @@ Fleet trailer
   vehicle category, vehicle MMTA, vehicle MMA, vehicle servicer brake type,
   Tire dimensions, IC/IV tires.
 * In vehicle new report "Tecnical sheet".
+
 Bug Tracker
 ===========
 

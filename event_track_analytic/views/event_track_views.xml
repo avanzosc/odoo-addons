@@ -15,7 +15,7 @@
             name="account_analytic_line_ids"
             context="{'default_account_id':analytic_account_id, 'default_project_id':project_id, 'default_task_id':task_id}"
           >
-                        <tree editable="bottom" string="Analytic Entries">
+                        <tree editable="bottom">
                             <field name="date" />
                             <field name="employee_id" />
                             <field name="project_id" invisible="1" />

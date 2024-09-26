@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Production Lot Warranty Repair Date",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product",
@@ -17,7 +17,6 @@
         "views/product_product_views.xml",
         "views/repair_order_views.xml",
         "views/stock_production_lot_views.xml",
-        "views/res_company_views.xml",
     ],
     "installable": True,
 }

@@ -8,7 +8,7 @@
         "stock",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Purchases",
     "data": [
         "views/stock_move_view.xml",

@@ -6,7 +6,7 @@
     "category": "Sales/Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://avanzosc.es/",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["product", "purchase"],
     "data": [
         "views/product_template_views.xml",

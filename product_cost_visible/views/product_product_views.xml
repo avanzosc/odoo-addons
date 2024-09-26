@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="product_template_view_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <page name="purchase" position="attributes">
+                <attribute
+          name="groups"
+        >product_cost_visible.group_show_purchase_tab</attribute>
+            </page>
+        </field>
+    </record>
+
     <record id="product_product_last_purchase_info_form_view" model="ir.ui.view">
         <field name="model">product.product</field>
         <field

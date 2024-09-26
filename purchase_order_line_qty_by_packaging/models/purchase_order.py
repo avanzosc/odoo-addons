@@ -15,8 +15,12 @@ class PurchaseOrder(models.Model):
                         for line in move.move_line_ids:
                             line.write(
                                 {
-                                    "product_packaging_id": move.purchase_line_id.product_packaging.id,
-                                    "product_packaging_qty": move.purchase_line_id.product_packaging_qty,
+                                    "product_packaging_id": (
+                                        move.purchase_line_id.product_packaging.id
+                                    ),
+                                    "product_packaging_qty": (
+                                        move.purchase_line_id.product_packaging_qty
+                                    ),
                                 }
                             )
         return result

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_purchase_order_form_tracking" model="ir.ui.view">
+        <field name="name">purchase.order.form.tracking</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Purchase Tracking">
+                    <group>
+                        <group>
+                            <field name="forwarder_id" />
+                            <field name="carrier_id" />
+                            <field name="pol_id" />
+                            <field name="pod_id" />
+                        </group>
+                        <group>
+                            <field name="date_sent" />
+                            <field name="date_order" />
+                            <field name="cargo_ready" />
+                            <field name="cut_off" />
+                            <field name="date_etd" />
+                            <field name="date_eta" />
+                            <field name="date_planned" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

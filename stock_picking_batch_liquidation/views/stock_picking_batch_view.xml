@@ -149,6 +149,7 @@
     <record id="stock_picking_batch_filter" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_filter" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <filter name="draft" position="replace">
                 <filter
@@ -192,13 +193,13 @@
         <field name="name">stock.picking.batch.tree</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            <tree string="Liquidated Breeding Report">
+            <tree>
                 <field name="name" />
                 <field name="entry_date" />
                 <field name="cleaned_date" />
                 <field name="warehouse_id" />
                 <field name="city" />
-                <field name="chick_entry_qty" />
+                <field name="chick_units" />
                 <field name="output_units" />
                 <field name="cancellation_percentage" />
                 <field name="density" />

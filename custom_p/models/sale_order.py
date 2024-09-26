@@ -3,7 +3,7 @@
 
 from datetime import timedelta
 
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -31,6 +31,7 @@ class SaleOrder(models.Model):
                 ("order_partner_id", "=", self.partner_id.id),
                 ("state", "=", "sale"),
                 ("date_order", ">=", last_month),
+                ("product_uom_qty", ">", 0),
             ]
             sale_lines = self.env["sale.order.line"].search(domain)
             products = []

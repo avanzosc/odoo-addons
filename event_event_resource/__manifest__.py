@@ -4,7 +4,7 @@
     "name": "Event Event Resource",
     "version": "14.0.1.4.0",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "license": "AGPL-3",
     "depends": ["event", "website_event_track", "resource", "event_zoom_link"],

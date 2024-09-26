@@ -53,7 +53,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         table_detail_right_num.set_num_format("#,##0.00")
         n = 1
         worksheet = workbook.add_worksheet("Breeding Report")
-        for i in range(0, 28):
+        for i in range(0, 30):
             worksheet.set_column(0, i, 12)
         worksheet.write(0, 0, _("Breeding"), table_header)
         worksheet.write(0, 1, _("Entry Date"), table_header)
@@ -81,6 +81,8 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         worksheet.write(0, 23, _("Chick Liquidation"), table_header)
         worksheet.write(0, 24, _("Liquidation Area"), table_header)
         worksheet.write(0, 25, _("Cost Kilo"), table_header)
+        worksheet.write(0, 26, _("m2"), table_header)
+        worksheet.write(0, 27, _("Kg/m2"), table_header)
         for line in objects:
             worksheet.write(n, 0, line.name if line.name else "")
             worksheet.write(
@@ -99,7 +101,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(n, 3, line.warehouse_id.name if line.warehouse_id else "")
             worksheet.write(n, 4, line.city if line.city else "")
-            worksheet.write(n, 5, line.chick_entry_qty, int_format)
+            worksheet.write(n, 5, line.chick_units, int_format)
             worksheet.write(n, 6, line.output_units, int_format)
             worksheet.write(
                 n, 7, round(line.cancellation_percentage, 2), two_decimal_format
@@ -132,8 +134,15 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
                 n, 24, round(line.liquidation_area, 8), eight_decimal_format
             )
             worksheet.write(n, 25, round(line.cost_kilo, 3), three_decimal_format)
+            worksheet.write(n, 26, line.warehouse_id.farm_area, int_format)
+            worksheet.write(
+                n,
+                27,
+                round(line.meat_kilos / line.warehouse_id.farm_area, 3),
+                three_decimal_format,
+            )
             n = n + 1
-        worksheet.write(n, 5, sum(objects.mapped("chick_entry_qty")), int_format)
+        worksheet.write(n, 5, sum(objects.mapped("chick_units")), int_format)
         worksheet.write(n, 6, sum(objects.mapped("output_units")), int_format)
         cancellation = (
             (

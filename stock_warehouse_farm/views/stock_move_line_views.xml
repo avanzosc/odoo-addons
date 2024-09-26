@@ -11,6 +11,12 @@
             </field>
             <filter name="groupby_product_id" position="after">
                 <filter
+          string="Product Family"
+          name="group_product_family"
+          domain="[]"
+          context="{'group_by': 'product_family_id'}"
+        />
+                <filter
           string="Source Section"
           name="group_catogory_type"
           domain="[]"

@@ -11,7 +11,6 @@ class StockInventoryImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if values and row_values:
-            values
             inventory_product_cost = row_values.get("Precio", "")
             inventory_product_amount = row_values.get("Importe", "")
             values.update(
@@ -52,3 +51,13 @@ class StockInventoryImportLine(models.Model):
                 }
             )
         return result
+
+    def create_quant(self):
+        super(StockInventoryImportLine, self).create_quant()
+        if self.move_line_id and self.inventory_product_cost:
+            self.move_line_id.write(
+                {
+                    "standard_price": self.inventory_product_cost,
+                    "amount": self.move_line_id.qty_done * self.inventory_product_cost,
+                }
+            )

@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class TransportCarrierLinesToInvoice(models.Model):
@@ -10,7 +10,8 @@ class TransportCarrierLinesToInvoice(models.Model):
 
     active = fields.Boolean(
         default=True,
-        help="Set active to false to hide the Transport Carrier Line without removing it.",
+        help="Set active to false to hide the Transport Carrier Line without"
+        " removing it.",
     )
     state = fields.Selection(
         selection=[("to_invoice", "To Invoice"), ("billed", "Billed")],
@@ -22,7 +23,13 @@ class TransportCarrierLinesToInvoice(models.Model):
     transporter_id = fields.Many2one(string="Transporter", comodel_name="res.partner")
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
     product_qty = fields.Float(string="Product Quantity")
-    price_unit = fields.Float(string="Price Unit")
+    price_unit = fields.Float(
+        string="Price Unit",
+        digits="Shipping Cost Decimal Precision",
+        related="transfer_id.shipping_cost",
+        store=True,
+        readonly=False,
+    )
     total_price = fields.Float(string="Total Price")
     description = fields.Text(string="Description")
     currency_id = fields.Many2one(
@@ -51,6 +58,10 @@ class TransportCarrierLinesToInvoice(models.Model):
             line.state = "to_invoice"
             if line.supplier_invoice_id:
                 line.state = "billed"
+
+    @api.onchange("product_qty", "price_unit")
+    def onchange_total_price(self):
+        self.total_price = self.product_qty * self.price_unit
 
     def action_invoice(self):
         transporters = []
@@ -103,10 +114,11 @@ class TransportCarrierLinesToInvoice(models.Model):
                                 }
                             )
                         else:
+                            product_categ = line.product_id.categ_id
                             move_line.update(
                                 {
                                     "account_id": (
-                                        line.product_id.categ_id.property_account_expense_categ_id.id
+                                        product_categ.property_account_expense_categ_id.id
                                     )
                                 }
                             )
@@ -116,7 +128,6 @@ class TransportCarrierLinesToInvoice(models.Model):
                         new_lines = after_lines - before_lines
                         for new in new_lines:
                             taxes = new._get_computed_taxes()
-                            print(taxes)
                             if taxes and account_move.fiscal_position_id:
                                 taxes = account_move.fiscal_position_id.map_tax(
                                     taxes, partner=account_move.partner_id

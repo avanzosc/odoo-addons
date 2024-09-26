@@ -4,7 +4,8 @@
     "name": "Base Penalty Warning",
     "version": "14.0.1.0.0",
     "category": "Hidden",
-    "author": "https://avanzosc.es/",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
     "depends": [
         "base",

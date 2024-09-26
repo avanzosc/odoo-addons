@@ -11,13 +11,13 @@ from odoo.addons import decimal_precision as dp
 class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
-    move_line_ids = fields.One2many(
-        "stock.move.line",
-        string="Stock move lines",
-        compute="_compute_move_ids",
-        inverse="_set_move_line_ids",
-        readonly=False,
-    )
+    # move_line_ids = fields.One2many(
+    #     "stock.move.line",
+    #     string="Stock move lines",
+    #     compute="_compute_move_ids",
+    #     inverse="_set_move_line_ids",
+    #     readonly=False,
+    # )
     consignee_id = fields.Many2one(
         string="Consignee", comodel_name="res.partner", copy=False
     )

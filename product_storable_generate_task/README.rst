@@ -7,7 +7,7 @@ Product storable generate task
 ==============================
 
 * With this module you can define a "Service tracking" to a product of type
- "Storable Product". 
+  "Storable Product".
 
 Bug Tracker
 ===========

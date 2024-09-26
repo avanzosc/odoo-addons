@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
         store=True,
         copy=False,
         compute="_compute_product_old_refence",
-        inverse="_set_product_old_reference",
+        inverse="_inverse_product_old_reference",
     )
 
     @api.depends("product_variant_ids", "product_variant_ids.product_old_reference")
@@ -26,7 +26,7 @@ class ProductTemplate(models.Model):
         for template in self - unique_variants:
             template.product_old_reference = False
 
-    def _set_product_old_reference(self):
+    def _inverse_product_old_reference(self):
         for template in self:
             if len(template.product_variant_ids) == 1:
                 template.product_variant_ids.product_old_reference = (

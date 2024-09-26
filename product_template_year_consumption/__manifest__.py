@@ -3,13 +3,16 @@
 {
     "name": "Product Template Year Consumption",
     "version": "14.0.1.1.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Stock",
     "depends": [
         "stock",
     ],
     "data": [
+        "views/product_product_views.xml",
         "views/product_template_views.xml",
+        "views/stock_warehouse_orderpoint_views.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

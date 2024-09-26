@@ -3,7 +3,8 @@
 {
     "name": "Partner Skills",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales/CRM",
     "depends": ["contacts", "hr_skills"],
     "data": ["views/res_partner_views.xml"],

@@ -2,11 +2,11 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Event track calendar report",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "Project",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["calendar", "website_event_track"],
     "data": [
         "security/ir.model.access.csv",

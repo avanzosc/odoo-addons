@@ -3,7 +3,8 @@
 {
     "name": "Stock Picking Batch Liquidation",
     "version": "14.0.1.1.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "depends": [
         "account",
@@ -44,6 +45,7 @@
         "views/account_analytic_line_view.xml",
         "views/stock_quant_view.xml",
         "views/account_move_line_view.xml",
+        "views/stock_picking_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

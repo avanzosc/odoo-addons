@@ -1,7 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockPicking(models.Model):
@@ -75,4 +75,20 @@ class StockPicking(models.Model):
         result = super().button_validate()
         for picking in self:
             picking.action_invoice_trasport_lines()
+        return result
+
+    def write(self, values):
+        result = super(StockPicking, self).write(values)
+        if "shipping_cost" in values:
+            for picking in self:
+                for line in picking.mapped("move_line_ids_without_package"):
+                    line.onchange_shipping_cost()
+        return result
+
+    @api.model
+    def create(self, values):
+        result = super(StockPicking, self).create(values)
+        for picking in result:
+            for line in picking.mapped("move_line_ids_without_package"):
+                line.onchange_shipping_cost()
         return result

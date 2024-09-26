@@ -3,7 +3,8 @@
 {
     "name": "Event Registration Contact Type",
     "version": "14.0.1.0.0",
-    "author": "Avanzosc",
+    "author": "AvanzOSC",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": ["partner_contact_type", "event_registration_student"],
     "data": [

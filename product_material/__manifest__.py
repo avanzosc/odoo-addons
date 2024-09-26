@@ -4,7 +4,7 @@
     "name": "Product Material",
     "version": "14.0.1.0.0",
     "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Product",
     "depends": ["stock", "mrp"],
     "data": [

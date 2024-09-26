@@ -4,7 +4,7 @@
     "name": "Event Track Cancel Billability",
     "version": "14.0.1.0.0",
     "author": "Avanzosc",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Marketing/Events",
     "depends": [
         "event_track_cancel_reason",

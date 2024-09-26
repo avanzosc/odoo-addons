@@ -7,7 +7,7 @@ Account invoice event report
 ============================
 
 * Printing sale, out picking, and out invoice report, show product "Internal
-reference".
+  reference".
 
 Bug Tracker
 ===========

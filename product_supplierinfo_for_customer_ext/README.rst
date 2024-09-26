@@ -7,7 +7,7 @@ Product supplierinfo for customer ext
 =====================================
 
 * When creating/modifying a "product.customerinfo" object, always give value to
- "product_tmpl_id" whenever we have "product_id".
+  "product_tmpl_id" whenever we have "product_id".
 
 Bug Tracker
 ===========
