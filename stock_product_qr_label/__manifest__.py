@@ -12,6 +12,8 @@
         "data/paperformat.xml",
         "report/layout.xml",
         "report/picking_product_qr_label_report.xml",
+        "report/product_product_qr_label_report.xml",
+        "report/product_template_qr_label_report.xml",
         "report/stock_product_qr_label_report.xml",
     ],
     "installable": True,
