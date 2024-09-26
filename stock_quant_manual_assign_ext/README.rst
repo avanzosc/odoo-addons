@@ -2,18 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============
-Stock Usability
-===============
+=============================
+Stock quant manual assign ext
+=============================
 
-New fields added to minimum inventory rules:
-
-* *Forecasted*: It does not take into account quantity in progress.
-* *Incoming*: Quantity of planned incoming products.
-* *Outgoing*: Quantity of planned outgoing products
-* *Pending Incoming*
-* *Pending Outgoing*
-* *Forecasted with Pending*: (*Forecasted* + *Pending Incoming* - *Pending Outgoing*).
+* When reserving quants manually, delete the old move lines, those that have no
+  quantities left.
 
 Bug Tracker
 ===========
@@ -33,4 +27,3 @@ Contributors
 
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
-* Unai Beristain <unaiberistain@avanzosc.es>

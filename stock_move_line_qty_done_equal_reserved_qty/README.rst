@@ -2,18 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============
-Stock Usability
-===============
+===========================================
+Stock move line qty done equal reserved qty
+===========================================
 
-New fields added to minimum inventory rules:
-
-* *Forecasted*: It does not take into account quantity in progress.
-* *Incoming*: Quantity of planned incoming products.
-* *Outgoing*: Quantity of planned outgoing products
-* *Pending Incoming*
-* *Pending Outgoing*
-* *Forecasted with Pending*: (*Forecasted* + *Pending Incoming* - *Pending Outgoing*).
+* In stock move line, "Qty Done" equal "Reserved Qty".
 
 Bug Tracker
 ===========
@@ -33,4 +26,3 @@ Contributors
 
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
-* Unai Beristain <unaiberistain@avanzosc.es>
