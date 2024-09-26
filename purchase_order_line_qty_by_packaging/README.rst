@@ -6,8 +6,8 @@
 Purchase order line qty by packaging
 ====================================
 
-* Remove the warning when changing the quantity of the purchase order line.
-* Remove the calculated to the packaging quantity of the purchase order line.
+* Product packaging quantity field in purchase order lines.
+* Take the field to the picking move lines when confirming the purchase order.
 
 Bug Tracker
 ===========
