@@ -5,8 +5,7 @@
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
-            <field name="location_dest_id" position="after">
-                <field name="result_package_id" optional="hide" />
+            <field name="result_package_id" position="after">
                 <field name="packaging_id" optional="show" />
                 <field name="height" optional="show" />
                 <field name="width" optional="show" />

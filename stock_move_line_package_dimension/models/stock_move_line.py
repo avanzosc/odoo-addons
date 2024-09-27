@@ -6,12 +6,6 @@ from odoo import fields, models
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    packaging_id = fields.Many2one(
-        string="Package Type",
-        comodel_name="product.packaging",
-        related="result_package_id.packaging_id",
-        store=True,
-    )
     height = fields.Float(string="Height", related="packaging_id.height", store=True)
     width = fields.Float(string="Width", related="packaging_id.width", store=True)
     packaging_length = fields.Float(

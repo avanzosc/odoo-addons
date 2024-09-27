@@ -6,8 +6,7 @@
 Stock Move Line Package Dimension
 =================================
 
-* Volume compute field in product packaging.
-* Volume, height, width, length fields in stock move line.
+Volume, height, width, length fields in stock move line.
 
 Bug Tracker
 ===========
