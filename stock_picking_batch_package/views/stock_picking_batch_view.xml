@@ -9,15 +9,6 @@
                 <field name="number_of_packages" />
                 <field name="shipping_weight" />
             </field>
-            <xpath
-        expr="//sheet/notebook/page[3]/field[@name='picking_ids']/tree/field[@name='location_id']"
-        position="after"
-      >
-                <field name="partner_id" string="Delivery Address" />
-                <field name="carrier_id" string='Shipping Method' />
-                <field name="number_of_packages" />
-                <field name="shipping_weight" />
-            </xpath>
         </field>
     </record>
 </odoo>

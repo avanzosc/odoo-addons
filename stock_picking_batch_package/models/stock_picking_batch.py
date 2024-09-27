@@ -22,9 +22,7 @@ class StockPickingBatch(models.Model):
     number_of_packages = fields.Integer(
         string="Number of Packages", compute="_compute_number_of_packages"
     )
-    shipping_weight = fields.Float(
-        string="Shipping Weight", compute="_compute_shipping_weight"
-    )
+    shipping_weight = fields.Float(compute="_compute_shipping_weight")
 
     def _compute_number_of_packages(self):
         for transfer in self:
