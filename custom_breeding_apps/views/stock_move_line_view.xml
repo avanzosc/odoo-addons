@@ -17,7 +17,7 @@
                 <field
           name="batch_id"
           string="Mother Egg"
-          attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)]}"
+          attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
           optional="show"
         />
                 <field
@@ -201,8 +201,16 @@
                 <field name="product_uom_category_id" invisible="1" />
             </field>
             <field name="product_uom_id" position="after">
-                <field name="standard_price" optional="show" />
-                <field name="amount" optional="show" />
+                <field
+          name="standard_price"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
+                <field
+          name="amount"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
                 <field
           name="broken"
           optional="hide"
