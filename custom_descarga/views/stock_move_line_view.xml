@@ -65,6 +65,7 @@
           string="Units"
           optional="show"
           force_save="1"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
         />
             </field>
         </field>
