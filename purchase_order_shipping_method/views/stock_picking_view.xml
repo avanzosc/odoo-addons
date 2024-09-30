@@ -14,7 +14,10 @@
                 <field name="currency_id" invisible="1" />
                 <label for="shipping_cost" />
                     <div class="o_row" name="shipping_cost">
-                        <field name="shipping_cost" />
+                        <field
+            name="shipping_cost"
+            attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+          />
                         <span>€</span>
                     </div>
                 <field name="license_plate" />
