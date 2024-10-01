@@ -11,7 +11,6 @@
         "product_final",
         "product_price_by_pricelist",
     ],
-
     "data": [
         "security/ir.model.access.csv",
         "views/product_final_price_by_pricelist_report_view.xml",
