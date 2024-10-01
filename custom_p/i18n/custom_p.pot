@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-18 07:49+0000\n"
-"PO-Revision-Date: 2024-09-18 07:49+0000\n"
+"POT-Creation-Date: 2024-10-01 10:44+0000\n"
+"PO-Revision-Date: 2024-10-01 10:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,11 @@ msgstr ""
 #. module: custom_p
 #: model_terms:ir.ui.view,arch_db:custom_p.stock_inventory_warning_wizard_view_form
 msgid "Accept"
+msgstr ""
+
+#. module: custom_p
+#: model:res.groups,name:custom_p.group_picking_unlock
+msgid "Button Unlock Picking"
 msgstr ""
 
 #. module: custom_p
@@ -189,6 +194,7 @@ msgstr ""
 
 #. module: custom_p
 #: code:addons/custom_p/wizards/stock_inventory_warning_wizard.py:0
+#: code:addons/custom_p/wizards/stock_inventory_warning_wizard.py:0
 #, python-format
 msgid ""
 "There is no location. The entire warehouse could be deleted and this could "
@@ -210,6 +216,11 @@ msgid "This sale has not partner."
 msgstr ""
 
 #. module: custom_p
+#: model_terms:ir.ui.view,arch_db:custom_p.view_order_form
+msgid "Total Qty"
+msgstr ""
+
+#. module: custom_p
 #: model:ir.model,name:custom_p.model_stock_picking
 msgid "Transfer"
 msgstr ""
@@ -220,6 +231,7 @@ msgid "Update Order Lines Qty"
 msgstr ""
 
 #. module: custom_p
+#: code:addons/custom_p/models/stock_inventory.py:0
 #: code:addons/custom_p/models/stock_inventory.py:0
 #, python-format
 msgid "Warning"
