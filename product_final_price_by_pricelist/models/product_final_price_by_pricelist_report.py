@@ -5,8 +5,6 @@ from psycopg2.extensions import AsIs
 
 from odoo import api, fields, models, tools
 
-from odoo.addons import decimal_precision as dp
-
 
 class ProductFinalPriceByPricelist(models.Model):
     _name = "product.final.price.by.pricelist.report"
@@ -18,12 +16,10 @@ class ProductFinalPriceByPricelist(models.Model):
     product_final_id = fields.Many2one(
         comodel_name="product.final", string="Final Product"
     )
-    position = fields.Char(string="Position")
+    position = fields.Char()
     product_id = fields.Many2one(comodel_name="product.product", string="Product")
     pricelist_id = fields.Many2one(string="Pricelist", comodel_name="product.pricelist")
-    price_unit = fields.Float(
-        string="Unit Price", digits=dp.get_precision("Product Price"), default=0.0
-    )
+    price_unit = fields.Float(string="Unit Price", digits="Product Price", default=0.0)
 
     _depends = {
         "product.location.exploded": [
@@ -69,7 +65,7 @@ class ProductFinalPriceByPricelist(models.Model):
         """
         return group_by_str
 
-    @api.model_cr
+    @api.model
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
