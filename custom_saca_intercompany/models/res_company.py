@@ -8,3 +8,4 @@ class ResCompany(models.Model):
 
     paasa = fields.Boolean(string="PAASA", default=False)
     tolvasa = fields.Boolean(string="Tolvasa", default=False)
+    proalpe = fields.Boolean(string="PROALPE", default=False)
