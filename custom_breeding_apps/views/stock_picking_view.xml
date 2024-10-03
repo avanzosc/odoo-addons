@@ -38,12 +38,12 @@
             <field name="carrier_id" position="attributes">
                 <attribute
           name="attrs"
-        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)]}</attribute>
+        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
             <div name="shipping_cost" position="attributes">
                 <attribute
           name="attrs"
-        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)]}</attribute>
+        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </div>
             <field name="transporter_id" position="attributes">
                 <attribute
@@ -53,12 +53,12 @@
             <label for="shipping_cost" position="attributes">
                 <attribute
           name="attrs"
-        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)]}</attribute>
+        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </label>
             <field name="license_plate" position="attributes">
                 <attribute
           name="attrs"
-        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)]}</attribute>
+        >{'invisible': ['|', '|', ('burden_to_incubator', '=', True), ('egg_production', '=', True), ('incubator_hatcher', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
             <field name="owner_id" position="attributes">
                 <attribute
@@ -81,7 +81,10 @@
             <field name="custom_date_done" position="replace">
                 <label for="custom_date_done" />
                 <div class="o_row">
-                    <field name="custom_date_done" />
+                    <field
+            name="custom_date_done"
+            attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+          />
                     <field name="date_done_week" />
                 </div>
                 <label
