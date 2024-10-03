@@ -252,6 +252,9 @@
         <xpath expr="//div[@name='origin']" position="attributes">
             <attribute name="style">display:none;</attribute>
         </xpath>
+        <xpath expr="//div[@name='reference']" position="attributes">
+            <attribute name="t-if">o.ref and o.move_type == 'out_refund'</attribute>
+        </xpath>
         <xpath expr="//th[@name='th_taxes']" position="attributes">
             <attribute name="style">display:none;</attribute>
         </xpath>
