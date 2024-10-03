@@ -9,6 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_order_line_lot",
+        "stock_picking_date_done",
     ],
     "data": [
         "views/purchase_order_view.xml",
