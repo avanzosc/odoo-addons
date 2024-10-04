@@ -7,6 +7,12 @@ from odoo import fields, models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    move_ids = fields.One2many(
+        string="Stock Moves",
+        comodel_name="stock.move",
+        inverse_name="product_id",
+        copy=False,
+    )
     move_line_ids = fields.One2many(
         string="Product Move Lines",
         comodel_name="stock.move.line",
