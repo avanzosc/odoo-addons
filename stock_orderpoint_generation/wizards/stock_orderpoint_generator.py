@@ -9,7 +9,10 @@ class StockOrderpointGenerator(models.TransientModel):
     _description = "Wizard to generate stock.warehouse.orderpoints"
 
     generation_type = fields.Selection(
-        [("from_location", "Generate from Location"), ("all_0", "Generate 0 Min/Max")],
+        selection=[
+            ("from_location", "Generate from Location"),
+            ("all_0", "Generate 0 Min/Max"),
+        ],
         string="Generate Orderpoints",
     )
     location_from = fields.Many2one(
@@ -23,15 +26,17 @@ class StockOrderpointGenerator(models.TransientModel):
         domain="[('usage','=', 'internal')]",
     )
     update = fields.Boolean(
-        string="Update",
         help="Check this if you want just update existing orderpoint rules.",
     )
 
     def _update_orderpoint_rule(self, rule, location):
         """Create/Update location_id with the rule_id provided"""
-        orderpoin_obj = self.env["stock.warehouse.orderpoint"]
-        rule2update = orderpoin_obj.search(
-            [("location_id", "=", location.id), ("product_id", "=", rule.product_id.id)]
+        orderpoint_obj = self.env["stock.warehouse.orderpoint"]
+        rule2update = orderpoint_obj.search(
+            [
+                ("location_id", "=", location.id),
+                ("product_id", "=", rule.product_id.id),
+            ]
         )
         if rule2update:
             rule2update.product_min_qty = rule.product_min_qty
@@ -40,16 +45,18 @@ class StockOrderpointGenerator(models.TransientModel):
         else:
             rule.copy(
                 {
-                    "warehouse_id": location.get_warehouse().id,
+                    "warehouse_id": location.warehouse_id.id,
                     "location_id": location.id,
                 }
             )
 
     def button_generate(self):
-        orderpoin_obj = self.env["stock.warehouse.orderpoint"]
+        orderpoint_obj = self.env["stock.warehouse.orderpoint"].with_context(
+            active_test=False
+        )
         product_obj = self.env["product.product"]
         if self.generation_type == "from_location":
-            orderpoint_rules = orderpoin_obj.search(
+            orderpoint_rules = orderpoint_obj.search(
                 [("location_id", "=", self.location_from.id)]
             )
             for rule in orderpoint_rules:
@@ -59,7 +66,7 @@ class StockOrderpointGenerator(models.TransientModel):
             products = product_obj.search([("type", "=", "product")])
             for location in self.location_to:
                 for product in products:
-                    rule_exist = orderpoin_obj.search(
+                    rule_exist = orderpoint_obj.search(
                         [
                             ("location_id", "=", location.id),
                             ("product_id", "=", product.id),
@@ -68,11 +75,11 @@ class StockOrderpointGenerator(models.TransientModel):
                     if rule_exist:
                         continue
                     rule_data = {
-                        "warehouse_id": self.location_to.get_warehouse().id,
+                        "warehouse_id": location.warehouse_id.id,
                         "location_id": location.id,
                         "product_id": product.id,
                     }
                     try:
-                        orderpoin_obj.create(rule_data)
+                        orderpoint_obj.create(rule_data)
                     except Exception:
                         continue
