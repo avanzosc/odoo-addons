@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="website_contact_info" inherit_id="website.company_description">
+        <xpath expr="//address" position="inside">
+            <div class="o_contact_info_html">
+                <t t-raw="request.env.user.company_id.html_info"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>
