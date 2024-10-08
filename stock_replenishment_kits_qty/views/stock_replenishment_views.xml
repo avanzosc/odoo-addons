@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_replenishment_form_inherit" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.form.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_min_qty']" position="after">
+                <field name="qty_in_kits" readonly="1" />
+            </xpath>
+            <xpath expr="//form" position="inside">
+                <button
+          name="button_calculate_qty_in_kits"
+          type="object"
+          string="Kit"
+          icon="fa-refresh"
+          title="Recalcular kit"
+        />
+                <button
+          name="button_assign_qty_in_orderpoint"
+          type="object"
+          string="Kit"
+          icon="fa-check"
+          title="Asignar cantidad en punto de pedido"
+        />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="view_warehouse_orderpoint_tree_editable_inherit" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.tree.editable.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_min_qty']" position="before">
+                <field name="qty_in_kits" readonly="1" />
+                <button
+          name="button_calculate_qty_in_kits"
+          type="object"
+          string="Kit"
+          icon="fa-refresh"
+          title="Recalcular kit"
+        />
+                <button
+          name="button_assign_qty_in_orderpoint"
+          type="object"
+          string="Kit"
+          icon="fa-check"
+          title="Asignar cantidad en punto de pedido"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="warehouse_orderpoint_search_inherit" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.search.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.warehouse_orderpoint_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter
+          string="Qty in Kits > 0"
+          name="qty_in_kits_greater_than_0"
+          domain="[('qty_in_kits', '>', 0)]"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_reorder_report_search_inherit" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.reorder.search.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.stock_reorder_report_search" />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <filter
+          string="Qty in Kits > 0"
+          name="qty_in_kits_greater_than_0"
+          domain="[('qty_in_kits', '>', 0)]"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>

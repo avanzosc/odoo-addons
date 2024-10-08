@@ -2,11 +2,12 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=========================
-Stock ordepoint usability
-=========================
+=================================
+Stock - Reordering Rule Usability
+=================================
 
 * In "Procurement Order" tree editable view, show name.
+* This module adds a wizard to generate stock warehouse orderpoints from different ways.
 
 Bug Tracker
 ===========
