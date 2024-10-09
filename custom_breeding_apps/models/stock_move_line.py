@@ -26,7 +26,9 @@ class StockMoveLine(models.Model):
             result = product.id
         return result
 
-    source_document = fields.Char(string="Source Document")
+    source_document = fields.Char(
+        string="Source Document", compute="_compute_source_document", store=True
+    )
     product_id = fields.Many2one(default=_default_get_product_id)
     batch_id = fields.Many2one(
         string="Batch",
@@ -123,6 +125,31 @@ class StockMoveLine(models.Model):
         related="lot_id.name",
         store=True,
     )
+
+    @api.depends(
+        "picking_id",
+        "picking_id.origin",
+        "production_id",
+        "production_id.origin",
+        "move_id",
+        "move_id.production_id",
+        "move_id.production_id.origin",
+        "move_id.raw_material_production_id",
+        "move_id.raw_material_production_id.origin",
+    )
+    def _compute_source_document(self):
+        for line in self:
+            origin = False
+            if line.picking_id:
+                origin = line.picking_id.origin
+            elif line.production_id:
+                origin = line.production_id.origin
+            elif line.move_id and line.move_id.production_id:
+                origin = line.move_id.production_id.origin
+            elif line.move_id and line.move_id.raw_material_production_id:
+                raw_production = line.move_id.raw_material_production_id
+                origin = raw_production.origin
+            line.source_document = origin
 
     @api.depends("estimate_birth", "download_unit")
     def _compute_birth_estimate_qty(self):
