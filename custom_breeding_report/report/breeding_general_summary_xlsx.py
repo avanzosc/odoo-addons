@@ -1,5 +1,7 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from future.builtins.misc import round
+
 from odoo import _, models
 
 
@@ -282,7 +284,14 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         m += 3
         unit = feed_amount * 100 / total_costs if total_costs else 0
         worksheet.write(n, m, round(unit, 2), result_two_decimal)
-        m += 3
+        m += 1
+        consume_feed_qty = sum(objects.mapped("consume_feed"))
+        worksheet.write(n, m, round(consume_feed_qty, 2), int_format)
+        m += 1
+        worksheet.write(
+            n, m, round(feed_amount / consume_feed_qty, 8), eight_decimal_format
+        )
+        m += 1
         worksheet.write(n, m, round(feed_amount, 2), two_decimal_format)
         m += 1
         unit = feed_amount / meat_kilos if meat_kilos else 0
