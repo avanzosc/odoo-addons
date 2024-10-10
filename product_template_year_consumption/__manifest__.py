@@ -8,6 +8,7 @@
     "category": "Stock",
     "depends": [
         "stock",
+        "sale",
     ],
     "data": [
         "views/product_product_views.xml",
