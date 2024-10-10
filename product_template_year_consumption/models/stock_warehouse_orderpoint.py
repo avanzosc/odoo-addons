@@ -10,23 +10,25 @@ class StockWarehouseOrderpoint(models.Model):
         related="product_id.consumed_last_twelve_months",
     )
     months_with_stock = fields.Integer(
-        string="Months with stock", related="product_id.months_with_stock"
+        string="Months with stock",
+        related="product_id.months_with_stock",
     )
     sales_count = fields.Float(
-        string="Sales Count", related="product_id.sales_count", store=True
+        string="Sales Count",
+        related="product_id.sales_count",
+        store=True,
     )
-    months_with_stock_sales_count = fields.Float(
-        string="Months with Stock (Sales Count)",
-        compute="_compute_months_with_stock_sales_count",
+    months_sales_count_and_qty_forecast = fields.Integer(
+        string="Months with Stock (Sales Count and Qty Forecast)",
+        compute="_compute_months_sales_count_and_qty_forecast",
     )
 
-    def _compute_months_with_stock_sales_count(self):
+    # prevision / sales_count * 12
+    def _compute_months_sales_count_and_qty_forecast(self):
         for orderpoint in self:
             months_with_stock = 0
-            consumed_last_twelve_months = orderpoint.consumed_last_twelve_months
-            if consumed_last_twelve_months:
-                virtual_available = orderpoint.product_id.virtual_available
-                months_with_stock = virtual_available / (
-                    consumed_last_twelve_months / 12
-                )
-            orderpoint.months_with_stock_sales_count = months_with_stock
+            sales_count = orderpoint.sales_count
+            if sales_count:
+                qty_forecast = orderpoint.qty_forecast
+                months_with_stock = round(qty_forecast / (sales_count / 12))
+            orderpoint.months_sales_count_and_qty_forecast = months_with_stock
