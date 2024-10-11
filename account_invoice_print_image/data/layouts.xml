@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="external_layout_standard" inherit_id="web.external_layout_standard">
+        <div name="company_address" position="after">
+            <div
+        class="col-6"
+        name="out_invoice_image"
+        t-if="company.out_invoice_image and o._name == 'account.move' and o.move_type in ('out_invoice','out_refund')"
+      >
+                <img
+          t-if="company.out_invoice_image"
+          t-att-src="image_data_uri(company.out_invoice_image)"
+          style="max-height: 120px; margin-left: 2cm;"
+        />
+            </div>
+        </div>
+    </template>
+</odoo>
