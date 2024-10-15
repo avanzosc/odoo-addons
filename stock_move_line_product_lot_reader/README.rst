@@ -8,6 +8,9 @@ Stock move line product lot reader
 
 * In detailed operations of pickings new field "Reader", to read with a reader
   the "product", or "product lot", separated by a space.
+* The product will be searched for by the "Internal Reference" field. If the
+  product is not found, and it is an incoming delivery note, it will be
+  searched in supplierinfo by the Vendor Product Code field.
 
 Bug Tracker
 ===========

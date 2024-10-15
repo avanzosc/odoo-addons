@@ -12,12 +12,15 @@ class StockMoveLine(models.Model):
     @api.onchange("reader")
     def onchange_reader(self):
         if self.reader:
+            default_code = ""
             pos = self.reader.find(" ")
             cond = [("default_code", "=", self.reader)]
             if pos > 0:
                 default_code = self.reader[0:pos]
                 cond = [("default_code", "=", default_code)]
             product = self.env["product.product"].search(cond, limit=1)
+            if not product and self.picking_id.picking_type_id.code == "incoming":
+                product = self._catch_supplierinfo_from_reader(pos, default_code)
             if not product:
                 message = _("Product not found, reader information: %(reader)s") % {
                     "reader": self.reader,
@@ -49,6 +52,25 @@ class StockMoveLine(models.Model):
                     }
                     raise ValidationError(message)
                 self.move_id = stock_move.id
+
+    def _catch_supplierinfo_from_reader(self, pos, default_code):
+        product = self.env["product.product"]
+        cond = [("partner_id", "=", self.picking_id.partner_id.id)]
+        if pos > 0:
+            cond.append(("product_code", "=", default_code))
+        else:
+            cond.append(("product_code", "=", self.reader))
+        supplierinfo = self.env["product.supplierinfo"].search(cond)
+        if supplierinfo:
+            if supplierinfo.product_id:
+                product = supplierinfo.product_id
+            else:
+                if (
+                    supplierinfo.product_tmpl_id
+                    and supplierinfo.product_tmpl_id.product_variant_ids
+                ):
+                    product = supplierinfo.product_tmpl_id.product_variant_ids[0]
+        return product
 
     @api.model_create_multi
     def create(self, vals_list):
