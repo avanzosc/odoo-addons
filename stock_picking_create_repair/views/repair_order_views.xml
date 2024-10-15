@@ -12,7 +12,6 @@
           optional="show"
         />
                 <field name="created_from_move_line_id" optional="show" />
-                <field name="sale_order_id" optional="show" />
                 <field name="invoice_id" optional="show" />
             </field>
             <field name="company_id" position="before">
@@ -47,7 +46,6 @@
             </field>
             <field name="tag_ids" position="after">
                 <field name="created_from_move_line_id" />
-                <field name="sale_order_id" />
                 <field name="invoice_id" readonly="1" />
             </field>
             <xpath
@@ -71,7 +69,6 @@
             <field name="partner_id" position="before">
                 <field name="purchase_order_id" />
                 <field name="created_from_picking_id" />
-                <field name="sale_order_id" />
                 <field name="invoice_id" />
             </field>
             <filter name="ready_to_repair" position="after">
@@ -100,12 +97,6 @@
           name="group-incoming_picking"
           domain="[]"
           context="{'group_by': 'created_from_picking_id'}"
-        />
-                <filter
-          string="Sale order"
-          name="group-sale-order"
-          domain="[]"
-          context="{'group_by': 'sale_order_id'}"
         />
                 <filter
           string="Invoice"
