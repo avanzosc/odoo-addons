@@ -9,17 +9,17 @@ class StockWarehouseOrderpoint(models.Model):
     qty_available = fields.Float(
         string="Quantity On Hand",
         digits="Product Unit of Measure",
-        computed="_compute_quantities",
+        compute="_compute_quantities",
     )
     incoming_qty = fields.Float(
         string="Incoming",
         digits="Product Unit of Measure",
-        computed="_compute_quantities",
+        compute="_compute_quantities",
     )
     outgoing_qty = fields.Float(
         string="Outgoing",
         digits="Product Unit of Measure",
-        computed="_compute_quantities",
+        compute="_compute_quantities",
     )
     supplier_pending_to_receive = fields.Float(
         string="Pending receipt from supplier",
