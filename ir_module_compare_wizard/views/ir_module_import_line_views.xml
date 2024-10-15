@@ -73,20 +73,20 @@
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
-                        <group>
-                            <field name="import_id" />
-                <field name="import_module_id" />
-                <field name="import_module_state" />
-                <field name="module_technical_name" />
-                <field name="module_last_version" />
-                <field name="module_website" />
-                <field name="module_author" />
-                <field name="module_notes" />
-                <field name="module_author_generic" />
-                <field name="migrate_module" />
-                <field name="install_module" />
-                <field name="priority" />
-                        </group>
+                    <group>
+                        <field name="import_id" />
+                        <field name="import_module_id" />
+                        <field name="import_module_state" />
+                        <field name="module_technical_name" />
+                        <field name="module_last_version" />
+                        <field name="module_website" />
+                        <field name="module_author" />
+                        <field name="module_notes" />
+                        <field name="module_author_generic" />
+                        <field name="migrate_module" />
+                        <field name="install_module" />
+                        <field name="priority" />
+                    </group>
                     <field name="log_info" />
                 </sheet>
             </form>
@@ -128,6 +128,7 @@
                 <field name="module_author" optional="show" />
                 <field name="module_notes" optional="hide" />
                 <field name="module_path" optional="hide" />
+                <field name="license" optional="hide" />
                 <field name="state" optional="show" />
                 <field name="log_info" optional="hide" />
                 <button
@@ -182,7 +183,7 @@
     <menuitem
     id="ir_module_import_line_menu"
     action="ir_module_import_line_action"
-    parent="base_import_wizard.base_import_menu"
+    parent="module_import_menu"
     sequence="11"
   />
 
