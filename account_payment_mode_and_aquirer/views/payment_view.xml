@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_payment_form" model="ir.ui.view">
+        <field name="name">payment.form.inherit</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[1]/group[1]" position="after">
+                <group>
+                    <!-- <field
+            name="bank_account_id"
+            widget="radio"
+            options="{'no_open': True, 'horizontal': True}"
+          />
+                    <field
+            name="new_bank_account"
+            placeholder="Enter 20 digits for a new account"
+          /> -->
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
