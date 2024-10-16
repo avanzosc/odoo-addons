@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="wiz_event_attendance_report_form_view">
+        <field name="model">wiz.event.attendance.report</field>
+        <field
+      name="inherit_id"
+      ref="event_attendance_report.wiz_event_attendance_report_form_view"
+    />
+        <field name="arch" type="xml">
+            <field name="student_id" position="after">
+                <field name="allowed_claim_categ_ids" invisible="1" />
+                <field
+          name="claim_categ_id"
+          domain="[('id', 'in', allowed_claim_categ_ids)]"
+        />
+            </field>
+            <field name="date_end" position="after">
+                <field name="allowed_claim_categ_ids" invisible="1" />
+                <field
+          name="claim_categ_id"
+          domain="[('id', 'in', allowed_claim_categ_ids)]"
+        />
+                <field name="allowed_claim_ids" invisible="1" />
+                <field name="claim_id" domain="[('id', 'in', allowed_claim_ids)]" />
+            </field>
+        </field>
+    </record>
+</odoo>
