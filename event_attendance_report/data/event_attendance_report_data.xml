@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="event_attendance_report_rule" model="ir.rule">
+        <field name="name">Attendance activity report</field>
+        <field
+      name="model_id"
+      ref="event_attendance_report.model_event_attendance_report"
+    />
+        <field
+      name="domain_force"
+    >['|', ('company_id', '=', False), ('company_id', '=', company_id)]</field>
+    </record>
+</odoo>
