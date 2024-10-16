@@ -1,0 +1,39 @@
+<odoo>
+    <record id="view_account_move_search_inherit" model="ir.ui.view">
+        <field name="name">account.move.search.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="vehicle_id" />
+                <field name="serial_number_id" />
+            </xpath>
+            <xpath expr="//filter[@name='purchases']" position="after">
+                <filter
+          string="Serial Number"
+          name="filter_serial_number_id"
+          context="{'group_by':'serial_number_id'}"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_search_inherit" model="ir.ui.view">
+        <field name="name">account.move.search.inherit</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <field name="vehicle_id" />
+                <field name="serial_number_id" />
+            </xpath>
+            <xpath expr="//filter[@name='to_check']" position="after">
+                <filter
+          string="Serial Number"
+          name="filter_serial_number_id"
+          context="{'group_by':'serial_number_id'}"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
