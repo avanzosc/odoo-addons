@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="event.view_event_form" />
         <field name="arch" type="xml">
             <field name="tag_ids" position="after">
-                <field name="resource_id" />
+                <field name="resource_id" domain="[('resource_type','=','material')]" />
             </field>
         </field>
     </record>
