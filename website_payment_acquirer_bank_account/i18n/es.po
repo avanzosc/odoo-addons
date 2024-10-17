@@ -1,0 +1,152 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* website_payment_acquirer_bank_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-10-17 13:34+0000\n"
+"PO-Revision-Date: 2024-10-17 13:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__name
+msgid "Account Name"
+msgstr "Nombre de la cuenta"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model,name:website_payment_acquirer_bank_account.model_res_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_sale_order__bank_account_id
+msgid "Bank Account"
+msgstr "Cuenta bancaria"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_fsm_location__bank_account_ids
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_fsm_person__bank_account_ids
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_partner__bank_account_ids
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_users__bank_account_ids
+msgid "Bank Accounts"
+msgstr "Cuentas bancarias"
+
+#. module: website_payment_acquirer_bank_account
+#: code:addons/website_payment_acquirer_bank_account/controllers/main.py:0
+#, python-format
+msgid "Bank account saved successfully"
+msgstr "Cuenta bancaria guardada con éxito"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,help:website_payment_acquirer_bank_account.field_sale_order__bank_account_id
+msgid "Bank account selected for the payment."
+msgstr "Cuenta bancaria seleccionada para el pago."
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model,name:website_payment_acquirer_bank_account.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__display_name
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_partner__display_name
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: website_payment_acquirer_bank_account
+#: model_terms:ir.ui.view,arch_db:website_payment_acquirer_bank_account.payment_tokens_list
+msgid "Guardar"
+msgstr "Guardar"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__id
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_partner__id
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_sale_order__id
+msgid "ID"
+msgstr "ID"
+
+#. module: website_payment_acquirer_bank_account
+#: model_terms:ir.ui.view,arch_db:website_payment_acquirer_bank_account.payment_tokens_list
+msgid "Ingrese una nueva cuenta bancaria (20 dígitos):"
+msgstr "Ingrese una nueva cuenta bancaria (20 dígitos):"
+
+#. module: website_payment_acquirer_bank_account
+#: model_terms:ir.ui.view,arch_db:website_payment_acquirer_bank_account.payment_tokens_list
+msgid "Introduce 20 dígitos"
+msgstr "Introduce 20 dígitos"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account____last_update
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_partner____last_update
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_sale_order____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: website_payment_acquirer_bank_account
+#: model_terms:ir.ui.view,arch_db:website_payment_acquirer_bank_account.payment_tokens_list
+msgid "Método de Pago:"
+msgstr "Método de Pago:"
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model.fields,field_description:website_payment_acquirer_bank_account.field_res_bank_account__partner_id
+msgid "Partner"
+msgstr "Socio"
+
+#. module: website_payment_acquirer_bank_account
+#: code:addons/website_payment_acquirer_bank_account/controllers/main.py:0
+#, python-format
+msgid "Payment mode ID is missing"
+msgstr "El ID del modo de pago falta"
+
+#. module: website_payment_acquirer_bank_account
+#: code:addons/website_payment_acquirer_bank_account/models/sale_order.py:0
+#, python-format
+msgid "Please select a bank account."
+msgstr "Por favor, seleccione una cuenta bancaria."
+
+#. module: website_payment_acquirer_bank_account
+#: model:ir.model,name:website_payment_acquirer_bank_account.model_sale_order
+msgid "Sales Order"
+msgstr "Pedido de venta"
+
+#. module: website_payment_acquirer_bank_account
+#: model_terms:ir.ui.view,arch_db:website_payment_acquirer_bank_account.payment_tokens_list
+msgid "Selecciona una cuenta bancaria existente:"
+msgstr "Selecciona una cuenta bancaria existente:"
+
+#. module: website_payment_acquirer_bank_account
+#: code:addons/website_payment_acquirer_bank_account/controllers/main.py:0
+#, python-format
+msgid "The bank account already exists"
+msgstr "La cuenta bancaria ya existe"
+
+#. module: website_payment_acquirer_bank_account
+#: code:addons/website_payment_acquirer_bank_account/controllers/main.py:0
+#, python-format
+msgid "The bank account number must have exactly 20 digits."
+msgstr "El número de cuenta bancaria debe tener exactamente 20 dígitos."
