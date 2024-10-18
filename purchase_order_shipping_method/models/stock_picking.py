@@ -24,18 +24,21 @@ class StockPicking(models.Model):
     )
     license_plate = fields.Char(string="Transport License Plate")
     total_done_qty = fields.Float(
-        string="Total Done Quantity", compute="_compute_total_done_qty"
+        string="Total Done Quantity", compute="_compute_total_done_qty", store=True
     )
     transport_price = fields.Float(
         string="Transport Price", compute="_compute_transport_price"
     )
 
+    @api.depends(
+        "move_line_ids_without_package", "move_line_ids_without_package.qty_done"
+    )
     def _compute_total_done_qty(self):
         for picking in self:
             picking.total_done_qty = 0
-            if picking.move_ids_without_package:
+            if picking.move_line_ids_without_package:
                 picking.total_done_qty = sum(
-                    picking.move_ids_without_package.mapped("quantity_done")
+                    picking.move_line_ids_without_package.mapped("qty_done")
                 )
 
     def _compute_transport_price(self):
