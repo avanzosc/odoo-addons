@@ -6,25 +6,24 @@
         <field name="priority">17</field>
         <field name="arch" type="xml">
             <group name="group_general" position="inside">
-                <group name="second_name" string="Second Name">
-                    <field name="allowed_location" />
-                    <field
-            name="name2"
-            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          />
-                    <field
-            name="description_sale_es"
-            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          />
-                    <field
-            name="description_sale_cat"
-            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          />
-                    <field
-            name="description_sale_en"
-            attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          />
-                </group>
+                <separator />
+                <field name="allowed_location" />
+                <field
+          name="name2"
+          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+        />
+                <field
+          name="description_sale_es"
+          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+        />
+                <field
+          name="description_sale_cat"
+          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+        />
+                <field
+          name="description_sale_en"
+          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+        />
             </group>
         </field>
     </record>

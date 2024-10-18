@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box">
+                <button
+          class="oe_stat_button"
+          icon="fa-cubes"
+          type="object"
+          name="action_view_package"
+        >
+                    <field name="packages_qty" string="Packages" />
+                </button>
+            </div>
+            <field name="picking_type_id" position="after">
+                <field name="qty_packages" />
+                <button
+          name="action_create_package"
+          type="object"
+          string="Create Packs"
+          attrs="{'invisible': [('state', 'in', ('done', 'cancel'))]}"
+        />
+            </field>
+        </field>
+    </record>
+
+</odoo>
