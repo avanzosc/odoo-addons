@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_crossovered_budget_line_tree" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="percentage" position="after">
+                <field name="notes" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crossovered_budget_line_form" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_form"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']/.." position="after">
+                <group>
+                    <field name="notes" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
