@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 09:36+0000\n"
-"PO-Revision-Date: 2023-08-28 09:36+0000\n"
+"POT-Creation-Date: 2024-10-22 06:21+0000\n"
+"PO-Revision-Date: 2024-10-22 06:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -180,6 +180,7 @@ msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: More than one shipping method found."
 msgstr "Error: Más de un método de envío encontrado."
@@ -203,7 +204,7 @@ msgstr "Error: Se ha encontrado más de un almacén con nombre {}."
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No picking type found."
-msgstr "Error: No se ha encontrado ningún tipo de operación."
+msgstr "Error: Tipo de operación no encontrado."
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
@@ -213,6 +214,7 @@ msgid "Error: No product found."
 msgstr "Error: Producto no encontrado."
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No shipping method found."
@@ -359,7 +361,8 @@ msgstr "Importar líneas de pedido de compra"
 
 #. module: custom_purchase_import_wizard
 #: model:ir.actions.act_window,name:custom_purchase_import_wizard.purchase_order_import_action
-#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu
+#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu_config
+#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu_purchase
 msgid "Import Purchase Orders"
 msgstr "Importar pedidos de compra"
 
@@ -454,11 +457,6 @@ msgstr "Resumen de la siguiente actividad"
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__activity_type_id
 msgid "Next Activity Type"
 msgstr "Resumen de la siguiente actividad"
-
-#. module: custom_purchase_import_wizard
-#: model:ir.model.fields.selection,name:custom_purchase_import_wizard.selection__purchase_order_import_line__action__nothing
-msgid "Nothing"
-msgstr "Nada"
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_needaction_counter
@@ -580,6 +578,11 @@ msgstr "Coste de envío"
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_shipping_method_id
 msgid "Shipping Method"
 msgstr "Método de envío"
+
+#. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__split_size
+msgid "Split Size"
+msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__state
