@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_purchase_type_form_view" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field
+      name="inherit_id"
+      ref="purchase_order_type.res_partner_purchase_type_form_view"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='purchase_type']/.." position="attributes">
+                <attribute name="attrs" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="purchase_type" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="purchase_type" />
+            </field>
+            <filter name="salesperson" position="after">
+                <filter
+          name="purchase-type"
+          string="Purchase Type"
+          domain="[]"
+          context="{'group_by' : 'purchase_type'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
