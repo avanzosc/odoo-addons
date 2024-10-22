@@ -9,8 +9,11 @@ class StockMove(models.Model):
     def action_show_details(self):
         self.ensure_one()
         result = super(StockMove, self).action_show_details()
-        if self.product_id.tracking and self.product_id.tracking == "serial":
-            result["context"]["show_destination_location"] = False
-            result["context"]["show_qty_done"] = False
-            result["context"]["show_product_uom"] = False
+        if (
+            self.picking_type_id.code == "incoming"
+            and self.product_id.tracking
+            and self.product_id.tracking == "serial"
+        ):
+            result["context"]["no_show_qty_done"] = True
+            result["context"]["no_show_product_uom"] = True
         return result
