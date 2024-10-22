@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+    t-name="mail_chatter_statistics.Message"
+    t-inherit="mail.Message"
+    t-inherit-mode="extension"
+    owl="1"
+  >
+        <xpath expr="//t[@t-if='message.author']/div" position="replace">
+            <div
+        class="o_Message_authorName o_Message_authorRedirect o_redirect"
+        role="link"
+        tabindex="0"
+        t-on-click="_onClickAuthorName"
+        title="Open profile"
+        style="display: flex; align-items: center; justify-content: space-evenly;"
+      >
+                <t t-if="threadView and threadView.thread">
+                    <t t-esc="threadView.thread.getMemberName(message.author)" />
+                </t>
+                <t t-else="">
+                    <t t-esc="message.author.nameOrDisplayName" />
+                </t>
+                <div style="margin: auto; width: 70%">
+                    <div
+            class="row"
+            style="display: flex; font-size: 0.7rem; border-bottom: 1px solid #ddd; padding: 5px;"
+          >
+                        <div style="flex: 1; padding: 2px;">Email</div>
+                        <div style="flex: 1; padding: 2px;">Message</div>
+                        <div style="flex: 1; padding: 2px;">Sent</div>
+                        <div style="flex: 1; padding: 2px;">Clicked</div>
+                        <div style="flex: 1; padding: 2px;">Opened</div>
+                        <div style="flex: 1; padding: 2px;">Bounced</div>
+                        <div style="flex: 1; padding: 2px;">Replied</div>
+                    </div>
+                    <div
+            class="your-mailing-trace-ids-selector"
+            style="font-size: 0.5rem;"
+          >
+                        <t t-if="mailingTrace">
+                            <div
+                class="row"
+                style="display: flex; border-bottom: 1px solid #ddd; padding: 5px;"
+              >
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="message.author.email" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="message.body" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="mailingTrace.sent_at" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="mailingTrace.clicked_at or 'N/A'" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="mailingTrace.opened_at or 'N/A'" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="mailingTrace.bounced_at or 'N/A'" />
+                                </div>
+                                <div style="flex: 1; padding: 2px;">
+                                    <t t-esc="mailingTrace.replied_at or 'N/A'" />
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div
+                class="row"
+                style="display: flex; border-bottom: 1px solid #ddd; padding: 5px;"
+              >
+                                <div
+                  style="flex: 1; padding: 2px;"
+                >No hay trazas de correo</div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>
