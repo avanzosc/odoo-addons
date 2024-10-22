@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_attendance_report_pivot" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field
+      name="inherit_id"
+      ref="event_attendance_report.event_attendance_report_pivot"
+    />
+        <field name="arch" type="xml">
+            <field name="real_hours" position="after">
+                <field name="payable" type="measure" />
+                <field name="billable" type="measure" />
+            </field>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_tree" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field
+      name="inherit_id"
+      ref="event_attendance_report.event_attendance_report_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="real_hours" position="after">
+                <field name="payable" optional="show" />
+                <field name="billable" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>
