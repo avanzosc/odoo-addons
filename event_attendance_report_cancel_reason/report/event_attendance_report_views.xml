@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="event_track_attendance_activity_report_search" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field
+      name="inherit_id"
+      ref="event_attendance_report.event_attendance_report_search"
+    />
+        <field name="arch" type="xml">
+            <field name="session_date" position="after">
+                <field name="time_type_id" />
+            </field>
+            <filter name="session-date" position="after">
+                <filter
+          string="Time type"
+          name="time-type"
+          context="{'group_by':'time_type_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="event_attendance_report_tree" model="ir.ui.view">
+        <field name="model">event.attendance.report</field>
+        <field
+      name="inherit_id"
+      ref="event_attendance_report.event_attendance_report_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="session_date" position="after">
+                <field name="time_type_id" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>
