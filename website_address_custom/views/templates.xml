@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="address_bank_account" inherit_id="website_sale.address">
+        <xpath expr="//input[@name='field_required']" position="replace">
+            <input type="hidden" name="field_required" t-att-value="'phone,name,vat'" />
+        </xpath>
+    </template>
+</odoo>
