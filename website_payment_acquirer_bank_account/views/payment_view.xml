@@ -19,7 +19,11 @@
       <t t-set="partner" t-value="request.env.user.partner_id" />
 
       <div id="bank-account-message" />
-      <div class="container mt-4">
+      <div
+        id="bank-account-select-iban-form"
+        class="container mt-4"
+        style="display:none"
+      >
         <t t-foreach="acquirers" t-as="acq">
           <t t-if="acq.payment_mode_id.payment_method_id.bank_account_required">
             <div class="card mb-3">
@@ -29,7 +33,7 @@
               </div>
               <div class="card-body">
                 <form action="/choose_bank_account" method="post">
-                <t t-if="partner.bank_ids">
+                  <t t-if="partner.bank_ids">
                     <h6>Select an existing bank account:</h6>
                     <ul class="list-group">
                       <t t-foreach="partner.bank_ids" t-as="bank">
@@ -46,33 +50,31 @@
                         </li>
                       </t>
                     </ul>
-                  </t></form>
-                  <form action="/create_new_bank_account" method="post">
-
-                  <t t-if="not partner.bank_ids">
-                    <h6>Enter a new bank account (20 digits)</h6>
-                    <div class="mb-3">
-                      <input
-                        type="text"
-                        name="new_bank_account"
-                        class="form-control"
-                        required="true"
-                        pattern="\d{20}"
-                        placeholder="Introduce 20 dígitos"
-                      />
-                    </div>
-                    <input
-                      type="hidden"
-                      name="payment_mode_id"
-                      t-att-value="acq.payment_mode_id.id"
-                    />
-                    <button type="submit" class="btn btn-primary">Save</button>
                   </t>
                 </form>
-                </div>
+                <form action="/create_new_bank_account" method="post">
+                  <h6>Enter a new bank account (IBAN) (24 characters)</h6>
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      name="new_bank_account"
+                      class="form-control"
+                      required="true"
+                      pattern="^ES\d{22}$"
+                      placeholder="Must start with ES followed by 22 digits. No spaces allowed."
+                    />
+                  </div>
+                  <input
+                    type="hidden"
+                    name="payment_mode_id"
+                    t-att-value="acq.payment_mode_id.id"
+                  />
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </form>
               </div>
-            </t>
+            </div>
           </t>
+        </t>
       </div>
     </xpath>
   </template>
