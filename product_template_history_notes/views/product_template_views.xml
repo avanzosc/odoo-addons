@@ -1,0 +1,13 @@
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <page name="inventory" position="after">
+                <page string="History" name="history-notes">
+                    <field name="history_notes" nolabel="1" />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
