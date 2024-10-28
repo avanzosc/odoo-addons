@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-22 06:59+0000\n"
-"PO-Revision-Date: 2023-05-22 06:59+0000\n"
+"POT-Creation-Date: 2024-10-28 07:27+0000\n"
+"PO-Revision-Date: 2024-10-28 07:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,3 +47,9 @@ msgstr "Devolución para recolección"
 #: model:ir.model.fields,field_description:stock_picking_return_usability.field_stock_picking_type__retun_picking_draft
 msgid "Return in draft state"
 msgstr "Albarán de devolución en borrador"
+
+#. module: stock_picking_return_usability
+#: code:addons/stock_picking_return_usability/wizard/stock_return_picking.py:0
+#, python-format
+msgid "{} - Return of {}"
+msgstr "{} - Retorno de {}"

@@ -1,7 +1,7 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, models
+from odoo import _, api, models
 
 
 class StockReturnPicking(models.TransientModel):
@@ -61,7 +61,15 @@ class StockReturnPicking(models.TransientModel):
                 else self.location_id
             )
             return_picking.write(
-                {"location_id": location.id, "location_dest_id": location_dest.id}
+                {
+                    "location_id": location.id,
+                    "location_dest_id": location_dest.id,
+                    "origin": _(
+                        "{} - Return of {}".format(
+                            self.picking_id.origin, self.picking_id.name
+                        )
+                    ),
+                }
             )
         if (
             self.picking_id
@@ -75,6 +83,12 @@ class StockReturnPicking(models.TransientModel):
         for line in self.picking_id.move_line_ids_without_package:
             if line.lot_id:
                 return_movelines = return_picking.move_line_ids_without_package
+                return_line = return_movelines.filtered(
+                    lambda c: c.product_id == line.product_id
+                    and c.lot_id == line.lot_id
+                )
+                if return_line:
+                    continue
                 return_line = return_movelines.filtered(
                     lambda c: c.product_id == line.product_id and not (c.lot_id)
                 )
