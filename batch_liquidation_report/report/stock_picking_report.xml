@@ -237,11 +237,11 @@
                                     <th class="text-center" style="width:10%;"><span
                     >Lot</span></th>
                                     <th class="text-center" style="width:10%;"><span
-                    >Expiration</span></th>
-                                    <th class="text-center" style="width:10%;"><span
                     >Container</span></th>
                                     <th class="text-center" style="width:10%;"><span
                     >Packaging</span></th>
+                                    <th class="text-center" style="width:10%;"><span
+                    >Packaging Qty</span></th>
                                     <th class="text-center" style="width:20%;"><span
                     >Quantity</span></th>
                                 </tr>
@@ -255,14 +255,12 @@
                                         <span t-field="line.lot_id.name" />
                                     </td>
                                     <td class="text-center">
-                                        <span
-                      t-if="line.lot_id.expiration_date"
-                      t-field="line.lot_id.expiration_date"
-                      t-options='{"widget": "date"}'
-                    />
+                                        <span t-field="line.container" />
                                     </td>
                                     <td class="text-center">
-                                        <span t-field="line.container" />
+                                        <span
+                      t-field="line.product_packaging_id.name"
+                    />
                                     </td>
                                     <td class="text-center">
                                         <span t-field="line.product_packaging_qty" />
