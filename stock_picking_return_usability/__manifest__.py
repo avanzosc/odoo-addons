@@ -6,7 +6,7 @@
     "author": "AvanzOSC",
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["stock", "stock_move_line_force_done"],
+    "depends": ["sale_stock", "stock_move_line_force_done"],
     "data": [
         "views/stock_picking_type_view.xml",
         "wizard/stock_return_picking_view.xml",
