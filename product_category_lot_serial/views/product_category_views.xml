@@ -4,14 +4,13 @@
         <field name="model">product.category</field>
         <field name="inherit_id" ref="product.product_category_form_view" />
         <field name="arch" type="xml">
-            <group name="first" position="after">
-                <group name="sequence" col="2">
-                    <field
-            name="sequence_id"
-            domain="[('code','=','stock.lot.serial')]"
-          />
-                </group>
-            </group>
+            <field name="parent_id" position="after">
+                <field
+          name="sequence_id"
+          domain="[('code','=','stock.lot.serial')]"
+          class="oe_inline"
+        />
+            </field>
         </field>
     </record>
 
