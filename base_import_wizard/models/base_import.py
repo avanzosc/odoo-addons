@@ -140,9 +140,7 @@ class BaseImport(models.AbstractModel):
     @api.depends("filename", "file_date")
     def _compute_name(self):
         for file_import in self:
-            file_import.name = "{} - {}".format(
-                file_import.filename, file_import.file_date
-            )
+            file_import.name = f"{file_import.filename} - {file_import.file_date}"
 
     @api.depends(
         "import_line_ids",
@@ -212,7 +210,7 @@ class BaseImport(models.AbstractModel):
             keys = [c.value for c in sheet.row(0)]
             for counter in range(1, sheet.nrows):
                 row_values = sheet.row_values(counter, 0, end_colx=sheet.ncols)
-                values = dict(zip(keys, row_values))
+                values = dict(zip(keys, row_values, strict=False))
                 line_data = self._get_line_values(values, datemode=workbook.datemode)
                 if line_data:
                     lines.append((0, 0, line_data))
