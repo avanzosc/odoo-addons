@@ -1,102 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="ir_module_import_line_view_search" model="ir.ui.view">
-        <field name="model">ir.module.import.line</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="module_technical_name" />
-                <field name="module_last_version" />
-                <field name="module_website" />
-                <field name="module_author" />
-                <field name="module_notes" />
-                <field name="module_author_generic" />
-                <field name="migrate_module" />
-                <field name="install_module" />
-                <field name="priority" />
-                <field name="import_id" />
-                <field name="import_module_id" />
-                <separator />
-                <filter
-          string="Errored"
-          name="error"
-          domain="[('state', '=', 'error')]"
-        />
-                <separator />
-                <filter
+  <record id="ir_module_import_line_view_search" model="ir.ui.view">
+    <field name="model">ir.module.import.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="module_technical_name" />
+        <field name="module_last_version" />
+        <field name="module_website" />
+        <field name="module_author" />
+        <field name="module_notes" />
+        <field name="module_author_generic" />
+        <field name="migrate_module" />
+        <field name="install_module" />
+        <field name="priority" />
+        <field name="import_id" />
+        <field name="import_module_id" />
+        <separator />
+        <filter string="Errored" name="error" domain="[('state', '=', 'error')]" />
+        <separator />
+        <filter
           string="To Install"
           name="2install"
           domain="[('action', '=', 'install')]"
         />
-                <filter
+        <filter
           string="Do Nothing"
           name="do_nothing"
           domain="[('action', '=', 'nothing')]"
         />
-                <group expand="0" name="group_by" string="Group By">
-                    <filter
-            name="group_status"
-            string="Status"
-            context="{'group_by': 'state'}"
-          />
-                    <filter
-            string="Action"
-            name="group_action"
-            context="{'group_by':'action'}"
-          />
-                    <filter
+        <group expand="0" name="group_by" string="Group By">
+          <filter name="group_status" string="Status" context="{'group_by': 'state'}" />
+          <filter string="Action" name="group_action" context="{'group_by':'action'}" />
+          <filter
             name="group_wizard"
             string="Import Wizard"
             context="{'group_by': 'import_id'}"
           />
-                </group>
-            </search>
-        </field>
-    </record>
+        </group>
+      </search>
+    </field>
+  </record>
 
-    <record id="ir_module_import_line_view_form" model="ir.ui.view">
-        <field name="model">ir.module.import.line</field>
-        <field name="arch" type="xml">
-            <form>
-                <header>
-                    <button
+  <record id="ir_module_import_line_view_form" model="ir.ui.view">
+    <field name="model">ir.module.import.line</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
             name="button_validate"
             string="Validate"
             type="object"
             states="2validate,error"
           />
-                    <button
-            name="button_process"
-            string="Process"
-            type="object"
-            states="pass"
-          />
-                    <field name="state" widget="statusbar" />
-                </header>
-                <sheet>
-                        <group>
-                            <field name="import_id" />
-                <field name="import_module_id" />
-                <field name="import_module_state" />
-                <field name="module_technical_name" />
-                <field name="module_last_version" />
-                <field name="module_website" />
-                <field name="module_author" />
-                <field name="module_notes" />
-                <field name="module_author_generic" />
-                <field name="migrate_module" />
-                <field name="install_module" />
-                <field name="priority" />
-                        </group>
-                    <field name="log_info" />
-                </sheet>
-            </form>
-        </field>
-    </record>
+          <button name="button_process" string="Process" type="object" states="pass" />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <group>
+            <field name="import_id" />
+            <field name="import_module_id" />
+            <field name="import_module_state" />
+            <field name="module_technical_name" />
+            <field name="module_last_version" />
+            <field name="module_website" />
+            <field name="module_author" />
+            <field name="module_notes" />
+            <field name="module_author_generic" />
+            <field name="migrate_module" />
+            <field name="install_module" />
+            <field name="priority" />
+          </group>
+          <field name="log_info" />
+        </sheet>
+      </form>
+    </field>
+  </record>
 
-    <record id="ir_module_import_line_base_view_tree" model="ir.ui.view">
-        <field name="model">ir.module.import.line</field>
-        <field name="arch" type="xml">
-            <tree
+  <record id="ir_module_import_line_base_view_tree" model="ir.ui.view">
+    <field name="model">ir.module.import.line</field>
+    <field name="arch" type="xml">
+      <tree
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-info="import_module_state == 'installed'"
@@ -105,16 +88,16 @@
         decoration-it="log_info"
         editable="top"
       >
-                <field name="import_id" invisible="1" />
-                <field
+        <field name="import_id" invisible="1" />
+        <field
           name="action"
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'install'"
           decoration-info="action == 'update'"
         />
-                <field name="module_technical_name" />
-                <field name="import_module_id" optional="show" />
-                <field
+        <field name="module_technical_name" />
+        <field name="import_module_id" optional="show" />
+        <field
           name="import_module_state"
           widget="badge"
           decoration-muted="state == 'uninstallable'"
@@ -122,92 +105,89 @@
           decoration-success="state == 'installed'"
           readonly="1"
         />
-                <field name="module_last_version" optional="show" />
-                <field name="installed_version" readonly="1" optional="show" />
-                <field name="module_website" optional="show" />
-                <field name="module_author" optional="show" />
-                <field name="module_notes" optional="hide" />
-                <field name="module_path" optional="hide" />
-                <field name="state" optional="show" />
-                <field name="log_info" optional="hide" />
-                <button
+        <field name="module_last_version" optional="show" />
+        <field name="installed_version" readonly="1" optional="show" />
+        <field name="module_website" optional="show" />
+        <field name="module_author" optional="show" />
+        <field name="module_notes" optional="hide" />
+        <field name="module_path" optional="hide" />
+        <field name="state" optional="show" />
+        <field name="log_info" optional="hide" />
+        <button
           name="button_validate"
           type="object"
           title="Validate"
           icon="fa-search"
           states="2validate,pass,error"
         />
-                <button
+        <button
           name="button_update"
           type="object"
           title="Update"
           icon="fa-refresh"
           attrs="{'invisible': ['|',('action','!=','update'),('state','!=','pass')]}"
         />
-                <button
+        <button
           name="button_install"
           type="object"
           title="Install"
           icon="fa-check"
           attrs="{'invisible': ['|',('action','!=','install'),('state','!=','pass')]}"
         />
-                <field name="module_author_generic" optional="hide" />
-                <field name="migrate_module" optional="hide" />
-                <field name="install_module" optional="hide" />
-                <field name="priority" optional="hide" />
-            </tree>
-        </field>
-    </record>
+        <field name="module_author_generic" optional="hide" />
+        <field name="migrate_module" optional="hide" />
+        <field name="install_module" optional="hide" />
+        <field name="priority" optional="hide" />
+      </tree>
+    </field>
+  </record>
 
-    <record id="ir_module_import_line_view_tree" model="ir.ui.view">
-        <field name="model">ir.module.import.line</field>
-        <field name="inherit_id" ref="ir_module_import_line_base_view_tree" />
-        <field name="mode">primary</field>
-        <field name="arch" type="xml">
-            <field name="import_id" position="attributes">
-                <attribute name="invisible" />
-                <attribute name="optional">hide</attribute>
-            </field>
-        </field>
-    </record>
+  <record id="ir_module_import_line_view_tree" model="ir.ui.view">
+    <field name="model">ir.module.import.line</field>
+    <field name="inherit_id" ref="ir_module_import_line_base_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+      <field name="import_id" position="attributes">
+        <attribute name="invisible" />
+        <attribute name="optional">hide</attribute>
+      </field>
+    </field>
+  </record>
 
-    <record id="ir_module_import_line_action" model="ir.actions.act_window">
-        <field name="name">Compare Module by Lines</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="res_model">ir.module.import.line</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="ir_module_import_line_view_tree" />
-    </record>
+  <record id="ir_module_import_line_action" model="ir.actions.act_window">
+    <field name="name">Compare Module by Lines</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">ir.module.import.line</field>
+    <field name="view_mode">tree,form</field>
+    <field name="view_id" ref="ir_module_import_line_view_tree" />
+  </record>
 
-    <menuitem
+  <menuitem
     id="ir_module_import_line_menu"
     action="ir_module_import_line_action"
     parent="base_import_wizard.base_import_menu"
     sequence="11"
   />
 
-        <menuitem
+  <menuitem
     id="ir_module_import_line_management_menu"
     action="ir_module_import_line_action"
     parent="module_import_management_menu"
     sequence="11"
   />
 
-    <record id="action_button_validate" model="ir.actions.server">
-        <field name="name">Validate</field>
-        <field
-      name="model_id"
-      ref="ir_module_compare_wizard.model_ir_module_import_line"
-    />
-        <field
+  <record id="action_button_validate" model="ir.actions.server">
+    <field name="name">Validate</field>
+    <field name="model_id" ref="ir_module_compare_wizard.model_ir_module_import_line" />
+    <field
       name="binding_model_id"
       ref="ir_module_compare_wizard.model_ir_module_import_line"
     />
-        <field name="type">ir.actions.server</field>
-        <field name="state">code</field>
-        <field name="code">
+    <field name="type">ir.actions.server</field>
+    <field name="state">code</field>
+    <field name="code">
             if records:
                 records.button_validate()
         </field>
-    </record>
+  </record>
 </odoo>
