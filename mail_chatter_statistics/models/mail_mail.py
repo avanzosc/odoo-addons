@@ -19,6 +19,19 @@ class MailMail(models.Model):
 
         return super().send(auto_commit=auto_commit, raise_exception=raise_exception)
 
+    def write(self, vals):
+        """Check is_bounced when mail state is changed"""
+        bounced_mails = self.filtered(
+            lambda mail: mail.state != "exception" and vals.get("state") == "exception"
+        )
+        result = super(MailMail, self).write(vals)
+
+        for mail in bounced_mails:
+            mail_message = mail.mail_message_id
+            if mail_message:
+                mail_message.is_bounced()
+        return result
+
     def _create_tracking_trace(self, mail):
         email = mail.email_to or self._get_first_recipient_email(mail.recipient_ids)
         tracking_data = {
@@ -39,7 +52,8 @@ class MailMail(models.Model):
         return None
 
     def _add_tracking(self, body_html, trace_id):
-        tracking_pixel = f'<img src="/mail/track/open/{trace_id}" width="1" height="1" style="display:none"/>'
+        tracking_pixel = f'<img src="/mail/track/open/{trace_id}"\
+            width="1" height="1" style="display:none"/>'
 
         last_div_index = body_html.rfind("</div>")
         if last_div_index != -1:

@@ -22,8 +22,8 @@ class MailingTrace(models.Model):
         index=True,
     )
 
-    email = fields.Char(string="Email", required=True)
-    message_id = fields.Char(string="Message ID", required=True)
+    email = fields.Char(string="Email")
+    message_id = fields.Char(string="Message ID")
 
     status = fields.Selection(
         [
@@ -88,14 +88,10 @@ class MailingTrace(models.Model):
             chatter_messages = self.env["mail.message"].search(
                 [("res_id", "=", record_id), ("model", "=", model_name)]
             )
-
-            # Crear un diccionario para almacenar la relación
             message_trace_mapping = {}
 
             for message in chatter_messages:
-                mailing_trace_ids = (
-                    message.mailing_trace_ids.ids
-                )  # Obtener los IDs de Mailing Trace
+                mailing_trace_ids = message.mailing_trace_ids.ids
                 message_trace_mapping[message.id] = mailing_trace_ids
 
                 if not mailing_trace_ids:
@@ -104,7 +100,7 @@ class MailingTrace(models.Model):
                         message.id,
                     )
 
-            return message_trace_mapping  # Devolver el mapeo de mensajes y sus traces
+            return message_trace_mapping
         else:
             _logger.warning(
                 "Record not found for model: %s, ID: %s", model_name, record_id
@@ -133,21 +129,6 @@ class MailingTrace(models.Model):
     def track_reply(self):
         self.status = "replied"
         self.replied_at = fields.Datetime.now()
-
-    @api.model
-    def default_get(self, fields):
-        res = super(MailingTrace, self).default_get(fields)
-        if "sent_at" not in res:
-            res["sent_at"] = self.replied
-        if "clicked_at" not in res:
-            res["clicked_at"] = self.clicked
-        if "opened_at" not in res:
-            res["opened_at"] = self.opened
-        if "bounced_at" not in res:
-            res["bounced_at"] = self.bounced
-        if "replied_at" not in res:
-            res["replied_at"] = self.replied
-        return res
 
     @api.model
     def default_get(self, fields):
