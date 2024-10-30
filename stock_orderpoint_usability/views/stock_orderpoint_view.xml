@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
-        <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
-        <field name="arch" type="xml">
-            <field name="active" position="after">
-                <field name="name" readonly="1" />
-            </field>
-            <field name="qty_to_order" position="after">
-                <button
+  <record id="stock_warehouse_orderpoint_view_tree_editable" model="ir.ui.view">
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
+    <field name="arch" type="xml">
+      <field name="active" position="after">
+        <field name="name" readonly="1" />
+      </field>
+      <field name="qty_to_order" position="after">
+        <button
           name="button_recompute_qty_to_order"
           type="object"
           icon="fa-refresh"
           attrs="{'invisible': [('id', '=', False)]}"
           title="Recompute Qty to Order"
         />
-            </field>
-            <button name="%(stock.action_orderpoint_snooze)d" position="after">
-                <button
+      </field>
+      <button name="%(stock.action_orderpoint_snooze)d" position="after">
+        <button
           name="open_form_view"
           type="object"
           class="o_replenish_buttons"
           string="Open Form"
           icon="fa-external-link"
         />
-            </button>
-        </field>
-    </record>
+      </button>
+    </field>
+  </record>
 
-    <record id="stock_warehouse_orderpoint_view_form" model="ir.ui.view">
-        <field name="model">stock.warehouse.orderpoint</field>
-        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='company_id']/.." position="after">
-                <group name="usability_group">
-                    <label for="qty_on_hand" />
-                    <div class="o_row">
-                        <field name="qty_on_hand" />
-                        <field name="product_uom_name" />
-                    </div>
-                    <label for="qty_forecast" />
-                    <div class="o_row">
-                        <field name="qty_forecast" />
-                        <field name="product_uom_name" />
-                    </div>
-                    <label for="qty_to_order" />
-                    <div class="o_row">
-                        <field name="qty_to_order" />
-                        <field name="product_uom_name" />
-                        <button
+  <record id="stock_warehouse_orderpoint_view_form" model="ir.ui.view">
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='company_id']/.." position="after">
+        <group name="usability_group">
+          <label for="qty_on_hand" />
+          <div class="o_row">
+            <field name="qty_on_hand" />
+            <field name="product_uom_name" />
+          </div>
+          <label for="qty_forecast" />
+          <div class="o_row">
+            <field name="qty_forecast" />
+            <field name="product_uom_name" />
+          </div>
+          <label for="qty_to_order" />
+          <div class="o_row">
+            <field name="qty_to_order" />
+            <field name="product_uom_name" />
+            <button
               name="button_recompute_qty_to_order"
               type="object"
               icon="fa-refresh"
               attrs="{'invisible': [('id', '=', False)]}"
               string="Recompute Qty to Order"
             />
-                    </div>
-                </group>
-            </xpath>
-        </field>
-    </record>
+          </div>
+        </group>
+      </xpath>
+    </field>
+  </record>
 </odoo>

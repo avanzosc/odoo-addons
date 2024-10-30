@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="stock_orderpoint_generator_view_form" model="ir.ui.view">
-        <field name="model">stock.orderpoint.generator</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="generation_type" />
-                        <field
+  <record id="stock_orderpoint_generator_view_form" model="ir.ui.view">
+    <field name="model">stock.orderpoint.generator</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="generation_type" />
+            <field
               name="location_from"
               attrs="{'invisible': [('generation_type', '!=', 'from_location')], 'required': [('generation_type', '=', 'from_location')]}"
             />
-                        <field
+            <field
               name="location_to"
               widget="many2many_tags"
               attrs="{'invisible': [('generation_type', 'not in', ('from_location', 'all_0'))], 'required': [('generation_type', 'in', ('from_location','all_0'))]}"
             />
-                    </group>
-                    <footer>
-                        <button
+          </group>
+          <footer>
+            <button
               name="button_generate"
               string="Generate Orderpoints"
               type="object"
               class="oe_highlight"
             />
-                        <button special="cancel" string="Cancel" class="oe_link" />
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-    <record id="action_rule_generation_form" model="ir.actions.act_window">
-        <field name="name">Create Orderpoint Rules</field>
-        <field name="res_model">stock.orderpoint.generator</field>
-        <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">form</field>
-        <field name="view_id" ref="stock_orderpoint_generator_view_form" />
-        <field name="target">new</field>
-    </record>
+            <button special="cancel" string="Cancel" class="oe_link" />
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_rule_generation_form" model="ir.actions.act_window">
+    <field name="name">Create Orderpoint Rules</field>
+    <field name="res_model">stock.orderpoint.generator</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="stock_orderpoint_generator_view_form" />
+    <field name="target">new</field>
+  </record>
 
-    <menuitem
+  <menuitem
     action="action_rule_generation_form"
     id="menu_rule_generation"
     name="Generate Orderpoint Rules"
     parent="stock.menu_product_in_config_stock"
     sequence="12"
   />
-
 </odoo>
