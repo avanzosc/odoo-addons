@@ -8,10 +8,12 @@
     "depends": ["mail", "mass_mailing"],
     "data": [
         "views/assets.xml",
-        "views/mailing_trace_views.xml",
-        "views/mail_mail_views.xml",
     ],
     "qweb": ["static/src/xml/chatter_inherit.xml"],
     "installable": True,
     "application": False,
+    "install_requires": [
+        "bs4",
+    ],
+    "uninstall_hook": "uninstall_hook",
 }

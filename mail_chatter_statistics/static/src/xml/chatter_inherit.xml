@@ -21,61 +21,74 @@
                 <t t-else="">
                     <t t-esc="message.author.nameOrDisplayName" />
                 </t>
-                <div style="margin: auto; width: 70%">
+                <div
+          style="display: block; margin: 4px 20px; width: 100%; min-width: 300px;"
+        >
                     <div
             class="row"
-            style="display: flex; font-size: 0.7rem; border-bottom: 1px solid #ddd; padding: 5px;"
+            style="display: flex; font-size: 0.7rem; padding: 2px;"
           >
-                        <div style="flex: 1; padding: 2px;">Email</div>
-                        <div style="flex: 1; padding: 2px;">Message</div>
-                        <div style="flex: 1; padding: 2px;">Sent</div>
-                        <div style="flex: 1; padding: 2px;">Clicked</div>
-                        <div style="flex: 1; padding: 2px;">Opened</div>
-                        <div style="flex: 1; padding: 2px;">Bounced</div>
-                        <div style="flex: 1; padding: 2px;">Replied</div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-paper-plane"
+                style="margin-right: 5px;"
+              /> Sent
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-mouse-pointer"
+                style="margin-right: 5px;"
+              /> Clicked
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-envelope-open"
+                style="margin-right: 5px;"
+              /> Opened
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-exclamation-circle"
+                style="margin-right: 5px;"
+              /> Bounced
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i class="fa fa-reply" style="margin-right: 5px;" /> Replied
+                        </div>
                     </div>
+
+
                     <div
             class="your-mailing-trace-ids-selector"
-            style="font-size: 0.5rem;"
+            style="font-size: 0.7rem;"
           >
-                        <t t-if="mailingTrace">
-                            <div
-                class="row"
-                style="display: flex; border-bottom: 1px solid #ddd; padding: 5px;"
-              >
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="message.author.email" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="message.body" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="mailingTrace.sent_at" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="mailingTrace.clicked_at or 'N/A'" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="mailingTrace.opened_at or 'N/A'" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="mailingTrace.bounced_at or 'N/A'" />
-                                </div>
-                                <div style="flex: 1; padding: 2px;">
-                                    <t t-esc="mailingTrace.replied_at or 'N/A'" />
-                                </div>
+                        <div class="row" style="display: flex; padding: 2px;">
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.sent_at" />
                             </div>
-                        </t>
-                        <t t-else="">
-                            <div
-                class="row"
-                style="display: flex; border-bottom: 1px solid #ddd; padding: 5px;"
-              >
-                                <div
-                  style="flex: 1; padding: 2px;"
-                >No hay trazas de correo</div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.clicked_at" />
                             </div>
-                        </t>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.opened_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.bounced_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.replied_at" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

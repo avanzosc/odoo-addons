@@ -42,12 +42,9 @@ class MailTrackingController(http.Controller):
         )
 
         if trace:
-            trace.track_click()  # Actualiza el estado a 'clicked' y registra la fecha
+            trace.track_click()
 
-            # Redirige al URL original
             redirect_url = kwargs.get("redirect_url", "/")
             return http.redirect_with_hash(redirect_url)
 
-        return http.Response(
-            ""
-        )  # Retorna una respuesta vacía si no se encuentra el trace
+        return http.Response("")
