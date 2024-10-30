@@ -105,25 +105,21 @@ class BaseImport(models.AbstractModel):
     )
     data = fields.Binary(
         string="File",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     filename = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     file_date = fields.Date(
         string="Import Date",
         required=True,
         default=fields.Date.context_today,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     import_line_ids = fields.One2many(
         comodel_name="base.import.line",
         inverse_name="import_id",
         string="Lines to Import",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     state = fields.Selection(
@@ -342,7 +338,7 @@ class BaseImport(models.AbstractModel):
             "name": _("Import Lines"),
             "type": "ir.actions.act_window",
             "res_model": self.import_line_ids._name,
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "target": "current",
             "domain": [("import_id", "=", self.id)],
             "context": {
@@ -402,7 +398,9 @@ class BaseImportLine(models.AbstractModel):
         auto_commit = not getattr(threading.current_thread(), "testing", False)
         pending_lines = self.filtered(lambda ln: ln.state != "done")
         for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(lambda ln: ln.import_id == import_wiz)
+            wiz_lines = pending_lines.filtered(
+                lambda ln, import_wiz=import_wiz: ln.import_id == import_wiz
+            )
             for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
                 for line in self.browse(line_chunk_ids):
                     line.write(line._action_validate())
@@ -436,7 +434,9 @@ class BaseImportLine(models.AbstractModel):
         auto_commit = not getattr(threading.current_thread(), "testing", False)
         pending_lines = self.filtered(lambda ln: ln.state == "pass")
         for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(lambda ln: ln.import_id == import_wiz)
+            wiz_lines = pending_lines.filtered(
+                lambda ln, import_wiz=import_wiz: ln.import_id == import_wiz
+            )
             for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
                 for line in self.browse(line_chunk_ids):
                     line.write(line._action_process())
