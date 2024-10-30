@@ -50,9 +50,8 @@
             name="button_validate"
             string="Validate"
             type="object"
-            states="2validate,error"
+            invisible="state not in ('2validate', 'error')"
           />
-          <button name="button_process" string="Process" type="object" states="pass" />
           <field name="state" widget="statusbar" />
         </header>
         <sheet>
@@ -79,7 +78,7 @@
   <record id="ir_module_import_line_base_view_tree" model="ir.ui.view">
     <field name="model">ir.module.import.line</field>
     <field name="arch" type="xml">
-      <tree
+      <list
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-info="import_module_state == 'installed'"
@@ -94,9 +93,10 @@
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'install'"
           decoration-info="action == 'update'"
+          readonly="state == 'done'"
         />
-        <field name="module_technical_name" />
-        <field name="import_module_id" optional="show" />
+        <field name="module_technical_name" readonly="state == 'done'" />
+        <field name="import_module_id" readonly="state == 'done'" optional="show" />
         <field
           name="import_module_state"
           widget="badge"
@@ -105,40 +105,44 @@
           decoration-success="state == 'installed'"
           readonly="1"
         />
-        <field name="module_last_version" optional="show" />
+        <field name="module_last_version" readonly="state == 'done'" optional="show" />
         <field name="installed_version" readonly="1" optional="show" />
-        <field name="module_website" optional="show" />
-        <field name="module_author" optional="show" />
-        <field name="module_notes" optional="hide" />
+        <field name="module_website" readonly="state == 'done'" optional="show" />
+        <field name="module_author" readonly="state == 'done'" optional="show" />
+        <field name="module_notes" readonly="state == 'done'" optional="hide" />
         <field name="module_path" optional="hide" />
         <field name="state" optional="show" />
-        <field name="log_info" optional="hide" />
+        <field name="log_info" readonly="state == 'done'" optional="hide" />
         <button
           name="button_validate"
           type="object"
           title="Validate"
           icon="fa-search"
-          states="2validate,pass,error"
+          invisible="state == 'done'"
         />
         <button
           name="button_update"
           type="object"
           title="Update"
           icon="fa-refresh"
-          attrs="{'invisible': ['|',('action','!=','update'),('state','!=','pass')]}"
+          invisible="action != 'update' or state != 'pass'"
         />
         <button
           name="button_install"
           type="object"
           title="Install"
           icon="fa-check"
-          attrs="{'invisible': ['|',('action','!=','install'),('state','!=','pass')]}"
+          invisible="action != 'install' or state != 'pass'"
         />
-        <field name="module_author_generic" optional="hide" />
-        <field name="migrate_module" optional="hide" />
-        <field name="install_module" optional="hide" />
-        <field name="priority" optional="hide" />
-      </tree>
+        <field
+          name="module_author_generic"
+          readonly="state == 'done'"
+          optional="hide"
+        />
+        <field name="migrate_module" readonly="state == 'done'" optional="hide" />
+        <field name="install_module" readonly="state == 'done'" optional="hide" />
+        <field name="priority" readonly="state == 'done'" optional="hide" />
+      </list>
     </field>
   </record>
 
@@ -158,7 +162,7 @@
     <field name="name">Compare Module by Lines</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ir.module.import.line</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="view_id" ref="ir_module_import_line_view_tree" />
   </record>
 

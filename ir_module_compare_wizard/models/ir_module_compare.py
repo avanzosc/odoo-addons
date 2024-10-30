@@ -108,12 +108,10 @@ class IrModuleImportLine(models.Model):
     import_module_state = fields.Selection(
         string="Database State",
         related="import_module_id.state",
-        store=True,
     )
     installed_version = fields.Char(
         string="Database Version",
         related="import_module_id.installed_version",
-        store=True,
     )
     action = fields.Selection(
         selection_add=[("install", "Install"), ("update", "Update")],
@@ -121,46 +119,36 @@ class IrModuleImportLine(models.Model):
     )
     module_technical_name = fields.Char(
         string="Technical Name",
-        states={"done": [("readonly", True)]},
         required=True,
     )
     module_last_version = fields.Char(
         string="Last Version",
-        states={"done": [("readonly", True)]},
     )
     module_website = fields.Char(
         string="Website",
-        states={"done": [("readonly", True)]},
     )
     module_path = fields.Char(
         string="Path",
-        states={"done": [("readonly", True)]},
+        readonly=True,
     )
     module_author = fields.Char(
         string="Author",
-        states={"done": [("readonly", True)]},
     )
     module_author_generic = fields.Char(
         string="Author Generic",
-        states={"done": [("readonly", True)]},
     )
     module_notes = fields.Char(
         string="Notes",
-        states={"done": [("readonly", True)]},
     )
     migrate_module = fields.Boolean(
         string="Migrate",
-        states={"done": [("readonly", True)]},
         default=True,
     )
     install_module = fields.Boolean(
         string="Review",
-        states={"done": [("readonly", True)]},
         default=False,
     )
-    priority = fields.Integer(
-        states={"done": [("readonly", True)]},
-    )
+    priority = fields.Integer()
 
     def _action_validate(self):
         self.ensure_one()

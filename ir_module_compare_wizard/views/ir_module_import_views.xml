@@ -3,11 +3,11 @@
   <record id="ir_module_import_view_tree" model="ir.ui.view">
     <field name="model">ir.module.import</field>
     <field name="arch" type="xml">
-      <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
         <field name="name" />
         <field name="file_date" />
         <field name="state" />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -20,15 +20,14 @@
             name="action_import_file"
             string="Import"
             type="object"
-            states="draft,2validate,pass,error"
+            invisible="state == 'done'"
           />
           <button
             name="action_validate"
             string="Validate"
             type="object"
-            states="2validate,error"
+            invisible="state not in ('2validate', 'error')"
           />
-
           <field name="state" widget="statusbar" />
         </header>
         <sheet>
@@ -37,7 +36,6 @@
               string="Import Lines"
               type="object"
               name="button_open_import_line"
-              attrs="{'invisible':[('import_line_ids', '=', [])]}"
               class="oe_stat_button"
               icon="fa-bars"
             />
@@ -51,26 +49,22 @@
             </button>
           </div>
           <group>
-            <field name="filename" invisible="1" />
-            <field name="data" filename="filename" />
-            <field name="file_date" />
+            <field name="filename" invisible="1" readonly="state == 'done'" />
+            <field name="data" filename="filename" readonly="state == 'done'" />
+            <field name="file_date" readonly="state == 'done'" />
           </group>
-
           <notebook>
             <page string="Imported Lines">
               <field
                 name="import_line_ids"
-                context="{'tree_view_ref': 'ir_module_compare_wizard.ir_module_import_line_base_view_tree'}"
+                context="{'list_view_ref': 'ir_module_compare_wizard.ir_module_import_line_base_view_tree'}"
+                readonly="state == 'done'"
               />
             </page>
-            <page string="Error Log" attrs="{'invisible':[('log_info','=','')]}">
+            <page string="Error Log" invisible="not log_info">
               <field name="log_info" />
             </page>
-            <page
-              string="Help"
-              name="help_page"
-              attrs="{'invisible': [('state', '=', 'done')]}"
-            >
+            <page string="Help" name="help_page" invisible="state == 'done'">
               <div style="margin-top: 4px;">
                 <h3>Help with Excel column names</h3>
                 <p>You must use this column names in order to fill the table:</p>
@@ -100,11 +94,7 @@
             </page>
           </notebook>
         </sheet>
-        <div class="oe_chatter">
-          <field name="message_follower_ids" widget="mail_followers" />
-          <field name="activity_ids" widget="mail_activity" />
-          <field name="message_ids" widget="mail_thread" />
-        </div>
+        <chatter />
       </form>
     </field>
   </record>
@@ -140,7 +130,7 @@
     <field name="name">Compare Module Wizards</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">ir.module.import</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="view_id" ref="ir_module_import_view_tree" />
   </record>
 

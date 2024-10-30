@@ -3,7 +3,7 @@
 
 {
     "name": "Module Comparing Wizard",
-    "version": "16.0.1.1.0",
+    "version": "18.0.1.1.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
