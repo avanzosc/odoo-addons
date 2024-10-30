@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_asset_line_view_tree" model="ir.ui.view">
+        <field name="model">account.asset.line</field>
+        <field
+      name="inherit_id"
+      ref="account_asset_line_menu.account_asset_line_view_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="profile_id" optional="show" />
+                <field name="account_analytic_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_asset_line_view_filter" model="ir.ui.view">
+        <field name="model">account.asset.line</field>
+        <field
+      name="inherit_id"
+      ref="account_asset_line_menu.account_asset_line_view_filter"
+    />
+        <field name="arch" type="xml">
+            <filter name="group-type" position="after">
+                <filter
+          string="Profile"
+          name="profile"
+          domain="[]"
+          context="{'group_by': 'profile_id'}"
+        />
+                <filter
+          string="Account Analytic"
+          name="account_analytic"
+          domain="[]"
+          context="{'group_by': 'account_analytic_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
