@@ -21,9 +21,9 @@ class StockMoveLine(models.Model):
                     "qty_done": qty_assign,
                 }
             )
-            package_type = self.package_id.id
+            package_type = self.packaging_id.id
             self.picking_id._put_in_pack(self, create_package_level=True)
-            self.package_id = package_type
+            self.packaging_id = package_type
             vals = {
                 "product_id": self.product_id.id,
                 "location_id": self.location_id.id,
