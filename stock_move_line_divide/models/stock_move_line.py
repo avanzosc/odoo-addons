@@ -21,9 +21,9 @@ class StockMoveLine(models.Model):
                     "qty_done": qty_assign,
                 }
             )
-            package_type = self.package_type_id.id
+            package_type = self.package_id.id
             self.picking_id._put_in_pack(self, create_package_level=True)
-            self.package_type_id = package_type
+            self.package_id = package_type
             vals = {
                 "product_id": self.product_id.id,
                 "location_id": self.location_id.id,
@@ -31,7 +31,7 @@ class StockMoveLine(models.Model):
                 "lot_id": self.lot_id.id,
                 "reserved_uom_qty": qty_assign,
                 "product_uom_id": self.product_uom_id.id,
-                "package_type_id": self.package_type_id.id,
+                "package_id": self.package_id.id,
             }
             for _record in range(1, self.divide):
                 line = self.env["stock.move.line"].create(vals)
