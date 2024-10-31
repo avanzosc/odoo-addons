@@ -358,7 +358,6 @@ class BaseImportLine(models.AbstractModel):
         required=True,
     )
     log_info = fields.Text(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     state = fields.Selection(
@@ -373,7 +372,6 @@ class BaseImportLine(models.AbstractModel):
             ("nothing", "Nothing"),
         ],
         default="nothing",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
