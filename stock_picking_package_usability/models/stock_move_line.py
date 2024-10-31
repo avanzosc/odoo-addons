@@ -21,6 +21,11 @@ class StockMoveLine(models.Model):
     weight_uom_name = fields.Char(
         string="Weight UOM", related="result_package_id.weight_uom_name", store=True
     )
+    result_package_id = fields.Many2one(
+        domain="['|', '|', ('location_id', '=', False), "
+        "('location_id', '=', location_dest_id), ('id', '=', package_id), '|', "
+        "('picking_id','=',picking_id), ('picking_id','=',False)]",
+    )
 
     def write(self, values):
         result = super().write(values)
