@@ -10,6 +10,8 @@
       >
                 <field name="asset_id" readonly="1" optional="show" />
                 <field name="type" optional="show" />
+                <field name="profile_id" optional="show" />
+                <field name="account_analytic_id" optional="show" />
                 <field
           name="line_date"
           optional="show"
@@ -79,6 +81,18 @@
             name="group-type"
             domain="[]"
             context="{'group_by': 'type'}"
+          />
+                    <filter
+            string="Profile"
+            name="profile"
+            domain="[]"
+            context="{'group_by': 'profile_id'}"
+          />
+                    <filter
+            string="Account Analytic"
+            name="account_analytic"
+            domain="[]"
+            context="{'group_by': 'account_analytic_id'}"
           />
                     <filter
             string="Date"
