@@ -12,8 +12,5 @@
     "qweb": ["static/src/xml/chatter_inherit.xml"],
     "installable": True,
     "application": False,
-    "install_requires": [
-        "bs4",
-    ],
-    "uninstall_hook": "uninstall_hook",
+    "external_dependencies": {"python": ["bs4"]},
 }
