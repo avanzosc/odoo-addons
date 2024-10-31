@@ -16,8 +16,8 @@ class MailMessage(models.Model):
     @api.onchange("parent_id")
     def _onchange_parent_id_update_replied(self):
         """
-        Detecta si el mensaje actual es una respuesta (tiene un `parent_id`),
-        y actualiza `replied_at` en el `mailing.trace` asociado al mensaje original.
+        Detects if the current message is a reply (has a `parent_id`),
+        and updates `replied_at` in the associated `mailing.trace` for the original message.
         """
         if self.parent_id:
             mailing_trace = self.env["mailing.trace"].search(
@@ -28,16 +28,15 @@ class MailMessage(models.Model):
 
     def is_bounced(self):
         """
-        Verifica si el mensaje ha sido rechazado o rebotado.
-        Si es así, actualiza el campo `bounced_at` en `mailing.trace`.
-        Retorna True si el mensaje está en estado `exception` en mail.mail.
+        Checks if the message has been rejected or bounced.
+        If so, updates the `bounced_at` field in the `mailing.trace`.
+        Returns True if the message is in `exception` state in mail.mail.
         """
         mail_mail = self.env["mail.mail"].search(
             [("mail_message_id", "=", self.id), ("state", "=", "exception")], limit=1
         )
 
         if mail_mail:
-            # Buscar el mailing trace correspondiente y actualizar `bounced_at`
             mailing_trace = self.env["mailing.trace"].search(
                 [("mail_message_id", "=", self.id)], limit=1
             )

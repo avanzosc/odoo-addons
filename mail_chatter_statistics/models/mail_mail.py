@@ -1,7 +1,7 @@
 import logging
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
-from werkzeug.urls import url_quote
 
 from odoo import fields, models
 
@@ -52,7 +52,9 @@ class MailMail(models.Model):
         return None
 
     def _add_tracking(self, body_html, trace_id):
-        tracking_pixel = f'<img src="/mail/track/open/{trace_id}"\
+        base_url = self.env["ir.config_parameter"].sudo().get_param("web.base.url")
+
+        tracking_pixel = f'<img src="{base_url}/mail/track/open/{trace_id}"\
             width="1" height="1" style="display:none"/>'
 
         last_div_index = body_html.rfind("</div>")
@@ -68,9 +70,26 @@ class MailMail(models.Model):
 
         for a_tag in soup.find_all("a", href=True):
             original_url = a_tag["href"]
-            tracked_url = (
-                f"/mail/track/click/{trace_id}?redirect_url={url_quote(original_url)}"
-            )
-            a_tag["href"] = tracked_url
+
+            if "/mail/view" in original_url:
+                parsed_url = urlparse(original_url)
+                query_params = parse_qs(parsed_url.query)
+
+                query_params["mail_chatter_statistics"] = ["True"]
+                query_params["mail_chatter_statistics_trace_id"] = [trace_id]
+
+                new_query = urlencode(query_params, doseq=True)
+                tracked_url = urlunparse(
+                    (
+                        parsed_url.scheme,
+                        parsed_url.netloc,
+                        parsed_url.path,
+                        parsed_url.params,
+                        new_query,
+                        parsed_url.fragment,
+                    )
+                )
+
+                a_tag["href"] = tracked_url
 
         return str(soup)

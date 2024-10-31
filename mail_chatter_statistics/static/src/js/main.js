@@ -8,38 +8,57 @@ odoo.define("mail_chatter_statistics.main", function (require) {
   let statisticsInitialized = false;
 
   const OriginalMounted = Message.prototype.mounted;
+  const OriginalUpdated = Message.prototype.updated;
+  const OriginalBeforeUpdate = Message.prototype.beforeUpdate;
+
+  async function updateMailingTrace() {
+    const parentGroups = document.querySelectorAll(
+      `div[role="group"][data-message-local-id^="mail.message_"]`
+    );
+    if (parentGroups.length) {
+      for (const parentGroup of parentGroups) {
+        const dataMessageLocalId = parentGroup.getAttribute("data-message-local-id");
+        const mailMessageId = dataMessageLocalId?.split("_")[1];
+
+        if (mailMessageId) {
+          try {
+            const mailingTrace = await this.getMailingTrace(mailMessageId);
+            updateMailingTraceInDOM(mailingTrace, parentGroup);
+          } catch (error) {
+            console.error("Error fetching mailing trace:", error);
+          }
+        } else {
+          console.warn(
+            "No valid mailMessageId found in data-message-local-id:",
+            dataMessageLocalId
+          );
+        }
+      }
+    }
+  }
 
   Message.prototype.mounted = async function () {
     if (!statisticsInitialized) {
       statisticsInitialized = true;
-
-      const parentGroups = document.querySelectorAll(
-        `div[role="group"][data-message-local-id^="mail.message_"]`
-      );
-      if (parentGroups.length) {
-        for (const parentGroup of parentGroups) {
-          const dataMessageLocalId = parentGroup.getAttribute("data-message-local-id");
-          const mailMessageId = dataMessageLocalId?.split("_")[1];
-
-          if (mailMessageId) {
-            try {
-              const mailingTrace = await this.getMailingTrace(mailMessageId);
-              updateMailingTraceInDOM(mailingTrace, parentGroup);
-            } catch (error) {
-              console.error("Error fetching mailing trace:", error);
-            }
-          } else {
-            console.warn(
-              "No valid mailMessageId found in data-message-local-id:",
-              dataMessageLocalId
-            );
-          }
-        }
-      }
+      await updateMailingTrace.call(this);
     }
 
     if (OriginalMounted) {
       OriginalMounted.call(this);
+    }
+  };
+
+  Message.prototype.updated = async function () {
+    await updateMailingTrace.call(this);
+    if (OriginalUpdated) {
+      OriginalUpdated.call(this);
+    }
+  };
+
+  Message.prototype.beforeUpdate = async function () {
+    await updateMailingTrace.call(this);
+    if (OriginalBeforeUpdate) {
+      OriginalBeforeUpdate.call(this);
     }
   };
 

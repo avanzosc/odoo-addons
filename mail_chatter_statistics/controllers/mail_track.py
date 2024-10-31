@@ -7,7 +7,31 @@ from PIL import Image
 from odoo import http
 from odoo.http import request
 
+from odoo.addons.mail.controllers.main import MailController
+
 _logger = logging.getLogger(__name__)
+
+
+class MailController(MailController):
+    @http.route()
+    def mail_action_view(self, model=None, res_id=None, access_token=None, **kwargs):
+        response = super(MailController, self).mail_action_view(
+            model, res_id, access_token, **kwargs
+        )
+
+        if kwargs.get("mail_chatter_statistics"):
+            trace_id = kwargs.get("mail_chatter_statistics_trace_id")
+            if trace_id:
+                _logger.info("Tracking click for trace ID: %s", trace_id)
+                trace = (
+                    request.env["mailing.trace"]
+                    .sudo()
+                    .search([("id", "=", trace_id)], limit=1)
+                )
+                if trace:
+                    trace.track_click()
+
+        return response
 
 
 class MailTrackingController(http.Controller):
@@ -31,20 +55,3 @@ class MailTrackingController(http.Controller):
         return http.Response(
             f"data:image/png;base64,{img_base64}", content_type="image/png"
         )
-
-    @http.route(
-        "/mail/track/click/<int:trace_id>", type="http", auth="public", website=True
-    )
-    def track_click(self, trace_id, **kwargs):
-        _logger.info("Tracking click for trace ID: %s", trace_id)
-        trace = (
-            request.env["mailing.trace"].sudo().search([("id", "=", trace_id)], limit=1)
-        )
-
-        if trace:
-            trace.track_click()
-
-            redirect_url = kwargs.get("redirect_url", "/")
-            return http.redirect_with_hash(redirect_url)
-
-        return http.Response("")
