@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockMoveLine(models.Model):
@@ -44,3 +44,12 @@ class StockMoveLine(models.Model):
                 if not line.result_package_id.max_weight:
                     line.result_package_id.max_weight = line.packaging_id.max_weight
         return result
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "move_id" in vals:
+                move = self.env["stock.move"].browse(vals.get("move_id"))
+                if move and move.product_packaging_id:
+                    vals["packaging_id"] = move.product_packaging_id.id
+        return super().create(vals_list)
