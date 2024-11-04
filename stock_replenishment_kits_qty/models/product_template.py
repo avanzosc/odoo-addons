@@ -1,13 +1,35 @@
-import logging
-
-from odoo import models
-
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    def _compute_qty_in_kits(self):
-        product_product_model = self.env["product.product"]
-        product_product_model._compute_qty_in_kits()
+    basket_lines = fields.One2many(
+        comodel_name="mrp.bom.line",
+        inverse_name="product_tmpl_id",
+        compute="_compute_basket_lines",
+        store=True,
+    )
+    count_component_kit = fields.Integer(
+        compute="_compute_count_component_kit",
+        store=True,
+    )
+
+    @api.depends("is_basket")
+    def _compute_basket_lines(self):
+        for product in self:
+            bom_lines = self.env["mrp.bom.line"].search(
+                [
+                    ("product_id", "=", product.id),
+                    ("bom_id.is_basket", "=", True),
+                    ("bom_id.type", "=", "phantom"),
+                    ("bom_id.active", "=", True),
+                    ("active", "=", True),
+                ]
+            )
+            product.basket_lines = bom_lines
+
+    @api.depends("is_basket")
+    def _compute_count_component_kit(self):
+        for product in self:
+            product.count_component_kit = len(product.basket_lines)
