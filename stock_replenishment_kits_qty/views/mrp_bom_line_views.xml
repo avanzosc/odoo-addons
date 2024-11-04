@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mrp_bom_line_tree_inherit" model="ir.ui.view">
+        <field name="name">mrp.bom.line.tree.inherit</field>
+        <field name="model">mrp.bom.line</field>
+        <field name="inherit_id" ref="mrp_bom_component_menu.mrp_bom_line_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="is_basket" optional="show" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -14,14 +14,14 @@
           type="object"
           string="Kit"
           icon="fa-refresh"
-          title="Recalcular kit"
+          title="Recalculate kit"
         />
                 <button
           name="button_assign_qty_in_orderpoint"
           type="object"
           string="Kit"
           icon="fa-check"
-          title="Asignar cantidad en punto de pedido"
+          title="Assign quantity at reorder point"
         />
             </xpath>
 
@@ -34,20 +34,21 @@
         <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_min_qty']" position="before">
-                <field name="qty_in_kits" readonly="1" />
+                <field name="qty_in_kits" readonly="1" optional="show" />
+                <field name="count_component_kit" readonly="1" optional="hide" />
                 <button
           name="button_calculate_qty_in_kits"
           type="object"
           string="Kit"
           icon="fa-refresh"
-          title="Recalcular kit"
+          title="Recalculate kit"
         />
                 <button
           name="button_assign_qty_in_orderpoint"
           type="object"
           string="Kit"
           icon="fa-check"
-          title="Asignar cantidad en punto de pedido"
+          title="Assign quantity at reorder point"
         />
             </xpath>
         </field>
@@ -64,6 +65,11 @@
           name="qty_in_kits_greater_than_0"
           domain="[('qty_in_kits', '>', 0)]"
         />
+        <filter
+          string="Is Component Kit"
+          name="is_component_kit"
+          domain="[('count_component_kit', '>', 0)]"
+        />
             </xpath>
         </field>
     </record>
@@ -78,7 +84,12 @@
           string="Qty in Kits > 0"
           name="qty_in_kits_greater_than_0"
           domain="[('qty_in_kits', '>', 0)]"
+        />        <filter
+          string="Is Component Kit"
+          name="is_component_kit"
+          domain="[('count_component_kit', '>', 0)]"
         />
+
             </xpath>
         </field>
     </record>
