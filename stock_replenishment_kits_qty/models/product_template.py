@@ -21,10 +21,10 @@ class ProductTemplate(models.Model):
             bom_lines = self.env["mrp.bom.line"].search(
                 [
                     ("product_id", "=", product.id),
-                    ("bom_id.is_basket", "=", True),
+                    ("is_basket", "=", True),
                     ("bom_id.type", "=", "phantom"),
                     ("bom_id.active", "=", True),
-                    ("active", "=", True),
+                    ("bom_id.product.tmpl_id.active", "=", True),
                 ]
             )
             product.basket_lines = bom_lines
