@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
-    @api.depends("is_basket")
+    @api.depends("bom_ids", "bom_ids.bom_line_ids.product_id")
     def _compute_basket_lines(self):
         for product in self:
             bom_lines = self.env["mrp.bom.line"].search(
@@ -29,7 +29,7 @@ class ProductTemplate(models.Model):
             )
             product.basket_lines = bom_lines
 
-    @api.depends("is_basket")
+    @api.depends("basket_lines")
     def _compute_count_component_kit(self):
         for product in self:
             product.count_component_kit = len(product.basket_lines)
