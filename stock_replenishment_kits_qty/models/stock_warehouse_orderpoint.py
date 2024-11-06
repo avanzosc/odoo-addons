@@ -25,6 +25,9 @@ class StockReplenishment(models.Model):
             product = orderpoint.product_id
             qty_in_kits = 0.0
 
+            product.product_tmpl_id._compute_basket_lines()
+            product.product_tmpl_id._compute_count_component_kit()
+
             for bom_line in product.basket_lines:
                 parent_product_tmpl = bom_line.bom_id.product_tmpl_id
 
