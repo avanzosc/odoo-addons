@@ -24,7 +24,7 @@ class ProductTemplate(models.Model):
                     ("is_basket", "=", True),
                     ("bom_id.type", "=", "phantom"),
                     ("bom_id.active", "=", True),
-                    ("bom_id.product.tmpl_id.active", "=", True),
+                    ("bom_id.product_tmpl_id.active", "=", True),
                 ]
             )
             product.basket_lines = bom_lines
