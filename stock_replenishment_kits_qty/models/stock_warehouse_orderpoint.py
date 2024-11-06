@@ -17,7 +17,7 @@ class StockReplenishment(models.Model):
         store=True,
     )
 
-    @api.depends("product_id")
+    @api.depends("product_id", "product_id.product_tmpl_id.basket_lines")
     def _compute_qty_in_kits(self):
         for orderpoint in self:
             product = orderpoint.product_id
@@ -38,7 +38,7 @@ class StockReplenishment(models.Model):
 
             orderpoint.qty_in_kits = qty_in_kits
 
-    @api.depends("product_id")
+    @api.depends("product_id", "product_id.product_tmpl_id.basket_lines")
     def _compute_count_component_kit(self):
         for orderpoint in self:
             product = orderpoint.product_id

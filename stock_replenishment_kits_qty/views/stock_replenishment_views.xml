@@ -35,7 +35,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_min_qty']" position="before">
                 <field name="qty_in_kits" readonly="1" optional="show" />
-                <field name="count_component_kit" readonly="1" optional="hide" />
+                <field name="count_component_kit" readonly="1" optional="show" />
                 <button
           name="button_calculate_qty_in_kits"
           type="object"
