@@ -12,12 +12,14 @@ class StockReplenishment(models.Model):
     )
 
     count_component_kit = fields.Integer(
-        compute="_compute_count_component_kit",
-        readonly=True,
-        store=True,
+        related="product_id.product_tmpl_id.count_component_kit",
     )
 
-    @api.depends("product_id", "product_id.product_tmpl_id.basket_lines")
+    @api.depends(
+        "product_id.product_tmpl_id.basket_lines",
+        "product_id.product_tmpl_id.bom_line_ids.product_qty",
+        "product_id.product_tmpl_id.bom_line_ids.product_uom_id",
+    )
     def _compute_qty_in_kits(self):
         for orderpoint in self:
             product = orderpoint.product_id
@@ -37,12 +39,6 @@ class StockReplenishment(models.Model):
                 qty_in_kits += total_sale_line_qty * bom_line.product_qty
 
             orderpoint.qty_in_kits = qty_in_kits
-
-    @api.depends("product_id", "product_id.product_tmpl_id.basket_lines")
-    def _compute_count_component_kit(self):
-        for orderpoint in self:
-            product = orderpoint.product_id
-            orderpoint.count_component_kit = len(product.basket_lines)
 
     def button_calculate_qty_in_kits(self):
         self._compute_qty_in_kits()
