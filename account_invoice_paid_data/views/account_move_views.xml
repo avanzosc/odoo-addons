@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_view_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="payment_state" position="after">
+                <field name="paid_date" optional="show" />
+                <field
+          name="payment_period"
+          optional="show"
+          attrs="{'invisible': ['|', ('paid_date', '=', False), ('invoice_date', '=', False)]}"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
