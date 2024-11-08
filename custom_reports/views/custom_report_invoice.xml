@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="custom_report_invoice_inherit"
+    inherit_id="account.report_invoice_document"
+  >
+        <xpath expr="//h2" position="attributes">
+            <attribute name="style">text-align: right;</attribute>
+        </xpath>
+
+
+        <xpath expr="//div[@id='informations']/div[4]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+
+
+    </template>
+</odoo>

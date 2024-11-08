@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="custom_report_delivery_inherit"
+    inherit_id="stock.report_delivery_document"
+  >
+        <xpath expr="//div[@class='page']" position="inside">
+            <p><strong>Custom Text for Delivery Document Template</strong></p>
+        </xpath>
+    </template>
+</odoo>
