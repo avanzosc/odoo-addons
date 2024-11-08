@@ -6,8 +6,6 @@ from odoo import api, fields, models
 class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
-    in_progress = fields.Boolean(string="Is in progress", default=False)
-    is_done = fields.Boolean(string="Is done", default=False)
     num_pickings_confirmed = fields.Integer(
         string="Num. Pickings Confirmed",
         compute="_compute_num_pickings",
@@ -47,26 +45,4 @@ class StockPickingBatch(models.Model):
             new_pickings = self.env["stock.picking"].search(domain)
             allowed_pickings += new_pickings
             batch.allowed_picking_ids = allowed_pickings
-        return result
-
-    def action_confirm(self):
-        result = super().action_confirm()
-        self.in_progress = True
-        return result
-
-    def action_done(self):
-        result = super().action_done()
-        self.is_done = True
-        return result
-
-    @api.depends("picking_ids", "picking_ids.state", "in_progress", "is_done")
-    def _compute_state(self):
-        result = super()._compute_state()
-        for batch in self:
-            if batch.in_progress is False and (batch.is_done) is False:
-                batch.state = "draft"
-            if batch.in_progress is True and batch.is_done is False:
-                batch.state = "in_progress"
-            if batch.in_progress is True and batch.is_done is True:
-                batch.state = "done"
         return result
