@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_company_form" model="ir.ui.view">
+        <field name="name">res.company.form.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[1]/group[1]" position="inside">
+                <field name="default_email_formatted_company" />
+                <field name="email_formatted" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_company_tree" model="ir.ui.view">
+        <field name="name">res.company.tree.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="default_email_formatted_company" optional="hide" />
+                <field name="email_formatted" optional="hide" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
