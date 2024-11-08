@@ -9,9 +9,7 @@ class ProductSupplierinfo(models.Model):
     product_brand_id = fields.Many2one(
         string="Brand", comodel_name="product.brand", copy=False
     )
-    brand_code = fields.Char(
-        string="Brand Code", related="product_brand_id.code", store=True, copy=False
-    )
+    brand_code = fields.Char(copy=False)
     brand_marking = fields.Char(
         string="Brand Marking",
         related="product_brand_id.marking",
