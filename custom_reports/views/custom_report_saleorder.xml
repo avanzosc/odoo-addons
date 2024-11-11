@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_saleorder_document_inherit"
+    inherit_id="sale.report_saleorder_document"
+  >
+
+
+        <xpath expr="//h2" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+
+        <xpath expr="//h2" position="after">
+            <h2 class="mt-4" style="text-align: right;">
+                <span
+          t-if="env.context.get('proforma', False) or is_pro_forma"
+        >Pro-Forma Invoice # </span>
+                <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
+                <span t-else="">Order Confirmation # </span>
+                <span t-field="doc.name" />
+            </h2>
+        </xpath>
+
+        <xpath expr="//div[@id='informations']/div[4]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//div[@id='informations']/div[4]" position="after">
+            <div t-if="doc.incoterm" class="col-auto col-3 mw-100 mb-2">
+                <strong>Incoterm:</strong>
+                <p class="m-0" t-field="doc.incoterm" />
+            </div>
+        </xpath>
+    </template>
+</odoo>

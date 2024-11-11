@@ -8,12 +8,100 @@
             <attribute name="style">text-align: right;</attribute>
         </xpath>
 
+            <xpath expr="//h2/span[1]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//h2/span[1]" position="after">
+            <span
+        t-if="o.move_type == 'out_invoice' and o.state == 'posted'"
+      >Invoice #</span>
+        </xpath>
 
         <xpath expr="//div[@id='informations']/div[4]" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
 
+        <xpath expr="//div[@id='informations']/div[1]" position="after">
+            <div
+        class="col-auto col-3 mw-100 mb-2"
+        t-if="o.invoice_payment_term_id"
+        name="reference"
+      >
+                <strong>Payment Terms:</strong>
+                <p class="m-0" t-field="o.invoice_payment_term_id" />
+            </div>
+
+        </xpath>
+        <xpath expr="//span[@t-field='line.product_uom_id']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//th[@name='th_quantity']" position="after">
+            <th name="th_hs_code" class="text-end">
+                <span>HS Code</span>
+            </th>
+        </xpath>
+        <xpath expr="//th[@name='th_taxes']" position="attributes">
+
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//td[@name='td_taxes']" position="attributes">
+
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//p[@name='incoterm']" position="attributes">
+
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//span[@t-field='line.product_uom_id']/.." position="after">
+            <td><span
+          t-field="line.product_id.product_tmpl_id.hs_code"
+          t-if="line.product_id.product_tmpl_id.hs_code"
+        /></td>
+        </xpath>
+
+
+
+        <xpath expr="//p[@name='payment_communication']/t" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+        <xpath expr="//p[@name='payment_communication']" position="after">
+            <span>
+                <span t-esc="o.company_id.origin_declaration" />
+                <br />
+                <span t-esc="datetime.date.today().strftime('%d/%m/%Y')" />
+                <br />
+                <span t-esc="o.company_id.name" />
+                <br />
+                <span t-esc="o.company_id.vat" />
+            </span>
+        </xpath>
+
+        <xpath expr="//div[@name='payment_term']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
 
 
     </template>
+
+    <template id="web_address_layout_inherit" inherit_id="web.address_layout">
+        <xpath expr="//div[@name='address']" position="inside">
+            <t t-if="o.partner_id and o.partner_id.x_studio_eori_number">
+        <p>EORI: <span t-field="o.partner_id.x_studio_eori_number" /></p>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- <template
+    id="remove_incoterm"
+    inherit_id="sale_stock.report_invoice_document_inherit_sale_stock"
+  >
+        <xpath expr="//div[@name='invoice_incoterm_id']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template> -->
 </odoo>
