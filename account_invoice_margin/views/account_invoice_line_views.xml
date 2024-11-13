@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_invoice_line_form_margin" model="ir.ui.view">
+        <field name="name">account.move.line.form.margin</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="inside">
+                <field name="product_cost" />
+                <field name="subtotal_cost" />
+                <field name="margin" />
+                <field name="margin_percent" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree_margin" model="ir.ui.view">
+        <field name="name">account.move.tree.margin</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="product_cost" optional="hide" />
+                <field name="subtotal_cost" optional="show" />
+                <field name="margin" optional="show" />
+                <field name="margin_percent" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_line_pivot_margin" model="ir.ui.view">
+        <field name="name">account.move.line.pivot.margin</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_pivot" />
+        <field name="arch" type="xml">
+            <xpath expr="//pivot" position="inside">
+                <field name="product_cost" />
+                <field name="subtotal_cost" />
+                <field name="margin" />
+                <field name="margin_percent" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_invoice_filter_margin" model="ir.ui.view">
+        <field name="name">account.move.line.filter.margin</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_move_line_filter" />
+        <field name="arch" type="xml">
+            <xpath expr="//filter" position="inside">
+                <field name="product_cost" />
+                <field name="subtotal_cost" />
+                <field name="margin" />
+                <field name="margin_percent" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
