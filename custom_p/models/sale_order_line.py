@@ -62,3 +62,29 @@ class SaleOrderLine(models.Model):
                     )
                     lot_ids += lots
                     line.possible_lot_ids = [(6, 0, lot_ids.ids)]
+
+    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
+    def _get_invoice_qty(self):
+        for line in self:
+            if line.invoice_lines.filtered(lambda c: c.out_refund_from_invoice):
+                qty_invoiced = 0.0
+                for invoice_line in line.invoice_lines:
+                    if invoice_line.move_id.state != "cancel":
+                        if invoice_line.move_id.move_type == "out_invoice":
+                            qty_invoiced += (
+                                invoice_line.product_uom_id._compute_quantity(
+                                    invoice_line.quantity, line.product_uom
+                                )
+                            )
+                        elif (
+                            invoice_line.filtered(
+                                lambda c: not c.out_refund_from_invoice
+                            ).move_id.move_type
+                            == "out_refund"
+                        ):
+                            qty_invoiced -= (
+                                invoice_line.product_uom_id._compute_quantity(
+                                    invoice_line.quantity, line.product_uom
+                                )
+                            )
+                line.qty_invoiced = qty_invoiced
