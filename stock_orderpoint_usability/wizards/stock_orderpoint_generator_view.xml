@@ -9,12 +9,14 @@
             <field name="generation_type" />
             <field
               name="location_from"
-              attrs="{'invisible': [('generation_type', '!=', 'from_location')], 'required': [('generation_type', '=', 'from_location')]}"
+              invisible="generation_type != 'from_location'"
+              required="generation_type == 'from_location'"
             />
             <field
               name="location_to"
+              invisible="generation_type not in ['from_location', 'all_0']"
+              required="generation_type in ['from_location', 'all_0']"
               widget="many2many_tags"
-              attrs="{'invisible': [('generation_type', 'not in', ('from_location', 'all_0'))], 'required': [('generation_type', 'in', ('from_location','all_0'))]}"
             />
           </group>
           <footer>

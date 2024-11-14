@@ -39,9 +39,13 @@ class StockOrderpointGenerator(models.TransientModel):
             ]
         )
         if rule2update:
-            rule2update.product_min_qty = rule.product_min_qty
-            rule2update.product_max_qty = rule.product_max_qty
-            rule2update.qty_multiple = rule.qty_multiple
+            rule2update.update(
+                {
+                    "product_min_qty": rule.product_min_qty,
+                    "product_max_qty": rule.product_max_qty,
+                    "qty_multiple": rule.qty_multiple,
+                }
+            )
         else:
             rule.copy(
                 {
@@ -63,7 +67,7 @@ class StockOrderpointGenerator(models.TransientModel):
                 for location in self.location_to:
                     self._update_orderpoint_rule(rule, location)
         elif self.generation_type == "all_0":
-            products = product_obj.search([("type", "=", "product")])
+            products = product_obj.search([("is_storable", "=", True)])
             for location in self.location_to:
                 for product in products:
                     rule_exist = orderpoint_obj.search(

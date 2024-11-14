@@ -4,27 +4,19 @@
     <field name="model">stock.warehouse.orderpoint</field>
     <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
     <field name="arch" type="xml">
+      <button name="action_product_forecast_report" position="before">
+        <field name="virtual_available" optional="show" />
+      </button>
+      <button name="action_product_forecast_report" position="after">
+        <field name="incoming_qty" optional="hide" />
+        <field name="outgoing_qty" optional="hide" />
+        <field name="incoming_draft_qty" optional="hide" />
+        <field name="outgoing_draft_qty" optional="hide" />
+        <field name="virtual_draft_available" optional="hide" />
+      </button>
       <field name="active" position="after">
         <field name="name" readonly="1" />
       </field>
-      <field name="qty_to_order" position="after">
-        <button
-          name="button_recompute_qty_to_order"
-          type="object"
-          icon="fa-refresh"
-          attrs="{'invisible': [('id', '=', False)]}"
-          title="Recompute Qty to Order"
-        />
-      </field>
-      <button name="%(stock.action_orderpoint_snooze)d" position="after">
-        <button
-          name="open_form_view"
-          type="object"
-          class="o_replenish_buttons"
-          string="Open Form"
-          icon="fa-external-link"
-        />
-      </button>
     </field>
   </record>
 
@@ -44,17 +36,25 @@
             <field name="qty_forecast" />
             <field name="product_uom_name" />
           </div>
+          <label for="virtual_available" />
+          <div class="o_row">
+            <field name="virtual_available" />
+            <field name="product_uom_name" />
+          </div>
           <label for="qty_to_order" />
           <div class="o_row">
             <field name="qty_to_order" />
             <field name="product_uom_name" />
-            <button
-              name="button_recompute_qty_to_order"
-              type="object"
-              icon="fa-refresh"
-              attrs="{'invisible': [('id', '=', False)]}"
-              string="Recompute Qty to Order"
-            />
+          </div>
+          <label for="incoming_qty" />
+          <div class="o_row">
+            <field name="incoming_qty" />
+            <field name="product_uom_name" />
+          </div>
+          <label for="outgoing_qty" />
+          <div class="o_row">
+            <field name="outgoing_qty" />
+            <field name="product_uom_name" />
           </div>
         </group>
       </xpath>
