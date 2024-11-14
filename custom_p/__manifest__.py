@@ -22,6 +22,7 @@
         "purchase",
         "stock_warehouse_farm",
         "res_partner_risk_menu",
+        "purchase_order_return",
     ],
     "data": [
         "security/ir.model.access.csv",

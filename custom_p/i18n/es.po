@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-01 10:45+0000\n"
-"PO-Revision-Date: 2024-10-01 10:45+0000\n"
+"POT-Creation-Date: 2024-11-19 08:41+0000\n"
+"PO-Revision-Date: 2024-11-19 08:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:custom_p.stock_inventory_warning_wizard_view_form
 msgid "Accept"
 msgstr "Aceptar"
+
+#. module: custom_p
+#: model:ir.model,name:custom_p.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Revocación de movimiento en cuenta"
 
 #. module: custom_p
 #: model:res.groups,name:custom_p.group_picking_unlock
@@ -66,8 +71,11 @@ msgid "Customer"
 msgstr "Cliente"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_account_move_line__display_name
+#: model:ir.model.fields,field_description:custom_p.field_account_move_reversal__display_name
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__display_name
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print__display_name
+#: model:ir.model.fields,field_description:custom_p.field_purchase_order__display_name
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line__display_name
 #: model:ir.model.fields,field_description:custom_p.field_res_partner__display_name
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__display_name
@@ -77,11 +85,14 @@ msgstr "Cliente"
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory_warning_wizard__display_name
 #: model:ir.model.fields,field_description:custom_p.field_stock_picking__display_name
 msgid "Display Name"
-msgstr "Nombre a mostrar"
+msgstr "Mostrar nombre"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_account_move_line__id
+#: model:ir.model.fields,field_description:custom_p.field_account_move_reversal__id
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__id
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print__id
+#: model:ir.model.fields,field_description:custom_p.field_purchase_order__id
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line__id
 #: model:ir.model.fields,field_description:custom_p.field_res_partner__id
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__id
@@ -91,7 +102,7 @@ msgstr "Nombre a mostrar"
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory_warning_wizard__id
 #: model:ir.model.fields,field_description:custom_p.field_stock_picking__id
 msgid "ID"
-msgstr "ID (identificación)"
+msgstr "Identificador"
 
 #. module: custom_p
 #: model:ir.model,name:custom_p.model_stock_inventory
@@ -105,8 +116,16 @@ msgid "Invoice open/unpaid"
 msgstr "Factura principal abierta/impagada"
 
 #. module: custom_p
+#: model:ir.model,name:custom_p.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_account_move_line____last_update
+#: model:ir.model.fields,field_description:custom_p.field_account_move_reversal____last_update
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item____last_update
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_print____last_update
+#: model:ir.model.fields,field_description:custom_p.field_purchase_order____last_update
 #: model:ir.model.fields,field_description:custom_p.field_purchase_order_line____last_update
 #: model:ir.model.fields,field_description:custom_p.field_res_partner____last_update
 #: model:ir.model.fields,field_description:custom_p.field_sale_order____last_update
@@ -140,6 +159,11 @@ msgid "Opening Entry"
 msgstr "Asiento de apertura"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_account_move_line__out_refund_from_invoice
+msgid "Out Refund From Invoice"
+msgstr "Rectificativa de cliente desde factura"
+
+#. module: custom_p
 #: model:ir.model.fields,field_description:custom_p.field_product_pricelist_item__product_pricelist_price
 msgid "Pricelist Price"
 msgstr "Precio tarifa"
@@ -159,6 +183,11 @@ msgstr "Impresión de tarifas"
 #: model_terms:ir.ui.view,arch_db:custom_p.purchase_order_line_search
 msgid "Product Section"
 msgstr "Sección del producto"
+
+#. module: custom_p
+#: model:ir.model,name:custom_p.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
 
 #. module: custom_p
 #: model:ir.model,name:custom_p.model_purchase_order_line
@@ -234,6 +263,7 @@ msgid "Transfer"
 msgstr "Albarán"
 
 #. module: custom_p
+#: model:ir.model.fields,field_description:custom_p.field_purchase_order__update_line_qty
 #: model:ir.model.fields,field_description:custom_p.field_sale_order__update_line_qty
 msgid "Update Order Lines Qty"
 msgstr "Actualizar cantidades de las líneas"
