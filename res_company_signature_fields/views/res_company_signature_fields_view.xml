@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_company_form_inherit" model="ir.ui.view">
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/group[1]/group[2]" position="inside">
+                <field name="signature_image" />
+                <field name="stamp_image" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
