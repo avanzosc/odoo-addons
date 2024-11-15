@@ -183,6 +183,29 @@
               t-field="o.crm_driver_id.mobile"
             />
                     </div>
+                    <div t-if="o.cmr_second_driver_id" class="mt16">Second Driver:
+                        <span t-field="o.cmr_second_driver_id.name" />
+                    </div>
+                    <div t-if="o.cmr_second_driver_id.vat" class="mt16">
+                        <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                        <span t-field="o.cmr_second_driver_id.vat" />
+                    </div>
+                    <div
+            t-if="o.cmr_second_driver_id.mobile or o.cmr_second_driver_id.phone"
+            class="mt16"
+          >Phone:
+                        <span
+              t-if="o.cmr_second_driver_id.phone"
+              t-field="o.cmr_second_driver_id.phone"
+            />
+                        <span
+              t-if="o.cmr_second_driver_id.mobile and o.cmr_second_driver_id.phone"
+            > / </span>
+                        <span
+              t-if="o.cmr_second_driver_id.mobile"
+              t-field="o.cmr_second_driver_id.mobile"
+            />
+                    </div>
                     <div t-if="o.cmr_tractor_license_plate" class="mt16">
                         License Plate Head: <span
               t-field="o.cmr_tractor_license_plate"
@@ -223,10 +246,6 @@
               >
                                 <strong>Client Ref:</strong>
                                 <p class="m-0" t-field="o.sale_id.client_order_ref" />
-                            </div>
-                            <div class="col-auto col-3 mw-100 mb-2" t-if="o.origin">
-                                <t><strong t-if="o.origin">Picking Nº:</strong></t>
-                                <p class="m-0" t-if="o.origin" t-field="o.name" />
                             </div>
                         </div>
                         <table class="table table-bordered" style="font-size: 15px;">
