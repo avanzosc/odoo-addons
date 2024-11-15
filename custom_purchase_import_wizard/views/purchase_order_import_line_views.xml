@@ -154,12 +154,12 @@
                 <field
           name="purchase_requisition_id"
           optional="hide"
-          domain="[('vendor_id', '=', purchase_supplier_id)]"
+          domain="[('vendor_id', '=', purchase_supplier_id), ('state', 'not in', ('done', 'cancel'))]"
         />
                 <field
           name="purchase_requisition_line_id"
           optional="hide"
-          domain="[('vendor_id', '=', purchase_supplier_id), ('product_id', '=', purchase_product_id)]"
+          domain="[('vendor_id', '=', purchase_supplier_id), ('product_id', '=', purchase_product_id), ('state', 'not in', ('done', 'cancel'))]"
         />
                 <field name="purchase_product_cost" />
                 <field name="purchase_product_shipping_cost" />
