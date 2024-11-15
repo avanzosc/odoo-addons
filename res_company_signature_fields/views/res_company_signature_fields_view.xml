@@ -5,9 +5,35 @@
         <field name="inherit_id" ref="base.view_company_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook/page/group[1]/group[2]" position="inside">
-                <field name="signature_image" />
-                <field name="stamp_image" />
+                <field name="signature_image" widget="image" />
+                <field name="stamp_image" widget="image" />
             </xpath>
         </field>
     </record>
+
+<template id="base_signature_fields_template">
+    <div class="d-flex align-items-center justify-content-between mt32">
+        <div
+        t-if="o.company_id.signature_image"
+        class="ml64 mr4"
+        name="signature_image"
+      >
+            <div>
+                <img
+            t-att-src="image_data_uri(o.company_id.signature_image)"
+            style="max-height: 4cm; max-width: 8cm;"
+          />
+            </div>
+        </div>
+
+        <div t-if="o.company_id.stamp_image" class="ml64 mr4" name="stamp_image">
+            <div>
+                <img
+            t-att-src="image_data_uri(o.company_id.stamp_image)"
+            style="max-height: 4cm; max-width: 8cm;"
+          />
+            </div>
+        </div>
+    </div>
+</template>
 </odoo>
