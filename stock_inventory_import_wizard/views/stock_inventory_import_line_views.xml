@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="stock_inventory_import_line_view_search" model="ir.ui.view">
-        <field name="model">stock.inventory.import.line</field>
+        <field name="model">stock.quant.import.line</field>
         <field name="arch" type="xml">
             <search>
                 <field name="inventory_product_id" />
@@ -57,7 +57,7 @@
     </record>
 
     <record id="stock_inventory_import_line_view_form" model="ir.ui.view">
-        <field name="model">stock.inventory.import.line</field>
+        <field name="model">stock.quant.import.line</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -65,14 +65,12 @@
             name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error"
           />
                     <button
             name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -109,7 +107,7 @@
     </record>
 
     <record id="stock_inventory_import_line_view_tree" model="ir.ui.view">
-        <field name="model">stock.inventory.import.line</field>
+        <field name="model">stock.quant.import.line</field>
         <field name="arch" type="xml">
             <tree
         decoration-danger="state == 'error'"
@@ -145,7 +143,7 @@
     <record id="stock_inventory_lot_import_line_action" model="ir.actions.act_window">
         <field name="name">Import Inventory Lines</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">stock.inventory.import.line</field>
+        <field name="res_model">stock.quant.import.line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="stock_inventory_import_line_view_tree" />
     </record>

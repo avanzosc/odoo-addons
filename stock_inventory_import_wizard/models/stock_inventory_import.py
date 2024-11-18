@@ -8,8 +8,8 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.addons.base_import_wizard.models.base_import import convert2str
 
 
-class StockInventoryImport(models.Model):
-    _name = "stock.inventory.import"
+class StockQuantImport(models.Model):
+    _name = "stock.quant.import"
     _inherit = "base.import"
     _description = "Wizard to import inventory"
 
@@ -18,11 +18,11 @@ class StockInventoryImport(models.Model):
         return result
 
     import_inventory_id = fields.Many2one(
-        comodel_name="stock.inventory",
+        comodel_name="stock.quant",
         string="Inventory",
     )
     import_line_ids = fields.One2many(
-        comodel_name="stock.inventory.import.line",
+        comodel_name="stock.quant.import.line",
     )
     inventory_line_count = fields.Integer(
         string="# Inventory Lines",
@@ -41,7 +41,6 @@ class StockInventoryImport(models.Model):
     )
     accounting_date = fields.Datetime(
         default=_default_accounting_date,
-        string="Accounting Date",
         required=True,
     )
 
@@ -86,7 +85,7 @@ class StockInventoryImport(models.Model):
             "start_empty": True,
             "accounting_date": self.accounting_date.date(),
         }
-        inventory = self.env["stock.inventory"].create(values)
+        inventory = self.env["stock.quant"].create(values)
         inventory.action_start()
         return inventory
 
@@ -144,13 +143,13 @@ class StockInventoryImport(models.Model):
             line.create_quant()
 
 
-class StockInventoryImportLine(models.Model):
-    _name = "stock.inventory.import.line"
+class StockQuantImportLine(models.Model):
+    _name = "stock.quant.import.line"
     _inherit = "base.import.line"
     _description = "Wizard lines to import inventory lines"
 
     import_inventory_id = fields.Many2one(
-        comodel_name="stock.inventory",
+        comodel_name="stock.quant",
         related="import_id.import_inventory_id",
         store=True,
     )
@@ -161,7 +160,7 @@ class StockInventoryImportLine(models.Model):
         store=True,
     )
     import_id = fields.Many2one(
-        comodel_name="stock.inventory.import",
+        comodel_name="stock.quant.import",
     )
     action = fields.Selection(
         selection_add=[
@@ -171,7 +170,7 @@ class StockInventoryImportLine(models.Model):
     )
     inventory_line_id = fields.Many2one(
         string="Inventory Line",
-        comodel_name="stock.inventory.line",
+        comodel_name="stock.quant",
     )
     inventory_product = fields.Char(
         string="Product Name",
@@ -212,7 +211,7 @@ class StockInventoryImportLine(models.Model):
         copy=False,
     )
     inventory_lot_id = fields.Many2one(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="Lot",
         states={"done": [("readonly", True)]},
         copy=False,
@@ -224,7 +223,6 @@ class StockInventoryImportLine(models.Model):
         readonly=True,
     )
     qty_to_move = fields.Float(
-        string="Qty To Move",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -453,7 +451,7 @@ class StockInventoryImportLine(models.Model):
             ("product_id", "=", product.id),
             ("company_id", "=", self.import_id.company_id.id),
         ]
-        lots = self.env["stock.production.lot"].search(search_domain)
+        lots = self.env["stock.lot"].search(search_domain)
         if not lots:
             log_info = _(
                 "No lot with name %(lot_name)s found for product %(product_name)s."
@@ -478,7 +476,7 @@ class StockInventoryImportLine(models.Model):
         self.ensure_one()
         return (
             self.sudo()
-            .env["stock.inventory.line"]
+            .env["stock.quant"]
             .create(self._inventory_line_values(inventory))
         )
 
@@ -493,7 +491,7 @@ class StockInventoryImportLine(models.Model):
         ):
             lot, log_info = self._check_lot(self.inventory_product_id)
             if not lot:
-                lot = self.env["stock.production.lot"].create(
+                lot = self.env["stock.lot"].create(
                     {
                         "product_id": self.inventory_product_id.id,
                         "name": self.inventory_lot,

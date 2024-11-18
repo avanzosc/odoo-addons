@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="stock_inventory_import_view_tree" model="ir.ui.view">
-        <field name="model">stock.inventory.import</field>
+        <field name="model">stock.quant.import</field>
         <field name="arch" type="xml">
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
@@ -13,7 +13,7 @@
     </record>
 
     <record id="stock_inventory_import_view_form" model="ir.ui.view">
-        <field name="model">stock.inventory.import</field>
+        <field name="model">stock.quant.import</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -21,21 +21,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error,pass"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -109,27 +106,25 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
                                 <div style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
-                  >You must use this column names in order to fill the table:</p>
+                >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
                                         <li><code>Descripcion</code>: this will fill <b
-                      >Inventory Product Name</b></li>
+                    >Inventory Product Name</b></li>
                                         <li><code>Codigo</code>: this will fill <b
-                      >Inventory Product Code</b></li>
+                    >Inventory Product Code</b></li>
                                         <li><code>Ubicacion</code>: this will fill <b
-                      >Inventory Location</b></li>
+                    >Inventory Location</b></li>
                                         <li><code>Lote</code>: this will fill <b
-                      >Inventory Lot</b></li>
+                    >Inventory Lot</b></li>
                                         <li><code>Cantidad</code>: this will fill <b
-                      >Inventory Product Quantity</b></li>
+                    >Inventory Product Quantity</b></li>
                       <li><code>CantidadMovimiento</code>: this will fill <b
-                      >Move Product Quantity</b></li>
+                    >Move Product Quantity</b></li>
                                     </ul>
                                 </div>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
@@ -143,7 +138,7 @@
     </record>
 
     <record id="stock_inventory_import_view_search" model="ir.ui.view">
-        <field name="model">stock.inventory.import</field>
+        <field name="model">stock.quant.import</field>
         <field name="arch" type="xml">
             <search>
                 <field name="file_date" />
@@ -177,7 +172,7 @@
     <record id="stock_inventory_import_action" model="ir.actions.act_window">
         <field name="name">Import Inventory</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">stock.inventory.import</field>
+        <field name="res_model">stock.quant.import</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="stock_inventory_import_view_tree" />
     </record>
