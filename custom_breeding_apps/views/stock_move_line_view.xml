@@ -113,6 +113,7 @@
                 <attribute
           name="attrs"
         >{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.picking_type_code', '=', 'outgoing')]}</attribute>
+                <attribute name="optional">show</attribute>
             </field>
             <field name="package_id" position="attributes">
                 <attribute
