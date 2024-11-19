@@ -142,6 +142,19 @@
                                <span t-field="doc.crm_driver_id.phone" />
                            </span>
                        </p>
+                       <strong t-if="doc.cmr_second_driver_id">Second Driver</strong>
+                       <p class="m-0" t-if="doc.cmr_second_driver_id">
+                           <span>
+                               <span>Name:</span>
+                               <span t-field="doc.cmr_second_driver_id.name" />
+                           </span>
+                       </p>
+                       <p class="m-0" t-if="doc.cmr_second_driver_id.vat">
+                           <span>
+                               <span>VAT:</span>
+                               <span t-field="doc.cmr_second_driver_id.vat" />
+                           </span>
+                       </p>
                    </div>
                    <div class="col-auto col-3 mw-100 mb-2; text-right">
                        <strong>License Plates</strong>
@@ -160,6 +173,11 @@
                    </div>
                    <div class="col-auto col-3 mw-100 mb-2; text-right">
                        <strong>Signature</strong>
+                       <br />
+                       <br />
+                       <br />
+                       <br />
+                       <strong t-if="doc.cmr_second_driver_id">Signature</strong>
                    </div>
                 </div>
                 <div class="col-14">

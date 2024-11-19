@@ -7,6 +7,7 @@ Account asset line menu
 =======================
 
 * New menu "Assets lines".
+* Take related fields from assets to assets lines.
 
 Bug Tracker
 ===========
