@@ -1,9 +1,9 @@
-# Copyright 2023 Berezi Amubieta - AvanzOSC
+# Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Cleaning Database Operations",
-    "version": "14.0.1.1.0",
-    "category": "Custom",
+    "version": "16.0.1.0.0",
+    "category": "Generic Modules",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
@@ -12,16 +12,12 @@
         "sale",
         "purchase",
         "account",
-        "analytic",
-        "mrp",
-        "purchase_order_shipping_method",
         "account_payment_order",
-        "stock_location_warehouse",
-        "account_asset_management",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/cleaning_database_view.xml",
+        "wizards/cleaning_database_warning_wizard_view.xml",
     ],
     "installable": True,
 }

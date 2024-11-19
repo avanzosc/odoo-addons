@@ -1,4 +1,4 @@
-# Copyright 2023 Berezi Amubieta - AvanzOSC
+# Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 
@@ -17,6 +17,24 @@ class CleaningDatabase(models.Model):
         required=True,
     )
 
+    def action_open_delete_warning(self):
+        wiz_obj = self.env["cleaning.database.warning.wizard"]
+        vals = {}
+        if "default_object_to_delete" in self.env.context:
+            vals = {"object_to_delete": self.env.context["default_object_to_delete"]}
+        wiz = wiz_obj.with_context(active_id=self.id).create(vals)
+        context = self.env.context.copy()
+        return {
+            "name": _("Cleaning Database Warning"),
+            "type": "ir.actions.act_window",
+            "res_model": "cleaning.database.warning.wizard",
+            "view_type": "form",
+            "view_mode": "form",
+            "res_id": wiz.id,
+            "target": "new",
+            "context": context,
+        }
+
     def action_delete_stock_operations(self):
         self.env.cr.execute(
             "DELETE FROM stock_move_line WHERE company_id in %s",
@@ -33,19 +51,15 @@ class CleaningDatabase(models.Model):
         self.env.cr.execute(
             "DELETE FROM stock_quant "
             "WHERE company_id in %s OR lot_id in (select l.id "
-            "                      from   stock_production_lot as l"
+            "                      from   stock_lot as l"
             "                      where  l.id = stock_quant.lot_id "
             "                        and  l.company_id in %s)",
             [tuple(self.company_ids.ids), tuple(self.company_ids.ids)],
         )
-        self.env.cr.execute(
-            "DELETE FROM stock_inventory WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
 
     def action_delete_stock_production_lot(self):
         self.env.cr.execute(
-            "DELETE FROM stock_production_lot WHERE company_id in %s",
+            "DELETE FROM stock_lot WHERE company_id in %s",
             [tuple(self.company_ids.ids)],
         )
 
@@ -75,21 +89,9 @@ class CleaningDatabase(models.Model):
             [tuple(self.company_ids.ids)],
         )
 
-    def action_delete_analytic_operations(self):
-        self.env.cr.execute(
-            "DELETE FROM account_analytic_line WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
+    def action_delete_accounting_operations(self):
         self.env.cr.execute(
             "DELETE FROM account_partial_reconcile WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
-        self.env.cr.execute(
-            "DELETE FROM account_payment_order WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
-        self.env.cr.execute(
-            "DELETE FROM account_payment_line WHERE company_id in %s",
             [tuple(self.company_ids.ids)],
         )
         self.env.cr.execute(
@@ -105,35 +107,11 @@ class CleaningDatabase(models.Model):
             [tuple(self.company_ids.ids)],
         )
         self.env.cr.execute(
-            "DELETE FROM account_asset_line WHERE company_id in %s",
+            "DELETE FROM account_payment_order WHERE company_id in %s",
             [tuple(self.company_ids.ids)],
         )
         self.env.cr.execute(
-            "DELETE FROM account_asset WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
-        self.env.cr.execute(
-            "DELETE FROM account_check_deposit WHERE company_id in %s",
-            [tuple(self.company_ids.ids)],
-        )
-
-    def action_delete_transport_operations(self):
-        self.env.cr.execute(
-            "DELETE FROM transport_carrier_lines_to_invoice WHERE company_id " "in %s",
-            [tuple(self.company_ids.ids)],
-        )
-
-    def action_delete_mrp_operations(self):
-        self.env.cr.execute(
-            "DELETE FROM mrp_workorder "
-            "WHERE production_id in (select p.id "
-            "                        from mrp_production as p "
-            "                        where p.id = mrp_workorder.production_id "
-            "                          and p.company_id in %s)",
-            [tuple(self.company_ids.ids)],
-        )
-        self.env.cr.execute(
-            "DELETE FROM mrp_production WHERE company_id in %s",
+            "DELETE FROM account_payment_line WHERE company_id in %s",
             [tuple(self.company_ids.ids)],
         )
 
@@ -149,6 +127,6 @@ class CleaningDatabase(models.Model):
 
     @api.model
     def create(self, values):
-        name = _("Creation date: {}".format(fields.Datetime.now()))
+        name = _("Creation date: {}").format(fields.Datetime.now())
         values["name"] = name
         return super().create(values)
