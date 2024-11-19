@@ -4,11 +4,10 @@
         <div name="company_address" position="after">
             <div
         name="out_invoice_image"
-        t-if="company.out_invoice_image and o._name == 'account.move' and o.move_type in ('out_invoice','out_refund')"
+        t-if="company.out_invoice_image and o and o._name == 'account.move' and o.move_type in ('out_invoice', 'out_refund')"
         style="position: absolute; top: 52px; left: 1190px;"
       >
                 <img
-          t-if="company.out_invoice_image"
           t-att-src="image_data_uri(company.out_invoice_image)"
           style="max-height: 200px;"
         />
