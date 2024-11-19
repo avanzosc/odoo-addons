@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-28 12:52+0000\n"
-"PO-Revision-Date: 2024-10-28 12:52+0000\n"
+"POT-Creation-Date: 2024-11-15 08:58+0000\n"
+"PO-Revision-Date: 2024-11-15 08:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,7 @@ msgstr ""
 "- Página:\n"
 "                    <span class=\"page\"/> / \n"
 "                    <span class=\"topage\"/>"
+
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
 msgid ""
@@ -781,7 +782,7 @@ msgstr "Descripción"
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Difference"
-msgstr "Diferencia"
+msgstr "Deferencia"
 
 #. module: batch_liquidation_report
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_ir_actions_report__display_name
@@ -848,7 +849,7 @@ msgstr "Coste de engorde"
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Feed Amount"
-msgstr "Importe FEEP"
+msgstr "Importe pienso"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
@@ -1026,6 +1027,11 @@ msgstr "Informar acción"
 #: model:ir.actions.report,name:batch_liquidation_report.action_sale_order_ticket
 msgid "Sale Order Ticket"
 msgstr "Ticket"
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "Second Driver:"
+msgstr "Segundo conductor:"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost

@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_return
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-05 12:31+0000\n"
+"PO-Revision-Date: 2024-11-05 12:31+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_return
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "First you have to do the delivery."
+msgstr "Primero tiene que hacer la recepción."
+
+#. module: purchase_order_return
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order__id
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: purchase_order_return
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: purchase_order_return
+#: model:ir.model,name:purchase_order_return.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_order_return
+#: model:ir.model,name:purchase_order_return.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea de pedido de compra"
+
+#. module: purchase_order_return
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__product_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: purchase_order_return
+#: model_terms:ir.ui.view,arch_db:purchase_order_return.purchase_order_form
+msgid "Return Picking"
+msgstr "Albarán de devolución"
+
+#. module: purchase_order_return
+#: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__return_qty
+msgid "Return Qty"
+msgstr "A devolver"
+
+#. module: purchase_order_return
+#: model_terms:ir.ui.view,arch_db:purchase_order_return.purchase_order_form
+msgid "Return Qty:"
+msgstr "A devolver:"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "The product {} has not lot"
+msgstr "El producto {} no tiene lote"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must enter the picking type."
+msgstr "Debe meter el tipo de operación"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must enter the return picking type of picking type."
+msgstr "Debe meter el tipo de operación de devolución del tipo de operación del pedido de compra"
