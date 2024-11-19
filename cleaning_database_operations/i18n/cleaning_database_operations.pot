@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 09:59+0000\n"
-"PO-Revision-Date: 2024-05-16 09:59+0000\n"
+"POT-Creation-Date: 2024-11-28 13:45+0000\n"
+"PO-Revision-Date: 2024-11-28 13:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,29 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid ""
-"Account Analytic Line, Account Partial Reconcile, Account Move Line, Account"
-" Move, Account Payment Order."
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__accounting
+msgid "Accounting"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Accounting:"
+msgid ""
+"Accounting: Account Partial Reconcile, Account Move Line, Account Move, "
+"Account Bank Statement, Account Payment Order, Account Payment Line."
+msgstr ""
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+#, python-format
+msgid ""
+"Are you sure you want to delete the entire operation? This action will be "
+"irreversible"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "Cancel"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -46,13 +60,15 @@ msgid "Cleaning Database Operations"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Lots"
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "Cleaning Database Warning"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning MRP Operations"
+msgid "Cleaning Lots"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -67,17 +83,7 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Sequences"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Cleaning Stock Operations"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Transport Operations"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -92,17 +98,24 @@ msgid "Companies"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "Continue"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__create_uid
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__create_date
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#. odoo-python
 #: code:addons/cleaning_database_operations/models/cleaning_database.py:0
 #, python-format
 msgid "Creation date: {}"
@@ -115,84 +128,94 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__display_name
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__id
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__id
 msgid "ID"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Inventory:"
+msgid ""
+"Inventory: Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock "
+"Valuation Layer, Stock Production Lot."
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database____last_update
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__write_uid
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__write_date
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "MRP Workorder, MRP Production"
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__lot
+msgid "Lot"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__object_to_delete
+msgid "Object To Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__purchase
+msgid "Purchase"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Manufacturing:"
+msgid "Purchases: Purchase Order Line, Purchase Order."
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Others"
+msgid "Reset Sequences"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__sale
+msgid "Sale"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Purchase Order Line, Purchase Order."
+msgid "Sales: Sale Order Line, Sale Order."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__sequences
+msgid "Sequences"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Purchases:"
+msgid "Squence: Reset sequences."
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Reset sequences"
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__stock
+msgid "Stock"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Sale Order Line, Sale Order."
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Sales:"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Squence"
-msgstr ""
-
-#. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid ""
-"Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation "
-"Layer, Stock Inventory, Stock Production Lot."
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__text
+msgid "Text"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -201,6 +224,16 @@ msgid "This will delete the following objects"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Transport Carrier Lines To Invoice"
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__valuation
+msgid "Valuation Layer"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model,name:cleaning_database_operations.model_cleaning_database_warning_wizard
+msgid "Wizard for warning when cleaning database operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "or"
 msgstr ""

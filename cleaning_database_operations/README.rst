@@ -6,10 +6,13 @@
 Cleaning Database Operations
 ============================
 
-Cleaning all the database operations: Stock Move Lines, Stock Moves, Pickings,
-Sale Orders, Sale Order Lines, Purchase Orders, Purchase Order Lines,
-Account Moves, Account Move Lines, Account Move Reconcile, Stock Quants,
-Stock Valuation Layers and Account Analytic Lines.
+* Cleaning all the database operations of selected companies: 
+  Stock Move Lines, Stock Moves, Pickings, Quants, Lots, 
+  Valuation Layers, Sale Orders, Sale Order Lines, Purchase Orders, 
+  Purchase Order Lines, Account Partial Reconcile, Account Moves, 
+  Account Move Lines, Account Bank Statement, Account Payment Order and 
+  Account Payment Line.
+* Restart all sequences.
 
 Bug Tracker
 ===========

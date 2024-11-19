@@ -6,122 +6,86 @@
         <field name="model">cleaning.database</field>
         <field name="arch" type="xml">
             <form string="Cleaning Database">
-                <header>
-                </header>
                 <sheet>
-                    <div class="oe_title">
-                        <h1>
-                            <field name="name" readonly="1" />
-                        </h1>
+                    <div style="margin-top: 4px;">
+                        <h3>This will delete the following objects</h3>
+                        <p>Sales: Sale Order Line, Sale Order.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Sale Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'sale'}"
+              />
+                        </p>
+                        <p>Purchases: Purchase Order Line, Purchase Order.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Purchase Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'purchase'}"
+              />
+                        </p>
+                        <p
+            >Accounting: Account Partial Reconcile, Account Move Line, Account Move, Account Bank Statement, Account Payment Order, Account Payment Line.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Accounting Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'accounting'}"
+              />
+                        </p>
+                        <p
+            >Inventory: Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Production Lot.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Valuation Layers"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'valuation'}"
+              />
+                        </p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Stock Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'stock'}"
+              />
+                        </p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Lots"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'lot'}"
+              />
+                        </p>
+                        <p>Squence: Reset sequences.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Reset Sequences"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'sequences'}"
+              />
+                        </p>
                     </div>
-                    <group>
-                        <group>
-                            <div style="margin-top: 4px;">
-                                <h3>This will delete the following objects</h3>
-                                <p>Sales:</p>
-                                <p>Sale Order Line, Sale Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_sale_operations"
-                    type="object"
-                    string="Cleaning Sale Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Purchases:</p>
-                                <p>Purchase Order Line, Purchase Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_purchase_operations"
-                    type="object"
-                    string="Cleaning Purchase Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Accounting:</p>
-                                <p
-                >Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_analytic_operations"
-                    type="object"
-                    string="Cleaning Accounting Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Manufacturing:</p>
-                                <p>MRP Workorder, MRP Production</p>
-                                <p>
-                                    <button
-                    name="action_delete_mrp_operations"
-                    type="object"
-                    string="Cleaning MRP Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Inventory:</p>
-                                <p
-                >Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory, Stock Production Lot.</p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_valuation_operations"
-                    type="object"
-                    string="Cleaning Valuation Layers"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_operations"
-                    type="object"
-                    string="Cleaning Stock Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_production_lot"
-                    type="object"
-                    string="Cleaning Lots"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Others</p>
-                                <p>Transport Carrier Lines To Invoice</p>
-                                <p>
-                                    <button
-                    name="action_delete_transport_operations"
-                    type="object"
-                    string="Cleaning Transport Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Squence</p>
-                                <p>Reset sequences</p>
-                                <p>
-                                    <button
-                    name="action_delete_sequance_operations"
-                    type="object"
-                    string="Cleaning Sequences"
-                    class="oe_highlight"
-                  />
-                                </p>
-                            </div>
-                        </group>
-                        <group>
-                            <separator string="Companies" colspan="4" />
-                            <field
-                name="company_ids"
-                nolabel="1"
-                colspan="4"
-                required="1"
-              >
-                                <tree delete="0" create="0" editable="top">
-                                    <field name="name" readonly="1" />
-                                </tree>
-                            </field>
-                        </group>
-                    </group>
+                    <separator string="Companies" colspan="4" />
+                    <field name="company_ids" nolabel="1" colspan="4" required="1">
+                        <tree delete="0" create="0" editable="top">
+                            <field name="name" readonly="1" />
+                        </tree>
+                    </field>
                 </sheet>
             </form>
         </field>
