@@ -79,36 +79,15 @@ class StockReturnPicking(models.TransientModel):
             for move in return_picking.move_ids_without_package:
                 move.state = "draft"
         return_picking.do_unreserve()
-        return_picking.button_force_done_detailed_operations()
-        for line in self.picking_id.move_line_ids_without_package:
-            if line.lot_id:
-                return_movelines = return_picking.move_line_ids_without_package
-                return_line = return_movelines.filtered(
-                    lambda c: c.product_id == line.product_id
-                    and c.lot_id == line.lot_id
+        for move in return_picking.move_ids_without_package:
+            move.with_context(prefetch_fields=False).mapped("move_line_ids").unlink()
+            move_line_obj = self.env["stock.move.line"]
+            for line in move.origin_returned_move_id.move_line_ids:
+                return_move_line = move_line_obj.create(move._prepare_move_line_vals())
+                return_move_line.write(
+                    {
+                        "lot_id": line.lot_id.id,
+                        "qty_done": line.qty_done,
+                    }
                 )
-                if return_line:
-                    continue
-                return_line = return_movelines.filtered(
-                    lambda c: c.product_id == line.product_id and not (c.lot_id)
-                )
-                if return_line:
-                    return_line[:1].write(
-                        {
-                            "lot_id": line.lot_id.id,
-                            "qty_done": line.qty_done,
-                        }
-                    )
-                else:
-                    return_line = return_movelines.filtered(
-                        lambda c: c.product_id == line.product_id
-                    )
-                    if return_line:
-                        new_return_line = return_line[:1].copy()
-                        new_return_line.write(
-                            {
-                                "lot_id": line.lot_id.id,
-                                "qty_done": line.qty_done,
-                            }
-                        )
         return new_picking, picking_type_id
