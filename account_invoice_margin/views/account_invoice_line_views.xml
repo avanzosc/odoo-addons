@@ -14,7 +14,7 @@
         </field>
     </record>
 
-    <record id="view_invoice_tree_margin" model="ir.ui.view">
+    <record id="view_invoice_tree_margin_new" model="ir.ui.view">
         <field name="name">account.move.tree.margin</field>
         <field name="model">account.move.line</field>
         <field name="inherit_id" ref="account.view_move_line_tree" />
@@ -54,5 +54,133 @@
                 <field name="margin_percent" />
             </xpath>
         </field>
+    </record>
+
+    <record id="view_invoice_line_pivot_margin_inherit" model="ir.ui.view">
+        <field name="name">account.move.line.pivot.margin.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_pivot" />
+        <field name="arch" type="xml">
+            <xpath expr="//pivot" position="inside">
+                <field name="subtotal_cost" type="measure" widget="float" />
+                <field name="margin" type="measure" widget="float" />
+                <field name="margin_percent" type="measure" widget="float" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- CREATE TREE VIEW -->
+
+
+    <record id="view_invoice_tree_margin" model="ir.ui.view">
+        <field name="name">account.move.line.tree.margin</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="sequence" widget="handle" />
+                <field name="move_name" />
+                <field
+          name="product_id"
+          optional="show"
+          domain="context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt')                                                     and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                     or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]                                                "
+        />
+                <field name="name" widget="section_and_note_text" />
+                <field
+          name="account_id"
+          groups="account.group_account_readonly"
+          options="{'no_create': True}"
+          domain="[('deprecated', '=', False), ('user_type_id.type', 'not in', ('receivable', 'payable')), ('company_id', '=', parent.company_id), ('is_off_balance', '=', False)]"
+          attrs="{'required': [('display_type', '=', False)]}"
+        />
+                <field
+          name="analytic_account_id"
+          domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+          groups="analytic.group_analytic_accounting"
+          optional="show"
+        />
+                <field
+          name="analytic_tag_ids"
+          domain="['|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+          groups="analytic.group_analytic_tags"
+          optional="show"
+          widget="many2many_tags"
+        />
+                <field name="quantity" />
+                <field name="product_uom_category_id" invisible="1" />
+                <field
+          name="product_uom_id"
+          string="UoM"
+          groups="uom.group_uom"
+          optional="show"
+        />
+                <field name="price_unit" string="Price" />
+                <field name="discount" string="Disc.%" optional="hide" />
+                <field
+          name="tax_ids"
+          widget="many2many_tags"
+          domain="[('type_tax_use', '=?', parent.invoice_filter_type_domain), ('company_id', '=', parent.company_id)]"
+          context="{'append_type_to_tax_name': not parent.invoice_filter_type_domain}"
+          options="{'no_create': True}"
+          optional="show"
+        />
+                <field
+          name="price_subtotal"
+          string="Subtotal"
+          groups="account.group_show_line_subtotals_tax_excluded"
+        />
+                <field
+          name="price_total"
+          string="Total"
+          groups="account.group_show_line_subtotals_tax_included"
+        />
+
+                <!-- Others fields -->
+                <field name="partner_id" invisible="1" />
+                <field name="amount_currency" invisible="1" />
+                <field name="currency_id" invisible="1" />
+                <field name="debit" invisible="1" />
+                <field name="credit" invisible="1" />
+                <field name="date" invisible="1" />
+                <field name="date_maturity" invisible="1" />
+
+                <field name="tax_line_id" invisible="1" />
+                <field name="tax_repartition_line_id" invisible="1" />
+                <field name="tax_tag_ids" invisible="1" />
+                <field name="tax_base_amount" invisible="1" />
+                <field name="tax_exigible" invisible="1" />
+                <field name="company_id" invisible="1" />
+                <field name="company_currency_id" invisible="1" />
+                <field name="recompute_tax_line" invisible="1" force_save="1" />
+                <field name="display_type" force_save="1" invisible="1" />
+                <field name="is_rounding_line" invisible="1" />
+                <field name="exclude_from_invoice_tab" invisible="1" />
+                <field name="account_internal_type" invisible="1" />
+                <field name="account_internal_group" invisible="1" />
+
+
+                <field name="product_cost" optional="hide" />
+                <field name="subtotal_cost" optional="show" />
+                <field name="margin" optional="show" />
+                <field name="margin_percent" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_account_move_line_margin" model="ir.actions.act_window">
+        <field name="name">Invoice Lines (with Margin)</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_invoice_tree_margin" />
+        <field name="target">current</field>
+        <field name="domain">[]</field>
+    </record>
+
+    <record id="account_move_line_menu_margin" model="ir.ui.menu">
+        <field name="name">Invoice Lines with Margin</field>
+        <field name="parent_id" ref="account.menu_finance_entries" />
+        <field name="action" ref="action_account_move_line_margin" />
+        <field name="sequence">10</field>
     </record>
 </odoo>

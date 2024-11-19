@@ -2,9 +2,9 @@
    :target: https://opensource.org/licenses/LGPL-3.0
    :alt: License: LGPL-3
 
-===========================================
+======================
 Account Invoice Margin
-===========================================
+======================
 
 Overview
 ========
