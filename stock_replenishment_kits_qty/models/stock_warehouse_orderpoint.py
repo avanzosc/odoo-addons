@@ -1,8 +1,4 @@
-import logging
-
-from odoo import fields, models
-
-_logger = logging.getLogger(__name__)
+from odoo import api, fields, models
 
 
 class StockReplenishment(models.Model):
@@ -10,27 +6,57 @@ class StockReplenishment(models.Model):
 
     qty_in_kits = fields.Float(
         string="Qty Kit",
-        related="product_id.qty_in_kits",
+        compute="_compute_qty_in_kits",
         readonly=True,
+        store=True,
     )
+
+    count_component_kit = fields.Integer(
+        related="product_id.product_tmpl_id.count_component_kit",
+    )
+
+    @api.depends(
+        "product_id.product_tmpl_id.basket_lines",
+        "product_id.product_tmpl_id.bom_line_ids.product_qty",
+        "product_id.product_tmpl_id.bom_line_ids.product_uom_id",
+    )
+    def _compute_qty_in_kits(self):
+        for orderpoint in self:
+            product = orderpoint.product_id
+            qty_in_kits = 0.0
+
+            product.product_tmpl_id._compute_basket_lines()
+            product.product_tmpl_id._compute_count_component_kit()
+
+            for bom_line in product.basket_lines:
+                parent_product_tmpl = bom_line.bom_id.product_tmpl_id
+
+                sale_order_lines = self.env["sale.order.line"].search(
+                    [
+                        ("product_id.product_tmpl_id", "=", parent_product_tmpl.id),
+                        ("order_id.state", "in", ["draft", "sent"]),
+                    ]
+                )
+
+                total_sale_line_qty = sum(sale_order_lines.mapped("product_uom_qty"))
+                qty_in_kits += total_sale_line_qty * bom_line.product_qty
+
+            orderpoint.qty_in_kits = qty_in_kits
+
+    def button_calculate_qty_in_kits(self):
+        self._compute_qty_in_kits()
+        return True
 
     def button_assign_qty_in_orderpoint(self):
         for orderpoint in self:
-            product = orderpoint.product_id
-            orderpoint.qty_to_order = (
-                product.qty_in_kits
+            qty_to_order = (
+                orderpoint.qty_in_kits
                 + orderpoint.outgoing_qty2
                 + orderpoint.outgoing_qty
-                - (orderpoint.qty_on_hand + orderpoint.incoming_qty)
-            )
-
-    def button_calculate_qty_in_kits(self):
-        for orderpoint in self:
-            try:
-                orderpoint.product_id.button_calculate_qty_in_kits()
-            except Exception as e:
-                _logger.error(
-                    "Error calculating qty in kits for product %s: %s",
-                    orderpoint.product_id.name,
-                    e,
+                - (
+                    orderpoint.qty_on_hand
+                    + orderpoint.incoming_qty
+                    + orderpoint.incoming_qty2
                 )
+            )
+            orderpoint.qty_to_order = qty_to_order
