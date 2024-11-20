@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_invoice_document"
+    inherit_id="account_invoice_report_grouped_by_picking.report_invoice_document"
+  >
+        <span t-field="picking.name" position="after">
+            <t t-if="picking.batch_id">
+                <span>Batch Transfer:</span>
+                <span t-field="picking.batch_id.name" />
+            </t>
+        </span>
+    </template>
+</odoo>

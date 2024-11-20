@@ -4,10 +4,6 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
         <field name="arch" type="xml">
-            <field name="company_id" position="after">
-                <field name="in_progress" invisible="1" />
-                <field name="is_done" invisible="1" />
-            </field>
             <field name="scheduled_date" position="after">
                 <field name="num_pickings_confirmed" />
                 <field name="num_pickings_assigned" />
