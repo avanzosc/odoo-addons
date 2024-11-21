@@ -43,12 +43,12 @@
     inherit_id="stock.stock_report_delivery_aggregated_move_lines"
   >
         <xpath expr="//td[1]" position="after">
-            <td class="text-center" name="move_line_aggregated_boxes_sacks">
-                <t
-          t-if="o.picking_type_id.code == 'outgoing' and aggregated_lines[line]['boxes_sacks']"
-        >
-                    <span t-esc="aggregated_lines[line]['boxes_sacks']" />
-                </t>
+            <td
+        class="text-center"
+        name="move_line_aggregated_boxes_sacks"
+        t-if="o.picking_type_id.code == 'outgoing' and aggregated_lines[line]['boxes_sacks']"
+      >
+                <span t-esc="aggregated_lines[line]['boxes_sacks']" />
             </td>
         </xpath>
     </template>

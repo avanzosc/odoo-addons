@@ -151,3 +151,21 @@ class StockMoveLine(models.Model):
                 self.product_packaging_qty = self.palet_qty * line.palet_qty
         elif self.no_update_palet_qty:
             self.no_update_palet_qty = False
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            move_id = vals.get("move_id", False) if "move_id" in vals else False
+            if move_id and "product_packaging_id" not in vals:
+                move = self.env["stock.move"].browse(move_id)
+                packaging = move.product_packaging_id
+                if packaging:
+                    vals["product_packaging_id"] = packaging.id
+                    reserved_qty = (
+                        vals.get("reserved_uom_qty")
+                        if "reserved_uom_qty" in vals
+                        else 0.0
+                    )
+                    if reserved_qty:
+                        vals["product_packaging_qty"] = reserved_qty / packaging.qty
+        return super().create(vals_list)
