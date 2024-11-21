@@ -6,8 +6,8 @@ class ProductProduct(models.Model):
 
     product_category = fields.Many2one(
         "product.category",
-        string="Product Category",
+        string="Variant Category",
         store=True,
         readonly=False,
-        help="Product Category derived from the template",
+        help="Variant Category derived from the template",
     )
