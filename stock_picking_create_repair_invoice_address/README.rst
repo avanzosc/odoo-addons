@@ -2,15 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-==================================
-Stock move line product lot reader
-==================================
+===========================================
+Stock picking create repair invoice address
+===========================================
 
-* In detailed operations of pickings new field "Reader", to read with a reader
-  the "product", or "product lot", separated by a space.
-* The product will be searched for by the "Internal Reference" field. If the
-  product is not found, and it is an incoming delivery note, it will be
-  searched in supplierinfo by the Vendor Product Code field.
+* When create the repair order, pass the invoice address from the sales order
+  to the repair order.
 
 Bug Tracker
 ===========
@@ -28,5 +25,5 @@ Credits
 Contributors
 ------------
 
+* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
-* Ana Juaristi <anajuaristi@avanzosc.es>
