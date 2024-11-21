@@ -9,7 +9,7 @@ class MRPBomLine(models.Model):
         store=True,
     )
 
-    @api.depends("product_tmpl_id.is_basket")
+    @api.depends("bom_id.product_tmpl_id.is_basket")
     def _compute_is_basket(self):
         for line in self:
             line.is_basket = line.bom_id.product_tmpl_id.is_basket
