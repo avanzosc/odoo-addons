@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 09:35+0000\n"
-"PO-Revision-Date: 2024-07-01 09:35+0000\n"
+"POT-Creation-Date: 2024-09-18 11:53+0000\n"
+"PO-Revision-Date: 2024-09-18 11:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import__account_asset_count
 msgid "# Account Asset"
 msgstr "# Activos"
+
+#. module: account_asset_import_wizard
+#: model_terms:ir.ui.view,arch_db:account_asset_import_wizard.account_asset_line_import_view_form
+msgid ""
+"<code>Account Analytic</code>: this will fill <b>Asset Account Analytic</b>"
+msgstr ""
+"<code>Account Analytic</code>: esto rellenará la <b>Cuenta analítica de la "
+"amortización</b>"
 
 #. module: account_asset_import_wizard
 #: model_terms:ir.ui.view,arch_db:account_asset_import_wizard.account_asset_line_import_view_form
@@ -63,6 +71,12 @@ msgstr ""
 msgid "<code>Reference</code>: this will fill <b>Reference of asset</b>"
 msgstr ""
 "<code>Reference</code>: esto rellenará la <b>Referencia del activo</b>"
+
+#. module: account_asset_import_wizard
+#: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import_line__account_analytic
+#: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import_line__account_analytic_id
+msgid "Account Analytic"
+msgstr "Cuenta analítica"
 
 #. module: account_asset_import_wizard
 #: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import_line__account_asset_id
@@ -203,10 +217,24 @@ msgstr "Registro de errores"
 #. module: account_asset_import_wizard
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
+msgid "Error: Account analytic not found."
+msgstr "Error: Cuenta analítica no encontrada."
+
+#. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#, python-format
+msgid "Error: More than one account analytic found."
+msgstr "Error: Más de una cuenta analítica encontrada."
+
+#. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#, python-format
 msgid "Error: More than one asset found."
 msgstr "Error: Más de un activo encontrado."
 
 #. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "Error: More than one profile found."
@@ -214,11 +242,13 @@ msgstr "Error: Más de una categoría encontrada."
 
 #. module: account_asset_import_wizard
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "Error: Profile not found found."
 msgstr "Error: Categoría no encontrada."
 
 #. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "Error: Some field is missing to create the asset."
@@ -226,11 +256,13 @@ msgstr "Error: Falta algún campo obligatorio para crear el activo."
 
 #. module: account_asset_import_wizard
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "Error: The asset is not in draft state."
 msgstr "Error: El activo no está en estado borrador."
 
 #. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "Error: The date can't be before than the asset date start."
@@ -522,6 +554,8 @@ msgstr ""
 #. module: account_asset_import_wizard
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid ""
 "The sum of the amount of the same asset has to be the same as the "
@@ -533,11 +567,14 @@ msgstr ""
 #. module: account_asset_import_wizard
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "There are lines with with errors for the same asset."
 msgstr "Hay líneas del mismo activo con errores."
 
 #. module: account_asset_import_wizard
+#: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #: code:addons/account_asset_import_wizard/models/account_asset_line_import.py:0
 #, python-format
 msgid "To create the asset, the name is required."
@@ -557,6 +594,11 @@ msgstr "Mensajes no leídos"
 #: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr "Contador de mensajes no leídos"
+
+#. module: account_asset_import_wizard
+#: model:ir.model.fields,field_description:account_asset_import_wizard.field_account_asset_line_import__update_data
+msgid "Update Data"
+msgstr "Actualizar información"
 
 #. module: account_asset_import_wizard
 #: model_terms:ir.ui.view,arch_db:account_asset_import_wizard.account_asset_line_import_line_view_form

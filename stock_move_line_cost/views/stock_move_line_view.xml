@@ -12,13 +12,13 @@
           name="standard_price"
           optional="show"
           force_save="1"
-          attrs="{'column_invisible': [('parent.picking_type_code', 'not in', ('internal', 'incoming'))]}"
+          attrs="{'column_invisible': [('parent.picking_type_code', 'not in', ('internal', 'incoming'))], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
         />
                 <field
           name="amount"
           optional="show"
           force_save="1"
-          attrs="{'column_invisible': [('parent.picking_type_code', 'not in', ('internal', 'incoming'))]}"
+          attrs="{'column_invisible': [('parent.picking_type_code', 'not in', ('internal', 'incoming'))], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
           sum="Total Amount"
         />
             </field>

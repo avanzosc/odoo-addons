@@ -21,7 +21,6 @@ class RepairOrder(models.Model):
         store=True,
         related="lot_id.warranty_repair_date",
     )
-    tag_ids = fields.Many2many(required=True)
 
     @api.onchange("lot_expiration_date", "lot_warranty_repair_date")
     def onchange_expiration_warranty_repair_date(self):

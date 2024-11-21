@@ -33,8 +33,4 @@ class RepairFee(models.Model):
             and x.repair_id.sale_order_id
             and x.repair_id.sale_order_id.is_repair
         ):
-            fee.repair_id.price_in_sale_budget = (
-                0
-                if not fee.repair_id.product_qty
-                else fee.repair_id.amount_untaxed / fee.repair_id.product_qty
-            )
+            fee.repair_id.price_in_sale_budget = fee.repair_id.amount_untaxed

@@ -6,12 +6,12 @@
 Stock usability
 ===============
 
-* In "Supplier Minimum Inventory Rule" new field
-     "Pending receipt from supplier".
-* In "Replenishment" and "Reordering rules" menus, show the fields:
-  "Quantity On Hand", "Incoming", "Outgoing", "Consumed last twelve months",
-  "Months with stock", and "Pending receipt from supplier".
+New fields in Minimum Inventory Rules:
 
+* Quantity On Hand
+* Incoming
+* Outgoing
+* Pending receipt from supplier
 
 Bug Tracker
 ===========

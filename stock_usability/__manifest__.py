@@ -11,6 +11,7 @@
         "stock",
         "purchase_stock",
         "product_usability",
+        "product_supplierinfo_usability",
     ],
     "data": [
         "views/stock_warehouse_orderpoint_views.xml",
