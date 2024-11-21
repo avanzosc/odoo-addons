@@ -26,6 +26,7 @@ class SaleOrderLine(models.Model):
                 and line.return_qty
             ):
                 line.product_uom_qty = line.qty_delivered
+                line._compute_qty_amount_pending_delivery()
             if (
                 len(line.order_id.picking_ids) > 1
                 and line.order_id.update_line_qty

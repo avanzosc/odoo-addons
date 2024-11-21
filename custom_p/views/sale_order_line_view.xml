@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_sales_order_line_input_tree" model="ir.ui.view">
+        <field name="model">sale.order.line</field>
+        <field
+      name="inherit_id"
+      ref="sale_order_line_input.view_sales_order_line_input_tree"
+    />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="decoration-warning">0</attribute>
+            </tree>
+            <field name="order_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <button name="action_sale_order_form" position="attributes">
+                <attribute name="attrs">{'invisible': [(1,'=',1)]}</attribute>
+            </button>
+            <field name="team_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="order_partner_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="partner_shipping_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="product_id" position="after">
+                <field name="lot_id" />
+                <field name="allowed_lot_ids" invisible="1" />
+            </field>
+            <field name="name" position="after">
+                <field name="container" />
+                <field name="route_id" />
+                <field name="palet_id" />
+                <field name="palet_qty" />
+                <field name="gross_weight" />
+            </field>
+            <field name="product_uom_qty" position="after">
+                <field name="entire_chick_percentage" />
+                <field name="return_qty" />
+            </field>
+
+            <field name="product_uom" position="after">
+                <field name="surplus" />
+            </field>
+        </field>
+    </record>
+</odoo>
