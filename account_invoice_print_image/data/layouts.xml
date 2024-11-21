@@ -4,7 +4,7 @@
         <div name="company_address" position="after">
             <div
         name="out_invoice_image"
-        t-if="company.out_invoice_image and o and o._name == 'account.move' and o.move_type in ('out_invoice', 'out_refund')"
+        t-if="company and company._name == 'res.company' and company.out_invoice_image and o and o._name == 'account.move' and o.move_type in ('out_invoice', 'out_refund')"
         style="position: absolute; top: 52px; left: 1190px;"
       >
                 <img
