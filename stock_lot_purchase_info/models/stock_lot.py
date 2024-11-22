@@ -4,11 +4,15 @@ from odoo import fields, models
 
 
 class StockLot(models.Model):
-    _inherit = "stock.lot"
+    _inherit = "stock.production.lot"
 
     supplier_id = fields.Many2one(
-        string="Supplier", comodel_name="res.partner", copy=False
+        string="Supplier",
+        comodel_name="res.partner",
+        copy=False,
     )
-    purchase_price = fields.Float(
-        string="Purchase Price Unit", digits="Product Price", copy=False
+    purchase_price_unit = fields.Float(
+        string="Purchase Price Unit",
+        digits="Product Price",
+        copy=False,
     )
