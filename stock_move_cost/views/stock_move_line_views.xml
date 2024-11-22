@@ -5,8 +5,33 @@
         <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="state" position="before">
-                <field name="price_unit_cost" optional="show" />
-                <field name="cost" optional="show" sum="Total cost" />
+                <field name="price_unit_cost" optional="hide" />
+                <field name="cost" optional="hide" sum="Total cost" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree" />
+        <field name="arch" type="xml">
+            <field name="package_id" position="before">
+                <field name="price_unit_cost" optional="hide" />
+                <field name="cost" optional="hide" sum="Total cost" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field
+      name="inherit_id"
+      ref="stock.view_stock_move_line_detailed_operation_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="is_initial_demand_editable" position="before">
+                <field name="price_unit_cost" optional="hide" />
+                <field name="cost" optional="hide" sum="Total cost" />
             </field>
         </field>
     </record>
@@ -17,7 +42,7 @@
         <field name="arch" type="xml">
             <field name="location_dest_id" position="after">
                 <field name="price_unit_cost" />
-                <field name="cost" optional="show" />
+                <field name="cost" />
             </field>
         </field>
     </record>
