@@ -32,8 +32,8 @@ class StockMoveLine(models.Model):
     @api.onchange("lot_name", "lot_id")
     def _onchange_serial_number(self):
         result = super()._onchange_serial_number()
-        if self.lot_id and self.lot_id.purchase_price:
-            self.price_unit_cost = self.lot_id.purchase_price
+        if self.lot_id and self.lot_id.purchase_price_unit:
+            self.price_unit_cost = self.lot_id.purchase_price_unit
         return result
 
     @api.model_create_multi
@@ -51,7 +51,7 @@ class StockMoveLine(models.Model):
         return result
 
     def _put_price_unit_cost_in_line(self):
-        if self.lot_id and self.lot_id.purchase_price:
+        if self.lot_id and self.lot_id.purchase_price_unit:
             self._onchange_serial_number()
         else:
             if self.price_unit_cost == 0 and self.product_id.standard_price:
