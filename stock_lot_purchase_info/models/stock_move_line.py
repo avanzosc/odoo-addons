@@ -13,12 +13,12 @@ class StockMoveLine(models.Model):
         store=True,
         related="lot_id.supplier_id",
     )
-    purchase_price = fields.Float(
+    purchase_price_unit = fields.Float(
         string="Purchase Price Unit",
         digits="Product Price",
         copy=False,
         store=True,
-        related="lot_id.purchase_price",
+        related="lot_id.purchase_price_unit",
     )
 
     def _action_done(self):
@@ -28,7 +28,7 @@ class StockMoveLine(models.Model):
         ):
             line.lot_id.write(
                 {
-                    "purchase_price": line.move_id.purchase_line_id.price_unit,
+                    "purchase_price_unit": line.move_id.purchase_line_id.price_unit,
                     "supplier_id": line.move_id.purchase_line_id.order_id.partner_id.id,
                 }
             )
