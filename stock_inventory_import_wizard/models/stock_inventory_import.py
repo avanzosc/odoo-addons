@@ -3,9 +3,8 @@
 
 from odoo import _, fields, models
 from odoo.models import expression
-from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str
+from odoo.addons.base_import_wizard.models.base_import import check_number, convert2str
 
 
 class StockInventoryImport(models.Model):
@@ -13,14 +12,6 @@ class StockInventoryImport(models.Model):
     _inherit = "base.import"
     _description = "Wizard to import inventory"
 
-    def _default_accounting_date(self):
-        result = fields.Datetime.now()
-        return result
-
-    import_inventory_id = fields.Many2one(
-        comodel_name="stock.inventory",
-        string="Inventory",
-    )
     import_line_ids = fields.One2many(
         comodel_name="stock.inventory.import.line",
     )
@@ -28,21 +19,9 @@ class StockInventoryImport(models.Model):
         string="# Inventory Lines",
         compute="_compute_inventory_line_count",
     )
-    company_id = fields.Many2one(
-        comodel_name="res.company",
-        string="Company",
-        index=True,
-        required=True,
-        default=lambda self: self.env.company.id,
-    )
     lot_create = fields.Boolean(
         string="Create Lot",
         default=False,
-    )
-    accounting_date = fields.Datetime(
-        default=_default_accounting_date,
-        string="Accounting Date",
-        required=True,
     )
 
     def _get_line_values(self, row_values, datemode=False):
@@ -53,10 +32,11 @@ class StockInventoryImport(models.Model):
             inventory_product_code = row_values.get("Codigo", "")
             inventory_location = row_values.get("Ubicacion", "")
             inventory_lot = row_values.get("Lote", "")
-            inventory_product_qty = row_values.get("Cantidad", "")
-            qty_to_move = row_values.get("CantidadMovimiento", 0)
+            inventory_owner = row_values.get("Propietario", "")
+            inventory_package = row_values.get("Paquete", "")
+            inventory_product_qty = row_values.get("Cantidad", 0.0)
             log_info = ""
-            if not inventory_product and not inventory_lot and not inventory_location:
+            if not inventory_product and not inventory_location:
                 return {}
             values.update(
                 {
@@ -64,8 +44,9 @@ class StockInventoryImport(models.Model):
                     "inventory_product_code": convert2str(inventory_product_code),
                     "inventory_location": convert2str(inventory_location),
                     "inventory_lot": convert2str(inventory_lot),
-                    "inventory_product_qty": convert2str(inventory_product_qty),
-                    "qty_to_move": qty_to_move,
+                    "inventory_owner": convert2str(inventory_owner),
+                    "inventory_package": convert2str(inventory_package),
+                    "inventory_product_qty": check_number(inventory_product_qty),
                     "log_info": log_info,
                 }
             )
@@ -73,75 +54,14 @@ class StockInventoryImport(models.Model):
 
     def _compute_inventory_line_count(self):
         for record in self:
-            record.inventory_line_count = len(
-                record.mapped("import_line_ids.inventory_line_id")
-            )
-
-    def _create_inventory(self):
-        values = {
-            "name": _("Imported Inventory"),
-            "prefill_counted_quantity": "counted",
-            "company_id": self.company_id.id,
-            "date": self.file_date,
-            "start_empty": True,
-            "accounting_date": self.accounting_date.date(),
-        }
-        inventory = self.env["stock.inventory"].create(values)
-        inventory.action_start()
-        return inventory
-
-    def action_process(self):
-        for wiz in self:
-            if not wiz.import_inventory_id:
-                inventory = wiz._create_inventory()
-                wiz.write(
-                    {
-                        "import_inventory_id": inventory.id,
-                    }
-                )
-        return super().action_process()
+            record.inventory_line_count = len(record.mapped("import_line_ids.quant_id"))
 
     def button_open_inventory(self):
         self.ensure_one()
-        action = self.env.ref("stock.action_inventory_form")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [
-                [("id", "=", self.import_inventory_id.id)],
-                safe_eval(action.domain or "[]"),
-            ]
-        )
-        action_dict.update({"domain": domain})
-        return action_dict
-
-    def button_open_inventory_line(self):
-        self.ensure_one()
-        inventory_lines = self.mapped("import_line_ids.inventory_line_id")
-        action = self.env.ref(
-            "stock_inventory_import_wizard.action_stock_inventory_line"
-        )
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", inventory_lines.ids)], safe_eval(action.domain or "[]")]
-        )
-        action_dict.update({"domain": domain})
-        return action_dict
-
-    def button_open_move_line(self):
-        self.ensure_one()
-        move_lines = self.mapped("import_line_ids.move_line_id")
-        action = self.env.ref("stock.stock_move_line_action")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", move_lines.ids)], safe_eval(action.domain or "[]")]
-        )
-        action_dict.update({"domain": domain})
-        return action_dict
-
-    def button_creat_quants(self):
-        self.ensure_one()
-        for line in self.import_line_ids.filtered(lambda c: c.state == "pass"):
-            line.create_quant()
+        quants = self.mapped("import_line_ids.quant_id")
+        action = self.env["stock.quant"].action_view_inventory()
+        action["domain"] = [("id", "in", quants.ids)]
+        return action
 
 
 class StockInventoryImportLine(models.Model):
@@ -149,15 +69,10 @@ class StockInventoryImportLine(models.Model):
     _inherit = "base.import.line"
     _description = "Wizard lines to import inventory lines"
 
-    import_inventory_id = fields.Many2one(
-        comodel_name="stock.inventory",
-        related="import_id.import_inventory_id",
-        store=True,
-    )
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
-        related="import_id.company_id",
+        related="inventory_location_id.company_id",
         store=True,
     )
     import_id = fields.Many2one(
@@ -169,9 +84,9 @@ class StockInventoryImportLine(models.Model):
         ],
         ondelete={"create": "set default"},
     )
-    inventory_line_id = fields.Many2one(
-        string="Inventory Line",
-        comodel_name="stock.inventory.line",
+    quant_id = fields.Many2one(
+        string="Quant",
+        comodel_name="stock.quant",
     )
     inventory_product = fields.Char(
         string="Product Name",
@@ -194,7 +109,17 @@ class StockInventoryImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    inventory_product_qty = fields.Char(
+    inventory_owner = fields.Char(
+        string="Owner Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    inventory_package = fields.Char(
+        string="Package Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    inventory_product_qty = fields.Float(
         string="Product Qty",
         states={"done": [("readonly", True)]},
         copy=False,
@@ -212,152 +137,49 @@ class StockInventoryImportLine(models.Model):
         copy=False,
     )
     inventory_lot_id = fields.Many2one(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="Lot",
         states={"done": [("readonly", True)]},
         copy=False,
     )
-    move_line_id = fields.Many2one(
-        string="Move Lines",
-        comodel_name="stock.move.line",
-        copy=False,
-        readonly=True,
-    )
-    qty_to_move = fields.Float(
-        string="Qty To Move",
+    inventory_owner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Owner",
         states={"done": [("readonly", True)]},
         copy=False,
     )
-
-    def create_quant(self):
-        self.ensure_one()
-        log_infos = []
-        movelines = False
-        if not self.inventory_product_id:
-            log_info_product = _("Product is required.")
-            if log_info_product:
-                log_infos.append(log_info_product)
-        if not self.inventory_location_id:
-            log_info_location = _("Location is required.")
-            if log_info_location:
-                log_infos.append(log_info_location)
-        domain = [
-            ("product_id", "=", self.inventory_product_id.id),
-            ("location_id", "=", self.inventory_location_id.id),
-            ("company_id", "=", self.import_id.company_id.id),
-        ]
-        if self.inventory_product_id.tracking != "none":
-            if not self.inventory_lot_id:
-                log_info_lot = _("Lot is required.")
-                if log_info_lot:
-                    log_infos.append(log_info_lot)
-            else:
-                domain.append(("lot_id", "=", self.inventory_lot_id.id))
-        if not log_infos:
-            out_movelines = self.env["stock.move.line"].search(
-                [
-                    ("product_id", "=", self.inventory_product_id.id),
-                    ("location_id", "=", self.inventory_location_id.id),
-                    ("company_id", "=", self.import_id.company_id.id),
-                    ("lot_id", "=", self.inventory_lot_id.id),
-                    ("date", ">", self.import_id.accounting_date),
-                    ("state", "=", "done"),
-                ]
-            )
-            out_qty = sum(out_movelines.mapped("qty_done"))
-            in_movelines = self.env["stock.move.line"].search(
-                [
-                    ("product_id", "=", self.inventory_product_id.id),
-                    ("location_dest_id", "=", self.inventory_location_id.id),
-                    ("company_id", "=", self.import_id.company_id.id),
-                    ("lot_id", "=", self.inventory_lot_id.id),
-                    ("date", ">", self.import_id.accounting_date),
-                    ("state", "=", "done"),
-                ]
-            )
-            in_qty = sum(in_movelines.mapped("qty_done"))
-            done_movelines = in_movelines + out_movelines
-            movelines = False
-            if done_movelines.filtered(
-                lambda c: c.location_id
-                == (self.inventory_product_id.property_stock_inventory)
-                or c.location_dest_id
-                == (self.inventory_product_id.property_stock_inventory)
-            ):
-                log_infos.append(_("It has inventory adjustment line after the date."))
-            else:
-                if self.inventory_product_qty:
-                    quant = self.env["stock.quant"].search(domain)
-                    quant_qty = 0
-                    if quant:
-                        quant_qty = quant[:1].quantity
-                    dif = in_qty - out_qty
-                    new_move_qty = float(self.inventory_product_qty) - (quant_qty - dif)
-                if self.qty_to_move:
-                    new_move_qty = self.qty_to_move
-                if new_move_qty >= 0:
-                    location_dest = self.inventory_location_id
-                    location = self.inventory_product_id.property_stock_inventory
-                if new_move_qty < 0:
-                    new_move_qty = (-1) * new_move_qty
-                    location = self.inventory_location_id
-                    location_dest = self.inventory_product_id.property_stock_inventory
-                move = self.env["stock.move"].create(
-                    {
-                        "product_id": self.inventory_product_id.id,
-                        "name": self.import_id.filename,
-                        "product_uom": self.inventory_product_id.uom_id.id,
-                        "product_uom_qty": new_move_qty,
-                        "location_id": location.id,
-                        "location_dest_id": location_dest.id,
-                        "move_line_ids": [
-                            (
-                                0,
-                                0,
-                                {
-                                    "product_id": self.inventory_product_id.id,
-                                    "product_uom_id": self.inventory_product_id.uom_id.id,
-                                    "qty_done": new_move_qty,
-                                    "location_id": location.id,
-                                    "location_dest_id": location_dest.id,
-                                    "lot_id": self.inventory_lot_id.id,
-                                },
-                            )
-                        ],
-                    }
-                )
-                move._action_confirm()
-                move._action_assign()
-                move._action_done()
-                move.date = self.import_id.accounting_date
-                move.move_line_ids.date = self.import_id.accounting_date
-                movelines = move.move_line_ids[:1].id
-        state = "error" if log_infos else "done"
-        action = "nothing"
-        self.write(
-            {
-                "log_info": "\n".join(log_infos),
-                "state": state,
-                "action": action,
-                "move_line_id": movelines,
-            }
-        )
+    inventory_package_id = fields.Many2one(
+        comodel_name="stock.quant.package",
+        string="Package",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
 
     def _action_validate(self):
         self.ensure_one()
         update_values = super()._action_validate()
         log_infos = []
-        lot = False
-        product, log_info_product = self._check_product()
-        if log_info_product:
-            log_infos.append(log_info_product)
-        if product and self.inventory_lot:
-            lot, log_info_lot = self._check_lot(product)
-            if log_info_lot:
-                log_infos.append(log_info_lot)
+        product = lot = owner = package = False
         location, log_info_location = self._check_location()
         if log_info_location:
             log_infos.append(log_info_location)
+        if location:
+            company = location.company_id
+            product, log_info_product = self._check_product(company)
+            if log_info_product:
+                log_infos.append(log_info_product)
+            if product:
+                lot, log_info_lot = self._check_lot(product=product, company=company)
+                if log_info_lot:
+                    log_infos.append(log_info_lot)
+            if self.inventory_owner:
+                owner, log_info_owner = self._check_owner(company)
+                if log_info_owner:
+                    log_infos.append(log_info_owner)
+            if self.inventory_package:
+                package, log_info_package = self._check_package(company)
+                if log_info_package:
+                    log_infos.append(log_info_package)
         state = "error" if log_infos else "pass"
         action = "create" if state != "error" else "nothing"
         update_values.update(
@@ -365,6 +187,8 @@ class StockInventoryImportLine(models.Model):
                 "inventory_product_id": product and product.id,
                 "inventory_location_id": location and location.id,
                 "inventory_lot_id": lot and lot.id,
+                "inventory_owner_id": owner and owner.id,
+                "inventory_package_id": package and package.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -375,12 +199,49 @@ class StockInventoryImportLine(models.Model):
     def _action_process(self):
         self.ensure_one()
         update_values = super()._action_process()
-        if not self.import_id.import_inventory_id:
-            self.import_id.import_inventory_id = self.import_id._create_inventory()
-        inventory_line = self._create_inventory_line(self.import_id.import_inventory_id)
+        if (
+            self.import_id.lot_create
+            and self.inventory_lot
+            and not self.inventory_lot_id
+            and self.inventory_product_id.tracking in ("serial", "lot")
+        ):
+            lot, log_info = self._check_lot(self.inventory_product_id)
+            if not lot:
+                lot = self.env["stock.lot"].create(
+                    {
+                        "product_id": self.inventory_product_id.id,
+                        "name": self.inventory_lot,
+                        "company_id": self.company_id.id,
+                    }
+                )
+            self.inventory_lot_id = lot
+        quant_obj = self.env["stock.quant"].with_company(self.company_id)
+        domain = [
+            ("product_id", "=", self.inventory_product_id.id),
+            ("lot_id", "=", self.inventory_lot_id.id),
+            ("location_id", "=", self.inventory_location_id.id),
+            ("owner_id", "=", self.inventory_owner_id.id),
+            ("package_id", "=", self.inventory_package_id.id),
+        ]
+        quant = quant_obj.search(domain, limit=1)
+        if quant:
+            quant.write({"inventory_quantity": self.inventory_product_qty})
+            quant.action_apply_inventory()
+        else:
+            quant = quant_obj.create(
+                {
+                    "product_id": self.inventory_product_id.id,
+                    "lot_id": self.inventory_lot_id.id,
+                    "location_id": self.inventory_location_id.id,
+                    "owner_id": self.inventory_owner_id.id,
+                    "package_id": self.inventory_package_id.id,
+                    "inventory_quantity": self.inventory_product_qty,
+                }
+            )
+            quant.action_apply_inventory()
         update_values.update(
             {
-                "inventory_line_id": inventory_line.id,
+                "quant_id": quant.id,
                 "state": "done",
             }
         )
@@ -404,18 +265,18 @@ class StockInventoryImportLine(models.Model):
         elif len(locations) > 1:
             locations = False
             log_info = _(
-                "More than one location with name %(location_name)s already exist."
+                "More than one location with name %(location_name)s found."
             ) % {
                 "location_name": self.inventory_location,
             }
         return locations and locations[:1], log_info
 
-    def _check_product(self):
+    def _check_product(self, company=False):
         self.ensure_one()
         log_info = ""
         if self.inventory_product_id:
             return self.inventory_product_id, log_info
-        product_obj = self.env["product.product"]
+        product_obj = self.env["product.product"].with_company(company)
         search_domain = [("type", "=", "product")]
         if self.inventory_product_code:
             search_domain = expression.AND(
@@ -432,28 +293,30 @@ class StockInventoryImportLine(models.Model):
             }
         elif len(products) > 1:
             products = False
-            log_info = _("More than one product %(product_name)s already exist.") % {
+            log_info = _("More than one product %(product_name)s found.") % {
                 "product_name": self.inventory_product_code or self.inventory_product,
             }
         return products and products[:1], log_info
 
-    def _check_lot(self, product):
+    def _check_lot(self, product=False, company=False):
         self.ensure_one()
         log_info = ""
-        if product.tracking not in ("serial", "lot"):
+        if product.tracking not in ("serial", "lot") and self.inventory_lot:
             return False, _("Untraceable product, but has lot.")
-        elif not self.inventory_lot and not self.inventory_lot_id:
+        if product.tracking not in ("serial", "lot") and not self.inventory_lot:
+            return False, log_info
+        if product.tracking in ("serial", "lot") and not self.inventory_lot:
             return False, _("Lot required for product %(product_name)s.") % {
                 "product_name": product.display_name,
             }
         if self.inventory_lot_id:
             return self.inventory_lot_id, log_info
+        lot_obj = self.env["stock.lot"].with_company(company)
         search_domain = [
             ("name", "=", self.inventory_lot),
             ("product_id", "=", product.id),
-            ("company_id", "=", self.import_id.company_id.id),
         ]
-        lots = self.env["stock.production.lot"].search(search_domain)
+        lots = lot_obj.search(search_domain)
         if not lots:
             log_info = _(
                 "No lot with name %(lot_name)s found for product %(product_name)s."
@@ -467,44 +330,53 @@ class StockInventoryImportLine(models.Model):
             lots = False
             log_info = _(
                 "More than one lot with name %(lot_name)s and product %(product_name)s "
-                "already exist."
+                "found."
             ) % {
                 "lot_name": self.inventory_lot,
                 "product_name": product.display_name,
             }
         return lots and lots[:1], log_info
 
-    def _create_inventory_line(self, inventory):
+    def _check_owner(self, company=False):
         self.ensure_one()
-        return (
-            self.sudo()
-            .env["stock.inventory.line"]
-            .create(self._inventory_line_values(inventory))
-        )
+        log_info = ""
+        if self.inventory_owner_id:
+            return self.inventory_owner_id, log_info
+        owner_obj = self.env["res.partner"]
+        search_domain = [
+            ("name", "=", self.inventory_owner),
+            "|",
+            ("company_id", "=", company.id),
+            ("company_id", "=", False),
+        ]
+        owners = owner_obj.search(search_domain)
+        if not owners:
+            log_info = _("No owner found.")
+        elif len(owners) > 1:
+            owners = False
+            log_info = _("More than one owner with name %(owner_name)s found.") % {
+                "owner_name": self.inventory_owner,
+            }
+        return owners and owners[:1], log_info
 
-    def _inventory_line_values(self, inventory):
+    def _check_package(self, company=False):
         self.ensure_one()
-        lot = self.inventory_lot_id
-        if (
-            self.import_id.lot_create
-            and self.inventory_lot
-            and not lot
-            and self.inventory_product_id.tracking in ("serial", "lot")
-        ):
-            lot, log_info = self._check_lot(self.inventory_product_id)
-            if not lot:
-                lot = self.env["stock.production.lot"].create(
-                    {
-                        "product_id": self.inventory_product_id.id,
-                        "name": self.inventory_lot,
-                        "company_id": self.company_id.id,
-                    }
-                )
-            self.inventory_lot_id = lot
-        return {
-            "inventory_id": inventory.id,
-            "product_id": self.inventory_product_id.id,
-            "location_id": self.inventory_location_id.id,
-            "prod_lot_id": lot.id or lot,
-            "product_qty": self.inventory_product_qty,
-        }
+        log_info = ""
+        if self.inventory_package_id:
+            return self.inventory_package_id, log_info
+        package_obj = self.env["stock.quant.package"]
+        search_domain = [
+            ("name", "=", self.inventory_package),
+            "|",
+            ("company_id", "=", company.id),
+            ("company_id", "=", False),
+        ]
+        packages = package_obj.search(search_domain)
+        if not packages:
+            log_info = _("No package found.")
+        elif len(packages) > 1:
+            packages = False
+            log_info = _("More than one package with name %(package_name)s found.") % {
+                "package_name": self.inventory_package,
+            }
+        return packages and packages[:1], log_info

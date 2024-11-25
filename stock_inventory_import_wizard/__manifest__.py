@@ -9,15 +9,13 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "stock_account",
+        "stock",
         "base_import_wizard",
     ],
     "data": [
         "security/ir.model.access.csv",
-        "security/inventory_import_wizard_security.xml",
         "views/stock_inventory_import_line_views.xml",
         "views/stock_inventory_import_views.xml",
-        "views/stock_inventory_line_views.xml",
     ],
     "external_dependencies": {"python": ["xlrd"]},
     "installable": True,

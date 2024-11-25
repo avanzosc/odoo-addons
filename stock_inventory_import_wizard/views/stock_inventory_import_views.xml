@@ -6,7 +6,6 @@
             <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
                 <field name="file_date" />
-                <field name="company_id" groups="base.group_multi_company" />
                 <field name="state" />
             </tree>
         </field>
@@ -21,21 +20,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             states="draft,2validate,pass,error"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             states="2validate,error,pass"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             states="pass"
           />
                     <field name="state" widget="statusbar" />
@@ -51,32 +47,15 @@
               icon="fa-bars"
             />
                         <button
-              string="Inventory"
-              type="object"
-              name="button_open_inventory"
-              attrs="{'invisible':[('import_inventory_id', '=', False)]}"
-              class="oe_stat_button"
-              icon="fa-refresh"
-            >
-                            <field name="import_inventory_id" invisible="1" />
-                        </button>
-                        <button
               string="Inventory Lines"
               type="object"
-              name="button_open_inventory_line"
+              name="button_open_inventory"
               attrs="{'invisible':[('inventory_line_count', '=', 0)]}"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
                             <field name="inventory_line_count" />
                         </button>
-                        <button
-              string="Move Lines"
-              type="object"
-              name="button_open_move_line"
-              class="oe_stat_button"
-              icon="fa-folder-open"
-            />
                     </div>
                     <group>
                         <group>
@@ -85,12 +64,6 @@
                             <field name="file_date" />
                         </group>
                         <group>
-                            <field name="accounting_date" />
-                            <field
-                name="company_id"
-                groups="base.group_multi_company"
-                options="{'no_create': True}"
-              />
                             <field name="lot_create" />
                         </group>
                     </group>
@@ -109,27 +82,27 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
-                                <div style="margin-top: 4px;">
-                                    <h3>Help with Excel column names</h3>
-                                    <p
-                  >You must use this column names in order to fill the table:</p>
-                                    <ul name="tutorial">
-                                        <li><code>Descripcion</code>: this will fill <b
-                      >Inventory Product Name</b></li>
-                                        <li><code>Codigo</code>: this will fill <b
-                      >Inventory Product Code</b></li>
-                                        <li><code>Ubicacion</code>: this will fill <b
-                      >Inventory Location</b></li>
-                                        <li><code>Lote</code>: this will fill <b
-                      >Inventory Lot</b></li>
-                                        <li><code>Cantidad</code>: this will fill <b
-                      >Inventory Product Quantity</b></li>
-                      <li><code>CantidadMovimiento</code>: this will fill <b
-                      >Move Product Quantity</b></li>
-                                    </ul>
-                                </div>
-                            </group>
+                            <div style="margin-top: 4px;">
+                                <h3>Help with Excel column names</h3>
+                                <p
+                >You must use this column names in order to fill the table:</p>
+                                <ul name="tutorial">
+                                    <li><code>Descripcion</code>: this will fill <b
+                    >Inventory Product Name</b></li>
+                                    <li><code>Codigo</code>: this will fill <b
+                    >Inventory Product Code</b></li>
+                                    <li><code>Ubicacion</code>: this will fill <b
+                    >Inventory Location</b></li>
+                                    <li><code>Lote</code>: this will fill <b
+                    >Inventory Lot</b></li>
+                                    <li><code>Propietario</code>: this will fill <b
+                    >Inventory Owner</b></li>
+                                    <li><code>Paquete</code>: this will fill <b
+                    >Inventory Package</b></li>
+                                    <li><code>Cantidad</code>: this will fill <b
+                    >Inventory Product Quantity</b></li>
+                                </ul>
+                            </div>
                         </page>
                     </notebook>
                 </sheet>
