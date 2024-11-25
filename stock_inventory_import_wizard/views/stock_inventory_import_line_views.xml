@@ -7,6 +7,8 @@
                 <field name="inventory_product_id" />
                 <field name="inventory_location_id" />
                 <field name="inventory_lot_id" />
+                <field name="inventory_owner_id" />
+                <field name="inventory_package_id" />
                 <separator />
                 <filter
           string="Errored"
@@ -40,7 +42,22 @@
             string="Lot"
             context="{'group_by': 'inventory_lot_id'}"
           />
+                    <filter
+            name="group_owner"
+            string="Owner"
+            context="{'group_by': 'inventory_owner_id'}"
+          />
+                    <filter
+            name="group_package"
+            string="Package"
+            context="{'group_by': 'inventory_package_id'}"
+          />
                     <separator />
+                    <filter
+            name="group_lof_info"
+            string="Log Info"
+            context="{'group_by': 'log_info'}"
+          />
                     <filter
             name="group_status"
             string="Status"
@@ -83,9 +100,10 @@
                             <field name="inventory_product" />
                             <field name="inventory_product_code" />
                             <field name="inventory_location" />
-                            <field name="inventory_lot" />
-                            <field name="inventory_product_qty" optional="show" />
-                            <field name="qty_to_move" optional="hide" />
+                            <field name="inventory_lot" optional="show" />
+                            <field name="inventory_owner" optional="hide" />
+                            <field name="inventory_package" optional="hide" />
+                            <field name="inventory_product_qty" />
                         </group>
                         <group>
                             <field
@@ -98,6 +116,14 @@
               />
                             <field
                 name="inventory_lot_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="inventory_owner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field
+                name="inventory_package_id"
                 options="{'no_create': True, 'no_open': True}"
               />
                         </group>
@@ -122,7 +148,7 @@
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'create'"
         />
-                <field name="inventory_line_id" invisible="1" />
+                <field name="quant_id" invisible="1" />
                 <field name="inventory_product" />
                 <field name="inventory_product_code" />
                 <field name="inventory_product_id" optional="hide" />
@@ -134,9 +160,12 @@
           domain="[('product_id', '=', inventory_product_id)]"
           optional="hide"
         />
+                <field name="inventory_owner" />
+                <field name="inventory_owner_id" optional="hide" />
+                <field name="inventory_package" />
+                <field name="inventory_package_id" optional="hide" />
                 <field name="inventory_product_qty" optional="show" />
-                <field name="qty_to_move" optional="hide" />
-                <field name="state" />
+                <field name="state" optional="hide" />
                 <field name="log_info" optional="show" />
             </tree>
         </field>

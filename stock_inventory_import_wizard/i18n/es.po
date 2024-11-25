@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 09:18+0000\n"
-"PO-Revision-Date: 2023-12-13 09:18+0000\n"
+"POT-Creation-Date: 2024-11-25 09:53+0000\n"
+"PO-Revision-Date: 2024-11-25 09:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -44,13 +44,18 @@ msgstr "<code>Lote</code>: esto rellenará el <b>Lote</b>"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "<code>Ubicacion</code>: this will fill <b>Inventory Location</b>"
-msgstr "<code>Ubicacion</code>: esto rellenará la <b>Ubicación</b>"
+msgid "<code>Paquete</code>: this will fill <b>Inventory Package</b>"
+msgstr "<code>Paquete</code>: esto rellenará el <b>Paquete</b>"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__accounting_date
-msgid "Accounting Date"
-msgstr "Fecha contable"
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
+msgid "<code>Propietario</code>: this will fill <b>Inventory Owner</b>"
+msgstr "<code>Propietario</code>: esto rellenará el <b>Propietario</b>"
+
+#. module: stock_inventory_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
+msgid "<code>Ubicacion</code>: this will fill <b>Inventory Location</b>"
+msgstr "<code>Ubicacion</code>: esto rellenará la <b>Ubicación</b>"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__action
@@ -89,7 +94,6 @@ msgid "Attachment Count"
 msgstr "Recuento de anexos"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__company_id
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__company_id
 msgid "Company"
 msgstr "Compañía"
@@ -163,11 +167,6 @@ msgid "Followers"
 msgstr "Seguidores"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Seguidores (canales)"
-
-#. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_partner_ids
 msgid "Followers (Partners)"
 msgstr "Seguidores (contactos)"
@@ -182,6 +181,11 @@ msgstr "Icono de la fuente impresionante, por ejemplo, fa-tasks"
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_search
 msgid "Group By"
 msgstr "Agrupar por"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
@@ -211,7 +215,6 @@ msgstr "Icono para indicar una actividad de excepción."
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import__message_needaction
-#: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "Si está marcada, los nuevos mensajes requieren su atención."
 
@@ -254,31 +257,11 @@ msgid "Import Wizard"
 msgstr "Asistente de importación"
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
-#, python-format
-msgid "Imported Inventory"
-msgstr "Inventario importado"
-
-#. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
 msgid "Imported Lines"
 msgstr "Líneas importadas"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__import_inventory_id
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__import_inventory_id
-#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
-msgid "Inventory"
-msgstr "Inventario"
-
-#. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_line_id
-msgid "Inventory Line"
-msgstr "Línea de inventario"
-
-#. module: stock_inventory_import_wizard
-#: model:ir.actions.act_window,name:stock_inventory_import_wizard.action_stock_inventory_line
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_form
 msgid "Inventory Lines"
 msgstr "Líneas de inventario"
@@ -307,6 +290,11 @@ msgid "Last Updated on"
 msgstr "Actualizado el"
 
 #. module: stock_inventory_import_wizard
+#: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import_line__company_id
+msgid "Let this field empty if this location is shared between companies"
+msgstr "Deje este campo vacío si esta ubicación es compartida entre empresas"
+
+#. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__import_line_ids
 msgid "Lines to Import"
 msgstr "Líneas a importar"
@@ -325,6 +313,7 @@ msgstr "Nombre de ubicación"
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__log_info
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__log_info
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
 msgid "Log Info"
 msgstr "Información de registro"
 
@@ -340,7 +329,7 @@ msgid "Lot Name"
 msgstr "Nombre de lote"
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Lot required for product %(product_name)s."
@@ -362,28 +351,40 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "More than one location with name %(location_name)s already exist."
-msgstr "Más de una ubicación con el nombre %(location_name)s encontrado."
+msgid "More than one location with name %(location_name)s found."
+msgstr "Más de una ubicación encontrada con nombre %(location_name)s."
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid ""
-"More than one lot with name %(lot_name)s and product %(product_name)s "
-"already exist."
-msgstr ""
-"Más de un lote con nombre %(lot_name)s y producto %(product_name)s existe."
+"More than one lot with name %(lot_name)s and product %(product_name)s found."
+msgstr "Más de un lote encontrado con nombre %(lot_name)s y producto  %(product_name)s."
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
-msgid "More than one product %(product_name)s already exist."
-msgstr "Más de un producto %(product_name)s existe."
+msgid "More than one owner with name %(owner_name)s found."
+msgstr "Más de un propietario encontrado con nombre %(owner_name)s."
+
+#. module: stock_inventory_import_wizard
+#. odoo-python
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#, python-format
+msgid "More than one package with name %(package_name)s found."
+msgstr "Más de un paquete encontrado con nombre %(package_name)s."
+
+#. module: stock_inventory_import_wizard
+#. odoo-python
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#, python-format
+msgid "More than one product %(product_name)s found."
+msgstr "Más de un producto encontrado con nombre %(product_name)s."
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__my_activity_date_deadline
@@ -394,6 +395,11 @@ msgstr "Mi plazo de actividad"
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__name
 msgid "Name"
 msgstr "Nombre"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Próximo evento del calendario de actividades"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__activity_date_deadline
@@ -411,14 +417,14 @@ msgid "Next Activity Type"
 msgstr "Siguiente tipo de actividad"
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "No location found."
 msgstr "No se ha encontrado ninguna ubicación."
 
 #. module: stock_inventory_import_wizard
-#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "No lot with name %(lot_name)s found for product %(product_name)s."
@@ -427,11 +433,35 @@ msgstr ""
 "%(product_name)s."
 
 #. module: stock_inventory_import_wizard
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#, python-format
+msgid "No owner found."
+msgstr "Propietario no encontrado."
+
+#. module: stock_inventory_import_wizard
+#. odoo-python
+#: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
+#, python-format
+msgid "No package found."
+msgstr "Paquete no encontrado."
+
+#. module: stock_inventory_import_wizard
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "No product %(product_name)s found."
 msgstr "No se ha encontrado el producto %(product_name)s."
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__non_conformity_ids
+msgid "Non Conformity"
+msgstr "No conformidad"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__non_conformity_count
+msgid "Non Conformity Count"
+msgstr "Recuento de no conformidades"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_needaction_counter
@@ -445,7 +475,7 @@ msgstr "Número de errores"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr "Número de mensajes que requieren una acción"
 
 #. module: stock_inventory_import_wizard
@@ -454,9 +484,26 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de entrega"
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,help:stock_inventory_import_wizard.field_stock_inventory_import__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Número de mensajes no leídos"
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_owner_id
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_owner
+msgid "Owner Name"
+msgstr "Nombre propietario"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_package_id
+#: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_line_view_search
+msgid "Package"
+msgstr "Paquete"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__inventory_package
+msgid "Package Name"
+msgstr "Nombre paquete"
 
 #. module: stock_inventory_import_wizard
 #: model_terms:ir.ui.view,arch_db:stock_inventory_import_wizard.stock_inventory_import_view_search
@@ -491,6 +538,11 @@ msgid "Product Qty"
 msgstr "Cantidad de producto"
 
 #. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import_line__quant_id
+msgid "Quant"
+msgstr ""
+
+#. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
@@ -499,6 +551,11 @@ msgstr "Usuario responsable"
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_has_sms_error
 msgid "SMS Delivery error"
 msgstr "Error de entrega de SMS"
+
+#. module: stock_inventory_import_wizard
+#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__split_size
+msgid "Split Size"
+msgstr "Tamaño de salto"
 
 #. module: stock_inventory_import_wizard
 #: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__state
@@ -532,16 +589,7 @@ msgid "Type of the exception activity on record."
 msgstr "Tipo de la actividad de excepción registrada."
 
 #. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_unread
-msgid "Unread Messages"
-msgstr "Mensajes no leídos"
-
-#. module: stock_inventory_import_wizard
-#: model:ir.model.fields,field_description:stock_inventory_import_wizard.field_stock_inventory_import__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Contador de mensajes no leídos"
-
-#. module: stock_inventory_import_wizard
+#. odoo-python
 #: code:addons/stock_inventory_import_wizard/models/stock_inventory_import.py:0
 #, python-format
 msgid "Untraceable product, but has lot."
