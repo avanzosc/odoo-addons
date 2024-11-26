@@ -187,10 +187,10 @@
                 <div class="row mt32 mb32" id="informations">
                    <div class="col-auto col-3 mw-100 mb-2" t-if="doc.partner_id">
                        <strong>Destination data</strong>
-                       <p class="m-0" t-if="doc.partner_id.name">
+                       <p class="m-0" t-if="doc.partner_id">
                            <span>
                                <span>Name:</span>
-                               <span t-field="doc.partner_id.name" />
+                               <span t-field="doc.partner_id.display_name" />
                            </span>
                        </p>
                        <p class="m-0" t-if="doc.partner_id.street">
