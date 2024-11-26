@@ -6,7 +6,9 @@
 Stock Move Line Description
 ===========================
 
-Stock move show description of sale order line.
+* Stock move show description of sale order line.
+* NOT INSTALL THIS MODULE, install: "stock_move_sale_line_description" and if
+  you need "account_move_sale_line_description".
 
 Bug Tracker
 ===========
