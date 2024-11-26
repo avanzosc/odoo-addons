@@ -283,8 +283,7 @@ class AccountAssetLineImportLine(models.Model):
                 and not self.import_id.update_data
             ):
                 same_asset_lines = self.import_id.import_line_ids.filtered(
-                    lambda c: c.account_asset_name == (self.account_asset_name)
-                    and c.account_asset_ref == self.account_asset_ref
+                    lambda c: c.account_asset_id == self.account_asset_id
                 )
                 if same_asset_lines:
                     if any([line.state == "error" for line in same_asset_lines]):
