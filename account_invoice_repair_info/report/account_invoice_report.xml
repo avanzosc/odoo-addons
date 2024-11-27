@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <div name="reference" position="after">
+            <div
+        class="col-auto col-3 mw-100 mb-2"
+        name="lot_from_repair"
+        t-if="o.repair_order_id and o.repair_order_id.lot_id"
+      >
+                <strong>Repair Order Lot:</strong>
+                <p class="m-0" t-field="o.repair_order_id.lot_id.name" />
+            </div>
+        </div>
+    </template>
+</odoo>
