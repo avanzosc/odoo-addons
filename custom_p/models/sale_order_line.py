@@ -66,6 +66,7 @@ class SaleOrderLine(models.Model):
 
     @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
     def _get_invoice_qty(self):
+        super()._get_invoice_qty()
         for line in self:
             if line.invoice_lines.filtered(lambda c: c.out_refund_from_invoice):
                 qty_invoiced = 0.0
