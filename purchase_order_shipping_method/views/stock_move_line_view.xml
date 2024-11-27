@@ -8,7 +8,12 @@
     />
         <field name="arch" type="xml">
             <field name="product_uom_id" position="after">
-                <field name="shipping_cost" sum="Total Shipping Cost" optional="show" />
+                <field
+          name="shipping_cost"
+          sum="Total Shipping Cost"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
             </field>
         </field>
     </record>
@@ -18,8 +23,18 @@
         <field name="inherit_id" ref="stock.view_move_line_tree" />
         <field name="arch" type="xml">
             <field name="qty_done" position="after">
-                <field name="picking_shipping_cost" optional="show" />
-                <field name="shipping_cost" sum="Total Shipping Cost" optional="show" />
+                <field
+          name="picking_shipping_cost"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
+                <field name="is_locked" invisible="1" />
+                <field
+          name="shipping_cost"
+          sum="Total Shipping Cost"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
             </field>
         </field>
     </record>

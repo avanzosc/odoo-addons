@@ -16,6 +16,12 @@
             <group name="sale_header" position="inside">
                 <field name="update_line_qty" force_save="1" invisible="1" />
             </group>
+            <xpath
+        expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']"
+        position="attributes"
+      >
+                <attribute name="sum">Total Qty</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

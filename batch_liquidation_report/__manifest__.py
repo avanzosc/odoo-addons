@@ -17,10 +17,12 @@
         "stock_picking_batch_liquidation",
         "report_qweb_element_page_visibility",
         "account_invoice_report_grouped_by_picking",
+        "stock_picking_cmr_report",
     ],
     "data": [
         "security/ir.model.access.csv",
         "data/ticket_paperformat.xml",
+        "data/ir_config_parameter_name_footer.xml",
         "report/liquidation_account_move_report.xml",
         "report/liquidation_cost_report.xml",
         "report/fattening_cost_report.xml",

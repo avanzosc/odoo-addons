@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_calendar" model="ir.ui.view">
+        <field name="name">stock.move.calendar</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <calendar
+        string="Stock Move Analysis"
+        create="0"
+        mode="month"
+        date_start="date"
+        color="product_id"
+        hide_time="true"
+        event_limit="5"
+        delete="0"
+        quick_add="False"
+      >
+                <field name="reference" />
+                <field name="product_id" />
+                <field name="location_id" />
+                <field name="location_dest_id" />
+                <field name="product_uom_qty" />
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_stock_move_calendar">
+        <field name="sequence" eval="5" />
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="view_move_calendar" />
+        <field name="act_window_id" ref="stock.stock_move_action" />
+    </record>
+</odoo>

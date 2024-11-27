@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+    t-name="mail_chatter_statistics.Message"
+    t-inherit="mail.Message"
+    t-inherit-mode="extension"
+    owl="1"
+  >
+        <xpath expr="//t[@t-if='message.author']/div" position="replace">
+            <div
+        class="o_Message_authorName o_Message_authorRedirect o_redirect"
+        role="link"
+        tabindex="0"
+        t-on-click="_onClickAuthorName"
+        title="Open profile"
+        style="display: flex; align-items: center; justify-content: space-evenly;"
+      >
+                <t t-if="threadView and threadView.thread">
+                    <t t-esc="threadView.thread.getMemberName(message.author)" />
+                </t>
+                <t t-else="">
+                    <t t-esc="message.author.nameOrDisplayName" />
+                </t>
+                <div
+          style="display: block; margin: 4px 20px; width: 100%; min-width: 300px;"
+        >
+                    <div
+            class="row"
+            style="display: flex; font-size: 0.7rem; padding: 2px;"
+          >
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-paper-plane"
+                style="margin-right: 5px;"
+              /> Sent
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-mouse-pointer"
+                style="margin-right: 5px;"
+              /> Clicked
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-envelope-open"
+                style="margin-right: 5px;"
+              /> Opened
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i
+                class="fa fa-exclamation-circle"
+                style="margin-right: 5px;"
+              /> Bounced
+                        </div>
+                        <div
+              style="flex: 1; padding: 2px; display: flex; align-items: center;"
+            >
+                            <i class="fa fa-reply" style="margin-right: 5px;" /> Replied
+                        </div>
+                    </div>
+
+
+                    <div
+            class="your-mailing-trace-ids-selector"
+            style="font-size: 0.7rem;"
+          >
+                        <div class="row" style="display: flex; padding: 2px;">
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.sent_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.clicked_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.opened_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.bounced_at" />
+                            </div>
+                            <div style="flex: 1; padding: 2px; min-width: 0;">
+                                <t t-esc="mailingTrace and mailingTrace.replied_at" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>
