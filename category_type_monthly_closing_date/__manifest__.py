@@ -13,6 +13,7 @@
     ],
     "data": [
         "views/category_type_view.xml",
+        "views/stock_move_line_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

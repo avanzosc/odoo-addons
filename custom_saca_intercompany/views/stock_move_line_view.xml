@@ -10,23 +10,22 @@
             <field name="product_packaging_id" position="attributes">
                 <attribute
           name="attrs"
-        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+        >{'column_invisible': [('parent.tolvasa', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
             <field name="product_packaging_qty" position="attributes">
                 <attribute
           name="attrs"
-        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
-                <field name="container" optional="show" sum="Total Container" />
+        >{'column_invisible': [('parent.tolvasa', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
             <field name="palet_id" position="attributes">
                 <attribute
           name="attrs"
-        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+        >{'column_invisible': [('parent.tolvasa', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
             <field name="palet_qty" position="attributes">
                 <attribute
           name="attrs"
-        >{'column_invisible': [('parent.tolvasa', '=', True)]}</attribute>
+        >{'column_invisible': [('parent.tolvasa', '=', True)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}</attribute>
             </field>
          </field>
      </record>

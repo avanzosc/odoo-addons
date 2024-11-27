@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_line_calendar" model="ir.ui.view">
+        <field name="name">stock.move.line.calendar</field>
+        <field name="model">stock.move.line</field>
+        <field name="arch" type="xml">
+            <calendar
+        string="Stock Move Line Analysis"
+        create="0"
+        mode="month"
+        date_start="date"
+        color="product_id"
+        hide_time="true"
+        event_limit="5"
+        delete="0"
+        quick_add="False"
+      >
+                <field name="reference" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="location_id" />
+                <field name="location_dest_id" />
+                <field name="qty_done" />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="stock.stock_move_line_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,pivot,calendar,form</field>
+    </record>
+</odoo>

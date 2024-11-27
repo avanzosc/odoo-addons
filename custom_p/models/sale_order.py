@@ -20,6 +20,13 @@ class SaleOrder(models.Model):
         self.update_line_qty = True
         return super().button_return_picking()
 
+    def action_view_sale_lines(self):
+        result = super().action_view_sale_lines()
+        view_tree_id = self.env.ref("custom_p.view_sales_order_line_input_tree").id
+        result["views"] = [(view_tree_id, "tree")]
+        result["view"] = view_tree_id
+        return result
+
     def action_last_month_partner_sales(self):
         self.ensure_one()
         if not self.partner_id:

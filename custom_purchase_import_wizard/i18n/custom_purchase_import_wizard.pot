@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-28 09:35+0000\n"
-"PO-Revision-Date: 2023-08-28 09:35+0000\n"
+"POT-Creation-Date: 2024-10-22 06:20+0000\n"
+"PO-Revision-Date: 2024-10-22 06:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -177,6 +177,7 @@ msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: More than one shipping method found."
 msgstr ""
@@ -210,6 +211,7 @@ msgid "Error: No product found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
 #, python-format
 msgid "Error: No shipping method found."
@@ -355,7 +357,8 @@ msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: model:ir.actions.act_window,name:custom_purchase_import_wizard.purchase_order_import_action
-#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu
+#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu_config
+#: model:ir.ui.menu,name:custom_purchase_import_wizard.purchase_order_import_menu_purchase
 msgid "Import Purchase Orders"
 msgstr ""
 
@@ -449,11 +452,6 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
-#: model:ir.model.fields.selection,name:custom_purchase_import_wizard.selection__purchase_order_import_line__action__nothing
-msgid "Nothing"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
@@ -575,6 +573,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_shipping_method
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__purchase_shipping_method_id
 msgid "Shipping Method"
+msgstr ""
+
+#. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__split_size
+msgid "Split Size"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
