@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <field name="product_code" position="after">
                 <field name="product_brand_id" optional="show" />
-                <field name="brand_code" optional="show" readonly="1" />
+                <field name="brand_code" optional="show" />
                 <field name="brand_marking" optional="show" readonly="1" />
             </field>
         </field>
@@ -18,7 +18,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='delay']/.." position="after">
                 <field name="product_brand_id" />
-                <field name="brand_code" readonly="1" />
+                <field name="brand_code" />
                 <field name="brand_marking" readonly="1" />
             </xpath>
         </field>

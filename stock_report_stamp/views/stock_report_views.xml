@@ -1,0 +1,10 @@
+<odoo>
+    <template
+    id="report_delivery_document_inherit"
+    inherit_id="stock.report_delivery_document"
+  >
+        <xpath expr="//div[@class='page']" position="inside">
+            <t t-call="res_company_signature_fields.base_signature_fields_template" />
+        </xpath>
+    </template>
+</odoo>
