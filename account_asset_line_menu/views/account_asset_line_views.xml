@@ -9,6 +9,7 @@
         create="false"
       >
                 <field name="asset_id" readonly="1" optional="show" />
+                <field name="code" />
                 <field name="type" optional="show" />
                 <field name="profile_id" optional="show" />
                 <field name="account_analytic_id" optional="show" />
@@ -67,6 +68,7 @@
         <field name="arch" type="xml">
             <search string="Search Assets Lines">
                 <field name="asset_id" />
+                <field name="code" />
                 <field name="type" />
                 <field name="line_date" />
                 <group expand="0" string="Group By">
