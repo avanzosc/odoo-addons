@@ -6,8 +6,8 @@ from odoo import models
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def _prepare_invoice_line(self, qty):
-        values = super()._prepare_invoice_line(qty)
+    def _prepare_invoice_line(self, **optional_values):
+        values = super()._prepare_invoice_line(**optional_values)
         cond = [("sale_line_id", "=", self.id)]
         moves = self.env["stock.move"].search(cond)
         for move in moves:
