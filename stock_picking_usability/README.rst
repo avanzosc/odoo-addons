@@ -6,8 +6,10 @@
 Stock Picking Usability
 =======================
 
-With this module, pickings usability is improved, by adding adding a button to access
-to the detailed operations. Also it makes always visible the detailed operations page.
+* With this module, pickings usability is improved, by adding adding a button
+  to access to the detailed operations. Also it makes always visible the
+  detailed operations page.
+* In stock picking form new shortcut to lots.
 
 Bug Tracker
 ===========
