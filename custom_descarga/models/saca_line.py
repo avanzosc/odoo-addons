@@ -483,7 +483,8 @@ class SacaLine(models.Model):
                                 line.product_id, name, picking.company_id
                             )
                         line.lot_id = lot.id
-                picking.sudo().button_validate()
+                if picking.state != "done":
+                    picking.sudo().button_validate()
             self.sudo().sale_order_id.commitment_date = self.date + timedelta(days=1)
             self.purchase_order_id.date_planned = self.date + timedelta(days=1)
             self.write({"stage_id": stage_matanza.id})
