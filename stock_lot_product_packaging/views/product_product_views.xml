@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <page name="package-types" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </page>
+            <page name="package-types" position="after">
+                <page name="product-packages" string="Product Packages">
+                    <field name="product_package_ids" nolabel="1" />
+                </page>
+            </page>
+
+            <button name="action_create_product_packages" position="attributes">
+                <attribute name="attrs">{'invisible': [(1, '==', 1)]}</attribute>
+            </button>
+
+        </field>
+    </record>
+</odoo>
