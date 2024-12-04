@@ -3,13 +3,10 @@
     :alt: License: AGPL-3
 
 =======================
-Stock Picking Usability
+Stock lot purchase info
 =======================
 
-* With this module, pickings usability is improved, by adding adding a button
-  to access to the detailed operations. Also it makes always visible the
-  detailed operations page.
-* In stock picking form new shortcut to lots.
+* In lots new fields: "Supplier", and "Purchase Price Unit".
 
 Bug Tracker
 ===========
@@ -25,7 +22,7 @@ Credits
 =======
 
 Contributors
-------------
+~~~~~~~~~~~~
 
-* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>

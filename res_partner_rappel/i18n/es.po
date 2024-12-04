@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-26 09:49+0000\n"
-"PO-Revision-Date: 2024-04-26 09:49+0000\n"
+"POT-Creation-Date: 2024-11-28 08:34+0000\n"
+"PO-Revision-Date: 2024-11-28 08:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,11 @@ msgid "ID"
 msgstr "Identificador"
 
 #. module: res_partner_rappel
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
+msgid "Invoice Date"
+msgstr "Fecha factura"
+
+#. module: res_partner_rappel
 #: model:ir.model,name:res_partner_rappel.model_account_move_line
 msgid "Journal Item"
 msgstr "Apunte contable"
@@ -77,6 +82,11 @@ msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: res_partner_rappel
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
+msgid "Last Month"
+msgstr "Último mes"
+
+#. module: res_partner_rappel
 #: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__write_uid
 msgid "Last Updated by"
 msgstr "Actualizado por"
@@ -85,6 +95,16 @@ msgstr "Actualizado por"
 #: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__write_date
 msgid "Last Updated on"
 msgstr "Actualizado el"
+
+#. module: res_partner_rappel
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
+msgid "Last Week"
+msgstr "Última semana"
+
+#. module: res_partner_rappel
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
+msgid "Last Year"
+msgstr "Último año"
 
 #. module: res_partner_rappel
 #: model:ir.model.fields.selection,name:res_partner_rappel.selection__res_partner_rappel__period__monthly
@@ -166,6 +186,11 @@ msgstr "Recalcular rappel"
 msgid ""
 "There cannot be rappels with product and without product at the same time."
 msgstr "No puede haber rappels con y sin producto al mismo tiempo."
+
+#. module: res_partner_rappel
+#: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
+msgid "Today"
+msgstr "Hoy"
 
 #. module: res_partner_rappel
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
