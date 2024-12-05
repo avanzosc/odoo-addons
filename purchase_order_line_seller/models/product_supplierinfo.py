@@ -12,7 +12,7 @@ class ProductSupplierinfo(models.Model):
             product_name = (
                 supplierinfo.product_name
                 if supplierinfo.product_name
-                else supplierinfo.name.name
+                else supplierinfo.partner_id.name
             )
             if supplierinfo.product_code:
                 name = "[{}] {}".format(supplierinfo.product_code, product_name)
