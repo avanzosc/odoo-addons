@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-19 08:41+0000\n"
-"PO-Revision-Date: 2024-11-19 08:41+0000\n"
+"POT-Creation-Date: 2024-12-11 13:36+0000\n"
+"PO-Revision-Date: 2024-12-11 13:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,6 +83,7 @@ msgstr "Cliente"
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__display_name
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory__display_name
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory_warning_wizard__display_name
+#: model:ir.model.fields,field_description:custom_p.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:custom_p.field_stock_picking__display_name
 msgid "Display Name"
 msgstr "Mostrar nombre"
@@ -100,6 +101,7 @@ msgstr "Mostrar nombre"
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line__id
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory__id
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory_warning_wizard__id
+#: model:ir.model.fields,field_description:custom_p.field_stock_move_line__id
 #: model:ir.model.fields,field_description:custom_p.field_stock_picking__id
 msgid "ID"
 msgstr "Identificador"
@@ -133,6 +135,7 @@ msgstr "Apunte contable"
 #: model:ir.model.fields,field_description:custom_p.field_sale_order_line_price_history_line____last_update
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory____last_update
 #: model:ir.model.fields,field_description:custom_p.field_stock_inventory_warning_wizard____last_update
+#: model:ir.model.fields,field_description:custom_p.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:custom_p.field_stock_picking____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
@@ -172,6 +175,11 @@ msgstr "Precio tarifa"
 #: model:ir.model,name:custom_p.model_product_pricelist_item
 msgid "Pricelist Rule"
 msgstr "Elemento de tarifa"
+
+#. module: custom_p
+#: model:ir.model,name:custom_p.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: custom_p
 #: model:ir.model,name:custom_p.model_product_pricelist_print
@@ -226,7 +234,7 @@ msgstr "Texto"
 
 #. module: custom_p
 #: code:addons/custom_p/wizards/stock_inventory_warning_wizard.py:0
-#: code:addons/custom_p/wizards/stock_inventory_warning_wizard.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_p/wizards/stock_inventory_warning_wizard.py:0
 #, python-format
 msgid ""
 "There is no location. The entire warehouse could be deleted and this could "
@@ -236,18 +244,8 @@ msgstr ""
 "graves consecuencias."
 
 #. module: custom_p
-#: model:ir.model.fields,help:custom_p.field_sale_order_line_price_history_line__commitment_date
-msgid ""
-"This is the delivery date promised to the customer. If set, the delivery "
-"order will be scheduled based on this date rather than product lead times."
-msgstr ""
-"Esta es la fecha de entrega prometida al cliente. Si se establece, la orden "
-"de entrega se programará en función de esta fecha y no de los plazos de "
-"entrega del producto."
-
-#. module: custom_p
 #: code:addons/custom_p/models/sale_order.py:0
-#: code:addons/custom_p/models/sale_order.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_p/models/sale_order.py:0
 #, python-format
 msgid "This sale has not partner."
 msgstr "No tiene cliente establecido."
@@ -270,10 +268,10 @@ msgstr "Actualizar cantidades de las líneas"
 
 #. module: custom_p
 #: code:addons/custom_p/models/stock_inventory.py:0
-#: code:addons/custom_p/models/stock_inventory.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_p/models/stock_inventory.py:0
 #, python-format
 msgid "Warning"
-msgstr "Advertencia"
+msgstr "Alerta"
 
 #. module: custom_p
 #: model:ir.model,name:custom_p.model_stock_inventory_warning_wizard

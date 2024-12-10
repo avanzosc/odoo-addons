@@ -90,3 +90,10 @@ class SaleOrderLine(models.Model):
                                 )
                             )
                 line.qty_invoiced = qty_invoiced
+
+    @api.model
+    def create(self, values):
+        result = super(SaleOrderLine, self).create(values)
+        if not self.order_id.commitment_date:
+            result.order_id.commitment_date = result.order_id.expected_date
+        return result
