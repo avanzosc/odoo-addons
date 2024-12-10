@@ -7,6 +7,11 @@
             <button name="action_toggle_is_locked" position="attributes">
                 <attribute name="groups">custom_p.group_picking_unlock</attribute>
             </button>
+            <field name="origin" position="attributes">
+                <attribute
+          name="attrs"
+        >{'readonly': [('state', '=', 'cancel')]}</attribute>
+            </field>
         </field>
     </record>
 </odoo>
