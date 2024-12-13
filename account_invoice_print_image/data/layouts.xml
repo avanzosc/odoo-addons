@@ -2,17 +2,12 @@
 <odoo>
     <template id="external_layout_standard" inherit_id="web.external_layout_standard">
         <xpath expr="//div[@name='company_address']" position="after">
-          <div class="col-6">
-            <span
-          name="out_invoice_image"
+          <div class="col-6 text-end">
+            <img
           t-if="company and company._name == 'res.company' and company.out_invoice_image and o and o._name == 'account.move' and o.move_type in ('out_invoice', 'out_refund')"
-          style="position: absolute; top:55px; left: 740px"
-        >
-                <img
-            t-att-src="image_data_uri(company.out_invoice_image)"
-            style="max-height: 120px;"
-          />
-            </span>
+          t-att-src="image_data_uri(company.out_invoice_image)"
+          style="max-height: 120px; margin: 3px 0 0 0;"
+        />
           </div>
         </xpath>
     </template>
