@@ -1,25 +1,13 @@
-===========================
-Account invoice print image
-===========================
-
-.. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-|badge1|
+============================
+Stock orderpoint first dates
+============================
 
-* In company new field "Out Invoice Image". When a customer invoice is printed,
-  this image will be printed.
-
-**Table of contents**
-
-.. contents::
-   :local:
-
-Known issues / Roadmap
-======================
-
-* Only works with "light" document design.
+* In Invetory - Operations - Replenishment, new fields "First Reception Date",
+  and "First Shipping Date".
 
 Bug Tracker
 ===========
