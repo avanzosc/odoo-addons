@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 09:57+0000\n"
-"PO-Revision-Date: 2024-06-18 09:57+0000\n"
+"POT-Creation-Date: 2024-12-17 08:16+0000\n"
+"PO-Revision-Date: 2024-12-17 08:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_operation_tree
 msgid "Divide"
 msgstr ""
 
@@ -32,6 +33,7 @@ msgstr ""
 
 #. module: stock_move_line_divide
 #. odoo-python
+#: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #, python-format
 msgid "The dividing amount can not be 0."
