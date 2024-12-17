@@ -31,19 +31,18 @@
                 <field name="allowed_lot_ids" invisible="1" />
             </field>
             <field name="name" position="after">
-                <field name="container" />
-                <field name="route_id" />
-                <field name="palet_id" />
-                <field name="palet_qty" />
-                <field name="gross_weight" />
+                <field name="container" optional="hide" />
+                <field name="route_id" optional="hide" />
+                <field name="palet_id" optional="show" />
+                <field name="palet_qty" optional="show" />
+                <field name="gross_weight" optional="hide" />
             </field>
             <field name="product_uom_qty" position="after">
-                <field name="entire_chick_percentage" />
-                <field name="return_qty" />
+                <field name="entire_chick_percentage" optional="hidde" />
+                <field name="return_qty" optional="hide" />
             </field>
-
             <field name="product_uom" position="after">
-                <field name="surplus" />
+                <field name="surplus" optional="hide" />
             </field>
         </field>
     </record>

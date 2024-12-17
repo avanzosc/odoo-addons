@@ -84,3 +84,15 @@ msgstr "Actualizar precio desde factura"
 #: model_terms:ir.ui.view,arch_db:product_pricelist_last_purchase_price.view_res_partner_filter
 msgid "Update Price From Order"
 msgstr "Actualizar precio desde pedido"
+
+#. module: product_pricelist_last_purchase_price
+#: code:addons/product_pricelist_last_purchase_price/models/account_move.py:0
+#: code:addons/product_pricelist_last_purchase_price/models/purchase_order.py:0
+#, python-format
+msgid ""
+"The product: %(product)s has been repeated more than once by supplier: "
+"%(supplier)s."
+msgstr ""
+"El producto: %(product)s tiene repetido mas de una vez al proveedor: "
+"%(supplier)s."
+

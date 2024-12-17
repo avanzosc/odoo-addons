@@ -1,7 +1,7 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
-from odoo.exceptions import AccessError
+from odoo import _, fields, models
+from odoo.exceptions import AccessError, ValidationError
 
 
 class AccountMove(models.Model):
@@ -93,6 +93,12 @@ class AccountMove(models.Model):
             lambda x: x.name == partner
             and (x.price != line.price_unit or x.discount != line.discount)
         )
+        if len(seller) > 1:
+            message = _(
+                "The product: %(product)s has been repeated more than "
+                "once by supplier: %(supplier)s."
+            ) % {"product": line.product_id.name, "supplier": partner.name}
+            raise ValidationError(message)
         if seller and seller.not_update_price_from_invoice:
             seller = False
         return seller
