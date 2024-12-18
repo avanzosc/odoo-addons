@@ -266,7 +266,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr t-foreach="move_lines" t-as="line">
+                                <tr
+                  t-foreach="move_lines.sorted(key=lambda r: r.move_id.name)"
+                  t-as="line"
+                >
                                     <td>
                                         <span t-field="line.move_id.name" />
                                     </td>
