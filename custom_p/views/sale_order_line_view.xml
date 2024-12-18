@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_sales_order_line_input_tree" model="ir.ui.view">
+    <record id="view_order_line_tree" model="ir.ui.view">
         <field name="model">sale.order.line</field>
-        <field
-      name="inherit_id"
-      ref="sale_order_line_input.view_sales_order_line_input_tree"
-    />
+        <field name="inherit_id" ref="sale.view_order_line_tree" />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <tree position="attributes">
                 <attribute name="decoration-warning">0</attribute>
+                <attribute name="editable">bottom</attribute>
+                <attribute name="create" />
             </tree>
             <field name="order_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-            <button name="action_sale_order_form" position="attributes">
-                <attribute name="attrs">{'invisible': [(1,'=',1)]}</attribute>
-            </button>
+            <!--<button name="action_sale_order_form" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>-->
             <field name="team_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
@@ -26,23 +25,67 @@
             <field name="partner_shipping_id" position="attributes">
                 <attribute name="optional">hide</attribute>
             </field>
-            <field name="product_id" position="after">
+            <field name="name" position="before">
+                <field name="product_id" />
+                <field name="company_id" invisible="1" />
+                <field name="product_uom_category_id" invisible="1" />
                 <field name="lot_id" />
                 <field name="allowed_lot_ids" invisible="1" />
             </field>
-            <field name="name" position="after">
-                <field name="container" optional="hide" />
-                <field name="route_id" optional="hide" />
+            <field name="name" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="price_subtotal" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="container" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="entire_chick_percentage" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="route_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+            <field name="product_packaging" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="product_packaging_qty" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="container" position="after">
                 <field name="palet_id" optional="show" />
                 <field name="palet_qty" optional="show" />
                 <field name="gross_weight" optional="hide" />
+                <field name="product_packaging" optional="show" />
+                <field name="product_packaging_qty" optional="show" />
             </field>
-            <field name="product_uom_qty" position="after">
-                <field name="entire_chick_percentage" optional="hidde" />
+            <field name="qty_delivered" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="returned_amount" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="pending_qty" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="qty_invoiced" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="qty_to_invoice" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="salesman_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="entire_chick_percentage" position="after">
                 <field name="return_qty" optional="hide" />
             </field>
             <field name="product_uom" position="after">
                 <field name="surplus" optional="hide" />
+                <field name="price_unit" optional="hide" />
+                <field name="tax_id" widget="many2many_tags" optional="hide" />
+                <field name="discount" optional="hide" />
             </field>
         </field>
     </record>

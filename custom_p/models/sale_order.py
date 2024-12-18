@@ -22,7 +22,7 @@ class SaleOrder(models.Model):
 
     def action_view_sale_lines(self):
         result = super().action_view_sale_lines()
-        view_tree_id = self.env.ref("custom_p.view_sales_order_line_input_tree").id
+        view_tree_id = self.env.ref("custom_p.view_order_line_tree").id
         result["views"] = [(view_tree_id, "tree")]
         result["view"] = view_tree_id
         return result
