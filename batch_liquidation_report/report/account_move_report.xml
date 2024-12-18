@@ -184,7 +184,7 @@
                       />
                                         </td>
                                     </tr>
-                                    <t t-if="print_with_payments">
+                                    <t>
                                         <t t-if="o.payment_state != 'invoicing_legacy'">
                                             <t
                         t-set="payments_vals"
