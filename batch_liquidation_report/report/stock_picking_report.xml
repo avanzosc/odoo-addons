@@ -167,44 +167,12 @@
                         <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
                         <span t-field="o.crm_driver_id.vat" />
                     </div>
-                    <div
-            t-if="o.crm_driver_id.mobile or o.crm_driver_id.phone"
-            class="mt16"
-          >Phone:
-                        <span
-              t-if="o.crm_driver_id.phone"
-              t-field="o.crm_driver_id.phone"
-            />
-                        <span
-              t-if="o.crm_driver_id.mobile and o.crm_driver_id.phone"
-            > / </span>
-                        <span
-              t-if="o.crm_driver_id.mobile"
-              t-field="o.crm_driver_id.mobile"
-            />
-                    </div>
                     <div t-if="o.cmr_second_driver_id" class="mt16">Second Driver:
                         <span t-field="o.cmr_second_driver_id.name" />
                     </div>
                     <div t-if="o.cmr_second_driver_id.vat" class="mt16">
                         <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
                         <span t-field="o.cmr_second_driver_id.vat" />
-                    </div>
-                    <div
-            t-if="o.cmr_second_driver_id.mobile or o.cmr_second_driver_id.phone"
-            class="mt16"
-          >Phone:
-                        <span
-              t-if="o.cmr_second_driver_id.phone"
-              t-field="o.cmr_second_driver_id.phone"
-            />
-                        <span
-              t-if="o.cmr_second_driver_id.mobile and o.cmr_second_driver_id.phone"
-            > / </span>
-                        <span
-              t-if="o.cmr_second_driver_id.mobile"
-              t-field="o.cmr_second_driver_id.mobile"
-            />
                     </div>
                     <div t-if="o.cmr_tractor_license_plate" class="mt16">
                         License Plate Head: <span
