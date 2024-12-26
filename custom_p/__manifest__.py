@@ -39,6 +39,7 @@
         "views/account_invoice_report_view.xml",
         "views/stock_picking_view.xml",
         "views/product_packaging_view.xml",
+        "views/hr_employee_view.xml",
         "wizards/sale_order_line_price_history_view.xml",
         "wizards/stock_inventory_warning_wizard_view.xml",
     ],
