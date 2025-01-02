@@ -293,12 +293,13 @@ class StockInventoryImportLine(models.Model):
     def _check_lot(self, product=False, company=False):
         self.ensure_one()
         log_info = ""
+
         if product.tracking not in ("serial", "lot") and self.inventory_lot:
             return False, _("Untraceable product, but has lot.")
-        if product.tracking not in ("serial", "lot") and not self.inventory_lot:
-            return False, log_info
         if product.tracking in ("serial", "lot") and not self.inventory_lot:
             return False, _("Lot required")
+        if product.tracking not in ("serial", "lot") and not self.inventory_lot:
+            return False, log_info
         if self.inventory_lot_id:
             return self.inventory_lot_id, log_info
         lot_obj = self.env["stock.lot"].with_company(company)
