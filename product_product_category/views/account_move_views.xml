@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_account_invoice_report_pivot" model="ir.ui.view">
+        <field name="name">account.move.line.pivot.inherit</field>
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_pivot" />
+        <field name="arch" type="xml">
+            <xpath expr="pivot" position="after">
+                 <field name="variant_categ_id" type="measure" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

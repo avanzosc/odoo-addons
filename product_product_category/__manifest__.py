@@ -6,7 +6,12 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "LGPL-3",
     "depends": ["product"],
-    "data": ["views/product_view.xml"],
+    "data": [
+        "views/account_move_views.xml",
+        "views/product_product_views.xml",
+        "views/stock_move_views.xml",
+        "views/stock_move_line_views.xml",
+    ],
     "installable": True,
     "application": False,
     "post_init_hook": "post_init_hook",
