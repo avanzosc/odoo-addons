@@ -298,9 +298,7 @@ class StockInventoryImportLine(models.Model):
         if product.tracking not in ("serial", "lot") and not self.inventory_lot:
             return False, log_info
         if product.tracking in ("serial", "lot") and not self.inventory_lot:
-            return False, _("Lot required for product %(product_name)s.") % {
-                "product_name": product.display_name,
-            }
+            return False, _("Lot required")
         if self.inventory_lot_id:
             return self.inventory_lot_id, log_info
         lot_obj = self.env["stock.lot"].with_company(company)
