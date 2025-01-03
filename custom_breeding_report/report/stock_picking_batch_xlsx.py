@@ -135,10 +135,15 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(n, 25, round(line.cost_kilo, 3), three_decimal_format)
             worksheet.write(n, 26, line.warehouse_id.farm_area, int_format)
+            per_area = (
+                (line.meat_kilos / line.warehouse_id.farm_area)
+                if line.warehouse_id.farm_area != 0
+                else 0
+            )
             worksheet.write(
                 n,
                 27,
-                round(line.meat_kilos / line.warehouse_id.farm_area, 3),
+                round(per_area, 3),
                 three_decimal_format,
             )
             n = n + 1
