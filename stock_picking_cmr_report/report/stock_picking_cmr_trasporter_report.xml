@@ -136,12 +136,6 @@
                                <span t-field="doc.crm_driver_id.vat" />
                            </span>
                        </p>
-                       <p class="m-0" t-if="doc.crm_driver_id.phone">
-                           <span>
-                               <span>Phone:</span>
-                               <span t-field="doc.crm_driver_id.phone" />
-                           </span>
-                       </p>
                        <strong t-if="doc.cmr_second_driver_id">Second Driver</strong>
                        <p class="m-0" t-if="doc.cmr_second_driver_id">
                            <span>
