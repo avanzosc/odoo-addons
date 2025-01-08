@@ -264,11 +264,7 @@ class StockInventoryImportLine(models.Model):
             log_info = _("No location found.")
         elif len(locations) > 1:
             locations = False
-            log_info = _(
-                "More than one location with name %(location_name)s found."
-            ) % {
-                "location_name": self.inventory_location,
-            }
+            log_info = _("More than one location found.")
         return locations and locations[:1], log_info
 
     def _check_product(self, company=False):
@@ -288,14 +284,10 @@ class StockInventoryImportLine(models.Model):
             )
         products = product_obj.search(search_domain)
         if not products:
-            log_info = _("No product %(product_name)s found.") % {
-                "product_name": self.inventory_product_code or self.inventory_product,
-            }
+            log_info = _("No product found.")
         elif len(products) > 1:
             products = False
-            log_info = _("More than one product %(product_name)s found.") % {
-                "product_name": self.inventory_product_code or self.inventory_product,
-            }
+            log_info = _("More than one product found.")
         return products and products[:1], log_info
 
     def _check_lot(self, product=False, company=False):
@@ -306,9 +298,7 @@ class StockInventoryImportLine(models.Model):
         if product.tracking not in ("serial", "lot") and not self.inventory_lot:
             return False, log_info
         if product.tracking in ("serial", "lot") and not self.inventory_lot:
-            return False, _("Lot required for product %(product_name)s.") % {
-                "product_name": product.display_name,
-            }
+            return False, _("Lot required")
         if self.inventory_lot_id:
             return self.inventory_lot_id, log_info
         lot_obj = self.env["stock.lot"].with_company(company)
@@ -318,23 +308,12 @@ class StockInventoryImportLine(models.Model):
         ]
         lots = lot_obj.search(search_domain)
         if not lots:
-            log_info = _(
-                "No lot with name %(lot_name)s found for product %(product_name)s."
-            ) % {
-                "lot_name": self.inventory_lot,
-                "product_name": product.display_name,
-            }
+            log_info = _("No lot found for product")
             if self.import_id.lot_create and self.inventory_lot:
                 log_info = ""
         elif len(lots) > 1:
             lots = False
-            log_info = _(
-                "More than one lot with name %(lot_name)s and product %(product_name)s "
-                "found."
-            ) % {
-                "lot_name": self.inventory_lot,
-                "product_name": product.display_name,
-            }
+            log_info = _("More than one lot found.")
         return lots and lots[:1], log_info
 
     def _check_owner(self, company=False):
@@ -354,9 +333,7 @@ class StockInventoryImportLine(models.Model):
             log_info = _("No owner found.")
         elif len(owners) > 1:
             owners = False
-            log_info = _("More than one owner with name %(owner_name)s found.") % {
-                "owner_name": self.inventory_owner,
-            }
+            log_info = _("More than one owner found.")
         return owners and owners[:1], log_info
 
     def _check_package(self, company=False):
@@ -376,7 +353,5 @@ class StockInventoryImportLine(models.Model):
             log_info = _("No package found.")
         elif len(packages) > 1:
             packages = False
-            log_info = _("More than one package with name %(package_name)s found.") % {
-                "package_name": self.inventory_package,
-            }
+            log_info = _("More than one package found.")
         return packages and packages[:1], log_info
