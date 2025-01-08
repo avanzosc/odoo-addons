@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="picking_box_label_report_document">
+      <t t-call="web.html_container">
+      <t t-call="stock_picking_box_label_report.picking_box_label_external_layout">
+      <t t-foreach="docs" t-as="o">
+        <t t-if="len (o.label_box_line_ids) &gt; 0">
+          <t t-set="number_labels" t-value="1" />
+          <t
+              t-foreach="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40]"
+              t-as="i"
+            >
+          <t
+                t-if="number_labels &lt; o.number_of_labels_to_print or number_labels == o.number_of_labels_to_print"
+              >
+          <t t-set="cont" t-value="1" />
+          <t t-foreach="o.label_box_line_ids" t-as="operation">
+            <div class="page" style="font-size: 14px; padding-top: 10px;">
+              <style type="text/css">
+.border-table {
+  border: solid 1px black;
+}
+td {
+  padding: 3px;
+  text-align: center;
+}
+th {
+  padding: 3px;
+}
+                    </style>
+              <!-- Logo JVV -->
+              <div class="row" style="margin-top: -2px;">
+                <div class="col-5" style="padding-top: 5px; margin-left:50px;">
+                  <img
+                          t-if="not o.picking_id.partner_id.image_1920"
+                          t-attf-src="data:image/*;base64,{{res_company.logo}}"
+                          t-att-alt="res_company.name"
+                          width="60%"
+                          height="112px"
+                        />
+                  <img
+                          t-if="o.picking_id.partner_id.image_1920"
+                          t-attf-src="data:image/*;base64,{{o.picking_id.partner_id.image_1920}}"
+                          t-att-alt="o.picking_id.partner_id.name"
+                          width="60%"
+                          height="112px"
+                        />
+                </div>
+                <div
+                        class="col-5 offset-0"
+                        style="padding-top: 5px; border: 1px solid black; border-collapse: separate; border-radius:10px; height:125px;"
+                      >
+                  <p style="font-size: 14px; margin-left: 10px;">
+                    <t t-if="o.picking_id.partner_id">
+                      <span t-esc="o.picking_id.partner_id.name[:50]" /><br />
+                    </t>
+                    <t t-if="o.picking_id.partner_id.street">
+                      <span t-field="o.picking_id.partner_id.street" /><br />
+                    </t>
+                    <t t-if="o.picking_id.partner_id.city">
+                      <span t-field="o.picking_id.partner_id.city" /><br />
+                   </t>
+                   <t t-if="o.picking_id.partner_id.zip">
+                     <span t-field="o.picking_id.partner_id.zip" /><br />
+                   </t>
+                   <t t-if="o.picking_id.partner_id.phone">
+                     <span><b>PHONE: </b></span>
+                     <span t-field="o.picking_id.partner_id.phone" /><br />
+                   </t>
+                   <t t-if="o.picking_id.partner_id.vat">
+                     <span><b>VAT: </b></span>
+                     <span t-field="o.picking_id.partner_id.vat" /><br />
+                   </t>
+                  </p>
+                </div>
+              </div>
+              <!-- Tabla -->
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-10 offset-1">
+                  <table class="border-table" style="width: 100%;">
+                    <!-- Pedido -->
+                    <tr class="border-table">
+                      <th class="border-table" style="text-align: left;">
+                          <span style="font-size: 14px;">BOX:</span>
+                          <br />
+                          <span style="font-size: 14px;">PICKING:</span>
+                      </th>
+                      <td class="border-table" colspan="2">
+                        <span style="font-size: 14px;" t-esc="cont" /> / <span
+                                style="font-size: 14px;"
+                                t-esc="len (o.label_box_line_ids)"
+                              />
+                        <t t-set="cont" t-value="cont + 1" />
+                        <br />
+                        <span style="font-size: 14px;" t-field="o.picking_id" />
+                        <br />
+                        <span
+                                t-field="o.picking_id.date_done"
+                                style="font-size: 14px;"
+                                t-options='{"widget": "date"}'
+                              />
+                      </td>
+                      <th class="border-table" style="text-align: left;">
+                          <span style="font-size: 14px;">DESCRIPTION:</span>
+                          <br />
+                        <b>
+                          <span
+                                  style="font-size: 14px;"
+                                  t-esc="operation.product_id.name[0:57]"
+                                />
+                        </b>
+                      </th>
+                    </tr>
+
+                    <!-- Pedido -->
+                    <tr class="border-table">
+                      <th
+                              class="border-table"
+                              style="text-align: left; vertical-align: top;"
+                            >
+                          <span style="font-size: 14px;">ORDER:</span>
+                          <br />
+                          <span style="font-size: 14px;">Nº LOT:</span>
+                          <br />
+                          <span style="font-size: 14px;">ARTICLE:</span>
+                          <br />
+                          <span style="font-size: 14px;">QUANTITY:</span>
+                          <br />
+                          <t t-if="o.picking_id.sale_id">
+                            <span style="font-size: 14px;">CUST. ORDER:</span>
+                            <br />
+                          </t>
+                          <span style="font-size: 14px;">CUST. ARTICLE:</span>
+                      </th>
+                      <td class="border-table" colspan="2" style="vertical-align: top;">
+                        <span style="font-size: 14px;" t-field="o.picking_id.origin" />
+                        <br />
+                        <span
+                                style="font-size: 14px;"
+                                t-field="operation.lot_id.name"
+                              />
+                        <br />
+                        <span
+                                style="font-size: 14px;"
+                                t-field="operation.product_id.code"
+                              />
+                        <br />
+                        <span
+                                style="font-size: 14px;"
+                                t-esc="int (operation.product_qty)"
+                              />
+                        <br />
+                        <t t-if="o.picking_id.sale_id">
+                            <t
+                                  t-set="client_order_ref"
+                                  t-value="o.picking_id.sale_id.client_order_ref"
+                                />
+                            <span
+                                  style="font-size: 14px;"
+                                  t-esc="client_order_ref or ''"
+                                />
+                            <br />
+                        </t>
+                        <span
+                                style="font-size: 14px;"
+                                t-field="operation.customer_product_code"
+                              />
+                      </td>
+                      <td>
+                          <strong>
+                            <span style="font-size: 14px;">CUST. PRODUCT REF.:</span>
+                          </strong>
+                          <br />
+                         <img
+                                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', operation.customer_product_code, 115, 115)"
+                              />
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div><!-- END tabla -->
+            </div> <!-- END page -->
+          </t><!-- END foreach 'move_lines' -->
+          </t>
+          <t t-set="number_labels" t-value="number_labels + 1" />
+          <t
+                t-if="number_labels &lt; o.number_of_labels_to_print or number_labels == o.number_of_labels_to_print"
+              >
+            <div style="page-break-after: always" />
+          </t>
+          </t><!-- END foreach 'Number of labels to print' -->
+        </t><!-- END if not operations -->
+     </t> <!-- END foreach 'docs' -->
+     </t>
+     </t>
+    </template>
+
+    <record id="action_picking_box_label_report" model="ir.actions.report">
+        <field name="name">Picking Box Labels</field>
+        <field name="model">wiz.picking.box.label</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_box_label_report.picking_box_label_report_document</field>
+        <field
+      name="report_file"
+    >stock_picking_box_label_report.picking_box_label_report_document</field>
+        <field
+      name="print_report_name"
+    >('Box Labels For Picking - %s' % (object.picking_id.name))</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_box_label_report.model_wiz_picking_box_label"
+    />
+        <field name="binding_type">report</field>
+        <field
+      name="paperformat_id"
+      ref="stock_picking_box_label_report.paperformat_picking_box_label"
+    />
+    </record>
+</odoo>

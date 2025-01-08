@@ -11,7 +11,8 @@ class StockQuantPackage(models.Model):
     @api.model
     def create(self, vals):
         line = super().create(vals)
-        line.name = "{} {} {:0>3}".format(
-            line.batch_id.name, "-", len(line.batch_id.quant_package_ids)
-        )
+        if line.batch_id:
+            line.name = "{} {} {:0>3}".format(
+                line.batch_id.name, "-", len(line.batch_id.quant_package_ids)
+            )
         return line

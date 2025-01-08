@@ -1,0 +1,71 @@
+<odoo>
+    <record id="view_product_brand_form" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.view_product_brand_form" />
+        <field name="arch" type="xml">
+            <notebook position="before">
+                <group name="active" col="6">
+                    <group colspan="2">
+                        <field name="active" />
+                    </group>
+                    <group colspan="2">
+                        <field name="start_date" />
+                    </group>
+                    <group colspan="2">
+                        <field name="end_date" />
+                    </group>
+                </group>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_product_brand_tree" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.view_product_brand_tree" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="active" optional="show" />
+                <field name="start_date" optional="show" />
+                <field name="end_date" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_brand_search_form_view" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.product_brand_search_form_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="before">
+                <field name="active" optional="show" />
+                <field name="start_date" optional="show" />
+                <field name="end_date" optional="show" />
+                <separator />
+                <filter
+          string="Active"
+          domain="[('active', '=', True)]"
+          name="active_filter"
+        />
+                <filter
+          string="Not Active"
+          domain="[('active', '=', False)]"
+          name="not_active_filter"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Active"
+            name="active"
+            domain="[]"
+            context="{'group_by': 'active'}"
+          />
+                </group>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="product_brand.action_product_brand">
+        <field name="name">Brand</field>
+        <field name="res_model">product.brand</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="domain">[('active', 'in', (True, False))]</field>
+    </record>
+</odoo>
