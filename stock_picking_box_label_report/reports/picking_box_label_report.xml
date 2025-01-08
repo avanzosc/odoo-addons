@@ -50,7 +50,7 @@ th {
                         class="col-5 offset-0"
                         style="padding-top: 5px; border: 1px solid black; border-collapse: separate; border-radius:10px; height:125px;"
                       >
-                  <p style="font-size: 14px; margin-left: 10px;">
+                  <p style="font-size: 12px; margin-left: 10px; margin-bottom: -5px;">
                     <t t-if="o.picking_id.partner_id">
                       <span t-esc="o.picking_id.partner_id.name[:50]" /><br />
                     </t>
