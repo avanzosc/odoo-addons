@@ -1,17 +1,18 @@
-# Copyright 2021 Alfredo de la Fuente - AvanzOSC
+# Copyright 2025 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
-    "name": "Product Storable Generate Task Estimated Hours",
+    "name": "Account Move Line Tree Limit",
     "version": "16.0.1.0.0",
-    "category": "Banking addons",
+    "category": "Accounting & Finance",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "product_storable_generate_task",
-        "sale",
+        "account",
     ],
-    "data": [],
+    "data": [
+        "views/account_move_view.xml",
+    ],
     "installable": True,
-    "auto_install": True,
 }
