@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_partner_property_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="purchase.view_partner_property_form" />
+        <field name="arch" type="xml">
+            <field name="property_purchase_currency_id" position="after">
+                <field name="not_update_price_from_order" />
+                <field name="not_update_price_from_invoice" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_tree">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="category_id" position="after">
+                <field name="not_update_price_from_order" optional="show" />
+                <field name="not_update_price_from_invoice" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_filter">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <filter name="type_company" position="after">
+                <separator />
+                <filter
+          string="Not Update Price From Order"
+          name="not-update-price-from_order"
+          domain="[('not_update_price_from_order', '=', True)]"
+        />
+                <filter
+          string="Not Update Price From Invoice"
+          name="not-update-price-from_invoice"
+          domain="[('not_update_price_from_invoice', '=', True)]"
+        />
+                <filter
+          string="Update Price From Order"
+          name="update-price-from_order"
+          domain="[('not_update_price_from_order', '=', False)]"
+        />
+                <filter
+          string="Update Price From Invoice"
+          name="update-price-from_invoice"
+          domain="[('not_update_price_from_invoice', '=', False)]"
+        />
+            </filter>
+            <filter name="group_country" position="after">
+                <filter
+          name="group_update-price-from_order"
+          string="Not Update Price From Order"
+          context="{'group_by': 'not_update_price_from_order'}"
+        />
+                <filter
+          name="group_update-price-from_invoice"
+          string="Not Update Price From Invoice"
+          context="{'group_by': 'not_update_price_from_invoice'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

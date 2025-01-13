@@ -15,3 +15,7 @@ class AccountAssetLine(models.Model):
         related="asset_id.account_analytic_id",
         store=True,
     )
+    code = fields.Char(
+        related="asset_id.code",
+        store=True,
+    )

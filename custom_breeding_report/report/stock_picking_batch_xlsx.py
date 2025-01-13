@@ -135,23 +135,25 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(n, 25, round(line.cost_kilo, 3), three_decimal_format)
             worksheet.write(n, 26, line.warehouse_id.farm_area, int_format)
+            per_area = (
+                (line.meat_kilos / line.warehouse_id.farm_area)
+                if line.warehouse_id.farm_area != 0
+                else 0
+            )
             worksheet.write(
                 n,
                 27,
-                round(line.meat_kilos / line.warehouse_id.farm_area, 3),
+                round(per_area, 3),
                 three_decimal_format,
             )
             n = n + 1
         worksheet.write(n, 5, sum(objects.mapped("chick_units")), int_format)
         worksheet.write(n, 6, sum(objects.mapped("output_units")), int_format)
         cancellation = (
-            (
-                sum(objects.mapped("chick_entry_qty"))
-                - sum(objects.mapped("output_units"))
-            )
+            (sum(objects.mapped("chick_units")) - sum(objects.mapped("output_units")))
             * 100
-            / sum(objects.mapped("chick_entry_qty"))
-            if sum(objects.mapped("chick_entry_qty"))
+            / sum(objects.mapped("chick_units"))
+            if sum(objects.mapped("chick_units"))
             else 0
         )
         worksheet.write(n, 7, round(cancellation, 2), two_decimal_format)
@@ -183,7 +185,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             if conversion != 0
             else 0
         )
-        worksheet.write(n, 10, int(feep), int_format)
+        worksheet.write(n, 10, round(feep, 0), int_format)
         worksheet.write(n, 11, sum(objects.mapped("meat_kilos")), int_format)
         worksheet.write(
             n, 12, round(sum(objects.mapped("output_amount")), 2), two_decimal_format

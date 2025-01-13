@@ -26,6 +26,7 @@ class SaleOrderLine(models.Model):
                 and line.return_qty
             ):
                 line.product_uom_qty = line.qty_delivered
+                line._compute_qty_amount_pending_delivery()
             if (
                 len(line.order_id.picking_ids) > 1
                 and line.order_id.update_line_qty
@@ -65,6 +66,7 @@ class SaleOrderLine(models.Model):
 
     @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
     def _get_invoice_qty(self):
+        super()._get_invoice_qty()
         for line in self:
             if line.invoice_lines.filtered(lambda c: c.out_refund_from_invoice):
                 qty_invoiced = 0.0
@@ -88,3 +90,10 @@ class SaleOrderLine(models.Model):
                                 )
                             )
                 line.qty_invoiced = qty_invoiced
+
+    @api.model
+    def create(self, values):
+        result = super(SaleOrderLine, self).create(values)
+        if not result.order_id.commitment_date:
+            result.order_id.commitment_date = result.order_id.expected_date
+        return result

@@ -12,12 +12,24 @@
           type="object"
           help="List view of detailed operations"
           groups="base.group_no_one"
-          attrs="{'invisible': [('show_operations', '=', False)]}"
           context="{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_line_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"
         >
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_text">Detailed Operations</span>
                         <field name="is_return_picking" invisible="1" />
+                    </div>
+                </button>
+                <button
+          name="action_picking_stock_production_lot_tree"
+          class="oe_stat_button"
+          icon="fa-arrows-v"
+          type="object"
+          help="List view of lots"
+          groups="base.group_no_one"
+        >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Lots</span>
+                        <field name="count_lots" />
                     </div>
                 </button>
             </button>
