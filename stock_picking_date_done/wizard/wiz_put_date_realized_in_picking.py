@@ -18,7 +18,7 @@ class WizPutDateRealizedInPicking(models.TransientModel):
             pickings = pickings.filtered(lambda x: x.state in ("done", "cancel"))
             for picking in pickings:
                 picking.custom_date_done = self.custom_date_done
-                if picking.move_lines:
-                    picking.move_lines.write({"date": self.custom_date_done})
+                if picking.move_ids:
+                    picking.move_ids.write({"date": self.custom_date_done})
                 if picking.move_line_ids:
                     picking.move_line_ids.write({"date": self.custom_date_done})
