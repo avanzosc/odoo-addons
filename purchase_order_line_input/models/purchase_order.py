@@ -2,8 +2,9 @@
 # Copyright 2020 Mikel Arregi Etxaniz - AvanzOSC
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-
 from odoo import api, fields, models
+from odoo.models import expression
+from odoo.tools.safe_eval import safe_eval
 
 
 class PurchaseOrder(models.Model):
@@ -20,11 +21,12 @@ class PurchaseOrder(models.Model):
             line.lines_count = len(line.order_line)
 
     def action_view_lines(self):
-        action = self.env.ref("purchase_order_line_menu.action_purchase_orders_lines")
-        result = action.read()[0]
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "purchase_order_line_menu.action_purchase_orders_lines"
+        )
         # create_bill = self.env.context.get('create_bill', False)
         # override the context to get rid of the default filtering
-        result["context"] = {
+        action["context"] = {
             "type": "in_invoice",
             "default_order_id": self.id,
             "default_currency_id": self.currency_id.id,
@@ -32,8 +34,10 @@ class PurchaseOrder(models.Model):
             "company_id": self.company_id.id,
         }
         # choose the view_mode accordingly
-        result["domain"] = "[('order_id', '=', {})]".format(self.id)
-        return result
+        action["domain"] = expression.AND(
+            [[("order_id", "in", self.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        return action
 
 
 class PurchaseOrderLine(models.Model):
