@@ -8,7 +8,11 @@ from odoo.tools.safe_eval import safe_eval
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    is_repair = fields.Boolean(string="It's repair", default=False, copy=True)
+    is_repair = fields.Boolean(
+        string="It's repair",
+        default=False,
+        copy=True,
+    )
     created_repair_ids = fields.One2many(
         string="Created repairs",
         comodel_name="repair.order",
@@ -16,14 +20,24 @@ class StockPicking(models.Model):
         copy=True,
     )
     repairs_count = fields.Integer(
-        string="# Repairs", compute="_compute_repairs_count", store=True, copy=True
+        string="# Repairs",
+        compute="_compute_repairs_count",
+        store=True,
+        copy=True,
     )
     sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=True
+        string="Sale order",
+        comodel_name="sale.order",
+        copy=True,
     )
-    untreated_origin = fields.Char(string="Untreated origin", copy=True)
+    untreated_origin = fields.Char(
+        string="Untreated origin",
+        copy=True,
+    )
     devolution_sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=True
+        string="Sale order",
+        comodel_name="sale.order",
+        copy=True,
     )
 
     @api.depends("created_repair_ids")
@@ -62,16 +76,16 @@ class StockPicking(models.Model):
 
     def action_repairs_from_picking(self):
         self.ensure_one()
-        action = self.env.ref("repair.action_repair_order_tree")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "repair.action_repair_order_tree"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", self.created_repair_ids.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def action_assign(self):
         for picking in self:
