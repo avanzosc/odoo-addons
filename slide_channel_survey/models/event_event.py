@@ -21,20 +21,23 @@ class EventEvent(models.Model):
 
     def button_show_survey_user_input(self):
         self.ensure_one()
-        if self.count_survey_participations > 0:
-            action = self.env.ref("survey.action_survey_user_input")
-            action_dict = action and action.read()[0]
-            action_dict["context"] = safe_eval(action_dict.get("context", "{}"))
-            survey_user_inputs = self._find_survey_inputs()
-            if survey_user_inputs:
-                domain = expression.AND(
-                    [
-                        [("id", "in", survey_user_inputs.ids)],
-                        safe_eval(action.domain or "[]"),
-                    ]
-                )
-                action_dict.update({"domain": domain})
-                return action_dict
+        survey_user_inputs = self._find_survey_inputs()
+        if survey_user_inputs:
+            action = self.env["ir.actions.actions"]._for_xml_id(
+                "survey.action_survey_user_input"
+            )
+            domain = expression.AND(
+                [
+                    [("id", "in", survey_user_inputs.ids)],
+                    safe_eval(action.get("domain") or "[]"),
+                ]
+            )
+            action.update(
+                {
+                    "domain": domain,
+                }
+            )
+            return action
 
     def _find_survey_inputs(self):
         survey_user_input_obj = self.env["survey.user_input"]
