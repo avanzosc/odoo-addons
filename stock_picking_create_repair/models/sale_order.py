@@ -100,57 +100,57 @@ class SaleOrder(models.Model):
 
     def action_devolution_picking_repairs_from_sale(self):
         self.ensure_one()
-        action = self.env.ref("stock.stock_picking_action_picking_type")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock.stock_picking_action_picking_type"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", self.repair_devolution_picking_ids.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def action_in_picking_repairs_from_sale(self):
         self.ensure_one()
         pickings = self._search_pickings_repair(self.type_id.picking_type_repair_in_id)
-        action = self.env.ref("stock.stock_picking_action_picking_type")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock.stock_picking_action_picking_type"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", pickings.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def action_out_picking_repairs_from_sale(self):
         self.ensure_one()
         pickings = self._search_pickings_repair(self.type_id.picking_type_repair_out_id)
-        action = self.env.ref("stock.stock_picking_action_picking_type")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock.stock_picking_action_picking_type"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", pickings.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def action_repairs_from_sale(self):
         self.ensure_one()
-        action = self.env.ref("repair.action_repair_order_tree")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "repair.action_repair_order_tree"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", self.repair_ids.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def _search_pickings_repair(self, picking_type):
         cond = [
