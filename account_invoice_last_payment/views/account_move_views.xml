@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="account_move_view_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="invoice_date" position="after">
+                <field
+          name="last_payment_date"
+          attrs="{'invisible': [('last_payment_date', '=', False)]}"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_move_view_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="invoice_date_due" position="after">
+                <field
+          name="last_payment_date"
+          optional="show"
+          decoration-warning="payment_state in ('partial', 'in_payment')"
+          decoration-success="payment_state in ('paid', 'reversed')"
+          attrs="{'invisible': [('payment_state', 'in', ('invoicing_legacy'))]}"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="account_move_view_search" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <filter name="due_date" position="after">
+                <filter
+          name="payment_date"
+          string="Last Payment Date"
+          date="last_payment_date"
+        />
+            </filter>
+            <filter name="duedate" position="after">
+                <filter
+          string="Last Payment Date"
+          name="paymentdate"
+          context="{'group_by': 'last_payment_date'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
