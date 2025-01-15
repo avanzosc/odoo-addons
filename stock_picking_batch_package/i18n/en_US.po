@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-16 10:22+0000\n"
-"PO-Revision-Date: 2024-12-16 10:22+0000\n"
+"POT-Creation-Date: 2025-01-14 12:49+0000\n"
+"PO-Revision-Date: 2025-01-14 12:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,13 @@ msgstr ""
 
 #. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid ""
+"<strong>Date:</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
 msgid "<strong>Gross weight:</strong>"
 msgstr ""
 
@@ -136,6 +143,11 @@ msgid "COUNTRY"
 msgstr ""
 
 #. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Customer Order"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_pickingbatch_document
 msgid "DIRECTION"
 msgstr ""
@@ -146,8 +158,18 @@ msgid "Delivery Address"
 msgstr ""
 
 #. module: stock_picking_batch_package
+#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__gross_weight_of_shipping
+msgid "Gross Weight Of Shipping"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.external_layout_standard_pickingbatch
 msgid "Logo"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__net_weight_of_shipping
+msgid "Net Weight Of Shipping"
 msgstr ""
 
 #. module: stock_picking_batch_package
@@ -229,14 +251,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_pickingbatch_document
 msgid "WEIGHT/KG"
 msgstr ""
-
-#. module: stock_picking_batch_package
-#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__gross_weight_of_shipping
-msgid "Gross Weight Of Shipping"
-msgstr ""
-
-#. module: stock_picking_batch_package
-#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__net_weight_of_shipping
-msgid "Net Weight Of Shipping"
-msgstr ""
-
