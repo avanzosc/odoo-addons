@@ -1,7 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
-from odoo.exceptions import ValidationError
+from odoo import fields, models
 
 
 class StockPicking(models.Model):
@@ -10,8 +9,11 @@ class StockPicking(models.Model):
     custom_date_done = fields.Datetime(string="Date Realized")
 
     def button_validate(self):
-        if any(self.filtered(lambda p: not p.custom_date_done)):
-            raise ValidationError(_("You must introduce the date realized"))
+        pickings_custom_date_done_null = self.filtered(lambda p: not p.custom_date_done)
+        if pickings_custom_date_done_null:
+            pickings_custom_date_done_null.write(
+                {"custom_date_done": fields.Datetime.now()}
+            )
         return super().button_validate()
 
     def write(self, vals):
