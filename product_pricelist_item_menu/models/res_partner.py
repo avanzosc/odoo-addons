@@ -20,22 +20,26 @@ class ResPartner(models.Model):
 
     def button_show_partner_pricelist_items(self):
         self.ensure_one()
-        action = self.env.ref(
+        action = self.env["ir.actions.actions"]._for_xml_id(
             "product_pricelist_item_menu.product_pricelist_item_menu_action"
-        )
-        action_dict = action.read()[0] if action else {}
-        action_dict["context"] = safe_eval(action_dict.get("context", "{}"))
-        action_dict["context"].update(
-            {
-                "search_pricelits_id": self.property_product_pricelist.id,
-                "default_pricelist_id": self.property_product_pricelist.id,
-            }
         )
         domain = expression.AND(
             [
                 [("pricelist_id", "=", self.property_product_pricelist.id)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        context = safe_eval(action.get("context") or "{}")
+        context.update(
+            {
+                "search_pricelist_id": self.property_product_pricelist.id,
+                "default_pricelist_id": self.property_product_pricelist.id,
+            }
+        )
+        action.update(
+            {
+                "domain": domain,
+                "context": context,
+            }
+        )
+        return action

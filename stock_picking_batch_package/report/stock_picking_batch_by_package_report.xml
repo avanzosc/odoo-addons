@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_picking_batch_by_packaging_package_info">
+        <tr t-if="package">
+            <td colspan="10">
+                <strong>
+                    <span>Box Number: </span>
+                    <span t-esc="num_packages" />
+                    <span> - </span>
+                    <span t-field="package.name" />
+                </strong>
+            </td>
+        </tr>
+        <tr t-else="">
+            <td colspan="10">
+                <strong>
+                    <span>Without Box</span>
+                </strong>
+            </td>
+        </tr>
+    </template>
+
+    <template id="report_picking_batch_by_packaging_total_package">
+        <tr>
+            <td colspan="10" t-if="package">
+                <strong>
+                    <span>Box Measurements: </span>
+                </strong>
+                <span t-field="package.pack_length" />
+                <span>x</span>
+                <span t-field="package.width" />
+                <span>x</span>
+                <span t-field="package.height" />
+                <span> (</span>
+                <span
+          t-if="package.length_uom_name"
+          t-field="package.length_uom_name"
+        />
+                <span>)</span>
+                <strong>
+                    <span style="margin-left:40px;">Box weight: </span>
+                </strong>
+                <span t-field="package.shipping_weight" />
+            </td>
+        </tr>
+    </template>
+
+    <template id="report_picking_batch_by_packaging_document2">
+        <tr>
+            <td name="order">
+                <span
+          t-if="line.move_id.sale_line_id"
+          t-field="line.move_id.sale_line_id.order_id.name"
+        />
+            </td>
+            <td name="picking">
+                <span t-if="line.picking_id" t-field="line.picking_id.name" />
+            </td>
+            <td name="product_code">
+                <span
+          t-if="line.product_id.default_code"
+          t-field="line.product_id.default_code"
+        />
+            </td>
+            <td name="product">
+                <span t-field="line.product_id.name" />
+            </td>
+            <td name="quantity" style="text-align: right;">
+                <span t-field="line.qty_done" />
+            </td>
+        </tr>
+    </template>
+
+    <template id="report_picking_batch_by_packaging_document">
+        <t t-call="web.external_layout">
+            <t
+        t-set="doc"
+        t-value="doc.with_context(lang=doc.user_id.partner_id.lang)"
+      />
+            <div class="page">
+                <div class="oe_structure" />
+                <div name="batch-info" class="d-flex">
+                    <div><h3>Batch : <span t-field="doc.name" /></h3></div>
+                    <div name="barcode" class="mr-auto">
+                        <img
+              alt="Barcode"
+              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.name or ''), 600, 150)"
+              style="width:300px;height:50px"
+            />
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4" id="informations">
+                    <div
+            name="responsible"
+            t-if="doc.user_id"
+            class="col-auto col-3 mw-100 mb-2"
+          >
+                        <strong>Responsible:</strong>
+                        <p class="m-0" t-field="doc.user_id" />
+                    </div>
+                </div>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th name="order">Order</th>
+                            <th name="picking">Picking</th>
+                            <th name="product_code">Product Code</th>
+                            <th name="product">Product</th>
+                            <th name="quantity" style="text-align: right;">Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t
+              t-set="move_lines"
+              t-value="doc.move_line_ids.filtered(lambda x: x.state != 'cancel' and x.result_package_id).sorted(lambda line: (line.result_package_id.name, line.picking_id.name))"
+            />
+                        <t t-set="num_packages" t-value="0" />
+                        <t t-set="package" t-value="0" />
+                        <t t-foreach="move_lines" t-as="line">
+                            <t t-if="not package or package != line.result_package_id">
+                                <!-- Actualiza los valores solo cuando la condición se cumple -->
+                                <t t-set="num_packages" t-value="num_packages + 1" />>
+                                <!-- Llamar a los informes correspondientes -->
+                                <t t-if="not package">
+                                    <t
+                    t-set="package"
+                    t-value="line.result_package_id"
+                  />
+                                    <t
+                    t-call="stock_picking_batch_package.report_picking_batch_by_packaging_package_info"
+                  />
+                                </t>
+                                <t t-if="package != line.result_package_id">
+                                    <t
+                    t-call="stock_picking_batch_package.report_picking_batch_by_packaging_total_package"
+                  />
+                                    <t
+                    t-set="package"
+                    t-value="line.result_package_id"
+                  />
+                                    <t
+                    t-call="stock_picking_batch_package.report_picking_batch_by_packaging_package_info"
+                  />
+                                </t>
+                            </t>
+                            <t
+                t-call="stock_picking_batch_package.report_picking_batch_by_packaging_document2"
+              />
+                        </t>
+                        <t
+              t-call="stock_picking_batch_package.report_picking_batch_by_packaging_total_package"
+            />
+                        <!-- Trato move lines sin paquete -->
+                        <t
+              t-set="move_lines"
+              t-value="doc.move_line_ids.filtered(lambda x: x.state != 'cancel' and not x.result_package_id).sorted(lambda line: (line.picking_id.name))"
+            />
+                        <t t-set="package" t-value="False" />
+                        <t
+              t-if="move_lines"
+              t-call="stock_picking_batch_package.report_picking_batch_by_packaging_package_info"
+            />
+                        <t t-foreach="move_lines" t-as="line">
+                            <t
+                t-call="stock_picking_batch_package.report_picking_batch_by_packaging_document2"
+              />
+                        </t>
+                        <!-- Imprimo totales -->
+                    </tbody>
+                </table>
+                <table style="width: 10cm;border: none;">
+                    <tbody>
+                        <tr>
+                            <td
+                name="total_num_packages"
+                style="width: 5cm;border: none;"
+              >
+                                <strong>Number of packages:</strong>
+                            </td>
+                            <td
+                style="width: 5cm;border: none;background-color: transparent;"
+              >
+                                <strong><span t-esc="num_packages" /></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                name="total_gross_weight"
+                style="width: 5cm;border: none;"
+              >
+                                <strong>Gross weight:</strong>
+                            </td>
+                            <td
+                style="width: 5cm;border: none;background-color: transparent;"
+              >
+                                <strong><span
+                    t-field="doc.gross_weight_of_shipping"
+                  /></strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td
+                name="total_net_weight"
+                style="width: 5cm;border: none;"
+              >
+                                <strong>Net weight:</strong>
+                            </td>
+                            <td
+                style="width: 5cm;border: none;background-color: transparent;"
+              >
+                                <strong><span
+                    t-field="doc.net_weight_of_shipping"
+                  /></strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_picking_batch_by_packaging">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-call="stock_picking_batch_package.report_picking_batch_by_packaging_document"
+          t-lang="doc.user_id.partner_id.lang"
+        />
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_picking_batch_by_packaging" model="ir.actions.report">
+        <field name="name">Picking Batch By Package</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_batch_package.report_picking_batch_by_packaging</field>
+        <field
+      name="report_file"
+    >stock_picking_batch_package.report_picking_batch_by_packaging</field>
+        <field
+      name="print_report_name"
+    >'Picking batch  - %s by package' % (object.name)</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-27 09:49+0000\n"
-"PO-Revision-Date: 2024-09-27 09:49+0000\n"
+"POT-Creation-Date: 2024-12-16 10:21+0000\n"
+"PO-Revision-Date: 2024-12-16 10:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,83 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_batch_package
+#: model:ir.actions.report,print_report_name:stock_picking_batch_package.action_report_picking_batch_by_packaging
+msgid "'Picking batch  - %s by package' % (object.name)"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model:ir.actions.report,print_report_name:stock_picking_batch_package.action_report_pickingbatch
 msgid "'Picking batch  - %s' % (object.name)"
 msgstr ""
 
 #. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_total_package
+msgid "<span> (</span>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_package_info
+msgid "<span> - </span>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_total_package
+msgid ""
+"<span>)</span>\n"
+"                <strong>\n"
+"                    <span style=\"margin-left:40px;\">Box weight: </span>\n"
+"                </strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_package_info
+msgid "<span>Box Number: </span>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_total_package
+msgid "<span>x</span>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_total_package
+msgid ""
+"<strong>\n"
+"                    <span>Box Measurements: </span>\n"
+"                </strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_package_info
+msgid ""
+"<strong>\n"
+"                    <span>Without Box</span>\n"
+"                </strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.external_layout_standard_pickingbatch
 msgid "<strong>Date:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "<strong>Gross weight:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "<strong>Net weight:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "<strong>Number of packages:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "<strong>Responsible:</strong>"
 msgstr ""
 
 #. module: stock_picking_batch_package
@@ -38,6 +108,16 @@ msgstr ""
 #. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_pickingbatch_document
 msgid "ADDRESSEE"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Batch :"
 msgstr ""
 
 #. module: stock_picking_batch_package
@@ -76,6 +156,11 @@ msgid "Number of Packages"
 msgstr ""
 
 #. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Order"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_pickingbatch_document
 msgid "PACKAGES"
 msgstr ""
@@ -86,8 +171,33 @@ msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
 msgstr ""
 
 #. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Picking"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model:ir.actions.report,name:stock_picking_batch_package.action_report_picking_batch_by_packaging
+msgid "Picking Batch By Package"
+msgstr ""
+
+#. module: stock_picking_batch_package
 #: model:ir.actions.report,name:stock_picking_batch_package.action_report_pickingbatch
 msgid "Picking Batch With Package"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Product"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Product Code"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_picking_batch_by_packaging_document
+msgid "Quantity"
 msgstr ""
 
 #. module: stock_picking_batch_package
@@ -119,3 +229,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_package.report_pickingbatch_document
 msgid "WEIGHT/KG"
 msgstr ""
+
+#. module: stock_picking_batch_package
+#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__gross_weight_of_shipping
+msgid "Gross Weight Of Shipping"
+msgstr ""
+
+#. module: stock_picking_batch_package
+#: model:ir.model.fields,field_description:stock_picking_batch_package.field_stock_picking_batch__net_weight_of_shipping
+msgid "Net Weight Of Shipping"
+msgstr ""
+

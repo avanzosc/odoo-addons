@@ -8,7 +8,11 @@ from odoo.tools.safe_eval import safe_eval
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    is_repair = fields.Boolean(string="It's repair", default=False, copy=False)
+    is_repair = fields.Boolean(
+        string="It's repair",
+        default=False,
+        copy=False,
+    )
     repair_ids = fields.One2many(
         string="Repairs",
         comodel_name="repair.order",
@@ -16,7 +20,10 @@ class PurchaseOrder(models.Model):
         copy=False,
     )
     repairs_count = fields.Integer(
-        string="# Repairs", compute="_compute_repairs_count", copy=False, store=True
+        string="# Repairs",
+        compute="_compute_repairs_count",
+        copy=False,
+        store=True,
     )
 
     @api.depends("repair_ids")
@@ -26,16 +33,16 @@ class PurchaseOrder(models.Model):
 
     def action_repairs_from_purchase(self):
         self.ensure_one()
-        action = self.env.ref("repair.action_repair_order_tree")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "repair.action_repair_order_tree"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", self.repair_ids.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def _prepare_picking(self):
         vals = super()._prepare_picking()
