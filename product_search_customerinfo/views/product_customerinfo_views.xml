@@ -5,7 +5,7 @@
         <field name="model">product.customerinfo</field>
         <field name="arch" type="xml">
             <search string="Customers Pricelist">
-                <field name="name" string="Customer" />
+                <!-- <field name="name" string="Customer" /> -->
                 <field name="product_tmpl_id" string="Product" />
                 <field name="product_id" string="Product Variant" />
                 <field name="product_name" string="Customer Product Name" />
@@ -13,12 +13,12 @@
                 <field name="date_start" />
                 <field name="date_end" />
                 <group expand="0" string="Group By">
-                    <filter
+                    <!-- <filter
             string="Customer"
             name="group-customer"
             domain="[]"
             context="{'group_by':'name'}"
-          />
+          /> -->
                     <filter
             string="Product"
             name="group-product"
@@ -67,5 +67,4 @@
     parent="sale.menu_sale_config"
     sequence="50"
   />
-        -->
 </odoo>
