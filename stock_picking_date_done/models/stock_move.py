@@ -11,4 +11,5 @@ class StockMove(models.Model):
         for move in done_moves:
             if move.picking_id.custom_date_done:
                 move.date = move.picking_id.custom_date_done
+                move.move_line_ids.write({"date": move.picking_id.custom_date_done})
         return done_moves
