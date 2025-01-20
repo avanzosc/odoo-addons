@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_picking" inherit_id="stock.report_picking">
+        <th name="th_product" position="before">
+            <th
+        name="th_product_customer_code"
+        t-if="o.picking_type_id.code == 'outgoing'"
+      >
+                <strong>Cust. Cod.</strong>
+            </th>
+        </th>
+        <xpath
+      expr="//span[@t-field='ml.product_id.display_name']/.."
+      position="before"
+    >
+            <td
+        name="td_product_customer_code"
+        t-if="o.picking_type_id.code == 'outgoing'"
+      >
+                <span
+          t-if="ml.move_id.sale_line_id"
+          t-field="ml.move_id.sale_line_id.product_customer_code"
+        /><br />
+            </td>
+        </xpath>
+    </template>
+</odoo>
