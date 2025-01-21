@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+    id="stock_report_delivery_document_lot_id_inherit"
+    inherit_id="stock.report_delivery_document"
+  >
+        <xpath
+      expr="//table[@name='stock_move_table']//th[@name='th_sm_quantity']"
+      position="after"
+    >
+            <th name="lot_serial" t-if="has_serial_number">
+                <strong>Lot/Serial Number</strong>
+            </th>
+        </xpath>
+
+        <xpath expr="//table[@name='stock_move_table']/thead" position="before">
+            <t
+        t-set="has_serial_number"
+        t-value="any(move_line.lot_id or move_line.lot_name for move_line in o.move_line_ids)"
+      />
+        </xpath>
+
+        <xpath
+      expr="//table[@name='stock_move_table']/tbody/tr//span[@t-field='move.quantity_done']/.."
+      position="after"
+    >
+            <td t-if="has_serial_number">
+                <t t-foreach="move.move_line_ids" t-as="line">
+                    <div
+            t-if="line.lot_id or line.lot_name"
+            t-esc="line.lot_id.name or line.lot_name"
+            t-options="{'widget': 'barcode', 'humanreadable': 1, 'width': 400, 'height': 100, 'img_style': 'width:100%;height:35px;'}"
+          />
+                </t>
+            </td>
+        </xpath>
+    </template>
+</odoo>
