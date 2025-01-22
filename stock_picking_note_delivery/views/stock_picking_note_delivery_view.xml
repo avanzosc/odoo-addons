@@ -6,7 +6,7 @@
   >
         <xpath expr="//table[@name='stock_move_line_table']" position="after">
             <div t-if="o.note">
-                Note: <span t-field="o.note" />
+                <span t-field="o.note" />
             </div>
         </xpath>
     </template>
