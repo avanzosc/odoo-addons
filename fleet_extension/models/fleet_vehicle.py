@@ -115,16 +115,3 @@ class FleetVehicle(models.Model):
                 if not found:
                     result += result2
         return result
-
-    def write(self, vals):
-        """Synchronize the 'mam' field with the associated product if applicable.
-
-        This is necessary because the 'mam' field has been changed from a related field
-        to an editable one, allowing users to manually modify its value.
-        """
-        res = super().write(vals)
-        if "mam" in vals:
-            for vehicle in self:
-                if vehicle.product_id:
-                    vehicle.product_id.mam = vehicle.mam
-        return res
