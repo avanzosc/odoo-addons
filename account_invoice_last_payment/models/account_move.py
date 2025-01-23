@@ -12,7 +12,7 @@ class AccountMove(models.Model):
         store=True,
     )
 
-    @api.depends("line_ids", "payment_status")
+    @api.depends("line_ids", "payment_state")
     def _compute_last_payment_date(self):
         for move in self:
             if not move.is_invoice():
