@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 10:53+0000\n"
-"PO-Revision-Date: 2021-07-21 10:53+0000\n"
+"POT-Creation-Date: 2025-01-23 08:54+0000\n"
+"PO-Revision-Date: 2025-01-23 08:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,12 +23,12 @@ msgstr "Cuenta analítica"
 #. module: analytic_usability
 #: model:ir.model,name:analytic_usability.model_account_analytic_line
 msgid "Analytic Line"
-msgstr "Línea Analítica"
+msgstr "Línea analítica"
 
 #. module: analytic_usability
 #: model:ir.model,name:analytic_usability.model_res_config_settings
 msgid "Config Settings"
-msgstr "Opciones de Configuración"
+msgstr "Ajustes de configuración"
 
 #. module: analytic_usability
 #: model:ir.model.fields.selection,name:analytic_usability.selection__account_analytic_line__amount_type__cost
@@ -43,7 +43,6 @@ msgid "Cost/Revenue"
 msgstr "Coste/Beneficio"
 
 #. module: analytic_usability
-#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__account_move_id
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Invoice"
 msgstr "Factura"
@@ -71,6 +70,11 @@ msgid "Invoice Vendor Reference"
 msgstr "Referencia del proveedor de facturas"
 
 #. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__account_move_id
+msgid "Related Invoice"
+msgstr "Factura relacionada"
+
+#. module: analytic_usability
 #: model:ir.model.fields.selection,name:analytic_usability.selection__account_analytic_line__amount_type__revenue
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Revenue"
@@ -92,15 +96,3 @@ msgstr "Mostrar datos de factura en entradas analíticas"
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_config_settings_form_view
 msgid "Show related invoice data in analytic entries."
 msgstr "Mostrar datos de factura relacionados en entradas analíticas"
-
-#. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_user_id
-msgid "Technical field used to fit the generic behavior in mail templates."
-msgstr ""
-"Campo técnico utilizado para ajustar el comportamiento genérico en "
-"plantillas de correo"
-
-#. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__account_move_id
-msgid "The move of this entry line."
-msgstr "El apunte de este asiento."
