@@ -57,7 +57,7 @@ class StockMoveLine(models.Model):
             return result
         for clave in result.keys():
             for move_line in self:
-                line_key = self._generate_keys_to_found()
+                line_key = move_line._generate_keys_to_found()
                 if line_key in clave:
                     result[clave]["fabricator"] = (
                         ""
