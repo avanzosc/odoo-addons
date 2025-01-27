@@ -2,16 +2,15 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===============
-Stock usability
-===============
+====================================
+Stock Warehouse Orderpoint Usability
+====================================
 
 New fields in Minimum Inventory Rules:
 
 * Quantity On Hand
 * Incoming
 * Outgoing
-* Pending receipt from supplier
 
 Bug Tracker
 ===========
