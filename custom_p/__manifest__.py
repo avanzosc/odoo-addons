@@ -26,6 +26,8 @@
         "sale_order_usability",
         "sale_order_line_gross_weight",
         "custom_breeding_apps",
+        "custom_descarga",
+        "sale_order_confirm_multicompany",
     ],
     "data": [
         "security/ir.model.access.csv",
