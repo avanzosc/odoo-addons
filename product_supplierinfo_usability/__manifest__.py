@@ -9,11 +9,12 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase",
+        "purchase_stock",
         "product_usability",
-        "product_template_year_consumption",
     ],
     "data": [
         "views/product_supplierinfo_views.xml",
+        "views/stock_warehouse_orderpoint_views.xml",
     ],
     "installable": True,
 }
