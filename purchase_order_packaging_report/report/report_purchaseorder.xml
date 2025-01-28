@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_purchaseorder_document"
+    inherit_id="purchase.report_purchaseorder_document"
+  >
+        <span t-field="line.product_uom.name" position="after">
+            <div
+        t-if="line.product_packaging_id"
+        groups="product.group_stock_packaging"
+        class="text-secondary"
+        style="white-space: nowrap;"
+      >
+                <span t-field="line.product_packaging_id.name" />
+            </div>
+        </span>
+    </template>
+</odoo>
