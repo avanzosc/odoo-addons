@@ -21,10 +21,6 @@ class StockWarehouseOrderpoint(models.Model):
         digits="Product Unit of Measure",
         compute="_compute_quantities",
     )
-    supplier_pending_to_receive = fields.Float(
-        string="Pending receipt from supplier",
-        related="supplier_id.supplier_pending_to_receive",
-    )
 
     def _compute_quantities(self):
         for record in self:

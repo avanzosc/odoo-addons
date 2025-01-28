@@ -9,10 +9,12 @@
     "depends": [
         "stock",
         "sale",
+        "product",
     ],
     "data": [
         "views/product_product_views.xml",
         "views/product_template_views.xml",
+        "views/product_supplierinfo_views.xml",
         "views/stock_warehouse_orderpoint_views.xml",
     ],
     "license": "AGPL-3",

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-10 09:57+0000\n"
-"PO-Revision-Date: 2022-02-10 09:57+0000\n"
+"POT-Creation-Date: 2025-01-28 12:08+0000\n"
+"PO-Revision-Date: 2025-01-28 12:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,37 +16,46 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__consumed_last_twelve_months
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_supplierinfo__consumed_last_twelve_months
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__consumed_last_twelve_months
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__consumed_last_twelve_months
+msgid "Consumed last twelve months"
+msgstr ""
+
+#. module: product_template_year_consumption
 #: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__year_consumption
 #: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__year_consumption
 msgid "Consumption in a Year"
 msgstr ""
 
 #. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__display_name
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_supplierinfo__display_name
 #: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__display_name
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__id
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_supplierinfo__id
 #: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__id
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__id
 msgid "ID"
 msgstr ""
 
 #. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product____last_update
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_supplierinfo____last_update
 #: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template____last_update
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: product_template_year_consumption
-#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__main_seller_id
-#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__main_seller_id
-#: model_terms:ir.ui.view,arch_db:product_template_year_consumption.product_template_search_view
-msgid "Main Seller"
-msgstr ""
-
-#. module: product_template_year_consumption
-#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__main_seller_price
-#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__main_seller_price
-msgid "Main Seller Price"
+#: model:ir.model,name:product_template_year_consumption.model_stock_warehouse_orderpoint
+msgid "Minimum Inventory Rule"
 msgstr ""
 
 #. module: product_template_year_consumption
@@ -56,8 +65,36 @@ msgid "Month Forecast"
 msgstr ""
 
 #. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__months_sales_count_and_qty_forecast
+msgid "Months with Stock (Sales Count and Qty Forecast)"
+msgstr ""
+
+#. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_product__months_with_stock
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_supplierinfo__months_with_stock
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_product_template__months_with_stock
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__months_with_stock
+msgid "Months with stock"
+msgstr ""
+
+#. module: product_template_year_consumption
+#: model:ir.model,name:product_template_year_consumption.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: product_template_year_consumption
 #: model:ir.model,name:product_template_year_consumption.model_product_template
 msgid "Product Template"
+msgstr ""
+
+#. module: product_template_year_consumption
+#: model:ir.model.fields,field_description:product_template_year_consumption.field_stock_warehouse_orderpoint__sales_count
+msgid "Sales Count"
+msgstr ""
+
+#. module: product_template_year_consumption
+#: model:ir.model,name:product_template_year_consumption.model_product_supplierinfo
+msgid "Supplier Pricelist"
 msgstr ""
 
 #. module: product_template_year_consumption

@@ -4,9 +4,9 @@
         <field name="model">stock.warehouse.orderpoint</field>
         <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
         <field name="arch" type="xml">
-            <field name="route_id" position="before">
-                <field name="incoming_qty" optional="show" />
-                <field name="outgoing_qty" optional="show" />
+            <field name="route_id" position="after">
+                <field name="supplier_id" optional="show" />
+                <field name="supplier_pending_to_receive" optional="hide" />
             </field>
         </field>
     </record>
@@ -18,15 +18,9 @@
       ref="stock.view_warehouse_orderpoint_tree_editable_config"
     />
         <field name="arch" type="xml">
-            <field name="route_id" position="before">
-                <field name="incoming_qty" optional="show" />
-                <field name="outgoing_qty" optional="show" />
-            </field>
-            <field name="qty_multiple" position="after">
-                <field name="qty_to_order" optional="show" />
-            </field>
-            <field name="route_id" position="attributes">
-                <attribute name="optional">show</attribute>
+            <field name="route_id" position="after">
+                <field name="supplier_id" optional="show" />
+                <field name="supplier_pending_to_receive" optional="hide" />
             </field>
         </field>
     </record>
