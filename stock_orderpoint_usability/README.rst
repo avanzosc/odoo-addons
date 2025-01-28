@@ -7,6 +7,11 @@ Stock ordepoint usability
 =========================
 
 * In "Procurement Order" tree editable view, show name.
+* New fields in Minimum Inventory Rules:
+
+* Quantity On Hand
+* Incoming
+* Outgoing
 
 Bug Tracker
 ===========

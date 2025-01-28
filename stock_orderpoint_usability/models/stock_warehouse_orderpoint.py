@@ -24,12 +24,39 @@ class StockWarehouseOrderpoint(models.Model):
         compute="_compute_virtual_available",
         digits="Product Unit of Measure",
     )
-
     forecaster_distinct_forecast = fields.Boolean(
         string="Forecaster distinct forecast",
         compute="_compute_forecaster_distinct_forecast",
         search="_search_forecaster_distinct_forecast",
     )
+    qty_available = fields.Float(
+        string="Quantity On Hand",
+        digits="Product Unit of Measure",
+        compute="_compute_quantities",
+    )
+    incoming_qty = fields.Float(
+        string="Incoming",
+        digits="Product Unit of Measure",
+        compute="_compute_quantities",
+    )
+    outgoing_qty = fields.Float(
+        string="Outgoing",
+        digits="Product Unit of Measure",
+        compute="_compute_quantities",
+    )
+
+    def _compute_quantities(self):
+        for record in self:
+            location_product = record.product_id.with_context(
+                location=record.location_id.id
+            )
+            record.update(
+                {
+                    "qty_available": location_product.qty_available,
+                    "incoming_qty": location_product.incoming_qty,
+                    "outgoing_qty": location_product.outgoing_qty,
+                }
+            )
 
     def _compute_virtual_available(self):
         for orderpoint in self:
