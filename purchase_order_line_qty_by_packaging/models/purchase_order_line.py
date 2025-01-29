@@ -52,6 +52,7 @@ class PurchaseOrderLine(models.Model):
             res.update(
                 {
                     "product_packaging_id": self.product_packaging_id.id,
+                    "product_packaging_qty": self.product_packaging_qty,
                 }
             )
         return res
