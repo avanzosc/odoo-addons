@@ -8,10 +8,10 @@
                 <strong>Qty Package</strong>
             </th>
         </xpath>
-        <xpath expr="//td[@id='product']/../td[3]" position="before">
+        <xpath expr="//span[@t-field='order_line.product_qty']/.." position="before">
             <td class="text-end">
-                <span t-field="line.product_packaging_qty" />
-                <span t-field="line.product_packaging_id" />
+                <span t-field="order_line.product_packaging_qty" />
+                <span t-field="order_line.product_packaging_id" />
             </td>
         </xpath>
     </template>
@@ -25,7 +25,7 @@
                 <strong>Qty Package</strong>
             </th>
         </xpath>
-        <xpath expr="//td[@id='product']/../td[4]" position="before">
+        <xpath expr="//span[@t-field='line.product_qty']/.." position="before">
             <td class="text-end">
                 <span t-field="line.product_packaging_qty" />
                 <span t-field="line.product_packaging_id" />
