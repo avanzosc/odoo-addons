@@ -2,25 +2,18 @@
 <odoo>
     <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
         <th name="th_sm_product" position="after">
-            <th t-if="o.picking_type_id.code == 'outgoing'" name="th_sm_boxes-sacks">
+            <th name="th_sm_boxes-sacks">
                 <strong>Packages</strong>
             </th>
         </th>
         <xpath expr="//span[@t-field='move.product_uom_qty']/.." position="before">
-            <td
-        name="td_boxes_sacks"
-        t-if="o.picking_type_id.code == 'outgoing'"
-        class=" text-center"
-      >
+            <td name="td_boxes_sacks" class=" text-center">
                 <span t-field="move.boxes_sacks" /><br />
                 <span t-field="move.product_packaging_id" />
             </td>
         </xpath>
         <th name="th_sml_product" position="after">
-            <th
-        t-if="o.picking_type_id.code == 'outgoing'"
-        name="th_sml_boxes-sacks"
-      ><strong>Packages</strong></th>
+            <th name="th_sml_boxes-sacks"><strong>Packages</strong></th>
         </th>
     </template>
 
@@ -29,11 +22,7 @@
     inherit_id="stock.stock_report_delivery_has_serial_move_line"
   >
         <t name="move_line_lot" position="before">
-            <td
-        class="text-center"
-        name="move_line_boxes_sacks"
-        t-if="move_line.move_id.picking_type_id.code == 'outgoing'"
-      >
+            <td class="text-center" name="move_line_boxes_sacks">
                 <span t-field="move_line.boxes_sacks" /><br />
                 <span t-field="move.product_packaging_id" />
             </td>
@@ -46,9 +35,7 @@
   >
         <xpath expr="//td[1]" position="after">
             <td class="text-center" name="move_line_aggregated_boxes_sacks">
-                <t
-          t-if="o.picking_type_id.code == 'outgoing' and aggregated_lines[line]['boxes_sacks']"
-        >
+                <t t-if="aggregated_lines[line]['boxes_sacks']">
                     <span t-esc="aggregated_lines[line]['boxes_sacks']" /><br />
                     <span t-esc="aggregated_lines[line]['product_packaging_id']" />
                 </t>

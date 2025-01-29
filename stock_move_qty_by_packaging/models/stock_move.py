@@ -10,24 +10,25 @@ class StockMove(models.Model):
         for move in self:
             demand_product_packaging_qty = 0
             done_product_packaging_qty = 0
-            if (
-                move.sale_line_id
-                and move.product_uom_qty
-                and move.sale_line_id.product_packaging_qty
-                and move.sale_line_id.product_uom_qty
-            ):
-                demand_product_packaging_qty = (
-                    move.product_uom_qty * move.sale_line_id.product_packaging_qty
-                ) / move.sale_line_id.product_uom_qty
-            if (
-                move.sale_line_id
-                and move.quantity_done
-                and move.sale_line_id.product_packaging_qty
-                and move.sale_line_id.product_uom_qty
-            ):
-                done_product_packaging_qty = (
-                    move.quantity_done * move.sale_line_id.product_packaging_qty
-                ) / move.sale_line_id.product_uom_qty
+
+            if move.picking_id.type_id.code == "outgoing":
+                line_id = move.sale_line_id
+            elif move.picking_id.type_id.code == "incoming":
+                line_id = move.purchase_line_id
+            else:
+                line_id = None
+
+            if line_id:
+                if line_id.product_packaging_qty and line_id.product_uom_qty:
+                    demand_product_packaging_qty = (
+                        move.product_uom_qty * line_id.product_packaging_qty
+                    ) / line_id.product_uom_qty
+
+                    if move.quantity_done:
+                        done_product_packaging_qty = (
+                            move.quantity_done * line_id.product_packaging_qty
+                        ) / line_id.product_uom_qty
+
             move.demand_product_packaging_qty = demand_product_packaging_qty
             move.done_product_packaging_qty = done_product_packaging_qty
 
