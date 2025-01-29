@@ -11,6 +11,7 @@
         "purchase_stock",
     ],
     "data": [
+        "report/report_purchaseorder_document.xml",
         "views/purchase_order_views.xml",
     ],
     "installable": True,
