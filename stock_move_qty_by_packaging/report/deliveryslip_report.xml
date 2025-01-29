@@ -12,7 +12,8 @@
         t-if="o.picking_type_id.code == 'outgoing'"
         class=" text-center"
       >
-                <span t-field="move.boxes_sacks" />
+                <span t-field="move.boxes_sacks" /><br />
+                <span t-field="move.product_packaging_id" />
             </td>
         </xpath>
         <th name="th_sml_product" position="after">
@@ -33,7 +34,8 @@
         name="move_line_boxes_sacks"
         t-if="move_line.move_id.picking_type_id.code == 'outgoing'"
       >
-                <span t-field="move_line.boxes_sacks" />
+                <span t-field="move_line.boxes_sacks" /><br />
+                <span t-field="move.product_packaging_id" />
             </td>
         </t>
     </template>
@@ -47,7 +49,8 @@
                 <t
           t-if="o.picking_type_id.code == 'outgoing' and aggregated_lines[line]['boxes_sacks']"
         >
-                    <span t-esc="aggregated_lines[line]['boxes_sacks']" />
+                    <span t-esc="aggregated_lines[line]['boxes_sacks']" /><br />
+                    <span t-esc="aggregated_lines[line]['product_packaging_id']" />
                 </t>
             </td>
         </xpath>
