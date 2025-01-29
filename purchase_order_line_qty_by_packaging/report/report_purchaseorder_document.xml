@@ -1,6 +1,6 @@
 <odoo>
     <template
-    id="report_purchaseorder_document_inherit"
+    id="report_purchasequotation_document_inherit"
     inherit_id="purchase.report_purchasequotation_document"
   >
         <xpath expr="//th[@name='th_quantity']" position="before">
@@ -10,8 +10,8 @@
         </xpath>
         <xpath expr="//td[@id='product']/../td[3]" position="before">
             <td class="text-end">
-                <span t-field="order_line.product_packaging_qty" />
-                <span t-field="order_line.product_packaging_id" />
+                <span t-field="line.product_packaging_qty" />
+                <span t-field="line.product_packaging_id" />
             </td>
         </xpath>
     </template>
@@ -27,8 +27,8 @@
         </xpath>
         <xpath expr="//td[@id='product']/../td[4]" position="before">
             <td class="text-end">
-                <span t-field="order_line.product_packaging_qty" />
-                <span t-field="order_line.product_packaging_id" />
+                <span t-field="line.product_packaging_qty" />
+                <span t-field="line.product_packaging_id" />
             </td>
         </xpath>
     </template>
