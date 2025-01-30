@@ -50,7 +50,10 @@
   >
         <xpath expr="//td[1]" position="before">
             <td t-if="o.picking_type_id.code == 'outgoing'">
-                <span t-esc="aggregated_lines[line]['product_customer_code']" />
+                <span
+          t-esc="aggregated_lines[line]['product_customer_code']"
+          t-if="aggregated_lines.get(line) and aggregated_lines[line].get('product_customer_code')"
+        />
             </td>
         </xpath>
     </template>
