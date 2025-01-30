@@ -10,6 +10,12 @@ class StockPicking(models.Model):
         result = super().button_force_done_detailed_operations()
         for picking in self:
             for line in picking.move_line_ids_without_package:
-                if line.move_id and line.move_id.product_packaging_id:
-                    line.product_packaging_id = line.move_id.product_packaging_id.id
+                if line.move_id and line.move_id.sale_line_id:
+                    if line.move_id.sale_line_id.product_packaging_id:
+                        line.product_packaging_id = (
+                            line.move_id.sale_line_id.product_packaging_id.id
+                        )
+                        line.product_packaging_qty = (
+                            line.move_id.sale_line_id.product_packaging_qty
+                        )
         return result
