@@ -15,7 +15,14 @@ class StockPicking(models.Model):
             pending_move_lines.unlink()
             for move in picking.move_ids:
                 if not move.move_line_ids:
-                    move_line_obj.create(move._prepare_move_line_vals())
+                    move_line_vals = move._prepare_move_line_vals()
+                    move_line_vals.update(
+                        {
+                            "product_package_id": move.product_package_id.id,
+                            "product_package_qty": move.product_package_qty,
+                        }
+                    )
+                    move_line_obj.create(move_line_vals)
                 line = move.move_line_ids[:1]
                 if line and line.qty_done != move.product_uom_qty:
                     line.qty_done = move.product_uom_qty
