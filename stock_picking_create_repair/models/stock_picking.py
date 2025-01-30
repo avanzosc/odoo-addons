@@ -26,7 +26,7 @@ class StockPicking(models.Model):
         copy=True,
     )
     sale_order_id = fields.Many2one(
-        string="Sale order",
+        string="Created from sale order",
         comodel_name="sale.order",
         copy=True,
     )
