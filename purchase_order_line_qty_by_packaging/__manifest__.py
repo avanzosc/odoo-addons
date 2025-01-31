@@ -9,6 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_stock",
+        "stock_move_qty_by_packaging",
     ],
     "data": [
         "report/report_purchaseorder_document.xml",
