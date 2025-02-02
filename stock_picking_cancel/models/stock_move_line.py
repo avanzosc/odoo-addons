@@ -9,7 +9,9 @@ class StockMoveLine(models.Model):
 
     def _refresh_quants_by_picking_cancelation(self):
         quant_obj = self.env["stock.quant"]
-        cond = self._quant_condition_for_picking_cancelation(self.location_dest_id)
+        cond = self._quant_condition_for_picking_cancelation(
+            self.location_dest_id, self.result_package_id
+        )
         quant = quant_obj.search(cond)
         if len(quant) > 1:
             raise UserError(
@@ -20,7 +22,10 @@ class StockMoveLine(models.Model):
             )
         if quant:
             quant.sudo().quantity = quant.quantity - self.qty_done
-        cond = self._quant_condition_for_picking_cancelation(self.location_id)
+        cond = self._quant_condition_for_picking_cancelation(
+            self.location_id,
+            self.package_id,
+        )
         quant = quant_obj.search(cond)
         if len(quant) > 1:
             raise UserError(
@@ -32,10 +37,11 @@ class StockMoveLine(models.Model):
         if quant:
             quant.sudo().quantity = quant.quantity + self.qty_done
 
-    def _quant_condition_for_picking_cancelation(self, location):
+    def _quant_condition_for_picking_cancelation(self, location, package):
         cond = [
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", location.id),
+            ("package_id", "=", package.id),
         ]
         if location.company_id:
             cond.append(("company_id", "=", location.company_id.id))
@@ -43,12 +49,6 @@ class StockMoveLine(models.Model):
             cond.append(("lot_id", "=", self.lot_id.id))
         else:
             cond.append(("lot_id", "=", False))
-        if self.package_id:
-            cond.append(("package_id", "=", self.package_id.id))
-        if self.result_package_id:
-            cond.append(("package_id", "=", self.result_package_id.id))
-        if not self.package_id and not self.result_package_id:
-            cond.append(("package_id", "=", False))
         if self.owner_id:
             cond.append(("owner_id", "=", self.owner_id.id))
         else:
