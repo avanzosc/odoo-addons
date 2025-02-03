@@ -1,8 +1,8 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from future.builtins.misc import round
 
 from odoo import _, models
+from odoo.tools import float_round
 
 
 class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
@@ -119,17 +119,28 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         m += 2
         entry_chicken_amount = sum(objects.mapped("entry_chicken_amount"))
         unit = entry_chicken_amount / chick_qty if chick_qty else 0
-        worksheet.write(n, m, round(unit, 8), eight_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=8), eight_decimal_format
+        )
         m += 1
-        worksheet.write(n, m, round(entry_chicken_amount, 2), two_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(entry_chicken_amount, precision_rounding=2),
+            two_decimal_format,
+        )
         m += 1
         meat_kilos = sum(objects.mapped("meat_kilos"))
         unit = entry_chicken_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         m += 1
         output_unit = sum(objects.mapped("output_units"))
         unit = entry_chicken_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Chicken Output"))
@@ -137,21 +148,31 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(n, m, output_unit, int_format)
         m += 1
         percentage = output_unit * 100 / chick_qty if chick_qty else 0
-        worksheet.write(n, m, round(percentage, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(percentage, precision_rounding=2), two_decimal_format
+        )
         m += 1
         worksheet.write(n, m, meat_kilos, int_format)
         m += 1
         output_amount = sum(objects.mapped("output_amount"))
         unit = output_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 8), eight_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=8), eight_decimal_format
+        )
         m += 1
-        worksheet.write(n, m, round(output_amount, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(output_amount, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = output_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         m += 1
         unit = output_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Total Cancellations"))
@@ -161,7 +182,12 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         cancellation_percentage = (
             100 - output_unit * 100 / chick_qty if chick_qty else 0
         )
-        worksheet.write(n, m, round(cancellation_percentage, 2), two_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(cancellation_percentage, precision_rounding=2),
+            two_decimal_format,
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Consumed Feed"))
@@ -171,9 +197,13 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         feed_amount = sum(objects.mapped("output_feed_amount"))
         m += 1
         unit = feed_amount / feed_qty if feed_qty else 0
-        worksheet.write(n, m, round(unit, 8), eight_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=8), eight_decimal_format
+        )
         m += 1
-        worksheet.write(n, m, round(feed_amount, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(feed_amount, precision_rounding=2), two_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Medicine"))
@@ -183,15 +213,26 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(n, m, medicine_qty, int_format)
         m += 3
         unit = output_medicine_amount / medicine_qty if medicine_qty else 0
-        worksheet.write(n, m, round(unit, 8), eight_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=8), eight_decimal_format
+        )
         m += 1
-        worksheet.write(n, m, round(output_medicine_amount, 2), two_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(output_medicine_amount, precision_rounding=2),
+            two_decimal_format,
+        )
         m += 1
         unit = output_medicine_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         m += 1
         unit = output_medicine_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Liquidation"))
@@ -201,13 +242,22 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(n, m, meat_kilos, int_format)
         m += 2
         liquidation_amount = sum(objects.mapped("liquidation_amount"))
-        worksheet.write(n, m, round(liquidation_amount, 2), two_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(liquidation_amount, precision_rounding=2),
+            two_decimal_format,
+        )
         m += 1
         unit = liquidation_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         m += 1
         unit = liquidation_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), three_decimal_format
+        )
         n += 2
         m = 0
         worksheet.write(n, m, _("Costs and Benefits"), table_header)
@@ -269,126 +319,177 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(n, m, _("Chicks"))
         m += 3
         unit = chick_amount * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
+        )
         m += 3
-        worksheet.write(n, m, round(chick_amount, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(chick_amount, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = chick_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = chick_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Feed"))
         m += 3
         unit = feed_amount * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
-        m += 1
-        consume_feed_qty = sum(objects.mapped("consume_feed"))
-        worksheet.write(n, m, round(consume_feed_qty, 2), int_format)
-        m += 1
         worksheet.write(
-            n, m, round(feed_amount / consume_feed_qty, 8), eight_decimal_format
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
         )
         m += 1
-        worksheet.write(n, m, round(feed_amount, 2), two_decimal_format)
+        consume_feed_qty = sum(objects.mapped("consume_feed"))
+        worksheet.write(
+            n, m, float_round(consume_feed_qty, precision_rounding=2), int_format
+        )
+        m += 1
+        worksheet.write(
+            n,
+            m,
+            float_round(feed_amount / consume_feed_qty, precision_rounding=8),
+            eight_decimal_format,
+        )
+        m += 1
+        worksheet.write(
+            n, m, float_round(feed_amount, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = feed_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = feed_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Medicine"))
         m += 3
         unit = medicine_amount * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
+        )
         m += 3
-        worksheet.write(n, m, round(medicine_amount, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(medicine_amount, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = medicine_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = medicine_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Liquidation"))
         m += 3
         unit = liquidation_amount * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
+        )
         m += 3
-        worksheet.write(n, m, round(liquidation_amount, 2), two_decimal_format)
+        worksheet.write(n, m, float_round(liquidation_amount, 2), two_decimal_format)
         m += 1
         unit = liquidation_amount / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = liquidation_amount / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Chicken Load"))
         m += 3
         unit = chicken_load * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
+        )
         m += 3
-        worksheet.write(n, m, round(chicken_load, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(chicken_load, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = chicken_load / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = chicken_load / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Overheads"))
         m += 3
         unit = overheads * 100 / total_costs if total_costs else 0
-        worksheet.write(n, m, round(unit, 2), result_two_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=2), result_two_decimal
+        )
         m += 3
-        worksheet.write(n, m, round(overheads, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(overheads, precision_rounding=2), two_decimal_format
+        )
         m += 1
         unit = overheads / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         m += 1
         unit = overheads / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_three_decimal)
+        worksheet.write(
+            n, m, float_round(unit, precision_rounding=3), result_three_decimal
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Total Costs"), summary)
         m += 6
-        worksheet.write(n, m, round(total_costs, 2), summary)
+        worksheet.write(n, m, float_round(total_costs, precision_rounding=2), summary)
         m += 1
         unit = total_costs / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         m += 1
         unit = total_costs / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         n += 1
         m = 0
         worksheet.write(n, m, _("Total Sales"), summary)
         m += 6
-        worksheet.write(n, m, round(sales, 2), summary)
+        worksheet.write(n, m, float_round(sales, precision_rounding=2), summary)
         m += 1
         unit = sales / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         m += 1
         unit = sales / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         n += 1
         m = 0
         worksheet.write(n, m, _("Loss/Benefits"), summary)
         m += 6
         benefits = sales - total_costs
-        worksheet.write(n, m, round(benefits, 2), summary)
+        worksheet.write(n, m, float_round(benefits, precision_rounding=2), summary)
         m += 1
         unit = benefits / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         m += 1
         unit = benefits / output_unit if output_unit else 0
-        worksheet.write(n, m, round(unit, 3), result_summary)
+        worksheet.write(n, m, float_round(unit, precision_rounding=3), result_summary)
         n += 2
         m = 0
         worksheet.write(n, m, _("Results"), table_header)
@@ -398,7 +499,12 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         m = 0
         worksheet.write(n, m, _("Cancellation %"))
         m += 1
-        worksheet.write(n, m, round(cancellation_percentage, 2), two_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(cancellation_percentage, precision_rounding=2),
+            two_decimal_format,
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Total M2"))
@@ -409,25 +515,40 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         m = 0
         worksheet.write(n, m, _("Liquidation / M2"))
         m += 1
-        worksheet.write(n, m, round(liquidation_amount / area, 3), three_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(liquidation_amount / area, precision_rounding=3),
+            three_decimal_format,
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Weight Average"))
         m += 1
         average_weight = meat_kilos / output_unit if output_unit else 0
-        worksheet.write(n, m, round(average_weight, 3), three_decimal_format)
+        worksheet.write(
+            n,
+            m,
+            float_round(average_weight, precision_rounding=3),
+            three_decimal_format,
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Conversion"))
         m += 1
         conversion = feed_qty / meat_kilos if meat_kilos else 0
-        worksheet.write(n, m, round(conversion, 3), three_decimal_format)
+        worksheet.write(
+            n, m, float_round(conversion, precision_rounding=3), three_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Difference"))
         m += 1
         worksheet.write(
-            n, m, round(average_weight - conversion, 3), three_decimal_format
+            n,
+            m,
+            float_round(average_weight - conversion, precision_rounding=3),
+            three_decimal_format,
         )
         n += 1
         m = 0
@@ -436,7 +557,9 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         average_age = (
             sum(objects.mapped("age_output")) / output_unit if output_unit else 0
         )
-        worksheet.write(n, m, round(average_age, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(average_age, precision_rounding=2), two_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("Growth Speed"))
@@ -446,7 +569,9 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
             if output_unit and average_age
             else 0
         )
-        worksheet.write(n, m, round(growth_speed, 2), two_decimal_format)
+        worksheet.write(
+            n, m, float_round(growth_speed, precision_rounding=2), two_decimal_format
+        )
         n += 1
         m = 0
         worksheet.write(n, m, _("FEEP"))

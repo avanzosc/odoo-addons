@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="assets_frontend" name="account assets" inherit_id="web.assets_frontend">
+    <xpath expr="." position="inside">
+      <script
+        type="text/javascript"
+        src="/website_payment_acquirer_bank_account/static/src/js/choose_bank_account.js"
+      />
+    </xpath>
+  </template>
+
+  <template
+    id="payment_tokens_list"
+    name="Payment Tokens list"
+    inherit_id="payment.payment_tokens_list"
+  >
+
+    <xpath expr="//form" position="before">
+      <t t-set="partner" t-value="request.env.user.partner_id" />
+
+      <div id="bank-account-message" />
+      <div
+        id="bank-account-select-iban-form"
+        class="container mt-4"
+        style="display:none"
+      >
+        <t t-foreach="acquirers" t-as="acq">
+          <t t-if="acq.payment_mode_id.payment_method_id.bank_account_required">
+            <div class="card mb-3">
+              <div class="card-header">
+                <h5 class="mb-0">Payment Method: <t t-esc="acq.name" />
+                </h5>
+              </div>
+              <div class="card-body">
+                <form action="/choose_bank_account" method="post">
+                  <t t-if="partner.bank_ids">
+                    <h6>Select an existing bank account:</h6>
+                    <ul class="list-group">
+                      <t t-foreach="partner.bank_ids" t-as="bank">
+                        <li class="list-group-item">
+                          <label>
+                            <input
+                              type="radio"
+                              class="bank-checkbox"
+                              t-att-value="bank.id"
+                              onchange="chooseBankAccount(this)"
+                            />
+                            <t t-esc="bank.acc_number" />
+                          </label>
+                        </li>
+                      </t>
+                    </ul>
+                  </t>
+                </form>
+                <form action="/create_new_bank_account" method="post">
+                  <h6>Enter a new bank account (IBAN) (24 characters)</h6>
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      name="new_bank_account"
+                      class="form-control"
+                      required="true"
+                      pattern="^ES\d{22}$"
+                      placeholder="Must start with ES followed by 22 digits. No spaces allowed."
+                    />
+                  </div>
+                  <input
+                    type="hidden"
+                    name="payment_mode_id"
+                    t-att-value="acq.payment_mode_id.id"
+                  />
+                  <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+              </div>
+            </div>
+          </t>
+        </t>
+      </div>
+    </xpath>
+  </template>
+
+</odoo>

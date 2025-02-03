@@ -21,14 +21,6 @@ class ProductSupplierInfo(models.Model):
         digits="Product Unit of Measure",
         compute="_compute_supplierinfo_quantities",
     )
-    consumed_last_twelve_months = fields.Float(
-        string="Consumed last twelve months",
-        digits="Product Unit of Measure",
-        compute="_compute_supplierinfo_quantities",
-    )
-    months_with_stock = fields.Integer(
-        string="Months with stock", compute="_compute_supplierinfo_quantities"
-    )
     supplier_pending_to_receive = fields.Float(
         string="Pending receipt from supplier",
         compute="_compute_supplier_pending_to_receive",
@@ -50,16 +42,6 @@ class ProductSupplierInfo(models.Model):
                 supplierinfo.product_id.outgoing_qty
                 if supplierinfo.product_id
                 else supplierinfo.product_tmpl_id.outgoing_qty
-            )
-            supplierinfo.consumed_last_twelve_months = (
-                supplierinfo.product_id.consumed_last_twelve_months
-                if supplierinfo.product_id
-                else supplierinfo.product_tmpl_id.consumed_last_twelve_months
-            )
-            supplierinfo.months_with_stock = (
-                supplierinfo.product_id.months_with_stock
-                if supplierinfo.product_id
-                else supplierinfo.product_tmpl_id.months_with_stock
             )
 
     def _compute_supplier_pending_to_receive(self):

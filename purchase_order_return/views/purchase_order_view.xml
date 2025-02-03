@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <button name="button_return_picking" position="attributes">
+                <attribute
+          name="attrs"
+        >{'invisible': [('picking_count', '&gt;', 1)]}</attribute>
+            </button>
+            <xpath
+        expr="//field[@name='order_line']/tree/field[@name='product_qty']"
+        position="after"
+      >
+                <field name="return_qty" />
+            </xpath>
+<!--            <xpath
+        expr="//field[@name='order_line']/form//div[@name='product_qty']"
+        position="after"
+      >
+                <field name="return_qty" />
+            </xpath>-->
+            <xpath
+        expr="//field[@name='order_line']/kanban/field[@name='product_qty']"
+        position="after"
+      >
+                <field name="return_qty" />
+            </xpath>
+            <xpath
+        expr="//field[@name='order_line']/kanban//t[@t-esc='record.product_qty.value']/.."
+        position="after"
+      >
+                <span>
+                    Return Qty:
+                    <t t-esc="record.return_qty.value" />
+                    <t t-esc="record.product_uom.value" />
+                </span>
+            </xpath>
+        </field>
+    </record>
+</odoo>

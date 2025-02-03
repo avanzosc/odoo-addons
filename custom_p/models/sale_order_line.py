@@ -1,5 +1,6 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from datetime import timedelta
 
 from odoo import api, fields, models
 
@@ -26,6 +27,7 @@ class SaleOrderLine(models.Model):
                 and line.return_qty
             ):
                 line.product_uom_qty = line.qty_delivered
+                line._compute_qty_amount_pending_delivery()
             if (
                 len(line.order_id.picking_ids) > 1
                 and line.order_id.update_line_qty
@@ -62,3 +64,51 @@ class SaleOrderLine(models.Model):
                     )
                     lot_ids += lots
                     line.possible_lot_ids = [(6, 0, lot_ids.ids)]
+
+    @api.depends("invoice_lines.move_id.state", "invoice_lines.quantity")
+    def _get_invoice_qty(self):
+        super()._get_invoice_qty()
+        for line in self:
+            if line.invoice_lines.filtered(lambda c: c.out_refund_from_invoice):
+                qty_invoiced = 0.0
+                for invoice_line in line.invoice_lines:
+                    if invoice_line.move_id.state != "cancel":
+                        if invoice_line.move_id.move_type == "out_invoice":
+                            qty_invoiced += (
+                                invoice_line.product_uom_id._compute_quantity(
+                                    invoice_line.quantity, line.product_uom
+                                )
+                            )
+                        elif (
+                            invoice_line.filtered(
+                                lambda c: not c.out_refund_from_invoice
+                            ).move_id.move_type
+                            == "out_refund"
+                        ):
+                            qty_invoiced -= (
+                                invoice_line.product_uom_id._compute_quantity(
+                                    invoice_line.quantity, line.product_uom
+                                )
+                            )
+                line.qty_invoiced = qty_invoiced
+
+    @api.model
+    def create(self, values):
+        if "customer_lead" not in values:
+            order = self.env["sale.order"].browse(values.get("order_id"))
+            product = self.env["product.product"].browse(values.get("product_id"))
+            values.update(
+                {"customer_lead": order._get_customer_lead(product.product_tmpl_id)}
+            )
+        result = super(SaleOrderLine, self).create(values)
+        if not result.order_id.commitment_date:
+            order_date = fields.Datetime.from_string(
+                result.order_id.date_order
+                if result.order_id.date_order
+                and result.order_id.state in ["sale", "done"]
+                else fields.Datetime.now()
+            )
+            result.order_id.commitment_date = order_date + timedelta(
+                days=result.customer_lead or 0.0
+            )
+        return result

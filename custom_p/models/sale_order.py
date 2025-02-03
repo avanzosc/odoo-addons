@@ -16,9 +16,43 @@ class SaleOrder(models.Model):
         copy=False,
     )
 
+    def button_confirm_pickings(self):
+        if self.auto_purchase_order_id:
+            for line in self.order_line:
+                if line.auto_purchase_line_id:
+                    lot = self.env["stock.production.lot"]
+                    if line.lot_id:
+                        lot_name = line.lot_id.name
+                        company = line.sudo().auto_purchase_line_id.company_id
+                        product = line.product_id
+                        lot_domain = [
+                            ("name", "=", lot_name),
+                            ("company_id", "=", company.id),
+                            ("product_id", "=", product.id),
+                        ]
+                        lot = lot.sudo().search(lot_domain)
+                        if not lot:
+                            lot = lot.sudo().action_create_lot(
+                                product, lot_name, company
+                            )
+                    line.auto_purchase_line_id.sudo().write(
+                        {
+                            "lot_id": lot.id or False,
+                            "return_qty": line.return_qty,
+                        }
+                    )
+        return super().button_confirm_pickings()
+
     def button_return_picking(self):
         self.update_line_qty = True
         return super().button_return_picking()
+
+    def action_view_sale_lines(self):
+        result = super().action_view_sale_lines()
+        view_tree_id = self.env.ref("custom_p.view_order_line_tree").id
+        result["views"] = [(view_tree_id, "tree")]
+        result["view"] = view_tree_id
+        return result
 
     def action_last_month_partner_sales(self):
         self.ensure_one()

@@ -6,6 +6,7 @@ from odoo import models
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
+    _order = "custom_date_done desc, priority desc, scheduled_date asc, id desc"
 
     def button_validate(self):
         for picking in self:

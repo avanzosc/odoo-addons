@@ -17,6 +17,7 @@
         "stock_picking_batch_liquidation",
         "report_qweb_element_page_visibility",
         "account_invoice_report_grouped_by_picking",
+        "stock_picking_cmr_report",
     ],
     "data": [
         "security/ir.model.access.csv",

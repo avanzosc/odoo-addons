@@ -29,6 +29,9 @@ class StockPicking(models.Model):
     site_date_info = fields.Char(
         string="Site and date info", compute="_compute_site_date_info"
     )
+    cmr_second_driver_id = fields.Many2one(
+        string="Second Driver", comodel_name="res.partner", copy=False
+    )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
