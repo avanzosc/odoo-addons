@@ -8,3 +8,8 @@ class AccountMove(models.Model):
 
     batch_id = fields.Many2one(string="Batch", comodel_name="stock.picking.batch")
     invoicing_qty = fields.Float(string="Total to Invoice")
+    partner_category_ids = fields.Many2many(
+        comodel_name="res.partner.category",
+        related="partner_id.category_id",
+        string="Tags",
+    )

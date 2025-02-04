@@ -14,6 +14,24 @@
         </field>
     </record>
 
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='invoice_partner_display_name'][2]"
+        position="after"
+      >
+                <field
+          name="partner_category_ids"
+          widget="many2many_tags"
+          optional="show"
+          options="{'color_field': 'color', 'no_create_edit': True}"
+        />
+            </xpath>
+        </field>
+    </record>
+
     <record id="view_move_form" model="ir.ui.view">
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account_move_partner_sequence.view_move_form" />
