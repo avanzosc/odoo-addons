@@ -33,6 +33,7 @@
         "report/account_move_report.xml",
         "report/stock_by_breeding_xlsx.xml",
         "report/sale_order_report_templates.xml",
+        "report/sale_order_without_cost_report.xml",
         "views/stock_picking_batch_view.xml",
         "wizard/stock_by_breeding_wizard_view.xml",
     ],
