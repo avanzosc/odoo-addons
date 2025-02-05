@@ -27,6 +27,8 @@
             <div class="row mt48 mb32">
                 <div class="col-auto">
                     <strong>Mantener la mercancía entre 0-4 grados.</strong>
+                    <br />
+                    <strong>**Producto Certificado Welfair**</strong>
                 </div>
                 <div class="col-auto">
                     <span t-field="o.name" />- Page:
@@ -221,9 +223,14 @@
                                 <tr>
                                     <th class="text-center" style="width:40%;"><span
                     >Product</span></th>
+                                    <th
+                    t-if="o.is_carry_type"
+                    class="text-center"
+                    style="width:5%;"
+                  ><span>Surplus</span></th>
                                     <th class="text-center" style="width:10%;"><span
                     >Lot</span></th>
-                                    <th class="text-center" style="width:10%;"><span
+                                    <th class="text-center" style="width:5%;"><span
                     >Container</span></th>
                                     <th class="text-center" style="width:10%;"><span
                     >Packaging</span></th>
@@ -240,6 +247,21 @@
                 >
                                     <td>
                                         <span t-field="line.move_id.name" />
+                                    </td>
+                                    <td class="text-center" t-if="o.is_carry_type">
+                                        <span t-if="line.surplus">
+                                            <input
+                        type="checkbox"
+                        id="checkbox_field_true"
+                        checked="checked"
+                      />
+                                        </span>
+                                        <span t-if="not line.surplus">
+                                            <input
+                        type="checkbox"
+                        id="checkbox_field_true"
+                      />
+                                        </span>
                                     </td>
                                     <td class="text-center">
                                         <span t-field="line.lot_id.name" />

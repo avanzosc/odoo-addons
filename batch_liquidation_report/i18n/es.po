@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 08:58+0000\n"
-"PO-Revision-Date: 2024-11-15 08:58+0000\n"
+"POT-Creation-Date: 2025-02-07 05:53+0000\n"
+"PO-Revision-Date: 2025-02-07 05:53+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,7 @@ msgstr "&amp;nbsp;<span>en</span>&amp;nbsp;"
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_account_move_ticket
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_purchase_order_ticket
 #: model:ir.actions.report,print_report_name:batch_liquidation_report.action_sale_order_ticket
+#: model:ir.actions.report,print_report_name:batch_liquidation_report.action_sale_order_without_cost_ticket
 msgid "'Ticket - %s' % (object.name)"
 msgstr "'Tiquet - %s' % (object.name)"
 
@@ -102,6 +103,7 @@ msgstr "<span>Envases</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.account_move_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_without_cost_ticket_report_document
 msgid "<span>Date:</span>"
 msgstr "<span>Fecha:</span>"
 
@@ -202,6 +204,7 @@ msgstr ""
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_without_cost_ticket_report_document
 msgid "<span>Picking Nº:</span>"
 msgstr "<span>Albarán:</span>"
 
@@ -225,6 +228,7 @@ msgstr "<span>Precio</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_without_cost_ticket_report_document
 msgid "<span>Product</span>"
 msgstr "<span>Producto</span>"
 
@@ -235,6 +239,7 @@ msgstr "<span>Producto</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_without_cost_ticket_report_document
 msgid "<span>Quantity</span>"
 msgstr "<span>Cantidad</span>"
 
@@ -249,6 +254,11 @@ msgstr "<span>Saca de</span>"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.sale_order_ticket_report_document
 msgid "<span>Subtotal</span>"
 msgstr ""
+
+#. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
+msgid "<span>Surplus</span>"
+msgstr "<span>Excedente</span>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
@@ -597,7 +607,10 @@ msgstr "<strong>Liquidado x M2</strong>"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.external_layout_standard_picking_report
-msgid "<strong>Mantener la mercancía entre 0-4 grados.</strong>"
+msgid ""
+"<strong>Mantener la mercancía entre 0-4 grados.</strong>\n"
+"                    <br/>\n"
+"                    <strong>**Producto Certificado Welfair**</strong>"
 msgstr ""
 
 #. module: batch_liquidation_report
@@ -782,7 +795,7 @@ msgstr "Descripción"
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Difference"
-msgstr "Deferencia"
+msgstr "Diferencia"
 
 #. module: batch_liquidation_report
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_ir_actions_report__display_name
@@ -941,7 +954,7 @@ msgstr "Precio carne"
 #: code:addons/batch_liquidation_report/report/stock_by_breeding_xlsx.py:0
 #, python-format
 msgid "Medicine Amount"
-msgstr "Importe medicamentos"
+msgstr "Importe medicamento"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_picking
@@ -996,7 +1009,7 @@ msgstr "Nº de albarán:"
 #. module: batch_liquidation_report
 #: model:ir.actions.report,name:batch_liquidation_report.action_report_picking
 msgid "Picking Report"
-msgstr "Albarán con paquetes"
+msgstr "Albarán PROALPE"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
@@ -1064,6 +1077,11 @@ msgstr "Existencias por crianza XLSX"
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.purchase_order_ticket_report_document
 msgid "Taxes"
 msgstr "Impuestos"
+
+#. module: batch_liquidation_report
+#: model:ir.actions.report,name:batch_liquidation_report.action_sale_order_without_cost_ticket
+msgid "Ticket Without Cost"
+msgstr "Ticket sin precios"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_fattening_cost
