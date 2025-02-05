@@ -137,9 +137,15 @@
         expr="//field[@name='order_line']/tree/field[@name='price_unit']"
         position="before"
       >
-                <field name="initial_price_unit" readonly="1" optional="show" />
+                <field
+          name="initial_price_unit"
+          attrs="{'column_invisible': [('parent.is_repair', '=', False)]}"
+          readonly="1"
+          optional="show"
+        />
                 <field
           name="repair_price_in_sale_budget"
+          attrs="{'column_invisible': [('parent.is_repair', '=', False)]}"
           readonly="1"
           optional="show"
         />
@@ -148,7 +154,12 @@
         expr="//field[@name='order_line']/tree/field[@name='price_unit']"
         position="after"
       >
-                <field name="repair_amount_untaxed" readonly="1" optional="show" />
+                <field
+          name="repair_amount_untaxed"
+          attrs="{'column_invisible': [('parent.is_repair', '=', False)]}"
+          readonly="1"
+          optional="show"
+        />
             </xpath>
             <!--
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
