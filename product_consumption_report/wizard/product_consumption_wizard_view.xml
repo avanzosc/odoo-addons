@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_consumption_wizard_view_form" model="ir.ui.view">
+        <field name="name">product.consumption.wizard.form</field>
+        <field name="model">product.consumption.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="location_id" required="True" />
+                        </group>
+                        <gourp>
+                            <field name="date_start" required="True" />
+                            <field name="date_end" required="True" />
+                        </gourp>
+                    </group>
+                    <footer>
+                        <button
+              name="button_generate_report"
+              string="Accept"
+              type="object"
+              class="oe_highlight"
+            />
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link" />
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
