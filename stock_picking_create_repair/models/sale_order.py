@@ -155,22 +155,7 @@ class SaleOrder(models.Model):
     def _search_pickings_repair(self, picking_type):
         cond = [
             ("picking_type_id", "=", picking_type.id),
-            ("location_id", "=", picking_type.default_location_src_id.id),
-            ("location_dest_id", "=", picking_type.default_location_dest_id.id),
-            ("partner_id", "=", self.partner_id.id),
             ("sale_order_id", "=", self.id),
-            ("company_id", "=", self.company_id.id),
-            ("is_repair", "=", True),
-        ]
-        pickings = self.env["stock.picking"].search(cond)
-        return pickings
-
-    def _search_devolution_pickings_repair(self, picking_type):
-        cond = [
-            ("picking_type_id.code", "=", "incoming"),
-            ("partner_id", "=", self.partner_id.id),
-            ("sale_order_id", "=", self.id),
-            ("company_id", "=", self.company_id.id),
             ("is_repair", "=", True),
         ]
         pickings = self.env["stock.picking"].search(cond)

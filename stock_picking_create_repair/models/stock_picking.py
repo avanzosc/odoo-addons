@@ -26,7 +26,7 @@ class StockPicking(models.Model):
         copy=True,
     )
     sale_order_id = fields.Many2one(
-        string="Sale order",
+        string="Created from sale order",
         comodel_name="sale.order",
         copy=True,
     )
@@ -163,7 +163,7 @@ class StockPicking(models.Model):
         for picking in self:
             origin = ""
             new_origin = ""
-            for line in picking.move_lines.filtered(lambda m: m.origin):
+            for line in picking.move_line_ids.filtered(lambda m: m.origin):
                 origin = (
                     line.origin if not origin else "{}/{}".format(origin, line.origin)
                 )
@@ -221,7 +221,7 @@ class StockPicking(models.Model):
     def _put_origin_in_treated_move_lines(self, origin):
         repair_obj = self.env["repair.order"]
         for picking in self:
-            for line in picking.move_lines.filtered(
+            for line in picking.move_line_ids.filtered(
                 lambda x: x.state == "cancel" and x.sale_line_id and x.is_repair
             ):
                 cond = [

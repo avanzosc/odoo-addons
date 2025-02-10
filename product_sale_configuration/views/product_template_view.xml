@@ -31,6 +31,10 @@
         <attribute name="invisible">1</attribute>
       </div>
 
+      <field name="categ_id" position="attributes">
+          <attribute name="attrs">{'invisible': True}</attribute>
+      </field>
+
       <field name="invoice_policy" position="before">
           <field
           name="categ_id"
@@ -40,8 +44,9 @@
           can_write="true"
         />
       </field>
-      <label for="list_price" position="before">
-        <label
+
+      <field name="product_tag_ids" position="after">
+              <label
           for="standard_price"
           attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
         />
@@ -76,9 +81,8 @@
           options="{'no_create': True, 'no_create_edit': True}"
           attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',True)]}"
         />
-      </label>
 
-      <field name="product_tag_ids" position="after">
+
         <field name="price_cost_changed" invisible="1" />
         <field
           name="target_cost"

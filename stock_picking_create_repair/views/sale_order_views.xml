@@ -87,6 +87,15 @@
           />
                 </button>
                 <button
+          name="action_repairs_from_sale"
+          class="oe_stat_button"
+          icon="fa-tasks"
+          type="object"
+          attrs="{'invisible': [('repairs_count', '=', 0)]}"
+        >
+                    <field name="repairs_count" widget="statinfo" string="Repairs" />
+                </button>
+                <button
           name="action_in_picking_repairs_from_sale"
           class="oe_stat_button"
           icon="fa-tasks"
@@ -98,15 +107,6 @@
             widget="statinfo"
             string="Repair in pickings"
           />
-                </button>
-                <button
-          name="action_repairs_from_sale"
-          class="oe_stat_button"
-          icon="fa-tasks"
-          type="object"
-          attrs="{'invisible': [('repairs_count', '=', 0)]}"
-        >
-                    <field name="repairs_count" widget="statinfo" string="Repairs" />
                 </button>
                 <button
           name="action_out_picking_repairs_from_sale"

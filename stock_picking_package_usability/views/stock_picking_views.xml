@@ -19,13 +19,17 @@
                 </button>
             </div>
             <field name="picking_type_id" position="after">
+              <label for="qty_packages" />
+
+              <div class="o_row">
                 <field name="qty_packages" />
                 <button
-          name="action_create_package"
-          type="object"
-          string="Create Packs"
-          attrs="{'invisible': [('state', 'in', ('draft', 'done', 'cancel'))]}"
-        />
+            name="action_create_package"
+            type="object"
+            string="Create Packs"
+            attrs="{'invisible': [('state', 'in', ('draft', 'done', 'cancel'))]}"
+          />
+              </div>
             </field>
         </field>
     </record>
