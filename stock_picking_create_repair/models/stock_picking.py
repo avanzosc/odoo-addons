@@ -221,7 +221,7 @@ class StockPicking(models.Model):
     def _put_origin_in_treated_move_lines(self, origin):
         repair_obj = self.env["repair.order"]
         for picking in self:
-            for line in picking.move_lines.filtered(
+            for line in picking.move_line_ids.filtered(
                 lambda x: x.state == "cancel" and x.sale_line_id and x.is_repair
             ):
                 cond = [
