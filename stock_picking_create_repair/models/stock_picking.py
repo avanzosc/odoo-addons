@@ -163,7 +163,7 @@ class StockPicking(models.Model):
         for picking in self:
             origin = ""
             new_origin = ""
-            for line in picking.move_lines.filtered(lambda m: m.origin):
+            for line in picking.move_line_ids.filtered(lambda m: m.origin):
                 origin = (
                     line.origin if not origin else "{}/{}".format(origin, line.origin)
                 )
