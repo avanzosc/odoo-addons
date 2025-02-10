@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+        <template
+    id="account_report_invoice_document_inherit"
+    inherit_id="account.report_invoice_document"
+  >
+            <xpath expr="//div[@id='informations']" position="attributes">
+              <attribute name="style">margin-bottom: -30px !important;</attribute>
+            </xpath>
+        </template>
+</odoo>
