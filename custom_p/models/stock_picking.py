@@ -13,3 +13,23 @@ class StockPicking(models.Model):
             if not picking.crm_driver_id:
                 picking.crm_driver_id = self.env.user.partner_id.id
         return super().button_validate()
+
+    def _action_done_intercompany_actions(self, purchase):
+        pick = self
+        for move in pick.move_lines:
+            move_lines = move.move_line_ids
+            po_move_lines = move.sale_line_id.auto_purchase_line_id.move_ids.filtered(
+                lambda x, ic_pick=pick.intercompany_picking_id: (
+                    x.picking_id == ic_pick
+                )
+            ).mapped("move_line_ids")
+            if len(move_lines) != len(po_move_lines) and po_move_lines:
+                while len(move_lines) > len(po_move_lines):
+                    po_move_lines[:1].copy()
+                    po_move_lines = (
+                        move.sale_line_id.auto_purchase_line_id.move_ids.filtered(
+                            lambda x, ic_pick=pick.intercompany_picking_id: x.picking_id
+                            == ic_pick
+                        ).mapped("move_line_ids")
+                    )
+        return super()._action_done_intercompany_actions(purchase=purchase)
