@@ -6,12 +6,7 @@
 Stock usability
 ===============
 
-New fields in Minimum Inventory Rules:
-
-* Quantity On Hand
-* Incoming
-* Outgoing
-* Pending receipt from supplier
+This module is empty
 
 Bug Tracker
 ===========

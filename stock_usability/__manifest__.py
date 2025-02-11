@@ -12,8 +12,6 @@
         "purchase_stock",
         "product_usability",
     ],
-    "data": [
-        "views/stock_warehouse_orderpoint_views.xml",
-    ],
+    "data": [],
     "installable": True,
 }
