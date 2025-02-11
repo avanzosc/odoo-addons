@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-13 12:20+0000\n"
-"PO-Revision-Date: 2024-06-13 12:20+0000\n"
+"POT-Creation-Date: 2025-02-05 12:36+0000\n"
+"PO-Revision-Date: 2025-02-05 12:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -291,6 +291,16 @@ msgid "Days"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__partner_shipping_id
+msgid "Delivery Address"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,help:stock_picking_batch_liquidation.field_account_move_line__partner_shipping_id
+msgid "Delivery address for current invoice."
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__density
 msgid "Density"
 msgstr ""
@@ -410,7 +420,6 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_feed_rate_view
 #: model:ir.model,name:stock_picking_batch_liquidation.model_feed_rate
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.feed_rate_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
 msgid "Feep Rate"
 msgstr ""
@@ -513,6 +522,8 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_liquidation/models/stock_picking_batch.py:0
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__inventory_ids
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_picking_batch_form
 #, python-format
@@ -606,11 +617,6 @@ msgid "Liquidated"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.breeding_liquidated_line_view_tree
-msgid "Liquidated Breeding Report"
-msgstr ""
-
-#. module: stock_picking_batch_liquidation
 #: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_breeding_report_integration
 msgid "Liquidated Breedings Report"
 msgstr ""
@@ -637,14 +643,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_warehouse__liquidation_contract_id
 #: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_view_liquidation_contract_integ
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_view_tree
 msgid "Liquidation Contract"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
 #: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_liquidation_contract_line_view
 #: model:ir.model,name:stock_picking_batch_liquidation.model_liquidation_contract_line
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_line_view_tree
 msgid "Liquidation Contract Line"
 msgstr ""
 
@@ -656,7 +660,6 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.actions.act_window,name:stock_picking_batch_liquidation.action_liquidation_line_view
 #: model:ir.model,name:stock_picking_batch_liquidation.model_liquidation_line
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_line_view_tree
 msgid "Liquidation Line"
 msgstr ""
 
@@ -727,7 +730,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_move_line__move_type_id
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_quant__move_type_id
 #: model:ir.ui.menu,name:stock_picking_batch_liquidation.menu_view_move_type
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.move_type_view_tree
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.quant_search_view
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_move_search
@@ -943,6 +945,11 @@ msgid "Sale Type"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.view_payments_filter
+msgid "Shipping"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
 #: model_terms:ir.ui.view,arch_db:stock_picking_batch_liquidation.liquidation_contract_form_view
 msgid "Start/End FEEP"
 msgstr ""
@@ -964,6 +971,14 @@ msgstr ""
 #. module: stock_picking_batch_liquidation
 #: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_stock_picking_batch__move_line_ids
 msgid "Stock move lines"
+msgstr ""
+
+#. module: stock_picking_batch_liquidation
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_bank_statement_line__partner_category_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move__partner_category_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_move_line__partner_category_ids
+#: model:ir.model.fields,field_description:stock_picking_batch_liquidation.field_account_payment__partner_category_ids
+msgid "Tags"
 msgstr ""
 
 #. module: stock_picking_batch_liquidation
