@@ -1,0 +1,618 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_orderpoint_import_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-12 15:28+0000\n"
+"PO-Revision-Date: 2025-02-12 15:28+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Almacén</code>: this will fill <b>Warehouse Name.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Max</code>: this will fill <b>Maximum Quantity.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Min</code>: this will fill <b>Minimum Quantity.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Nombre</code>: this will fill <b>Minimum Inventory Rule Name.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Producto</code>: this will fill <b>Product Name.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Referencia interna</code>: this will fill <b>Product Code.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "<code>Ubicación</code>: this will fill <b>Location Name.</b>"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__action
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+msgid "Action"
+msgstr "Acción"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import.line,action:0
+msgid "Create"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__create_uid
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__create_date
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__display_name
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,state:0
+#: selection:stock.warehouse.orderpoint.import.line,state:0
+msgid "Draft"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_search
+#: selection:stock.warehouse.orderpoint.import,state:0
+#: selection:stock.warehouse.orderpoint.import.line,state:0
+msgid "Error"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Error Log"
+msgstr "Registro de errores"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__data
+msgid "File"
+msgstr "Archivo"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__filename
+msgid "Filename"
+msgstr "Nombre de archivo"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Help"
+msgstr "Ayuda"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Help with Excel column names"
+msgstr "Asistencia con nombres de columnas de Excel"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__id
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__file_date
+msgid "Import Date"
+msgstr "Fecha de importación"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Import Lines"
+msgstr "Líneas importadas"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.actions.act_window,name:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_action
+msgid "Import Minimum Inventory Rule Lines"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.actions.act_window,name:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_action
+#: model:ir.ui.menu,name:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_menu
+msgid "Import Minimum Inventory Rules"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__import_id
+msgid "Import Wizard"
+msgstr "Asistente de importación"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Imported Lines"
+msgstr "Líneas importadas"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import____last_update
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__write_uid
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__write_date
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__import_line_ids
+msgid "Lines to Import"
+msgstr "Líneas a importar"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__location_id
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__location_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Location"
+msgstr "Ubicación"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__location_name
+msgid "Location Name"
+msgstr "Nombre de ubicación"
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:312
+#, python-format
+msgid "Location not selected."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__log_info
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__log_info
+msgid "Log Info"
+msgstr "Informe de errores"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Max. Qty"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__product_max_qty
+msgid "Maximum Quantity"
+msgstr "Cantidad máxima"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Min. Qty"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model,name:stock_orderpoint_import_wizard.model_stock_warehouse_orderpoint_import
+msgid "Minimum Inventory Rule Import Wizard"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model,name:stock_orderpoint_import_wizard.model_stock_warehouse_orderpoint_import_line
+msgid "Minimum Inventory Rule Import Wizard Line"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__orderpoint_name
+msgid "Minimum Inventory Rule Name"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__product_min_qty
+msgid "Minimum Quantity"
+msgstr "Cantidad mínima"
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:273
+#, python-format
+msgid "More than one location with name '{}' found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:220
+#, python-format
+msgid "More than one product already exist."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:246
+#, python-format
+msgid "More than one warehouse with name '{}' found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:258
+#, python-format
+msgid "No location found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:268
+#, python-format
+msgid "No location with name '{}' found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:217
+#, python-format
+msgid "No product found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:241
+#, python-format
+msgid "No warehouse found with name '{}' found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:230
+#, python-format
+msgid "No warehouse found."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import.line,action:0
+msgid "Nothing"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Open form view"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__orderpoint_id
+msgid "Orderpoint"
+msgstr "Punto de Pedido"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__orderpoint_count
+msgid "Orderpoint Count"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,activity_state:0
+msgid "Planned"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.actions.server,name:stock_orderpoint_import_wizard.action_process_line
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Process"
+msgstr "Procesar"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,state:0
+#: selection:stock.warehouse.orderpoint.import.line,state:0
+msgid "Processed"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__product_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__product_code
+msgid "Product Code"
+msgstr "Código producto"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__product_name
+msgid "Product Name"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:308
+#, python-format
+msgid "Product not selected."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__qty_multiple
+msgid "Qty Multiple"
+msgstr "Ctdad múltiple"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Rule Name"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__split_size
+msgid "Split Size"
+msgstr "Tamaño de la división"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__state
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__state
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+msgid "To Create"
+msgstr "Para crear"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_search
+msgid "To Update"
+msgstr "Para actualizar"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,state:0
+#: selection:stock.warehouse.orderpoint.import.line,state:0
+msgid "To validate"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,activity_state:0
+msgid "Today"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.actions.server,name:stock_orderpoint_import_wizard.action_validate_line
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: stock_orderpoint_import_wizard
+#: selection:stock.warehouse.orderpoint.import,state:0
+#: selection:stock.warehouse.orderpoint.import.line,state:0
+msgid "Validated"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__warehouse_id
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__warehouse_id
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_line_view_tree
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import_line__warehouse_name
+msgid "Warehouse Name"
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: code:addons/stock_orderpoint_import_wizard/models/stock_warehouse_orderpoint_import.py:310
+#, python-format
+msgid "Warehouse not selected."
+msgstr ""
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,field_description:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: stock_orderpoint_import_wizard
+#: model:ir.model.fields,help:stock_orderpoint_import_wizard.field_stock_warehouse_orderpoint_import__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: stock_orderpoint_import_wizard
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_import_wizard.stock_warehouse_orderpoint_import_view_form
+msgid "You must use this column names in order to fill the table:"
+msgstr "Debe usar los siguientes nombres de columnas para rellenar la tabla:"
+
