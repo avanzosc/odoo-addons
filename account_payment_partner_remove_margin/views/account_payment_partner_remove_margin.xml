@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+    id="account_payment_partner_remove_margin_inherit"
+    inherit_id="account_payment_partner.report_invoice_payment_mode"
+  >
+        <xpath
+      expr="//span[@t-field='o.payment_mode_id.note']/.."
+      position="attributes"
+    >
+            <attribute name="style">margin: 0;</attribute>
+        </xpath>
+    </template>
+</odoo>
