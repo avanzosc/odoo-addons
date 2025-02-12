@@ -29,16 +29,11 @@ class SaleOrderLine(models.Model):
                 line.product_uom_qty = line.qty_delivered
                 line._compute_qty_amount_pending_delivery()
             if (
-                len(line.order_id.picking_ids) > 1
-                and line.order_id.update_line_qty
+                line.order_id.picking_ids
+                and line.qty_delivered_method == "stock_move"
                 and all([c.state == "done" for c in line.order_id.picking_ids])
-                and all(
-                    [
-                        c.product_uom_qty == c.qty_delivered
-                        for c in (line.order_id.order_line)
-                    ]
-                )
             ):
+                line.product_uom_qty = line.qty_delivered
                 line.order_id.update_line_qty = False
 
     @api.depends(
