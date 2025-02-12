@@ -18,7 +18,4 @@ class StockPicking(models.Model):
                         line.product_packaging_qty = (
                             line.move_id.sale_line_id.product_packaging_qty
                         )
-                    if line.move_id.sale_line_id.palet_id:
-                        line.palet_id = line.move_id.sale_line_id.palet_id.id
-                        line.palet_qty = line.move_id.sale_line_id.palet_qty
         return result

@@ -100,13 +100,16 @@ class AccountMoveImport(models.Model):
 
     def button_open_account_move(self):
         self.ensure_one()
-        action = self.env.ref("account.action_move_line_form")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "=", self.account_move_id.id)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "account.action_move_line_form"
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        action["domain"] = expression.AND(
+            [
+                [("id", "=", self.account_move_id.id)],
+                safe_eval(action.get("domain") or "[]"),
+            ]
+        )
+        return action
 
 
 class AccountMoveImportLine(models.Model):

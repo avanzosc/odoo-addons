@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch Package",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "author": "AvanzOSC",
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
@@ -16,6 +16,7 @@
         "views/stock_picking_view.xml",
         "report/batch_report.xml",
         "report/picking_report_template.xml",
+        "report/stock_picking_batch_by_package_report.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template
+    id="account_report_invoice_document_inherit"
+    inherit_id="account.report_invoice_document"
+  >
+        <xpath expr="//div[@name='comment']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </template>
+
+    <record id="account_view_move_form_inherit" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.remove_narration</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//page[@name='invoice_tab']//field[@name='narration']"
+        position="attributes"
+      >
+                <attribute name="t-if">False</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

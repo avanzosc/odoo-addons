@@ -48,7 +48,7 @@ class PurchaseOrderLine(models.Model):
         seller = self.env["product.supplierinfo"]
         if self.product_id.seller_ids:
             seller = self.product_id.seller_ids.filtered(
-                lambda x: x.name == self.order_id.partner_id and x.min_qty == 0
+                lambda x: x.partner_id == self.order_id.partner_id and x.min_qty == 0
             )
         if not seller:
             self._create_new_seller_from_purchase_line()
@@ -62,7 +62,7 @@ class PurchaseOrderLine(models.Model):
             "product_id": self.product_id.id,
             "product_tmpl_id": self.product_id.product_tmpl_id.id,
             "min_qty": 0,
-            "name": self.order_id.partner_id.id,
+            "partner_id": self.order_id.partner_id.id,
             "price": self.price_unit,
             "discount": self.discount,
             "date_start": fields.Date.context_today(self),
