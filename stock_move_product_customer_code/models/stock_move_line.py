@@ -45,7 +45,7 @@ class StockMoveLine(models.Model):
                     result[line_key]["name"] = name
         return result
 
-    def _generate_keys_to_found(self):
+    def _generate_key_to_found(self):
         uom = self.product_uom_id
         name = self.product_id.display_name
         description = self.move_id.description_picking
