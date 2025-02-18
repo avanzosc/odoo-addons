@@ -28,7 +28,7 @@ class SacaLine(models.Model):
         copy=False,
     )
     forklift = fields.Boolean(default=False, copy=False)
-    download_unit = fields.Integer(copy=False)
+    download_unit = fields.Integer(copy=False, tracking=True)
     staff = fields.Integer(copy=False)
     crew = fields.Integer(copy=False)
     currency_id = fields.Many2one(
