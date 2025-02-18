@@ -9,11 +9,9 @@ class ProductSupplierinfo(models.Model):
     def name_get(self):
         result = []
         for supplierinfo in self:
-            product_name = (
-                supplierinfo.product_name
-                if supplierinfo.product_name
-                else supplierinfo.partner_id.name
-            )
+            if isinstance(supplierinfo.id, tuple):
+                supplierinfo = self.browse(supplierinfo.id[0])
+            product_name = supplierinfo.product_name or supplierinfo.partner_id.name
             if supplierinfo.product_code:
                 name = "[{}] {}".format(supplierinfo.product_code, product_name)
             else:
