@@ -13,6 +13,7 @@
           name="seller_id"
           optional="show"
           domain="[('id', 'in', product_seller_ids)]"
+          context="{'from_purchase_order_line': True}"
         />
             </xpath>
             <xpath
@@ -24,6 +25,7 @@
           name="seller_id"
           optional="show"
           domain="[('id', 'in', product_seller_ids)]"
+          context="{'from_purchase_order_line': True}"
         />
             </xpath>
         </field>
