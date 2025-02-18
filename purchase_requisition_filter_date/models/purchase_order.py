@@ -8,26 +8,47 @@ class PurchaseOrder(models.Model):
 
     @api.onchange("requisition_id")
     def _onchange_requisition_id(self):
-        if self.requisition_id:
-            valid_lines = self.requisition_id.line_ids.filtered(
-                lambda line: self.requisition_id.date_from
+        if not self.requisition_id:
+            return super()._onchange_requisition_id()
+
+        valid_lines = []
+        filtered_indices = []
+
+        for index, line in enumerate(self.requisition_id.line_ids):
+            if (
+                self.requisition_id.date_from
                 <= line.schedule_date
                 <= self.requisition_id.date_to
-            )
-            result = super()._onchange_requisition_id()
-            if valid_lines:
-                for sale_order_line in self.order_line:
-                    matching_requisition_lines = valid_lines.filtered(
-                        lambda line: line.product_id == sale_order_line.product_id
-                    )
-                    if matching_requisition_lines:
-                        matching_requisition_line = matching_requisition_lines[0]
-                        schedule_datetime = datetime.combine(
-                            matching_requisition_line.schedule_date, time.min
-                        )
-                        sale_order_line.date_planned = schedule_datetime
-                        self.order_line = self.order_line - sale_order_line
-                        self.order_line |= sale_order_line
-                    else:
-                        self.order_line = self.order_line - sale_order_line
-                return result
+            ):
+                valid_lines.append(line)
+                filtered_indices.append(index)
+
+        result = super()._onchange_requisition_id()
+
+        if not valid_lines:
+            return result
+
+        indices_to_remove = []
+        updated_lines = []
+
+        order_lines_list = list(self.order_line)
+
+        for index, sale_order_line in enumerate(order_lines_list):
+            if index in filtered_indices:
+                matching_index = filtered_indices.index(index)
+                matching_requisition_line = valid_lines[matching_index]
+
+                schedule_datetime = datetime.combine(
+                    matching_requisition_line.schedule_date, time.min
+                )
+                sale_order_line.date_planned = schedule_datetime
+                sale_order_line.product_qty = matching_requisition_line.product_qty
+                updated_lines.append(sale_order_line)
+            else:
+                indices_to_remove.append(index)
+
+        self.order_line = self.order_line.filtered(
+            lambda line: order_lines_list.index(line) not in indices_to_remove
+        )
+
+        return result
