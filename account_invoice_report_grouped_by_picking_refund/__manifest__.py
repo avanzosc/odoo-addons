@@ -6,10 +6,11 @@
     "author": "AvanzOSC",
     "category": "Invoices & Payments",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["account_invoice_report_grouped_by_picking"],
-    "data": [
-        "reports/account_invoice_report.xml",
+    "depends": [
+        "account_invoice_report_grouped_by_picking",
+        "web",
     ],
+    "data": [],
     "license": "AGPL-3",
     "installable": True,
 }
