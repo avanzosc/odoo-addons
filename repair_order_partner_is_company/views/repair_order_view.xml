@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_repair_order_form_inherit" model="ir.ui.view">
+        <field name="name">repair.order.form.partner.only.company</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute
+          name="domain"
+        >[('is_company', '=', True), ('customer_rank', '&gt;', 0)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
