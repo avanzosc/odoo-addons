@@ -12,7 +12,7 @@
                 <field
           name="seller_id"
           optional="show"
-          domain="[('id', 'in', product_seller_ids)]"
+          domain="[('id', 'in', product_seller_ids), ('name', '=', parent.partner_id)]"
           context="{'from_purchase_order_line': True}"
         />
             </xpath>
@@ -24,7 +24,7 @@
                 <field
           name="seller_id"
           optional="show"
-          domain="[('id', 'in', product_seller_ids)]"
+          domain="[('id', 'in', product_seller_ids), ('name', '=', parent.partner_id)]"
           context="{'from_purchase_order_line': True}"
         />
             </xpath>
