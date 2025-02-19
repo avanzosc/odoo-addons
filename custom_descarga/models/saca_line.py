@@ -334,7 +334,11 @@ class SacaLine(models.Model):
         result = super().write(values)
         if "download_unit" in values:
             for record in self:
-                for line in record.move_line_ids:
+                for line in (
+                    self.env["stock.move.line"]
+                    .sudo()
+                    .search([("saca_line_id", "=", record.id)])
+                ):
                     line.download_unit = record.download_unit
                     for move in record.stock_move_ids:
                         move.download_unit = record.download_unit
