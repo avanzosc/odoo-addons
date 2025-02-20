@@ -1,0 +1,205 @@
+<odoo>
+    <!-- Action for the Connect DB Wizard -->
+    <record id="action_connect_db_wizard" model="ir.actions.act_window">
+        <field name="name">Connect to DB</field>
+        <field name="res_model">connect.db.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+    id="menu_connect_db_wizard"
+    name="Connect to DB"
+    action="action_connect_db_wizard"
+    sequence="10"
+    web_icon="connect_db_wizard,static/src/img/menu_icon.svg"
+  />
+
+    <!-- Inheritance for Account Move form -->
+    <record id="view_account_move_inherit_connect_db" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.connect.db</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+          name="%(action_connect_db_wizard)d"
+          type="action"
+          string="Conectar a DB"
+          class="btn-primary"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Connect to DB Wizard Form View -->
+    <record id="view_connect_db_wizard_form" model="ir.ui.view">
+        <field name="name">connect.db.wizard.form</field>
+        <field name="model">connect.db.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Connect to DB">
+                <group>
+                    <field name="remote_host" />
+                    <field name="remote_port" />
+                    <field name="remote_user" />
+                    <field name="remote_password" password="True" />
+                    <field name="db_name" />
+                    <field name="db_user" />
+                    <field name="db_password" password="True" />
+                    <field name="limit" />
+                    <field name="exclude_currency" />
+                </group>
+                <footer>
+                    <button
+            string="Compare Lines"
+            type="object"
+            name="action_connect_and_fetch"
+            class="btn-primary"
+          />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Account Move Line Comparison Tree View -->
+    <record id="view_account_move_line_comparison_tree" model="ir.ui.view">
+        <field name="name">account.move.line.comparison.tree</field>
+        <field name="model">account.move.line.comparison</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="external_id" optional="show" />
+                <field name="move_line_id" optional="show" />
+                <field name="move_id" optional="show" />
+                <field name="debit" optional="show" />
+                <field name="debit_now" optional="show" />
+                <field name="is_debit_different" optional="show" />
+                <field name="credit" optional="show" />
+                <field name="credit_now" optional="show" />
+                <field name="is_credit_different" optional="show" />
+                <field name="amount_currency" optional="show" />
+                <field name="amount_currency_now" optional="show" />
+                <field name="is_amount_currency_different" optional="show" />
+                <button
+          name="copy_all_debit_credit_to_now"
+          type="object"
+          string="Copy ALL"
+          class="btn-primary"
+        />
+                <button
+          name="copy_debit_credit_to_now"
+          type="object"
+          string="Copy Line"
+          class="btn-secondary"
+          attrs="{'invisible': [('is_debit_different', '=', False), ('is_credit_different', '=', False)]}"
+        />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Account Move Line Comparison Search View -->
+    <record id="view_account_move_line_comparison_search" model="ir.ui.view">
+        <field name="name">account.move.line.comparison.search</field>
+        <field name="model">account.move.line.comparison</field>
+        <field name="arch" type="xml">
+            <search string="Search Account Move Line Comparison">
+                <field name="external_id" />
+                <field name="debit" />
+                <field name="credit" />
+                <field name="move_line_id" />
+                <field name="move_id" />
+                <field name="debit_now" />
+                <field name="credit_now" />
+                <field name="amount_currency" />
+                <field name="amount_currency_now" />
+                <field name="is_debit_different" />
+                <field name="is_credit_different" />
+                <field name="is_amount_currency_different" />
+
+                <group expand="0" string="Group By">
+                    <filter
+            name="group_by_external_id"
+            string="External ID"
+            domain="[]"
+            context="{'group_by': 'external_id'}"
+          />
+                    <filter
+            name="group_by_debit"
+            string="Debit"
+            domain="[]"
+            context="{'group_by': 'debit'}"
+          />
+                    <filter
+            name="group_by_credit"
+            string="Credit"
+            domain="[]"
+            context="{'group_by': 'credit'}"
+          />
+                    <filter
+            name="group_by_move_line"
+            string="Account Move Line"
+            domain="[]"
+            context="{'group_by': 'move_line_id'}"
+          />
+                    <filter
+            name="group_by_move"
+            string="Account Move"
+            domain="[]"
+            context="{'group_by': 'move_id'}"
+          />
+                    <filter
+            name="group_by_debit_now"
+            string="Debit Now"
+            domain="[]"
+            context="{'group_by': 'debit_now'}"
+          />
+                    <filter
+            name="group_by_credit_now"
+            string="Credit Now"
+            domain="[]"
+            context="{'group_by': 'credit_now'}"
+          />
+                    <filter
+            name="group_by_amount_currency"
+            string="Amount Currency"
+            domain="[]"
+            context="{'group_by': 'amount_currency'}"
+          />
+                    <filter
+            name="group_by_amount_currency_now"
+            string="Amount Currency Now"
+            domain="[]"
+            context="{'group_by': 'amount_currency_now'}"
+          />
+                    <filter
+            name="group_by_is_debit_different"
+            string="Is Debit Different"
+            domain="[]"
+            context="{'group_by': 'is_debit_different'}"
+          />
+                    <filter
+            name="group_by_is_credit_different"
+            string="Is Credit Different"
+            domain="[]"
+            context="{'group_by': 'is_credit_different'}"
+          />
+                    <filter
+            name="group_by_is_amount_currency_different"
+            string="Is Amount Currency Different"
+            domain="[]"
+            context="{'group_by': 'is_amount_currency_different'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action for Account Move Line Comparison Tree -->
+    <record id="action_account_move_line_comparison_tree" model="ir.actions.act_window">
+        <field name="name">Comparison Results</field>
+        <field name="res_model">account.move.line.comparison</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+    </record>
+
+</odoo>

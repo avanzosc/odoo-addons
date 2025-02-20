@@ -1,0 +1,30 @@
+<svg width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradiente para la base de datos -->
+    <linearGradient id="dbGradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4A90E2"/>
+      <stop offset="100%" stop-color="#003C8F"/>
+    </linearGradient>
+    <!-- Gradiente para el rayo -->
+    <linearGradient id="boltGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFCE00"/>
+      <stop offset="100%" stop-color="#FF9500"/>
+    </linearGradient>
+    <!-- Filtro de sombra para dar profundidad -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <!-- Base de datos (cilindro) -->
+  <g id="database" filter="url(#shadow)">
+    <ellipse cx="35" cy="20" rx="18" ry="5" fill="url(#dbGradient)" stroke="#002F6C" stroke-width="1.5"/>
+    <path d="M17 20 L17 40 Q35 45, 53 40 L53 20" fill="url(#dbGradient)" stroke="#002F6C" stroke-width="1.5"/>
+    <ellipse cx="35" cy="40" rx="18" ry="5" fill="none" stroke="#002F6C" stroke-width="1.5"/>
+  </g>
+  <!-- Rayo de conexión -->
+  <g id="bolt" filter="url(#shadow)">
+    <path d="M30 24 L38 24 L33 34 L41 34 L26 50 L33 36 L28 36 Z" fill="url(#boltGradient)" stroke="#E58F00" stroke-width="1.2"/>
+  </g>
+  <!-- Círculo exterior para enmarcar el ícono -->
+  <circle cx="35" cy="35" r="33" fill="none" stroke="#002F6C" stroke-width="1"/>
+</svg>
