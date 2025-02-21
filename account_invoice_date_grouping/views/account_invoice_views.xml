@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <filter name="duedate" position="after">
+                <separator/>
+                <filter
+          string="Invoice Year"
+          name="invoice_year"
+          context="{'group_by': 'invoice_year'}"
+        />
+                <filter
+          string="Invoice Month"
+          name="invoice_month"
+          context="{'group_by': 'invoice_month'}"
+        />
+                <filter
+          string="Invoice Quarter"
+          name="invoice_quarter"
+          context="{'group_by': 'invoice_quarter'}"
+        />
+                <separator/>
+            </filter>
+            <field name="date" position="after">
+                <separator/>
+                <field name="invoice_year"/>
+                <field name="invoice_month"/>
+                <field name="invoice_quarter"/>
+            </field>
+        </field>
+    </record>
+</odoo>
