@@ -10,6 +10,9 @@
                 <attribute name="editable">bottom</attribute>
                 <attribute name="create" />
             </tree>
+            <field name="commitment_date" position="before">
+                <field name="sequence" widget="handle" />
+            </field>
             <field name="order_id" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
