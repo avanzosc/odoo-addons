@@ -15,6 +15,14 @@ class AccountMoveLine(models.Model):
         related="move_id.sale_type_id",
         store=True,
     )
+    partner_category_ids = fields.Many2many(
+        comodel_name="res.partner.category",
+        related="partner_id.category_id",
+        string="Tags",
+    )
+    partner_shipping_id = fields.Many2one(
+        comodel_name="res.partner", related="move_id.partner_shipping_id", store=True
+    )
 
     @api.onchange("percentage", "move_id")
     def onchange_invoicing_qty(self):

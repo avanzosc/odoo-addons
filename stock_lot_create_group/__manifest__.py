@@ -1,17 +1,16 @@
-# Copyright 2023 Alfredo de la Fuente - AvanzOSC
+# Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
 {
-    "name": "Stock Usability",
+    "name": "Stock Lot Create Group",
     "version": "14.0.1.0.0",
-    "category": "Inventory/Inventory",
+    "category": "Product Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": [
-        "stock",
-        "purchase_stock",
-        "product_usability",
+    "depends": ["stock"],
+    "data": [
+        "data/create_lot_group.xml",
     ],
-    "data": [],
     "installable": True,
 }
