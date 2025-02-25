@@ -1,0 +1,534 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_inventory_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-03 12:22+0000\n"
+"PO-Revision-Date: 2025-03-03 12:22+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "<code>cantidad</code>: this will fill <b>Product Qty.</b>"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "<code>lista</code>: this will fill <b>Product Code.</b>"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "<code>producto</code>: this will fill <b>Supplier Name.</b>"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__action
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+msgid "Action"
+msgstr "Acción"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__product_barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer.line,action:0
+msgid "Create"
+msgstr "Crear"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__create_uid
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__create_date
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__location_dst_id
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__location_dst_id
+msgid "Destination Location"
+msgstr "Ubicación destino"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__display_name
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,state:0
+#: selection:stock.inventory.transfer.line,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_search
+#: selection:stock.inventory.transfer,state:0
+#: selection:stock.inventory.transfer.line,state:0
+msgid "Error"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Error Log"
+msgstr "Registro de errores"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__data
+msgid "File"
+msgstr "Archivo"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__filename
+msgid "Filename"
+msgstr "Nombre de archivo"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Help"
+msgstr "Ayuda"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Help with Excel column names"
+msgstr "Asistencia con nombres de columnas de Excel"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__id
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__file_date
+msgid "Import Date"
+msgstr "Fecha de importación"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Import Lines"
+msgstr "Líneas importadas"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__import_id
+msgid "Import Wizard"
+msgstr "Asistente de importación"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Imported Lines"
+msgstr "Líneas importadas"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer_line__product_barcode
+msgid "International Article Number used for product identification."
+msgstr "Número de artículo internacional usado para la identificación de producto."
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer____last_update
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__write_uid
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__write_date
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__import_line_ids
+msgid "Lines to Import"
+msgstr "Líneas a importar"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__location_dst_name
+msgid "Location Dst Name"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__location_src_name
+msgid "Location Src Name"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__log_info
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__log_info
+msgid "Log Info"
+msgstr "Informe de errores"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: stock_inventory_transfer
+#: code:addons/stock_inventory_transfer/models/stock_inventory_transfer_import.py:238
+#, python-format
+msgid "More than one product already exist."
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: stock_inventory_transfer
+#: code:addons/stock_inventory_transfer/models/stock_inventory_transfer_import.py:235
+#, python-format
+msgid "No product found."
+msgstr "No se ha encontrado producto."
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer.line,action:0
+msgid "Nothing"
+msgstr "Nada"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_tree
+msgid "Open form view"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__picking_type_id
+msgid "Picking Type"
+msgstr "Tipo de albarán"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,activity_state:0
+msgid "Planned"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.actions.server,name:stock_inventory_transfer.action_process_line
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_form
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Process"
+msgstr "Procesar"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,state:0
+#: selection:stock.inventory.transfer.line,state:0
+msgid "Processed"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__product_id
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__product_name
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__product_code
+msgid "Product Code"
+msgstr "Código producto"
+
+#. module: stock_inventory_transfer
+#: code:addons/stock_inventory_transfer/models/stock_inventory_transfer_import.py:91
+#, python-format
+msgid "Product Code added as Product Name"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__product_qty
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__location_src_id
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__location_src_id
+msgid "Source Location"
+msgstr "Ubicación de origen"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__split_size
+msgid "Split Size"
+msgstr "Tamaño de la división"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__state
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__state
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: stock_inventory_transfer
+#: model:ir.actions.act_window,name:stock_inventory_transfer.stock_inventory_transfer_action
+#: model:ir.ui.menu,name:stock_inventory_transfer.stock_inventory_transfer_menu
+msgid "Stock Inventory Transfer"
+msgstr "Transferencia de inventario"
+
+#. module: stock_inventory_transfer
+#: model:ir.actions.act_window,name:stock_inventory_transfer.stock_inventory_transfer_line_action
+msgid "Stock Inventory Transfer Lines"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer_line__stock_move_id
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__stock_move_count
+msgid "Stock Move Count"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__stock_picking_count
+msgid "Stock Picking Count"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+msgid "To Create"
+msgstr "Para crear"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_search
+msgid "To Update"
+msgstr "Para actualizar"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,state:0
+#: selection:stock.inventory.transfer.line,state:0
+msgid "To validate"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,activity_state:0
+msgid "Today"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: stock_inventory_transfer
+#: model:ir.actions.server,name:stock_inventory_transfer.action_validate_line
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_form
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_line_view_tree
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: stock_inventory_transfer
+#: selection:stock.inventory.transfer,state:0
+#: selection:stock.inventory.transfer.line,state:0
+msgid "Validated"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,field_description:stock_inventory_transfer.field_stock_inventory_transfer__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: stock_inventory_transfer
+#: model:ir.model.fields,help:stock_inventory_transfer.field_stock_inventory_transfer__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: stock_inventory_transfer
+#: model_terms:ir.ui.view,arch_db:stock_inventory_transfer.stock_inventory_transfer_view_form
+msgid "You must use this column names in order to fill the table:"
+msgstr "Debe usar los siguientes nombres de columnas para rellenar la tabla:"
+
+#. module: stock_inventory_transfer
+#: model:ir.model,name:stock_inventory_transfer.model_stock_inventory_transfer
+msgid "stock.inventory.transfer"
+msgstr ""
+
+#. module: stock_inventory_transfer
+#: model:ir.model,name:stock_inventory_transfer.model_stock_inventory_transfer_line
+msgid "stock.inventory.transfer.line"
+msgstr ""
+
