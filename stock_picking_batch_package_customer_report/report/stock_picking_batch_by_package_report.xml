@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_picking_batch_by_packaging_document"
+    inherit_id="stock_picking_batch_package.report_picking_batch_by_packaging_document"
+  >
+        <div name="barcode" position="after">
+            <t t-if="doc.customer_id">
+                <div
+          t-field="doc.customer_id"
+          t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: True}"
+        />
+            </t>
+        </div>
+        <div name="responsible" position="after">
+            <div
+        name="customer"
+        t-if="doc.customer_id and doc.customer_id.ref"
+        class="col-auto col-3 mw-100 mb-2"
+      >
+                <strong>Customer Num.:</strong>
+                <p class="m-0" t-field="doc.customer_id.ref" />
+            </div>
+        </div>
+        <th name="picking" position="after">
+            <th name="customer_ref">Customer Ref.</th>
+        </th>
+    </template>
+
+    <template
+    id="report_picking_batch_by_packaging_document2"
+    inherit_id="stock_picking_batch_package.report_picking_batch_by_packaging_document2"
+  >
+        <td name="picking" position="after">
+            <td name="customer_ref">
+                <t
+          t-set="customer_ref"
+          t-value="line.product_id._select_customerinfo(partner=line.picking_id.partner_id)"
+        />
+                <span t-if="customer_ref" t-esc="customer_ref.product_code" />
+            </td>
+        </td>
+    </template>
+</odoo>
