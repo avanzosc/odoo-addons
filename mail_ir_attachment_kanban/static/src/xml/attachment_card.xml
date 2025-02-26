@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+    t-name="mail_ir_attachment_kanban.Izena"
+    t-inherit="mail.AttachmentCard"
+    t-inherit-mode="extension"
+    owl="1"
+  >
+        <!-- Write the id in an attribute for easier orm search in the JS -->
+        <xpath
+      expr="//div[hasclass('o_AttachmentCard_image')]/.."
+      position="attributes"
+    >
+            <attribute
+        name="t-att-attachment-id"
+      >this.props.record.attachment.id</attribute>
+        </xpath>
+    </t>
+</templates>
