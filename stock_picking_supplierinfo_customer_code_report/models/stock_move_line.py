@@ -13,7 +13,7 @@ class StockMoveLine(models.Model):
             return result
         for clave in result.keys():
             for move_line in self:
-                line_key = self._generate_key_to_found()
+                line_key = move_line._generate_key_to_found()
                 product_customer_code = ""
                 if move_line.move_id.sale_line_id:
                     product_customer_code = (
