@@ -11,7 +11,7 @@ class ProductSupplierinfo(models.Model):
         supplierinfos = super().create(vals_list)
         for supplierinfo in supplierinfos.filtered(lambda x: x.product_brand_id):
             supplierinfo._search_product_brand_supplier_rel()
-        return
+        return supplierinfos
 
     def _search_product_brand_supplier_rel(self):
         relation_obj = self.env["product.brand.supplier.relation"]
