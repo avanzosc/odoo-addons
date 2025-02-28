@@ -109,7 +109,7 @@ class AccountInvoiceXLSXExport(models.TransientModel):
             if invoices:
                 all_taxes = (
                     self.invoice_ids.mapped("line_ids")
-                    .mapped("tax_line_id")
+                    .mapped("tax_ids")
                     .flatten_taxes_hierarchy()
                     .mapped("tax_group_id")
                     .sorted()
@@ -117,15 +117,21 @@ class AccountInvoiceXLSXExport(models.TransientModel):
 
                 worksheet = workbook.add_worksheet(move_type)
                 worksheet.write(0, 0, "Invoice Number", table_header)
-                worksheet.write(0, 1, "Invoice Date", table_header)
-                worksheet.write(0, 2, "Partner", table_header)
-                worksheet.write(0, 3, "Concept", table_header)
-                worksheet.set_column(0, 3, 32)
-                worksheet.write(0, 4, "Amount Untaxed", table_header)
-                worksheet.write(0, 5, "Amount Taxed", table_header)
-                worksheet.set_column(4, 5, 15)
+                worksheet.write(0, 1, "Invoice Reference", table_header)
+                worksheet.write(0, 2, "Invoice Date", table_header)
+                worksheet.write(0, 3, "Partner", table_header)
+                worksheet.write(0, 4, "Partner VAT", table_header)
+                worksheet.write(0, 5, "Partner Zip", table_header)
+                worksheet.write(0, 6, "Partner City", table_header)
+                worksheet.write(0, 7, "Partner State", table_header)
+                worksheet.write(0, 8, "Partner Country", table_header)
+                worksheet.write(0, 9, "Concept", table_header)
+                worksheet.set_column(0, 9, 32)
+                worksheet.write(0, 10, "Amount Untaxed", table_header)
+                worksheet.write(0, 11, "Amount Taxed", table_header)
+                worksheet.set_column(10, 11, 15)
 
-                start_tax_col_num = tax_col_num = 6
+                start_tax_col_num = tax_col_num = 12
                 for tax in all_taxes:
                     worksheet.write(0, tax_col_num, tax.display_name, table_header)
                     worksheet.write(
@@ -142,33 +148,72 @@ class AccountInvoiceXLSXExport(models.TransientModel):
 
                 row_num = 1
                 for invoice in invoices:
-                    # diamacon does not accept special characters
-                    invoice_num = "".join(
-                        letter for letter in invoice.name if letter.isalnum()
+                    worksheet.write(
+                        row_num,
+                        0,
+                        invoice.name,
+                        table_detail_left,
                     )
-                    # diamacon only accepts up to 8 characters
-                    worksheet.write(row_num, 0, invoice_num[-8:], table_detail_left)
-                    worksheet.write_datetime(
+                    worksheet.write(
                         row_num,
                         1,
+                        invoice.ref,
+                        table_detail_left,
+                    )
+                    worksheet.write_datetime(
+                        row_num,
+                        2,
                         invoice.invoice_date,
                         table_detail_date,
                     )
                     worksheet.write(
                         row_num,
-                        2,
+                        3,
                         invoice.invoice_partner_display_name,
                         table_detail_left,
                     )
-                    # worksheet.write(row_num, 3, "Concept", table_detail_left)
                     worksheet.write(
                         row_num,
                         4,
+                        invoice.partner_id.vat,
+                        table_detail_left,
+                    )
+                    worksheet.write(
+                        row_num,
+                        5,
+                        invoice.partner_id.zip,
+                        table_detail_left,
+                    )
+                    worksheet.write(
+                        row_num,
+                        6,
+                        invoice.partner_id.city,
+                        table_detail_left,
+                    )
+                    worksheet.write(
+                        row_num,
+                        7,
+                        invoice.partner_id.state_id.name,
+                        table_detail_left,
+                    )
+                    worksheet.write(
+                        row_num,
+                        8,
+                        invoice.partner_id.country_id.name,
+                        table_detail_left,
+                    )
+                    # worksheet.write(row_num, 9, "Concept", table_detail_left)
+                    worksheet.write(
+                        row_num,
+                        10,
                         invoice.amount_untaxed_signed,
                         table_detail_right_num,
                     )
                     worksheet.write(
-                        row_num, 5, invoice.amount_total_signed, table_detail_right_num
+                        row_num,
+                        11,
+                        invoice.amount_total_signed,
+                        table_detail_right_num,
                     )
 
                     tax_group_mapping = defaultdict(
@@ -250,7 +295,7 @@ class AccountInvoiceXLSXExport(models.TransientModel):
 
         fp = open(filepath, "rb")
         file_data = fp.read()
-        excel_file = base64.encodestring(file_data)
+        excel_file = base64.b64encode(file_data)
         fp.close()
 
         # Crear fichero temporal
@@ -269,7 +314,7 @@ class AccountInvoiceXLSXExport(models.TransientModel):
         try:  # Borrar archivo temporal
             os.unlink(datafile_path)
         except Exception:
-            pass
+            _logger.warning("Impossible to delete temporary file.")
         attach = self.env["ir.attachment"].create(res)
         # self.env.cr.commit()
         url = "/web/content/%s?download=true" % attach.id
