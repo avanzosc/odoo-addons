@@ -9,16 +9,16 @@ Calendar Meeting Disable Default Alarm
 Overview
 ========
 
-The **Calendar Meeting Disable Default Alarm** module extends the default functionality of calendar events in Odoo. This customization allows for more flexible handling of calendar alarms and prevents sending emails to newly added attendees when modifying event details.
+The **Calendar Meeting Disable Default Alarm** module extends the default functionality of calendar events in Odoo. This customization provides more flexibility in handling calendar alarms and attendee notifications by using context flags to control behavior, specifically preventing the sending of emails to newly added attendees when modifying event details.
 
-The main feature of this module is the disabling of alarm notifications for certain scenarios and modification of attendee notification behavior.
+The main feature of this module is the dynamic management of alarm notifications and attendee email notifications through the use of context and the `super()` method.
 
 Features
 ========
 
-- Prevents sending invitation emails to newly added attendees when modifying an event.
-- Allows event updates to be handled with specific conditions based on recurrence, time changes, and alarms.
-- Customizes how event updates are applied, including the breaking of recurrence and handling of alarms.
+- Prevents sending invitation emails to newly added attendees when modifying an event by leveraging context flags.
+- Allows for event updates to be applied under specific conditions based on recurrence, time changes, and alarm notifications.
+- Customizes how event updates are processed, including controlling notifications based on context variables.
 
 Usage
 =====
@@ -29,33 +29,32 @@ Usage
 
 2. **Handling Attendee Emails**:
    
-   - The module prevents the system from automatically sending invitation emails to newly added attendees when modifying an event. This is achieved by commenting out the part of the code responsible for sending those emails:
+   - The module prevents the automatic sending of invitation emails to newly added attendees when an event is modified. This behavior is controlled by setting the context variable `no_mail_to_attendees`:
 
      ```python
-     # if 'partner_ids' in values:
-     #     (current_attendees - previous_attendees)._send_mail_to_attendees('calendar.calendar_template_meeting_invitation')
+     self = self.with_context(no_mail_to_attendees=True)
      ```
+
+   - The context flag `no_mail_to_attendees` ensures that newly added attendees are not notified, while the existing ones will still receive the appropriate updates.
 
 3. **Modifying Event Details**:
    
-   - When modifying event details (such as start time, partners, or alarms), the system will behave according to specific rules for recurrence and alarm management:
+   - When event details (such as start time, attendees, or alarms) are modified, the system checks the context for any specific flags and adjusts behavior accordingly.
    
-     - If updating recurrence settings, certain validations are applied to ensure changes are valid.
+   - The recurrence and alarm settings are handled properly, with email notifications sent only when necessary.
+
+4. **Context-Based Notification Control**:
    
-     - Alarms are handled separately and notifications are sent when appropriate.
-   
-4. **No Email Notification for Newly Added Attendees**:
-   
-   - The module ensures that no email notifications are sent to new attendees when an event is modified. Only existing attendees will be notified when their attendance status or event time changes.
+   - By setting the context variable `no_mail_to_attendees`, the system ensures that no invitation emails are sent to new attendees when modifying an event. Only existing attendees are notified if the changes impact them.
 
 5. **Sync Activities and Notify Attendees**:
    
-   - Updates to the event time or alarms will trigger notifications if necessary. The system ensures that attendees are notified only if the changes affect them.
+   - Changes to event time or alarms will trigger notifications if needed. The system uses the context to control which attendees receive updates, ensuring minimal disruption.
 
 Configuration
 =============
 
-No additional configuration is required. The module will automatically apply the behavior after installation.
+No additional configuration is required. The module will automatically apply the modified behavior after installation.
 
 Testing
 =======
