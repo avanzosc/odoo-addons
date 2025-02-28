@@ -233,24 +233,25 @@ class ProductTemplate(models.Model):
             if title:
                 return {"warning": warning}
 
-    @api.model
-    def create(self, values):
-        if "generate_last_price_change_date" in values and values.get(
-            "generate_last_price_change_date", False
-        ):
-            values.update(
-                {
-                    "last_price_change_date": fields.Date.context_today(self),
-                    "generate_last_price_change_date": False,
-                }
-            )
-        if "my_list_price" in values:
-            values["list_price"] = values.get("my_list_price")
-        if "my_standard_price" in values:
-            values["standard_price"] = values.get("my_standard_price")
+    @api.model_create_multi
+    def create(self, vals_list):
+        for values in vals_list:
+            if "generate_last_price_change_date" in values and values.get(
+                "generate_last_price_change_date", False
+            ):
+                values.update(
+                    {
+                        "last_price_change_date": fields.Date.context_today(self),
+                        "generate_last_price_change_date": False,
+                    }
+                )
+            if "my_list_price" in values:
+                values["list_price"] = values.get("my_list_price")
+            if "my_standard_price" in values:
+                values["standard_price"] = values.get("my_standard_price")
         template = super(
             ProductTemplate, self.with_context(product_created_from_template=True)
-        ).create(values)
+        ).create(vals_list)
         if template.product_variant_count == 1:
             template.put_template_info_in_product()
         return template
