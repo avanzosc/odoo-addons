@@ -15,7 +15,7 @@ try:
     from statistics import mean
 
     STATS_PATH = tools.find_in_path("statistics")
-except (ImportError, IOError) as err:
+except (ImportError, OSError) as err:
     _logger.debug(err)
 
 try:
@@ -258,7 +258,7 @@ class AccountInvoiceXLSXExport(models.TransientModel):
         os.close(datafile_fd)
 
         # CREAR ADJUNTO
-        with open(datafile_path, "r"):  # as datafile:
+        with open(datafile_path):  # as datafile:
             res = {
                 "name": filename,
                 "datas": excel_file,
