@@ -12,6 +12,7 @@ class PurchaseOrderLine(models.Model):
         related="product_id.category_type_id",
         store=True,
     )
+    surplus = fields.Boolean(default=False)
 
     @api.depends("move_ids.state", "move_ids.product_uom_qty", "move_ids.product_uom")
     def _compute_qty_received(self):
