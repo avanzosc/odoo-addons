@@ -38,35 +38,36 @@ class BatchHouseChangeWizard(models.TransientModel):
         batch = self.env["stock.picking.batch"].browse(
             self.env.context.get("active_id")
         )
-        picking = batch.picking_ids.filtered("custom_date_done")
-        if not picking:
-            raise ValidationError(_("No transfer found."))
-        picking = min(picking, key=lambda x: x.custom_date_done)
-        new_picking = self.env["stock.picking"].create(
-            {
-                "batch_id": batch.id,
-                "picking_type_id": self.type_id.id,
-                "location_id": self.type_id.default_location_src_id.id,
-                "location_dest_id": self.type_id.default_location_dest_id.id,
-                "custom_date_done": self.date_done,
-            }
+        pickings = batch.picking_ids.filtered(
+            lambda c: c.state == "done" and c.picking_type_code == "incoming"
         )
-        for move in picking.move_ids_without_package:
-            new_move = move.copy()
-            new_move.write(
+        if not pickings:
+            raise ValidationError(_("No transfer found."))
+        for picking in pickings:
+            new_picking = self.env["stock.picking"].create(
                 {
+                    "batch_id": batch.id,
+                    "picking_type_id": self.type_id.id,
                     "location_id": self.type_id.default_location_src_id.id,
                     "location_dest_id": self.type_id.default_location_dest_id.id,
-                    "picking_id": picking.id,
+                    "custom_date_done": self.date_done,
                 }
             )
-            new_picking.move_ids_without_package = [(4, new_move.id)]
-        new_picking.action_assign()
-        new_picking.action_confirm()
-        for line in new_picking.move_line_ids_without_package:
-            if not line.qty_done:
-                line.qty_done = line.product_uom_qty
-        new_picking.button_validate()
+            for move in picking.move_ids_without_package:
+                new_move = move.copy()
+                new_move.write(
+                    {
+                        "location_id": self.type_id.default_location_src_id.id,
+                        "location_dest_id": self.type_id.default_location_dest_id.id,
+                        "picking_id": picking.id,
+                    }
+                )
+                new_picking.move_ids_without_package = [(4, new_move.id)]
+            new_picking.button_force_done_detailed_operations()
+            for line in new_picking.move_line_ids_without_package:
+                if not line.qty_done:
+                    line.qty_done = line.product_uom_qty
+            new_picking.button_validate()
         batch.write(
             {
                 "location_change_id": batch.location_id.id,

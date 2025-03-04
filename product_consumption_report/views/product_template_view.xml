@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_consumption_wizard_action" model="ir.actions.act_window">
+        <field name="name">Consumption</field>
+        <field name="res_model">product.consumption.wizard</field>
+        <field name="binding_model_id" ref="product.model_product_template" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]" />
+    </record>
+</odoo>
