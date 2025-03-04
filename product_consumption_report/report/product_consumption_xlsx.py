@@ -53,6 +53,7 @@ class ProductConsumptionXlsx(models.AbstractModel):
         worksheet.write(n, 4, _("Consumption"), table_header)
         worksheet.write(n, 5, _("Cost Unit"), table_header)
         worksheet.write(n, 6, _("Total"), table_header)
+        worksheet.write(n, 7, _("End Inventory Value"), table_header)
         variants = self.env["product.product"].browse(data.get("product_variants"))
         for product in variants:
             n += 1
@@ -82,3 +83,4 @@ class ProductConsumptionXlsx(models.AbstractModel):
             worksheet.write(n, 4, consumption, table)
             worksheet.write(n, 5, product.standard_price, table)
             worksheet.write(n, 6, product.standard_price * consumption, table)
+            worksheet.write(n, 7, product.standard_price * qty_date_end, table)
