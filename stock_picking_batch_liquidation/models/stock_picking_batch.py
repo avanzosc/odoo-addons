@@ -798,79 +798,79 @@ class StockPickingBatch(models.Model):
 
     def action_do_liquidation(self):
         self.ensure_one()
-        cleaned = self.env.ref("stock_picking_batch_breeding.batch_stage4")
-        if self.stage_id == cleaned:
-            self.liquidation_line_ids.unlink()
-            self.onchange_warehouse_id()
-            if not (self.liquidation_contract_id) and not (
-                self.liquidation_contract_id.feed_rate_ids
+        self.liquidation_line_ids.filtered("obligatory").unlink()
+        self.onchange_warehouse_id()
+        if not (self.liquidation_contract_id) and not (
+            self.liquidation_contract_id.feed_rate_ids
+        ):
+            raise ValidationError(
+                _("The contract or the contract FEEP rates are missing.")
+            )
+        if self.batch_type == "breeding":
+            if not self.account_id:
+                self.account_id = (
+                    self.env["account.analytic.account"]
+                    .create({"name": self.name, "company_id": self.company_id.id})
+                    .id
+                )
+            for line in self.liquidation_contract_id.contract_line_ids.filtered(
+                "obligatory"
             ):
-                raise ValidationError(
-                    _("The contract or the contract FEEP rates are missing.")
+                price = unit = quantity = amount = 0
+                n = 1
+                movelines = self.move_line_ids.filtered(
+                    lambda c: c.move_type_id == line.move_type_id
+                    and (c.state == "done" and c.picking_id)
                 )
-            if self.batch_type == "breeding":
-                if not self.account_id:
-                    self.account_id = (
-                        self.env["account.analytic.account"]
-                        .create({"name": self.name, "company_id": self.company_id.id})
-                        .id
-                    )
-                for line in self.liquidation_contract_id.contract_line_ids.filtered(
-                    "obligatory"
+                if line.quantity_type == "unit" and movelines:
+                    unit = sum(movelines.mapped("download_unit"))
+                if line.quantity_type == "kg" and movelines:
+                    quantity = sum(movelines.mapped("qty_done"))
+                if line.quantity_type == "fixed":
+                    quantity = 1
+                if line.price_type == "feed":
+                    price = self.feed_price
+                if line.price_type == "correction":
+                    price = abs(self.difference)
+                if line.price_type == "contract":
+                    price = line.price
+                if (
+                    line.price_type == "average"
+                    and (movelines)
+                    and sum(movelines.mapped("qty_done")) != 0
                 ):
-                    price = unit = quantity = amount = 0
-                    n = 1
-                    movelines = self.move_line_ids.filtered(
-                        lambda c: c.move_type_id == line.move_type_id
-                        and (c.state == "done" and c.picking_id)
+                    price = sum(movelines.mapped("amount")) / sum(
+                        movelines.mapped("qty_done")
                     )
-                    if line.quantity_type == "unit" and movelines:
-                        unit = sum(movelines.mapped("download_unit"))
-                    if line.quantity_type == "kg" and movelines:
-                        quantity = sum(movelines.mapped("qty_done"))
-                    if line.quantity_type == "fixed":
-                        quantity = 1
-                    if line.price_type == "feed":
-                        price = self.feed_price
-                    if line.price_type == "correction":
-                        price = abs(self.difference)
-                    if line.price_type == "contract":
-                        price = line.price
-                    if (
-                        line.price_type == "average"
-                        and (movelines)
-                        and sum(movelines.mapped("qty_done")) != 0
-                    ):
-                        price = sum(movelines.mapped("amount")) / sum(
-                            movelines.mapped("qty_done")
-                        )
-                    if line.type == "charge":
+                if line.type == "charge":
+                    n = -1
+                if line.type == "variable":
+                    dif = self.difference
+                    if dif < 0:
                         n = -1
-                    if line.type == "variable":
-                        dif = self.difference
-                        if dif < 0:
-                            n = -1
-                    if quantity != 0:
-                        amount = n * quantity * price
-                    if unit != 0:
-                        amount = n * unit * price
-                    liquidation_line = self.env["liquidation.line"].create(
-                        {
-                            "product_id": line.product_id.id,
-                            "type": line.type,
-                            "unit": unit,
-                            "quantity": quantity,
-                            "price": price,
-                            "amount": amount,
-                            "batch_id": self.id,
-                        }
-                    )
-                    liquidation_line.onchange_amount()
-                self.create_liquidation_analytic_lines()
-                liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
-                self.write(
-                    {"liquidation_date": fields.Date.today(), "stage_id": liquidated.id}
+                if quantity != 0:
+                    amount = n * quantity * price
+                if unit != 0:
+                    amount = n * unit * price
+                liquidation_line = self.env["liquidation.line"].create(
+                    {
+                        "product_id": line.product_id.id,
+                        "type": line.type,
+                        "unit": unit,
+                        "quantity": quantity,
+                        "price": price,
+                        "amount": amount,
+                        "batch_id": self.id,
+                        "obligatory": True,
+                    }
                 )
+                liquidation_line.onchange_amount()
+            self.create_liquidation_analytic_lines()
+            liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
+            vals = {"stage_id": liquidated.id}
+            if not self.liquidation_date:
+                vals.append({"liquidation_date": fields.Date.today()})
+            self.write(vals)
 
     def create_liquidation_analytic_lines(self):
         self.ensure_one()
