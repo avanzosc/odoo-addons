@@ -21,6 +21,7 @@ class LiquidationLine(models.Model):
         string="Type",
         selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
     )
+    obligatory = fields.Boolean(default=False)
 
     @api.onchange("batch_id")
     def onchange_product_domain(self):
