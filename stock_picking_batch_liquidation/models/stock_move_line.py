@@ -154,10 +154,3 @@ class StockMoveLine(models.Model):
                 dif = line_date.date() - line.mother_id.entry_date
                 days = dif.days - 1
             line.days = days
-
-    @api.onchange("product_id", "product_uom_id", "lot_id")
-    def _onchange_product_id(self):
-        res = super()._onchange_product_id()
-        if self.move_id.inventory_id and self.lot_id.average_price:
-            self.standard_price = self.lot_id.average_price
-        return res
