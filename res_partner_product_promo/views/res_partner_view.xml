@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_res_partner_form_promo_product" model="ir.ui.view">
+        <field name="name">res.partner.form.promo.product</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <group string="Promotions">
+                    <field name="promo_product_id"/>
+                </group>
+            </sheet>
+        </field>
+    </record>
+</odoo>
