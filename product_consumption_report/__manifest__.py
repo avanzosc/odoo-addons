@@ -8,6 +8,7 @@
     "category": "Inventory",
     "depends": [
         "stock",
+        "purchase_last_price_info",
     ],
     "data": [
         "security/ir.model.access.csv",
