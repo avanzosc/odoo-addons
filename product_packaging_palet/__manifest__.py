@@ -5,9 +5,13 @@
     "version": "16.0.1.1.0",
     "category": "Sales/Sales",
     "license": "AGPL-3",
-    "author": "https://github.com/avanzosc/odoo-addons",
+    "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["product", "stock", "sale_order_line_qty_by_packaging"],
+    "depends": [
+        "product",
+        "stock",
+        "sale_order_line_qty_by_packaging",
+    ],
     "data": [
         "views/product_packaging_views.xml",
         "views/sale_order_views.xml",
