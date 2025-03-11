@@ -38,6 +38,31 @@ class StockPicking(models.Model):
                         for line, dest_line in zip(
                             move.move_line_ids, dest_move.move_line_ids
                         ):
+                            lot_id = line.lot_id
+                            if not lot_id:
+                                continue
+                            if not dest_line.lot_id:
+                                dest_lot_id = (
+                                    self.env["stock.production.lot"]
+                                    .sudo()
+                                    .search(
+                                        [
+                                            ("product_id", "=", lot_id.product_id.id),
+                                            ("name", "=", lot_id.name),
+                                            (
+                                                "company_id",
+                                                "=",
+                                                dest_line.company_id.id,
+                                            ),
+                                        ],
+                                        limit=1,
+                                    )
+                                )
+                                if not dest_lot_id:
+                                    dest_lot_id = lot_id.copy(
+                                        {"company_id": dest_line.company_id.id}
+                                    )
+                                dest_line.lot_id = dest_lot_id
                             dest_line.sudo().write(
                                 {
                                     "qty_done": line.qty_done,
