@@ -16,6 +16,9 @@
             </div>
             <notebook position="inside">
                 <page name="rappel" string="Rappel">
+                    <group>
+                        <field name="invoice_rappel_product" />
+                    </group>
                     <field name="partner_rappel_ids">
                         <tree editable="bottom">
                             <field name="partner_id" invisible="1" />
