@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 08:34+0000\n"
-"PO-Revision-Date: 2024-11-28 08:34+0000\n"
+"POT-Creation-Date: 2025-03-11 11:11+0000\n"
+"PO-Revision-Date: 2025-03-11 11:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -67,6 +67,18 @@ msgstr ""
 #. module: res_partner_rappel
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
 msgid "Invoice Date"
+msgstr ""
+
+#. module: res_partner_rappel
+#: model:ir.actions.server,name:res_partner_rappel.action_invoice_rappel_lines
+msgid "Invoice Rappel Lines"
+msgstr ""
+
+#. module: res_partner_rappel
+#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line__rappel_product_id
+#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner__invoice_rappel_product
+#: model:ir.model.fields,field_description:res_partner_rappel.field_res_users__invoice_rappel_product
+msgid "Invoice Rappel Product"
 msgstr ""
 
 #. module: res_partner_rappel
@@ -167,6 +179,11 @@ msgid "Rappel Lines"
 msgstr ""
 
 #. module: res_partner_rappel
+#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line__rappel_move_id
+msgid "Rappel Move"
+msgstr ""
+
+#. module: res_partner_rappel
 #: code:addons/res_partner_rappel/models/res_partner.py:0
 #: code:addons/res_partner_rappel/models/res_partner.py:0
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.view_partner_form
@@ -177,6 +194,12 @@ msgstr ""
 #. module: res_partner_rappel
 #: model:ir.actions.server,name:res_partner_rappel.action_recalculate_rappel
 msgid "Recalculate Rappel"
+msgstr ""
+
+#. module: res_partner_rappel
+#: code:addons/res_partner_rappel/models/account_move_line.py:0
+#, python-format
+msgid "The company, %s, hasn't got the rappel product."
 msgstr ""
 
 #. module: res_partner_rappel
