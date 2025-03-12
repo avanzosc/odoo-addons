@@ -30,7 +30,7 @@ class StockInventory(models.Model):
             if line.accounting_date:
                 start_date = datetime(line.accounting_date.year, 1, 1, 0, 0).date()
                 start_date = line.calculate_weeks_start(start_date)
-                end_date = line.accounting_date
+                end_date = line.accounting_date.date()
                 if end_date < start_date:
                     start_date = datetime(
                         line.accounting_date.year - 1, 1, 1, 0, 0
