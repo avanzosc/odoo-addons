@@ -6,7 +6,7 @@ from odoo import fields, models
 class StockInventory(models.Model):
     _inherit = "stock.inventory"
 
-    accounting_date = fields.Date(string="Date", default=fields.Date.today())
+    accounting_date = fields.Datetime(string="Date", default=fields.Datetime.now())
 
     def action_open_inventory_lines(self):
         result = super().action_open_inventory_lines()
