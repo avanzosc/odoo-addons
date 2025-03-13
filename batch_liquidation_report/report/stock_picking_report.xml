@@ -242,7 +242,7 @@
                             </thead>
                             <tbody>
                                 <tr
-                  t-foreach="move_lines.filtered(lambda c: c.qty_done).sorted(key=lambda r: r.move_id.name)"
+                  t-foreach="move_lines.sorted(key=lambda r: r.move_id.name)"
                   t-as="line"
                 >
                                     <td>
