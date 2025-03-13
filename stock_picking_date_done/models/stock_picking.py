@@ -15,7 +15,7 @@ class StockPicking(models.Model):
                 {"custom_date_done": fields.Datetime.now()}
             )
         result = super().button_validate()
-        for picking in self:
-            picking.move_ids.write({"date": picking.custom_date_done})
-            picking.move_line_ids.write({"date": picking.custom_date_done})
+        # for picking in self:
+        #     picking.move_ids.write({"date": picking.custom_date_done})
+        #     picking.move_line_ids.write({"date": picking.custom_date_done})
         return result
