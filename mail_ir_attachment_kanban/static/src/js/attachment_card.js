@@ -1,5 +1,3 @@
-/** @odoo-module **/
-
 odoo.define("mail_ir_attachment_kanban.AttachmentCardHoverInfo", function (require) {
   "use strict";
 
