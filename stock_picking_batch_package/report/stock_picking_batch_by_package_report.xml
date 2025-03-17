@@ -4,9 +4,6 @@
         <tr t-if="package">
             <td colspan="10">
                 <strong>
-                    <span>Box Number: </span>
-                    <span t-esc="num_packages" />
-                    <span> - </span>
                     <span t-field="package.name" />
                 </strong>
             </td>
