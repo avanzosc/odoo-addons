@@ -12,6 +12,7 @@
     "category": "Purchases",
     "data": [
         "views/stock_move_view.xml",
+        "views/stock_move_line_view.xml",
     ],
     "pre_init_hook": "pre_init_hook",
     "installable": True,
