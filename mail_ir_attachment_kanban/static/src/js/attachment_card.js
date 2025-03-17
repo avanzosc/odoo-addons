@@ -20,7 +20,10 @@ odoo.define("mail_ir_attachment_kanban.AttachmentCardHoverInfo", function (requi
     },
 
     _bindHoverEvent() {
-      const attachmentId = this.props.record.attachment.id;
+      const attachmentId =
+        this.props.record && this.props.record.attachment
+          ? this.props.record.attachment.id
+          : null;
       if (!attachmentId) {
         return;
       }
@@ -40,8 +43,16 @@ odoo.define("mail_ir_attachment_kanban.AttachmentCardHoverInfo", function (requi
     },
 
     _unbindHoverEvent() {
-      const attachmentId = this.props.record.attachment.id;
-      if (!attachmentId) {
+      let attachmentId = null;
+      try {
+        if (this.props && this.props.record && this.props.record.attachment) {
+          attachmentId = this.props.record.attachment.id;
+        } else {
+          console.error("Error al acceder a attachment.id:");
+          return;
+        }
+      } catch (error) {
+        console.error("Error al acceder a attachment.id:", error);
         return;
       }
 
