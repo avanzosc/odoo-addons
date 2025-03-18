@@ -19,6 +19,7 @@
         "security/stock_move_line_report_security.xml",
         "reports/stock_move_line_report_view.xml",
         "views/stock_picking_view.xml",
+        "data/ir_cron.xml",
     ],
     "license": "AGPL-3",
     "installable": True,
