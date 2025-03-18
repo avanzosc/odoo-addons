@@ -1,6 +1,8 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models, tools
+from psycopg2.extensions import AsIs
+
+from odoo import api, fields, models
 
 
 class StockMoveLineReport(models.Model):
@@ -168,243 +170,267 @@ class StockMoveLineReport(models.Model):
             "selection"
         ]
 
-    def init(self):
-        tools.drop_view_if_exists(self.env.cr, "stock_move_line_report")
+    @api.model
+    def refresh_view(self):
+        self.env.cr.execute(
+            "refresh materialized view %s",
+            (AsIs(self._table),),
+        )
+
+    def _create_materialized_view(self):
+        self.env.cr.execute(
+            "DROP MATERIALIZED VIEW IF EXISTS %s CASCADE", (AsIs(self._table),)
+        )
         self.env.cr.execute(
             """
-            CREATE OR REPLACE VIEW stock_move_line_report AS (
-                SELECT
-                    row_number() OVER () AS id,
-                    line.move_line_id,
-                    line.move_id,
-                    line.picking_id,
-                    line.picking_type_id,
-                    line.ref,
-                    line.production_id,
-                    line.partner_id,
-                    line.product_id,
-                    line.product_category_type_id,
-                    line.egg,
-                    line.lot_id,
-                    line.location_id,
-                    line.usage,
-                    line.type_id,
-                    line.move_type_id,
-                    line.type_category_id,
-                    line.batch_id,
-                    line.mother_id,
-                    line.batch_location_id,
-                    line.batch_category_type_id,
-                    line.warehouse_id,
-                    line.owner_id,
-                    line.date,
-                    line.download_unit,
-                    line.entry_unit,
-                    line.output_unit,
-                    line.entry_qty,
-                    line.output_qty,
-                    line.qty_done,
-                    line.entry_amount,
-                    line.output_amount,
-                    line.amount,
-                    line.company_id
-                    FROM (
-                        SELECT
-                            stock_move_line.id AS move_line_id,
-                            stock_move_line.move_id AS move_id,
-                            stock_move_line.picking_id AS picking_id,
-                            stock_move_line.picking_type_id AS picking_type_id,
-                            stock_move_line.picking_partner_id AS partner_id,
-                            stock_move_line.production_id AS production_id,
-                            stock_move_line.product_id AS product_id,
-                            stock_move_line.product_category_type_id
-                                AS product_category_type_id,
-                            stock_move_line.reference AS ref,
-                            stock_move_line.egg AS egg,
-                            stock_move_line.date AS date,
-                            stock_move_line.lot_id AS lot_id,
-                            location_id.id AS location_id,
-                            location_id.type_id AS type_id,
-                            location_id.warehouse_id AS warehouse_id,
-                            location_origin_id.id AS location_origin_id,
-                            location_origin_id.usage AS usage,
-                            stock_move_line.move_type_id AS move_type_id,
-                            stock_move_line.type_category_id AS type_category_id,
-                            stock_move_line.batch_id AS batch_id,
-                            stock_move_line.mother_id AS mother_id,
-                            stock_move_line.batch_location_id AS batch_location_id,
-                            stock_move_line.batch_category_type_id
-                                AS batch_category_type_id,
-                            stock_move_line.owner_id AS owner_id,
-                            stock_move_line.download_unit * (-1) AS download_unit,
-                            0 AS entry_unit,
-                            stock_move_line.download_unit * (-1) AS output_unit,
-                            stock_move_line.qty_done * (-1) AS qty_done,
-                            0 AS entry_qty,
-                            stock_move_line.qty_done * (-1) AS output_qty,
-                            stock_move_line.amount * (-1) AS amount,
-                            0 AS entry_amount,
-                            stock_move_line.amount * (-1) AS output_amount,
-                            stock_move_line.state AS state,
-                            stock_move_line.show_in_report AS show_in_report,
-                            stock_move_line.company_id AS company_id
-                        FROM
-                        stock_move_line
-                        JOIN stock_location AS location_origin_id ON
-                                stock_move_line.location_id = location_origin_id.id
-                        JOIN
-                            stock_location AS location_id ON
-                               stock_move_line.location_id = location_id.id
-                        UNION
-                        SELECT
-                            stock_move_line.id AS move_line_id,
-                            stock_move_line.move_id AS move_id,
-                            stock_move_line.picking_id AS picking_id,
-                            stock_move_line.picking_type_id AS picking_type_id,
-                            stock_move_line.picking_partner_id AS partner_id,
-                            stock_move_line.production_id AS production_id,
-                            stock_move_line.product_id AS product_id,
-                            stock_move_line.product_category_type_id
-                                AS product_category_type_id,
-                            stock_move_line.reference AS ref,
-                            stock_move_line.egg AS egg,
-                            stock_move_line.date AS date,
-                            stock_move_line.lot_id AS lot_id,
-                            location_id.id AS location_id,
-                            location_id.type_id AS type_id,
-                            location_id.warehouse_id AS warehouse_id,
-                            location_origin_id.id AS location_origin_id,
-                            location_origin_id.usage AS usage,
-                            stock_move_line.move_type_id AS move_type_id,
-                            stock_move_line.type_category_id AS type_category_id,
-                            stock_move_line.batch_id AS batch_id,
-                            stock_move_line.mother_id AS mother_id,
-                            stock_move_line.batch_location_id AS batch_location_id,
-                            stock_move_line.batch_category_type_id
-                               AS batch_category_type_id,
-                            stock_move_line.owner_id AS owner_id,
-                            stock_move_line.download_unit AS download_unit,
-                            stock_move_line.download_unit AS entry_unit,
-                            0 AS output_unit,
-                            stock_move_line.qty_done AS qty_done,
-                            stock_move_line.qty_done AS entry_qty,
-                            0 AS output_qty,
-                            stock_move_line.amount AS amount,
-                            stock_move_line.amount AS entry_amount,
-                            0 AS output_amount,
-                            stock_move_line.state AS state,
-                            stock_move_line.show_in_report AS show_in_report,
-                            stock_move_line.company_id AS company_id
-                        FROM
-                        stock_move_line
-                        JOIN stock_location AS location_origin_id ON
-                                stock_move_line.location_id = location_origin_id.id
-                        JOIN
-                            stock_location AS location_id ON
-                               stock_move_line.location_dest_id = location_id.id
-                        UNION
-                        SELECT
-                            stock_move_line.id AS move_line_id,
-                            stock_move_line.move_id AS move_id,
-                            stock_move_line.picking_id AS picking_id,
-                            stock_move_line.picking_type_id AS picking_type_id,
-                            stock_move_line.picking_partner_id AS partner_id,
-                            stock_move_line.production_id AS production_id,
-                            stock_move_line.product_id AS product_id,
-                            stock_move_line.product_category_type_id
-                                AS product_category_type_id,
-                            stock_move_line.reference AS ref,
-                            stock_move_line.egg AS egg,
-                            stock_move_line.date AS date,
-                            stock_move_line.lot_id AS lot_id,
-                            location_id.id AS location_id,
-                            location_id.type_id AS type_id,
-                            location_id.warehouse_id AS warehouse_id,
-                            location_origin_id.id AS location_origin_id,
-                            location_origin_id.usage AS usage,
-                            stock_move_line.move_type_id AS move_type_id,
-                            '2' AS type_category_id,
-                            stock_move_line.batch_id AS batch_id,
-                            stock_move_line.mother_id AS mother_id,
-                            stock_move_line.batch_location_id AS batch_location_id,
-                            stock_move_line.batch_category_type_id AS batch_category_type_id,
-                            stock_move_line.owner_id AS owner_id,
-                            stock_move_line.download_unit * (-1) AS download_unit,
-                            0 AS entry_unit,
-                            stock_move_line.download_unit * (-1) AS output_unit,
-                            stock_move_line.qty_done * (-1) AS qty_done,
-                            0 AS entry_qty,
-                            stock_move_line.qty_done * (-1) AS output_qty,
-                            stock_move_line.amount * (-1) AS amount,
-                            0 AS entry_amount,
-                            stock_move_line.amount * (-1) AS output_amount,
-                            stock_move_line.state AS state,
-                            stock_move_line.show_in_report AS show_in_report,
-                            stock_move_line.company_id AS company_id
-                        FROM
-                        stock_move_line
-                        JOIN
-                            stock_location AS location_id ON
-                               stock_move_line.batch_location_id = location_id.id
-                        JOIN stock_location AS location_origin_id ON
-                                stock_move_line.location_id = location_origin_id.id
-                        WHERE
-                            location_origin_id.usage = 'production' AND
-                            stock_move_line.batch_id IS NOT NULL
-                        UNION
-                        SELECT
-                            stock_move_line.id AS move_line_id,
-                            stock_move_line.move_id AS move_id,
-                            stock_move_line.picking_id AS picking_id,
-                            stock_move_line.picking_type_id AS picking_type_id,
-                            stock_move_line.production_id AS production_id,
-                            stock_move_line.picking_partner_id AS partner_id,
-                            stock_move_line.product_id AS product_id,
-                            stock_move_line.product_category_type_id
-                                AS product_category_type_id,
-                            stock_move_line.reference AS ref,
-                            stock_move_line.egg AS egg,
-                            stock_move_line.date AS date,
-                            stock_move_line.lot_id AS lot_id,
-                            location_id.id AS location_id,
-                            location_id.type_id AS type_id,
-                            location_id.warehouse_id AS warehouse_id,
-                            location_origin_id.id AS location_origin_id,
-                            location_origin_id.usage AS usage,
-                            stock_move_line.move_type_id AS move_type_id,
-                            '8' AS type_category_id,
-                            stock_move_line.batch_id AS batch_id,
-                            stock_move_line.mother_id AS mother_id,
-                            stock_move_line.batch_location_id AS batch_location_id,
-                            stock_move_line.batch_category_type_id AS batch_category_type_id,
-                            stock_move_line.owner_id AS owner_id,
-                            stock_move_line.download_unit AS download_unit,
-                            stock_move_line.download_unit AS entry_unit,
-                            0 AS output_unit,
-                            stock_move_line.qty_done AS qty_done,
-                            stock_move_line.qty_done AS entry_qty,
-                            0 AS output_qty,
-                            stock_move_line.amount AS amount,
-                            stock_move_line.amount AS entry_amount,
-                            0 AS output_amount,
-                            stock_move_line.state AS state,
-                            stock_move_line.show_in_report AS show_in_report,
-                            stock_move_line.company_id AS company_id
-                        FROM
-                        stock_move_line
-                        JOIN
-                            stock_location AS location_id ON
-                               stock_move_line.batch_location_id = location_id.id
-                        JOIN stock_location AS location_origin_id ON
-                                stock_move_line.location_id = location_origin_id.id
-                        WHERE
-                            location_origin_id.usage = 'production' AND
-                            stock_move_line.batch_id IS NOT NULL
-                    ) AS line
-                    WHERE
-                        line.state = 'done' AND
-                        line.qty_done IS NOT NULL AND
-                        (line.show_in_report IS TRUE OR line.picking_id IS NULL)
-            )
-        """
+            CREATE MATERIALIZED VIEW stock_move_line_report AS %(select)s
+        """,
+            {
+                "select": AsIs(self._select()),
+            },
         )
+        cron = self.env.ref(
+            "custom_move_line_report.refresh_materialized_view",
+            raise_if_not_found=False,
+        )
+        if cron:
+            cron.nextcall = fields.Datetime.now()
+
+    def init(self):
+        self._create_materialized_view()
+
+    def _select(self):
+        return """
+        SELECT
+            row_number() OVER () AS id,
+            line.move_line_id,
+            line.move_id,
+            line.picking_id,
+            line.picking_type_id,
+            line.ref,
+            line.production_id,
+            line.partner_id,
+            line.product_id,
+            line.product_category_type_id,
+            line.egg,
+            line.lot_id,
+            line.location_id,
+            line.usage,
+            line.type_id,
+            line.move_type_id,
+            line.type_category_id,
+            line.batch_id,
+            line.mother_id,
+            line.batch_location_id,
+            line.batch_category_type_id,
+            line.warehouse_id,
+            line.owner_id,
+            line.date,
+            line.download_unit,
+            line.entry_unit,
+            line.output_unit,
+            line.entry_qty,
+            line.output_qty,
+            line.qty_done,
+            line.entry_amount,
+            line.output_amount,
+            line.amount,
+            line.company_id
+            FROM (
+                SELECT
+                    stock_move_line.id AS move_line_id,
+                    stock_move_line.move_id AS move_id,
+                    stock_move_line.picking_id AS picking_id,
+                    stock_move_line.picking_type_id AS picking_type_id,
+                    stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.production_id AS production_id,
+                    stock_move_line.product_id AS product_id,
+                    stock_move_line.product_category_type_id
+                        AS product_category_type_id,
+                    stock_move_line.reference AS ref,
+                    stock_move_line.egg AS egg,
+                    stock_move_line.date AS date,
+                    stock_move_line.lot_id AS lot_id,
+                    location_id.id AS location_id,
+                    location_id.type_id AS type_id,
+                    location_id.warehouse_id AS warehouse_id,
+                    location_origin_id.id AS location_origin_id,
+                    location_origin_id.usage AS usage,
+                    stock_move_line.move_type_id AS move_type_id,
+                    stock_move_line.type_category_id AS type_category_id,
+                    stock_move_line.batch_id AS batch_id,
+                    stock_move_line.mother_id AS mother_id,
+                    stock_move_line.batch_location_id AS batch_location_id,
+                    stock_move_line.batch_category_type_id
+                        AS batch_category_type_id,
+                    stock_move_line.owner_id AS owner_id,
+                    stock_move_line.download_unit * (-1) AS download_unit,
+                    0 AS entry_unit,
+                    stock_move_line.download_unit * (-1) AS output_unit,
+                    stock_move_line.qty_done * (-1) AS qty_done,
+                    0 AS entry_qty,
+                    stock_move_line.qty_done * (-1) AS output_qty,
+                    stock_move_line.amount * (-1) AS amount,
+                    0 AS entry_amount,
+                    stock_move_line.amount * (-1) AS output_amount,
+                    stock_move_line.state AS state,
+                    stock_move_line.show_in_report AS show_in_report,
+                    stock_move_line.company_id AS company_id
+                FROM
+                stock_move_line
+                JOIN stock_location AS location_origin_id ON
+                        stock_move_line.location_id = location_origin_id.id
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.location_id = location_id.id
+                UNION
+                SELECT
+                    stock_move_line.id AS move_line_id,
+                    stock_move_line.move_id AS move_id,
+                    stock_move_line.picking_id AS picking_id,
+                    stock_move_line.picking_type_id AS picking_type_id,
+                    stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.production_id AS production_id,
+                    stock_move_line.product_id AS product_id,
+                    stock_move_line.product_category_type_id
+                        AS product_category_type_id,
+                    stock_move_line.reference AS ref,
+                    stock_move_line.egg AS egg,
+                    stock_move_line.date AS date,
+                    stock_move_line.lot_id AS lot_id,
+                    location_id.id AS location_id,
+                    location_id.type_id AS type_id,
+                    location_id.warehouse_id AS warehouse_id,
+                    location_origin_id.id AS location_origin_id,
+                    location_origin_id.usage AS usage,
+                    stock_move_line.move_type_id AS move_type_id,
+                    stock_move_line.type_category_id AS type_category_id,
+                    stock_move_line.batch_id AS batch_id,
+                    stock_move_line.mother_id AS mother_id,
+                    stock_move_line.batch_location_id AS batch_location_id,
+                    stock_move_line.batch_category_type_id
+                       AS batch_category_type_id,
+                    stock_move_line.owner_id AS owner_id,
+                    stock_move_line.download_unit AS download_unit,
+                    stock_move_line.download_unit AS entry_unit,
+                    0 AS output_unit,
+                    stock_move_line.qty_done AS qty_done,
+                    stock_move_line.qty_done AS entry_qty,
+                    0 AS output_qty,
+                    stock_move_line.amount AS amount,
+                    stock_move_line.amount AS entry_amount,
+                    0 AS output_amount,
+                    stock_move_line.state AS state,
+                    stock_move_line.show_in_report AS show_in_report,
+                    stock_move_line.company_id AS company_id
+                FROM
+                stock_move_line
+                JOIN stock_location AS location_origin_id ON
+                        stock_move_line.location_id = location_origin_id.id
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.location_dest_id = location_id.id
+                UNION
+                SELECT
+                    stock_move_line.id AS move_line_id,
+                    stock_move_line.move_id AS move_id,
+                    stock_move_line.picking_id AS picking_id,
+                    stock_move_line.picking_type_id AS picking_type_id,
+                    stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.production_id AS production_id,
+                    stock_move_line.product_id AS product_id,
+                    stock_move_line.product_category_type_id
+                        AS product_category_type_id,
+                    stock_move_line.reference AS ref,
+                    stock_move_line.egg AS egg,
+                    stock_move_line.date AS date,
+                    stock_move_line.lot_id AS lot_id,
+                    location_id.id AS location_id,
+                    location_id.type_id AS type_id,
+                    location_id.warehouse_id AS warehouse_id,
+                    location_origin_id.id AS location_origin_id,
+                    location_origin_id.usage AS usage,
+                    stock_move_line.move_type_id AS move_type_id,
+                    '2' AS type_category_id,
+                    stock_move_line.batch_id AS batch_id,
+                    stock_move_line.mother_id AS mother_id,
+                    stock_move_line.batch_location_id AS batch_location_id,
+                    stock_move_line.batch_category_type_id AS batch_category_type_id,
+                    stock_move_line.owner_id AS owner_id,
+                    stock_move_line.download_unit * (-1) AS download_unit,
+                    0 AS entry_unit,
+                    stock_move_line.download_unit * (-1) AS output_unit,
+                    stock_move_line.qty_done * (-1) AS qty_done,
+                    0 AS entry_qty,
+                    stock_move_line.qty_done * (-1) AS output_qty,
+                    stock_move_line.amount * (-1) AS amount,
+                    0 AS entry_amount,
+                    stock_move_line.amount * (-1) AS output_amount,
+                    stock_move_line.state AS state,
+                    stock_move_line.show_in_report AS show_in_report,
+                    stock_move_line.company_id AS company_id
+                FROM
+                stock_move_line
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.batch_location_id = location_id.id
+                JOIN stock_location AS location_origin_id ON
+                        stock_move_line.location_id = location_origin_id.id
+                WHERE
+                    location_origin_id.usage = 'production' AND
+                    stock_move_line.batch_id IS NOT NULL
+                UNION
+                SELECT
+                    stock_move_line.id AS move_line_id,
+                    stock_move_line.move_id AS move_id,
+                    stock_move_line.picking_id AS picking_id,
+                    stock_move_line.picking_type_id AS picking_type_id,
+                    stock_move_line.production_id AS production_id,
+                    stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.product_id AS product_id,
+                    stock_move_line.product_category_type_id
+                        AS product_category_type_id,
+                    stock_move_line.reference AS ref,
+                    stock_move_line.egg AS egg,
+                    stock_move_line.date AS date,
+                    stock_move_line.lot_id AS lot_id,
+                    location_id.id AS location_id,
+                    location_id.type_id AS type_id,
+                    location_id.warehouse_id AS warehouse_id,
+                    location_origin_id.id AS location_origin_id,
+                    location_origin_id.usage AS usage,
+                    stock_move_line.move_type_id AS move_type_id,
+                    '8' AS type_category_id,
+                    stock_move_line.batch_id AS batch_id,
+                    stock_move_line.mother_id AS mother_id,
+                    stock_move_line.batch_location_id AS batch_location_id,
+                    stock_move_line.batch_category_type_id AS batch_category_type_id,
+                    stock_move_line.owner_id AS owner_id,
+                    stock_move_line.download_unit AS download_unit,
+                    stock_move_line.download_unit AS entry_unit,
+                    0 AS output_unit,
+                    stock_move_line.qty_done AS qty_done,
+                    stock_move_line.qty_done AS entry_qty,
+                    0 AS output_qty,
+                    stock_move_line.amount AS amount,
+                    stock_move_line.amount AS entry_amount,
+                    0 AS output_amount,
+                    stock_move_line.state AS state,
+                    stock_move_line.show_in_report AS show_in_report,
+                    stock_move_line.company_id AS company_id
+                FROM
+                stock_move_line
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.batch_location_id = location_id.id
+                JOIN stock_location AS location_origin_id ON
+                        stock_move_line.location_id = location_origin_id.id
+                WHERE
+                    location_origin_id.usage = 'production' AND
+                    stock_move_line.batch_id IS NOT NULL
+            ) AS line
+            WHERE
+                line.state = 'done' AND
+                line.qty_done IS NOT NULL AND
+                (line.show_in_report IS TRUE OR line.picking_id IS NULL)
+        """
