@@ -25,7 +25,7 @@
         <field name="model">purchase.order.line</field>
         <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
+            <field name="price_unit" position="after">
                 <field name="surplus" optional="show" />
             </field>
         </field>
