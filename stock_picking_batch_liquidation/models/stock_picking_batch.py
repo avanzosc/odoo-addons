@@ -869,7 +869,7 @@ class StockPickingBatch(models.Model):
             liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
             vals = {"stage_id": liquidated.id}
             if not self.liquidation_date:
-                vals.append({"liquidation_date": fields.Date.today()})
+                vals.update({"liquidation_date": fields.Date.today()})
             self.write(vals)
 
     def create_liquidation_analytic_lines(self):
