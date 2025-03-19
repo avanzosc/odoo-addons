@@ -87,7 +87,6 @@ class StockReturnPicking(models.TransientModel):
                 return_move_line.write(
                     {
                         "lot_id": line.lot_id.id,
-                        "qty_done": line.qty_done,
                     }
                 )
         return new_picking, picking_type_id
