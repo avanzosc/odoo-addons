@@ -22,6 +22,10 @@ class IrModuleImport(models.Model):
         string="# Modules",
         compute="_compute_module_count",
     )
+    installed_module_count = fields.Integer(
+        string="# Additional Modules",
+        compute="_compute_installed_count",
+    )
     is_enterprise = fields.Boolean(
         default=lambda self: self._default_is_enterprise(),
     )
@@ -85,12 +89,39 @@ class IrModuleImport(models.Model):
         for record in self:
             record.module_count = len(record.mapped("import_line_ids.import_module_id"))
 
+    def _compute_installed_count(self):
+        module_obj = self.env["ir.module.module"]
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        for record in self:
+            modules = record.mapped("import_line_ids.import_module_id")
+            domain = expression.AND(
+                [
+                    [("id", "not in", modules.ids), ("state", "=", "installed")],
+                    safe_eval(action.get("domain") or "[]"),
+                ]
+            )
+            additional_count = module_obj.search_count(domain)
+            record.installed_module_count = additional_count
+
     def button_open_modules(self):
         self.ensure_one()
         modules = self.mapped("import_line_ids.import_module_id")
         action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
         action["domain"] = expression.AND(
             [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action
+
+    def button_open_additional_modules(self):
+        self.ensure_one()
+        modules = self.mapped("import_line_ids.import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        action["domain"] = expression.AND(
+            [
+                [("id", "not in", modules.ids), ("state", "=", "installed")],
+                safe_eval(action.get("domain") or "[]"),
+            ]
         )
         action["context"] = dict(self._context, create=False)
         return action
