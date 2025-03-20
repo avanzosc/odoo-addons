@@ -10,10 +10,12 @@
         "delivery_carrier_partner",
         "stock_picking_batch",
         "stock_picking_package_usability",
+        "stock_quant_package_weight",
     ],
     "data": [
         "views/stock_picking_batch_view.xml",
         "views/stock_picking_view.xml",
+        "views/stock_move_line_view.xml",
         "report/batch_report.xml",
         "report/picking_report_template.xml",
         "report/stock_picking_batch_by_package_report.xml",
