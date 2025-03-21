@@ -13,7 +13,10 @@
         "product_supplierinfo_for_customer",
     ],
     "data": [
+        "data/paperformat.xml",
+        "report/layout.xml",
         "report/stock_picking_batch_by_package_report.xml",
+        "report/stock_picking_batch_package_label.xml",
     ],
     "installable": True,
     "auto_install": True,
