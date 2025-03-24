@@ -24,7 +24,7 @@ class PurchaseOrderLine(models.Model):
     @api.model
     def create(self, values):
         line = super().create(values)
-        if "return_qty" in values:
+        if values.get("return_qty", False):
             done_picking = line.order_id.picking_ids.filtered(
                 lambda c: c.state == "done"
             )
