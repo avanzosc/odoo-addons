@@ -118,14 +118,16 @@ class AccountInvoiceXLSXExport(models.TransientModel):
                 worksheet = workbook.add_worksheet(move_type)
                 worksheet.write(0, 0, "Invoice Number", table_header)
                 worksheet.write(0, 1, "Invoice Date", table_header)
-                worksheet.write(0, 2, "Partner", table_header)
-                worksheet.write(0, 3, "Concept", table_header)
-                worksheet.set_column(0, 3, 32)
-                worksheet.write(0, 4, "Amount Untaxed", table_header)
-                worksheet.write(0, 5, "Amount Taxed", table_header)
-                worksheet.set_column(4, 5, 15)
+                worksheet.write(0, 2, "Operation Date", table_header)
+                worksheet.write(0, 3, "Partner", table_header)
+                worksheet.write(0, 4, "Concept", table_header)
+                worksheet.set_column(0, 4, 32)
+                worksheet.write(0, 5, "Amount Untaxed", table_header)
+                worksheet.write(0, 6, "Amount Taxed", table_header)
+                worksheet.set_column(4, 6, 15)
 
-                start_tax_col_num = tax_col_num = 6
+                start_tax_col_num = tax_col_num = 7
+
                 for tax in all_taxes:
                     worksheet.write(0, tax_col_num, tax.display_name, table_header)
                     worksheet.write(
@@ -154,21 +156,30 @@ class AccountInvoiceXLSXExport(models.TransientModel):
                         invoice.invoice_date,
                         table_detail_date,
                     )
+                    try:
+                        worksheet.write_datetime(
+                            row_num,
+                            2,
+                            invoice.tbai_date_operation,
+                            table_detail_date,
+                        )
+                    except Exception:
+                        pass
                     worksheet.write(
                         row_num,
-                        2,
+                        3,
                         invoice.invoice_partner_display_name,
                         table_detail_left,
                     )
-                    # worksheet.write(row_num, 3, "Concept", table_detail_left)
+                    # worksheet.write(row_num, 4, "Concept", table_detail_left)
                     worksheet.write(
                         row_num,
-                        4,
+                        5,
                         invoice.amount_untaxed_signed,
                         table_detail_right_num,
                     )
                     worksheet.write(
-                        row_num, 5, invoice.amount_total_signed, table_detail_right_num
+                        row_num, 6, invoice.amount_total_signed, table_detail_right_num
                     )
 
                     tax_group_mapping = defaultdict(
