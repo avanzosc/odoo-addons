@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_line_form2" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
+        <field name="arch" type="xml">
+            <field name="price_unit" position="after">
+                <field name="date_arrival_supplier_material" widget="date" />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_history_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_history_tree" />
+        <field name="arch" type="xml">
+            <field name="date_approve" position="after">
+                <field
+          name="date_arrival_supplier_material"
+          widget="date"
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field
+          name="date_arrival_supplier_material"
+          widget="date"
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="purchase_order_line_search" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="date_arrival_supplier_material" />
+            </field>
+            <filter name="order_reference" position="after">
+                <filter
+          string="Date Arrival Supplier Material"
+          name="date_arrival_supplier_material"
+          domain="[]"
+          context="{'group_by' :'date_arrival_supplier_material'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
