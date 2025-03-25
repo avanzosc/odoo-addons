@@ -9,7 +9,7 @@ class StockMoveLine(models.Model):
     def _compute_boxes_sacs(self):
         for line in self:
             if line.picking_id.state != "done":
-                qty = line.reserved_uom_qty
+                qty = line.product_uom_qty
             else:
                 qty = line.qty_done
             boxes_sacks = 0
