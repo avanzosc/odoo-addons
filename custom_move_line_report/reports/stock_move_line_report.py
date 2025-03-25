@@ -178,6 +178,7 @@ class StockMoveLineReport(models.Model):
         )
 
     def _create_materialized_view(self):
+        self.env.cr.execute("DROP VIEW IF EXISTS %s CASCADE", (AsIs(self._table),))
         self.env.cr.execute(
             "DROP MATERIALIZED VIEW IF EXISTS %s CASCADE", (AsIs(self._table),)
         )
