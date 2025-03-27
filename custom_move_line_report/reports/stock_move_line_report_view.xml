@@ -261,10 +261,20 @@
         </field>
     </record>
 
+    <record id="action_move_line_report" model="ir.actions.server">
+        <field name="name">Refresh Table</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_stock_move_line_report" />
+        <field name="binding_model_id" ref="model_stock_move_line_report" />
+        <field name="state">code</field>
+        <field name="code">action = model.action_view_move_report()</field>
+    </record>
+
     <record id="action_refresh" model="ir.actions.server">
         <field name="name">Refresh Table</field>
         <field name="type">ir.actions.server</field>
         <field name="model_id" ref="model_stock_move_line_report" />
+        <field name="binding_model_id" ref="model_stock_move_line_report" />
         <field name="state">code</field>
         <field name="code">action = model.refresh_view()</field>
     </record>
@@ -296,7 +306,7 @@
     <menuitem
     id="stock_move_line_report_menuitem"
     name="Entries/Outputs Report"
-    action="stock_move_line_report_action"
+    action="action_move_line_report"
     parent="stock.menu_warehouse_report"
     sequence="10"
   />

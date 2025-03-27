@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from psycopg2.extensions import AsIs
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class StockMoveLineReport(models.Model):
@@ -163,6 +163,22 @@ class StockMoveLineReport(models.Model):
         string="Reference",
         readonly=True,
     )
+
+    def action_view_move_report(self):
+        context = self.env.context.copy()
+        cron = self.env.ref(
+            "custom_move_line_report.refresh_materialized_view",
+            raise_if_not_found=False,
+        )
+        if cron:
+            cron.method_direct_trigger()
+        return {
+            "name": _("Stock Move Report"),
+            "view_mode": "pivot,tree",
+            "res_model": "stock.move.line.report",
+            "type": "ir.actions.act_window",
+            "context": context,
+        }
 
     @api.model
     def _get_usage_selection(self):
