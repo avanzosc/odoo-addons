@@ -163,6 +163,10 @@ class StockMoveLineReport(models.Model):
         string="Reference",
         readonly=True,
     )
+    product_category_id = fields.Many2one(
+        comodel_name="product.category",
+        readonly=True,
+    )
 
     def action_view_move_report(self):
         context = self.env.context.copy()
@@ -171,7 +175,7 @@ class StockMoveLineReport(models.Model):
             raise_if_not_found=False,
         )
         if cron:
-            cron.method_direct_trigger()
+            cron.sudo().method_direct_trigger()
         return {
             "name": _("Stock Move Report"),
             "view_mode": "pivot,tree",
@@ -228,6 +232,7 @@ class StockMoveLineReport(models.Model):
             line.partner_id,
             line.product_id,
             line.product_category_type_id,
+            line.product_category_id,
             line.egg,
             line.lot_id,
             line.location_id,
@@ -263,6 +268,7 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
+                    stock_move_line.product_category_id AS product_category_id,
                     stock_move_line.reference AS ref,
                     stock_move_line.egg AS egg,
                     stock_move_line.date AS date,
@@ -310,6 +316,7 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
+                    stock_move_line.product_category_id AS product_category_id,
                     stock_move_line.reference AS ref,
                     stock_move_line.egg AS egg,
                     stock_move_line.date AS date,
@@ -357,6 +364,7 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
+                    stock_move_line.product_category_id AS product_category_id,
                     stock_move_line.reference AS ref,
                     stock_move_line.egg AS egg,
                     stock_move_line.date AS date,
@@ -406,6 +414,7 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
+                    stock_move_line.product_category_id AS product_category__id,
                     stock_move_line.reference AS ref,
                     stock_move_line.egg AS egg,
                     stock_move_line.date AS date,

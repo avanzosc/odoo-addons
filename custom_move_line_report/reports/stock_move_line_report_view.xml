@@ -147,6 +147,8 @@
                 <field name="batch_id" />
                 <field name="mother_id" />
                 <field name="production_id" />
+                <field name="partner_id" />
+                <field name="product_category_id" />
                 <filter
           string="Internal Location"
           name="internal"
@@ -255,6 +257,11 @@
             name="groupby_partner"
             string="Partner"
             context="{'group_by':'partner_id'}"
+          />
+                     <filter
+            name="groupby_product_category"
+            string="Product Category"
+            context="{'group_by':'product_category_id'}"
           />
                 </group>
             </search>
