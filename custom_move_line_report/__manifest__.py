@@ -10,6 +10,7 @@
         "stock",
         "stock_move_line_cost",
         "stock_warehouse_farm",
+        "stock_picking_batch_breeding",
         "stock_picking_batch_liquidation",
         "custom_breeding_apps",
         "sale_picking_return_containers",
