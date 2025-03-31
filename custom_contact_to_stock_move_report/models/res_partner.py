@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         )
         cron = self.env.ref("custom_move_line_report.refresh_materialized_view")
         if cron:
-            cron.method_direct_trigger()
+            cron.sudo().method_direct_trigger()
         return {
             "name": _("Stock Move Lines Report"),
             "view_mode": "pivot,tree",
