@@ -39,21 +39,6 @@
         </field>
     </record>
 
-    <record id="picking_batch_breeding_tree_view" model="ir.ui.view">
-        <field name="model">stock.picking.batch</field>
-        <field
-      name="inherit_id"
-      ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"
-    />
-        <field name="arch" type="xml">
-            <field name="cleaned_week" position="after">
-                <field name="chick_entry_qty" />
-                <field name="chick_outflow_qty" />
-                <field name="chick_existence" />
-            </field>
-        </field>
-    </record>
-
     <record id="action_mother_view" model="ir.actions.act_window">
         <field name="name">Mother</field>
         <field name="type">ir.actions.act_window</field>
