@@ -9,8 +9,9 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def button_validate(self):
-        context = dict(self.env.context)
-        context["no_update_picking_ids"] = self.ids
+        result = super(
+            StockPicking, self.with_context(no_update_picking_ids=self.ids)
+        ).button_validate()
 
         original_custom_date_done = {
             picking.id: (
@@ -30,43 +31,52 @@ class StockPicking(models.Model):
             for picking in self
         }
 
-        result = super(StockPicking, self.with_context(context)).button_validate()
-
         try:
-            if original_custom_date_done:
-                for picking_id, date_value in original_custom_date_done.items():
-                    self._cr.execute(
-                        """
-                        UPDATE stock_picking
-                        SET date_done = %s
-                        WHERE id = %s
-                        """,
-                        (date_value if date_value else None, picking_id),
-                    )
-
-            if original_scheduled_date:
-                for picking_id, date_value in original_scheduled_date.items():
-                    self._cr.execute(
-                        """
-                        UPDATE stock_picking
-                        SET scheduled_date = %s
-                        WHERE id = %s
-                        """,
-                        (date_value if date_value else None, picking_id),
-                    )
-
+            self.update_picking_dates_write(
+                original_custom_date_done, original_scheduled_date
+            )
         except Exception as e:
-            _logger.error("Error updating picking dates: %s", str(e))
+            _logger.error("Error updating picking dates with SQL: %s", str(e))
             raise
 
         return result
+
+    def update_picking_dates_write(
+        self, original_custom_date_done, original_scheduled_date
+    ):
+        try:
+            for picking in self.with_context(write_dates_with_no_error=True):
+                updates = {}
+                if picking.id in original_custom_date_done:
+                    updates["date_done"] = (
+                        original_custom_date_done[picking.id] or False
+                    )
+                if picking.id in original_scheduled_date:
+                    updates["scheduled_date"] = (
+                        original_scheduled_date[picking.id] or False
+                    )
+                if updates:
+                    picking.write(updates)
+
+        except Exception as e:
+            _logger.error("Error updating picking dates with write: %s", str(e))
+            raise
+
+    def _set_scheduled_date(self):
+        try:
+            res = super()._set_scheduled_date()
+        except Exception as e:
+            _logger.error("Error occurred while setting the scheduled date: %s", str(e))
+            if not self.env.context.get("write_dates_with_no_error", False):
+                raise
+            else:
+                return res
 
     @api.depends("move_ids.state", "move_ids.date", "move_type")
     def _compute_scheduled_date(self):
         """Override the `_compute_scheduled_date` method to prevent automatic update
         of the `scheduled_date` when a picking is validated."""
         for picking in self:
-            # Save the original value of `scheduled_date`
             original_scheduled_date = picking.scheduled_date
 
             moves_dates = picking.move_ids.filtered(
@@ -81,6 +91,5 @@ class StockPicking(models.Model):
                     moves_dates, default=picking.scheduled_date or fields.Datetime.now()
                 )
 
-            # Restore `scheduled_date` if it hasn't changed
             if picking.scheduled_date == original_scheduled_date:
                 picking.scheduled_date = original_scheduled_date
