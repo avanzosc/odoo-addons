@@ -2,12 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=======================
-Stock move with partner
-=======================
+===========================================
+Stock quant package dimension onchange type
+===========================================
 
-* In stock movements in the "partner_id" field put the partner of the picking.
-* In stock move line new field "partner_id".
+* When change "Type" in packages, bring dimensions and weight to the package.
 
 Bug Tracker
 ===========
