@@ -87,6 +87,7 @@ class AccountMoveLine(models.Model):
                         {
                             "move_type": "out_refund",
                             "partner_id": line.partner_id.id,
+                            "sale_type_id": line.partner_id.sale_type.id,
                         }
                     )
                     for onchange in account_move._onchange_methods[
