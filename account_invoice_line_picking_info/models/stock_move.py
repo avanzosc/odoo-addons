@@ -1,11 +1,23 @@
 # Copyright 2025 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import _, models
+from odoo.tools import format_date
 
 
 class StockMove(models.Model):
     _inherit = "stock.move"
 
     def _get_picking_names(self):
-        picking_names = self.mapped("picking_id.name")
-        return ", ".join(sorted(set(picking_names))) if picking_names else ""
+        pickings_info = []
+        for move in self:
+            picking_name = move.picking_id.name
+            picking_name = _("%(picking_name)s - Date: %(move_date)s") % {
+                "picking_name": picking_name,
+                "move_date": format_date(
+                    self.env,
+                    self.date.date(),
+                    lang_code=self.partner_id.lang or "es_ES",
+                ),
+            }
+            pickings_info.append(picking_name)
+        return ", ".join(sorted(set(pickings_info))) if pickings_info else ""

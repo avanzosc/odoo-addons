@@ -6,7 +6,7 @@
 Account invoice line picking info
 =================================
 
-* Picking name in the name of invoice lines
+* Picking name and move line date in the name of invoice lines.
 
 
 Bug Tracker
