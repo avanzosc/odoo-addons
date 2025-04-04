@@ -457,5 +457,6 @@ class StockMoveLineReport(models.Model):
             WHERE
                 line.state = 'done' AND
                 line.qty_done IS NOT NULL AND
+                line.qty_done != 0 AND
                 (line.show_in_report IS TRUE OR line.picking_id IS NULL)
         """
