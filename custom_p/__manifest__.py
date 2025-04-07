@@ -28,6 +28,8 @@
         "custom_breeding_apps",
         "custom_descarga",
         "sale_order_confirm_multicompany",
+        "helpdesk_mgmt",
+        "hr_personal_equipment_request",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -44,6 +46,8 @@
         "views/product_packaging_view.xml",
         "views/stock_inventory_line_view.xml",
         "views/hr_employee_view.xml",
+        "views/helpdesk_ticket_view.xml",
+        "views/hr_personal_equipment_view.xml",
         "wizards/sale_order_line_price_history_view.xml",
         "wizards/stock_inventory_warning_wizard_view.xml",
     ],
