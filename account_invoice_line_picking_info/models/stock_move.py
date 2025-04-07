@@ -11,12 +11,12 @@ class StockMove(models.Model):
         pickings_info = []
         for move in self:
             picking_name = move.picking_id.name
-            picking_name = _("%(picking_name)s - Date: %(move_date)s") % {
+            picking_name = _("%(picking_name)s - %(move_date)s") % {
                 "picking_name": picking_name,
                 "move_date": format_date(
-                    self.env,
-                    self.date.date(),
-                    lang_code=self.partner_id.lang or "es_ES",
+                    move.env,
+                    move.date.date(),
+                    lang_code=move.partner_id.lang or "es_ES",
                 ),
             }
             pickings_info.append(picking_name)
