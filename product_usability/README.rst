@@ -13,6 +13,7 @@ Module that improves usability related to products.
   "Incoming Qty", "Consumed last twelve months", "Months with stock",
   "principal seller", "principal seller price".
 * Compute field in product categories, root category.
+* Show in stock quant tree view "Scheduled Date" field.
 
 Bug Tracker
 ===========
