@@ -2,12 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=================================
-Account invoice line picking info
-=================================
+======================================
+Account invoice section sale order ext
+======================================
 
-* Picking name and move line date in the name of invoice lines.
-
+* When invoicing unique sale order create invoicing lines into section with the
+  name of the sale order.
 
 Bug Tracker
 ===========

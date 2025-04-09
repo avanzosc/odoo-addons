@@ -2,17 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=======================
-Stock picking usability
-=======================
+===========================================
+Stock quant package dimension onchange type
+===========================================
 
-* When validating a picking, and the "Create Backorder?" wizard appears, with
-  the message "You have processed less products than the initial demand.",
-  with this module in the same wizard, it will inform us of the product, and
-  its quantity is not sent.
-* In picking tree view, remove the "attrs" condition in the "scheduled_date"
-  and "date_done" fields.
-
+* When change "Type" in packages, bring dimensions and weight to the package.
 
 Bug Tracker
 ===========
