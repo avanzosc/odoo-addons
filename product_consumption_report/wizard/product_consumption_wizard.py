@@ -1,5 +1,8 @@
 # Copyright 2025 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+import pytz
+
 from odoo import fields, models
 
 
@@ -22,6 +25,13 @@ class ProductConsumptionWizard(models.TransientModel):
         location = self.location_id
         date_start = self.date_start
         date_end = self.date_end
+        timezone = pytz.timezone(self._context.get("tz") or "UTC")
+        date_start = date_start.replace(tzinfo=pytz.timezone("UTC")).astimezone(
+            timezone
+        )
+        date_start = date_start.replace(tzinfo=None)
+        date_end = date_end.replace(tzinfo=pytz.timezone("UTC")).astimezone(timezone)
+        date_end = date_end.replace(tzinfo=None)
         data.update(
             {"date_start": date_start, "date_end": date_end, "location": location.id}
         )
