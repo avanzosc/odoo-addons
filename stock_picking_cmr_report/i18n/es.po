@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-06 13:33+0000\n"
-"PO-Revision-Date: 2024-11-06 13:33+0000\n"
+"POT-Creation-Date: 2025-04-10 09:18+0000\n"
+"PO-Revision-Date: 2025-04-10 09:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -94,6 +94,11 @@ msgstr "<span>Documento de control de envio de mercancía</span>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
+msgid "<span>Driver Name:</span>"
+msgstr "<span>Nombre del conductor:</span>"
+
+#. module: stock_picking_cmr_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<span>Name:</span>"
 msgstr "<span>Nombre:</span>"
 
@@ -101,11 +106,6 @@ msgstr "<span>Nombre:</span>"
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<span>PHONE:</span>"
 msgstr "<span>TLF:</span>"
-
-#. module: stock_picking_cmr_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
-msgid "<span>Phone:</span>"
-msgstr "<span>Tlf:</span>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
@@ -220,27 +220,6 @@ msgstr "<strong>MATRÍCULA SEMIREMOLQUE:</strong>"
 
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
-msgid "<strong>Second Driver</strong>"
-msgstr "<strong>Segundo conductor</strong>"
-
-#. module: stock_picking_cmr_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
-msgid ""
-"<strong>Signature</strong>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <strong>Signature</strong>"
-msgstr ""
-"<strong>Firma</strong>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <br/>\n"
-"                       <strong>Firma</strong>"
-#. module: stock_picking_cmr_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "<strong>Source document</strong>"
 msgstr "<strong>Documento origen</strong>"
 
@@ -249,6 +228,24 @@ msgstr "<strong>Documento origen</strong>"
 msgid "<strong>Stamp and signature</strong>"
 msgstr "<strong>Sello y firma</strong>"
 
+#. module: stock_picking_cmr_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
+msgid ""
+"<strong>Stamp and signature</strong>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>"
+msgstr ""
+"<strong>Sello y firma</strong>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>\n"
+"                       <br/>"
 #. module: stock_picking_cmr_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_document
 msgid "<strong>TRACTOR LICENSE PLATE:</strong>"
@@ -410,6 +407,7 @@ msgstr "Octubre"
 
 #. module: stock_picking_cmr_report
 #: model:ir.model.fields,field_description:stock_picking_cmr_report.field_stock_picking__cmr_second_driver_id
+#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
 msgid "Second Driver"
 msgstr "Segundo conductor"
 
@@ -424,6 +422,11 @@ msgstr "Matrícula semiremolque"
 #, python-format
 msgid "September"
 msgstr "Septiembre"
+
+#. module: stock_picking_cmr_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_cmr_report.report_stock_picking_cmr_transporter_document
+msgid "Signature"
+msgstr "Firma"
 
 #. module: stock_picking_cmr_report
 #: model:ir.model.fields,field_description:stock_picking_cmr_report.field_stock_picking__site_date_info
