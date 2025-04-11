@@ -394,6 +394,116 @@
           attrs="{'readonly': [('is_canceled', '=', True)], 'invisible': [('is_historic', '=', False), ('is_classified', '=', False)]}"
         >
                 </page>
+                <page
+          name="quality"
+          string="Quality"
+          attrs="{'readonly': [('is_canceled', '=', True)], 'invisible': [('is_historic', '=', False), ('is_classified', '=', False)]}"
+        >
+                    <group>
+                        <group>
+                            <field name="sampler_id" />
+                            <field name="dock_temperature" />
+                            <label for="dock_relative_humidity" />
+                            <div class="o_row" name="dock_relative_humidity">
+                                <field name="dock_relative_humidity" />
+                                <span>%</span>
+                            </div>
+                            <label for="asphyxiated_percentage" />
+                            <div class="o_row" name="asphyxiated_percentage">
+                                <field name="asphyxiated_percentage" />
+                                <span>%</span>
+                            </div>
+                            <field name="asphyxiated_wight" />
+                            <label for="seizured_percentage" />
+                            <div class="o_row" name="seizured_percentage">
+                                <field name="seizured_percentage" />
+                                <span>%</span>
+                            </div>
+                            <field name="seizured_wight" />
+                            <field name="stunning" />
+                            <label for="second_percentage" />
+                            <div class="o_row" name="second_percentage">
+                                <field name="second_percentage" />
+                                <span>%</span>
+                            </div>
+                            <label for="dirty_feather" />
+                            <div class="o_row" name="dirty_feather">
+                                <field name="dirty_feather" />
+                                <span>%</span>
+                            </div>
+                            <label for="living_stunned" />
+                            <div class="o_row" name="living_stunned">
+                                <field name="living_stunned" />
+                                <span>%</span>
+                            </div>
+                            <label for="hard_breast" />
+                            <div class="o_row" name="hard_breast">
+                                <field name="hard_breast" />
+                                <span>%</span>
+                            </div>
+                        </group>
+                        <group>
+                            <label for="wing_injury" />
+                            <div class="o_row" name="wing_injury">
+                                <field name="wing_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="thingh_injury" />
+                            <div class="o_row" name="thingh_injury">
+                                <field name="thingh_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="breast_injury" />
+                            <div class="o_row" name="breast_injury">
+                                <field name="breast_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="back_injury" />
+                            <div class="o_row" name="back_injury">
+                                <field name="back_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="hock_injury" />
+                            <div class="o_row" name="hock_injury">
+                                <field name="hock_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="podpdermattis" />
+                            <div class="o_row" name="podpdermattis">
+                                <field name="podpdermattis" />
+                                <span>%</span>
+                            </div>
+                            <label for="gizzard_injury" />
+                            <div class="o_row" name="gizzard_injury">
+                                <field name="gizzard_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="liver_injury" />
+                            <div class="o_row" name="liver_injury">
+                                <field name="liver_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="heart_injury" />
+                            <div class="o_row" name="heart_injury">
+                                <field name="heart_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="bowel_injury" />
+                            <div class="o_row" name="bowel_injury">
+                                <field name="bowel_injury" />
+                                <span>%</span>
+                            </div>
+                            <label for="weighting" />
+                            <div class="o_row" name="weighting">
+                                <field name="weighting" />
+                                <span>%</span>
+                            </div>
+                        </group>
+                    </group>
+                    <group string="Observations">
+                        <field name="observations" nolabel="1" />
+                    </group>
+                </page>
             </notebook>
         </field>
     </record>

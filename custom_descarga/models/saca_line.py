@@ -164,6 +164,30 @@ class SacaLine(models.Model):
     floor = fields.Selection(
         [("single", "Single"), ("top", "Top"), ("below", "Below")], copy=False
     )
+    sampler_id = fields.Many2one(comodel_name="res.partner", copy=False)
+    dock_temperature = fields.Float(copy=False)
+    dock_relative_humidity = fields.Float(copy=False)
+    asphyxiated_percentage = fields.Float(copy=False)
+    asphyxiated_wight = fields.Float(copy=False)
+    seizured_percentage = fields.Float(copy=False)
+    seizured_wight = fields.Float(copy=False)
+    stunning = fields.Float(copy=False)
+    second_percentage = fields.Float(copy=False)
+    dirty_feather = fields.Float(copy=False)
+    living_stunned = fields.Float(copy=False)
+    hard_breast = fields.Float(copy=False)
+    wing_injury = fields.Float(copy=False)
+    thingh_injury = fields.Float(copy=False)
+    breast_injury = fields.Float(copy=False)
+    back_injury = fields.Float(copy=False)
+    hock_injury = fields.Float(copy=False)
+    podpdermattis = fields.Float(copy=False)
+    gizzard_injury = fields.Float(copy=False)
+    liver_injury = fields.Float(copy=False)
+    heart_injury = fields.Float(copy=False)
+    bowel_injury = fields.Float(copy=False)
+    weighting = fields.Float(copy=False)
+    observations = fields.Text(copy=False)
 
     def _compute_descarga_order(self):
         for line in self:
