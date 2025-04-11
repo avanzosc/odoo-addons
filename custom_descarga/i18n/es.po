@@ -6,14 +6,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 11:20+0000\n"
-"PO-Revision-Date: 2024-03-27 11:20+0000\n"
+"POT-Creation-Date: 2025-04-11 05:52+0000\n"
+"PO-Revision-Date: 2025-04-11 05:52+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__asphyxiated_percentage
+msgid "Asphyxiated Percentage"
+msgstr "Asfixiados"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__asphyxiated_wight
+msgid "Asphyxiated Wight"
+msgstr "Asfixiados kg"
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
@@ -31,9 +41,24 @@ msgid "Average Weight Origin"
 msgstr "Peso medio en origen"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__back_injury
+msgid "Back Injury"
+msgstr "Lesión espalda"
+
+#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__below
 msgid "Below"
 msgstr "Abajo"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__bowel_injury
+msgid "Bowel Injury"
+msgstr "Lesión intestino"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__breast_injury
+msgid "Breast Injury"
+msgstr "Lesión pechuga"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__burned_leg
@@ -160,6 +185,11 @@ msgid "Dirt"
 msgstr "Suciedad"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dirty_feather
+msgid "Dirty Feather"
+msgstr "Pluma sucia"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_saca__display_name
@@ -169,6 +199,16 @@ msgstr "Suciedad"
 #: model:ir.model.fields,field_description:custom_descarga.field_stock_production_lot__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dock_relative_humidity
+msgid "Dock Relative Humidity"
+msgstr "Humedad relativa muelle"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dock_temperature
+msgid "Dock Temperature"
+msgstr "Temperatura muelle"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__download_unit
@@ -217,6 +257,11 @@ msgid "Forklift Operators"
 msgstr "Carretilleros"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__gizzard_injury
+msgid "Gizzard Injury"
+msgstr "Lesión mollejas"
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Gross"
 msgstr "Bruto"
@@ -248,9 +293,19 @@ msgid "Hangers"
 msgstr "Colgadores"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hard_breast
+msgid "Hard Breast"
+msgstr "Pechuga dura"
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hard_chicken
 msgid "Hard Chicken %"
 msgstr "% pollo duro"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__heart_injury
+msgid "Heart Injury"
+msgstr "Lesión corazón"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__3
@@ -283,6 +338,11 @@ msgstr "Historificar"
 #, python-format
 msgid "Historics"
 msgstr "Históricos"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hock_injury
+msgid "Hock Injury"
+msgstr "Lesión corvejón"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product__id
@@ -347,7 +407,7 @@ msgstr "Matanza"
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__kilo_discount
 msgid "Kilo Discount"
-msgstr "Descuento kilo"
+msgstr "Descuento por kilo"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__distance_done
@@ -369,6 +429,16 @@ msgstr "Última modificación el"
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_view_search
 msgid "Last Week"
 msgstr "Última semana"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__liver_injury
+msgid "Liver Injury"
+msgstr "Lesión hígado"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__living_stunned
+msgid "Living Stunned"
+msgstr "Vivos aturdido"
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
@@ -425,6 +495,12 @@ msgid "Normal"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__observations
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Operations"
 msgstr "Operaciones"
@@ -438,6 +514,11 @@ msgstr "Órden"
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__origin_qty
 msgid "Origin Qty"
 msgstr "Cantidad en origen"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__podpdermattis
+msgid "Podpdermattis"
+msgstr "Pododermattis"
 
 #. module: custom_descarga
 #: model:ir.ui.menu,name:custom_descarga.menu_stage_descarga_clasf
@@ -486,6 +567,11 @@ msgid "Purchase Unit Price"
 msgstr "Precio unitario"
 
 #. module: custom_descarga
+#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
+msgid "Quality"
+msgstr "Calidad"
+
+#. module: custom_descarga
 #: model:ir.actions.act_window,name:custom_descarga.action_saca
 #: model:ir.model,name:custom_descarga.model_saca
 #: model:ir.ui.menu,name:custom_descarga.menu_saca
@@ -495,7 +581,6 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.actions.act_window,name:custom_descarga.action_saca_line_stage_saca
 #: model:ir.model,name:custom_descarga.model_saca_line
-#: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_descarga_tree_view
 msgid "Saca Line"
 msgstr "Línea de saca"
 
@@ -516,6 +601,26 @@ msgstr "Órden de saca"
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__list_price
 msgid "Sales Price"
 msgstr "Precio de venta"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__sampler_id
+msgid "Sampler"
+msgstr "Muestreador"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__second_percentage
+msgid "Second Percentage"
+msgstr "Segunda"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__seizured_percentage
+msgid "Seizured Percentage"
+msgstr "Decomiso"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__seizured_wight
+msgid "Seizured Wight"
+msgstr "Decomiso kg"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__single
@@ -569,6 +674,11 @@ msgid "Stock Moves"
 msgstr "Movimientos de stock"
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__stunning
+msgid "Stunning"
+msgstr "Parámetros aturdido"
+
+#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__5
 msgid "Super High"
 msgstr "Super alto"
@@ -603,7 +713,12 @@ msgstr ""
 #: code:addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "There is no any purchase order line."
-msgstr "No hay ninguna línea de compra."
+msgstr "No hay ninngún pedido de compra."
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__thingh_injury
+msgid "Thingh Injury"
+msgstr "Lesión muslos"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__img_origin
@@ -679,6 +794,16 @@ msgstr "Razón de espera"
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__weight_uom_name
 msgid "Weight UOM"
 msgstr "Peso UdM"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__weighting
+msgid "Weighting"
+msgstr "Ponderación"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__wing_injury
+msgid "Wing Injury"
+msgstr "Lesión alas"
 
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__yellowish_chicken
