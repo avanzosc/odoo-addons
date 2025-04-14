@@ -79,6 +79,20 @@ class StockPicking(models.Model):
                     )._action_done()
         return result
 
+    def write(self, values):
+        result = super().write(values)
+        if "origin" in values:
+            for line in self:
+                sale = self.env["sale.order"].search([("name", "=", line.origin)])
+                if sale and len(sale) == 1 and not line.sale_id:
+                    line.sale_id = sale.id
+                purchase = self.env["purchase.order"].search(
+                    [("name", "=", line.origin)]
+                )
+                if purchase and len(purchase) == 1 and not line.purchase_id:
+                    line.purchase_id = purchase.id
+        return result
+
     def _action_done_intercompany_actions(self, purchase):
         pick = self
         for move in pick.move_lines:
