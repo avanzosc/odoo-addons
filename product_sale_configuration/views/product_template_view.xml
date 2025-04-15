@@ -3,137 +3,164 @@
   <record id="product_template_form_view" model="ir.ui.view">
     <field name="model">product.template</field>
     <field name="inherit_id" ref="product.product_template_form_view" />
-    <field name="priority">17</field>
+    <field name="priority" eval="17" />
     <field name="arch" type="xml">
-      <field name="list_price" position="before">
-        <field name="only_read_prices" invisible="1" />
-        <field name="sale_configuration" invisible="1" />
-      </field>
-      <field name="list_price" position="after">
-        <field
-          name="manual_pvp"
-          context="{'change_manual_pvp': True}"
-          attrs="{'invisible': ['|', ('only_read_prices','=',True), ('product_variant_count', '&gt;', 1)]}"
-        />
-      </field>
-      <field name="list_price" position="attributes">
-        <attribute name="attrs">{'readonly': [('manual_pvp', '=', False)]}</attribute>
-      </field>
-      <div name="standard_price_uom" position="attributes">
-        <attribute name="attrs">{}</attribute>
-        <attribute name="colspan">2</attribute>
-        <attribute name="string">2</attribute>
-      </div>
-      <label for="standard_price" position="attributes">
-        <attribute name="invisible">1</attribute>
-      </label>
-      <div name="standard_price_uom" position="attributes">
-        <attribute name="invisible">1</attribute>
-      </div>
-
-      <field name="categ_id" position="attributes">
-          <attribute name="attrs">{'invisible': True}</attribute>
-      </field>
-
-      <field name="invoice_policy" position="before">
-          <field
-          name="categ_id"
-          on_change="1"
-          modifiers="{&quot;required&quot;: true}"
-          can_create="true"
-          can_write="true"
-        />
-      </field>
-
-      <field name="product_tag_ids" position="after">
-              <label
-          for="standard_price"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
-        />
-        <div
-          name="standard_price_uom"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
-        >
-          <field
-            name="standard_price"
-            class="oe_inline"
-            widget="monetary"
-            options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
-          />
-          <span groups="uom.group_uom">per
-            <field name="uom_name" class="oe_inline" />
-          </span>
+        <page name="general_information" position="after">
+            <page name="cost-and-sale-price" string="Cost And Sale Price">
+                <group>
+                    <group name="cost-price">
+                        <separator string="Costs" />
+                        <field name="price_cost_changed" invisible="1" />
+                        <field name="generate_last_price_change_date" invisible="1" />
+                        <field name="cost_method" invisible="1" />
+                        <field name="my_list_price" invisible="1" />
+                        <field name="my_standard_price" invisible="1" />
+                        <label
+                for="standard_price"
+                string="Total Cost (base+extra)"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
+              />
+                        <div
+                name="standard_price_uom-page"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
+              >
+                            <field
+                  name="standard_price"
+                  class="oe_inline"
+                  widget='monetary'
+                  options="{'currency_field': 'cost_currency_id', 'field_digits': True}"
+                  readonly="1"
+                />
+                            <span groups="uom.group_uom">per
+                                <field name="uom_name" class="oe_inline" />
+                            </span>
+                        </div>
+                        <field
+                name="base_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('cost_method','=','average')]}"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+                        <field
+                name="extra_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+                        <field
+                name="last_date_extra_cost_changes"
+                readonly="1"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                    </group>
+                    <group name="sale-price">
+                        <separator string="Sales" />
+                        <label for="list_price" />
+                        <div name="pricing-in-page">
+                          <field
+                  name="list_price"
+                  class="oe_inline"
+                  widget='monetary'
+                  options="{'currency_field': 'currency_id', 'field_digits': True}"
+                  attrs="{'readonly': [('manual_pvp', '=', False)]}"
+                />
+                        </div>
+                        <field name="my_new_sale_price" invisible="1" />
+                        <field
+                name="manual_pvp"
+                context="{'change_manual_pvp': True}"
+                attrs="{'invisible': ['|', ('only_read_prices','=',True), ('product_variant_count', '&gt;', 1)]}"
+              />
+                        <field
+                name="product_category_sale_price_id"
+                options="{'no_create': True, 'no_create_edit': True}"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',True)]}"
+              />
+                        <field
+                name="target_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',True)]}"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+                        <field
+                name="percentage_between_costs"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                        <field
+                name="last_price_change_date"
+                readonly="1"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                    </group>
+                    <group name="cost-price2">
+                        <separator string="Maintenance costs" />
+                        <field
+                name="new_total_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                        <field
+                name="new_extra_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                        <field
+                name="last_change_date_new_extra_cost"
+                readonly="1"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                    </group>
+                    <group name="sale-price2">
+                        <separator string="Sales maintenance" />
+                         <field
+                name="new_sale_price"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',False)]}"
+              />
+                        <field
+                name="new_product_category_sale_price_id"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                options="{'no_create': True, 'no_create_edit': True}"
+                context="{'change_new_target_data': True}"
+              />
+                        <field
+                name="new_target_cost"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                context="{'change_new_target_data': True}"
+              />
+                        <field
+                name="percentage_between_new_costs"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                        <field
+                name="last_new_sale_price_change_date"
+                readonly="1"
+                attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+              />
+                    </group>
+                </group>
+            </page>
+        </page>
+        <field name="list_price" position="before">
+          <field name="only_read_prices" invisible="1" />
+          <field name="sale_configuration" invisible="1" />
+        </field>
+        <xpath
+        expr="//group[@name='group_standard_price']/label[1]"
+        position="attributes"
+      >
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <div name="pricing" position="attributes">
+            <attribute name="invisible">1</attribute>
         </div>
-        <field
-          name="base_cost"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('cost_method','=','average')]}"
-          widget="monetary"
-          options="{'currency_field': 'currency_id'}"
-        />
-        <field
-          name="extra_cost"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          widget="monetary"
-          options="{'currency_field': 'currency_id'}"
-        />
-        <field
-          name="product_category_sale_price_id"
-          options="{'no_create': True, 'no_create_edit': True}"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',True)]}"
-        />
-
-
-        <field name="price_cost_changed" invisible="1" />
-        <field
-          name="target_cost"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',True)]}"
-          widget="monetary"
-          options="{'currency_field': 'currency_id'}"
-        />
-        <field
-          name="percentage_between_costs"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-        <field
-          name="last_price_change_date"
-          readonly="1"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-        <field name="generate_last_price_change_date" invisible="1" />
-        <field name="cost_method" invisible="1" />
-        <field name="my_list_price" invisible="1" />
-        <field name="my_standard_price" invisible="1" />
-        <field
-          name="new_extra_cost"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-        <field
-          name="last_change_date_new_extra_cost"
-          readonly="1"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-        <field
-          name="new_target_cost"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          context="{'change_new_target_data': True}"
-        />
-        <field
-          name="new_product_category_sale_price_id"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-          options="{'no_create': True, 'no_create_edit': True}"
-          context="{'change_new_target_data': True}"
-        />
-        <field
-          name="new_sale_price"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)], 'readonly':[('manual_pvp','=',False)]}"
-        />
-        <field name="my_new_sale_price" invisible="1" />
-        <field
-          name="last_new_sale_price_change_date"
-          readonly="1"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
-      </field>
+        <xpath
+        expr="//group[@name='group_standard_price']/label[2]"
+        position="attributes"
+      >
+          <attribute name="invisible">1</attribute>
+        </xpath>
+        <div name="standard_price_uom" position="attributes">
+            <attribute name="attrs">{}</attribute>
+            <attribute name="invisible">1</attribute>
+        </div>
     </field>
   </record>
 </odoo>
