@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_picking_batch_package_label_document"
+    inherit_id="stock_picking_batch_package_customer_report.report_picking_batch_package_label_document"
+  >
+        <img t-if="doc.company_id.logo" position="after">
+            <img
+        t-if="doc.sale_order_type_id and doc.sale_order_type_id.sale_type_image"
+        t-att-src="image_data_uri(doc.sale_order_type_id.sale_type_image)"
+        t-att-style="'width: 150px; height: auto;'"
+        alt="Logo"
+      />
+        </img>
+        <img t-if="doc.company_id.logo" position="attributes">
+            <attribute
+        name="t-if"
+      >doc.company_id.logo and (not doc.sale_order_type_id or not doc.sale_order_type_id.sale_type_image)</attribute>
+        </img>
+    </template>
+</odoo>
