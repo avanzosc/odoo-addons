@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_picking_batch_package_label_document">
+        <t
+      t-call="stock_picking_batch_package_customer_report.external_layout_stock_picking_batch_package_customer_label"
+    >
+            <div
+        class="page"
+        style="font-size: 14px; page-break-after: always; margin-right: 5px; margin-left: 5px; margin-bottom: 5px; margin-top: 15px !important;"
+      >
+                <div class="row" style="border-bottom: 1px solid black;">
+                    <div class="col-12 text-center">
+                        <img
+              t-if="doc.company_id.logo"
+              t-att-src="image_data_uri(doc.company_id.logo)"
+              t-att-style="'width: 150px; height: auto;'"
+              alt="Logo"
+            />
+                            <br />
+                            <br />
+                    </div>
+                </div>
+                <div
+          class="row"
+          style="border-bottom: 1px solid black; margin-top: 20px;"
+        >
+                    <div class="col-6 text-center">
+                        <strong>Sender</strong>
+                        <br />
+                        <span t-field="doc.company_id.partner_id.name" />
+                        <br />
+                        <span t-field="doc.company_id.partner_id.street" />
+                        <br />
+                        <span t-field="doc.company_id.partner_id.zip" />
+                        <span> </span>
+                        <span t-field="doc.company_id.partner_id.city" />
+                        <br />
+                        <span t-field="doc.company_id.partner_id.state_id.name" />
+                        <span> - </span>
+                        <span t-field="doc.company_id.partner_id.country_id.name" />
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-6 text-center">
+                        <strong>Destination</strong>
+                        <br />
+                        <span t-field="doc.customer_id.name" />
+                        <br />
+                        <span t-field="doc.customer_id.street" />
+                        <t t-if="doc.customer_id.street2">
+                            <br />
+                            <span t-field="doc.customer_id.street2" />
+                        </t>
+                        <br />
+                        <span t-field="doc.customer_id.zip" />
+                        <span> </span>
+                        <span t-field="doc.customer_id.city" />
+                        <t
+              t-if="doc.customer_id.state_id or doc.customer_id.country_id"
+            >
+                            <br />
+                            <t t-if="doc.customer_id.state_id">
+                                <span t-field="doc.customer_id.state_id.name" />
+                            </t>
+                            <t
+                t-if="doc.customer_id.state_id and doc.customer_id.country_id"
+              >
+                                <span> - </span>
+                            </t>
+                            <t t-if="doc.customer_id.country_id">
+                                <span t-field="doc.customer_id.country_id.name" />
+                            </t>
+                        </t>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <div
+          class="row"
+          style="border-bottom: 1px solid black; margin-top: 20px;"
+        >
+                    <div class="col-6 text-center">
+                        <strong>Document Numb.:</strong>
+                        <br />
+                        <strong>Pallet N.:</strong>
+                        <br />
+                        <strong>Weight:</strong>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-6 text-center">
+                        <span t-field="doc.name" />
+                        <br />
+                        <span t-esc="num_package" />
+                        <span>/</span>
+                        <span t-esc="total_packages" />
+                        <br />
+                        <span t-esc="package.shipping_weight" />
+                        <span> KG.</span>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <t
+          t-set="package_lines"
+          t-value="doc.move_line_ids.filtered(lambda x: x.state != 'cancel' and x.result_package_id and x.result_package_id == package)"
+        />
+                <div
+          class="row"
+          style="border-bottom: 1px solid black; margin-top: 20px;"
+        >
+                    <div class="col-6 text-center">
+                        <strong>Customer Reference</strong>
+                        <t t-foreach="package_lines" t-as="pline">
+                            <br />
+                            <span t-field="pline.move_id.customer_product_code" />
+                        </t>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="col-6 text-center">
+                        <strong>Quantity</strong>
+                        <t t-foreach="package_lines" t-as="pline">
+                            <br />
+                            <span t-field="pline.qty_done" />
+                        </t>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_picking_batch_package_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-set="move_lines"
+          t-value="doc.move_line_ids.filtered(lambda x: x.state != 'cancel' and x.result_package_id).sorted(lambda line: (line.result_package_id.name, line.picking_id.name))"
+        />
+                <t t-set="total_packages" t-value="0" />
+                <t t-set="num_package" t-value="0" />
+                <t t-set="packages" t-value="[]" />
+                <t t-foreach="move_lines" t-as="line">
+                    <t t-if="not packages">
+                        <t t-set="total_packages" t-value="total_packages + 1" />
+                        <t
+              t-set="packages"
+              t-value="packages + [line.result_package_id]"
+            />
+                     </t>
+                    <t t-if="line.result_package_id not in packages">
+                        <t t-set="total_packages" t-value="total_packages + 1" />
+                        <t
+              t-set="packages"
+              t-value="packages + [line.result_package_id]"
+            />
+                     </t>
+                </t>
+                <t t-foreach="packages" t-as="package">
+                    <t t-set="num_package" t-value="num_package + 1" />
+                    <t
+            t-call="stock_picking_batch_package_customer_report.report_picking_batch_package_label_document"
+            t-lang="doc.customer_id.lang"
+          />
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_picking_batch_package_label" model="ir.actions.report">
+        <field name="name">Picking Batch By Package (Labels)</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_batch_package_customer_report.report_picking_batch_package_label</field>
+        <field
+      name="report_file"
+    >stock_picking_batch_package_customer_report.report_picking_batch_package_label</field>
+        <field
+      name="print_report_name"
+    >'Labels For Picking batch  - %s by package' % (object.name)</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
+        <field name="binding_type">report</field>
+        <field
+      name="paperformat_id"
+      ref="stock_picking_batch_package_customer_report.paperformat_stock_picking_batch_package_customer_label"
+    />
+    </record>
+</odoo>

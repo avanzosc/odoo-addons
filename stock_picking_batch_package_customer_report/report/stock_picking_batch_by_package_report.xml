@@ -52,4 +52,142 @@
             </t>
         </t>
     </template>
+
+    <template id="report_picking_batch_by_packaging_carrier_document">
+        <t t-call="web.external_layout">
+            <t
+        t-set="doc"
+        t-value="doc.with_context(lang=doc.user_id.partner_id.lang)"
+      />
+            <div class="page">
+                <div class="oe_structure" />
+                <div class="row">
+                    <div class="col-8">
+                        <h1><span t-field="doc.name" /></h1>
+                    </div>
+                    <div class="col-4 text-center">
+                        <img
+              alt="Barcode"
+              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(doc.name or ''), 600, 150)"
+              style="width:300px;height:50px"
+            />
+                        <br />
+                        <span t-field="doc.name" />
+                    </div>
+                </div>
+                <div class="row mt-4 mb-4" id="informations">
+                    <div name="date" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Date:</strong>
+                        <br />
+                        <span
+              t-out="context_timestamp(datetime.datetime.now()).strftime('%d-%m-%Y')"
+            />
+                    </div>
+                    <div name="total_weight" class="col-auto col-3 mw-100 mb-2">
+                        <strong>Total Weight:</strong>
+                        <br />
+                        <span t-field="doc.gross_weight_of_shipping" />
+                    </div>
+                </div>
+                <t
+          t-set="move_lines"
+          t-value="doc.move_line_ids.filtered(lambda x: x.state != 'cancel' and x.result_package_id).sorted(lambda line: (line.result_package_id.name, line.picking_id.name))"
+        />
+                <t t-set="num_packages" t-value="0" />
+                <t t-set="package" t-value="0" />
+                <t t-foreach="move_lines" t-as="line">
+                    <t t-if="not package or package != line.result_package_id">
+                        <t t-set="num_packages" t-value="num_packages + 1" />
+                        <t t-set="package" t-value="line.result_package_id" />
+                     </t>
+                </t>
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th name="addressee">ADDRESSEE</th>
+                            <th name="direction">DIRECTION</th>
+                            <th name="city">CITY</th>
+                            <th name="country">COUNTRY</th>
+                            <th
+                name="packages"
+                style="text-align: right;"
+              >PACKAGES (QTY)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td name="td_customer">
+                                <span t-field="doc.customer_id.name" />
+                            </td>
+                            <td name="td_direction">
+                                <span t-field="doc.customer_id.street" />
+                                <t t-if="doc.customer_id.street2">
+                                    <br />
+                                    <span t-field="doc.customer_id.street2" />
+                                </t>
+                            </td>
+                            <td name="td_city">
+                                <span t-field="doc.customer_id.zip" />
+                                <span> - </span>
+                                <span t-field="doc.customer_id.city" />
+                                <t t-if="doc.customer_id.state_id">
+                                    <br />
+                                    <span t-field="doc.customer_id.state_id.name" />
+                                </t>
+                            </td>
+                            <td name="td_country">
+                                <span
+                  t-if="doc.customer_id.country_id"
+                  t-field="doc.customer_id.country_id.name"
+                />
+                            </td>
+                            <td name="td_packages" style="text-align: right;">
+                                <span t-esc="num_packages" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_picking_batch_by_packaging_carrier">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-if="doc.partner_id"
+          t-call="stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document"
+          t-lang="doc.user_id.partner_id.lang"
+        />
+                <t
+          t-if="not doc.partner_id"
+          t-call="stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document"
+          t-lang="doc.customer_id.lang"
+        />
+            </t>
+        </t>
+    </template>
+
+    <record
+    id="action_report_picking_batch_by_packaging_carrier"
+    model="ir.actions.report"
+  >
+        <field name="name">Picking Batch By Package (Carrier)</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier</field>
+        <field
+      name="report_file"
+    >stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier</field>
+        <field
+      name="print_report_name"
+    >'Picking batch  - %s by package for carrier' % (object.name)</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

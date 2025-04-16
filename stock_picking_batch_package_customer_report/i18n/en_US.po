@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* stock_picking_batch_package_customer_report_report
+# 	* stock_picking_batch_package_customer_report
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-16 10:41+0000\n"
-"PO-Revision-Date: 2024-12-16 10:41+0000\n"
+"POT-Creation-Date: 2025-03-24 12:06+0000\n"
+"PO-Revision-Date: 2025-03-24 12:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,12 +15,133 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: stock_picking_batch_package_customer_report_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report_report.report_picking_batch_by_packaging_document
+#. module: stock_picking_batch_package_customer_report
+#: model:ir.actions.report,print_report_name:stock_picking_batch_package_customer_report.action_report_picking_batch_package_label
+msgid "'Labels For Picking batch  - %s by package' % (object.name)"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model:ir.actions.report,print_report_name:stock_picking_batch_package_customer_report.action_report_picking_batch_by_packaging_carrier
+msgid "'Picking batch  - %s by package for carrier' % (object.name)"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<span> - </span>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<span> KG.</span>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<span>/</span>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_document
 msgid "<strong>Customer Num.:</strong>"
 msgstr ""
 
-#. module: stock_picking_batch_package_customer_report_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report_report.report_picking_batch_by_packaging_document
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<strong>Customer Orders:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<strong>Customer Reference</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid ""
+"<strong>Date:</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid ""
+"<strong>Destination</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid ""
+"<strong>Document Numb.:</strong>\n"
+"                        <br/>\n"
+"                        <strong>Icotermns:</strong>\n"
+"                        <br/>\n"
+"                        <strong>Pallet N.:</strong>\n"
+"                        <br/>\n"
+"                        <strong>Weight:</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid "<strong>Quantity</strong>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_package_label_document
+msgid ""
+"<strong>Sender</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid ""
+"<strong>Total Weight:</strong>\n"
+"                        <br/>"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "ADDRESSEE"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "CITY"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "COUNTRY"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_document
 msgid "Customer Ref."
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "DIRECTION"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_package_customer_report.report_picking_batch_by_packaging_carrier_document
+msgid "PACKAGES (QTY)"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model:ir.actions.report,name:stock_picking_batch_package_customer_report.action_report_picking_batch_by_packaging_carrier
+msgid "Picking Batch By Package (Carrier)"
+msgstr ""
+
+#. module: stock_picking_batch_package_customer_report
+#: model:ir.actions.report,name:stock_picking_batch_package_customer_report.action_report_picking_batch_package_label
+msgid "Picking Batch By Package (Labels)"
 msgstr ""
