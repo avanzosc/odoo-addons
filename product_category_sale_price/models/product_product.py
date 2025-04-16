@@ -301,7 +301,7 @@ class ProductProduct(models.Model):
             template.new_product_category_sale_price_id
             != self.new_product_category_sale_price_id
         ):
-            vals["newproduct_category_sale_price_id"] = (
+            vals["new_product_category_sale_price_id"] = (
                 self.new_product_category_sale_price_id.id
                 if self.new_product_category_sale_price_id
                 else None
