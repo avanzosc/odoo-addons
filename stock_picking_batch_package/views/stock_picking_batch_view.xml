@@ -7,12 +7,8 @@
             <field name="scheduled_date" position="after">
                 <field name="partner_id" />
                 <field name="number_of_packages" />
-                <field name="shipping_weight" />
-            </field>
-            <field name="picking_type_id" position="after">
-                <br />
+                <field name="packages_weight" />
                 <field name="gross_weight_of_shipping" />
-                <field name="net_weight_of_shipping" />
             </field>
         </field>
     </record>
@@ -23,7 +19,6 @@
         <field name="arch" type="xml">
             <field name="picking_type_id" position="after">
                 <field name="gross_weight_of_shipping" optional="show" />
-                <field name="net_weight_of_shipping" optional="show" />
             </field>
         </field>
     </record>

@@ -7,6 +7,7 @@ Stock move with partner
 =======================
 
 * In stock movements in the "partner_id" field put the partner of the picking.
+* In stock move line new field "partner_id".
 
 Bug Tracker
 ===========

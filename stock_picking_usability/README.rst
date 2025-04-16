@@ -10,6 +10,8 @@ Stock picking usability
   the message "You have processed less products than the initial demand.",
   with this module in the same wizard, it will inform us of the product, and
   its quantity is not sent.
+* In picking tree view, remove the "attrs" condition in the "scheduled_date"
+  and "date_done" fields.
 
 
 Bug Tracker

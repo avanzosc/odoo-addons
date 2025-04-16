@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_partner_form">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="vat" position="after">
+                <field name="customer_technology_ids" widget="many2many_tags" />
+                <field name="customer_market_ids" widget="many2many_tags" />
+                <field name="customer_state_ids" widget="many2many_tags" />
+                <field name="customer_business_area_ids" widget="many2many_tags" />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_partner_tree">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field
+          name="customer_technology_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
+                <field
+          name="customer_market_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
+                <field
+          name="customer_state_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
+                <field
+          name="customer_business_area_ids"
+          optional="show"
+          widget="many2many_tags"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_res_partner_filter">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="customer_technology_ids" />
+                <field name="customer_market_ids" />
+                <field name="customer_state_ids" />
+                <field name="customer_business_area_ids" />
+            </field>
+        </field>
+    </record>
+</odoo>
