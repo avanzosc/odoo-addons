@@ -30,6 +30,7 @@
         "sale_order_confirm_multicompany",
         "helpdesk_mgmt",
         "hr_personal_equipment_request",
+        "l10n_es_aeat_sii_oca",
     ],
     "data": [
         "security/ir.model.access.csv",

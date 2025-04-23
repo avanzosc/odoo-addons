@@ -1,7 +1,7 @@
 # Copyright 2025 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 
 
 class HelpdeskTicket(models.Model):
@@ -11,6 +11,16 @@ class HelpdeskTicket(models.Model):
     last_message_date = fields.Datetime(
         compute="_compute_last_message_date", store=True
     )
+
+    def write(self, vals):
+        if vals.get("description"):
+            self.message_post(
+                body_is_html=True,
+                body=_("Description: %s --> %s")
+                % (self.description, vals.get("description")),
+            )
+        res = super().write(vals)
+        return res
 
     @api.depends("message_ids", "message_ids.date")
     def _compute_last_message_date(self):
