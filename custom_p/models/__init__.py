@@ -11,3 +11,4 @@ from . import stock_move_line
 from . import stock_inventory_line
 from . import helpdesk_ticket
 from . import hr_personal_equipment
+from . import account_move
