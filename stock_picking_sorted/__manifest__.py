@@ -5,16 +5,15 @@
     "version": "12.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
-        "sale_stock", "product_brand",
+        "sale_stock",
+        "product_brand",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
-    "category": "",
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "category": "Inventory",
     "data": [
         "views/stock_picking_view.xml",
         "report/report_stock_picking_operations.xml",
     ],
-    'demo': [],
-    'installable': True,
-    'auto_install': False,
+    "installable": True,
 }
