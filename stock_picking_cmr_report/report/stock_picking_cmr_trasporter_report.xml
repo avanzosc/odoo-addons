@@ -237,6 +237,30 @@
                        </p>
                    </div>
                 </div>
+                <div class="col-14">
+                    <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
+                </div>
+                <br />
+                <div class="row mt32 mb32" id="informations">
+                   <div class="col-auto col-3 mw-100 mb-2" t-if="doc.partner_id">
+                       <strong>Devoluciones</strong>
+                       <p class="m-0">
+                           <span>
+                               <span>Cajas:</span>
+                           </span>
+                       </p>
+                       <p class="m-0">
+                           <span>
+                               <span>Palets:</span>
+                           </span>
+                       </p>
+                       <p class="m-0">
+                           <span>
+                               <span>Otras devoluciones:</span>
+                           </span>
+                       </p>
+                   </div>
+                </div>
                 <br />
                 <table class="table table-sm" name="stock_picking_lines">
                     <thead>
