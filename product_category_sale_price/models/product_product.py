@@ -33,6 +33,9 @@ class ProductProduct(models.Model):
     standard_price = fields.Float(string="Total cost (base + extra)")
     base_cost = fields.Float(string="Base cost", copy=False, default=0.0)
     extra_cost = fields.Float(string="Extra cost", copy=False, default=0.0)
+    last_date_extra_cost_changes = fields.Date(
+        string="Last date for extra cost changes", readonly=True, copy=False
+    )
     product_category_sale_price_id = fields.Many2one(
         string="Product category sale price",
         comodel_name="product.category.sale.price",
@@ -49,6 +52,12 @@ class ProductProduct(models.Model):
     last_price_change_date = fields.Date(string="Last price change date", copy=False)
     separator_1 = fields.Char(string="||", default="||")
     new_extra_cost = fields.Float(string="New extra cost", copy=False, default=0.0)
+    new_total_cost = fields.Float(
+        string="New total cost",
+        compute="_compute_new_total_cost",
+        copy=False,
+        store=True,
+    )
     last_change_date_new_extra_cost = fields.Date(
         string="Last change date new extra cost", readonly=True
     )
@@ -67,17 +76,41 @@ class ProductProduct(models.Model):
     last_new_sale_price_change_date = fields.Date(
         string="Last change date new sale price"
     )
+    percentage_between_new_costs = fields.Float(
+        string="Percentage between new costs",
+        digits=(16, 2),
+        compute="_compute_percentage_between_new_costs",
+        copy=False,
+        store=True,
+    )
     separator_2 = fields.Char(string="||", default="||")
 
     @api.depends("target_cost", "standard_price")
     def _compute_percentage_between_costs(self):
         for template in self:
-            percentage_between_costs = -100
+            percentage_between_costs = 0
             if template.target_cost and template.standard_price:
                 percentage_between_costs = (
-                    (template.target_cost / template.standard_price) - 1
+                    (template.target_cost - template.standard_price)
+                    / template.standard_price
                 ) * 100
             template.percentage_between_costs = percentage_between_costs
+
+    @api.depends("base_cost", "new_extra_cost")
+    def _compute_new_total_cost(self):
+        for template in self:
+            template.new_total_cost = template.base_cost + template.new_extra_cost
+
+    @api.depends("new_target_cost", "new_total_cost")
+    def _compute_percentage_between_new_costs(self):
+        for template in self:
+            percentage_between_new_costs = 0
+            if template.new_target_cost and template.new_total_cost:
+                percentage_between_new_costs = (
+                    (template.new_target_cost - template.new_total_cost)
+                    / template.new_total_cost
+                ) * 100
+            template.percentage_between_new_costs = percentage_between_new_costs
 
     def _compute_only_read_prices(self):
         group = self.env.ref(
@@ -173,7 +206,6 @@ class ProductProduct(models.Model):
                 product.lst_price = imp
                 product.my_list_price = imp
                 product.generate_last_price_change_date = True
-                product.last_price_change_date = fields.Date.context_today(self)
             title = False
             if (
                 "change_manual_pvp" in self.env.context
@@ -203,12 +235,12 @@ class ProductProduct(models.Model):
         ):
             values.update(
                 {
-                    "last_price_change_date": fields.Date.context_today(self),
                     "generate_last_price_change_date": False,
                 }
             )
         if "my_list_price" in values:
             values["lst_price"] = values.get("my_list_price")
+            values["last_price_change_date"] = (fields.Date.context_today(self),)
         if "my_standard_price" in values:
             values["standard_price"] = values.get("my_standard_price")
         product = super().create(values)
@@ -231,7 +263,6 @@ class ProductProduct(models.Model):
         ):
             values.update(
                 {
-                    "last_price_change_date": fields.Date.context_today(self),
                     "generate_last_price_change_date": False,
                 }
             )
@@ -244,12 +275,16 @@ class ProductProduct(models.Model):
             values["standard_price"] = values.get("standard_price") + self.extra_cost
         if "my_list_price" in values:
             values["lst_price"] = values.get("my_list_price")
+            values["last_price_change_date"] = fields.Date.context_today(self)
         if "my_standard_price" in values:
             values["standard_price"] = values.get("my_standard_price")
         if "lst_price" in values:
             values.update({"list_price": values.get("lst_price")})
+            values["last_price_change_date"] = fields.Date.context_today(self)
         if "my_new_sale_price" in values:
             values["new_sale_price"] = values.get("my_new_sale_price")
+        if "extra_cost" in values:
+            values["last_date_extra_cost_changes"] = fields.Date.context_today(self)
         if "new_extra_cost" in values:
             values["last_change_date_new_extra_cost"] = fields.Date.context_today(self)
         if "new_sale_price" in values:
@@ -327,3 +362,5 @@ class ProductProduct(models.Model):
             template.last_change_date_new_extra_cost = (
                 self.last_change_date_new_extra_cost
             )
+        if template.last_date_extra_cost_changes != self.last_date_extra_cost_changes:
+            template.last_date_extra_cost_changes = self.last_date_extra_cost_changes
