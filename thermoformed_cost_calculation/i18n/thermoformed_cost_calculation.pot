@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-18 09:55+0000\n"
-"PO-Revision-Date: 2022-05-18 09:55+0000\n"
+"POT-Creation-Date: 2025-04-25 06:59+0000\n"
+"PO-Revision-Date: 2025-04-25 06:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,11 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model:ir.actions.report,print_report_name:thermoformed_cost_calculation.action_report_thermoformed
 msgid "'Thermoformed  - %s' % (object.name)"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.product_product_view_form
+msgid "<span class=\"o_stat_text\">Thermoformed</span>"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -549,6 +554,9 @@ msgid "Default Value Added Margin"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Deleting is only possible in case of draft"
@@ -572,6 +580,7 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame__display_name
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter__display_name
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product__display_name
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template__display_name
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company__display_name
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order__display_name
@@ -621,7 +630,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__frame_id
 #: model:ir.ui.menu,name:thermoformed_cost_calculation.menu_frame
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.mrp_workcenter_view
-#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_frame_tree
 msgid "Frame"
 msgstr ""
 
@@ -641,6 +649,9 @@ msgid "Hide button"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Hour machine per serie can not be 0."
@@ -654,6 +665,7 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame__id
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter__id
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product__id
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template__id
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company__id
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order__id
@@ -695,6 +707,7 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame____last_update
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter____last_update
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product____last_update
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template____last_update
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company____last_update
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order____last_update
@@ -767,6 +780,18 @@ msgid "Name"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
@@ -851,6 +876,9 @@ msgid "Plate Weight"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Plate per hour and figure can not be 0."
@@ -867,6 +895,16 @@ msgid "Plates in hour"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: model:ir.model,name:thermoformed_cost_calculation.model_product_product
+msgid "Product"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__variant_id
+msgid "Product Reference"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
 #: model:ir.model,name:thermoformed_cost_calculation.model_product_template
 msgid "Product Template"
 msgstr ""
@@ -880,6 +918,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__code
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
 msgid "Reference"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
+msgid "Reference Product"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -909,6 +952,9 @@ msgid "Sales Order"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Serie can not be 0."
@@ -941,30 +987,48 @@ msgid "Step"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure quantity cannot be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of figures or the number of plates per hour can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of series can not be 0."
 msgstr ""
 
 #. module: thermoformed_cost_calculation
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
@@ -984,15 +1048,20 @@ msgstr ""
 #. module: thermoformed_cost_calculation
 #: model:ir.actions.act_window,name:thermoformed_cost_calculation.action_thermoformed_cost
 #: model:ir.model,name:thermoformed_cost_calculation.model_thermoformed_cost
+#: model:ir.ui.menu,name:thermoformed_cost_calculation.menu_sale_thermoformed_cost
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
-#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_tree
 msgid "Thermoformed Cost"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: model:ir.ui.menu,name:thermoformed_cost_calculation.menu_thermoformed_cost
 msgid "Thermoformed Cost Calculation"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product__thermoformed_count
+msgid "Thermoformed Count"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
