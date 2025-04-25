@@ -2,14 +2,15 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-===========================================
-Stock picking batch package sale type image
-===========================================
+==============================================
+Stock picking batch package customer sale type
+==============================================
 
 * In "Batch Transfer" new field "Sale Order type".
 * When "Picking Batch By Package" report, if the sales order type has an image
   defined, that image will be printed, otherwise the company image will be
   printed.
+* Print logo labels depending on the type of sales order.
 
 Bug Tracker
 ===========

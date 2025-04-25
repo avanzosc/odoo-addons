@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockPickingBatch(models.Model):
@@ -22,9 +22,12 @@ class StockPickingBatch(models.Model):
     number_of_packages = fields.Integer(
         string="Number of Packages", compute="_compute_number_of_packages"
     )
-    shipping_weight = fields.Float(compute="_compute_shipping_weight")
-    gross_weight_of_shipping = fields.Float()
-    net_weight_of_shipping = fields.Float()
+    packages_weight = fields.Float(
+        compute="_compute_shipping_weight", store=True, copy=False
+    )
+    gross_weight_of_shipping = fields.Float(
+        compute="_compute_shipping_weight", store=True, copy=False, readonly=False
+    )
 
     def _compute_number_of_packages(self):
         for transfer in self:
@@ -32,8 +35,28 @@ class StockPickingBatch(models.Model):
                 transfer.picking_ids.mapped("number_of_packages")
             )
 
+    @api.depends(
+        "move_line_ids",
+        "move_line_ids.state",
+        "move_line_ids.result_package_id",
+        "move_line_ids.result_package_id.pack_weight",
+        "move_line_ids.result_package_id.shipping_weight",
+    )
     def _compute_shipping_weight(self):
-        for transfer in self:
-            transfer.shipping_weight = sum(
-                transfer.picking_ids.mapped("shipping_weight")
+        for batch in self:
+            packages_weight = 0
+            gross_weight_of_shipping = 0
+            lines = batch.move_line_ids.filtered(
+                lambda x: x.state != "cancel" and x.result_package_id
             )
+            if lines:
+                packages = list(set(lines.mapped("result_package_id")))
+                if packages:
+                    packages_weight = sum(
+                        map(lambda package: package.pack_weight, packages)
+                    )
+                    gross_weight_of_shipping = sum(
+                        map(lambda package: package.shipping_weight, packages)
+                    )
+            batch.packages_weight = packages_weight
+            batch.gross_weight_of_shipping = gross_weight_of_shipping
