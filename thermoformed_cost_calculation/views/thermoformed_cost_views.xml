@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_thermoformed_cost_form" model="ir.ui.view">
-        <field name="name">thermoformed.cost.form</field>
         <field name="model">thermoformed.cost</field>
         <field name="arch" type="xml">
             <form string="Thermoformed Cost" attrs="{'edit': [('state', '=', 'new')]}">
@@ -43,10 +42,7 @@
               />
                             <field name="create_date" />
                             <field name="write_date" />
-                            <field
-                name="serie"
-                attrs="{'readonly': [('state', '=', 'closed')]}"
-              />
+                            <field name="variant_id" />
                             <field name="company_id" invisible="1" />
                             <field name="currency_id" invisible="1" />
                             <field name="hide_button" invisible="1" />
@@ -77,6 +73,10 @@
                                 <field name="margin" readonly="1" />
                                 <span>%%</span>
                             </div>
+                            <field
+                name="serie"
+                attrs="{'readonly': [('state', '=', 'closed')]}"
+              />
                         </group>
                     </group>
                     <separator string="Description" />
@@ -427,7 +427,6 @@
     </record>
 
     <record id="view_thermoformed_cost_tree" model="ir.ui.view">
-        <field name="name">thermoformed.cost.tree</field>
         <field name="model">thermoformed.cost</field>
         <field name="arch" type="xml">
             <tree>
@@ -456,7 +455,6 @@
     </record>
 
     <record model="ir.ui.view" id="view_thermoformed_cost_search">
-        <field name="name">thermoformed.cost.search</field>
         <field name="model">thermoformed.cost</field>
         <field name="arch" type="xml">
             <search string="Thermoformed Cost">
@@ -466,6 +464,7 @@
                 <field name="code" string="Reference" />
                 <field name="partner_id" string="Customer" />
                 <field name="workcenter_id" string="Workcenter" />
+                <field name="variant_id" />
                 <group expand="0" string="Group By">
                     <filter
             string="State"
@@ -491,6 +490,12 @@
             domain="[]"
             context="{'group_by': 'workcenter_id'}"
           />
+                    <filter
+            string="Reference Product"
+            name="group_variant"
+            domain="[]"
+            context="{'group_by': 'variant_id'}"
+          />
                </group>
             </search>
         </field>
@@ -511,5 +516,12 @@
     name="Thermoformed Cost Calculation"
     parent="mrp.menu_mrp_manufacturing"
     sequence="20"
+  />
+
+    <menuitem
+    id="menu_sale_thermoformed_cost"
+    action="action_thermoformed_cost"
+    parent="sale.product_menu_catalog"
+    sequence="100"
   />
 </odoo>
