@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-25 07:00+0000\n"
-"PO-Revision-Date: 2025-04-25 07:00+0000\n"
+"POT-Creation-Date: 2025-04-28 08:27+0000\n"
+"PO-Revision-Date: 2025-04-28 08:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,17 @@ msgstr "'Termoformado  - %s' % (object.name)"
 #. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.product_product_view_form
 msgid "<span class=\"o_stat_text\">Thermoformed</span>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_company_form
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
+msgid "<span>%</span>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
+msgid "<span>h</span>"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -43,7 +54,17 @@ msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
+msgid "<span>€/h</span>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
 msgid "<span>€/kg</span>"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
+#: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_form
+msgid "<span>€</span>"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
@@ -453,7 +474,7 @@ msgstr "Comisión"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__commission_amount
-msgid "Commission amount"
+msgid "Commission Amount"
 msgstr "Cantidad de comisión"
 
 #. module: thermoformed_cost_calculation
@@ -554,9 +575,8 @@ msgid "Default Value Added Margin"
 msgstr "Margen sobre VA"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Deleting is only possible in case of draft"
@@ -579,11 +599,6 @@ msgstr "Descripción"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame__display_name
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter__display_name
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product__display_name
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template__display_name
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company__display_name
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order__display_name
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -607,11 +622,6 @@ msgstr "Figura"
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_follower_ids
 msgid "Followers"
 msgstr "Seguidores"
-
-#. module: thermoformed_cost_calculation
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Seguidores (canales)"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_partner_ids
@@ -644,14 +654,18 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__hide_button
 msgid "Hide button"
 msgstr "Esconder botón"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Hour machine per serie can not be 0."
@@ -664,11 +678,6 @@ msgstr "Horas máquina por série"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame__id
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter__id
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product__id
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template__id
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company__id
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order__id
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__id
 msgid "ID"
 msgstr ""
@@ -685,7 +694,6 @@ msgstr "Icono para indicar una actividad de excepción."
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,help:thermoformed_cost_calculation.field_thermoformed_cost__message_needaction
-#: model:ir.model.fields,help:thermoformed_cost_calculation.field_thermoformed_cost__message_unread
 msgid "If checked, new messages require your attention."
 msgstr "Si está marcada, los nuevos mensajes requieren su atención."
 
@@ -706,11 +714,6 @@ msgstr "Es seguidor"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_frame____last_update
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_mrp_workcenter____last_update
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_product____last_update
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_product_template____last_update
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_res_company____last_update
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_sale_order____last_update
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
@@ -780,18 +783,11 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
@@ -827,18 +823,13 @@ msgstr "Número de errores"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,help:thermoformed_cost_calculation.field_thermoformed_cost__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr "Número de mensajes que requieren una acción"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,help:thermoformed_cost_calculation.field_thermoformed_cost__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de entrega"
-
-#. module: thermoformed_cost_calculation
-#: model:ir.model.fields,help:thermoformed_cost_calculation.field_thermoformed_cost__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Número de mensajes no leídos"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__operator
@@ -876,13 +867,12 @@ msgid "Plate Weight"
 msgstr "Peso por placa"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Plate per hour and figure can not be 0."
-msgstr "Placa por hora y la cifra no puede ser 0."
+msgstr ""
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__plate_weight_serie
@@ -895,7 +885,7 @@ msgid "Plates in hour"
 msgstr "Placas por hora"
 
 #. module: thermoformed_cost_calculation
-#: model:ir.model,name:thermoformed_cost_calculation.model_product_product
+#: model:ir.model,name:thermoformed_cost_calculation.model_product_template
 msgid "Product"
 msgstr "Producto"
 
@@ -905,9 +895,9 @@ msgid "Product Reference"
 msgstr ""
 
 #. module: thermoformed_cost_calculation
-#: model:ir.model,name:thermoformed_cost_calculation.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+#: model:ir.model,name:thermoformed_cost_calculation.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__purchase_cost_serie
@@ -952,9 +942,8 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "Serie can not be 0."
@@ -966,9 +955,13 @@ msgid "Series"
 msgstr "Séries"
 
 #. module: thermoformed_cost_calculation
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__state
 #: model_terms:ir.ui.view,arch_db:thermoformed_cost_calculation.view_thermoformed_cost_search
 msgid "State"
+msgstr "Estado"
+
+#. module: thermoformed_cost_calculation
+#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__state
+msgid "Status"
 msgstr "Estado"
 
 #. module: thermoformed_cost_calculation
@@ -991,48 +984,41 @@ msgid "Step"
 msgstr "Paso"
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure can not be 0."
 msgstr "La figura no puede ser 0."
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The figure quantity cannot be 0."
 msgstr "La cantidad de figuras no puede ser 0."
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of figures or the number of plates per hour can not be 0."
 msgstr "El número de figuras o el número de placas por hora no puede ser 0."
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
 msgid "The number of series can not be 0."
 msgstr "La serie no puede ser 0."
 
 #. module: thermoformed_cost_calculation
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/github/avanzosc/odoo-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
+#. odoo-python
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/temp-addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
-#: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #: code:addons/thermoformed_cost_calculation/models/thermoformed_cost.py:0
 #, python-format
@@ -1119,16 +1105,6 @@ msgid "Units per Box"
 msgstr "Cantidad por caja"
 
 #. module: thermoformed_cost_calculation
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_unread
-msgid "Unread Messages"
-msgstr "Mensajes no leídos"
-
-#. module: thermoformed_cost_calculation
-#: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Contador de mensajes no leídos"
-
-#. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__value_added_hour
 msgid "Value Added Hour"
 msgstr "VA por hora"
@@ -1157,7 +1133,7 @@ msgstr "Ancho"
 #. module: thermoformed_cost_calculation
 #: model:ir.model,name:thermoformed_cost_calculation.model_mrp_workcenter
 msgid "Work Center"
-msgstr "Centro de producción"
+msgstr "Centro de trabajo"
 
 #. module: thermoformed_cost_calculation
 #: model:ir.model.fields,field_description:thermoformed_cost_calculation.field_thermoformed_cost__workcenter_id

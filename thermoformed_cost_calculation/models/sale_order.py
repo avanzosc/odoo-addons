@@ -7,5 +7,6 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     thermoformed_id = fields.Many2one(
-        string="Thermoformed", comodel_name="thermoformed.cost"
+        string="Thermoformed",
+        comodel_name="thermoformed.cost",
     )

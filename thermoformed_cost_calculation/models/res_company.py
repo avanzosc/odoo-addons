@@ -6,7 +6,13 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    margin_purchase = fields.Float(string="Default Purchase Margin", default=10.0)
-    value_added_margin = fields.Float(string="Default Value Added Margin", default=20.0)
-    costs_operator = fields.Float(string="Costs Operator")
-    costs_mechanic = fields.Float(string="Costs Mechanic")
+    margin_purchase = fields.Float(
+        string="Default Purchase Margin",
+        default=10.0,
+    )
+    value_added_margin = fields.Float(
+        string="Default Value Added Margin",
+        default=20.0,
+    )
+    costs_operator = fields.Float()
+    costs_mechanic = fields.Float()

@@ -10,7 +10,6 @@ class ThermoformedCost(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
     name = fields.Char(
-        string="Name",
         required=True,
         copy=False,
         readonly=True,
@@ -18,8 +17,8 @@ class ThermoformedCost(models.Model):
         default=lambda self: _("New"),
     )
     state = fields.Selection(
-        [("draft", "Draft"), ("closed", "Closed")],
-        string="State",
+        selection=[("draft", "Draft"), ("closed", "Closed")],
+        string="Status",
         default="draft",
         copy=False,
     )
@@ -29,8 +28,11 @@ class ThermoformedCost(models.Model):
         comodel_name="res.users",
         default=lambda self: self.env.user,
     )
-    partner_id = fields.Many2one(string="Customer", comodel_name="res.partner")
-    description = fields.Char(string="Description")
+    partner_id = fields.Many2one(
+        string="Customer",
+        comodel_name="res.partner",
+    )
+    description = fields.Char()
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
@@ -43,45 +45,80 @@ class ThermoformedCost(models.Model):
         store=True,
     )
     amount = fields.Float(
-        string="Amount", compute="_compute_amount", digits="Price Unit"
+        compute="_compute_amount",
+        digits="Price Unit",
     )
-    commission = fields.Float(string="Commission", default=1)
+    commission = fields.Float(
+        default=1,
+    )
     commission_amount = fields.Float(
-        string="Commission amount",
         compute="_compute_commission_amount",
         digits="Price Unit",
     )
-    margin_purchase = fields.Float(string="Default Purchase Margin")
-    value_added_margin = fields.Float(string="Default Value Added Margin")
-    unit_retail_price = fields.Float(string="Unit Retail Price", digits="Price Unit")
-    margin = fields.Float(string="Margin", compute="_compute_margin")
-    workcenter_id = fields.Many2one(string="Work center", comodel_name="mrp.workcenter")
-    frame_id = fields.Many2one(string="Frame", comodel_name="frame")
-    width = fields.Float(string="Width")
-    step = fields.Float(string="Step")
-    thickness = fields.Float(string="Thickness")
-    figure = fields.Integer(string="Figure", default=1)
-    product_id = fields.Many2one(string="Material", comodel_name="product.template")
-    density = fields.Float(string="Density")
-    plate_hour = fields.Integer(string="Plates in hour", default=1)
-    assembly = fields.Float(string="Assembly")
-    operator = fields.Float(string="Operators", default=1.0)
-    serie = fields.Integer(string="Series", default=10000)
+    margin_purchase = fields.Float(
+        string="Default Purchase Margin",
+    )
+    value_added_margin = fields.Float(
+        string="Default Value Added Margin",
+    )
+    unit_retail_price = fields.Float(
+        digits="Price Unit",
+    )
+    margin = fields.Float(
+        compute="_compute_margin",
+    )
+    workcenter_id = fields.Many2one(
+        string="Work center",
+        comodel_name="mrp.workcenter",
+    )
+    frame_id = fields.Many2one(
+        string="Frame",
+        comodel_name="frame",
+    )
+    width = fields.Float()
+    step = fields.Float()
+    thickness = fields.Float()
+    figure = fields.Integer(
+        default=1,
+    )
+    product_id = fields.Many2one(
+        string="Material",
+        comodel_name="product.template",
+    )
+    density = fields.Float()
+    plate_hour = fields.Integer(
+        string="Plates in hour",
+        default=1,
+    )
+    assembly = fields.Float()
+    operator = fields.Float(
+        string="Operators",
+        default=1.0,
+    )
+    serie = fields.Integer(
+        string="Series",
+        default=10000,
+    )
     plate_weight = fields.Float(
-        string="Plate Weight", compute="_compute_plate_weight", digits="Price Unit"
+        compute="_compute_plate_weight",
+        digits="Price Unit",
     )
-    costs_kilo = fields.Float(string="Euros per Kilo", digits="Price Unit")
+    costs_kilo = fields.Float(
+        string="Euros per Kilo",
+        digits="Price Unit",
+    )
     costs_plate = fields.Float(
-        string="Costs Plate", compute="_compute_plate_costs", digits="Price Unit"
+        compute="_compute_plate_costs",
+        digits="Price Unit",
     )
-    costs_hour = fields.Float(string="Costs Hour")
-    costs_operator = fields.Float(string="Costs Operator", readonly=False)
+    costs_hour = fields.Float()
+    costs_operator = fields.Float()
     costs_unit = fields.Float(
         string="Costs per Unit Manufactured",
         compute="_compute_costs_unit",
         digits="Price Unit",
     )
-    costs_mechanic = fields.Float(string="Costs Mechanic", readonly=False)
+    costs_mechanic = fields.Float()
     costs_assembly = fields.Float(
         string="Costs per Assembly",
         compute="_compute_costs_assembly",
@@ -92,32 +129,52 @@ class ThermoformedCost(models.Model):
         compute="_compute_costs_assembly_unit",
         digits="Price Unit",
     )
-    box_id = fields.Many2one(string="Box reference", comodel_name="product.template")
-    costs_box = fields.Float(string="Cost of the Box")
-    box_quantity = fields.Integer(string="Units per Box", default=1)
-    pallet_id = fields.Many2one(
-        string="Pallet Reference", comodel_name="product.template"
+    box_id = fields.Many2one(
+        string="Box reference",
+        comodel_name="product.template",
     )
-    costs_pallet = fields.Float(string="Pallet Costs")
-    box_pallet = fields.Integer(string="Box per Pallet", default=16)
+    costs_box = fields.Float(
+        string="Cost of the Box",
+    )
+    box_quantity = fields.Integer(
+        string="Units per Box",
+        default=1,
+    )
+    pallet_id = fields.Many2one(
+        string="Pallet Reference",
+        comodel_name="product.template",
+    )
+    costs_pallet = fields.Float(
+        string="Pallet Costs",
+    )
+    box_pallet = fields.Integer(
+        string="Box per Pallet",
+        default=16,
+    )
     unit_costs_packaging = fields.Float(
         string="Unit Packaging Cost",
         compute="_compute_unit_costs_packaging",
         digits="Price Unit",
     )
-    costs_pallet_transport = fields.Float(string="Pallet Transport Cost", default=40)
+    costs_pallet_transport = fields.Float(
+        string="Pallet Transport Cost",
+        default=40,
+    )
     costs_transport_unit = fields.Float(
         string="Unit Transport Cost",
         compute="_compute_costs_transport_unit",
         digits="Price Unit",
     )
-    hide_button = fields.Boolean(string="Hide button", default=False)
+    hide_button = fields.Boolean(
+        string="Hide button",
+        default=False,
+    )
     plate_weight_serie = fields.Float(
         string="Plate weight per serie",
         compute="_compute_plate_weight_serie",
         digits="Price Unit",
     )
-    annual_amount = fields.Integer(string="Annual Amount")
+    annual_amount = fields.Integer()
     hour_machine_serie = fields.Float(
         string="Hours Machine per Serie",
         compute="_compute_hour_machine_serie",
@@ -129,7 +186,6 @@ class ThermoformedCost(models.Model):
         digits="Price Unit",
     )
     unit_purchase_cost = fields.Float(
-        string="Unit Purchase Cost",
         compute="_compute_unit_purchase_cost",
         digits="Price Unit",
     )
@@ -139,7 +195,6 @@ class ThermoformedCost(models.Model):
         digits="Price Unit",
     )
     annual_purchase_cost = fields.Float(
-        string="Annual Purchase Cost",
         compute="_compute_annual_purchase_cost",
         digits="Price Unit",
     )
@@ -154,7 +209,6 @@ class ThermoformedCost(models.Model):
         digits="Price Unit",
     )
     annual_invoicing = fields.Float(
-        string="Annual Invoicing",
         compute="_compute_annual_invoicing",
         digits="Price Unit",
     )
@@ -164,18 +218,20 @@ class ThermoformedCost(models.Model):
         digits="Price Unit",
     )
     annual_value_added = fields.Float(
-        string="Annual Value Added",
         compute="_compute_annual_value_added",
         digits="Price Unit",
     )
     value_added_hour = fields.Float(
-        string="Value Added Hour",
         compute="_compute_value_added_hour",
         digits="Price Unit",
     )
-    cost_sales = fields.Float(string="Cost Over Sale", compute="_compute_cost_sale")
+    cost_sales = fields.Float(
+        string="Cost Over Sale",
+        compute="_compute_cost_sale",
+    )
     variant_id = fields.Many2one(
-        comodel_name="product.product", string="Product Reference"
+        comodel_name="product.product",
+        string="Product Reference",
     )
 
     @api.depends("width", "step", "thickness", "density")
@@ -201,7 +257,7 @@ class ThermoformedCost(models.Model):
                 record.amount = (
                     (record.costs_plate / record.figure)
                     + (record.costs_unit + record.costs_assembly_unit)
-                    + (record.unit_costs_packaging + (record.costs_transport_unit))
+                    + (record.unit_costs_packaging + record.costs_transport_unit)
                 )
 
     @api.depends("unit_retail_price", "commission")

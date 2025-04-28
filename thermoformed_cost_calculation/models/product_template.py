@@ -8,13 +8,15 @@ from odoo.tools.safe_eval import safe_eval
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    density = fields.Float(string="Density")
+    density = fields.Float()
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    thermoformed_count = fields.Integer(compute="_compute_thermoformed_count")
+    thermoformed_count = fields.Integer(
+        compute="_compute_thermoformed_count",
+    )
 
     def _compute_thermoformed_count(self):
         thermoformed_obj = self.env["thermoformed.cost"]

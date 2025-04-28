@@ -7,8 +7,11 @@ class Frame(models.Model):
     _name = "frame"
     _description = "Frame"
 
-    name = fields.Char(string="Name")
-    workcenter_id = fields.Many2one(string="Workcenter", comodel_name="mrp.workcenter")
-    width = fields.Float(string="Width")
-    step = fields.Float(string="Step")
-    description = fields.Char(string="Description")
+    name = fields.Char()
+    workcenter_id = fields.Many2one(
+        string="Workcenter",
+        comodel_name="mrp.workcenter",
+    )
+    width = fields.Float()
+    step = fields.Float()
+    description = fields.Char()
