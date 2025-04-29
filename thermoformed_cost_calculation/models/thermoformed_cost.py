@@ -174,6 +174,9 @@ class ThermoformedCost(models.Model):
         digits="Price Unit",
     )
     cost_sales = fields.Float(string="Cost Over Sale", compute="_compute_cost_sale")
+    variant_id = fields.Many2one(
+        comodel_name="product.product", string="Product Reference"
+    )
 
     @api.depends("width", "step", "thickness", "density")
     def _compute_plate_weight(self):
