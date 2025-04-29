@@ -26,6 +26,7 @@
         "sale_order_to_payment",
         "stock_production_lot_purchase_cost",
         "stock_move_line_force_done",
+        "custom_sale_order_type_route",
     ],
     "data": [
         "security/ir.model.access.csv",

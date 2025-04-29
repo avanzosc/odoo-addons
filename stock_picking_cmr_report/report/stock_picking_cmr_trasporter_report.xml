@@ -124,9 +124,28 @@
                 <div class="row mt32 mb32" id="informations">
                    <div class="col-auto col-3 mw-100 mb-2" t-if="doc.crm_driver_id">
                        <strong>Carrier data</strong>
+                       <p class="m-0" t-if="doc.cmr_loader_id.name">
+                           <span t-field="doc.cmr_loader_id.name" />
+                       </p>
+                       <p class="m-0" t-if="doc.cmr_loader_id.street">
+                           <span t-field="doc.cmr_loader_id.street" />
+                       </p>
+                       <p class="m-0" t-if="doc.cmr_loader_id.street2">
+                           <span t-field="doc.cmr_loader_id.street2" />
+                       </p>
+                       <p class="m-0" t-if="doc.cmr_loader_id.city">
+                           <span t-field="doc.cmr_loader_id.city" />
+                           <span t-field="doc.cmr_loader_id.zip" />
+                       </p>
+                       <p class="m-0" t-if="doc.cmr_loader_id.vat">
+                           <span>
+                               <span>VAT:</span>
+                               <span t-field="doc.cmr_loader_id.vat" />
+                           </span>
+                       </p>
                        <p class="m-0" t-if="doc.crm_driver_id.name">
                            <span>
-                               <span>Name:</span>
+                               <span>Driver Name:</span>
                                <span t-field="doc.crm_driver_id.name" />
                            </span>
                        </p>
@@ -166,7 +185,9 @@
                        </p>
                    </div>
                    <div class="col-auto col-3 mw-100 mb-2; text-right">
-                       <strong>Signature</strong>
+                       <strong>Stamp and signature</strong>
+                       <br />
+                       <br />
                        <br />
                        <br />
                        <br />
@@ -212,6 +233,30 @@
                        <p class="m-0" t-if="doc.origin">
                            <span>
                                <span t-field="doc.origin" />
+                           </span>
+                       </p>
+                   </div>
+                </div>
+                <div class="col-14">
+                    <hr class="mb-2" style="border-bottom:1px solid #dddddd;" />
+                </div>
+                <br />
+                <div class="row mt32 mb32" id="informations">
+                   <div class="col-auto col-3 mw-100 mb-2" t-if="doc.partner_id">
+                       <strong>Devoluciones</strong>
+                       <p class="m-0">
+                           <span>
+                               <span>Cajas:</span>
+                           </span>
+                       </p>
+                       <p class="m-0">
+                           <span>
+                               <span>Palets:</span>
+                           </span>
+                       </p>
+                       <p class="m-0">
+                           <span>
+                               <span>Otras devoluciones:</span>
                            </span>
                        </p>
                    </div>
