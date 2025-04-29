@@ -1,0 +1,9 @@
+<odoo>
+    <template id="report_saleorder_document_inherit_url" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_name']" position="inside">
+            <p t-if="line.product_id.external_url">
+                <a t-att-href="line.product_id.external_url" target="_blank">See product website</a>
+            </p>
+        </xpath>
+    </template>
+</odoo>
