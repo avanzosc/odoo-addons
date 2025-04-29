@@ -19,6 +19,7 @@
         "views/res_company_views.xml",
         "views/frame_views.xml",
         "views/mrp_workcenter_views.xml",
+        "views/product_product_views.xml",
         "views/product_template_views.xml",
         "views/sale_order_views.xml",
         "report/thermoformed_report_template.xml",

@@ -290,6 +290,13 @@ class StockMoveLine(models.Model):
                     ("company_id", "=", self.env.company.id),
                 ]
             )
+            if (
+                self.picking_id
+                and self.picking_id.picking_type_id
+                and self.picking_id.picking_type_id.is_carry_type
+            ):
+                las_year = fields.Date.today() - timedelta(days=370)
+                lot.filtered(lambda c: c.create_date.date() > las_year)
             domain = {"domain": {"lot_id": [("id", "in", lot.ids)]}}
         return domain
 
