@@ -240,7 +240,7 @@ class ProductProduct(models.Model):
             )
         if "my_list_price" in values:
             values["lst_price"] = values.get("my_list_price")
-            values["last_price_change_date"] = (fields.Date.context_today(self),)
+            values["last_price_change_date"] = fields.Date.context_today(self)
         if "my_standard_price" in values:
             values["standard_price"] = values.get("my_standard_price")
         product = super().create(values)
