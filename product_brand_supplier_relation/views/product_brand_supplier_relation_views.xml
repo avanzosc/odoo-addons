@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_brand_supplier_relation_tree_view" model="ir.ui.view">
+        <field name="name">product.brand.supplier.relation.tree.view</field>
+        <field name="model">product.brand.supplier.relation</field>
+        <field name="arch" type="xml">
+            <tree
+        name="suppliers-brands"
+        editable="top"
+        create="True"
+        edit="True"
+        delete="True"
+      >
+                <field name="supplier_id" required="1" />
+                <field name="product_brand_id" required="1" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_brand_supplier_relation_search_view" model="ir.ui.view">
+        <field name="name">product.brand.supplier.relation.search.view</field>
+        <field name="model">product.brand.supplier.relation</field>
+        <field name="arch" type="xml">
+            <search string="Search Suppliers/Brands">
+                <field name="supplier_id" />
+                <field name="product_brand_id" />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Supplier"
+            name="supplier"
+            domain="[]"
+            context="{'group_by': 'supplier_id'}"
+          />
+                    <filter
+            string="Product Brand"
+            name="product-brand"
+            domain="[]"
+            context="{'group_by': 'product_brand_id'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_brand_supplier_relation" model="ir.actions.act_window">
+        <field name="name">Suppliers/Brands</field>
+        <field
+      name="binding_model_id"
+      ref="product_brand_supplier_relation.model_product_brand_supplier_relation"
+    />
+        <field name="res_model">product.brand.supplier.relation</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="product_brand_supplier_relation_tree_view" />
+    </record>
+
+    <menuitem
+    id="menu_product_brand_supplier_relation"
+    action="action_product_brand_supplier_relation"
+    parent="purchase.menu_procurement_management"
+    sequence="50"
+  />
+</odoo>

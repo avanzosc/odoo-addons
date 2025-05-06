@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock_picking_batch.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <field name="result_package_id" position="after">
+                <field
+          name="weight"
+          optional="show"
+          readonly="True"
+          sum="Total Weight"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -5,11 +5,45 @@
         <field name="inherit_id" ref="product.product_normal_form_view" />
         <field eval="7" name="priority" />
         <field name="arch" type="xml">
+            <label for="lst_price" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </label>
             <field name="lst_price" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath
+        expr="//page[@name='cost-and-sale-price']//field[@name='list_price']"
+        position="attributes"
+      >
                <attribute
           name="attrs"
-        >{'readonly': [('manual_pvp', '=', False)]}</attribute>
-            </field>
+        >{'readonly': [('product_variant_count', '&gt;', 1)]}</attribute>
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+        expr="//page[@name='cost-and-sale-price']//label[@for='list_price']"
+        position="attributes"
+      >
+               <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath
+        expr="//page[@name='cost-and-sale-price']//label[@for='list_price']"
+        position="after"
+      >
+               <label for="lst_price" />
+            </xpath>
+            <xpath
+        expr="//page[@name='cost-and-sale-price']//field[@name='list_price']"
+        position="after"
+      >
+                <field
+          name="lst_price"
+          class="oe_inline"
+          widget='monetary'
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+          attrs="{'readonly': [('manual_pvp', '=', False)]}"
+        />
+            </xpath>
         </field>
     </record>
 

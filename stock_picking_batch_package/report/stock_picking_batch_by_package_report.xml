@@ -4,9 +4,6 @@
         <tr t-if="package">
             <td colspan="10">
                 <strong>
-                    <span>Box Number: </span>
-                    <span t-esc="num_packages" />
-                    <span> - </span>
                     <span t-field="package.name" />
                 </strong>
             </td>
@@ -209,21 +206,6 @@
               >
                                 <strong><span
                     t-field="doc.gross_weight_of_shipping"
-                  /></strong>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td
-                name="total_net_weight"
-                style="width: 5cm;border: none;"
-              >
-                                <strong>Net weight:</strong>
-                            </td>
-                            <td
-                style="width: 5cm;border: none;background-color: transparent;"
-              >
-                                <strong><span
-                    t-field="doc.net_weight_of_shipping"
                   /></strong>
                             </td>
                         </tr>

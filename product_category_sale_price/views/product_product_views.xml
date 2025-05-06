@@ -22,6 +22,10 @@
             <field name="extra_cost" position="attributes">
                 <attribute name="attrs" />
             </field>
+
+            <field name="last_date_extra_cost_changes" position="attributes">
+                <attribute name="attrs" />
+            </field>
             <field name="product_category_sale_price_id" position="attributes">
                 <attribute
           name="attrs"
@@ -36,6 +40,9 @@
                 <attribute name="attrs" />
             </field>
             <field name="last_price_change_date" position="attributes">
+                <attribute name="attrs" />
+            </field>
+            <field name="new_total_cost" position="attributes">
                 <attribute name="attrs" />
             </field>
             <field name="new_extra_cost" position="attributes">
@@ -56,6 +63,9 @@
         >{'readonly':[('manual_pvp','=',False)]}</attribute>
             </field>
             <field name="last_new_sale_price_change_date" position="attributes">
+                <attribute name="attrs" />
+            </field>
+            <field name="percentage_between_new_costs" position="attributes">
                 <attribute name="attrs" />
             </field>
         </field>

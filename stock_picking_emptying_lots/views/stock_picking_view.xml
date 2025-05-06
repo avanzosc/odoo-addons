@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button
+          name="emptying_lots_in_location"
+          attrs="{'invisible': [('state', '!=', 'done')]}"
+          string="Empty Lots in Location"
+          type="object"
+        />
+            </header>
+            <div name="button_box" position="inside">
+                <button
+          class="oe_stat_button"
+          type="object"
+          name="action_view_emptying_picking"
+        >
+                    <field
+            string="Emtying Pickings"
+            name="count_emptying_pickings"
+            widget="statinfo"
+          />
+                </button>
+            </div>
+            <group name="other_infos" position="inside">
+                <field name="emptying_lots_type_id" />
+            </group>
+        </field>
+    </record>
+
+</odoo>

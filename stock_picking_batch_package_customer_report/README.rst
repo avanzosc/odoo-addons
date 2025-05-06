@@ -7,6 +7,7 @@ Stock Picking Batch Package Customer Report
 ===========================================
 
 * In "Picking Batch By Package" report print customer info.
+* New report "Picking Batch By Package (Labels)".
 
 Bug Tracker
 ===========

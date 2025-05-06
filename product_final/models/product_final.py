@@ -17,10 +17,7 @@ class ProductFinal(models.Model):
     )
 
     def name_get(self):
-        result = []
-        for rec in self:
-            result.append((rec.id, "[%s] %s" % (rec.code, rec.name)))
-        return result
+        return [(record.id, "[%s] %s" % (record.code, record.name)) for record in self]
 
     @api.model
     def _name_search(
@@ -30,10 +27,9 @@ class ProductFinal(models.Model):
         domain = []
         if name:
             domain = ["|", ("code", operator, name), ("name", operator, name)]
-        product_final_ids = self._search(
+        return self._search(
             expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid
         )
-        return self.browse(product_final_ids).name_get()
 
     @api.constrains("code")
     def _check_unique_code(self):
