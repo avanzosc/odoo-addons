@@ -12,6 +12,7 @@
     "category": "Inventory/Inventory",
     "data": [
         "wizard/stock_backorder_confirmation_views.xml",
+        "views/stock_picking_views.xml",
     ],
     "installable": True,
 }

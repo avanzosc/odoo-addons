@@ -31,15 +31,6 @@ class StockMove(models.Model):
             move.demand_product_packaging_qty = demand_product_packaging_qty
             move.done_product_packaging_qty = done_product_packaging_qty
 
-    def _compute_bosex_sacs(self):
-        for move in self:
-            boxes_sacks = 0
-            if move.sale_line_id and move.sale_line_id.product_packaging_qty:
-                packaging_qty = move.sale_line_id.product_packaging_qty
-                product_uom_qty = move.sale_line_id.product_uom_qty
-                boxes_sacks = (move.quantity_done * packaging_qty) / product_uom_qty
-            move.boxes_sacks = boxes_sacks
-
     demand_product_packaging_qty = fields.Float(
         string="Product packaging qty (Demand)",
         compute="_compute_product_packaging_qty",
@@ -50,15 +41,8 @@ class StockMove(models.Model):
         compute="_compute_product_packaging_qty",
         precompute=False,
     )
-    boxes_sacks = fields.Integer(string="Boxes/Sacks", compute="_compute_bosex_sacs")
     product_packaging_qty = fields.Float(
         string="Packaging Quantity", compute="_compute_packaging_qty", store=True
-    )
-    palet_qty = fields.Float(
-        string="Contained Palet Quantity",
-        digits="Product Unit of Measure",
-        compute="_compute_palet_qty",
-        store=True,
     )
 
     @api.depends("move_line_ids", "move_line_ids.product_packaging_qty")
@@ -70,11 +54,3 @@ class StockMove(models.Model):
                 )
             elif move.sale_line_id:
                 move.product_packaging_qty = move.sale_line_id.product_packaging_qty
-
-    @api.depends("move_line_ids", "move_line_ids.palet_qty")
-    def _compute_palet_qty(self):
-        for move in self:
-            if move.move_line_ids:
-                move.palet_qty = sum(move.move_line_ids.mapped("palet_qty"))
-            elif move.sale_line_id:
-                move.palet_qty = move.sale_line_id.palet_qty

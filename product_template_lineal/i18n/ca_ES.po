@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 08:08+0000\n"
-"PO-Revision-Date: 2024-08-13 08:08+0000\n"
+"POT-Creation-Date: 2024-11-18 10:04+0000\n"
+"PO-Revision-Date: 2024-11-18 10:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -54,11 +54,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_template_lineal.field_product_lineal__name
 #: model:ir.model.fields,field_description:product_template_lineal.field_product_product__lineal_id
 #: model:ir.model.fields,field_description:product_template_lineal.field_product_template__lineal_id
+#: model:ir.model.fields,field_description:product_template_lineal.field_stock_lot__lineal_id
 #: model:ir.model.fields,field_description:product_template_lineal.field_stock_move__lineal_id
 #: model:ir.model.fields,field_description:product_template_lineal.field_stock_move_line__lineal_id
 #: model:ir.model.fields,field_description:product_template_lineal.field_stock_quant__lineal_id
 #: model:ir.ui.menu,name:product_template_lineal.menu_product_lineal
 #: model_terms:ir.ui.view,arch_db:product_template_lineal.quant_search_view
+#: model_terms:ir.ui.view,arch_db:product_template_lineal.search_product_lot_filter
 #: model_terms:ir.ui.view,arch_db:product_template_lineal.stock_move_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_template_lineal.view_move_search
 msgid "Lineal"
@@ -69,6 +71,11 @@ msgstr ""
 #: model:ir.model,name:product_template_lineal.model_product_lineal
 msgid "Lineal Product"
 msgstr ""
+
+#. module: product_template_lineal
+#: model:ir.model,name:product_template_lineal.model_stock_lot
+msgid "Lot/Serial"
+msgstr "Lot/núm. de sèrie"
 
 #. module: product_template_lineal
 #: model:ir.model,name:product_template_lineal.model_product_template

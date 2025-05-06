@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_product_brand_form" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.view_product_brand_form" />
+        <field name="arch" type="xml">
+            <page name="description" position="after">
+                <page name="brand-suppliers" string="Suppliers">
+                    <field name="suppliers_ids" nolabel="1">
+                        <tree
+              name="product-brand-suppliers"
+              editable="top"
+              create="True"
+              edit="True"
+              delete="True"
+            >
+                            <field name="supplier_id" />
+                            <field name="product_brand_id" invisible="1" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="product_brand_search_form_view" model="ir.ui.view">
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_brand.product_brand_search_form_view" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="suppliers_ids" />
+            </field>
+        </field>
+    </record>
+</odoo>

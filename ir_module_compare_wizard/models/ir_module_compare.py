@@ -1,6 +1,7 @@
 # Copyright 2024 Unai Beristan, Ana Juaristi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import odoo.release
 from odoo import _, fields, models
 from odoo.models import expression
 from odoo.modules.module import get_module_path
@@ -21,6 +22,12 @@ class IrModuleImport(models.Model):
         string="# Modules",
         compute="_compute_module_count",
     )
+    is_enterprise = fields.Boolean(
+        default=lambda self: self._default_is_enterprise(),
+    )
+
+    def _default_is_enterprise(self):
+        return True if odoo.release.version_info[5] == "e" else False
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -113,6 +120,11 @@ class IrModuleImportLine(models.Model):
     installed_version = fields.Char(
         string="Database Version",
         related="import_module_id.installed_version",
+        store=True,
+    )
+    license = fields.Selection(
+        string="License",
+        related="import_module_id.license",
         store=True,
     )
     action = fields.Selection(

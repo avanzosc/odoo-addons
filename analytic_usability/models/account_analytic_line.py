@@ -9,19 +9,24 @@ class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
     amount_type = fields.Selection(
-        selection=[("cost", "Cost"), ("revenue", "Revenue")],
+        selection=[
+            ("cost", "Cost"),
+            ("revenue", "Revenue"),
+        ],
         compute="_compute_amount_type",
         string="Cost/Revenue",
         store=True,
     )
     account_move_id = fields.Many2one(
-        string="Invoice",
+        string="Related Invoice",
         comodel_name="account.move",
         related="move_line_id.move_id",
         store=True,
     )
     invoice_name = fields.Char(
-        string="Invoice Number", related="move_line_id.move_id.name", store=True
+        string="Invoice Number",
+        related="move_line_id.move_id.name",
+        store=True,
     )
     invoice_reference = fields.Char(
         string="Invoice Vendor Reference",

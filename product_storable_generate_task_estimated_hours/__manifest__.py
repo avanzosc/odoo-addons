@@ -9,7 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "product_storable_generate_task",
-        "sale_order_line_cost",
+        "sale",
     ],
     "data": [],
     "installable": True,

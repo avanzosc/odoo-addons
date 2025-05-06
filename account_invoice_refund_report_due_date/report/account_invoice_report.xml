@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <div name="due_date" position="attributes">
+            <attribute
+        name="t-if"
+      >o.invoice_date_due and o.move_type in ('out_invoice', 'out_refund') and o.state == 'posted'</attribute>
+        </div>
+    </template>
+</odoo>

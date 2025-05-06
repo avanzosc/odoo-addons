@@ -37,34 +37,35 @@ class EventTrack(models.Model):
             track.count_statistics = len(slide_partners)
 
     def button_show_slide_slide_partner(self):
-        slide_partner_obj = self.env["slide.slide.partner"]
         self.ensure_one()
-        if self.count_statistics > 0:
-            action = self.env.ref("slide_partner_menu.action_slide_slide_partner")
-            action_dict = action and action.read()[0]
-            action_dict["context"] = safe_eval(action_dict.get("context", "{}"))
-            slide_partners = slide_partner_obj
-            date = self.date.date()
-            registrations = self.event_id.registration_ids.filtered(
-                lambda x: x.student_id
-                and x.real_date_start
-                and date >= x.real_date_start
-                and (
-                    not x.real_date_end or (x.real_date_end and date <= x.real_date_end)
+        slide_partner_obj = self.env["slide.slide.partner"]
+        date = self.date.date()
+        registrations = self.event_id.registration_ids.filtered(
+            lambda x: x.student_id
+            and x.real_date_start
+            and date >= x.real_date_start
+            and (not x.real_date_end or (x.real_date_end and date <= x.real_date_end))
+        )
+        if registrations:
+            partners = registrations.mapped("student_id")
+            cond = [
+                ("channel_id", "in", self.event_id.slides_ids.ids),
+                ("partner_id", "in", partners.ids),
+            ]
+            slide_partners = slide_partner_obj.search(cond)
+            if slide_partners:
+                action = self.env["ir.actions.actions"]._for_xml_id(
+                    "slide_partner_menu.action_slide_slide_partner"
                 )
-            )
-            if registrations:
-                partners = registrations.mapped("student_id")
-                cond = [
-                    ("channel_id", "in", self.event_id.slides_ids.ids),
-                    ("partner_id", "in", partners.ids),
-                ]
-                slide_partners = slide_partner_obj.search(cond)
                 domain = expression.AND(
                     [
                         [("id", "in", slide_partners.ids)],
-                        safe_eval(action.domain or "[]"),
+                        safe_eval(action.get("domain") or "[]"),
                     ]
                 )
-                action_dict.update({"domain": domain})
-                return action_dict
+                action.update(
+                    {
+                        "domain": domain,
+                    }
+                )
+                return action

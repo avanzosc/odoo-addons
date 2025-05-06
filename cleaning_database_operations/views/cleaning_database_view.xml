@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="cleaning_database_form_view">
+        <field name="name">cleaning.database.form.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Database">
+                <sheet>
+                    <div style="margin-top: 4px;">
+                        <h3>This will delete the following objects</h3>
+                        <p>Sales: Sale Order Line, Sale Order.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Sale Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'sale'}"
+              />
+                        </p>
+                        <p>Purchases: Purchase Order Line, Purchase Order.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Purchase Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'purchase'}"
+              />
+                        </p>
+                        <p
+            >Accounting: Account Partial Reconcile, Account Move Line, Account Move, Account Bank Statement, Account Payment Order, Account Payment Line.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Accounting Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'accounting'}"
+              />
+                        </p>
+                        <p
+            >Inventory: Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Production Lot.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Valuation Layers"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'valuation'}"
+              />
+                        </p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Stock Operations"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'stock'}"
+              />
+                        </p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Cleaning Lots"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'lot'}"
+              />
+                        </p>
+                        <p>Squence: Reset sequences.</p>
+                        <p>
+                            <button
+                name="action_open_delete_warning"
+                type="object"
+                string="Reset Sequences"
+                class="oe_highlight"
+                context="{'default_object_to_delete':'sequences'}"
+              />
+                        </p>
+                    </div>
+                    <separator string="Companies" colspan="4" />
+                    <field name="company_ids" nolabel="1" colspan="4" required="1">
+                        <tree delete="0" create="0" editable="top">
+                            <field name="name" readonly="1" />
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cleaning_database_tre_view">
+        <field name="name">cleaning.database.tree.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cleaning_database_view" model="ir.actions.act_window">
+        <field name="name">Cleaning Database</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cleaning.database</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    name="Cleaning Database"
+    id="cleaning_database"
+    sequence="100"
+    web_icon="cleaning_database_operations,static/description/boom_icon.png"
+  />
+
+    <menuitem
+    action="action_cleaning_database_view"
+    id="menu_view_cleaning_database"
+    parent="cleaning_database"
+    sequence="1"
+  />
+</odoo>

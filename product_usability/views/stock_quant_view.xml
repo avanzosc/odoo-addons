@@ -7,6 +7,7 @@
             <field name="product_id" position="after">
                 <field name="parent_category_id" optional="hide" />
                 <field name="root_category_id" optional="hide" />
+                <field name="inventory_date" widget="date" optional="show" />
             </field>
         </field>
     </record>

@@ -9,7 +9,6 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
-        "sale_order_line_qty_by_packaging",
         "stock_move_line_force_done",
         "product_packaging_palet",
         "uom",
@@ -18,8 +17,6 @@
     "data": [
         "views/stock_picking_views.xml",
         "views/stock_move_line_views.xml",
-        "report/deliveryslip_report.xml",
-        "report/stockpicking_operations_report.xml",
     ],
     "installable": True,
 }

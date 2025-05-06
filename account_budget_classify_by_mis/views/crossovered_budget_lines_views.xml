@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_crossovered_budget_line_form" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_form"
+    />
+        <field name="arch" type="xml">
+            <field name="general_budget_id" position="after">
+                <field name="mis_report_template_id" />
+                <field
+          name="mis_report_kpi_id"
+          domain="[('report_id','=', mis_report_template_id)]"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crossovered_budget_line_tree" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_tree"
+    />
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="after">
+                <field name="mis_report_template_id" optional="show" />
+                <field name="mis_report_kpi_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_crossovered_budget_line_search" model="ir.ui.view">
+        <field name="model">crossovered.budget.lines</field>
+        <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_search"
+    />
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="before">
+                <field name="crossovered_budget_id" />
+            </field>
+            <field name="analytic_account_id" position="after">
+                <field name="mis_report_template_id" />
+                <field name="mis_report_kpi_id" />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Budget"
+            name="budget"
+            domain="[]"
+            context="{'group_by': 'crossovered_budget_id'}"
+          />
+                    <filter
+            string="Analytic Account"
+            name="analytic-account"
+            domain="[]"
+            context="{'group_by': 'analytic_account_id'}"
+          />
+                    <filter
+            string="Mis Report Template"
+            name="mis-report-template"
+            domain="[]"
+            context="{'group_by': 'mis_report_template_id'}"
+          />
+                    <filter
+            string="MIS Report KPI"
+            name="mis-report-kpi"
+            domain="[]"
+            context="{'group_by': 'mis_report_kpi_id'}"
+          />
+                </group>
+            </field>
+        </field>
+    </record>
+</odoo>

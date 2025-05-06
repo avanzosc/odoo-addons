@@ -53,6 +53,7 @@
                             <field name="filename" invisible="1" />
                             <field name="data" filename="filename" />
                             <field name="file_date" />
+                            <field name="is_enterprise" />
                         </group>
 
                     <notebook>
@@ -159,6 +160,13 @@
     sequence="100"
   />
 
+        <menuitem
+    id="module_import_menu"
+    name="Compare Module to Install"
+    parent="base_import_wizard.base_import_menu"
+    sequence="100"
+  />
+
     <record id="ir_module_import_action" model="ir.actions.act_window">
         <field name="name">Compare Module Wizards</field>
         <field name="type">ir.actions.act_window</field>
@@ -170,7 +178,7 @@
     <menuitem
     id="ir_module_import_menu"
     action="ir_module_import_action"
-    parent="base_import_wizard.base_import_menu"
+    parent="module_import_menu"
     sequence="10"
   />
 
