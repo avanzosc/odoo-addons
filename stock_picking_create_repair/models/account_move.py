@@ -8,7 +8,10 @@ from odoo.tools.safe_eval import safe_eval
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    is_repair = fields.Boolean(string="Is repair", compute="_compute_is_repair")
+    is_repair = fields.Boolean(
+        string="Is repair",
+        compute="_compute_is_repair",
+    )
     amount_total_products_rmas = fields.Monetary(
         string="Amount repair orders",
         currency_field="currency_id",
@@ -21,7 +24,10 @@ class AccountMove(models.Model):
         copy=False,
     )
     count_repairs = fields.Integer(
-        string="Num. repairs", compute="_compute_count_repairs", store=True, copy=False
+        string="Num. repairs",
+        compute="_compute_count_repairs",
+        store=True,
+        copy=False,
     )
 
     def _compute_is_repair(self):
@@ -58,16 +64,16 @@ class AccountMove(models.Model):
 
     def action_repairs_from_sale(self):
         self.ensure_one()
-        action = self.env.ref("repair.action_repair_order_tree")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "repair.action_repair_order_tree"
+        )
+        action["domain"] = expression.AND(
             [
                 [("id", "in", self.repair_ids.ids)],
-                safe_eval(action.domain or "[]"),
+                safe_eval(action.get("domain") or "[]"),
             ]
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        return action
 
     def get_rma_to_print(self):
         repairs = ""

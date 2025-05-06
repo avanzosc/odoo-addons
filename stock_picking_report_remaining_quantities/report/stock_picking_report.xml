@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
+        <t t-set="backorders" position="after">
+            <t
+        t-set="print_remaining_quantities"
+        t-value="(o.picking_type_code == 'outgoing' and o.company_id.print_remaining_quantities) or False"
+      />
+        </t>
+        <t t-if="o.backorder_ids and backorders" position="attributes">
+            <attribute
+        name="t-if"
+      >o.backorder_ids and backorders and print_remaining_quantities</attribute>
+        </t>
+    </template>
+</odoo>

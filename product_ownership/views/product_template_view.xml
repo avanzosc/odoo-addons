@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_template_form_owner" model="ir.ui.view">
+        <field name="name">product.template.form.owner</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <group string="Ownership">
+                    <field name="owner_partner_ids" widget="many2many_tags" />
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+    <record id="view_product_template_tree_owner" model="ir.ui.view">
+        <field name="name">product.template.tree.owner</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <tree position="inside">
+                <field
+          name="owner_partner_ids"
+          widget="many2many_tags"
+          optional="show"
+        />
+            </tree>
+        </field>
+    </record>
+</odoo>

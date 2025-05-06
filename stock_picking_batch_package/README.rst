@@ -8,7 +8,8 @@ Stock Picking Batch Package
 
 * Transporter field in the stock picking batch.
 * Number of packages and shipping weight compute fields in stock picking batch.
-* Report for stock picking batch.
+* New reports for stock picking batch: "Picking Batch With Package" and
+  "Picking Batch By Package".
 
 Bug Tracker
 ===========

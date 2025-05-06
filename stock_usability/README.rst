@@ -15,6 +15,8 @@ New fields added to minimum inventory rules:
 * *Pending Outgoing*
 * *Forecasted with Pending*: (*Forecasted* + *Pending Incoming* - *Pending Outgoing*).
 
+In stock move line tree view show "origin" field.
+
 Bug Tracker
 ===========
 

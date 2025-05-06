@@ -7,10 +7,14 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "license": "AGPL-3",
-    "depends": ["stock", "product_name_length"],
+    "depends": [
+        "stock",
+        "product_name_length",
+    ],
     "data": [
         "data/paperformat.xml",
         "report/layout.xml",
+        "report/product_qr_label_report.xml",
         "report/picking_product_qr_label_report.xml",
         "report/product_product_qr_label_report.xml",
         "report/product_template_qr_label_report.xml",

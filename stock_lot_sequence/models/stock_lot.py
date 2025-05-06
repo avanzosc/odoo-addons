@@ -12,6 +12,7 @@ class StockLot(models.Model):
             lot = super().create(vals_list)
             if len(lot.name) == 5 and "9999" in lot.name:
                 self.update_lot_sequence()
+            return lot
         else:
             lots = self.env["stock.lot"]
             for vals in vals_list:

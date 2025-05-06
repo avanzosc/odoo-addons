@@ -172,14 +172,21 @@ class ProductImport(models.Model):
 
     def button_open_product(self):
         self.ensure_one()
-        products = self.mapped("import_line_ids.product_id")
-        action = self.env.ref("product.product_normal_action")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", products.ids)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "product.product_normal_action"
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        domain = expression.AND(
+            [
+                [("id", "in", self.mapped("import_line_ids.product_id").ids)],
+                safe_eval(action.get("domain") or "[]"),
+            ]
+        )
+        action.update(
+            {
+                "domain": domain,
+            }
+        )
+        return action
 
 
 class ProductImportLine(models.Model):

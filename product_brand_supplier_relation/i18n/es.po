@@ -1,0 +1,117 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_brand_supplier_relation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-21 09:23+0000\n"
+"PO-Revision-Date: 2025-02-21 09:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_res_brand__product_brand_ids
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_res_partner__product_brand_ids
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_res_users__product_brand_ids
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.view_partner_form
+msgid "Brands"
+msgstr "Marcas"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model,name:product_brand_supplier_relation.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: product_brand_supplier_relation
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.product_brand_supplier_relation_search_view
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__id
+msgid "ID"
+msgstr ""
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model,name:product_brand_supplier_relation.model_product_brand
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__product_brand_id
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.product_brand_supplier_relation_search_view
+msgid "Product Brand"
+msgstr "Marca de producto"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model,name:product_brand_supplier_relation.model_product_brand_supplier_relation
+msgid "Product Brand Supplier Relation"
+msgstr "Relación marcas productos proveedores"
+
+#. module: product_brand_supplier_relation
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.product_brand_supplier_relation_search_view
+msgid "Search Suppliers/Brands"
+msgstr "Buscar Proveedores/Marcas"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand_supplier_relation__supplier_id
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.product_brand_supplier_relation_search_view
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model,name:product_brand_supplier_relation.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Tarifa de proveedor"
+
+#. module: product_brand_supplier_relation
+#: model:ir.model.fields,field_description:product_brand_supplier_relation.field_product_brand__suppliers_ids
+#: model_terms:ir.ui.view,arch_db:product_brand_supplier_relation.view_product_brand_form
+msgid "Suppliers"
+msgstr "Proveedores"
+
+#. module: product_brand_supplier_relation
+#: model:ir.actions.act_window,name:product_brand_supplier_relation.action_product_brand_supplier_relation
+#: model:ir.ui.menu,name:product_brand_supplier_relation.menu_product_brand_supplier_relation
+msgid "Suppliers/Brands"
+msgstr "Proveedores/Marcas"
+
+#. module: product_brand_supplier_relation
+#. odoo-python
+#: code:addons/product_brand_supplier_relation/models/product_brand_supplier_relation.py:0
+#: model:ir.model.constraint,message:product_brand_supplier_relation.constraint_product_brand_supplier_relation_unique_supplier_product_brand
+#, python-format
+msgid "There is already a record for this supplier and product brand"
+msgstr "Ya existe un registro para este proveedor y marca producto"

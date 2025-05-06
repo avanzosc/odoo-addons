@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_kandan" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_kandan" />
+        <field name="arch" type="xml">
+            <button name="action_show_details" position="attributes">
+                <attribute name="attrs" />
+            </button>
+        </field>
+    </record>
+
+</odoo>
