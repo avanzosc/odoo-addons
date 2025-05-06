@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_sale_configuration
+# 	* product_sale_configuration
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 16.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-26 11:40+0000\n"
-"PO-Revision-Date: 2022-10-26 11:40+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2025-04-16 11:04+0000\n"
+"PO-Revision-Date: 2025-04-16 11:04+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -61,9 +61,14 @@ msgid "Change product category sale price"
 msgstr "Cambiar categoría precio venta producto"
 
 #. module: product_sale_configuration
-#: model:ir.model.fields,help:product_sale_configuration.field_product_template__standard_price
-msgid "Cost used for stock valuation in standard price and as a first price to set in average/FIFO."
-msgstr "Coste utilizado para la valoración de stock en precio estándar y como primer precio para establecer en promedio / FIFO"
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Cost And Sale Price"
+msgstr "Precio coste y venta"
+
+#. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Costs"
+msgstr "Costes"
 
 #. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price__create_uid
@@ -120,6 +125,19 @@ msgid "ID"
 msgstr ""
 
 #. module: product_sale_configuration
+#: model:ir.model.fields,help:product_sale_configuration.field_product_template__standard_price
+msgid ""
+"In Standard Price & AVCO: value of the product (automatically computed in AVCO).\n"
+"        In FIFO: value of the next unit that will leave the stock (automatically computed).\n"
+"        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
+"        Used to compute margins on sale orders."
+msgstr ""
+"En Standard Price & AVCO: valor del producto (calculado automáticamente en AVCO).\n"
+"En FIFO: valor de la última unidad que salió del inventario (calculado automáticamente).\n"
+"Se utiliza para valorar el producto cuando se desconoce el coste de compra (por ejemplo, ajuste de inventario).\n"
+"Se utiliza para calcular los márgenes de los pedidos de venta."
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price____last_update
 #: model:ir.model.fields,field_description:product_sale_configuration.field_wiz_change_product_temp_category_sale_price____last_update
 #: model:ir.model.fields,field_description:product_sale_configuration.field_wiz_change_product_temp_pvp_manual____last_update
@@ -156,10 +174,21 @@ msgid "Last change date new sale price"
 msgstr "Última fecha cambio nuevo precio venta"
 
 #. module: product_sale_configuration
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__last_date_extra_cost_changes
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__last_date_extra_cost_changes
+msgid "Last date for extra cost changes"
+msgstr "Última fecha cambio coste extra"
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__last_price_change_date
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__last_price_change_date
 msgid "Last price change date"
 msgstr "Última fecha cambio de precio"
+
+#. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Maintenance costs"
+msgstr "Mantenimiento costes"
 
 #. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__manual_pvp
@@ -168,11 +197,6 @@ msgstr "Última fecha cambio de precio"
 #: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_search_form_view
 msgid "Manual PSP"
 msgstr "PVP manual"
-
-#. module: product_sale_configuration
-#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_search_form_view
-msgid "NO Manual PSP"
-msgstr "PvP NO manual"
 
 #. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price__name
@@ -206,16 +230,37 @@ msgid "New target cost"
 msgstr "Nuevo coste objetivo"
 
 #. module: product_sale_configuration
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__new_total_cost
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__new_total_cost
+msgid "New total cost"
+msgstr "Nuevo total coste"
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__only_read_prices
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__only_read_prices
 msgid "Only read prices"
 msgstr "Solo leer precios"
 
 #. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.wiz_recalculate_product_temp_sale_price_view_form
+msgid ""
+"Para: You are going to recalculate sale price in selected products. Are you "
+"sure?"
+msgstr ""
+"Usted va a recalcular el precio de venta en los productos seleccionados. "
+"¿Está usted seguro?."
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__percentage_between_costs
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__percentage_between_costs
 msgid "Percentage between costs"
 msgstr "Porcentaje entre costes"
+
+#. module: product_sale_configuration
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__percentage_between_new_costs
+#: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__percentage_between_new_costs
+msgid "Percentage between new costs"
+msgstr "Porcentaje entre nuevos costes"
 
 #. module: product_sale_configuration
 #: model:ir.model.fields,help:product_sale_configuration.field_product_product__my_list_price
@@ -232,9 +277,9 @@ msgid "Price/Cost Changed"
 msgstr "Precio/Coste cambiado"
 
 #. module: product_sale_configuration
-#: model:ir.model,name:product_sale_configuration.model_product_product
+#: model:ir.model,name:product_sale_configuration.model_product_template
 msgid "Product"
-msgstr "Producto"
+msgstr "Plantilla de producto"
 
 #. module: product_sale_configuration
 #: model:ir.module.category,name:product_sale_configuration.product_category_sale_price_category
@@ -242,9 +287,9 @@ msgid "Product Category Sale Price"
 msgstr "Categoría precio venta"
 
 #. module: product_sale_configuration
-#: model:ir.model,name:product_sale_configuration.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
+#: model:ir.model,name:product_sale_configuration.model_product_product
+msgid "Product Variant"
+msgstr "Producto"
 
 #. module: product_sale_configuration
 #: model:ir.actions.act_window,name:product_sale_configuration.action_product_category_sale_price
@@ -262,7 +307,9 @@ msgid "Product category sale price"
 msgstr "Categoría precio de venta"
 
 #. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product_category_sale_price.py:38
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product_category_sale_price.py:0
+#: code:addons/product_sale_configuration/models/product_category_sale_price.py:0
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price__count_products
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price__product_ids
 #: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_category_sale_price_view_form
@@ -283,10 +330,20 @@ msgid "Sale conf: Base + Attributes"
 msgstr "Conf.Venta: Base + Atributos"
 
 #. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__my_list_price
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__my_list_price
 msgid "Sales Price"
 msgstr "Precio de venta"
+
+#. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Sales maintenance"
+msgstr "Mantenimiento ventas"
 
 #. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_category_sale_price__sequence
@@ -305,6 +362,11 @@ msgid "Template attributes count"
 msgstr ""
 
 #. module: product_sale_configuration
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "Total Cost (base+extra)"
+msgstr "Total coste (base+extra)"
+
+#. module: product_sale_configuration
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_product__my_standard_price
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__my_standard_price
 #: model:ir.model.fields,field_description:product_sale_configuration.field_product_template__standard_price
@@ -312,8 +374,11 @@ msgid "Total cost (base + extra)"
 msgstr "Total coste (base + extra)"
 
 #. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product.py:168
-#: code:addons/product_sale_configuration/models/product.py:177
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
 #, python-format
 msgid "Warning for product: %s"
 msgstr "Aviso para producto: %s"
@@ -334,37 +399,47 @@ msgid "Wizard for recalculate product template sale_price"
 msgstr "Asistente para recalcular precio de venta en plantillas de productos"
 
 #. module: product_sale_configuration
-#: model_terms:ir.ui.view,arch_db:product_sale_configuration.wiz_recalculate_product_temp_sale_price_view_form
-msgid "You are going to recalculate sale price in selected products. Are you sure?"
-msgstr "Usted va a recalcular el precio de venta en los productos seleccionados. ¿Está usted seguro?."
-
-#. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product.py:124
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
 #, python-format
 msgid "You do not have permission to change the sale price of the product."
 msgstr "No tiene permisos para cambiar el precio de venta del producto."
 
 #. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product.py:178
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
 #, python-format
 msgid "You just changed the new sale price"
 msgstr "Acaba de cambiar el nuevo precio de venta"
 
 #. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product.py:169
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
 #, python-format
 msgid "You just changed the sale price"
 msgstr "Acaba de cambiar el precio de venta"
 
 #. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product.py:182
+#: model_terms:ir.ui.view,arch_db:product_sale_configuration.product_template_form_view
+msgid "per"
+msgstr "por"
+
+#. module: product_sale_configuration
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product_category_sale_price.py:0
+#: code:addons/product_sale_configuration/models/product_category_sale_price.py:0
+#, python-format
+msgid "{price_name}: % Increment: {percentage}, Fixed amount: {fixed_amount}"
+msgstr ""
+"{price_name}: % Incremento: {percentage}, Cantidad fija: {fixed_amount}"
+
+#. module: product_sale_configuration
+#. odoo-python
+#: code:addons/product_sale_configuration/models/product.py:0
+#: code:addons/product_sale_configuration/models/product.py:0
 #, python-format
 msgid "{}, and the new sale price."
 msgstr "{}, y nuevo precio venta."
-
-#. module: product_sale_configuration
-#: code:addons/product_sale_configuration/models/product_category_sale_price.py:30
-#, python-format
-msgid "{}: % Increment: {}, Fixed amount: {}"
-msgstr ""
-
