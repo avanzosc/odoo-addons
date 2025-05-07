@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-11 05:52+0000\n"
-"PO-Revision-Date: 2025-04-11 05:52+0000\n"
+"POT-Creation-Date: 2025-05-23 08:04+0000\n"
+"PO-Revision-Date: 2025-05-23 08:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,6 +46,11 @@ msgid "Back Injury"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__back_injury_estimated
+msgid "Back Injury Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__floor__below
 msgid "Below"
 msgstr ""
@@ -56,8 +61,18 @@ msgid "Bowel Injury"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__bowel_injury_estimated
+msgid "Bowel Injury Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__breast_injury
 msgid "Breast Injury"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__breast_injury_estimated
+msgid "Breast Injury Estimated"
 msgstr ""
 
 #. module: custom_descarga
@@ -190,6 +205,16 @@ msgid "Dirty Feather"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dirty_feather_g1
+msgid "Dirty Feather G1"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__dirty_feather_g2
+msgid "Dirty Feather G2"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_product_product__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_product_template__display_name
 #: model:ir.model.fields,field_description:custom_descarga.field_saca__display_name
@@ -262,6 +287,11 @@ msgid "Gizzard Injury"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__gizzard_injury_estimated
+msgid "Gizzard Injury Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 msgid "Gross"
 msgstr ""
@@ -298,6 +328,11 @@ msgid "Hard Breast"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hard_breast_estimated
+msgid "Hard Breast Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hard_chicken
 msgid "Hard Chicken %"
 msgstr ""
@@ -305,6 +340,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__heart_injury
 msgid "Heart Injury"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__heart_injury_estimated
+msgid "Heart Injury Estimated"
 msgstr ""
 
 #. module: custom_descarga
@@ -333,6 +373,10 @@ msgstr ""
 #: code:addons/custom_descarga/models/saca.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_descarga/models/saca.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_descarga/models/saca_line.py:0
+#: code:addons/temp-addons/custom_descarga/models/saca.py:0
+#: code:addons/temp-addons/custom_descarga/models/saca_line.py:0
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_form_view
 #: model_terms:ir.ui.view,arch_db:custom_descarga.saca_line_form_view
 #, python-format
@@ -342,6 +386,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hock_injury
 msgid "Hock Injury"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__hock_injury_estimated
+msgid "Hock Injury Estimated"
 msgstr ""
 
 #. module: custom_descarga
@@ -432,8 +481,18 @@ msgid "Liver Injury"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__liver_injury_estimated
+msgid "Liver Injury Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__living_stunned
 msgid "Living Stunned"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__living_stunned_estimated
+msgid "Living Stunned Estimated"
 msgstr ""
 
 #. module: custom_descarga
@@ -514,6 +573,16 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__podpdermattis
 msgid "Podpdermattis"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__podpdermattis_g1
+msgid "Podpdermattis G1"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__podpdermattis_g2
+msgid "Podpdermattis G2"
 msgstr ""
 
 #. module: custom_descarga
@@ -606,6 +675,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__second_percentage
 msgid "Second Percentage"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__second_performance
+msgid "Second Performance"
 msgstr ""
 
 #. module: custom_descarga
@@ -704,6 +778,8 @@ msgstr ""
 #. module: custom_descarga
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_descarga/models/saca_line.py:0
+#: code:addons/temp-addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "There is no any purchase order line."
 msgstr ""
@@ -711,6 +787,11 @@ msgstr ""
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__thingh_injury
 msgid "Thingh Injury"
+msgstr ""
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__thingh_injury_estimated
+msgid "Thingh Injury Estimated"
 msgstr ""
 
 #. module: custom_descarga
@@ -799,6 +880,11 @@ msgid "Wing Injury"
 msgstr ""
 
 #. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__wing_injury_estimated
+msgid "Wing Injury Estimated"
+msgstr ""
+
+#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__yellowish_chicken
 msgid "Yellowish Chicken"
 msgstr ""
@@ -806,6 +892,8 @@ msgstr ""
 #. module: custom_descarga
 #: code:addons/custom_descarga/models/saca_line.py:0
 #: code:addons/custom_descarga/models/saca_line.py:0
+#: code:addons/github/avanzosc/odoo-addons/custom_descarga/models/saca_line.py:0
+#: code:addons/temp-addons/custom_descarga/models/saca_line.py:0
 #, python-format
 msgid "You cannot cancel because some products have already been delivered."
 msgstr ""

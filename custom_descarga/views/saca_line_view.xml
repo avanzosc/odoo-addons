@@ -402,6 +402,7 @@
                     <group>
                         <group>
                             <field name="sampler_id" />
+                            <field name="second_performance" />
                             <field name="dock_temperature" />
                             <label for="dock_relative_humidity" />
                             <div class="o_row" name="dock_relative_humidity">
@@ -413,13 +414,11 @@
                                 <field name="asphyxiated_percentage" />
                                 <span>%</span>
                             </div>
-                            <field name="asphyxiated_wight" />
                             <label for="seizured_percentage" />
                             <div class="o_row" name="seizured_percentage">
                                 <field name="seizured_percentage" />
                                 <span>%</span>
                             </div>
-                            <field name="seizured_wight" />
                             <field name="stunning" />
                             <label for="second_percentage" />
                             <div class="o_row" name="second_percentage">
@@ -428,17 +427,21 @@
                             </div>
                             <label for="dirty_feather" />
                             <div class="o_row" name="dirty_feather">
+                                <field name="dirty_feather_g1" />
+                                <field name="dirty_feather_g2" />
                                 <field name="dirty_feather" />
                                 <span>%</span>
                             </div>
                             <label for="living_stunned" />
                             <div class="o_row" name="living_stunned">
                                 <field name="living_stunned" />
+                                <field name="living_stunned_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="hard_breast" />
                             <div class="o_row" name="hard_breast">
                                 <field name="hard_breast" />
+                                <field name="hard_breast_estimated" />
                                 <span>%</span>
                             </div>
                         </group>
@@ -446,51 +449,62 @@
                             <label for="wing_injury" />
                             <div class="o_row" name="wing_injury">
                                 <field name="wing_injury" />
+                                <field name="wing_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="thingh_injury" />
                             <div class="o_row" name="thingh_injury">
                                 <field name="thingh_injury" />
+                                <field name="thingh_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="breast_injury" />
                             <div class="o_row" name="breast_injury">
                                 <field name="breast_injury" />
+                                <field name="breast_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="back_injury" />
                             <div class="o_row" name="back_injury">
                                 <field name="back_injury" />
+                                <field name="back_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="hock_injury" />
                             <div class="o_row" name="hock_injury">
                                 <field name="hock_injury" />
+                                <field name="hock_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="podpdermattis" />
                             <div class="o_row" name="podpdermattis">
+                                <field name="podpdermattis_g1" />
+                                <field name="podpdermattis_g2" />
                                 <field name="podpdermattis" />
                                 <span>%</span>
                             </div>
                             <label for="gizzard_injury" />
                             <div class="o_row" name="gizzard_injury">
                                 <field name="gizzard_injury" />
+                                <field name="gizzard_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="liver_injury" />
                             <div class="o_row" name="liver_injury">
                                 <field name="liver_injury" />
+                                <field name="liver_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="heart_injury" />
                             <div class="o_row" name="heart_injury">
                                 <field name="heart_injury" />
+                                <field name="heart_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="bowel_injury" />
                             <div class="o_row" name="bowel_injury">
                                 <field name="bowel_injury" />
+                                <field name="bowel_injury_estimated" />
                                 <span>%</span>
                             </div>
                             <label for="weighting" />
