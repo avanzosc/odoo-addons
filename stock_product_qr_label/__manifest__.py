@@ -12,13 +12,16 @@
         "product_name_length",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "data/paperformat.xml",
+        "wizard/product_template_label_wizard_views.xml",
         "report/layout.xml",
         "report/product_qr_label_report.xml",
         "report/picking_product_qr_label_report.xml",
         "report/product_product_qr_label_report.xml",
         "report/product_template_qr_label_report.xml",
         "report/stock_product_qr_label_report.xml",
+        "report/product_template_label_wizard_report.xml",
     ],
     "installable": True,
 }

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_label_wizard_view" model="ir.ui.view">
+        <field name="model">product.template.label.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Printing Labels Template Product">
+                <sheet>
+                    <group colspan="4">
+                        <field name="template_id" />
+                        <field name="allowed_lot_ids" invisible="1" />
+                        <field name="quant_location" invisible="1" />
+                    </group>
+                    <div>
+                        <field
+              name="template_label_line_ids"
+              nolabel="1"
+              col="4"
+              context="{'default_product_template': template_id}"
+            >
+                            <tree editable="top">
+                                <field name="wizard_id" invisible="1" />
+                                <field name="product_id" invisible="1" />
+                                <field
+                  name="lot_id"
+                  widget="selection"
+                  domain="[('id', 'in', parent.allowed_lot_ids)]"
+                />
+                                <field name="location_id" />
+                                <field name="product_qty" />
+                            </tree>
+                        </field>
+                    </div>
+                    <group colspan="4">
+                        <field name="bin" col="4" />
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button
+            string="Print label(s)"
+            name="print_template_label"
+            type="object"
+            class="oe_highlight"
+          />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_template_label_wizard" model="ir.actions.act_window">
+        <field name="name">Print Label Template</field>
+        <field name="res_model">product.template.label.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+        <field name="binding_model_id" ref="product.model_product_template" />
+        <field name="view_id" ref="product_template_label_wizard_view" />
+    </record>
+</odoo>

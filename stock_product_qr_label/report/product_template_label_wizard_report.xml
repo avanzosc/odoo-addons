@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="product_template_label_wizard_document">
+        <t t-call="stock_product_qr_label.external_layout_product_label_wizard">
+            <div
+        class="page"
+        style="font-size: 19px !important; font-family: ubuntu condensed; page-break-after: always; margin-top: -50px !important;"
+      >
+                <!-- Referencia interna y fecha -->
+                <div class="row">
+                    <div class="col-6" style="text-align: left;">
+                        <b>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                t-field="doc.wizard_id.template_id.default_code"
+              />
+                        </b>
+                    </div>
+                    <div class="col-6" style="text-align: right;">
+                        <b>
+                            <span
+                t-field="doc.wizard_id.report_date"
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                t-options='{"widget": "date"}'
+              />
+                        </b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <b>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                t-esc="doc.wizard_id.template_id.name[0:51]"
+              />
+                        </b>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8" style="text-align: left;">
+                        <b>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+              >Lot:</span>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                t-field="doc.lot_id.name"
+              />
+                        </b>
+                        <br />
+                        <b>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+              >Qty.:</span>
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                t-esc="int(doc.product_qty)"
+              />
+                        </b>
+                        <t t-if="doc.wizard_id.bin">
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+              >
+                                <br />
+                                <b>
+                                    <span
+                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                  >Bin: </span>
+                                    <span
+                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                    t-field="doc.wizard_id.bin"
+                  />
+                                </b>
+                            </span>
+                        </t>
+                        <t t-if="doc.location_id">
+                            <span
+                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+              >
+                                <br />
+                                <b>
+                                    <span
+                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                  >Loc: </span>
+                                    <span
+                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                    t-field="doc.location_id.name"
+                  />
+                                </b>
+                            </span>
+                        </t>
+                    </div>
+                    <div class="col-4" style="text-align: left !important;">
+                        <img
+              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', doc.qr_code, 85, 90)"
+              style="margin-top: 0.3cm;"
+            />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_product_template_label_wizard">
+        <t t-call="web.html_container">
+            <t t-set="company" t-value="env.company" />
+            <t t-foreach="docs" t-as="wizard">
+                <t t-foreach="wizard.template_label_line_ids" t-as="doc">
+                    <t
+            t-call="stock_product_qr_label.product_template_label_wizard_document"
+            t-lang="company.partner_id.lang"
+          />
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_product_template_label_wizard_report" model="ir.actions.report">
+        <field name="name">Product Label</field>
+        <field name="model">product.template.label.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_product_qr_label.report_product_template_label_wizard</field>
+        <field
+      name="report_file"
+    >stock_product_qr_label.report_product_template_label_wizard</field>
+        <field
+      name="print_report_name"
+    >('Label For Product - %s' % (object.template_id.name))</field>
+        <field
+      name="binding_model_id"
+      ref="stock_product_qr_label.model_product_template_label_wizard"
+    />
+        <field name="binding_type">report</field>
+        <field
+      name="paperformat_id"
+      ref="stock_product_qr_label.paperformat_product_qr_label"
+    />
+    </record>
+</odoo>
