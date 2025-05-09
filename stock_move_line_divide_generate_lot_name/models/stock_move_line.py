@@ -14,6 +14,7 @@ class StockMoveLine(models.Model):
             and self.picking_id
             and self.picking_id.picking_type_id
             and self.picking_id.picking_type_id.use_create_lots
+            and not self.lot_name
         ):
             for line in self.move_id.move_line_ids:
                 line.lot_name = self.env["ir.sequence"].next_by_code("stock.lot.serial")

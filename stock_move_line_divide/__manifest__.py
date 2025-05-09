@@ -9,6 +9,7 @@
     "depends": [
         "stock",
         "stock_picking_package_usability",
+        "stock_move_qty_by_packaging",
     ],
     "data": [
         "views/stock_move_line_views.xml",
