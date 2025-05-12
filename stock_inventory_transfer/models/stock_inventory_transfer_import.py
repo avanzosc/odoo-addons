@@ -49,6 +49,11 @@ class StockInventoryTransfer(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    group_id = fields.Many2one(
+        comodel_name="procurement.group",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     stock_move_count = fields.Integer(
         compute="_compute_stock_count",
     )
@@ -75,16 +80,18 @@ class StockInventoryTransfer(models.Model):
         values = super()._get_line_values(row_values=row_values, datemode=datemode)
         if row_values:
             log_infos = []
-            product_name = row_values.get("producto", "")
-            product_code = row_values.get("lista", "")
+            product_name = row_values.get("Producto", "")
+            product_code = row_values.get("Lista de Materiales", "")
             if not product_name and not product_code:
                 return {}
-            product_qty = row_values.get("cantidad", 0.0)
+            product_qty = row_values.get("Cantidad", 0.0)
+            product_uom = row_values.get("Unidad de Medida del Producto", "")
             values.update(
                 {
                     "product_code": str(product_code),
                     "product_name": product_name or str(product_code),
                     "product_qty": check_number(product_qty),
+                    "product_uom": product_uom,
                 }
             )
             if not product_name:
@@ -190,6 +197,16 @@ class StockInventoryTransferLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    product_uom = fields.Char(
+        string="UoM Name",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    product_uom_id = fields.Many2one(
+        comodel_name="uom.uom",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     stock_move_id = fields.Many2one(
         comodel_name="stock.move",
         states={"done": [("readonly", True)]},
@@ -237,17 +254,38 @@ class StockInventoryTransferLine(models.Model):
             log_info = _("More than one product already exist.")
         return products and products[:1], log_info
 
+    def _check_product_uom(self):
+        self.ensure_one()
+        log_info = ""
+        uom_obj = self.env["uom.uom"]
+        if self.product_uom_id:
+            return self.product_uom_id, log_info
+        name_domain = [
+            ("name", "=", self.product_uom),
+        ]
+        uoms = uom_obj.search(name_domain)
+        if not uoms:
+            log_info = _("No UoM found.")
+        elif len(uoms) > 1:
+            uoms = False
+            log_info = _("More than one UoM already exist.")
+        return uoms and uoms[:1], log_info
+
     def _action_validate(self):
         update_values = super()._action_validate()
         log_infos = []
         product, log_info_product = self._check_product()
         if log_info_product:
             log_infos.append(log_info_product)
+        uom, log_info_uom = self._check_product_uom()
+        if log_info_uom:
+            log_infos.append(log_info_uom)
         state = "error" if log_infos else "pass"
         action = "create" if state != "error" else "nothing"
         update_values.update(
             {
                 "product_id": product and product.id,
+                "product_uom_id": uom and uom.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -274,6 +312,13 @@ class StockInventoryTransferLine(models.Model):
 
     def _stock_move_values(self):
         self.ensure_one()
+        group = self.import_id.group_id
+        if not self.import_id.group_id:
+            group = self.env["procurement.group"].create({})
+            self.import_id.write({
+                "group_id": group.id,
+            })
+
         qty = self.product_qty
         picking_type_id = self.import_id.picking_type_id.id
         location_id = self.import_id.location_src_id.id
@@ -281,14 +326,14 @@ class StockInventoryTransferLine(models.Model):
         return {
             'name': self.product_id.display_name,
             'product_id': self.product_id.id,
-            'product_uom': self.product_id.uom_id.id,
+            'product_uom': self.product_uom_id.id,
             'product_uom_qty': qty,
             'company_id': self.import_id.company_id.id,
             'picking_type_id': picking_type_id,
             'location_id': location_id,
             'location_dest_id': location_dest_id,
+            'group_id': group and group.id,
         }
-
 
     def action_open_form(self):
         self.ensure_one()

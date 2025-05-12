@@ -15,9 +15,11 @@
                             <field name="product_code" />
                             <field name="product_name" />
                             <field name="product_barcode" />
+                            <field name="product_uom" />
                         </group>
                         <group>
                             <field name="product_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_uom_id" options="{'no_create': True, 'no_open': True}"/>
                         </group>
                     </group>
                     <field name="log_info"/>
@@ -34,9 +36,10 @@
                 <field name="action" />
                 <field name="product_code" />
                 <field name="product_name" />
-                <field name="product_barcode" />
                 <field name="product_id" invisible="context.get('import_hide', True)" options="{'no_create': True}" />
                 <field name="product_qty" />
+                <field name="product_uom" />
+                <field name="product_uom_id" invisible="context.get('import_hide', True)" options="{'no_create': True}" />
                 <field name="state" readonly="1" invisible="1"/>
                 <field name="log_info" readonly="1" invisible="context.get('import_hide', True)"/>
                 <button
