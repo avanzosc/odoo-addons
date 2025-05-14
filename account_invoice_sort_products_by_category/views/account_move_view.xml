@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_move_form_inherit_sort_by_category" model="ir.ui.view">
+        <field name="name">account.move.form.sort.by.category</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
+                <attribute name="default_order">product_categ_id, product_id</attribute>
+            </xpath>
+            <xpath
+        expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']"
+        position="before"
+      >
+                <field name="product_categ_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
