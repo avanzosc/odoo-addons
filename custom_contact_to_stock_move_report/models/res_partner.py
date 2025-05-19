@@ -16,7 +16,11 @@ class ResPartner(models.Model):
             }
         )
         move_lines = self.env["stock.move.line.report"].search(
-            [("partner_id", "in", self.ids)]
+            [
+                "|",
+                ("partner_id.commercial_partner_id", "in", self.ids),
+                ("partner_id", "in", self.ids),
+            ]
         )
         cron = self.env.ref("custom_move_line_report.refresh_materialized_view")
         if cron:
