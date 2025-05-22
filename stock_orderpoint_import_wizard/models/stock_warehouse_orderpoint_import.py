@@ -104,6 +104,7 @@ class StockWarehouseOrderpointImport(models.Model):
         )
         return action
 
+
 class StockWarehouseOrderpointImportLine(models.Model):
     _name = "stock.warehouse.orderpoint.import.line"
     _inherit = "base.import.line"

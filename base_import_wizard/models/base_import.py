@@ -349,6 +349,7 @@ class BaseImport(models.AbstractModel):
             "domain": [("import_id", "=", self.id)],
             "context": {
                 "default_import_id": self.id,
+                "import_hide": False,
             },
         }
 
