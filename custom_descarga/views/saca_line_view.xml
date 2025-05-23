@@ -402,7 +402,6 @@
                     <group>
                         <group>
                             <field name="sampler_id" />
-                            <field name="second_performance" />
                             <field name="dock_temperature" />
                             <label for="dock_relative_humidity" />
                             <div class="o_row" name="dock_relative_humidity">
@@ -442,6 +441,11 @@
                             <div class="o_row" name="hard_breast">
                                 <field name="hard_breast" />
                                 <field name="hard_breast_estimated" />
+                                <span>%</span>
+                            </div>
+                            <label for="craw_percentage" />
+                            <div class="o_row" name="craw_percentage">
+                                <field name="craw_percentage" />
                                 <span>%</span>
                             </div>
                         </group>
