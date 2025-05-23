@@ -83,6 +83,10 @@ class SacaLine(models.Model):
         ],
     )
     craw = fields.Float(copy=False)
+    craw_percentage = fields.Float(
+        compute="_compute_craw_percentage",
+        store=True,
+    )
     weight_uom_name = fields.Char(
         string="Weight UOM",
         default=_get_default_weight_uom,
@@ -231,7 +235,6 @@ class SacaLine(models.Model):
     )
     weighting = fields.Float(copy=False)
     observations = fields.Text(copy=False)
-    second_performance = fields.Float(copy=False)
 
     def _compute_descarga_order(self):
         for line in self:
@@ -409,7 +412,7 @@ class SacaLine(models.Model):
     def _compute_podpdermattis(self):
         for line in self:
             line.podpdermattis = (
-                line.podpdermattis_g1 + (line.podpdermattis_g2 * 2)
+                (line.podpdermattis_g1 * 0.5) + ((line.podpdermattis_g2 * 2) * 2)
             ) / (ESTIMATED_PERCENT or 1.0)
 
     @api.depends("living_stunned")
@@ -474,6 +477,13 @@ class SacaLine(models.Model):
     def _compute_bowel_injury_estimated(self):
         for line in self:
             line.bowel_injury_estimated = line.bowel_injury / (ESTIMATED_PERCENT or 1.0)
+
+    @api.depends("craw", "net_origin")
+    def _compute_craw_percentage(self):
+        for line in self:
+            line.craw_percentage = (
+                (line.craw / line.net_origin) * 100.0 if line.net_origin else 0.0
+            )
 
     def write(self, values):
         result = super().write(values)
