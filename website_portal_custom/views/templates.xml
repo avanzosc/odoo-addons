@@ -2,7 +2,7 @@
 <odoo>
     <template id="portal_docs_entry" inherit_id="portal.portal_docs_entry">
         <xpath expr="//a" position="attributes">
-            <attribute name="t-if">allowed_urls and url in allowed_urls</attribute>
+            <attribute name="t-if">url in visible_urls</attribute>
         </xpath>
     </template>
     <template id="portal_my_quotations" inherit_id="sale.portal_my_quotations">
