@@ -233,7 +233,7 @@ class SacaLine(models.Model):
     bowel_injury_estimated = fields.Float(
         compute="_compute_bowel_injury_estimated",
     )
-    weighting = fields.Float(copy=False)
+    weighting = fields.Float(compute="_compute_weighting")
     observations = fields.Text(copy=False)
 
     def _compute_descarga_order(self):
@@ -412,7 +412,7 @@ class SacaLine(models.Model):
     def _compute_podpdermattis(self):
         for line in self:
             line.podpdermattis = (
-                (line.podpdermattis_g1 * 0.5) + ((line.podpdermattis_g2 * 2) * 2)
+                (line.podpdermattis_g1 * 0.5) + (line.podpdermattis_g2 * 2)
             ) / (ESTIMATED_PERCENT or 1.0)
 
     @api.depends("living_stunned")
@@ -483,6 +483,25 @@ class SacaLine(models.Model):
         for line in self:
             line.craw_percentage = (
                 (line.craw / line.net_origin) * 100.0 if line.net_origin else 0.0
+            )
+
+    @api.depends(
+        "wing_injury",
+        "hard_breast",
+        "podpdermattis_g1",
+        "podpdermattis_g2",
+        "dirty_feather_g1",
+        "dirty_feather_g2",
+        "second_percentage",
+    )
+    def _compute_weighting(self):
+        for line in self:
+            line.weighting = (
+                (0.55 * line.wing_injury_estimated)
+                + (0.15 * line.hard_breast_estimated)
+                + (0.05 * line.podpdermattis)
+                + (0.05 * line.dirty_feather)
+                + (0.2 * line.second_percentage)
             )
 
     def write(self, values):
