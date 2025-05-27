@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-23 08:05+0000\n"
-"PO-Revision-Date: 2025-05-23 08:05+0000\n"
+"POT-Creation-Date: 2025-05-27 12:51+0000\n"
+"PO-Revision-Date: 2025-05-27 12:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,11 @@ msgstr "Contador históricos"
 #. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__craw
 msgid "Craw"
+msgstr "Buches"
+
+#. module: custom_descarga
+#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__craw_percentage
+msgid "Craw Percentage"
 msgstr "Buches"
 
 #. module: custom_descarga
@@ -507,7 +512,7 @@ msgstr "Lote"
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_stock_production_lot
 msgid "Lot/Serial"
-msgstr "Lote/Número de serie"
+msgstr "Lote/Nº de serie"
 
 #. module: custom_descarga
 #: model:ir.model.fields.selection,name:custom_descarga.selection__saca_line__priority__1
@@ -682,11 +687,6 @@ msgid "Second Percentage"
 msgstr "Segunda"
 
 #. module: custom_descarga
-#: model:ir.model.fields,field_description:custom_descarga.field_saca_line__second_performance
-msgid "Second Performance"
-msgstr ""
-
-#. module: custom_descarga
 #: model:ir.model.fields,field_description:custom_descarga.field_saca_line__seizured_percentage
 msgid "Seizured Percentage"
 msgstr "Decomiso"
@@ -740,7 +740,7 @@ msgstr "Etapa"
 #. module: custom_descarga
 #: model:ir.model,name:custom_descarga.model_stock_move
 msgid "Stock Move"
-msgstr "Operaciones"
+msgstr "Movimiento de existencias"
 
 #. module: custom_descarga
 #: model_terms:ir.ui.view,arch_db:custom_descarga.product_template_form_view_procurement_button
