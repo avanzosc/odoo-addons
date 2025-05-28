@@ -86,3 +86,8 @@ class StockMoveLine(models.Model):
             raise ValidationError(
                 _("The dividing amount or done quantity can not be 0.")
             )
+
+    def _get_default_dest_location(self):
+        if self.location_dest_id != self.move_id.location_dest_id:
+            return self.location_dest_id
+        return super()._get_default_dest_location()
