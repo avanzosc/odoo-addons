@@ -7,6 +7,7 @@ Stock picking box label report
 ==============================
 
 * In stock picking new action "Print Box Labels".
+* In stock picking new report "Picking All Box Labels".
 
 Bug Tracker
 ===========
