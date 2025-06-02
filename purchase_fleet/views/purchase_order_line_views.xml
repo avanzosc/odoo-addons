@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_line_view_tree" model="ir.ui.view">
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="price_unit" position="before">
+                <field
+          name="purchase_vehicle_id"
+          optional="hide"
+          groups="analytic.group_analytic_accounting,fleet.fleet_group_user"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
