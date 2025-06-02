@@ -3,7 +3,7 @@
 
 {
     "name": "Product Limited View",
-    "version": "12.0.1.0.0",
+    "version": "16.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
