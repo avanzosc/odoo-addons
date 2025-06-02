@@ -8,9 +8,10 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     @api.model
-    def fields_view_get(self, view_id=None, view_type='form', toolbar=False,
-                        submenu=False):
-        """ fields_view_get([view_id | view_type='form'])
+    def fields_view_get(
+        self, view_id=None, view_type="form", toolbar=False, submenu=False
+    ):
+        """fields_view_get([view_id | view_type='form'])
 
         Get the detailed composition of the requested view like fields, model,
         view architecture
@@ -29,14 +30,15 @@ class ProductTemplate(models.Model):
         :raise Invalid ArchitectureError: if there is view type other than
                 form, tree, calendar, search etc defined on the structure
         """
-        if self.env.user.has_group(
-                "product_limited_view.group_product_limited_view"):
+        if self.env.user.has_group("product_limited_view.group_product_limited_view"):
             if view_type == "form":
-                view_id = self.env.ref("product_limited_view."
-                                       "product_template_base_minimal_form").id
+                view_id = self.env.ref(
+                    "product_limited_view." "product_template_base_minimal_form"
+                ).id
             elif view_type == "tree":
-                view_id = self.env.ref("product_limited_view."
-                                       "product_template_minimal_tree").id
+                view_id = self.env.ref(
+                    "product_limited_view." "product_template_minimal_tree"
+                ).id
         return super().fields_view_get(
-            view_id=view_id, view_type=view_type, toolbar=toolbar,
-            submenu=submenu)
+            view_id=view_id, view_type=view_type, toolbar=toolbar, submenu=submenu
+        )
