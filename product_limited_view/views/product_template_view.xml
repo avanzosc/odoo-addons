@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <!--
     <record id="product_template_kanban_view" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_kanban_view" />
-        <field
-      name="groups_id"
-      eval="[(4, ref('product_limited_view.group_product_limited_view'))]"
-    />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
         <field name="arch" type="xml">
             <kanban position="attributes">
                 <attribute name="create">false</attribute>
@@ -19,10 +17,7 @@
     <record id="product_template_tree_view" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view" />
-        <field
-      name="groups_id"
-      eval="[(4, ref('product_limited_view.group_product_limited_view'))]"
-    />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
         <field name="arch" type="xml">
             <tree position="attributes">
                 <attribute name="create">false</attribute>
@@ -35,10 +30,7 @@
     <record id="product_template_only_form_view" model="ir.ui.view">
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_only_form_view" />
-        <field
-      name="groups_id"
-      eval="[(4, ref('product_limited_view.group_product_limited_view'))]"
-    />
+        <field name="groups_id" eval="[(4, ref('product_limited_view.group_product_limited_view'))]" />
         <field name="arch" type="xml">
             <form position="attributes">
                 <attribute name="create">false</attribute>
@@ -47,6 +39,7 @@
             </form>
         </field>
     </record>
+    -->
 
     <record id="product_template_base_minimal_form" model="ir.ui.view">
         <field name="model">product.template</field>
@@ -57,7 +50,7 @@
                     <field name="product_variant_count" invisible="1" />
                     <field name="is_product_variant" invisible="1" />
                     <field name="id" invisible="True" />
-                    <field name="image_medium" widget="image" class="oe_avatar" />
+                    <field name="image_1920" widget="image" class="oe_avatar" />
                     <div class="oe_title">
                         <label class="oe_edit_only" for="name" string="Product Name" />
                         <h1><field name="name" placeholder="Product Name" /></h1>
@@ -108,37 +101,25 @@
                         </page>
                         <page
               string="Sales"
+              groups="base.group_user"
               attrs="{'invisible':[('sale_ok','=',False)]}"
               name="sales"
             >
-                            <div
-                name="pricelist_item"
-                groups="product.group_product_pricelist"
-              >
-                                <separator string="Pricing" />
-                                <field
-                  name="item_ids"
-                  nolabel="1"
-                  context="{'default_base':'list_price', 'default_applied_on' :'1_product'}"
-                >
+                            <!--
+                            <div name="pricelist_item" groups="product.group_product_pricelist">
+                                <separator string="Pricing"/>
+                                <field name="item_ids" nolabel="1" context="{'default_base':'list_price', 'default_applied_on' :'1_product'}">
                                     <tree string="Pricelist Items" editable="bottom">
-                                        <field
-                      name="pricelist_id"
-                      string="Pricelist"
-                      required="1"
-                    />
-                                        <field
-                      name="fixed_price"
-                      string="Price"
-                      required="1"
-                    />
-                                        <field name="min_quantity" />
-                                        <field name="date_start" />
-                                        <field name="date_end" />
-                                        <field name="applied_on" invisible="1" />
+                                        <field name="pricelist_id" string="Pricelist" required="1"/>
+                                        <field name="fixed_price" string="Price" required="1"/>
+                                        <field name="min_quantity"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                        <field name="applied_on" invisible="1"/>
                                     </tree>
                                 </field>
                             </div>
+                            -->
                             <group name="sale">
                                 <group
                   name="email_template_and_project"
@@ -179,6 +160,7 @@
                             <group name="description">
                                 <group
                   string="Description for Customers"
+                  groups="base.group_user"
                   attrs="{'invisible': [('sale_ok','=',False)]}"
                 >
                                     <field
@@ -203,7 +185,6 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <tree
-        string="Product"
         create="false"
         delete="false"
         decoration-danger="type == 'product' and virtual_available&lt;0"
@@ -233,5 +214,4 @@
             </tree>
         </field>
     </record>
-
 </odoo>
