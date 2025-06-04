@@ -10,6 +10,9 @@
             <field name="theoretical_amount" position="after">
                 <field name="result_amount" optional="show" />
             </field>
+            <tree position="attributes">
+                <attribute name="editable">top</attribute>
+            </tree>
         </field>
     </record>
 
@@ -69,7 +72,7 @@
     <record id="act_crossovered_budget_lines2_view" model="ir.actions.act_window">
         <field name="name">Budgets lines</field>
         <field name="res_model">crossovered.budget.lines</field>
-        <field name="view_mode">pivot,tree,form</field>
+        <field name="view_mode">pivot,tree</field>
         <field name="view_id" ref="view_crossovered_budget_line_pivot" />
     </record>
 
