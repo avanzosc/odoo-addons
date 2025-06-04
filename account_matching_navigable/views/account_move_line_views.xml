@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">account.move.line</field>
+        <field name="inherit_id" ref="account.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <field name="matching_number" position="after">
+                <button
+          name="action_open_matching_lines"
+          type="object"
+          icon="fa-cubes"
+          attrs="{'invisible': [('matching_number', '=', False)]}"
+          invisible="context.get('matching_lines', False)"
+          context="{'default_matching_number': matching_number}"
+          class="btn-link"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
