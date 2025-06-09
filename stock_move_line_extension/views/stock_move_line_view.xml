@@ -1,0 +1,45 @@
+<odoo>
+    <record id="view_move_line_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.view_move_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="reader" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="purchase_cost" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='container']" position="after">
+                <field name="product_packaging_id" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='product_packaging_id']" position="after">
+                <field name="product_packaging_qty" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='product_packaging_qty']" position="after">
+                <field name="palet_id" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='palet_id']" position="after">
+                <field name="palet_qty" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//field[@name='palet_qty']" position="after">
+                <field name="gross_weight" optional="show" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field
+      name="inherit_id"
+      ref="stock.view_stock_move_line_detailed_operation_tree"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='product_id']" position="after">
+                <field name="purchase_cost" optional="show" readonly="1" />
+            </xpath>
+            <xpath expr="//tree/field[@name='qty_done']" position="after">
+                <field name="standard_price" optional="show" readonly="1" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
