@@ -8,8 +8,6 @@
     "author": "AvanzOSC",
     "depends": [
         "stock_move_qty_by_packaging",
-        "stock_move_line_product_lot_reader",
-        "custom_mrp_line_cost",
     ],
     "data": [
         "views/stock_move_line_view.xml",

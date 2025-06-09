@@ -7,8 +7,8 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     purchase_cost = fields.Float(
-        string="Purchase Cost",
         related="lot_id.purchase_cost",
+        string="Purchase Cost",
         readonly=True,
         store=False,
     )
