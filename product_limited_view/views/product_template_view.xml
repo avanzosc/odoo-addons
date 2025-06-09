@@ -148,27 +148,30 @@
                             </group>
                         </page>
                         <page string="Notes" name="notes">
-                            <group name="description_internal">
-                                <group string="Internal Notes">
-                                    <field
-                    name="description"
-                    nolabel="1"
-                    placeholder="This note is only for internal purposes."
-                  />
-                                </group>
+                            <group
+                string="Internal Notes"
+                name="description_internal"
+                colspan="4"
+              >
+                                <field
+                  name="description"
+                  nolabel="1"
+                  colspan="4"
+                  placeholder="This note is only for internal purposes."
+                />
                             </group>
-                            <group name="description">
-                                <group
-                  string="Description for Customers"
-                  groups="base.group_user"
-                  attrs="{'invisible': [('sale_ok','=',False)]}"
-                >
-                                    <field
-                    name="description_sale"
-                    nolabel="1"
-                    placeholder="This note will show up on sales orders &amp; invoices."
-                  />
-                                </group>
+                            <group
+                string="Description for Customers"
+                colspan="4"
+                groups="base.group_user"
+                attrs="{'invisible': [('sale_ok','=',False)]}"
+              >
+                                <field
+                  name="description_sale"
+                  nolabel="1"
+                  colspan="4"
+                  placeholder="This note will show up on sales orders &amp; invoices."
+                />
                             </group>
                             <group name="warning">
                                 <group name="sale_warning" />

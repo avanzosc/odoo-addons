@@ -1,2 +1,1 @@
-from . import product_product
-from . import product_template
+from . import ir_ui_view
