@@ -43,6 +43,9 @@
                             <strong>&#160;</strong>
                             <span t-if="company.phone" t-field="company.phone" />
                         </div>
+                        <div class="col-12" t-if="o.company_id.company_registry">
+                            <span t-field="o.company_id.company_registry" />
+                        </div>
                         <div class="col-12" t-if="company.website">
                             <span t-field="company.website" />
                         </div>
