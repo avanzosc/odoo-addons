@@ -121,8 +121,6 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         unit = entry_chicken_amount / chick_qty if chick_qty else 0
         worksheet.write(n, m, float_round(unit, 8), eight_decimal_format)
         m += 1
-        worksheet.write(n, m, float_round(unit, 8), eight_decimal_format)
-        m += 1
         worksheet.write(
             n,
             m,
@@ -313,7 +311,7 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(
             n,
             m,
-            float_round(feed_amount / consume_feed_qty, 8),
+            float_round(feed_amount / consume_feed_qty, 8) if consume_feed_qty else 0,
             eight_decimal_format,
         )
         m += 1
@@ -442,7 +440,7 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         worksheet.write(
             n,
             m,
-            float_round(liquidation_amount / area, 3),
+            float_round(liquidation_amount / area, 3) if area else 0,
             three_decimal_format,
         )
         n += 1
