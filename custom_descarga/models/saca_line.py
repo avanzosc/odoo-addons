@@ -259,41 +259,15 @@ class SacaLine(models.Model):
             descarga = self.env.ref("custom_descarga.stage_descarga")
             matanza = self.env.ref("custom_descarga.stage_matanza")
             clasificado = self.env.ref("custom_descarga.stage_clasificado")
-            line.is_presaca = False
-            line.is_saca = False
-            line.is_descarga = False
-            line.is_killing = False
-            line.is_classified = False
-            if line.stage_id == presaca:
-                line.is_presaca = True
-                line.is_saca = False
-                line.is_descarga = False
-                line.is_killing = False
-                line.is_classified = False
-            if line.stage_id == saca:
-                line.is_presaca = False
-                line.is_saca = True
-                line.is_descarga = False
-                line.is_killing = False
-                line.is_classified = False
-            if line.stage_id == descarga:
-                line.is_presaca = False
-                line.is_saca = False
-                line.is_descarga = True
-                line.is_killing = False
-                line.is_classified = False
-            if line.stage_id == matanza:
-                line.is_presaca = False
-                line.is_saca = False
-                line.is_descarga = False
-                line.is_killing = True
-                line.is_classified = False
-            if line.stage_id == clasificado:
-                line.is_presaca = False
-                line.is_saca = False
-                line.is_descarga = False
-                line.is_killing = False
-                line.is_classified = True
+            line.update(
+                {
+                    "is_presaca": line.stage_id == presaca or False,
+                    "is_saca": line.stage_id == saca or False,
+                    "is_descarga": line.stage_id == descarga or False,
+                    "is_killing": line.stage_id == matanza or False,
+                    "is_classified": line.stage_id == clasificado or False,
+                }
+            )
 
     @api.depends("download_unit", "net_dest")
     def _compute_average_weight_dest(self):

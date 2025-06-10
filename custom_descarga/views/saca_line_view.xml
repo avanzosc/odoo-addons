@@ -397,7 +397,7 @@
                 <page
           name="quality"
           string="Quality"
-          attrs="{'readonly': [('is_canceled', '=', True)], 'invisible': [('is_historic', '=', False), ('is_classified', '=', False)]}"
+          attrs="{'invisible': ['|',('is_historic','=',True),('is_descarga','=',False),('is_killing','=',False),('is_classified','=',False)]}"
         >
                     <group>
                         <group>
