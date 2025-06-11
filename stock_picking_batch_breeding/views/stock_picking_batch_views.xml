@@ -12,12 +12,11 @@
                 <attribute
           name="domain"
         >[('location_id_computed', '=', batch_type)]</attribute>
-                <attribute
-          name="attrs"
-        >{'invisible': [('batch_type', '=', 'other')]}</attribute>
             </field>
             <field name="picking_type_id" position="attributes">
-                <attribute name="invisible">1</attribute>
+                <attribute
+          name="attrs"
+        >{'invisible': [('batch_type', '!=', 'other')]}</attribute>
             </field>
             <xpath expr="//sheet/notebook/page[1]" position="before">
                 <page
