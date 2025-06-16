@@ -1,0 +1,98 @@
+<odoo>
+  <template
+    id="custom_report_picking_inherit"
+    inherit_id="stock.report_picking"
+    priority="100"
+  >
+
+
+    <xpath expr="//div[@class='row justify-content-end mb16']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+
+    <xpath expr="//th[@name='th_serial_number']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//th[@name='th_to']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//th[@name='th_barcode']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+
+    <xpath expr="//tr[th[@name='th_product']]/th[@name='th_product']" position="after">
+      <th name="th_from" groups="stock.group_stock_multi_locations">
+        <strong>Desde</strong>
+      </th>
+    </xpath>
+
+
+    <xpath expr="//table[contains(@class, 'table')]/thead" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//table[contains(@class, 'table')]/tbody" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+
+    <xpath expr="//table[contains(@class, 'table')]" position="after">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th><strong>Producto</strong></th>
+            <th><strong>Desde</strong></th>
+            <th><strong>Cantidad</strong></th>
+            <th t-if="has_serial_number"><strong>Lote/Serie</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <t t-set="last_product_id" t-value="None" />
+          <t
+            t-foreach="o.move_line_ids_without_package.sorted(lambda ml: ml.product_id.id)"
+            t-as="ml"
+          >
+            <t t-if="not last_product_id or last_product_id != ml.product_id.id">
+              <t t-set="last_product_id" t-value="ml.product_id.id" />
+              <tr>
+                <td>
+                  <span t-field="ml.product_id.display_name" /><br />
+                  <span t-field="ml.product_id.description_picking" />
+                </td>
+                <td>
+                  <span t-esc="ml.location_id.display_name" />
+                </td>
+                <td>
+                  <strong>
+                    <t
+                      t-esc="sum([line.qty_done if o.state == 'done' else line.reserved_uom_qty for line in o.move_line_ids_without_package if line.product_id.id == ml.product_id.id])"
+                    />
+                    <t t-esc="ml.product_uom_id.name" />
+                  </strong> (total)
+                </td>
+                <td />
+              </tr>
+            </t>
+            <tr>
+              <td /><td /><td>
+                <span t-if="o.state != 'done'" t-field="ml.reserved_uom_qty" />
+                <span t-if="o.state == 'done'" t-field="ml.qty_done" />
+              </td>
+              <td class="text-center h6" t-if="has_serial_number">
+                <div t-if="ml.lot_id.name or ml.lot_name">
+                  <div
+                    t-options="{'widget': 'barcode', 'humanreadable': 0, 'width': 400, 'height': 100, 'img_style': 'width:100%;height:30px;'}"
+                    t-esc="ml.lot_id.name or ml.lot_name"
+                  />
+                  <div><small><t t-esc="ml.lot_id.name or ml.lot_name" /></small></div>
+                </div>
+              </td>
+            </tr>
+          </t>
+        </tbody>
+      </table>
+    </xpath>
+
+  </template>
+</odoo>
