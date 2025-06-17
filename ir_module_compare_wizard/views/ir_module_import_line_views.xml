@@ -87,7 +87,10 @@
         decoration-it="log_info"
         editable="top"
       >
-        <field name="import_id" invisible="1" />
+        <field
+          name="import_id"
+          column_invisible="context.get('default_import_id', True)"
+        />
         <field
           name="action"
           decoration-muted="action == 'nothing'"
@@ -152,7 +155,7 @@
     <field name="mode">primary</field>
     <field name="arch" type="xml">
       <field name="import_id" position="attributes">
-        <attribute name="invisible" />
+        <attribute name="column_invisible" />
         <attribute name="optional">hide</attribute>
       </field>
     </field>
