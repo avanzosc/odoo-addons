@@ -619,6 +619,87 @@
         </field>
     </record>
 
+    <record id="saca_line_quality_tree_view" model="ir.ui.view">
+        <field name="name">saca.line.quality.tree</field>
+        <field name="model">saca.line</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sampler_id" optional="show" />
+                <field name="dock_temperature" optional="show" />
+                <field name="dock_relative_humidity" optional="show" />
+                <field name="asphyxiated_percentage" optional="show" />
+                <field name="seizured_percentage" optional="show" />
+                <field name="stunning" optional="show" />
+                <field name="second_percentage" optional="show" />
+                <field name="dirty_feather_g1" optional="show" />
+                <field name="dirty_feather_g2" optional="show" />
+                <field name="dirty_feather" optional="show" />
+                <field name="living_stunned" optional="show" />
+                <field name="living_stunned_estimated" optional="show" />
+                <field name="hard_breast" optional="show" />
+                <field name="hard_breast_estimated" optional="show" />
+                <field name="craw_percentage" optional="show" />
+                <field name="wing_injury" optional="show" />
+                <field name="wing_injury_estimated" optional="show" />
+                <field name="thingh_injury" optional="show" />
+                <field name="thingh_injury_estimated" optional="show" />
+                <field name="breast_injury" optional="show" />
+                <field name="breast_injury_estimated" optional="show" />
+                <field name="back_injury" optional="show" />
+                <field name="back_injury_estimated" optional="show" />
+                <field name="hock_injury" optional="show" />
+                <field name="hock_injury_estimated" optional="show" />
+                <field name="podpdermattis_g1" optional="show" />
+                <field name="podpdermattis_g2" optional="show" />
+                <field name="podpdermattis" optional="show" />
+                <field name="gizzard_injury" optional="show" />
+                <field name="gizzard_injury_estimated" optional="show" />
+                <field name="liver_injury" optional="show" />
+                <field name="liver_injury_estimated" optional="show" />
+                <field name="heart_injury" optional="show" />
+                <field name="heart_injury_estimated" optional="show" />
+                <field name="bowel_injury" optional="show" />
+                <field name="bowel_injury_estimated" optional="show" />
+                <field name="weighting" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="saca_line_quality_pivot_view" model="ir.ui.view">
+        <field name="name">saca.line.quality.pivot</field>
+        <field name="model">saca.line</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <pivot string="Quality Analysis">
+                <field name="sampler_id" />
+                <field name="dock_temperature" type="measure" />
+                <field name="dock_relative_humidity" type="measure" />
+                <field name="asphyxiated_percentage" type="measure" />
+                <field name="seizured_percentage" type="measure" />
+                <field name="stunning" type="measure" />
+                <field name="second_percentage" type="measure" />
+                <field name="dirty_feather_g1" type="measure" />
+                <field name="dirty_feather_g2" type="measure" />
+                <field name="living_stunned" type="measure" />
+                <field name="hard_breast" type="measure" />
+                <field name="craw_percentage" type="measure" />
+                <field name="wing_injury" type="measure" />
+                <field name="thingh_injury" type="measure" />
+                <field name="breast_injury" type="measure" />
+                <field name="back_injury" type="measure" />
+                <field name="hock_injury" type="measure" />
+                <field name="podpdermattis_g1" type="measure" />
+                <field name="podpdermattis_g2" type="measure" />
+                <field name="gizzard_injury" type="measure" />
+                <field name="liver_injury" type="measure" />
+                <field name="heart_injury" type="measure" />
+                <field name="bowel_injury" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
     <record id="saca_line_view_search" model="ir.ui.view">
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_view_search" />
@@ -717,6 +798,28 @@
       name="context"
     >{"search_default_last_week_saca": 1, "search_default_saca": 1}</field>
     </record>
+
+    <record id="action_saca_line_quality" model="ir.actions.act_window">
+        <field name="name">Quality</field>
+        <field name="res_model">saca.line</field>
+        <field name="view_mode">tree,pivot</field>
+        <field
+      name="view_ids"
+      eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('saca_line_quality_tree_view')}),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('saca_line_quality_pivot_view')}),
+        ]"
+    />
+    </record>
+
+
+    <menuitem
+    id="menu_saca_lines_quality"
+    name="Quality"
+    parent="custom_saca.menu_saca"
+    action="action_saca_line_quality"
+    sequence="3"
+  />
 
     <menuitem
     name="Drivers"
