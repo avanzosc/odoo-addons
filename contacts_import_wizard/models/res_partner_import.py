@@ -136,146 +136,120 @@ class ResPartnerImportLine(models.Model):
     )
     partner_name = fields.Char(
         string="Name",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     partner_comercial = fields.Char(
         string="Trade Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_parent_name = fields.Char(
         string="Parent Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_ref = fields.Char(
         string="Reference",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_vat = fields.Char(
         string="Tax ID",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_website = fields.Char(
         string="Website Link",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_type = fields.Selection(
         selection="_get_selection_partner_type",
         string="Contact Type",
         default=default_partner_type,
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     partner_street = fields.Char(
         string="Street",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_street2 = fields.Char(
         string="Street 2",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_zip = fields.Char(
         string="Zip",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_city = fields.Char(
         string="City Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_state = fields.Char(
         string="State Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_country = fields.Char(
         string="Country Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_email = fields.Char(
         string="Email",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_phone = fields.Char(
         string="Phone",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_mobile = fields.Char(
         string="Mobile",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_is_company = fields.Boolean(
         string="Is a Company",
         default=False,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_comment = fields.Text(
         string="Notes",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_id = fields.Many2one(
         string="Contact",
         comodel_name="res.partner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_parent_id = fields.Many2one(
         string="Related Company",
         comodel_name="res.partner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_zip_id = fields.Many2one(
         comodel_name="res.city.zip",
         string="City Zip",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_city_id = fields.Many2one(
         comodel_name="res.city",
         string="City",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_state_id = fields.Many2one(
         comodel_name="res.country.state",
         string="State",
         domain="[('country_id', '=?', partner_country_id)]",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_country_id = fields.Many2one(
         comodel_name="res.country",
         string="Country",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_function = fields.Char(
         string="Function",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_company_type = fields.Selection(
         selection="_get_selection_partner_company_type",
         string="Company Type",
         default=default_partner_company_type,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
