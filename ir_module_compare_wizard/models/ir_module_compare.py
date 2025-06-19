@@ -1,6 +1,7 @@
 # Copyright 2024 Unai Beristan, Ana Juaristi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import odoo.release
 from odoo import _, fields, models
 from odoo.models import expression
 from odoo.modules.module import get_module_path
@@ -21,6 +22,16 @@ class IrModuleImport(models.Model):
         string="# Modules",
         compute="_compute_module_count",
     )
+    installed_module_count = fields.Integer(
+        string="# Additional Modules",
+        compute="_compute_installed_count",
+    )
+    is_enterprise = fields.Boolean(
+        default=lambda self: self._default_is_enterprise(),
+    )
+
+    def _default_is_enterprise(self):
+        return True if odoo.release.version_info[5] == "e" else False
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -78,12 +89,39 @@ class IrModuleImport(models.Model):
         for record in self:
             record.module_count = len(record.mapped("import_line_ids.import_module_id"))
 
+    def _compute_installed_count(self):
+        module_obj = self.env["ir.module.module"]
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        for record in self:
+            modules = record.mapped("import_line_ids.import_module_id")
+            domain = expression.AND(
+                [
+                    [("id", "not in", modules.ids), ("state", "=", "installed")],
+                    safe_eval(action.get("domain") or "[]"),
+                ]
+            )
+            additional_count = module_obj.search_count(domain)
+            record.installed_module_count = additional_count
+
     def button_open_modules(self):
         self.ensure_one()
         modules = self.mapped("import_line_ids.import_module_id")
         action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
         action["domain"] = expression.AND(
             [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action
+
+    def button_open_additional_modules(self):
+        self.ensure_one()
+        modules = self.mapped("import_line_ids.import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        action["domain"] = expression.AND(
+            [
+                [("id", "not in", modules.ids), ("state", "=", "installed")],
+                safe_eval(action.get("domain") or "[]"),
+            ]
         )
         action["context"] = dict(self._context, create=False)
         return action
@@ -108,10 +146,17 @@ class IrModuleImportLine(models.Model):
     import_module_state = fields.Selection(
         string="Database State",
         related="import_module_id.state",
+        store=True,
     )
     installed_version = fields.Char(
         string="Database Version",
         related="import_module_id.installed_version",
+        store=True,
+    )
+    license = fields.Selection(
+        string="License",
+        related="import_module_id.license",
+        store=True,
     )
     action = fields.Selection(
         selection_add=[("install", "Install"), ("update", "Update")],
@@ -159,7 +204,7 @@ class IrModuleImportLine(models.Model):
             log_infos.append(log_info_module)
         path = False
         if module:
-            path = get_module_path(self.module_technical_name, display_warning=False)
+            path = get_module_path(module.name, display_warning=False)
             if not path:
                 log_infos.append(
                     _("Module %(module_name)s not installable")

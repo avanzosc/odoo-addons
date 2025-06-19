@@ -40,6 +40,7 @@
               icon="fa-bars"
             />
             <button
+              string="Found Modules"
               type="object"
               name="button_open_modules"
               class="oe_stat_button"
@@ -47,11 +48,21 @@
             >
               <field name="module_count" widget="statinfo" />
             </button>
+            <button
+              string="Additional Installed"
+              type="object"
+              name="button_open_additional_modules"
+              class="oe_stat_button"
+              icon="fa-bars"
+            >
+              <field name="installed_module_count" widget="statinfo" />
+            </button>
           </div>
           <group>
             <field name="filename" invisible="1" readonly="state == 'done'" />
             <field name="data" filename="filename" readonly="state == 'done'" />
             <field name="file_date" readonly="state == 'done'" />
+            <field name="is_enterprise" readonly="state == 'done'" />
           </group>
           <notebook>
             <page string="Imported Lines">
