@@ -12,7 +12,6 @@ class ProductTemplate(models.Model):
         compute="_compute_last_purchase_line_id_info",
     )
     last_purchase_net_unit_price = fields.Float(
-        string="Last Purchase Net Unit Price",
         compute="_compute_last_purchase_line_id_info",
     )
 
