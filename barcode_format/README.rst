@@ -11,21 +11,22 @@ This module allows you to define custom barcode formats in Odoo 14, supporting b
 Features
 ========
 
-* Define barcode formats by type: **Fixed** or **Variable**
+* Format types: **Fixed** or **Variable**
 * Assign a model (default: `stock.move.line`)
-* Filter by partner (customer/vendor)
+* Link multiple suppliers to each format (Many2many)
+* View formats from supplier form (One2many)
 * Support for GS1 prefixes and field positions
-* Field separator configurable for variable barcodes
+* Configurable field separator for variable barcodes
 
 Usage
 =====
 
-1. Go to the menu and create a new barcode format.
-2. Select the format type (`fixed` or `variable`).
-3. Add lines to the format:
-   * For fixed: set `field`, `start position`, and `end position`.
-   * For variable: set `field` and `GS1 prefix`.
-4. (Optional) For variable types, you can specify a separator character.
+1. Go to *Inventory > Configuration > Formats* to create a format.
+2. Select type, model, and suppliers.
+3. Add lines:
+   - Fixed: field, start/end position
+   - Variable: field and GS1 prefix
+4. View related formats from the supplier form.
 
 Bug Tracker
 ===========

@@ -8,11 +8,13 @@
     "depends": [
         "base",
         "stock",
+        "contacts",
         "base_gs1_barcode",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/barcode_format_view.xml",
+        "views/res_partner_view.xml"
     ],
     "installable": True,
 }
