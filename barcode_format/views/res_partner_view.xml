@@ -3,15 +3,15 @@
     <record id="view_partner_form_barcode_format" model="ir.ui.view">
         <field name="name">res.partner.form.barcode.format</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Formatos de código de barras">
                     <field name="barcode_format_ids" mode="tree,form" readonly="1">
                         <tree>
-                            <field name="name"/>
-                            <field name="type"/>
-                            <field name="model_id"/>
+                            <field name="name" />
+                            <field name="type" />
+                            <field name="model_id" />
                         </tree>
                     </field>
                 </page>

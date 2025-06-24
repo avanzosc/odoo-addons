@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
+
 
 class BarcodeFormat(models.Model):
     _name = "barcode.format"
@@ -6,56 +7,49 @@ class BarcodeFormat(models.Model):
 
     name = fields.Char(string="Formato", required=True)
 
-    type = fields.Selection([
-        ('fijo', 'Fijo'),
-        ('variable', 'Variable')
-    ], string="Tipo", required=True)
+    type = fields.Selection(
+        [("fijo", "Fijo"), ("variable", "Variable")], string="Tipo", required=True
+    )
 
     model_id = fields.Many2one(
         "ir.model",
         string="Modelo al que aplica",
         required=True,
-        ondelete='cascade',
-        default=lambda self: self.env.ref('stock.model_stock_move_line', raise_if_not_found=False)
+        ondelete="cascade",
+        default=lambda self: self.env.ref(
+            "stock.model_stock_move_line", raise_if_not_found=False
+        ),
     )
 
-    
     partner_ids = fields.Many2many(
         "res.partner",
         string="Proveedor",
         relation="barcode_format_partner_rel",
         column1="format_id",
-        column2="partner_id"
+        column2="partner_id",
     )
-    
+
     line_ids = fields.One2many(
-        "barcode.format.line",
-        "format_id",
-        string="Líneas del formato"
+        "barcode.format.line", "format_id", string="Líneas del formato"
     )
 
     field_separator = fields.Char(
-    string="Separador de campo",
-    help="Caracter que separa campos en códigos de tipo variable"
+        string="Separador de campo",
+        help="Caracter que separa campos en códigos de tipo variable",
     )
 
     model_name = fields.Char(
-    string="Nombre del modelo",
-    compute="_compute_model_name",
-    store=True
+        string="Nombre del modelo", compute="_compute_model_name", store=True
     )
 
-    @api.depends('model_id')
+    @api.depends("model_id")
     def _compute_model_name(self):
-      for record in self:
-        record.model_name = record.model_id.model or False
+        for record in self:
+            record.model_name = record.model_id.model or False
 
-
-
-
-    @api.onchange('type')
+    @api.onchange("type")
     def _onchange_type(self):
-        if self.type == 'fijo':
-            pass  
-        elif self.type == 'variable':
-            self.line_ids = [(5, 0, 0)] 
+        if self.type == "fijo":
+            pass
+        elif self.type == "variable":
+            self.line_ids = [(5, 0, 0)]

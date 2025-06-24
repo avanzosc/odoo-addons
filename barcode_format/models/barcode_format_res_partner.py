@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import api, fields, models
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -7,12 +8,12 @@ class ResPartner(models.Model):
         comodel_name="barcode.format",
         compute="_compute_barcode_format_ids",
         string="Formatos de código de barras",
-        readonly=True
+        readonly=True,
     )
 
-    @api.depends('barcode_format_ids.partner_ids')
+    @api.depends("barcode_format_ids.partner_ids")
     def _compute_barcode_format_ids(self):
         for partner in self:
-            partner.barcode_format_ids = self.env['barcode.format'].search([
-                ('partner_ids', 'in', partner.id)
-            ])
+            partner.barcode_format_ids = self.env["barcode.format"].search(
+                [("partner_ids", "in", partner.id)]
+            )
