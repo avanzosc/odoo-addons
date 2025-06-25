@@ -1,5 +1,3 @@
-# Copyright 2024 Alfredo de la Fuente - AvanzOSC
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -7,48 +5,100 @@ from odoo.exceptions import ValidationError
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    reader = fields.Char(copy=False)
+    reader = fields.Char(string="Lector de código de barras", copy=False)
 
     @api.onchange("reader")
     def onchange_reader(self):
         if self.reader:
-            pos = self.reader.find(" ")
-            cond = [("default_code", "=", self.reader)]
-            if pos > 0:
-                default_code = self.reader[0:pos]
-                cond = [("default_code", "=", default_code)]
-            product = self.env["product.product"].search(cond, limit=1)
-            if not product:
-                message = _("Product not found, reader information: %(reader)s") % {
-                    "reader": self.reader,
-                }
-                raise ValidationError(message)
-            self.product_id = product.id
-            if pos > 0:
-                name = self.reader[pos + 1 : len(self.reader)]
-                cond = [("name", "=", name), ("product_id", "=", product.id)]
-                lot = self.env["stock.lot"].search(cond, limit=1)
-                if not lot:
-                    message = _(
-                        "Lot: %(lot)s, for product: %(product)s not found. "
-                        "Reader information: %(reader)s"
-                    ) % {"lot": name, "product": product.name, "reader": self.reader}
-                    raise ValidationError(message)
-                self.lot_id = lot.id
-            if "from_stock_picking" in self.env.context and self.env.context.get(
-                "from_stock_picking", False
-            ):
-                stock_move = self.picking_id.move_ids_without_package.filtered(
-                    lambda x: x.product_id == product
+
+            domain = [
+                ("model_id.model", "=", self._name),
+                ("partner_ids", "in", self.picking_id.partner_id.id),
+            ]
+            barcode_format = self.env["barcode.format"].search(domain, limit=1)
+
+            if not barcode_format:
+                raise ValidationError(
+                    _(
+                        "No se ha encontrado ningún "
+                        "formato de código de barras configurado para este modelo y cliente."
+                    )
                 )
-                if not stock_move:
-                    message = _(
-                        "Reader product: %(product)s, not found in stock move."
-                    ) % {
-                        "product": product.name,
-                    }
-                    raise ValidationError(message)
-                self.move_id = stock_move.id
+
+            product_line = barcode_format.line_ids.filtered(
+                lambda l: l.field_id.name == "product_id"
+            )
+
+            if not product_line:
+                raise ValidationError(
+                    _("Este formato no tiene línea para el campo producto")
+                )
+
+            start = product_line.start_pos - 1
+            end = product_line.final_pos
+            product_code = self.reader[start:end]
+
+            product = self.env["product.product"].search(
+                [("default_code", "=", product_code)], limit=1
+            )
+            if not product:
+                raise ValidationError(
+                    _("No se encontró ningún producto con código '%s' en Odoo.")
+                    % product_code
+                )
+            self.product_id = product.id
+
+            if product.tracking != "none":
+
+                lot_line = barcode_format.line_ids.filtered(
+                    lambda l: l.field_id.name == "lot_id"
+                )
+
+                if not lot_line:
+                    raise ValidationError(
+                        _("Este formato no tiene línea para el campo lote.")
+                    )
+
+                if lot_line and barcode_format.type == "fijo":
+
+                    start = lot_line.start_pos - 1
+                    end = lot_line.final_pos
+                    lote_code = self.reader[start:end]
+
+                elif lot_line and barcode_format.type == "variable":
+
+                    decode_values = self.env["gs1_barcode"].decode(self.reader)
+                    lote_code = decode_values.get(lot_line.gs1_barcode_id.ai)
+
+                lot = self.env["stock.production.lot"].search(
+                    [("name", "=", lote_code), ("product_id", "=", product.id)], limit=1
+                )
+
+                if not lot:
+                    raise ValidationError(
+                        _("No se encontró el lote '%s' para el producto '%s'.")
+                        % (lote_code, product.display_name)
+                    )
+
+                self.lot_id = lot.id
+
+            if barcode_format.type == "variable":
+                decode_values = self.env["gs1_barcode"].decode(self.reader)
+
+            for line in barcode_format.line_ids:
+                field_name = line.field_id.name
+                if field_name in ["product_id", "lot_id"]:
+                    continue
+
+                if barcode_format.type == "fijo":
+                    start = line.start_pos - 1
+                    end = line.final_pos
+                    value = self.reader[start:end]
+                else:
+                    value = decode_values.get(line.gs1_barcode_id.ai)
+
+                if field_name in self._fields and value is not None:
+                    self[field_name] = value
 
     @api.model_create_multi
     def create(self, vals_list):
