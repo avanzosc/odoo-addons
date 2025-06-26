@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    reader = fields.Char(string="reader", copy=False)
+    reader = fields.Char(copy=False)
 
     def search_format_line(self, barcode_format, field_name):
         line = barcode_format.line_ids.filtered(lambda l: l.field_id.name == field_name)
@@ -70,7 +70,7 @@ class StockMoveLine(models.Model):
 
                 if not lot:
                     raise ValidationError(
-                        _("No se encontró el lote '%s' para el producto '%s'.")
+                        _("Lot ‘%s’ was not found for product ‘%s’.")
                         % (lote_code, product.display_name)
                     )
 
