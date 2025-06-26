@@ -5,7 +5,15 @@ from odoo.exceptions import ValidationError
 class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
-    reader = fields.Char(string="Lector de código de barras", copy=False)
+    reader = fields.Char(string="reader", copy=False)
+
+    def search_format_line(self, barcode_format, field_name):
+        line = barcode_format.line_ids.filtered(lambda l: l.field_id.name == field_name)
+        if not line:
+            raise ValidationError(
+                _("This format has no line for '%s' field") % field_name
+            )
+        return line
 
     @api.onchange("reader")
     def onchange_reader(self):
@@ -20,19 +28,12 @@ class StockMoveLine(models.Model):
             if not barcode_format:
                 raise ValidationError(
                     _(
-                        "No se ha encontrado ningún "
-                        "formato de código de barras configurado para este modelo y cliente."
+                        "No barcode format configured"
+                        "for this model and customer was found."
                     )
                 )
 
-            product_line = barcode_format.line_ids.filtered(
-                lambda l: l.field_id.name == "product_id"
-            )
-
-            if not product_line:
-                raise ValidationError(
-                    _("Este formato no tiene línea para el campo producto")
-                )
+            product_line = self.search_format_line(barcode_format, "product_id")
 
             start = product_line.start_pos - 1
             end = product_line.final_pos
@@ -43,21 +44,14 @@ class StockMoveLine(models.Model):
             )
             if not product:
                 raise ValidationError(
-                    _("No se encontró ningún producto con código '%s' en Odoo.")
-                    % product_code
+                    _("No product with code '%s' was found in Odoo.") % product_code
                 )
+
             self.product_id = product.id
 
             if product.tracking != "none":
 
-                lot_line = barcode_format.line_ids.filtered(
-                    lambda l: l.field_id.name == "lot_id"
-                )
-
-                if not lot_line:
-                    raise ValidationError(
-                        _("Este formato no tiene línea para el campo lote.")
-                    )
+                lot_line = self.search_format_line(barcode_format, "lot_id")
 
                 if lot_line and barcode_format.type == "fijo":
 
