@@ -1,6 +1,5 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -10,92 +9,79 @@ class StockMoveLine(models.Model):
 
     reader = fields.Char(copy=False)
 
-    def search_format_line(self, barcode_format, field_name):
-        line = barcode_format.line_ids.filtered(lambda l: l.field_id.name == field_name)
-        if not line:
-            raise ValidationError(
-                _("This format has no line for '%s' field") % field_name
-            )
-        return line
-
     @api.onchange("reader")
     def onchange_reader(self):
         if self.reader:
-
-            domain = [
-                ("model_id.model", "=", self._name),
-                ("partner_ids", "in", self.picking_id.partner_id.id),
-            ]
-            barcode_format = self.env["barcode.format"].search(domain, limit=1)
-
-            if not barcode_format:
-                raise ValidationError(
-                    _(
-                        "No barcode format configured"
-                        "for this model and customer was found."
-                    )
-                )
-
-            product_line = self.search_format_line(barcode_format, "product_id")
-
-            start = product_line.start_pos - 1
-            end = product_line.final_pos
-            product_code = self.reader[start:end]
-
-            product = self.env["product.product"].search(
-                [("default_code", "=", product_code)], limit=1
-            )
+            default_code = ""
+            pos = self.reader.find(" ")
+            cond = [("default_code", "=", self.reader)]
+            if pos > 0:
+                default_code = self.reader[0:pos]
+                cond = [("default_code", "=", default_code)]
+            product = self.env["product.product"].search(cond, limit=1)
+            if not product and self.picking_id.picking_type_id.code == "incoming":
+                product = self._catch_supplierinfo_from_reader(pos, default_code)
             if not product:
-                raise ValidationError(
-                    _("No product with code '%s' was found in Odoo.") % product_code
-                )
-
+                message = _("Product not found, reader information: %(reader)s") % {
+                    "reader": self.reader,
+                }
+                raise ValidationError(message)
             self.product_id = product.id
-
-            if product.tracking != "none":
-
-                lot_line = self.search_format_line(barcode_format, "lot_id")
-
-                if lot_line and barcode_format.type == "fijo":
-
-                    start = lot_line.start_pos - 1
-                    end = lot_line.final_pos
-                    lote_code = self.reader[start:end]
-
-                elif lot_line and barcode_format.type == "variable":
-
-                    decode_values = self.env["gs1_barcode"].decode(self.reader)
-                    lote_code = decode_values.get(lot_line.gs1_barcode_id.ai)
-
-                lot = self.env["stock.production.lot"].search(
-                    [("name", "=", lote_code), ("product_id", "=", product.id)], limit=1
+            if pos > 0:
+                name = self.reader[pos + 1 : len(self.reader)]
+                cond = [("name", "=", name), ("product_id", "=", product.id)]
+                lot = self.env["stock.lot"].search(cond, limit=1)
+                if not lot and self.picking_id:
+                    if (
+                        self.picking_id.picking_type_id.use_existing_lots
+                        and not self.picking_id.picking_type_id.use_create_lots
+                    ):
+                        message = _(
+                            "Lot: %(lot)s, for product: %(product)s not found. "
+                            "Reader information: %(reader)s"
+                        ) % {
+                            "lot": name,
+                            "product": product.name,
+                            "reader": self.reader,
+                        }
+                        raise ValidationError(message)
+                    if self.picking_id.picking_type_id.use_create_lots:
+                        self.lot_name = name
+                if lot:
+                    self.lot_id = lot.id
+            if "from_stock_picking" in self.env.context and self.env.context.get(
+                "from_stock_picking", False
+            ):
+                stock_move = self.picking_id.move_ids_without_package.filtered(
+                    lambda x: x.product_id == product
                 )
+                if not stock_move:
+                    message = _(
+                        "Reader product: %(product)s, not found in stock move."
+                    ) % {
+                        "product": product.name,
+                    }
+                    raise ValidationError(message)
+                self.move_id = stock_move.id
 
-                if not lot:
-                    raise ValidationError(
-                        _("Lot ‘%s’ was not found for product ‘%s’.")
-                        % (lote_code, product.display_name)
-                    )
-
-                self.lot_id = lot.id
-
-            if barcode_format.type == "variable":
-                decode_values = self.env["gs1_barcode"].decode(self.reader)
-
-            for line in barcode_format.line_ids:
-                field_name = line.field_id.name
-                if field_name in ["product_id", "lot_id"]:
-                    continue
-
-                if barcode_format.type == "fijo":
-                    start = line.start_pos - 1
-                    end = line.final_pos
-                    value = self.reader[start:end]
-                else:
-                    value = decode_values.get(line.gs1_barcode_id.ai)
-
-                if field_name in self._fields and value is not None:
-                    self[field_name] = value
+    def _catch_supplierinfo_from_reader(self, pos, default_code):
+        product = self.env["product.product"]
+        cond = [("partner_id", "=", self.picking_id.partner_id.id)]
+        if pos > 0:
+            cond.append(("product_code", "=", default_code))
+        else:
+            cond.append(("product_code", "=", self.reader))
+        supplierinfo = self.env["product.supplierinfo"].search(cond)
+        if supplierinfo:
+            if supplierinfo.product_id:
+                product = supplierinfo.product_id
+            else:
+                if (
+                    supplierinfo.product_tmpl_id
+                    and supplierinfo.product_tmpl_id.product_variant_ids
+                ):
+                    product = supplierinfo.product_tmpl_id.product_variant_ids[0]
+        return product
 
     @api.model_create_multi
     def create(self, vals_list):
