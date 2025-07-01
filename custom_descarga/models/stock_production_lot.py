@@ -5,6 +5,7 @@ from odoo import models
 
 class StockproductionLot(models.Model):
     _inherit = "stock.production.lot"
+    _order = "create_date desc, name, id"
 
     def action_create_lot(self, product, name, company):
         lot = self.env["stock.production.lot"].create(
