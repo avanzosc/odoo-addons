@@ -10,6 +10,7 @@
                         <group>
                             <field name="name" />
                             <field name="model_id" />
+                            <field name="company_id" />
                         </group>
                         <group>
                             <field name="type" />
@@ -78,7 +79,12 @@
           domain="[]"
           context="{'group_by': 'model_id'}"
         />
-                <!-- <filter name="partner_ids" string="Proveedor" domain="[]" context="{'group_by': 'partner_ids'}"/> -->
+                <filter
+          name="partner_ids"
+          string="Proveedor"
+          domain="[]"
+          context="{'group_by': 'partner_ids'}"
+        />
             </search>
         </field>
     </record>

@@ -27,6 +27,11 @@ class BarcodeFormat(models.Model):
         relation="barcode_format_partner_rel",
         column1="format_id",
         column2="partner_id",
+        default=lambda self: self.env.context.get("default_partner_ids", []),
+    )
+
+    company_id = fields.Many2one(
+        "res.company", string="Compañia", default=lambda self: self.env.company
     )
 
     line_ids = fields.One2many(

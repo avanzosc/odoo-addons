@@ -4,11 +4,12 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    barcode_format_ids = fields.One2many(
-        comodel_name="barcode.format",
-        compute="_compute_barcode_format_ids",
-        string="Formatos de código de barras",
-        readonly=True,
+    barcode_format_ids = fields.Many2many(
+        "barcode.format",
+        string="Barcode Formats",
+        relation="barcode_format_partner_rel",
+        column1="partner_id",
+        column2="format_id",
     )
 
     @api.depends("barcode_format_ids.partner_ids")
