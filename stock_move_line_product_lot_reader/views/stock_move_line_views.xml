@@ -12,6 +12,7 @@
           name="reader"
           attrs="{'readonly': [('state', '=', 'done')]}"
           context="{'from_stock_picking':True}"
+          optional="show"
         />
             </field>
         </field>
