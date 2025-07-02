@@ -1,0 +1,150 @@
+<odoo>
+
+    <record id="action_report_picking_batch_pa" model="ir.actions.report">
+        <field name="name">Grouped Picking Report PA</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_batch_report_pa.report_grouped_picking_pa</field>
+        <field
+      name="report_file"
+    >stock_picking_batch_report_pa.report_grouped_picking_pa</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
+        <field name="binding_type">report</field>
+    </record>
+
+    <template
+    id="report_grouped_picking_pa"
+    t-name="stock_picking_batch_report_pa.report_grouped_picking_pa"
+  >
+        <t t-call="web.html_container">
+
+            <t t-call="web.external_layout">
+                <t t-slot="title">Delivery Report by Customer and Date</t>
+                <div class="page">
+                    <t t-foreach="docs" t-as="batch">
+
+                        <t
+              t-set="container_moves"
+              t-value="batch.move_ids.filtered(
+                                lambda m: (m.product_id.categ_id.name == '9. ENVASES' or m.product_id.palet)
+                            )"
+            />
+
+                        <t
+              t-set="non_container_moves"
+              t-value="batch.move_ids - container_moves"
+            />
+
+                        <t
+              t-set="partners"
+              t-value="non_container_moves.mapped('partner_id')"
+            />
+
+                        <t t-foreach="partners" t-as="partner">
+                            <h2>Customer: <t t-esc="partner.name" /></h2>
+                            <t
+                t-set="pmoves"
+                t-value="non_container_moves.filtered(lambda m: m.partner_id.id == partner.id)"
+              />
+
+                            <t t-set="dates" t-value="[]" />
+                            <t t-foreach="pmoves" t-as="mv">
+                                <t t-set="f" t-value="mv.date.strftime('%Y-%m-%d')" />
+                                <t t-if="f not in dates">
+                                    <t t-set="dates" t-value="dates + [f]" />
+                                </t>
+                            </t>
+
+                            <t t-foreach="dates" t-as="date">
+                                <h3>Date: <t t-esc="date" /></h3>
+                                <t
+                  t-set="dmoves"
+                  t-value="pmoves.filtered(lambda m: m.date.strftime('%Y-%m-%d') == date)"
+                />
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Containers</th>
+                                            <th>Lot(s)</th>
+                                            <th>Quantity</th>
+                                            <th>UoM</th>
+                                            <th>Origin Document</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="dmoves" t-as="move">
+                                            <tr>
+                                                <td>
+                                                    <t t-esc="move.name" /></td>
+                                                <td>
+                                                    <t
+                            t-esc="'%.2f' % (move.product_packaging_qty or 0.0)"
+                          /></td>
+                                                <td>
+                                                    <t
+                            t-esc="', '.join(move.lot_ids.mapped('name')) or ''"
+                          /></td>
+                                                <td>
+                                                    <t
+                            t-esc="'%.2f' % (move.quantity_done or 0.0)"
+                          /></td>
+                                                <td>
+                                                    <t
+                            t-esc="move.product_uom.name or ''"
+                          /></td>
+                                                <td>
+                                                    <t t-esc="move.origin or ''" /></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </t>
+                            <hr />
+                        </t>
+
+                        <t
+              t-set="total_quantity"
+              t-value="sum((m.quantity_done or 0.0) for m in batch.move_ids)"
+            />
+                        <t
+              t-set="total_palet"
+              t-value="sum(
+                           (m.download_unit or 0.0)
+                           for m in container_moves
+                           if m.product_id.palet
+                        )"
+            />
+                        <t
+              t-set="total_boxes"
+              t-value="sum(
+                                (m.download_unit or 0.0)
+                                for m in container_moves
+                                if not m.product_id.palet
+                            )"
+            />
+
+                        <div style="text-align: right; margin-top: 30px;">
+                            <span style="margin-right: 40px;"> TOTAL KG:
+                                <t t-esc="'%.2f' % (total_quantity)" />
+                            </span>
+                            <span style="margin-right: 40px;"> TOTAL PALLET:
+                                <t t-esc="'%.2f' % (total_palet)" />
+                            </span>
+                            <span> TOTAL BOXES:
+                                <t t-esc="'%.2f' % (total_boxes)" />
+                            </span>
+                        </div>
+
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
