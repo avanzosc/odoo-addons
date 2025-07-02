@@ -10,6 +10,17 @@ class StockMoveLine(models.Model):
 
     reader = fields.Char(copy=False)
 
+    def search_barcode_format(self, model, partner_id, company_id):
+        domain = [
+            ("model_id.model", "=", model),
+            ("partner_ids", "in", [partner_id]),
+            "|",
+            ("company_id", "=", company_id),
+            ("company_id", "=", False),
+        ]
+        barcode_format = self.env["barcode.format"].search(domain, limit=1)
+        return barcode_format
+
     def search_format_line(self, barcode_format, field_name):
         line = barcode_format.line_ids.filtered(lambda l: l.field_id.name == field_name)
         if not line:
@@ -18,16 +29,27 @@ class StockMoveLine(models.Model):
             )
         return line
 
+    def get_lot_field(self):
+
+        picking_type = self.picking_id.picking_type_id
+
+        if picking_type.use_existing_lots:
+            return "lot_id"
+
+        elif picking_type.use_create_lots:
+            return "lot_name"
+        else:
+            return None
+
     @api.onchange("reader")
     def onchange_reader(self):
         if self.reader:
 
-            domain = [
-                ("model_id.model", "=", self._name),
-                ("partner_ids", "in", self.picking_id.partner_id.id),
-                ("company_id", "=", self.env.company.id),
-            ]
-            barcode_format = self.env["barcode.format"].search(domain, limit=1)
+            barcode_format = self.search_barcode_format(
+                model=self._name,
+                partner_id=self.picking_id.partner_id.id,
+                company_id=self.env.company.id,
+            )
 
             if not barcode_format:
                 raise ValidationError(
@@ -55,37 +77,43 @@ class StockMoveLine(models.Model):
 
             if product.tracking != "none":
 
-                lot_line = self.search_format_line(barcode_format, "lot_id")
+                lot_field = self.get_lot_field()
 
-                if lot_line and barcode_format.type == "fijo":
+                if lot_field:
+                    lot_line = self.search_format_line(barcode_format, lot_field)
 
-                    start = lot_line.start_pos - 1
-                    end = lot_line.final_pos
-                    lote_code = self.reader[start:end]
+                    if lot_line and barcode_format.type == "fijo":
+                        start = lot_line.start_pos - 1
+                        end = lot_line.final_pos
+                        lote_code = self.reader[start:end]
 
-                elif lot_line and barcode_format.type == "variable":
+                    elif lot_line and barcode_format.type == "variable":
+                        decode_values = self.env["gs1_barcode"].decode(self.reader)
+                        lote_code = decode_values.get(lot_line.gs1_barcode_id.ai)
 
-                    decode_values = self.env["gs1_barcode"].decode(self.reader)
-                    lote_code = decode_values.get(lot_line.gs1_barcode_id.ai)
+                    if lot_field == "lot_id":
+                        lot = self.env["stock.production.lot"].search(
+                            [("name", "=", lote_code), ("product_id", "=", product.id)],
+                            limit=1,
+                        )
 
-                lot = self.env["stock.production.lot"].search(
-                    [("name", "=", lote_code), ("product_id", "=", product.id)], limit=1
-                )
+                        if not lot:
+                            raise ValidationError(
+                                _("Lot ‘%s’ was not found for product ‘%s’.")
+                                % (lote_code, product.display_name)
+                            )
 
-                if not lot:
-                    raise ValidationError(
-                        _("Lot ‘%s’ was not found for product ‘%s’.")
-                        % (lote_code, product.display_name)
-                    )
+                        self.lot_id = lot.id
 
-                self.lot_id = lot.id
+                    else:
+                        self.lot_name = lote_code
 
             if barcode_format.type == "variable":
                 decode_values = self.env["gs1_barcode"].decode(self.reader)
 
             for line in barcode_format.line_ids:
                 field_name = line.field_id.name
-                if field_name in ["product_id", "lot_id"]:
+                if field_name in ["product_id", "lot_id", "lot_name"]:
                     continue
 
                 if barcode_format.type == "fijo":
