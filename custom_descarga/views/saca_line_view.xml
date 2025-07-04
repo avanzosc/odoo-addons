@@ -9,9 +9,9 @@
                 <field name="descarga_order" string="Descarga Order" />
             </field>
             <button name="action_create_purchase" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': ['|', ('purchase_order_id','!=',False), ('is_canceled', '!=', False)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|',
+                    ('purchase_order_id','!=',False), ('is_canceled', '!=',
+                    False)]}</attribute>
             </button>
             <div name="button_box" position="inside">
                 <button
@@ -35,34 +35,30 @@
         >{'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="breeding_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': [('external_supplier','=',True)], 'readonly': [('is_canceled', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)],
+                    'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="supplier_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=',
+                    False), ('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="farmer_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)], 'invisible': [('external_supplier','=',False)]}</attribute>
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=',
+                    False), ('is_canceled', '=', True)], 'invisible':
+                    [('external_supplier','=',False)]}</attribute>
             </field>
             <field name="farm_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly':['|', ('external_supplier', '=', False), ('is_canceled', '=', True)], 'invisible': [('external_supplier','=',False)]}</attribute>
+                <attribute name="attrs">{'readonly':['|', ('external_supplier', '=',
+                    False), ('is_canceled', '=', True)], 'invisible':
+                    [('external_supplier','=',False)]}</attribute>
             </field>
             <field name="existence" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': [('external_supplier','=',True)], 'readonly':[('is_canceled', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)],
+                    'readonly':[('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="age" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': [('external_supplier','=',True)], 'readonly':[('is_canceled', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': [('external_supplier','=',True)],
+                    'readonly':[('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="main_scale" position="attributes">
                 <attribute
@@ -135,19 +131,16 @@
         >{'readonly': [('is_canceled', '=', True)]}</attribute>
             </field>
             <field name="purchase_order_line_ids" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly': ['|', ('is_canceled', '=', True), ('is_presaca', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': ['|', ('is_canceled', '=', True),
+                    ('is_presaca', '=', True)]}</attribute>
             </field>
             <field name="sale_order_line_ids" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly': ['|', ('is_canceled', '=', True), ('is_presaca', '=', True)]}</attribute>
+                <attribute name="attrs">{'readonly': ['|', ('is_canceled', '=', True),
+                    ('is_presaca', '=', True)]}</attribute>
             </field>
             <field name="product_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'readonly': [('is_presaca', '=', False), ('is_saca', '=', False)]}</attribute>
+                <attribute name="attrs">{'readonly': [('is_presaca', '=', False),
+                    ('is_saca', '=', False)]}</attribute>
             </field>
             <header position="inside">
                 <field name="is_canceled" invisible="1" />
@@ -727,7 +720,7 @@
         <field name="state">code</field>
         <field name="code">
             for record in records:
-                record.action_create_historic()
+            record.action_create_historic()
         </field>
     </record>
 
@@ -738,7 +731,7 @@
         <field name="state">code</field>
         <field name="code">
             for record in records:
-                record.action_cancel()
+            record.action_cancel()
         </field>
     </record>
 
@@ -749,7 +742,7 @@
         <field name="state">code</field>
         <field name="code">
             for record in records:
-                record.action_next_stage()
+            record.action_next_stage()
         </field>
     </record>
 
@@ -759,9 +752,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="custom_saca.saca_line_tree_view" />
-        <field
-      name="domain"
-    >['|', ('is_saca', '=', True), ('is_presaca', '=', True), ('is_historic', '=', False)]</field>
+        <field name="domain">['|', ('is_saca', '=', True), ('is_presaca', '=',
+            True), ('is_historic', '=', False)]</field>
     </record>
 
     <record id="action_saca_line_stage_descarga" model="ir.actions.act_window">
@@ -770,9 +762,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="custom_descarga.saca_line_descarga_tree_view" />
-        <field
-      name="domain"
-    >[('is_descarga', '=', True), ('is_historic', '=', False)]</field>
+        <field name="domain">[('is_descarga', '=', True), ('is_historic', '=',
+            False)]</field>
     </record>
 
     <record id="action_saca_line_stage_clasificado" model="ir.actions.act_window">
@@ -781,9 +772,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="custom_descarga.saca_line_descarga_tree_view" />
-        <field
-      name="domain"
-    >['|', ('is_killing', '=', True), ('is_classified', '=', True), ('is_historic', '=', False)]</field>
+        <field name="domain">['|', ('is_killing', '=', True), ('is_classified', '=',
+            True), ('is_historic', '=', False)]</field>
     </record>
 
     <record id="action_saca_line_driver" model="ir.actions.act_window">
@@ -791,12 +781,10 @@
         <field name="res_model">saca.line</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
-        <field
-      name="domain"
-    >[('is_historic', '=', False), ('is_canceled', '=', False), ('is_presaca', '=', False), ('is_saca', '=', False)]</field>
-        <field
-      name="context"
-    >{"search_default_last_week_saca": 1, "search_default_saca": 1}</field>
+        <field name="domain">[('is_historic', '=', False), ('is_canceled', '=',
+            False), ('is_presaca', '=', False), ('is_saca', '=', False)]</field>
+        <field name="context">{"search_default_last_week_saca": 1,
+            "search_default_saca": 1}</field>
     </record>
 
     <record id="action_saca_line_quality" model="ir.actions.act_window">
