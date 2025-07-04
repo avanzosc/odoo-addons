@@ -700,6 +700,17 @@
         </field>
     </record>
 
+    <record id="saca_line_quality_graph_view" model="ir.ui.view">
+        <field name="name">saca.line.quality.graph</field>
+        <field name="model">saca.line</field>
+        <field name="arch" type="xml">
+            <graph string="Quality Analysis" type="bar">
+                <field name="date" />
+                <field name="wing_injury" type="measure" />
+            </graph>
+        </field>
+    </record>
+
     <record id="saca_line_view_search" model="ir.ui.view">
         <field name="model">saca.line</field>
         <field name="inherit_id" ref="custom_saca.saca_line_view_search" />
@@ -802,7 +813,7 @@
     <record id="action_saca_line_quality" model="ir.actions.act_window">
         <field name="name">Quality</field>
         <field name="res_model">saca.line</field>
-        <field name="view_mode">tree,pivot</field>
+        <field name="view_mode">tree,pivot,graph</field>
         <field
       name="view_ids"
       eval="[(5, 0, 0),
