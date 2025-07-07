@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_sale_reader
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-04 08:39+0000\n"
+"PO-Revision-Date: 2025-07-04 08:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_sale_reader
+#: model:ir.model.fields,field_description:purchase_sale_reader.field_stock_move_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: purchase_sale_reader
+#: model:ir.model.fields,field_description:purchase_sale_reader.field_stock_move_line__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: purchase_sale_reader
+#: model:ir.model.fields,field_description:purchase_sale_reader.field_stock_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: purchase_sale_reader
+#: code:addons/purchase_sale_reader/models/stock_move_line.py:0
+#, python-format
+msgid "Lot ‘%s’ was not found for product ‘%s’."
+msgstr "No se encontró lote '%s' para el producto '%s'."
+
+#. module: purchase_sale_reader
+#: code:addons/purchase_sale_reader/models/stock_move_line.py:0
+#, python-format
+msgid "No barcode format configuredfor this model and customer was found."
+msgstr "No se ha encontrado ningún formato de código de barras configurado para este modelo y cliente."
+
+#. module: purchase_sale_reader
+#: code:addons/purchase_sale_reader/models/stock_move_line.py:0
+#, python-format
+msgid "No product with code '%s' was found in Odoo."
+msgstr "NO se encontró ningún producto con código '%s' en Odoo."
+
+#. module: purchase_sale_reader
+#: model:ir.model,name:purchase_sale_reader.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: purchase_sale_reader
+#: model:ir.model.fields,field_description:purchase_sale_reader.field_stock_move_line__reader_ps
+msgid "Reader"
+msgstr "Lector"
+
+#. module: purchase_sale_reader
+#: code:addons/purchase_sale_reader/models/stock_move_line.py:0
+#, python-format
+msgid "This format has no line for '%s' field"
+msgstr "Este formato no tiene línea para el campo '%s'."
+
+#. module: purchase_sale_reader
+#: model:ir.model.fields,field_description:purchase_sale_reader.field_stock_move_line__picking_type_code
+msgid "Type of Operation"
+msgstr "Tipo de operación"
