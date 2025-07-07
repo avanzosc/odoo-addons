@@ -26,4 +26,5 @@ Contributors
 ------------
 
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Ane Gurruchaga <aneavanzosc@gmail.com>
 * Ana Juaristi <anajuaristi@avanzosc.es>
