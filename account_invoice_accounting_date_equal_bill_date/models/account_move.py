@@ -8,7 +8,9 @@ class AccountMove(models.Model):
 
     @api.depends("invoice_date", "company_id")
     def _compute_date(self):
-        if self.env.context.get("create_bill", False):
+        if self.env.context.get("create_bill", False) or self.env.context.get(
+            "auditlog_disabled", False
+        ):
             return super()._compute_date()
         result = True
         supplier_moves = self.filtered(
