@@ -8,6 +8,8 @@ class AccountMove(models.Model):
 
     @api.depends("invoice_date", "company_id")
     def _compute_date(self):
+        if self.env.context.get("create_bill", False):
+            return super()._compute_date()
         result = True
         supplier_moves = self.filtered(
             lambda x: x.move_type in ("in_invoice", "in_refund")
