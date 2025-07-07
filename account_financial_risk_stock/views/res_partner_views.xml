@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_view_risk" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account_financial_risk.res_partner_view_risk" />
+        <field name="arch" type="xml">
+            <group name="risk_general" position="after">
+                <group name="picking-risk" string="In Picking">
+                    <field name="block_picking_risk" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <separator />
+                <field name="block_picking_risk" />
+            </field>
+        </field>
+    </record>
+</odoo>
