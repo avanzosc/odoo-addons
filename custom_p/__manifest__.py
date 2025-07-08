@@ -12,6 +12,7 @@
         "product",
         "sale_stock",
         "sale_order_return",
+        "sale_order_confirm_usability",  # ABSOLUTELY REQUIRED, DO NOT ERASE
         "sale_order_line_price_history",
         "sale_order_lot_selection",
         "sale_order_lot_selection_domain",
@@ -28,9 +29,12 @@
         "custom_breeding_apps",
         "custom_descarga",
         "sale_order_confirm_multicompany",
+        "sale_picking_return_containers",
         "helpdesk_mgmt",
         "hr_personal_equipment_request",
         "l10n_es_aeat_sii_oca",
+        "account_payment_partner",
+        "product_packaging_dimension",
     ],
     "data": [
         "security/ir.model.access.csv",
