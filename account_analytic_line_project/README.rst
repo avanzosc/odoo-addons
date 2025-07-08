@@ -2,12 +2,12 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=========================
-Account analytic line fix
-=========================
+=============================
+Account analytic line project
+=============================
 
-* Fixed an issue where changing the project in the "Analytic Items" form would
-  result in the loss of the "Amount" and "Unit of Measure" values.
+* It retains the quantity and amount of the analytic line, even if a project
+  with a different unit of measure is assigned to it.
 
 
 Bug Tracker
