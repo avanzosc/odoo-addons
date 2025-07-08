@@ -9,6 +9,11 @@ Product Final
 * Module that manages what is called "Final Product".
   It's not really a product. It is informative to the client.
   A real product can contain multiple final products, each in a different position.
+* In Inventory - Configuration - Products, new menus: "Final Product",
+  "Views Version", and "Product List Version".
+* In Inventory - Products, new menu: "Product Exploded Location". This object
+  has this action "Duplicate Wizard", for duplicate this object with customized
+  fields.
 
 Bug Tracker
 ===========
