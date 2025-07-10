@@ -1,54 +1,40 @@
 # Copyright 2025 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get("account_id", False):
-                project_id = self._get_project_from_analytic_account(
-                    vals.get("account_id")
-                )
-                if project_id:
-                    vals["project_id"] = project_id
-        lines = super().create(vals_list)
-        return lines
+    project_info_id = fields.Many2one(
+        string="Project Info",
+        comodel_name="project.project",
+        compute="_compute_project_info_id",
+        store=True,
+        readonly=False,
+        copy=False,
+    )
+    project_type_id = fields.Many2one(
+        string="Project Type",
+        comodel_name="project.type",
+        related="project_info_id.type_id",
+        store=True,
+        copy=False,
+    )
+    project_manager_id = fields.Many2one(
+        string="Project Manager",
+        comodel_name="res.users",
+        related="project_info_id.user_id",
+        store=True,
+        copy=False,
+    )
 
-    def write(self, values):
-        if (
-            "project_id" in values
-            and values.get("project_id", False)
-            and "product_uom_id" not in values
-        ):
-            return super(
-                AccountAnalyticLine, self.with_context(project_without_product_uom=True)
-            ).write(values)
-        if values.get("account_id", False):
-            project_id = self._get_project_from_analytic_account(
-                values.get("account_id")
-            )
-            if project_id:
-                values["project_id"] = project_id
-        return super().write(values)
-
-    def _get_project_from_analytic_account(self, analytic_account_id):
-        analytic_account = self.env["account.analytic.account"].browse(
-            analytic_account_id
-        )
-        if analytic_account and analytic_account.project_ids:
-            return analytic_account.project_ids[0].id
-        return False
-
-    def _timesheet_preprocess(self, vals):
-        if "project_without_product_uom" in self.env.context:
-            vals["product_uom_id"] = self.product_uom_id.id
-        return super()._timesheet_preprocess(vals)
-
-    def _timesheet_postprocess_values(self, values):
-        if "project_without_product_uom" in self.env.context:
-            return {id_: {} for id_ in self.ids}
-        return super()._timesheet_postprocess_values(values)
+    @api.depends("project_id", "account_id")
+    def _compute_project_info_id(self):
+        for line in self:
+            project_info_id = self.env["project.project"]
+            if line.project_id:
+                project_info_id = line.project_id.id
+            if not line.project_id and line.account_id and line.account_id.project_ids:
+                project_info_id = line.account_id.project_ids[0].id
+            line.project_info_id = project_info_id

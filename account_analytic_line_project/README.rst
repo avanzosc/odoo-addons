@@ -6,8 +6,10 @@
 Account analytic line project
 =============================
 
-* It retains the quantity and amount of the analytic line, even if a project
-  with a different unit of measure is assigned to it.
+* In analytic lines new fields: "Project Info". It is taken from the project or
+  from the analytical account of the accounting entry.
+* Also in account analytic lines, two new fields: "Project Type", and
+  "Project Manager" related to "Project Info" field.
 
 
 Bug Tracker

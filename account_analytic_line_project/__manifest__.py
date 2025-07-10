@@ -7,9 +7,8 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["hr_timesheet"],
-    "data": [],
+    "depends": ["analytic", "analytic_usability", "hr_timesheet", "project_type"],
+    "data": ["views/account_analytic_line_views.xml"],
     "installable": True,
     "auto_install": False,
-    "post_init_hook": "_post_install_put_project_in_analytic_lines",
 }
