@@ -7,6 +7,7 @@
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "mrp",
         "sale_stock",
         "stock_warehouse_farm",
         "stock_picking_batch",
