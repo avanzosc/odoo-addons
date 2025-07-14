@@ -9,6 +9,7 @@
     "depends": [
         "stock",
         "contacts",
+        "base_address_city",
     ],
     "data": [
         "report/stock_picking_cmr_report.xml",
