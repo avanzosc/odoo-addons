@@ -9,7 +9,6 @@
     "license": "AGPL-3",
     "depends": [
         "stock",
-        "stock_move_container_related_packaging_qty",
     ],
     "data": ["views/stock_move_line_views.xml"],
     "installable": True,
