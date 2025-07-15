@@ -30,14 +30,6 @@
           optional="show"
         />
             </xpath>
-            <xpath expr="//field[@name='lot_id']" position="after">
-              <field
-          name="container"
-          attrs="{'readonly': [('state', 'in', ['done', 'cancel']), ('is_locked', '=', True)]}"
-          context="{'from_stock_picking':True}"
-          optional="show"
-        />
-            </xpath>
         </field>
     </record>
 </odoo>
