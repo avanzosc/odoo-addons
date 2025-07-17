@@ -8,6 +8,7 @@
                 <field name="project_info_id" />
                 <field name="project_type_id" readonly="1" />
                 <field name="project_manager_id" readonly="1" />
+                <field name="allow_billable" readonly="1" />
             </field>
         </field>
     </record>
@@ -20,6 +21,7 @@
                 <field name="project_info_id" />
                 <field name="project_type_id" readonly="1" />
                 <field name="project_manager_id" readonly="1" />
+                <field name="allow_billable" readonly="1" />
             </field>
         </field>
     </record>
@@ -32,6 +34,7 @@
                 <field name="project_info_id" readonly="1" optional="show" />
                 <field name="project_type_id" readonly="1" optional="show" />
                 <field name="project_manager_id" readonly="1" optional="show" />
+                <field name="allow_billable" readonly="1" optional="show" />
             </field>
         </field>
     </record>
@@ -44,6 +47,7 @@
                 <field name="project_info_id" />
                 <field name="project_type_id" />
                 <field name="project_manager_id" />
+                <field name="allow_billable" />
             </field>
             <filter name="group_date" position="before">
                 <filter
@@ -60,6 +64,11 @@
           string="Project Manager"
           name="project-manager"
           context="{'group_by': 'project_manager_id'}"
+        />
+                <filter
+          string="Billable"
+          name="allow_billable"
+          context="{'group_by': 'allow_billable'}"
         />
             </filter>
         </field>

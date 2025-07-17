@@ -28,6 +28,11 @@ class AccountAnalyticLine(models.Model):
         store=True,
         copy=False,
     )
+    allow_billable = fields.Boolean(
+        related="project_info_id.allow_billable",
+        store=True,
+        copy=False,
+    )
 
     @api.depends("project_id", "account_id")
     def _compute_project_info_id(self):
