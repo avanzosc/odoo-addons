@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_cost_import_line_view_form" model="ir.ui.view">
+        <field name="model">product.cost.import.line</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            states="2validate,error"
+          />
+                    <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            states="pass"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="product_name" />
+                            <field name="product_default_code" />
+                            <field name="standard_price" />
+                        </group>
+                        <group>
+                            <field
+                name="product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+                            <field name="product_old_price" />
+                            <field name="product_standard_price" />
+                        </group>
+                    </group>
+                    <field name="log_info" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_cost_import_line_view_tree" model="ir.ui.view">
+        <field name="model">product.cost.import.line</field>
+        <field name="arch" type="xml">
+            <tree
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+                                <field name="action" />
+                <field name="product_name" />
+                <field name="product_default_code" />
+                                <field
+          name="product_id"
+          options="{'no_create': True}"
+        />
+                <field name="standard_price" />
+                <field name="product_old_price" />
+                <field name="product_standard_price" />
+                <field name="state" />
+                <field name="log_info" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_cost_import_line_view_search" model="ir.ui.view">
+        <field name="model">product.cost.import.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_id" />
+                <filter
+          name="pending"
+          string="Pending"
+          domain="[('state', '!=', 'done')]"
+        />
+                <filter
+          name="finished"
+          string="Done"
+          domain="[('state', '=', 'done')]"
+        />
+                <filter
+          name="errored"
+          string="Error"
+          domain="[('state', '=', 'error')]"
+        />
+                <separator />
+                <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+                <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            name="group_status"
+            string="Status"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by':'action'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="product_cost_import_line_action" model="ir.actions.act_window">
+        <field name="name">Import Product's Cost Lines</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.cost.import.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="product_cost_import_line_view_tree" />
+    </record>
+</odoo>
