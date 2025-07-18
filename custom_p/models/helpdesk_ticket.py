@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
+from odoo.tools import html_sanitize
 
 
 class HelpdeskTicket(models.Model):
@@ -13,12 +14,16 @@ class HelpdeskTicket(models.Model):
     )
 
     def write(self, vals):
-        if vals.get("description"):
-            self.message_post(
-                body_is_html=True,
-                body=_("Description: %s --> %s")
-                % (self.description, vals.get("description")),
-            )
+        for record in self:
+            if (
+                vals.get("description")
+                and html_sanitize(vals.get("description")) != record.description
+            ):
+                record.message_post(
+                    body_is_html=True,
+                    body=_("Description: %s --> %s")
+                    % (record.description, vals.get("description")),
+                )
         res = super().write(vals)
         return res
 
