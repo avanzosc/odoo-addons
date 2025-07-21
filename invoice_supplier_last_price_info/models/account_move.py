@@ -6,24 +6,20 @@ from odoo import models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def action_post(self):
-        result = super().action_post()
+    def action_move_open(self):
+        result = super().action_move_open()
         for move in self.filtered(
-            lambda x: x.state == "posted" and x.move_type == "in_invoice"
+            lambda x: x.state == "open" and x.move_type == "in_move"
         ):
-            for line in move.invoice_line_ids.filtered(
-                lambda z: z.display_type == "product"
-            ):
+            for line in move.move_line_ids:
                 line.product_id.set_product_last_supplier_move(move.id)
         return result
 
-    def button_cancel(self):
-        result = super().button_cancel()
+    def action_move_cancel(self):
+        result = super().action_move_cancel()
         for move in self.filtered(
-            lambda x: x.state == "cancel" and x.move_type == "in_invoice"
+            lambda x: x.state == "cancel" and x.move_type == "in_move"
         ):
-            for line in move.invoice_line_ids.filtered(
-                lambda z: z.display_type == "product"
-            ):
+            for line in move.move_line_ids:
                 line.product_id.set_product_last_supplier_move()
         return result
