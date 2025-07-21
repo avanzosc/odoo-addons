@@ -48,13 +48,13 @@
                     <filter
             string="Week day"
             name="group-week-day"
-            domain="[]"
+            domain="[('type_update', '!=', 'weekday')]"
             context="{'group_by': 'weekday'}"
           />
                     <filter
             string="Specific Day"
             name="group-specific-day"
-            domain="[]"
+            domain="[('type_update', '!=', 'specific')]"
             context="{'group_by': 'specific_day'}"
           />
                     <filter
@@ -74,6 +74,7 @@
             <tree
         decoration-muted="not active"
         decoration-danger="not quantity and not factor"
+        editable="top"
       >
                 <field name="sequence" widget="handle" />
                 <field name="orderpoint_id" />
@@ -91,6 +92,7 @@
         />
                 <field name="product_min_qty" readonly="1" optional="hide" />
                 <field name="product_max_qty" readonly="1" optional="hide" />
+                <field name="qty_multiple" readonly="1" optional="hide" />
                 <field name="quantity" />
                 <field name="factor" />
                 <field
@@ -98,6 +100,12 @@
           optional="hide"
           readonly="1"
           groups="base.group_multi_company"
+        />
+                <button
+          name="open_form_view"
+          type="object"
+          string="Open Form"
+          icon="fa-external-link"
         />
             </tree>
         </field>
