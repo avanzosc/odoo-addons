@@ -10,12 +10,17 @@
     "depends": [
         "stock",
         "product",
+        "product_alternative_sale_code",
+        "product_second_name",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/product_final_views.xml",
+        "views/product_final_view_version_views.xml",
+        "views/product_final_product_list_version_views.xml",
         "views/product_product_views.xml",
         "views/sale_product_location_exploded_views.xml",
+        "wizard/wiz_duplicate_product_location_exploded_view.xml",
     ],
     "installable": True,
 }
