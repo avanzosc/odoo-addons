@@ -19,12 +19,6 @@ class StockMoveLine(models.Model):
 
     @api.onchange("qty_done", "product_id", "picking_id")
     def onchange_shipping_cost(self):
-        if (
-            self.product_id
-            and self.product_id.weight
-            and (self.picking_id)
-            and (self.picking_id.shipping_cost)
-        ):
-            self.shipping_cost = (self.product_id.weight * self.qty_done) * (
-                self.picking_id.shipping_cost
-            )
+        if self.product_id and (self.picking_id) and (self.picking_id.shipping_cost):
+            weight = self.product_id.weight or 1
+            self.shipping_cost = self.qty_done * weight * self.picking_id.shipping_cost
