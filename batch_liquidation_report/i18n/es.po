@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-07 05:53+0000\n"
-"PO-Revision-Date: 2025-02-07 05:53+0000\n"
+"POT-Creation-Date: 2025-07-21 09:23+0000\n"
+"PO-Revision-Date: 2025-07-21 09:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -601,6 +601,7 @@ msgid "<strong>Liquidation Minimum Per Chicken</strong>"
 msgstr "<strong>Mínimo a liquidar x pollo</strong>"
 
 #. module: batch_liquidation_report
+#: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_liquidation_cost
 msgid "<strong>Liquidation per area</strong>"
 msgstr "<strong>Liquidado x M2</strong>"
@@ -874,7 +875,7 @@ msgstr "Tipo pienso"
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_report_stock_by_breeding_xlsx__id
 #: model:ir.model.fields,field_description:batch_liquidation_report.field_stock_by_breeding_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: batch_liquidation_report
 #: model_terms:ir.ui.view,arch_db:batch_liquidation_report.report_farmer
@@ -1034,7 +1035,7 @@ msgstr ""
 #. module: batch_liquidation_report
 #: model:ir.model,name:batch_liquidation_report.model_ir_actions_report
 msgid "Report Action"
-msgstr "Informar acción"
+msgstr "Informar Acción"
 
 #. module: batch_liquidation_report
 #: model:ir.actions.report,name:batch_liquidation_report.action_sale_order_ticket
