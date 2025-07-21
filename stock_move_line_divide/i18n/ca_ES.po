@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-17 08:16+0000\n"
-"PO-Revision-Date: 2024-12-17 08:16+0000\n"
+"POT-Creation-Date: 2025-07-21 10:03+0000\n"
+"PO-Revision-Date: 2025-07-21 10:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_res_config_settings
+msgid "Config Settings"
+msgstr "Paràmetres de configuració"
 
 #. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
@@ -27,6 +32,21 @@ msgid "Divide in"
 msgstr "Dividir en"
 
 #. module: stock_move_line_divide
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.res_config_settings_view_form
+msgid "Enable automatic naming of packages based on reference."
+msgstr "Activar el nom automàtic dels paquets segons la referència."
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_uom_uom__is_unit
+msgid "Is Unit"
+msgstr "És unitat"
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_res_config_settings__name_packages_by_reference
+msgid "Name packages by reference"
+msgstr "Anomena els paquets per referència"
+
+#. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Moviment del producte (línia de moviment d'estoc)"
@@ -38,3 +58,8 @@ msgstr "Moviment del producte (línia de moviment d'estoc)"
 #, python-format
 msgid "The dividing amount can not be 0."
 msgstr "La quantitat de divisió no pot ser 0."
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_stock_picking
+msgid "Transfer"
+msgstr "Trasllat"

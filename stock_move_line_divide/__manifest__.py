@@ -13,6 +13,8 @@
     ],
     "data": [
         "views/stock_move_line_views.xml",
+        "views/res_config_settings_view.xml",
+        "views/uom_uom_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,
