@@ -56,8 +56,6 @@ class StockMoveLine(models.Model):
         divide = self.divide
         qty = self.qty_done or self.reserved_uom_qty
         packaging_qty = self.product_packaging_qty
-        #        uom_category = self.product_uom_id.category_id.name
-        #        unit_categories = ["Unit", "Unité", "Unidad", "Unitat de venda"]
 
         if self.product_uom_id.is_unit:
             base_qty = qty // divide
