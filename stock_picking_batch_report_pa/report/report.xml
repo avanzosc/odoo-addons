@@ -30,26 +30,26 @@
 
                         <t
               t-set="container_moves"
-              t-value="batch.move_ids.filtered(
-                                lambda m: (m.product_id.categ_id.name == '9. ENVASES' or m.product_id.palet)
+              t-value="batch.move_line_ids.filtered(
+                                lambda m: (m.product_id.categ_id.name == '9. ENVASES' or 'Cartones' in m.product_id.categ_id.name or m.product_id.palet)
                             )"
             />
 
                         <t
               t-set="non_container_moves"
-              t-value="batch.move_ids - container_moves"
+              t-value="batch.move_line_ids - container_moves"
             />
 
                         <t
               t-set="partners"
-              t-value="non_container_moves.mapped('partner_id')"
+              t-value="non_container_moves.mapped('picking_partner_id')"
             />
 
                         <t t-foreach="partners" t-as="partner">
                             <h2>Customer: <t t-esc="partner.name" /></h2>
                             <t
                 t-set="pmoves"
-                t-value="non_container_moves.filtered(lambda m: m.partner_id.id == partner.id)"
+                t-value="non_container_moves.filtered(lambda m: m.picking_partner_id.id == partner.id)"
               />
 
                             <t t-set="dates" t-value="[]" />
@@ -81,22 +81,22 @@
                                         <t t-foreach="dmoves" t-as="move">
                                             <tr>
                                                 <td>
-                                                    <t t-esc="move.name" /></td>
+                                                    <t t-esc="move.move_id.name" /></td>
                                                 <td>
                                                     <t
-                            t-esc="'%.2f' % (move.product_packaging_qty or 0.0)"
+                            t-esc="'%.2f' % (move.container or 0.0)"
                           /></td>
                                                 <td>
                                                     <t
-                            t-esc="', '.join(move.lot_ids.mapped('name')) or ''"
+                            t-esc="move.lot_id.name or ''"
                           /></td>
                                                 <td>
                                                     <t
-                            t-esc="'%.2f' % (move.quantity_done or 0.0)"
+                            t-esc="'%.2f' % (move.qty_done or 0.0)"
                           /></td>
                                                 <td>
                                                     <t
-                            t-esc="move.product_uom.name or ''"
+                            t-esc="move.product_uom_id.name or ''"
                           /></td>
                                                 <td>
                                                     <t t-esc="move.origin or ''" /></td>
@@ -110,7 +110,7 @@
 
                         <t
               t-set="total_quantity"
-              t-value="sum((m.quantity_done or 0.0) for m in batch.move_ids)"
+              t-value="sum((m.qty_done or 0.0) for m in batch.move_line_ids)"
             />
                         <t
               t-set="total_palet"
@@ -125,7 +125,15 @@
               t-value="sum(
                                 (m.download_unit or 0.0)
                                 for m in container_moves
-                                if not m.product_id.palet
+                                if not m.product_id.palet and m.product_id.categ_id.name == '9. ENVASES'
+                            )"
+            />
+            <t
+              t-set="total_cardboard_box"
+              t-value="sum(
+                                (m.download_unit or 0.0)
+                                for m in container_moves
+                                if not m.product_id.palet and 'Cartones' in m.product_id.categ_id.name
                             )"
             />
 
@@ -136,8 +144,11 @@
                             <span style="margin-right: 40px;"> TOTAL PALLET:
                                 <t t-esc="'%.2f' % (total_palet)" />
                             </span>
-                            <span> TOTAL BOXES:
+                            <span style="margin-right: 40px;"> TOTAL BOXES:
                                 <t t-esc="'%.2f' % (total_boxes)" />
+                            </span>
+                            <span> TOTAL CARDBOARD BOX:
+                                <t t-esc="'%.2f' % (total_cardboard_box)" />
                             </span>
                         </div>
 
