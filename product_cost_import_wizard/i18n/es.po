@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-18 13:28+0000\n"
-"PO-Revision-Date: 2025-07-18 13:28+0000\n"
+"POT-Creation-Date: 2025-07-23 07:43+0000\n"
+"PO-Revision-Date: 2025-07-23 07:43+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -70,6 +70,11 @@ msgstr "Compañía"
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__standard_price
 msgid "Cost"
 msgstr "Coste"
+
+#. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_set_price
+msgid "Cost to set"
+msgstr "Coste a establecer"
 
 #. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__create_uid
@@ -277,7 +282,7 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: product_cost_import_wizard
-#: code:addons/product_cost_import_wizard/models/product_cost_import.py:202
+#: code:addons/product_cost_import_wizard/models/product_cost_import.py:226
 #, python-format
 msgid "More than one product already exist."
 msgstr "Existe más de un producto."
@@ -354,6 +359,7 @@ msgid "Planned"
 msgstr "Planificado"
 
 #. module: product_cost_import_wizard
+#: model:ir.actions.server,name:product_cost_import_wizard.action_button_import_line_process
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_view_form
 msgid "Process"
@@ -382,7 +388,7 @@ msgid "Product Name"
 msgstr "Nombre de producto"
 
 #. module: product_cost_import_wizard
-#: code:addons/product_cost_import_wizard/models/product_cost_import.py:199
+#: code:addons/product_cost_import_wizard/models/product_cost_import.py:223
 #, python-format
 msgid "Product not found."
 msgstr "Producto no encontrado"
@@ -391,6 +397,11 @@ msgstr "Producto no encontrado"
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__product_count
 msgid "Products"
 msgstr "Productos"
+
+#. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_uom_po_id
+msgid "Purchase Unit of Measure"
+msgstr "Unidad de medida compra"
 
 #. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__activity_user_id
@@ -438,6 +449,11 @@ msgid "Today"
 msgstr "Hoy"
 
 #. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_uom_id
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__message_unread
 msgid "Unread Messages"
 msgstr "Mensajes por leer"
@@ -453,6 +469,7 @@ msgid "Update"
 msgstr "Actualizar"
 
 #. module: product_cost_import_wizard
+#: model:ir.actions.server,name:product_cost_import_wizard.action_button_import_line_validate
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_view_form
 msgid "Validate"

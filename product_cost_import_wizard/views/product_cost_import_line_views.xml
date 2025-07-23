@@ -26,12 +26,21 @@
                         <group>
                             <field name="product_name" />
                             <field name="product_default_code" />
-                            <field name="standard_price" />
+                            <label for="standard_price"/>
+                            <div>
+                                <field name="standard_price" class="oe_inline" />
+                                <field name="product_uom_id" class="oe_inline oe_no_button" />
+                            </div>
+                            <label for="product_set_price"/>
+                            <div>
+                                <field name="product_set_price" class="oe_inline" />
+                                <field name="product_uom_po_id" class="oe_inline oe_no_button" />
+                            </div>
                         </group>
                         <group>
                             <field
                 name="product_id"
-                options="{'no_create': True, 'no_open': True}"
+                options="{'no_create': True}"
               />
                             <field name="product_old_price" />
                             <field name="product_standard_price" />
@@ -60,6 +69,9 @@
           options="{'no_create': True}"
         />
                 <field name="standard_price" />
+                <field name="product_uom_po_id" />
+                <field name="product_set_price" />
+                <field name="product_uom_id" />
                 <field name="product_old_price" />
                 <field name="product_standard_price" />
                 <field name="state" />
@@ -121,5 +133,41 @@
         <field name="res_model">product.cost.import.line</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="product_cost_import_line_view_tree" />
+    </record>
+
+    <record id="action_button_import_line_validate" model="ir.actions.server">
+        <field name="name">Validate</field>
+        <field
+      name="model_id"
+      ref="product_cost_import_wizard.model_product_cost_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="product_cost_import_wizard.model_product_cost_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_validate()
+        </field>
+    </record>
+
+    <record id="action_button_import_line_process" model="ir.actions.server">
+        <field name="name">Process</field>
+        <field
+      name="model_id"
+      ref="product_cost_import_wizard.model_product_cost_import_line"
+    />
+        <field
+      name="binding_model_id"
+      ref="product_cost_import_wizard.model_product_cost_import_line"
+    />
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.button_process()
+        </field>
     </record>
 </odoo>

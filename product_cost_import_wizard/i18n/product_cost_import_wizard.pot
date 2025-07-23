@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-18 13:10+0000\n"
-"PO-Revision-Date: 2025-07-18 13:10+0000\n"
+"POT-Creation-Date: 2025-07-23 07:42+0000\n"
+"PO-Revision-Date: 2025-07-23 07:42+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,6 +69,11 @@ msgstr ""
 #. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__standard_price
 msgid "Cost"
+msgstr ""
+
+#. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_set_price
+msgid "Cost to set"
 msgstr ""
 
 #. module: product_cost_import_wizard
@@ -277,7 +282,7 @@ msgid "Messages"
 msgstr ""
 
 #. module: product_cost_import_wizard
-#: code:addons/product_cost_import_wizard/models/product_cost_import.py:202
+#: code:addons/product_cost_import_wizard/models/product_cost_import.py:226
 #, python-format
 msgid "More than one product already exist."
 msgstr ""
@@ -354,6 +359,7 @@ msgid "Planned"
 msgstr ""
 
 #. module: product_cost_import_wizard
+#: model:ir.actions.server,name:product_cost_import_wizard.action_button_import_line_process
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_view_form
 msgid "Process"
@@ -382,7 +388,7 @@ msgid "Product Name"
 msgstr ""
 
 #. module: product_cost_import_wizard
-#: code:addons/product_cost_import_wizard/models/product_cost_import.py:199
+#: code:addons/product_cost_import_wizard/models/product_cost_import.py:223
 #, python-format
 msgid "Product not found."
 msgstr ""
@@ -390,6 +396,11 @@ msgstr ""
 #. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__product_count
 msgid "Products"
+msgstr ""
+
+#. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_uom_po_id
+msgid "Purchase Unit of Measure"
 msgstr ""
 
 #. module: product_cost_import_wizard
@@ -435,6 +446,11 @@ msgid "Today"
 msgstr ""
 
 #. module: product_cost_import_wizard
+#: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import_line__product_uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: product_cost_import_wizard
 #: model:ir.model.fields,field_description:product_cost_import_wizard.field_product_cost_import__message_unread
 msgid "Unread Messages"
 msgstr ""
@@ -450,6 +466,7 @@ msgid "Update"
 msgstr ""
 
 #. module: product_cost_import_wizard
+#: model:ir.actions.server,name:product_cost_import_wizard.action_button_import_line_validate
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_cost_import_wizard.product_cost_import_view_form
 msgid "Validate"

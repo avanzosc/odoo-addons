@@ -117,21 +117,39 @@ class ProductImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    product_uom_id = fields.Many2one(
+        comodel_name="uom.uom",
+        string="Unit of Measure",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    product_uom_po_id = fields.Many2one(
+        comodel_name="uom.uom",
+        string="Purchase Unit of Measure",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
     standard_price = fields.Float(
         string="Cost",
-        digits=dp.get_precision('Product Price'),
+        digits=dp.get_precision("Product Price"),
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    product_set_price = fields.Float(
+        string="Cost to set",
+        digits=dp.get_precision("Product Price"),
         states={"done": [("readonly", True)]},
         copy=False,
     )
     product_old_price = fields.Float(
         string="Old Cost",
-        digits=dp.get_precision('Product Price'),
+        digits=dp.get_precision("Product Price"),
         readonly=True,
         copy=False,
     )
     product_standard_price = fields.Float(
         string="Actual Cost",
-        digits=dp.get_precision('Product Price'),
+        digits=dp.get_precision("Product Price"),
         readonly=True,
         copy=False,
     )
@@ -144,9 +162,15 @@ class ProductImportLine(models.Model):
             log_infos.append(log_info_product)
         state = "error" if log_infos else "pass"
         action = "nothing" if state == "error" else "update"
+        product_set_price = self.standard_price
+        if product and product.uom_id != product.uom_po_id:
+            product_set_price = product.uom_po_id._compute_price(product_set_price, product.uom_id)
         update_values.update(
             {
                 "product_id": product and product.id,
+                "product_uom_id": product and product.uom_id.id or False,
+                "product_uom_po_id": product and product.uom_po_id.id or False,
+                "product_set_price": product_set_price,
                 "product_old_price": product and product.standard_price or 0.0,
                 "product_standard_price": product and product.standard_price or 0.0,
                 "log_info": "\n".join(log_infos),
@@ -210,6 +234,6 @@ class ProductImportLine(models.Model):
     def _product_values(self):
         self.ensure_one()
         values = {
-            "standard_price": self.standard_price,
+            "standard_price": self.product_set_price,
         }
         return values
