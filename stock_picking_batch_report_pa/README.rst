@@ -11,15 +11,14 @@ This module adds a PDF report for `stock.picking.batch` that groups picking move
 **Features**
 
 - Report grouped by customer and date within each picking batch.
-- Shows move details: description, containers, lots, quantity, UoM, and origin document.
-- Displays totals per batch (boxes, pallets, kg).
+- Shows move line details: description, containers, lots, quantity, UoM, and origin document.
+- Displays totals per batch (boxes, pallets, kg, cardboard boxes).
 
 **Technical**
 
 - Report action: `action_report_picking_batch_pa`
 - Model: `stock.picking.batch`
 - QWeb template: `stock_picking_batch_report_pa.report_grouped_picking_pa`
-- Adds domain on `picking_ids` in batch form view.
 
 **Usage**
 
