@@ -497,6 +497,24 @@
                           />
                                                 </td>
                                             </tr>
+                                            <tr
+                        name="liquidation_area"
+                        style="width:75%;"
+                      >
+                                                <td name="liquidation_area">
+                                                    <strong
+                          >Liquidation per area</strong>
+                                                </td>
+                                                <td
+                          name="liquidation_area_amount"
+                          class="text-right"
+                          style="width:25%;"
+                        >
+                                                    <span
+                            t-esc="'{0:,.7f}'.format(o.liquidation_area).replace(',','x').replace('.',',').replace('x','.')"
+                          />
+                                                </td>
+                                            </tr>
                                         </t>
                                     </tbody>
                                 </table>
