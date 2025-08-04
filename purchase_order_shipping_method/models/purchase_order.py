@@ -28,3 +28,10 @@ class PurchaseOrder(models.Model):
                 }
             )
         return result
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "shipping_cost" in vals:
+            for order in self:
+                order.picking_ids.write({"shipping_cost": vals["shipping_cost"]})
+        return res
