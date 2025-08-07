@@ -126,9 +126,24 @@ class SacaLine(models.Model):
         comodel_name="product.product",
         default=lambda self: self.env.company.disinfectant_id.id,
     )
+    rvd_number = fields.Char(
+        string="RVD No.",
+        help="Responsible Veterinary Declaration Number (12 digits)",
+        default=lambda self: self.env.company.rvd_number,
+    )
     date = fields.Date(string="Date", related="saca_id.date", store=True)
     unload_date = fields.Datetime(string="Unload Date", copy=False)
     is_historic = fields.Boolean(string="Is Historic", default=False)
+
+    @api.constrains("rvd_number")
+    def _check_rvd_number(self):
+        for record in self:
+            if record.rvd_number and (
+                not record.rvd_number.isdigit() or len(record.rvd_number) != 12
+            ):
+                raise ValidationError(
+                    _("The RVD number must contain exactly 12 numeric digits.")
+                )
 
     @api.depends(
         "external_supplier",

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 07:13+0000\n"
-"PO-Revision-Date: 2023-10-26 07:13+0000\n"
+"POT-Creation-Date: 2025-08-08 08:31+0000\n"
+"PO-Revision-Date: 2025-08-08 08:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -105,7 +105,6 @@ msgstr ""
 #: model:ir.model,name:custom_saca.model_burden_type
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__burden_type_id
 #: model:ir.ui.menu,name:custom_saca.menu_view_burden_type
-#: model_terms:ir.ui.view,arch_db:custom_saca.burden_type_tree_view
 msgid "Burden Type"
 msgstr ""
 
@@ -179,6 +178,11 @@ msgid "Company"
 msgstr ""
 
 #. module: custom_saca
+#: model:res.partner.category,name:custom_saca.driver_category
+msgid "Conductor"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.ui.menu,name:custom_saca.menu_conf
 msgid "Configuration"
 msgstr ""
@@ -198,7 +202,6 @@ msgstr ""
 #: model:ir.model,name:custom_saca.model_coya
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__coya_id
 #: model:ir.ui.menu,name:custom_saca.menu_view_coya
-#: model_terms:ir.ui.view,arch_db:custom_saca.coya_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Coya"
 msgstr ""
@@ -255,6 +258,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_saca__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__display_name
+#: model:ir.model.fields,field_description:custom_saca.field_stock_picking__display_name
 #: model:ir.model.fields,field_description:custom_saca.field_stock_warehouse__display_name
 msgid "Display Name"
 msgstr ""
@@ -268,7 +272,6 @@ msgstr ""
 
 #. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__driver_id
-#: model:res.partner.category,name:custom_saca.driver_category
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
 msgid "Driver"
 msgstr ""
@@ -356,6 +359,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca__id
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__id
+#: model:ir.model.fields,field_description:custom_saca.field_stock_picking__id
 #: model:ir.model.fields,field_description:custom_saca.field_stock_warehouse__id
 msgid "ID"
 msgstr ""
@@ -444,6 +448,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_res_partner____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_saca____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line____last_update
+#: model:ir.model.fields,field_description:custom_saca.field_stock_picking____last_update
 #: model:ir.model.fields,field_description:custom_saca.field_stock_warehouse____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -491,7 +496,6 @@ msgstr ""
 #: model:ir.actions.act_window,name:custom_saca.action_main_scale_view
 #: model:ir.model,name:custom_saca.model_main_scale
 #: model:ir.ui.menu,name:custom_saca.menu_view_main_scale
-#: model_terms:ir.ui.view,arch_db:custom_saca.main_scale_tree_view
 msgid "Main Scale"
 msgstr ""
 
@@ -623,8 +627,9 @@ msgid "Product Category"
 msgstr ""
 
 #. module: custom_saca
-#: model:res.partner.category,name:custom_saca.quality_responsible_category
-msgid "Quality Responsible"
+#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
+#: model_terms:ir.ui.view,arch_db:custom_saca.view_company_form
+msgid "RVD No."
 msgstr ""
 
 #. module: custom_saca
@@ -646,9 +651,25 @@ msgid "Reports"
 msgstr ""
 
 #. module: custom_saca
+#: model:res.partner.category,name:custom_saca.quality_responsible_category
+msgid "Responsable de claidad"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields,field_description:custom_saca.field_saca__activity_user_id
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__activity_user_id
 msgid "Responsible User"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_company__rvd_number
+#: model:ir.model.fields,field_description:custom_saca.field_saca_line__rvd_number
+msgid "Responsible Veterinary Declaration"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,help:custom_saca.field_res_company__rvd_number
+msgid "Responsible Veterinary Declaration Number (12 digits)"
 msgstr ""
 
 #. module: custom_saca
@@ -675,7 +696,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_view_search
-#: model_terms:ir.ui.view,arch_db:custom_saca.saca_tree_view
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_view_search
 msgid "Saca"
 msgstr ""
@@ -686,7 +706,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_saca__saca_line_ids
 #: model:ir.ui.menu,name:custom_saca.menu_view_saca_line
 #: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_form_view
-#: model_terms:ir.ui.view,arch_db:custom_saca.saca_line_tree_view
 msgid "Saca Line"
 msgstr ""
 
@@ -714,6 +733,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_saca.field_saca_line__main_scale
 #: model:ir.model.fields,field_description:custom_saca.field_stock_warehouse__main_scale
 msgid "Scale"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__semi_trailer_id
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__semi_trailer_id
+#: model:ir.model.fields,field_description:custom_saca.field_stock_picking__cmr_semi_trailer_id
+msgid "Semi-Trailer"
 msgstr ""
 
 #. module: custom_saca
@@ -758,6 +784,13 @@ msgid "Supplier"
 msgstr ""
 
 #. module: custom_saca
+#: code:addons/custom_saca/models/res_company.py:0
+#: code:addons/custom_saca/models/saca_line.py:0
+#, python-format
+msgid "The RVD number must contain exactly 12 numeric digits."
+msgstr ""
+
+#. module: custom_saca
 #: code:addons/custom_saca/models/saca_line.py:0
 #: code:addons/custom_saca/models/saca_line.py:0
 #, python-format
@@ -771,8 +804,20 @@ msgid "Today"
 msgstr ""
 
 #. module: custom_saca
+#: model:ir.model.fields,field_description:custom_saca.field_res_partner__tractor_id
+#: model:ir.model.fields,field_description:custom_saca.field_res_users__tractor_id
+#: model:ir.model.fields,field_description:custom_saca.field_stock_picking__cmr_tractor_id
+msgid "Tractor"
+msgstr ""
+
+#. module: custom_saca
 #: model:ir.model.fields.selection,name:custom_saca.selection__fleet_vehicle_model_type__category__trailer
 msgid "Trailer"
+msgstr ""
+
+#. module: custom_saca
+#: model:ir.model,name:custom_saca.model_stock_picking
+msgid "Transfer"
 msgstr ""
 
 #. module: custom_saca
