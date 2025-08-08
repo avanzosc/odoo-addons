@@ -9,57 +9,44 @@ class ProductProduct(models.Model):
     last_supplier_move_date = fields.Date(
         string="Last supplier move date",
     )
-    last_supplier_move_price = fields.Float(
-        string="Last supplier move price",
-        digits="Product Price",
-    )
+    last_supplier_move_price = fields.Float(string="Last supplier move price")
     last_supplier_move_id = fields.Many2one(
         comodel_name="res.partner",
         string="Last supplier move",
     )
 
-    def set_product_last_supplier_move(self, move_id=False):
-        move_line_obj = self.env["account.move.line"]
+    def _found_invoice_supplier_last_line(self):
         if not self.check_access_rights("write", raise_exception=False):
             return
-        for product in self:
-            last_supplier_move_date = False
-            last_supplier_move_price = 0.0
-            last_supplier_move_id = False
-            if move_id:
-                cond = [
-                    ("move_id", "=", move_id),
-                    ("product_id", "=", product.id),
-                ]
-                lines = move_line_obj.search(cond, limit=1)
-            else:
-                cond = [
-                    ("product_id", "=", product.id),
-                    ("move_id.move_type", "=", "in_move"),
-                    ("move_id.state", "not in", ["draft", "cancel"]),
-                ]
-                lines = move_line_obj.search(cond).sorted(
-                    key=lambda ln: ln.move_id.date_move, reverse=True
-                )
-            if lines:
-                last_line = lines[:1]
-                last_supplier_move_date = last_line.move_id.date_move
-                last_supplier_move_price = product.uom_id._compute_quantity(
-                    last_line.price_unit, last_line.uom_id
-                )
-                last_supplier_move_id = last_line.move_id.partner_id
-            product.write(
-                {
-                    "last_supplier_move_date": last_supplier_move_date,
-                    "last_supplier_move_price": last_supplier_move_price,
-                    "last_supplier_move_id": (
-                        last_supplier_move_id.id if last_supplier_move_id else False
-                    ),
-                }
-            )
-            if len(product.product_tmpl_id) == 1:
-                product.product_tmpl_id.set_product_template_last_purchase(
-                    last_supplier_move_date,
-                    last_supplier_move_price,
-                    last_supplier_move_id,
-                )
+        cond = [
+            ("product_id", "=", self.id),
+            ("move_id.move_type", "=", "in_invoice"),
+            ("move_id.state", "=", "posted"),
+            ("display_type", "=", "product"),
+            ("price_subtotal", ">", 0),
+            ("quantity", ">", 0),
+        ]
+        last_line = self.env["account.move.line"].search(
+            cond, order="date desc", limit=1
+        )
+        return last_line
+
+    def _assign_values_last_invoice_info(self, last_line):
+        if last_line:
+            vals = {
+                "last_supplier_move_date": last_line.move_id.invoice_date,
+                "last_supplier_move_price": last_line.price_unit,
+                "last_supplier_move_id": last_line.move_id.partner_id.id,
+            }
+        else:
+            vals = {
+                "last_supplier_move_date": False,
+                "last_supplier_move_price": 0,
+                "last_supplier_move_id": False,
+            }
+        return vals
+
+    def _update_invoice_supplier_last_info(self, vals):
+        self.write(vals)
+        if len(self.product_tmpl_id) == 1:
+            self.product_tmpl_id.write(vals)

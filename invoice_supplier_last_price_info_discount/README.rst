@@ -7,9 +7,8 @@ Invoice supplier last price info
 ================================
 * In products new fields:
 
-  * "Last supplier move",
-  * "Last supplier move date",
-  * "Last supplier move price"
+  * "Last Supplier Move Discount (%)",
+  * "Last Supplier Move Net Unit Price"
 
 * When an supplier move is validated or canceled, the information of the
   last move in products is recalculated.
