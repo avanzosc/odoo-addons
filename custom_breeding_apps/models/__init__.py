@@ -1,3 +1,4 @@
+from . import res_company
 from . import product_template
 from . import stock_warehouse
 from . import distribution_line

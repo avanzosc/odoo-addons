@@ -32,6 +32,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/move_cost_decimal_precision.xml",
+        "views/res_company_views.xml",
         "views/stock_picking_type_view.xml",
         "views/stock_move_line_view.xml",
         "views/stock_move_view.xml",
