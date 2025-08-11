@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-17 09:57+0000\n"
-"PO-Revision-Date: 2024-04-17 09:57+0000\n"
+"POT-Creation-Date: 2025-08-11 09:25+0000\n"
+"PO-Revision-Date: 2025-08-11 09:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,11 @@ msgid "Chick Outflow Qty"
 msgstr "Salidas pollito"
 
 #. module: custom_breeding_apps
+#: model:ir.model,name:custom_breeding_apps.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: custom_breeding_apps
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_flour
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_incub
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_conf_integr
@@ -184,6 +189,7 @@ msgstr "Diferencia"
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line__display_name
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_res_company__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__display_name
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__display_name
@@ -206,8 +212,6 @@ msgstr "Distribución"
 #: model:ir.actions.act_window,name:custom_breeding_apps.action_distribution_line_view
 #: model:ir.model,name:custom_breeding_apps.model_distribution_line
 #: model:ir.ui.menu,name:custom_breeding_apps.menu_view_distribution_line
-#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.distribution_line_view_tree
-#: model_terms:ir.ui.view,arch_db:custom_breeding_apps.view_picking_form
 msgid "Distribution Line"
 msgstr "Línea de distribución"
 
@@ -302,6 +306,7 @@ msgstr "Baremos de crecimiento"
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line__id
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_res_company__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line__id
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location__id
@@ -372,6 +377,7 @@ msgstr "Producción de huevos"
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_product_template____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_purchase_order_line____last_update
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_res_company____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_sale_order_line____last_update
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_location____last_update
@@ -622,6 +628,12 @@ msgid "Quants"
 msgstr ""
 
 #. module: custom_breeding_apps
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_res_company__rvd_number
+#: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_picking_batch__rvd_number
+msgid "RVD No."
+msgstr "DVR"
+
+#. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__real_percentage
 msgid "Real %"
 msgstr "% real"
@@ -647,6 +659,12 @@ msgstr "Informe"
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_warehouse__is_reproductor
 msgid "Reproductor"
 msgstr "Reproductora"
+
+#. module: custom_breeding_apps
+#: model:ir.model.fields,help:custom_breeding_apps.field_res_company__rvd_number
+#: model:ir.model.fields,help:custom_breeding_apps.field_stock_picking_batch__rvd_number
+msgid "Responsible Veterinary Declaration (RVD) Number"
+msgstr "Número de declaración veterinaria responsable"
 
 #. module: custom_breeding_apps
 #: model:ir.model.fields,field_description:custom_breeding_apps.field_stock_move_line__rest
@@ -703,6 +721,13 @@ msgstr "Existencias"
 #: model:ir.model,name:custom_breeding_apps.model_stock_move
 msgid "Stock Move"
 msgstr "Operaciones"
+
+#. module: custom_breeding_apps
+#: code:addons/custom_breeding_apps/models/res_company.py:0
+#: code:addons/custom_breeding_apps/models/stock_picking_batch.py:0
+#, python-format
+msgid "The RVD number must contain exactly 12 numeric digits."
+msgstr "El número DVR debe contener 12 digitos."
 
 #. module: custom_breeding_apps
 #: code:addons/custom_breeding_apps/models/stock_picking.py:0
