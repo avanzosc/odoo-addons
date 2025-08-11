@@ -186,6 +186,12 @@
                             </div>
                         </div>
                     </div>
+                    <img
+            t-if="o.company_id.sanitary_image"
+            t-att-src="image_data_uri(o.company_id.sanitary_image)"
+            style="max-height: 48px;"
+            alt="Logo"
+          />
                 </div>
             </div>
         </t>

@@ -36,6 +36,7 @@
         "report/sale_order_without_cost_report.xml",
         "views/stock_picking_batch_view.xml",
         "wizard/stock_by_breeding_wizard_view.xml",
+        "views/res_company_views.xml",
     ],
     "installable": True,
 }
