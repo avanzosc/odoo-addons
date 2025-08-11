@@ -18,6 +18,7 @@
         "report_qweb_element_page_visibility",
         "account_invoice_report_grouped_by_picking",
         "stock_picking_cmr_report",
+        "klo_topapro",
     ],
     "data": [
         "security/ir.model.access.csv",
