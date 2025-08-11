@@ -13,6 +13,7 @@
     ],
     "data": [
         "views/stock_inventory_line_view.xml",
+        "views/stock_quant_views.xml",
     ],
     "installable": True,
 }
