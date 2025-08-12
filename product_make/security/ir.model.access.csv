@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_make_manager,product.make,model_product_make,base.group_erp_manager,1,1,1,1
+access_product_make_user,product.make,model_product_make,sales_team.group_sale_salesman,1,0,0,0
+access_res_partner_make_saleperson_manager,res.partner.make.saleperson,model_res_partner_make_saleperson,sales_team.group_sale_manager,1,1,1,1
+access_res_partner_make_saleperson_user,res.partner.make.saleperson,model_res_partner_make_saleperson,base.group_erp_manager,1,0,0,0
+access_make_amount_user,make.amount,model_make_amount,base.group_user,1,1,1,1
+access_res_partner_relation_user,res.partner.relation,product_make.model_res_partner_relation,base.group_user,1,0,0,0
+access_res_partner_relation_manager,res.partner.relation,product_make.model_res_partner_relation,base.group_erp_manager,1,1,1,1
+access_res_partner_classification_user,res.partner.classification,product_make.model_res_partner_classification,base.group_user,1,0,0,0
+access_res_partner_classification_manager,res.partner.classification,product_make.model_res_partner_classification,base.group_erp_manager,1,1,1,
+access_res_partner_market_user,res.partner.market,product_make.model_res_partner_market,base.group_user,1,0,0,0
+access_res_partner_market_manager,res.partner.market,product_make.model_res_partner_market,base.group_erp_manager,1,1,1,1
+access_res_partner_market_sector_user,res.partner.market.sector,product_make.model_res_partner_market_sector,base.group_user,1,0,0,0
+access_res_partner_market_sector_manager,res.partner.market.sector,product_make.model_res_partner_market_sector,base.group_erp_manager,1,1,1,1
