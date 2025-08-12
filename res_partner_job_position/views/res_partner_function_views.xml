@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+    id="menu_job_positions"
+    name="Job positions"
+    parent="contacts.res_partner_menu_config"
+    sequence="15"
+    groups="base.group_erp_manager"
+  />
+
+    <record id="res_partner_function_action" model="ir.actions.act_window">
+        <field name="name">Job positions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.function</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="res_partner_fucntion_menu"
+    name="Job positions"
+    action="res_partner_function_action"
+    parent="menu_job_positions"
+    sequence="1"
+    groups="base.group_erp_manager"
+  />
+
+</odoo>
