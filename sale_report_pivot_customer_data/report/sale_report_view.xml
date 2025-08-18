@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_product_search" model="ir.ui.view">
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="partner_city" />
+                <field name="partner_state_id" />
+            </field>
+            <field name="country_id" position="after">
+                <field name="order_partner_shipping_id" />
+                <field name="partner_shipping_city" />
+                <field name="partner_shipping_state_id" />
+            </field>
+            <filter name="Customer" position="after">
+                <filter
+          string="City"
+          name="partner_city"
+          context="{'group_by':'partner_city'}"
+        />
+                <filter
+          string="Province"
+          name="partner_state_id"
+          context="{'group_by':'partner_state_id'}"
+        />
+            </filter>
+            <filter name="country_id" position="after">
+                <filter
+          string="Shipping address"
+          name="order_partner_shipping_id"
+          context="{'group_by':'order_partner_shipping_id'}"
+        />
+                <filter
+          string="Shipping city"
+          name="partner_shipping_city"
+          context="{'group_by':'partner_shipping_city'}"
+        />
+                <filter
+          string="Shipping province"
+          name="partner_shipping_state_id"
+          context="{'group_by':'partner_shipping_state_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
