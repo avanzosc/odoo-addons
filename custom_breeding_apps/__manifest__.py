@@ -53,6 +53,7 @@
         "views/purchase_order_view.xml",
         "views/product_template_view.xml",
         "views/sale_order_view.xml",
+        "views/saca_line_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,
