@@ -275,10 +275,16 @@
                     />
                                     </td>
                                     <td class="text-center">
-                                        <span t-field="line.product_packaging_qty" />
+                                        <span
+                      t-field="line.product_packaging_qty"
+                      t-options="{'widget': 'float', 'precision': 0}"
+                    />
                                     </td>
                                     <td class="text-center">
-                                        <span t-field="line.qty_done" />
+                                        <span
+                      t-field="line.qty_done"
+                      t-options="{'widget': 'float', 'precision': 2}"
+                    />
                                         <span t-field="line.product_uom_id.name" />
                                     </td>
                                 </tr>
