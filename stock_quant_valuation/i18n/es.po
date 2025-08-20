@@ -1,24 +1,19 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* stock_quant_valuation
+#   * stock_quant_valuation
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 10:36+0000\n"
-"PO-Revision-Date: 2025-08-20 10:36+0000\n"
+"POT-Creation-Date: 2025-08-20 14:11+0000\n"
+"PO-Revision-Date: 2025-08-20 14:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: stock_quant_valuation
-#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__product_cost
-msgid "Cost"
-msgstr "Coste"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__display_name
@@ -33,29 +28,24 @@ msgstr "Identificador"
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_average_unit_price
 msgid ""
-"If linked to a lot, takes the lot's average unit price. Otherwise, uses the "
-"product's last purchase price."
-msgstr "Si está vinculado a un lote, toma el precio unitario promedio del lote. De lo contrario, utiliza el último precio de compra del producto."
+"If linked to a lot, takes the lot's average unit price "
+"(quant.lot_id.average_price).Otherwise, uses the product's last purchase "
+"price (quant.product_id.last_purchase_price)."
+msgstr ""
+"Si está vinculado a un lote, toma el precio unitario medio del lote "
+"(quant.lot_id.average_price). De lo contrario, utiliza el último precio de "
+"compra del producto (quant.product_id.last_purchase_price)."
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_purchase_cost
 msgid ""
-"If linked to a lot, takes the lot's purchase cost. Otherwise, uses the "
-"product's last purchase price."
-msgstr "Si está vinculado a un lote, toma el coste de compra del lote. De lo contrario, utiliza el último precio de compra del producto."
-
-#. module: stock_quant_valuation
-#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__product_cost
-msgid ""
-"In Standard Price & AVCO: value of the product (automatically computed in AVCO).\n"
-"        In FIFO: value of the next unit that will leave the stock (automatically computed).\n"
-"        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
-"        Used to compute margins on sale orders."
+"If linked to a lot, takes the lot's purchase cost "
+"(quant.lot_id.purchase_cost). Otherwise, uses the product's last purchase "
+"price (quant.product_id.last_purchase_price)."
 msgstr ""
-"En Precio Estándar y AVCO: valor del producto (calculado automáticamente en AVCO).\n"
-"	En FIFO: valor de la siguiente unidad que saldrá del inventario (calculado automáticamente).\n"
-"	Se utiliza para valorar el producto cuando no se conoce el costo de compra (por ejemplo, ajuste de inventario).\n"
-"	Se utiliza para calcular márgenes en pedidos de venta."
+"Si está vinculado a un lote, toma el coste de compra del lote (quant.lot_id.purchase_cost). "
+"De lo contrario, utiliza el último precio de compra del producto "
+"(quant.product_id.last_purchase_price)."
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant____last_update
@@ -64,35 +54,57 @@ msgstr "Última modificación el"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_average_unit_price
-msgid "Lot Average Unit Price"
-msgstr "Precio promedio lote"
+msgid "Lot Avg Unit Price"
+msgstr "Precio medio lote"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_average_value
-msgid "Lot Average Value"
-msgstr "Valor promedio lote"
+msgid "Lot Avg Value"
+msgstr "Valor medio lote"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_purchase_cost
 msgid "Lot Purchase Cost"
-msgstr "Coste de compra lote"
+msgstr "Coste compra lote"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_purchase_value
 msgid "Lot Purchase Value"
-msgstr "Valor de compra lote"
+msgstr "Valor compra lote"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__product_cost
+msgid "Product Cost"
+msgstr "Coste producto"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_average_value
-msgid "Quant quantity multiplied by the lot average unit price."
-msgstr "Cantidad del quant multiplicada por el precio unitario promedio del lote."
+msgid ""
+"Quant quantity multiplied by the lot average unit price (quant.quantity * "
+"quant.lot_average_unit_price)."
+msgstr ""
+"Cantidad de existencias multiplicada por el precio unitario medio "
+"del lote (quant.quantity * quant.lot_average_unit_price)."
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_purchase_value
-msgid "Quant quantity multiplied by the lot purchase cost."
-msgstr "Cantidad del quant multiplicada por el costo de compra del lote."
+msgid ""
+"Quant quantity multiplied by the lot purchase cost (quant.quantity * "
+"quant.lot_purchase_cost)."
+msgstr ""
+"Cantidad de existencias multiplicada por el costo de compra del lote (quant.quantity * quant.lot_purchase_cost)."
 
 #. module: stock_quant_valuation
 #: model:ir.model,name:stock_quant_valuation.model_stock_quant
 msgid "Quants"
-msgstr "Quants"
+msgstr "Cantidades"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__product_cost
+msgid "Standard price of the product (product_id.standard_price)."
+msgstr "Precio estándar del producto (product_id.standard_price)."
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__value
+msgid "Value"
+msgstr "Valor"

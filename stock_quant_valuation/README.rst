@@ -20,7 +20,9 @@ This module extends the **Stock Quant** model to provide additional cost and val
   Uses the purchase cost from the linked lot if available, otherwise falls back to the product's last purchase price.
 - **Lot Purchase Value**:  
   Calculates the total valuation of the quant based on its quantity and the lot purchase cost.
-- Enhances the **Inventory Adjustments** (Stock Quant tree view) by displaying these new fields for better control and analysis.
+  Enhances the **Inventory Adjustments** (Stock Quant tree view) by displaying these new fields for better control and analysis.
+- **Value**:
+  Makes it store True to allow sum when grouping in tree view.
 
 Bug Tracker
 ===========
