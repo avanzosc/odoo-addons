@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_quant_valuation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-20 10:36+0000\n"
+"PO-Revision-Date: 2025-08-20 10:36+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__product_cost
+msgid "Cost"
+msgstr "Coste"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_average_unit_price
+msgid ""
+"If linked to a lot, takes the lot's average unit price. Otherwise, uses the "
+"product's last purchase price."
+msgstr "Si está vinculado a un lote, toma el precio unitario promedio del lote. De lo contrario, utiliza el último precio de compra del producto."
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_purchase_cost
+msgid ""
+"If linked to a lot, takes the lot's purchase cost. Otherwise, uses the "
+"product's last purchase price."
+msgstr "Si está vinculado a un lote, toma el coste de compra del lote. De lo contrario, utiliza el último precio de compra del producto."
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__product_cost
+msgid ""
+"In Standard Price & AVCO: value of the product (automatically computed in AVCO).\n"
+"        In FIFO: value of the next unit that will leave the stock (automatically computed).\n"
+"        Used to value the product when the purchase cost is not known (e.g. inventory adjustment).\n"
+"        Used to compute margins on sale orders."
+msgstr ""
+"En Precio Estándar y AVCO: valor del producto (calculado automáticamente en AVCO).\n"
+"	En FIFO: valor de la siguiente unidad que saldrá del inventario (calculado automáticamente).\n"
+"	Se utiliza para valorar el producto cuando no se conoce el costo de compra (por ejemplo, ajuste de inventario).\n"
+"	Se utiliza para calcular márgenes en pedidos de venta."
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_average_unit_price
+msgid "Lot Average Unit Price"
+msgstr "Precio promedio lote"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_average_value
+msgid "Lot Average Value"
+msgstr "Valor promedio lote"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_purchase_cost
+msgid "Lot Purchase Cost"
+msgstr "Coste de compra lote"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_purchase_value
+msgid "Lot Purchase Value"
+msgstr "Valor de compra lote"
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_average_value
+msgid "Quant quantity multiplied by the lot average unit price."
+msgstr "Cantidad del quant multiplicada por el precio unitario promedio del lote."
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_purchase_value
+msgid "Quant quantity multiplied by the lot purchase cost."
+msgstr "Cantidad del quant multiplicada por el costo de compra del lote."
+
+#. module: stock_quant_valuation
+#: model:ir.model,name:stock_quant_valuation.model_stock_quant
+msgid "Quants"
+msgstr "Quants"
