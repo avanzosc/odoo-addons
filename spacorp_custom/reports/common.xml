@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template
+    id="external_layout_standard"
+    inherit_id="web.external_layout_standard"
+    name="spacorp_custom_external_layout_header"
+    priority="9999"
+  >
+        <div t-att-style="report_header_style" position="replace">
+            <div
+        t-attf-class="header o_company_#{company.id}_layout"
+        t-att-style="report_header_style"
+      >
+                <div class="row">
+                    <div name="company_address" style="float:center;padding-top:25px;">
+                        <table style="font-size:10px;">
+                            <tr>
+                                <td style="width:250px;padding-left:3px;" rowspan="5">
+                                    <img
+                    t-if="company.logo"
+                    t-att-src="image_data_uri(company.logo)"
+                    style="max-height: 100px;"
+                  />
+                                </td>
+                                <td style="padding-left:20px;">
+                                    <strong style="font-size: 11px;">
+                                        <span t-raw="company.name.upper()" />
+                                    </strong><br />
+                                    CIF: <span t-raw="company.vat" /><br />
+                                    <span t-raw="company.street" /><br />
+                                    <span t-raw="company.zip" /> <span
+                    t-raw="company.city"
+                  /><br />
+                                    <span t-raw="company.email" /><br />
+                                    <span t-raw="company.phone" /></td>
+                                <td style="padding-left:20px;">
+                                    <strong
+                    style="font-size: 11px;"
+                  >DELEGACIÓN CANARIAS</strong><br />
+                                    Polígono Industrial El Goro<br />
+                                    C/ Jose Millares Sall, 36<br />
+                                    35219 Telde (Las Palmas)<br />
+                                    info.canarias@persum.es<br />
+                                    651 813 592</td>
+                                <td style="padding-left:20px;">
+                                    <strong
+                    style="font-size: 11px;"
+                  >DELEGACIÓN NORTE</strong><br />
+                                    Autovia de Logroño km 8<br />
+                                    Polígono El Olivar Nave 16<br />
+                                    50011 Zaragoza<br />
+                                    info.norte@persum.es<br />
+                                    625 279 911</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <p style="clear:both;"> </p>
+        </div>
+    </template>
+
+    <template id="external_layout_sale_standard">
+        <div
+      t-attf-class="header o_company_#{company.id}_layout"
+      t-att-style="report_header_style"
+    >
+            <div class="row">
+                <div name="company_address" style="float:center;padding-top:25px;">
+                    <table style="font-size:10px;">
+                        <tr>
+                            <td style="width:250px;padding-left:3px;" rowspan="5">
+                                <img
+                  t-if="o.logo_to_print"
+                  t-att-src="image_data_uri(o.logo_to_print)"
+                  style="max-height: 2.85cm; max-width: 5.73cm;"
+                />
+                            </td>
+                            <td style="padding-left:20px;">
+                                <strong style="font-size: 11px;">
+                                    <span t-raw="company.name.upper()" />
+                                </strong><br />
+                                CIF: <span t-raw="company.vat" /><br />
+                                <span t-raw="company.street" /><br />
+                                <span t-raw="company.zip" /> <span
+                  t-raw="company.city"
+                /><br />
+                                <span t-raw="company.email" /><br />
+                                <span t-raw="company.phone" /></td>
+                            <td
+                t-if="o.three_address_in_sale_report"
+                style="padding-left:20px;"
+              >
+                                <strong
+                  style="font-size: 11px;"
+                >DELEGACIÓN CANARIAS</strong><br />
+                                    Polígono Industrial El Goro<br />
+                                    C/ Jose Millares Sall, 36<br />
+                                    35219 Telde (Las Palmas)<br />
+                                    info.canarias@persum.es<br />
+                                    651 813 592</td>
+                            <td
+                t-if="o.three_address_in_sale_report"
+                style="padding-left:20px;"
+              >
+                                <strong
+                  style="font-size: 11px;"
+                >DELEGACIÓN NORTE</strong><br />
+                                    Autovia de Logroño km 8<br />
+                                    Polígono El Olivar Nave 16<br />
+                                    50011 Zaragoza<br />
+                                    info.norte@persum.es<br />
+                                    625 279 911</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p style="clear:both;"> </p>
+
+        <div
+      class="article o_report_layout_standard"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="company.phone" class="list-inline-item">Phone: <span
+              t-field="company.phone"
+            /></li>
+                    <li t-if="company.email" class="list-inline-item">Email: <span
+              t-field="company.email"
+            /></li>
+                    <li t-if="company.website" class="list-inline-item">Web: <span
+              t-field="company.website"
+            /></li>
+                    <li t-if="company.vat" class="list-inline-item"><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="company.report_footer" />
+                </div>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_invoice_standard">
+        <div
+      t-attf-class="header o_company_#{company.id}_layout"
+      t-att-style="report_header_style"
+    >
+            <div class="row">
+                <div name="company_address" style="float:center;padding-top:25px;">
+                    <table style="font-size:10px;">
+                        <tr>
+                            <td style="width:250px;padding-left:3px;" rowspan="5">
+                                <img
+                  t-if="o.logo_to_print"
+                  t-att-src="image_data_uri(o.logo_to_print)"
+                  style="max-height: 2.85cm; max-width: 5.73cm;"
+                />
+                            </td>
+                            <td style="padding-left:20px;">
+                                <strong style="font-size: 11px;">
+                                    <span t-raw="company.name.upper()" />
+                                </strong><br />
+                                CIF: <span t-raw="company.vat" /><br />
+                                <span t-raw="company.street" /><br />
+                                <span t-raw="company.zip" /> <span
+                  t-raw="company.city"
+                /><br />
+                                <span t-raw="company.email" /><br />
+                                <span t-raw="company.phone" /></td>
+                            <td
+                t-if="o.three_address_in_sale_report"
+                style="padding-left:20px;"
+              >
+                                <strong
+                  style="font-size: 11px;"
+                >DELEGACIÓN CANARIAS</strong><br />
+                                    Polígono Industrial El Goro<br />
+                                    C/ Jose Millares Sall, 36<br />
+                                    35219 Telde (Las Palmas)<br />
+                                    info.canarias@persum.es<br />
+                                    651 813 592</td>
+                            <td
+                t-if="o.three_address_in_sale_report"
+                style="padding-left:20px;"
+              >
+                                <strong
+                  style="font-size: 11px;"
+                >DELEGACIÓN NORTE</strong><br />
+                                    Autovia de Logroño km 8<br />
+                                    Polígono El Olivar Nave 16<br />
+                                    50011 Zaragoza<br />
+                                    info.norte@persum.es<br />
+                                    625 279 911</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <p style="clear:both;"> </p>
+
+        <div
+      class="article o_report_layout_standard"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+
+        <div class="footer o_standard_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <li t-if="company.phone" class="list-inline-item">Phone: <span
+              t-field="company.phone"
+            /></li>
+                    <li t-if="company.email" class="list-inline-item">Email: <span
+              t-field="company.email"
+            /></li>
+                    <li t-if="company.website" class="list-inline-item">Web: <span
+              t-field="company.website"
+            /></li>
+                    <li t-if="company.vat" class="list-inline-item"><t
+              t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"
+            />: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')" /></li>
+                </ul>
+
+                <div name="financial_infos">
+                    <span t-field="company.report_footer" />
+                </div>
+
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page: <span class="page" /> / <span class="topage" />
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="external_layout_sale">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="spacorp_custom.external_layout_sale_standard"><t t-raw="0" /></t>
+    </template>
+
+    <template id="external_layout_invoice">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-call="spacorp_custom.external_layout_invoice_standard"><t t-raw="0" /></t>
+    </template>
+
+    <record id="base.paperformat_euro" model="report.paperformat">
+        <field name="name">European A4</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top" eval="45" />
+        <field name="margin_bottom" eval="15" />
+        <field name="margin_left" eval="7" />
+        <field name="margin_right" eval="7" />
+        <field name="header_line" eval="False" />
+        <field name="header_spacing" eval="45" />
+        <field name="dpi" eval="90" />
+    </record>
+</odoo>

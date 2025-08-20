@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_delivery_document2_spacorp"
+    inherit_id="delivery.report_delivery_document2"
+  >
+        <div t-if="o.shipping_weight" position="replace">
+            <div t-if="o.gross_weight" class="col-auto col-3 mw-100 mb-2">
+                <strong>Gross weight:</strong>
+                <br />
+                <span t-field="o.gross_weight" />
+            </div>
+        </div>
+    </template>
+
+    <template
+    id="report_delivery_document_spacorp"
+    inherit_id="stock.report_delivery_document"
+  >
+        <div name="signature" position="after">
+            <p class="text-justify">
+                <span t-field="o.text_delivery_vouchers" />
+            </p>
+        </div>
+    </template>
+
+    <template id="report_picking_spacorp" inherit_id="stock.report_picking">
+        <div name="partner_header" position="before">
+            <div t-if="o.picking_type_id.code=='outgoing' and o.partner_id">
+                <span><strong>SHIPPING ADDRESS:</strong></span>
+            </div>
+        </div>
+        <div name="partner_header" position="replace">
+            <div t-if="o.partner_id" name="partner_header">
+                <div
+          t-field="o.partner_id"
+          t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'
+        />
+                <p t-if="o.sudo().partner_id.ref">
+                    <strong>CUSTOMER CODE: </strong>
+                    <span t-field="o.sudo().partner_id.ref" />
+                    <br />
+                    <strong>PURCHASES GROUP: </strong>
+                    <span t-field="o.sudo().partner_id.purchase_group_id" />
+                </p>
+            </div>
+        </div>
+    </template>
+</odoo>

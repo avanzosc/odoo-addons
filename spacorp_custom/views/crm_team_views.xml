@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="crm_team_view_form" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="market_id" />
+                <field name="product_make_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_team_view_tree" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="market_id" optional="show" />
+                <field name="product_make_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="crm_team_view_search" model="ir.ui.view">
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_search" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="market_id" />
+                <field name="product_make_id" />
+            </field>
+            <filter name="team_leader" position="after">
+                <filter
+          name="group-sale_channel"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+                <filter
+          name="group-make"
+          string="Make"
+          domain="[]"
+          context="{'group_by' : 'product_make_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

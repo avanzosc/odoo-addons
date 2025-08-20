@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fp_canary_autof" model="account.fiscal.position.template">
+        <field name="name">Autofactura Canarias</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+    </record>
+    <record id="fptt_canary_autof_21b" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_autof" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_s_iva21b" />
+        <field name="tax_dest_id" ref="account_tax_template_s_igic7b1" />
+    </record>
+    <record id="fp_canary_client" model="account.fiscal.position.template">
+        <field name="name">Cliente/Proveedor Canarias</field>
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+    </record>
+    <record id="fptt_canary_client_21b" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_s_iva21b" />
+        <field name="tax_dest_id" ref="account_tax_template_s_igic7b2" />
+    </record>
+    <record id="fptt_canary_client_21s" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_s_iva21s" />
+        <field name="tax_dest_id" ref="account_tax_template_s_igic7s" />
+    </record>
+    <record id="fptt_canary_client_0" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_s_iva0" />
+        <field name="tax_dest_id" ref="account_tax_template_s_igice" />
+    </record>
+    <record id="fptt_canary_supplier_10b" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_p_iva10_bc" />
+        <field name="tax_dest_id" ref="account_tax_template_p_igic3_b" />
+    </record>
+    <record id="fptt_canary_supplier_21b" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_p_iva21_bc" />
+        <field name="tax_dest_id" ref="account_tax_template_p_igic7_b" />
+    </record>
+    <record id="fptt_canary_supplier_21s" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_p_iva21_sc" />
+        <field name="tax_dest_id" ref="account_tax_template_p_igic7_s" />
+    </record>
+    <record id="fptt_canary_supplier_0bc" model="account.fiscal.position.tax.template">
+        <field name="position_id" ref="fp_canary_client" />
+        <field name="tax_src_id" ref="l10n_es.account_tax_template_p_iva0_bc" />
+        <field name="tax_dest_id" ref="account_tax_template_p_igice" />
+    </record>
+</odoo>

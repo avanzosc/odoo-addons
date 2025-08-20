@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_invoice_document_spacorp"
+    inherit_id="account.report_invoice_document"
+  >
+        <t t-call="web.external_layout" position="attributes">
+            <attribute name="t-call">spacorp_custom.external_layout_invoice</attribute>
+        </t>
+    </template>
+</odoo>

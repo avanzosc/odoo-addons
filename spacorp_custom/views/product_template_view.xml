@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_template_view_tree" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view" />
+        <field name="arch" type="xml">
+            <field name="uom_id" position="after">
+                <field
+          name="state"
+          options='{"fg_color": "red:state == &apos;clearance&apos;; green:state == &apos;stock&apos;; blue:state == &apos;mto&apos;; brown:state == &apos;sample&apos;"}'
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <group name="group_general" position="inside">
+                <field name="state" />
+            </group>
+            <xpath expr="//field[@name='volume']/.." position="after">
+                <label
+          for="shipping_length"
+          attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
+        />
+                <div
+          class="o_row"
+          name="shipping_length"
+          attrs="{'invisible':[('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)]}"
+        >
+                    <field name="shipping_length" string="Length" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_view_search" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="state" />
+            </field>
+            <filter name="activities_upcoming_all" position="after">
+                <filter
+          string="Status"
+          name="group_status"
+          context="{'group_by': 'state'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

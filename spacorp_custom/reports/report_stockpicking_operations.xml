@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_picking_spacorp2" inherit_id="stock.report_picking">
+        <p t-field="o.note" position="after">
+            <p t-if="o.make_to_print">
+                <strong>Make: </strong>
+                <span t-field="o.make_to_print" />
+                <span t-if="o.sector_to_print">
+                    <spam>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;</spam>
+                    <strong>Market: </strong>
+                    <span t-field="o.sector_to_print" />
+                </span>
+            </p>
+        </p>
+
+        <xpath expr="//span[@t-field='ml.product_id.display_name']" position="after">
+            <t t-if="ml.product_id.seller_ids">
+                <br />[<span t-field="ml.product_id.seller_ids[:1].product_code" />]
+                <span t-field="ml.product_id.seller_ids[:1].product_name" />
+            </t>
+        </xpath>
+    </template>
+</odoo>

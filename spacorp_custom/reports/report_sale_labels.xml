@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_saleorder_document_labels">
+        <div
+      class="article"
+      t-att-data-oe-model="o and o._name"
+      t-att-data-oe-id="o and o.id"
+      t-att-data-oe-lang="o and o.env.context.get('lang')"
+    >
+            <div class="page">
+                <t t-set="k" t-value="0" />
+                <t t-set="j" t-value="0" />
+                <t t-foreach="doc.order_line" t-as="l">
+                    <t t-if="not l.display_type">
+                        <span t-if="not l.product_packaging.qty == 0">
+                            <t
+                t-foreach="int(float(l.product_uom_qty/l.product_packaging.qty))"
+                t-as="i"
+              >
+                                <div
+                  style="width:41% !important;float:left;padding-top:-70px;"
+                >
+                                    <span
+                    t-if="l.product_packaging.name=='CAJA GRANDE'"
+                  >
+                                        <span
+                      t-field="l.product_id.pegatinacaja"
+                      t-options="{'widget': 'image'}"
+                    />
+                                        <t t-set="k" t-value="k+1" />
+                                    </span>
+                                    <span
+                    t-if="l.product_packaging.name==u'CAJA PEQUEÑA'"
+                  >
+                                        <span
+                      t-field="l.product_id.codigobarras"
+                      t-options="{'widget': 'image'}"
+                    />
+                                        <t t-set="j" t-value="j+1" />
+                                    </span>
+                                </div>
+                            </t>
+                        </span>
+                    </t>
+                </t>
+                <div style="float:left;">
+                    <h1>Nº de cajas grandes: <span t-esc="k" /></h1>
+                </div>
+                <div style="float:left;">
+                    <h1>Nº de cajas pequeñas: <span t-esc="j" /></h1>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_saleorder_labels">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+          t-call="spacorp_custom.report_saleorder_document_labels"
+          t-lang="doc.partner_id.lang"
+        />
+            </t>
+        </t>
+    </template>
+
+    <record id="report_sale_order_labels" model="ir.actions.report">
+        <field name="name">Print Cage labels</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">spacorp_custom.report_saleorder_labels</field>
+        <field name="report_file">spacorp_custom.report_saleorder_labels</field>
+        <field
+      name="print_report_name"
+    >'Labels for sale order: %s' % (object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

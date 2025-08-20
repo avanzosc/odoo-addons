@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_sale_order_line_agent_tree" model="ir.ui.view">
+        <field name="model">sale.order.line.agent</field>
+        <field name="inherit_id" ref="sale_commission.view_sale_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="amount" position="after">
+                <field name="active" />
+            </field>
+        </field>
+    </record>
+</odoo>

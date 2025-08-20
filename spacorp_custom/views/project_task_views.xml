@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_task_search_form" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="supplier_creditor_id" />
+                <field name="warehouse_id" />
+            </field>
+            <filter name="customer" position="after">
+                <filter
+          string="Supplier/Creditor"
+          name="group-supplier-creditor"
+          context="{'group_by':'supplier_creditor_id'}"
+        />
+                <filter
+          string="Warehouse"
+          name="group-warehouse"
+          context="{'group_by':'warehouse_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_task_tree2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <field name="project_id" position="after">
+                <field name="supplier_creditor_id" optional="show" />
+                <field name="warehouse_id" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_task_form2" model="ir.ui.view">
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="supplier_creditor_id" />
+                <field name="warehouse_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

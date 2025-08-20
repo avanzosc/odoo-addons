@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_invoice_report_search" model="ir.ui.view">
+        <field name="model">account.invoice.report</field>
+        <field name="inherit_id" ref="account.view_account_invoice_report_search" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="city" />
+                <field name="state_id" />
+                <field name="partner_shipping_id" />
+                <field name="shipping_city" />
+                <field name="shipping_state_id" />
+            </field>
+            <filter name="partner_id" position="after">
+                <filter
+          string="City"
+          name="partner_city"
+          context="{'group_by':'city'}"
+        />
+                <filter
+          string="Province"
+          name="partner_state_id"
+          context="{'group_by':'state_id'}"
+        />
+                <filter
+          string="Shipping address"
+          name="partner_shipping_id"
+          context="{'group_by':'partner_shipping_id'}"
+        />
+                <filter
+          string="Shipping city"
+          name="shipping_city"
+          context="{'group_by':'shipping_city'}"
+        />
+                <filter
+          string="Shipping province"
+          name="shipping_state_id"
+          context="{'group_by':'shipping_state_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

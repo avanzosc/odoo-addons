@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_order_form2_inherit_spacorp" model="ir.ui.view">
+        <field name="name">view.order.form2.inherit.spacorp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='order_line']/form//field[@name='price_subtotal']"
+        position="after"
+      >
+                <field name="commission_free" invisible="1" />
+                <field
+          name="agent_ids"
+          attrs="{'readonly': [('commission_free', '=', True)]}"
+          domain="{'active': True}"
+          context="{'default_active': True}"
+        />
+            </xpath>
+            <field name="partner_shipping_id" position="after">
+                <field name="contact_email_person_id" required="1" />
+            </field>
+            <xpath expr="//tree//field[@name='product_uom_qty']" position="before">
+                <field name="product_packaging_id" />
+            </xpath>
+            <field name="client_order_ref" position="replace" />
+            <field name="partner_shipping_id" position="after">
+                <field name="source_id" />
+                <field name="client_order_ref" />
+            </field>
+            <field name="payment_term_id" position="after">
+                <field name="market_id" string="Sale channel" invisible="1" />
+                <field name="market_sector_id" string="Market niche" invisible="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree_inherit_spacorp" model="ir.ui.view">
+        <field name="name">view.quotation.tree.inherit.spacorp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <field name="amount_total" position="before">
+                <field name="team_id" string="Division" optional="show" />
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+                <field
+          name="amount_untaxed"
+          widget='monetary'
+          options="{'currency_field': 'currency_id'}"
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+    <record id="view_order_tree_inherit_spacorp" model="ir.ui.view">
+        <field name="name">view.order.tree.inherit.spacorp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="amount_total" position="before">
+                <field name="team_id" string="Division" optional="show" />
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+                <field
+          name="amount_untaxed"
+          widget='monetary'
+          options="{'currency_field': 'currency_id'}"
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+    <record id="view_sales_order_filter_inherit_spacorp" model="ir.ui.view">
+        <field name="name">view.sale.order.filter.inherit.spacorp</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <field name="order_line" position="after">
+                <field name="team_id" string="Division" />
+                <field name="market_id" string="Sale channel" />
+                <field name="market_sector_id" string="Market niche" />
+
+            </field>
+            <filter name="order_month" position="after">
+                <filter
+          name="division"
+          string="Division"
+          domain="[]"
+          context="{'group_by' : 'team_id'}"
+        />
+                <filter
+          name="market"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+                <filter
+          name="market_sector"
+          string="Market niche"
+          domain="[]"
+          context="{'group_by' : 'market_sector_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_recalculate_division_in_sales" model="ir.actions.server">
+        <field name="name">Put Division</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_sale_order" />
+        <field name="binding_model_id" ref="model_sale_order" />
+        <field name="code">
+            if records:
+                records.update_division_in_sales()
+        </field>
+    </record>
+</odoo>

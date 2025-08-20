@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="report_saleorder_document_spacorp"
+    inherit_id="sale.report_saleorder_document"
+    priority="9999"
+  >
+        <t t-call="web.external_layout" position="attributes">
+            <attribute name="t-call">spacorp_custom.external_layout_sale</attribute>
+        </t>
+        <!-- redefining the table header -->
+        <th name="th_taxes" position="attributes">
+            <attribute name="class" separator=" " add="d-none" />
+        </th>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/thead//th[count(//span[@t-field='line.name']/../preceding-sibling::*) + 1]"
+      position="before"
+    >
+            <th class="text-left" name="th_image">Image</th>
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/thead//th[count(//span[@t-field='line.name']/../preceding-sibling::*) + 2]"
+      position="after"
+    >
+            <th class="text-left" name="th_packaging">Packaging</th>
+        </xpath>
+        <!-- redefining the table body -->
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.name']/.."
+      position="before"
+    >
+            <td>
+                <span
+          t-field="line.product_id.image_small"
+          t-options="{'widget': 'image', 'class': 'rounded'}"
+        />
+            </td>
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.name']/.."
+      position="attributes"
+    >
+            <attribute name="style" separator=" " add="vertical-align: middle;" />
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.name']/.."
+      position="after"
+    >
+            <td style="vertical-align: middle;">
+                <span t-field="line.product_packaging" />
+                <t t-if="not line.product_packaging.qty == 0">
+                    <t
+            t-set="unidades"
+            t-value="line.product_uom_qty/line.product_packaging.qty"
+          />
+                    (<span t-esc="str('%.0f'%(unidades)).replace('.',',')" /> uds.)
+                </t>
+            </td>
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.product_uom_qty']/.."
+      position="attributes"
+    >
+            <attribute name="style" separator=" " add="vertical-align: middle;" />
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.price_unit']/.."
+      position="replace"
+    >
+            <td class="text-right" style="vertical-align: middle;">
+                <t t-if="not display_discount">
+                    <span t-field="line.price_unit" />
+                </t>
+                <t t-else="">
+                    <t
+            t-if="line.discount in (60.00, 57.50, 55.00, 52.50, 50.00, 46.00, 45.00, 44.20, 43.00, 41.80, 40.00, 38.00, 35.00)"
+          >
+                        <span t-field="line.price_unit" />
+                    </t>
+                    <t t-else="">
+                        <t
+              t-set="precio_unidad"
+              t-value="line.price_subtotal/line.product_uom_qty"
+            />
+                        <span t-esc="str('%.2f'%(precio_unidad)).replace('.',',')" />
+                    </t>
+                </t>
+            </td>
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.discount']/.."
+      position="replace"
+    >
+            <td
+        t-if="display_discount"
+        style="vertical-align: middle;"
+        class="text-right"
+        groups="sale.group_discount_per_so_line"
+      >
+                <t t-if="line.discount == 60.00">
+                    <span>50%+20%</span>
+                </t>
+                <t t-if="line.discount == 57.50">
+                    <span>50%+15%</span>
+                </t>
+                <t t-if="line.discount == 55.00">
+                    <span>50%+10%</span>
+                </t>
+                <t t-if="line.discount == 52.50">
+                    <span>50%+5%</span>
+                </t>
+                <t t-if="line.discount == 50.00">
+                    <span>50%</span>
+                </t>
+                <t t-if="line.discount == 46.00">
+                    <span>40%+10%</span>
+                </t>
+                <t t-if="line.discount == 45.00">
+                    <span>45%</span>
+                </t>
+                <t t-if="line.discount == 44.20">
+                    <span>40%+7%</span>
+                </t>
+                <t t-if="line.discount == 43.00">
+                    <span>40%+5%</span>
+                </t>
+                <t t-if="line.discount == 41.80">
+                    <span>40%+3%</span>
+                </t>
+                <t t-if="line.discount == 40.00">
+                    <span>40%</span>
+                </t>
+                <t t-if="line.discount == 38.00">
+                    <span>38%</span>
+                </t>
+                <t t-if="line.discount == 35.00">
+                    <span>35%</span>
+                </t>
+            </td>
+        </xpath>
+        <xpath
+      expr="//table[hasclass('o_main_table')]/tbody//span[@t-field='line.price_subtotal']/.."
+      position="attributes"
+    >
+            <attribute name="style" separator=" " add="vertical-align: middle;" />
+        </xpath>
+        <td name="td_taxes" position="attributes">
+            <attribute name="class" separator=" " add="d-none" />
+        </td>
+    </template>
+</odoo>

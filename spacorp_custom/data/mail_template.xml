@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<odoo noupdate="0">
+    <record id="stock.mail_template_data_delivery_confirmation" model="mail.template">
+        <field name="partner_to">${object.contact_email_person_id.id}</field>
+    </record>
+</odoo>

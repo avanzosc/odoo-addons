@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field
+          name="state"
+          options='{"fg_color": "red:state == &apos;clearance&apos;; green:state == &apos;stock&apos;; blue:state == &apos;mto&apos;; brown:state == &apos;sample&apos;"}'
+        />
+            </field>
+        </field>
+    </record>
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="state" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='weight']/.." position="after">
+                <label for="shipping_length" />
+                <div class="o_row">
+                    <field name="shipping_length" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+    <record forcecreate="True" id="ir_cron_load_tariff" model="ir.cron">
+        <field name="name">Cargar tarifas en clientes</field>
+        <field name="model_id" ref="model_res_partner" />
+        <field name="state">code</field>
+        <field name="code">model.load_tariff()</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+    </record>
+
+    <record id="action_create_user_from_contact" model="ir.actions.server">
+        <field name="name">Create user</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="code">
+            for record in records:
+                record.create_user_from_contact()
+        </field>
+    </record>
+
+    <record id="group_view_all_partner_form" model="res.groups">
+        <field name="name">View chatter in contacts</field>
+    </record>
+
+    <record forcecreate="True" id="ir_cron_load_division_in_sales" model="ir.cron">
+        <field name="name">Poner division en ventas, albaranes, facturas</field>
+        <field name="model_id" ref="crm.model_crm_team" />
+        <field name="state">code</field>
+        <field name="code">model.load_division_in_sales()</field>
+        <field eval="False" name="active" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">12</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+    </record>
+</odoo>

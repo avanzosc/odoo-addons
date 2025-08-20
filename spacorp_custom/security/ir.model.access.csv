@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_market_user,res.partner.market,spacorp_custom.model_res_partner_market,base.group_user,1,0,0,0
+access_res_partner_market_manager,res.partner.market,spacorp_custom.model_res_partner_market,base.group_erp_manager,1,1,1,1
+access_res_partner_market_sector_user,res.partner.market.sector,spacorp_custom.model_res_partner_market_sector,base.group_user,1,0,0,0
+access_res_partner_market_sector_manager,res.partner.market.sector,spacorp_custom.model_res_partner_market_sector,base.group_erp_manager,1,1,1,1
+access_stock_picking_shipping_type_user,stock.picking.shipping.type,spacorp_custom.model_stock_picking_shipping_type,base.group_user,1,0,0,0
+access_stock_picking_shipping_type_manager,stock.picking.shipping.type,spacorp_custom.model_stock_picking_shipping_type,base.group_erp_manager,1,1,1,1
+
+purchase.access_purchase_order_portal,purchase.order.portal,purchase.model_purchase_order,base.group_portal,0,0,0,0
+purchase.access_purchase_order_line_portal,purchase.order.line.portal,purchase.model_purchase_order_line,base.group_portal,0,0,0,0

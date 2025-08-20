@@ -1,0 +1,184 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record model="ir.ui.view" id="view_partner_form">
+        <field name="name">res.partner.form - Add contact person</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <field name="lang" position="before">
+                <field name="customer_rank" invisible="1" />
+                <field
+          name="contact_person"
+          attrs="{'invisible': [('is_company', '=', False)]}"
+        />
+            </field>
+            <field name="vat" position="after">
+                <field
+          name="market_id"
+          string="Sale channel"
+          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+        />
+                <field
+          name="market_sector_id"
+          string="Market niche"
+          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+        />
+                <field
+          name="classification_id"
+          string="Input channel"
+          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+        />
+            </field>
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Province</attribute>
+            </field>
+            <field name="title" position="attributes">
+                <attribute
+          name="attrs"
+        >{'required':[('customer_rank', '>', 0), ('parent_id', '!=', False), ('type','=','contact')]}</attribute>
+            </field>
+            <xpath
+        expr="//field[@name='child_ids']/form//field[@name='title']"
+        position="after"
+      >
+                <field name="parent_is_customer" invisible="1" />
+            </xpath>
+            <xpath
+        expr="//field[@name='child_ids']/form//field[@name='title']"
+        position="before"
+      >
+                <field name="customer_rank" invisible="1" />
+            </xpath>
+            <xpath
+        expr="//field[@name='child_ids']/form//field[@name='title']"
+        position="attributes"
+      >
+                <attribute
+          name="attrs"
+        >{'required':[('customer_rank', '>', 0), ('parent_id', '!=', False), ('type','=','contact')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_partner_view_form_inh_mail_inh_spacorp" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inh.mail.inh.spacorp</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail" />
+        <field name="arch" type="xml">
+            <field name="is_blacklisted" position="before">
+                <field name="show_chatter" invisible="1" />
+            </field>
+            <xpath expr="//field[@name='message_follower_ids']/.." position="replace">
+                <group
+          name="user-control"
+          attrs="{'invisible': [('show_chatter', '=', False)]}"
+        >
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" />
+                        <field name="activity_ids" widget="mail_activity" />
+                        <field name="message_ids" widget="mail_thread" />
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="active" position="after">
+                <field name="agents_count" optional="show" />
+                <field name="market_id" string="Sale channel" optional="show" />
+                <field name="market_sector_id" string="Market niche" optional="show" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          optional="show"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <filter name="type_company" position="after">
+                <separator />
+                <filter
+          name="Customers-companies-address"
+          help="Customers: Companies and delivery address"
+          domain="[('customer_rank','>',0), '|',('parent_id','=',False),('parent_id','!=',False),('type','=','delivery')]"
+        />
+                <filter
+          name="without-agents"
+          help="Without agents"
+          domain="[('agents_count','=',0)]"
+        />
+            </filter>
+            <field name="phone" position="after">
+                <separator />
+                <field name="agents_count" />
+                <separator />
+                <field name="state_id" string="Province" />
+                <field name="market_id" string="Sale channel" />
+                <field name="market_sector_id" string="Market niche" />
+                <field name="classification_id" string="Input channel" />
+            </field>
+            <filter name="group_country" position="before">
+                <filter
+          name="num-agents"
+          string="Num. agents"
+          domain=""
+          context="{'group_by' : 'agents_count'}"
+        />
+                <filter
+          name="state"
+          string="Province"
+          domain="[]"
+          context="{'group_by' : 'state_id'}"
+        />
+                <filter
+          name="market"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+                <filter
+          name="market_sector"
+          string="Market niche"
+          domain="[]"
+          context="{'group_by' : 'market_sector_id'}"
+        />
+                <filter
+          name="classification"
+          string="Input channel"
+          domain="[]"
+          context="{'group_by' : 'classification_id'}"
+        />
+
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_partner_address_form" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_address_form" />
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Province</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="res_partner_view_form_private" model="ir.ui.view">
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.res_partner_view_form_private" />
+        <field name="arch" type="xml">
+            <field name="state_id" position="attributes">
+                <attribute name="placeholder">Province</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

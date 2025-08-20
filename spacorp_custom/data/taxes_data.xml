@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="account_tax_template_s_igic7b1" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% (Bienes)(AUTOF)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_s_igic135b1" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% (Bienes)(AUTOF)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_s_igic7b2" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% (Bienes)(FCLI)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_s_igic135b2" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% (Bienes)(FCLI)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_s_igic7s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_s_igic135s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_s_igic65b1" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6,5% (Bienes)(AUTOF)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_s_igic65b2" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6,5% (Bienes)(FCLI)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_s_igic65s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6,5% (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_s_igice" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">sale</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC Exento (Bienes)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="0" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_0" />
+    </record>
+    <record id="account_tax_template_p_igic3_b" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 3% Soportado</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="3" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_3" />
+    </record>
+    <record id="account_tax_template_p_igic7_b" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% Soportado</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_p_igic135_b" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% Soportado</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_p_igic7_s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% Soportado (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_p_igic135_s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% Soportado (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_p_igic7_i" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 7% Soportado (Importaciones)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="7" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_7" />
+    </record>
+    <record id="account_tax_template_p_igic135_i" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 13,5% Soportado (Importaciones)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="13.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_135" />
+    </record>
+    <record id="account_tax_template_p_igic65_b" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6.5% Soportado</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_p_igic65_s" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6,5% Soportado (Servicios)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_p_igic65_i" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC 6,5% Soportado (Importaciones)</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="6.5" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_65" />
+    </record>
+    <record id="account_tax_template_p_igice" model="account.tax.template">
+        <field name="description" />
+        <field name="type_tax_use">purchase</field>
+        <!--
+        <field name="account_id" ref="pgc_4774_child" />
+        -->
+        <field name="name">IGIC Soportado Exento</field>
+        <!--
+        <field name="refund_account_id" ref="pgc_4774_child" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+        <field name="amount" eval="0" />
+        <field name="amount_type">percent</field>
+        <field name="tax_group_id" ref="tax_group_igic_0" />
+    </record>
+</odoo>

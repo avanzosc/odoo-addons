@@ -1,0 +1,110 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <field name="scheduled_date" position="before">
+                <field name="date_done" />
+            </field>
+            <field name="partner_id" position="after">
+                <field name="picking_type_code" invisible="1" />
+                <field
+          name="contact_email_person_id"
+          attrs="{'invisible': [('picking_type_code','!=','outgoing')], 'required': [('picking_type_code','=','outgoing')]}"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="vpicktree" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree" />
+        <field name="arch" type="xml">
+            <field name="scheduled_date" position="before">
+                <field name="date" optional="show" />
+            </field>
+            <field name="scheduled_date" position="after">
+                <field name="date_done" optional="show" />
+            </field>
+            <field name="company_id" position="before">
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+                <field name="team_id" optional="show" />
+                <field name="cost_of_transportation" optional="show" />
+                <field name="shipping_type_id" optional="show" />
+                <field name="shipping_length" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="market_id" string="Sale channel" />
+                <field name="market_sector_id" string="Market niche" />
+                <field name="team_id" />
+                <field name="shipping_type_id" />
+            </field>
+            <filter name="picking_type" position="after">
+                <filter
+          string="Division"
+          name="team-id"
+          domain="[]"
+          context="{'group_by':'team_id'}"
+        />
+                <filter
+          string="Sale channel"
+          name="market-id"
+          domain="[]"
+          context="{'group_by':'market_id'}"
+        />
+                <filter
+          string="Market niche"
+          name="market-sector-id"
+          domain="[]"
+          context="{'group_by':'market_sector_id'}"
+        />
+                <filter
+          string="Shipping type"
+          name="shipping-type-id"
+          domain="[]"
+          context="{'group_by':'shipping_type_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_picking_form3" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+        <field name="arch" type="xml">
+            <div name="tracking" position="after">
+                <field name="cost_of_transportation" />
+                <field name="shipping_type_id" />
+                <field name="shipping_length" />
+            </div>
+            <field name="shipping_weight" position="before">
+                <field name="gross_weight" />
+            </field>
+            <field name="shipping_weight" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <label for="weight" position="attributes">
+                <attribute name="string">Net weight</attribute>
+            </label>
+            <field name="carrier_id" position="attributes">
+                <attribute
+          name="attrs"
+        >{'readonly': [('state', '=', 'cancel')]}</attribute>
+            </field>
+            <field name="carrier_tracking_ref" position="attributes">
+                <attribute
+          name="attrs"
+        >{'readonly': [('state', '=', 'cancel')]}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

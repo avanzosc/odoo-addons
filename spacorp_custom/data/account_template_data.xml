@@ -1,0 +1,21 @@
+<odoo>
+    <record id="pgc_4724_child" model="account.account.template">
+        <field name="code">4724</field>
+        <field name="reconcile" eval="False" />
+        <field name="name">Hacienda P&#250;blica. IGIC soportado</field>
+        <!--
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+    </record>
+
+    <record id="pgc_4774_child" model="account.account.template">
+        <field name="code">4774</field>
+        <field name="reconcile" eval="False" />
+        <field name="name">Hacienda P&#250;blica. IGIC repercutido</field>
+        <!--
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        -->
+        <field name="chart_template_id" ref="l10n_es.account_chart_template_common" />
+    </record>
+</odoo>

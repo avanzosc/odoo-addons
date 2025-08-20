@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <field name="date_planned_finished" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp.view_production_calendar" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field eval="2" name="priority" />
+        <field name="arch" type="xml">
+                <calendar
+        date_start="date_planned_start"
+        date_stop="date_planned_finished"
+        string="Manufacturing Orders"
+        event_limit="5"
+        quick_add="False"
+      >
+                <field name="name" />
+                <field name="product_id" />
+                <field name="product_qty" />
+            </calendar>
+        </field>
+    </record>
+
+    <record id="mrp_production_tree_view" model="ir.ui.view">
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+        <field name="arch" type="xml">
+            <field name="date_planned_start" position="after">
+                <field name="date_planned_finished" optional="show" />
+            </field>
+        </field>
+    </record>
+</odoo>
