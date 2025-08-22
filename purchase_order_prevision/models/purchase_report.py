@@ -6,17 +6,16 @@ from odoo import fields, models
 class PurchaseReport(models.Model):
     _inherit = "purchase.report"
 
-    estimated_payment_date = fields.Date(
-        string="Estimated payment date", readonly=True)
+    estimated_payment_date = fields.Date(string="Estimated payment date", readonly=True)
 
     def _select(self):
-        select = super(PurchaseReport, self)._select()
-        new_select = "{}, {}".format(
-            select, "s.estimated_payment_date as estimated_payment_date")
-        return new_select
+        return "%(select)s, %(new_field)s" % {
+            "select": super()._select(),
+            "new_field": "po.estimated_payment_date as estimated_payment_date",
+        }
 
     def _group_by(self):
-        group_by_str = super(PurchaseReport, self)._group_by()
-        new_group_by_str = "{}, {}".format(
-            group_by_str, "s.estimated_payment_date")
-        return new_group_by_str
+        return "%(group_by_str)s, %(new_field)s" % {
+            "group_by_str": super()._group_by(),
+            "new_field": "po.estimated_payment_date",
+        }
