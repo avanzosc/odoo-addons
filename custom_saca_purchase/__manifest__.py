@@ -11,6 +11,7 @@
         "purchase",
         "purchase_stock",
         "stock_move_line_cost",
+        "account_payment_partner",
     ],
     "data": [
         "data/saca_line_stage.xml",
