@@ -1,6 +1,6 @@
 {
     "name": "Purchase Order Tracking Date",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": "Adds a purchase tracking tab to Purchase Orders",
     "category": "Purchases",
     "author": "AvanzOSC",

@@ -25,9 +25,7 @@ class PurchaseOrder(models.Model):
         string="Port of Destination (POD)",
         help="Port of arrival of the goods.",
     )
-    date_sent = fields.Date(
-        string="Date Sent", help="Date the email is sent to the supplier."
-    )
+    date_sent = fields.Date(help="Date the email is sent to the supplier.")
     cargo_ready = fields.Date(
         string="Cargo Ready Date",
         help="Date when the supplier confirms that the material will be finished.",
