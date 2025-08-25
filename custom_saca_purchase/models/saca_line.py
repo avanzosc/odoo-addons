@@ -143,6 +143,7 @@ class SacaLine(models.Model):
                     "company_id": company.id,
                 }
             )
+            purchase_order.onchange_partner_id()
             self.write(
                 {
                     "purchase_order_id": purchase_order.id,
