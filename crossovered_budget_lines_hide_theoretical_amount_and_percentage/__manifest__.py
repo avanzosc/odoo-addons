@@ -1,8 +1,12 @@
+# Copyright 2025 Unai Beristain - AvanzOSC
+# License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Crossovered Budget Lines Hide Theoretical Amount and Percentage",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "Avanzosc",
-    "summary": "Hide theoretical amount and percentage columns in crossovered.budget.lines.",
+    "summary": (
+        "Hide theoretical amount and percentage columns " "in crossovered budget lines"
+    ),
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "LGPL-3",
     "depends": ["account_budget_oca"],
