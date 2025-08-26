@@ -18,8 +18,10 @@ class AccountMove(models.Model):
             if not move.is_invoice():
                 move.last_payment_date = False
                 continue
-            reconciles = move._get_reconciled_info_JSON_values()
-            reconciles_dates = [rec.get("date") for rec in reconciles]
-            move.last_payment_date = (
-                max(reconciles_dates) if reconciles_dates else False
-            )
+            reconciled_partials = move.sudo()._get_all_reconciled_invoice_partials()
+            dates = []
+            for reconciled_partial in reconciled_partials:
+                counterpart_line = reconciled_partial["aml"]
+                if counterpart_line.date:
+                    dates.append(counterpart_line.date)
+            move.last_payment_date = max(dates) if dates else False
