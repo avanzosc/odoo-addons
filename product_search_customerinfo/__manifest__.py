@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Search Customerinfo",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -11,7 +11,7 @@
         "product",
         "sale",
         "product_search_supplierinfo",
-        "product_supplierinfo_for_customer",
+        "product_customerinfo",
     ],
     "data": [
         "views/product_customerinfo_views.xml",
