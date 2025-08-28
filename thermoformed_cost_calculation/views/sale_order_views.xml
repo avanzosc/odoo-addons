@@ -8,7 +8,10 @@
         expr="//sheet/group/group/field[@name='partner_id']"
         position="after"
       >
-                <field name="thermoformed_id" />
+                <field
+          name="thermoformed_id"
+          attrs="{'invisible': [('is_offer_type', '!=', True)]}"
+        />
             </xpath>
         </field>
     </record>
