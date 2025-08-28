@@ -16,10 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_usability
-
 #: model:ir.model,name:account_invoice_usability.model_account_move
 msgid "Journal Entry"
 
+
+#. module: account_invoice_usability
 #: model:ir.model.fields,field_description:account_invoice_usability.field_account_move_line__display_name
 msgid "Display Name"
 msgstr ""
@@ -27,10 +28,6 @@ msgstr ""
 #. module: account_invoice_usability
 #: model:ir.model.fields,field_description:account_invoice_usability.field_account_move_line__id
 msgid "ID"
-
-#: model:ir.model,name:account_invoice_usability.model_account_move
-msgid "Journal Entry"
-msgstr ""
 
 #. module: account_invoice_usability
 #: model:ir.model,name:account_invoice_usability.model_account_move_line
@@ -44,6 +41,8 @@ msgstr ""
 msgid "Origin"
 msgstr ""
 
+
+#. module: account_invoice_usability
 #: model:ir.model.fields,field_description:account_invoice_usability.field_account_move_line____last_update
 msgid "Last Modified on"
 msgstr ""
@@ -67,15 +66,3 @@ msgstr ""
 msgid "The document(s) that generated the invoice."
 msgstr ""
 
-msgid "Product"
-msgstr ""
-
-msgid "Product/Line description"
-msgstr ""
-
-#. module: account_invoice_usability
-#: model:ir.model.fields,help:account_invoice_usability.field_account_bank_statement_line__invoice_origin
-#: model:ir.model.fields,help:account_invoice_usability.field_account_move__invoice_origin
-#: model:ir.model.fields,help:account_invoice_usability.field_account_payment__invoice_origin
-msgid "The document(s) that generated the invoice."
-msgstr ""
