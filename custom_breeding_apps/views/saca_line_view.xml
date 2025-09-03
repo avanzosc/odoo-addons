@@ -5,7 +5,10 @@
         <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
         <field name="arch" type="xml">
             <field name="breeding_id" position="after">
-                <field name="rvd_number" />
+                <field
+          name="rvd_number"
+          attrs="{'invisible': [('external_supplier', '=', True)]}"
+        />
             </field>
         </field>
     </record>
