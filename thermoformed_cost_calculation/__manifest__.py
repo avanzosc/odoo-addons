@@ -10,6 +10,7 @@
         "mrp",
         "product",
         "sale_management",
+        "sale_order_offer_version",
     ],
     "data": [
         "security/ir.model.access.csv",
