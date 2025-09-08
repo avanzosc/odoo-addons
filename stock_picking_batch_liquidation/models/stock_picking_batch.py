@@ -182,6 +182,21 @@ class StockPickingBatch(models.Model):
         compute="_compute_entry_chicken_amount",
         store=True,
     )
+    entry_chicken_download_unit = fields.Integer(
+        string="Entry Chicken Download Unit",
+        compute="_compute_entry_chicken_amount",
+        store=True,
+    )
+    output_chicken_download_unit = fields.Integer(
+        string="Output Chicken Download Unit",
+        compute="_compute_output_chicken_download_unit",
+        store=True,
+    )
+    clear_up_percentage = fields.Float(
+        string="Clear Up Percentage",
+        compute="_compute_clear_up",
+        store=True,
+    )
     move_line_ids = fields.One2many(inverse_name="mother_id")
 
     @api.depends(
@@ -690,11 +705,12 @@ class StockPickingBatch(models.Model):
         "move_line_ids.state",
         "move_line_ids.picking_id",
         "move_line_ids.location_id",
+        "move_line_ids.download_unit",
     )
     def _compute_entry_chicken_amount(self):
         chick_type = self.env.ref("stock_picking_batch_liquidation.move_type1")
         for batch in self:
-            amount = 0
+            amount = download_unit = 0
             if batch.move_line_ids:
                 entry_line = batch.move_line_ids.filtered(
                     lambda c: c.move_type_id == chick_type
@@ -711,7 +727,59 @@ class StockPickingBatch(models.Model):
                 amount = sum(entry_line.mapped("amount")) - sum(
                     dev_lines.mapped("amount")
                 )
-            batch.entry_chicken_amount = amount
+                download_unit = sum(entry_line.mapped("download_unit")) - sum(
+                    dev_lines.mapped("download_unit")
+                )
+            batch.update(
+                {
+                    "entry_chicken_amount": amount,
+                    "entry_chicken_download_unit": download_unit,
+                }
+            )
+
+    @api.depends(
+        "move_line_ids",
+        "move_line_ids.product_id",
+        "move_line_ids.location_dest_id",
+        "move_line_ids.download_unit",
+        "location_id",
+        "move_line_ids.state",
+        "move_line_ids.picking_id",
+        "move_line_ids.location_id",
+    )
+    def _compute_output_chicken_download_unit(self):
+        product_obj = self.env["product.product"]
+        for batch in self:
+            output_chicken_download_unit = 0
+            product_ids = product_obj.search([("default_code", "in", ["9010", "9015"])])
+            if product_ids and batch.move_line_ids:
+                output_line = batch.move_line_ids.filtered(
+                    lambda c: c.product_id in product_ids
+                    and (c.location_id == batch.location_id)
+                    and c.state == "done"
+                    and c.picking_id
+                )
+                dev_lines = batch.move_line_ids.filtered(
+                    lambda c: c.product_id in product_ids
+                    and (c.location_dest_id == batch.location_id)
+                    and c.state == "done"
+                    and c.picking_id
+                )
+                output_chicken_download_unit = sum(
+                    output_line.mapped("download_unit")
+                ) - sum(dev_lines.mapped("download_unit"))
+            batch.output_chicken_download_unit = output_chicken_download_unit
+
+    @api.depends("entry_chicken_download_unit", "output_chicken_download_unit")
+    def _compute_clear_up(self):
+        for batch in self:
+            clear_up_percentage = 0.0
+            if batch.entry_chicken_download_unit:
+                clear_up_percentage = (
+                    batch.output_chicken_download_unit
+                    / batch.entry_chicken_download_unit
+                ) * 100.0
+            batch.clear_up_percentage = clear_up_percentage
 
     @api.onchange("warehouse_id")
     def onchange_warehouse_id(self):
