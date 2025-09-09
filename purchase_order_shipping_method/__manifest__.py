@@ -12,6 +12,7 @@
         "delivery",
         "delivery_carrier_partner",
         "stock",
+        "stock_picking_date_done",
         "purchase",
     ],
     "data": [

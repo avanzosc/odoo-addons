@@ -9,11 +9,12 @@
                 <field name="currency_id" invisible="1" />
                 <field name="description" optional="show" />
                 <field name="transporter_id" optional="show" />
+                <field name="transfer_license_plate" optional="show" />
                 <field name="shipping_method_id" optional="show" />
                 <field name="transfer_id" optional="show" />
                 <field name="origin" optional="show" />
                 <field name="supplier_invoice_id" optional="show" />
-                <field name="date" optional="show" />
+                <field name="transfer_date_done" optional="show" />
                 <field name="company_id" optional="show" />
                 <field name="product_id" optional="show" />
                 <field name="product_qty" optional="show" />
@@ -42,9 +43,11 @@
         <field name="arch" type="xml">
             <search string="Search Transpor Currency Lines to Invoice">
                 <field name="transporter_id" />
+                <field name="transfer_license_plate" />
                 <field name="origin" />
                 <field name="shipping_method_id" />
                 <field name="transfer_id" />
+                <field name="transfer_date_done" />
                 <field name="supplier_invoice_id" />
                 <field name="product_id" />
                 <separator />
@@ -101,6 +104,18 @@
             name="origin"
             domain="[]"
             context="{'group_by':'origin'}"
+          />
+                    <filter
+            string="Date Done"
+            name="transfer_date_done"
+            domain="[]"
+            context="{'group_by':'transfer_date_done'}"
+          />
+                    <filter
+            string="License Plate"
+            name="transfer_license_plate"
+            domain="[]"
+            context="{'group_by':'transfer_license_plate'}"
           />
                 </group>
             </search>
