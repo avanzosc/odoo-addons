@@ -43,5 +43,5 @@ class TestPurchaseOrderLineInput(TransactionCase):
         order_action_dict = line.order_id.action_view_lines()
         self.assertEqual(
             order_action_dict["domain"],
-            "[('order_id', '=', {})]".format(line.order_id.id),
+            f"[('order_id', '=', {line.order_id.id})]",
         )

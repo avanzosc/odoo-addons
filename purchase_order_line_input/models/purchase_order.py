@@ -98,42 +98,6 @@ class PurchaseOrderLine(models.Model):
         copy=False,
     )
 
-    @api.depends("qty_received", "price_unit", "taxes_id")
-    def _compute_amount_received(self):
-        for line in self:
-            vals = line._prepare_compute_all_values()
-            taxes = line.taxes_id.compute_all(
-                vals["price_unit"],
-                vals["currency_id"],
-                vals["qty_received"],
-                vals["product"],
-                vals["partner"],
-            )
-            line.update(
-                {
-                    "price_total_received": taxes["total_included"],
-                    "price_subtotal_received": taxes["total_excluded"],
-                }
-            )
-
-    @api.depends("qty_invoiced", "price_unit", "taxes_id")
-    def _compute_amount_invoiced(self):
-        for line in self:
-            vals = line._prepare_compute_all_values()
-            taxes = line.taxes_id.compute_all(
-                vals["price_unit"],
-                vals["currency_id"],
-                vals["qty_invoiced"],
-                vals["product"],
-                vals["partner"],
-            )
-            line.update(
-                {
-                    "price_total_invoiced": taxes["total_included"],
-                    "price_subtotal_invoiced": taxes["total_excluded"],
-                }
-            )
-
     @api.depends("qty_to_invoice", "price_unit", "taxes_id")
     def _compute_amount_to_invoice(self):
         for line in self:
@@ -167,6 +131,42 @@ class PurchaseOrderLine(models.Model):
                 {
                     "price_total_to_receive": taxes["total_included"],
                     "price_subtotal_to_receive": taxes["total_excluded"],
+                }
+            )
+
+    @api.depends("qty_invoiced", "price_unit", "taxes_id")
+    def _compute_amount_invoiced(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_invoiced"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_invoiced": taxes["total_included"],
+                    "price_subtotal_invoiced": taxes["total_excluded"],
+                }
+            )
+
+    @api.depends("qty_received", "price_unit", "taxes_id")
+    def _compute_amount_received(self):
+        for line in self:
+            vals = line._prepare_compute_all_values()
+            taxes = line.taxes_id.compute_all(
+                vals["price_unit"],
+                vals["currency_id"],
+                vals["qty_received"],
+                vals["product"],
+                vals["partner"],
+            )
+            line.update(
+                {
+                    "price_total_received": taxes["total_included"],
+                    "price_subtotal_received": taxes["total_excluded"],
                 }
             )
 
