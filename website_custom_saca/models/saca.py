@@ -64,17 +64,21 @@ class SacaLine(models.Model):
         self.ensure_one()
         timezone = pytz.timezone(self._context.get("tz") or "UTC")
         timesheet = self.timesheet_ids.filtered(lambda t: t.id == timesheet_id)
-        now = (
+        now_dt = (
             fields.Datetime.now()
             .replace(tzinfo=pytz.timezone("UTC"))
             .astimezone(timezone)
-            .time()
         )
-        now = now.strftime("%H:%M:%S")
+
+        now_time = now_dt.time().strftime("%H:%M:%S")
+        now_date = now_dt.date()
         if stamp_type == "btn_start":
-            timesheet.time_start = self.conv_time_float(now)
+            timesheet.time_start = self.conv_time_float(now_time)
+            timesheet.date = now_date
         else:
-            timesheet.time_stop = self.conv_time_float(now)
+            timesheet.time_stop = self.conv_time_float(now_time)
+            timesheet.date_end = now_date
+        timesheet.onchange_time_date_start_stop()
 
     def conv_time_float(self, value):
         vals = value.split(":")
