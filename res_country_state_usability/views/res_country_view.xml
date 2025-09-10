@@ -4,12 +4,12 @@
     <field name="model">res.country</field>
     <field name="inherit_id" ref="base.view_country_tree" />
     <field name="arch" type="xml">
-      <tree position="attributes">
+      <list position="attributes">
         <attribute name="decoration-muted">not active</attribute>
-      </tree>
-      <tree position="inside">
+      </list>
+      <list position="inside">
         <field name="active" invisible="True" />
-      </tree>
+      </list>
     </field>
   </record>
 

@@ -1,10 +1,10 @@
 # Copyright 2021 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests import common
+from odoo.tests.common import TransactionCase
 
 
-class ResCountryStateUsability(common.SavepointCase):
+class ResCountryStateUsability(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
