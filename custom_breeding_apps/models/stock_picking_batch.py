@@ -1,6 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class StockPickingBatch(models.Model):
@@ -37,7 +38,10 @@ class StockPickingBatch(models.Model):
     egg_ids = fields.One2many(
         string="Eggs", comodel_name="stock.move.line", inverse_name="batch_id"
     )
-    egg_count = fields.Integer("# Eggs", compute="_compute_eggs_count")
+    egg_count = fields.Integer(
+        string="# Eggs",
+        compute="_compute_eggs_count",
+    )
     quant_ids = fields.One2many(
         string="Stock", comodel_name="stock.quant", compute="_compute_quant_ids"
     )
@@ -50,6 +54,24 @@ class StockPickingBatch(models.Model):
     chick_existence = fields.Float(
         string="Chick Existence", compute="_compute_chick_existece"
     )
+    rvd_number = fields.Char(
+        string="RVD No.",
+        help="Responsible Veterinary Declaration (RVD) Number",
+        default=lambda self: self.env.company.rvd_number,
+    )
+
+    @api.onchange("company_id")
+    def _onchange_company_rvd(self):
+        for record in self:
+            record.rvd_number = record.company_id.rvd_number
+
+    @api.constrains("rvd_number")
+    def _check_rvd_number(self):
+        for record in self.filtered("rvd_number"):
+            if len(record.rvd_number) != 12 or not record.rvd_number.isdigit():
+                raise ValidationError(
+                    _("The RVD number must contain exactly 12 numeric digits.")
+                )
 
     def _compute_chick_entry_qty(self):
         for batch in self:

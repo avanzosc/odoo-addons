@@ -37,6 +37,7 @@ class PurchaseOrder(models.Model):
             for picking in purchase.picking_ids:
                 picking.do_unreserve()
                 picking.button_force_done_detailed_operations()
+                picking.custom_date_done = purchase.date_planned
                 for line in picking.move_line_ids_without_package:
                     if line.product_id:
                         line.lot_id = line.move_id.purchase_line_id.lot_id.id

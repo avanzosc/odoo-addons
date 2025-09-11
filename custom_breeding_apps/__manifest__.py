@@ -7,6 +7,7 @@
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "mrp",
         "sale_stock",
         "stock_warehouse_farm",
         "stock_picking_batch",
@@ -26,10 +27,12 @@
         "sale_order_to_payment",
         "stock_production_lot_purchase_cost",
         "stock_move_line_force_done",
+        "custom_sale_order_type_route",
     ],
     "data": [
         "security/ir.model.access.csv",
         "data/move_cost_decimal_precision.xml",
+        "views/res_company_views.xml",
         "views/stock_picking_type_view.xml",
         "views/stock_move_line_view.xml",
         "views/stock_move_view.xml",
@@ -50,6 +53,7 @@
         "views/purchase_order_view.xml",
         "views/product_template_view.xml",
         "views/sale_order_view.xml",
+        "views/saca_line_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

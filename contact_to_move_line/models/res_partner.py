@@ -12,7 +12,7 @@ class ResPartner(models.Model):
             {
                 "search_default_groupby_product_id": 2,
                 "search_default_from": 1,
-                "pivot_measures": ["in_qty", "out_qty", "dif_qty"],
+                "pivot_measures": ["qty_done", "standard_price", "amount"],
             }
         )
         move_lines = self.env["stock.move.line"].search(

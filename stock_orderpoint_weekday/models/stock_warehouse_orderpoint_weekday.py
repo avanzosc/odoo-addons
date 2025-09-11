@@ -124,3 +124,21 @@ class StockWarehouseOrderpointWeekday(models.Model):
             display_name = "{}: {}".format(type_update, quantity)
             result.append((weekday_orderpoint.id, display_name))
         return result
+
+    def open_form_view(self):
+        self.ensure_one()
+        view_ref = self.env["ir.model.data"].get_object_reference(
+            "stock_orderpoint_weekday", "stock_orderpoint_weekday_form_view"
+        )
+        view_id = (view_ref and view_ref[1] or False,)
+        return {
+            "name": _("Reordering Weekday Rule"),
+            "domain": [],
+            "res_model": "stock.warehouse.orderpoint.weekday",
+            "res_id": self.id,
+            "type": "ir.actions.act_window",
+            "view_mode": "form",
+            "view_type": "form",
+            "view_id": view_id,
+            "target": "current",
+        }

@@ -184,7 +184,7 @@
                       />
                                         </td>
                                     </tr>
-                                    <t t-if="print_with_payments">
+                                    <t>
                                         <t t-if="o.payment_state != 'invoicing_legacy'">
                                             <t
                         t-set="payments_vals"
@@ -229,6 +229,12 @@
                             </div>
                         </div>
                     </div>
+                    <img
+            t-if="o.company_id.sanitary_image"
+            t-att-src="image_data_uri(o.company_id.sanitary_image)"
+            style="max-height: 48px;"
+            alt="Logo"
+          />
                 </div>
             </div>
         </t>
@@ -253,7 +259,7 @@
             <attribute name="style">display:none;</attribute>
         </xpath>
         <xpath expr="//div[@name='reference']" position="attributes">
-            <attribute name="style">display:none;</attribute>
+            <attribute name="t-if">o.ref and o.move_type == 'out_refund'</attribute>
         </xpath>
         <xpath expr="//th[@name='th_taxes']" position="attributes">
             <attribute name="style">display:none;</attribute>

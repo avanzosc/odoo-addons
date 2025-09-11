@@ -9,6 +9,7 @@ Stock Picking Return Usability
 * Check in picking types, if checked, the return picking it is going to create in draft state.
 * If the operation type has the return operation type, the source and destination locations of the return, are the same as the return operation type.
 * All lots and quantities are taken to the return picking.
+* Add name of sale to the return picking.
 
 Bug Tracker
 ===========

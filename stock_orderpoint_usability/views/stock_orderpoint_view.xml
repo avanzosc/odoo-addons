@@ -11,7 +11,10 @@
             <field name="active" position="after">
                 <field name="name" readonly="1" />
             </field>
-            <field name="route_id" position="replace" />
+
+            <field name="route_id" position="attributes">
+                <attribute name="optional">show</attribute>
+            </field>
             <field name="location_id" position="after">
                 <field name="qty_on_hand" readonly="1" optional="show" />
                 <field name="qty_forecast" readonly="1" optional="show" />
@@ -22,7 +25,8 @@
           optional="show"
         />
                 <field name="lead_days_date" optional="show" />
-                <field name="route_id" optional="show" />
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
             </field>
             <field name="qty_multiple" position="replace" />
             <field name="product_max_qty" position="after">
@@ -90,6 +94,8 @@
                 <field name="virtual_available" optional="show" />
                 <field name="forecaster_distinct_forecast" optional="show" />
                 <field name="lead_days_date" optional="show" />
+                <field name="incoming_qty" optional="show" />
+                <field name="outgoing_qty" optional="show" />
             </field>
         </field>
     </record>

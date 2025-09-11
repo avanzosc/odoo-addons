@@ -11,6 +11,7 @@ class ResPartner(models.Model):
         comodel_name="res.partner.rappel",
         inverse_name="partner_id",
     )
+    invoice_rappel_product = fields.Many2one(comodel_name="product.product")
 
     def action_view_rappel(self):
         return {

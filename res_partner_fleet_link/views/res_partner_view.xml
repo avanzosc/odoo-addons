@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_partner_form_fleet_smart_button" model="ir.ui.view">
+        <field name="name">res.partner.fleet.smart.button</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button
+          name="action_view_partner_vehicles"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-car"
+        >
+                    <field name="vehicle_count" widget="statinfo" string="Vehículos" />
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

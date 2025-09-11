@@ -1,0 +1,22 @@
+<odoo>
+    <record id="view_move_tree_inherit_due_date_out" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.due.date.out</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_out_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                <attribute name="widget">date</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_move_tree_inherit_due_date_in" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.due.date.in</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+                <attribute name="widget">date</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

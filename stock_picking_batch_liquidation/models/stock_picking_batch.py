@@ -182,6 +182,21 @@ class StockPickingBatch(models.Model):
         compute="_compute_entry_chicken_amount",
         store=True,
     )
+    entry_chicken_download_unit = fields.Integer(
+        string="Entry Chicken Download Unit",
+        compute="_compute_entry_chicken_amount",
+        store=True,
+    )
+    output_chicken_download_unit = fields.Integer(
+        string="Output Chicken Download Unit",
+        compute="_compute_output_chicken_download_unit",
+        store=True,
+    )
+    clear_up_percentage = fields.Float(
+        string="Clear Up Percentage",
+        compute="_compute_clear_up",
+        store=True,
+    )
     move_line_ids = fields.One2many(inverse_name="mother_id")
 
     @api.depends(
@@ -690,11 +705,12 @@ class StockPickingBatch(models.Model):
         "move_line_ids.state",
         "move_line_ids.picking_id",
         "move_line_ids.location_id",
+        "move_line_ids.download_unit",
     )
     def _compute_entry_chicken_amount(self):
         chick_type = self.env.ref("stock_picking_batch_liquidation.move_type1")
         for batch in self:
-            amount = 0
+            amount = download_unit = 0
             if batch.move_line_ids:
                 entry_line = batch.move_line_ids.filtered(
                     lambda c: c.move_type_id == chick_type
@@ -711,7 +727,59 @@ class StockPickingBatch(models.Model):
                 amount = sum(entry_line.mapped("amount")) - sum(
                     dev_lines.mapped("amount")
                 )
-            batch.entry_chicken_amount = amount
+                download_unit = sum(entry_line.mapped("download_unit")) - sum(
+                    dev_lines.mapped("download_unit")
+                )
+            batch.update(
+                {
+                    "entry_chicken_amount": amount,
+                    "entry_chicken_download_unit": download_unit,
+                }
+            )
+
+    @api.depends(
+        "move_line_ids",
+        "move_line_ids.product_id",
+        "move_line_ids.location_dest_id",
+        "move_line_ids.download_unit",
+        "location_id",
+        "move_line_ids.state",
+        "move_line_ids.picking_id",
+        "move_line_ids.location_id",
+    )
+    def _compute_output_chicken_download_unit(self):
+        product_obj = self.env["product.product"]
+        for batch in self:
+            output_chicken_download_unit = 0
+            product_ids = product_obj.search([("default_code", "in", ["9010", "9015"])])
+            if product_ids and batch.move_line_ids:
+                output_line = batch.move_line_ids.filtered(
+                    lambda c: c.product_id in product_ids
+                    and (c.location_id == batch.location_id)
+                    and c.state == "done"
+                    and c.picking_id
+                )
+                dev_lines = batch.move_line_ids.filtered(
+                    lambda c: c.product_id in product_ids
+                    and (c.location_dest_id == batch.location_id)
+                    and c.state == "done"
+                    and c.picking_id
+                )
+                output_chicken_download_unit = sum(
+                    output_line.mapped("download_unit")
+                ) - sum(dev_lines.mapped("download_unit"))
+            batch.output_chicken_download_unit = output_chicken_download_unit
+
+    @api.depends("entry_chicken_download_unit", "output_chicken_download_unit")
+    def _compute_clear_up(self):
+        for batch in self:
+            clear_up_percentage = 0.0
+            if batch.entry_chicken_download_unit:
+                clear_up_percentage = (
+                    batch.output_chicken_download_unit
+                    / batch.entry_chicken_download_unit
+                ) * 100.0
+            batch.clear_up_percentage = clear_up_percentage
 
     @api.onchange("warehouse_id")
     def onchange_warehouse_id(self):
@@ -798,79 +866,79 @@ class StockPickingBatch(models.Model):
 
     def action_do_liquidation(self):
         self.ensure_one()
-        cleaned = self.env.ref("stock_picking_batch_breeding.batch_stage4")
-        if self.stage_id == cleaned:
-            self.liquidation_line_ids.unlink()
-            self.onchange_warehouse_id()
-            if not (self.liquidation_contract_id) and not (
-                self.liquidation_contract_id.feed_rate_ids
+        self.liquidation_line_ids.filtered("obligatory").unlink()
+        self.onchange_warehouse_id()
+        if not (self.liquidation_contract_id) and not (
+            self.liquidation_contract_id.feed_rate_ids
+        ):
+            raise ValidationError(
+                _("The contract or the contract FEEP rates are missing.")
+            )
+        if self.batch_type == "breeding":
+            if not self.account_id:
+                self.account_id = (
+                    self.env["account.analytic.account"]
+                    .create({"name": self.name, "company_id": self.company_id.id})
+                    .id
+                )
+            for line in self.liquidation_contract_id.contract_line_ids.filtered(
+                "obligatory"
             ):
-                raise ValidationError(
-                    _("The contract or the contract FEEP rates are missing.")
+                price = unit = quantity = amount = 0
+                n = 1
+                movelines = self.move_line_ids.filtered(
+                    lambda c: c.move_type_id == line.move_type_id
+                    and (c.state == "done" and c.picking_id)
                 )
-            if self.batch_type == "breeding":
-                if not self.account_id:
-                    self.account_id = (
-                        self.env["account.analytic.account"]
-                        .create({"name": self.name, "company_id": self.company_id.id})
-                        .id
-                    )
-                for line in self.liquidation_contract_id.contract_line_ids.filtered(
-                    "obligatory"
+                if line.quantity_type == "unit" and movelines:
+                    unit = sum(movelines.mapped("download_unit"))
+                if line.quantity_type == "kg" and movelines:
+                    quantity = sum(movelines.mapped("qty_done"))
+                if line.quantity_type == "fixed":
+                    quantity = 1
+                if line.price_type == "feed":
+                    price = self.feed_price
+                if line.price_type == "correction":
+                    price = abs(self.difference)
+                if line.price_type == "contract":
+                    price = line.price
+                if (
+                    line.price_type == "average"
+                    and (movelines)
+                    and sum(movelines.mapped("qty_done")) != 0
                 ):
-                    price = unit = quantity = amount = 0
-                    n = 1
-                    movelines = self.move_line_ids.filtered(
-                        lambda c: c.move_type_id == line.move_type_id
-                        and (c.state == "done" and c.picking_id)
+                    price = sum(movelines.mapped("amount")) / sum(
+                        movelines.mapped("qty_done")
                     )
-                    if line.quantity_type == "unit" and movelines:
-                        unit = sum(movelines.mapped("download_unit"))
-                    if line.quantity_type == "kg" and movelines:
-                        quantity = sum(movelines.mapped("qty_done"))
-                    if line.quantity_type == "fixed":
-                        quantity = 1
-                    if line.price_type == "feed":
-                        price = self.feed_price
-                    if line.price_type == "correction":
-                        price = abs(self.difference)
-                    if line.price_type == "contract":
-                        price = line.price
-                    if (
-                        line.price_type == "average"
-                        and (movelines)
-                        and sum(movelines.mapped("qty_done")) != 0
-                    ):
-                        price = sum(movelines.mapped("amount")) / sum(
-                            movelines.mapped("qty_done")
-                        )
-                    if line.type == "charge":
+                if line.type == "charge":
+                    n = -1
+                if line.type == "variable":
+                    dif = self.difference
+                    if dif < 0:
                         n = -1
-                    if line.type == "variable":
-                        dif = self.difference
-                        if dif < 0:
-                            n = -1
-                    if quantity != 0:
-                        amount = n * quantity * price
-                    if unit != 0:
-                        amount = n * unit * price
-                    liquidation_line = self.env["liquidation.line"].create(
-                        {
-                            "product_id": line.product_id.id,
-                            "type": line.type,
-                            "unit": unit,
-                            "quantity": quantity,
-                            "price": price,
-                            "amount": amount,
-                            "batch_id": self.id,
-                        }
-                    )
-                    liquidation_line.onchange_amount()
-                self.create_liquidation_analytic_lines()
-                liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
-                self.write(
-                    {"liquidation_date": fields.Date.today(), "stage_id": liquidated.id}
+                if quantity != 0:
+                    amount = n * quantity * price
+                if unit != 0:
+                    amount = n * unit * price
+                liquidation_line = self.env["liquidation.line"].create(
+                    {
+                        "product_id": line.product_id.id,
+                        "type": line.type,
+                        "unit": unit,
+                        "quantity": quantity,
+                        "price": price,
+                        "amount": amount,
+                        "batch_id": self.id,
+                        "obligatory": True,
+                    }
                 )
+                liquidation_line.onchange_amount()
+            self.create_liquidation_analytic_lines()
+            liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
+            vals = {"stage_id": liquidated.id}
+            if not self.liquidation_date:
+                vals.update({"liquidation_date": fields.Date.today()})
+            self.write(vals)
 
     def create_liquidation_analytic_lines(self):
         self.ensure_one()

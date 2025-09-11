@@ -20,6 +20,9 @@
         "stock_move_line_cost",
         "stock_picking_batch_liquidation",
     ],
+    "excludes": [
+        "pickings_import_wizard",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "security/pickings_import_wizard_security.xml",

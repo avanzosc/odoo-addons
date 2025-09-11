@@ -17,7 +17,7 @@
                 <field
           name="batch_id"
           string="Mother Egg"
-          attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)]}"
+          attrs="{'column_invisible':[('parent.is_incubator', '=', False), ('parent.is_reproductor', '=', False)], 'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
           optional="show"
         />
                 <field
@@ -113,6 +113,7 @@
                 <attribute
           name="attrs"
         >{'column_invisible':['|', ('parent.egg_production', '=', True), ('parent.picking_type_code', '=', 'outgoing')]}</attribute>
+                <attribute name="optional">show</attribute>
             </field>
             <field name="package_id" position="attributes">
                 <attribute
@@ -161,6 +162,9 @@
             <tree position="attributes">
                 <attribute name="editable">bottom</attribute>
             </tree>
+            <field name="reference" position="after">
+                <field name="source_document" optional="hide" />
+            </field>
             <field name="lot_id" position="before">
                 <field
           name="mother_id"
@@ -201,8 +205,16 @@
                 <field name="product_uom_category_id" invisible="1" />
             </field>
             <field name="product_uom_id" position="after">
-                <field name="standard_price" optional="show" />
-                <field name="amount" optional="show" />
+                <field
+          name="standard_price"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
+                <field
+          name="amount"
+          optional="show"
+          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+        />
                 <field
           name="broken"
           optional="hide"

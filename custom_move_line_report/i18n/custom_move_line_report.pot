@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-27 07:08+0000\n"
-"PO-Revision-Date: 2024-08-27 07:08+0000\n"
+"POT-Creation-Date: 2025-07-29 15:38+0000\n"
+"PO-Revision-Date: 2025-07-29 15:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -243,6 +243,12 @@ msgid "Product"
 msgstr ""
 
 #. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__product_category_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Product Category"
+msgstr ""
+
+#. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line__product_category_type_id
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__product_category_type_id
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
@@ -277,6 +283,24 @@ msgid "Reference"
 msgstr ""
 
 #. module: custom_move_line_report
+#: model:ir.ui.menu,name:custom_move_line_report.stock_move_line_refresh_report_menuitem
+msgid "Refresh Entries/Outputs Report"
+msgstr ""
+
+#. module: custom_move_line_report
+#: model:ir.actions.server,name:custom_move_line_report.action_move_line_report
+#: model:ir.actions.server,name:custom_move_line_report.action_refresh
+msgid "Refresh Table"
+msgstr ""
+
+#. module: custom_move_line_report
+#: model:ir.actions.server,name:custom_move_line_report.refresh_materialized_view_ir_actions_server
+#: model:ir.cron,cron_name:custom_move_line_report.refresh_materialized_view
+#: model:ir.cron,name:custom_move_line_report.refresh_materialized_view
+msgid "Refresh stock move line materialized view"
+msgstr ""
+
+#. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line__show_in_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_picking__show_in_report
 msgid "Show in Report"
@@ -285,6 +309,13 @@ msgstr ""
 #. module: custom_move_line_report
 #: model:ir.model,name:custom_move_line_report.model_stock_move_line_report
 msgid "Stock Move Line Report"
+msgstr ""
+
+#. module: custom_move_line_report
+#: code:addons/custom_move_line_report/reports/stock_move_line_report.py:0
+#: code:addons/custom_move_line_report/reports/stock_move_line_report.py:0
+#, python-format
+msgid "Stock Move Report"
 msgstr ""
 
 #. module: custom_move_line_report

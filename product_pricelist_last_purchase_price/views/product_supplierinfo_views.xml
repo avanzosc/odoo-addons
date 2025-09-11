@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_supplierinfo_tree_view2" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="purchase.product_supplierinfo_tree_view2" />
+        <field name="priority" eval="1010" />
+        <field name="arch" type="xml">
+            <field name="delay" position="after">
+                <field name="not_update_price_from_order" optional="show" />
+                <field name="not_update_price_from_invoice" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='delay']/.." position="after">
+                <field name="not_update_price_from_order" />
+                <field name="not_update_price_from_invoice" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_employee_tree" model="ir.ui.view">
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree" />
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="resource_calendar_id" />
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -23,9 +23,7 @@ class FleetVehicle(models.Model):
     house_number = fields.Char(string="House Number")
     upholstery = fields.Char(string="Upholstery")
     furniture = fields.Char(string="Furniture")
-    mam = fields.Integer(
-        string="Maximum authorized mass", related="product_id.mam", store=True
-    )
+    mam = fields.Integer(string="Maximum Authorized Mass")
     purchase_price = fields.Float(string="Purchase price")
     retail_price = fields.Float(string="Retail price")
     promotion_price = fields.Float(string="Promotion price")
@@ -70,6 +68,7 @@ class FleetVehicle(models.Model):
             self.chassis_model_id = self.product_id.chassis_model_id
             self.displacement = self.product_id.displacement
             self.horsepower = self.product_id.horsepower
+            self.mam = self.product_id.mam
 
     @api.model
     def name_search(self, name="", args=None, operator="ilike", limit=100):
