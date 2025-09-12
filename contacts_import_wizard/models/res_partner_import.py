@@ -258,8 +258,7 @@ class ResPartnerImportLine(models.Model):
         log_infos = []
         if self.import_id.company_id:
             self = self.with_company(self.import_id.company_id)
-        parent = country = country_state = city = zip_info = False
-        log_info_city = log_info_zip = log_info_state = log_info_country = ""
+        parent = False
         contact, log_info_contact = self._check_partner()
         if log_info_contact:
             log_infos.append(log_info_contact)
@@ -267,33 +266,11 @@ class ResPartnerImportLine(models.Model):
             parent, log_info_parent = self._check_partner_parent()
             if log_info_parent:
                 log_infos.append(log_info_parent)
-        if self.partner_country:
-            country, log_info_country = self._check_country()
-        if self.partner_state:
-            country_state, log_info_state = self._check_state(country=country)
-        if self.partner_zip:
-            zip_info, log_info_zip = self._check_zip(
-                state=country_state, country=country
-            )
-        if zip_info and not city:
-            city = zip_info.city_id
-        if not city and self.partner_city:
-            city, log_info_city = self._check_partner_city(
-                state=country_state, country=country
-            )
-        if city and not country_state:
-            country_state = city.state_id
-        if country_state and not country:
-            country = country_state.country_id
-        if not city:
-            if log_info_city:
-                log_infos.append(log_info_city)
-            if log_info_zip:
-                log_infos.append(log_info_zip)
-        if not country_state and log_info_state:
-            log_infos.append(log_info_state)
-        if not country and log_info_country:
-            log_infos.append(log_info_country)
+        country, country_state, city, zip_info, location_log_infos = (
+            self._get_location_info()
+        )
+        if location_log_infos:
+            log_infos.append(location_log_infos)
         state = "error" if log_infos else "pass"
         action = "nothing"
         if contact and state != "error":
@@ -333,6 +310,40 @@ class ResPartnerImportLine(models.Model):
                 }
             )
         return update_values
+
+    def _get_location_info(self):
+        self.ensure_one()
+        log_infos = []
+        log_info_city = log_info_zip = log_info_state = log_info_country = ""
+        country = country_state = city = zip_info = False
+        if self.partner_country:
+            country, log_info_country = self._check_country()
+        if self.partner_state:
+            country_state, log_info_state = self._check_state(country=country)
+        if self.partner_zip:
+            zip_info, log_info_zip = self._check_zip(
+                state=country_state, country=country
+            )
+        if zip_info and not city:
+            city = zip_info.city_id
+        if not city and self.partner_city:
+            city, log_info_city = self._check_partner_city(
+                state=country_state, country=country
+            )
+        if city and not country_state:
+            country_state = city.state_id
+        if country_state and not country:
+            country = country_state.country_id
+        if not city:
+            if log_info_city:
+                log_infos.append(log_info_city)
+            if log_info_zip:
+                log_infos.append(log_info_zip)
+        if not country_state and log_info_state:
+            log_infos.append(log_info_state)
+        if not country and log_info_country:
+            log_infos.append(log_info_country)
+        return country, country_state, city, zip_info, log_infos
 
     def _check_partner(self):
         self.ensure_one()
