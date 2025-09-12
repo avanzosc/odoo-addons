@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="view_barcode_format_form" model="ir.ui.view">
         <field name="name">barcode.format.form</field>
@@ -8,38 +8,27 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" />
-                            <field name="model_id" />
-                            <field name="company_id" />
+                            <field name="name"/>
+                            <field name="model_id"/>
+                            <field name="company_id"/>
                         </group>
                         <group>
-                            <field name="type" />
-                            <field name="partner_ids" widget="many2many_tags" />
-                        </group>
-                        <group>
-                           <field
-                name="field_separator"
-                attrs="{'invisible': [('type', '!=', 'variable')]}"
-              />
+                            <field name="type"/>
+                            <field name="partner_ids" widget="many2many_tags"/>
                         </group>
                     </group>
-                    <field name="model_name" invisible="1" />
-                    <field
-            name="line_ids"
-            attrs="{'invisible': [('type', '=', False)]}"
-          >
+                    <field name="model_name" invisible="1"/>
+                    <field name="line_ids" attrs="{'invisible': [('type', '=', False)]}">
                         <tree editable="bottom">
-                            <field name="format_type" invisible="1" />
-                            <field
-                name="field_id"
-                domain="[('model', '=', parent.model_name)]"
-              />
+                            <field name="format_type" invisible="1"/>
+                            <field name="field_id" domain="[('model', '=', parent.model_name)]"/>
                             <field name="start_pos" string="Posición inicio" />
                             <field name="final_pos" string="Posición final" />
                             <field name="gs1_barcode_id" string="Prefijo GS1" />
+                            <field name="decimals" string="Decimales"/> 
 
                         </tree>
-
+                        
                     </field>
 
                 </sheet>
@@ -52,10 +41,10 @@
         <field name="model">barcode.format</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="name" />
-                <field name="type" />
-                <field name="model_id" />
-                <field name="partner_ids" />
+                <field name="name"/>
+                <field name="type"/>
+                <field name="model_id"/>
+                <field name="partner_ids"/>
             </tree>
         </field>
     </record>
@@ -66,51 +55,27 @@
         <field name="model">barcode.format</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" />
-                <filter
-          name="type"
-          string="Tipo"
-          domain="[]"
-          context="{'group_by': 'type'}"
-        />
-                <filter
-          name="model_id"
-          string="Modelo"
-          domain="[]"
-          context="{'group_by': 'model_id'}"
-        />
-                <filter
-          name="partner_ids"
-          string="Proveedor"
-          domain="[]"
-          context="{'group_by': 'partner_ids'}"
-        />
+                <field name="name"/>
+                <filter name="type" string="Tipo" domain="[]" context="{'group_by': 'type'}"/>
+                <filter name="model_id" string="Modelo" domain="[]" context="{'group_by': 'model_id'}"/>
+                <filter name="partner_ids" string="Proveedor" domain="[]" context="{'group_by': 'partner_ids'}"/> 
             </search>
         </field>
     </record>
 
-
+ 
     <record id="view_barcode_format_line_tree" model="ir.ui.view">
         <field name="name">barcode.format.line.tree</field>
         <field name="model">barcode.format.line</field>
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="format_id" />
-                <field name="format_type" />
-                <field name="format_model_id" />
-                <field name="field_id" />
-                <field
-          name="start_pos"
-          attrs="{'invisible': [('format_type', '!=', 'fijo')]}"
-        />
-                <field
-          name="final_pos"
-          attrs="{'invisible': [('format_type', '!=', 'fijo')]}"
-        />
-                <field
-          name="gs1_barcode_id"
-          attrs="{'invisible': [('format_type', '!=', 'variable')]}"
-        />
+                <field name="format_id"/>
+                <field name="format_type"/>
+                <field name="format_model_id"/>
+                <field name="field_id"/>
+                <field name="start_pos" attrs="{'invisible': [('format_type', '!=', 'fijo')]}"/>
+                <field name="final_pos" attrs="{'invisible': [('format_type', '!=', 'fijo')]}"/>
+                <field name="gs1_barcode_id" attrs="{'invisible': [('format_type', '!=', 'variable')]}"/>
             </tree>
         </field>
     </record>
@@ -121,19 +86,9 @@
         <field name="model">barcode.format.line</field>
         <field name="arch" type="xml">
             <search>
-                <field name="format_id" />
-                <filter
-          name="format_type"
-          string="Tipo"
-          domain="[]"
-          context="{'group_by': 'format_type'}"
-        />
-                <filter
-          name="format_model_id"
-          string="Modelo"
-          domain="[]"
-          context="{'group_by': 'format_model_id'}"
-        />
+                <field name="format_id"/>
+                <filter name="format_type" string="Tipo" domain="[]" context="{'group_by': 'format_type'}"/>
+                <filter name="format_model_id" string="Modelo" domain="[]" context="{'group_by': 'format_model_id'}"/>
             </search>
         </field>
     </record>
@@ -142,37 +97,22 @@
         <field name="name">Formatos de Códigos de Barras</field>
         <field name="res_model">barcode.format</field>
         <field name="view_mode">tree,form</field>
-        <field name="search_view_id" ref="view_barcode_format_search" />
+        <field name="search_view_id" ref="view_barcode_format_search"/>
     </record>
 
     <record id="action_barcode_format_line" model="ir.actions.act_window">
         <field name="name">Líneas de Formato</field>
         <field name="res_model">barcode.format.line</field>
         <field name="view_mode">tree</field>
-        <field name="search_view_id" ref="view_barcode_format_line_search" />
+        <field name="search_view_id" ref="view_barcode_format_line_search"/>
     </record>
 
 
-    <menuitem
-    id="menu_barcode_format"
-    name="Formato de código de barras"
-    parent="stock.menu_product_in_config_stock"
-    sequence="60"
-  />
+    <menuitem id="menu_barcode_format" name="Formato de código de barras" parent="stock.menu_product_in_config_stock" sequence="60"/>
 
 
-    <menuitem
-    id="menu_barcode_format_configuration"
-    name="Configuración de Formatos"
-    parent="menu_barcode_format"
-    action="action_barcode_format"
-  />
+    <menuitem id="menu_barcode_format_configuration" name="Configuración de Formatos" parent="menu_barcode_format" action="action_barcode_format"/>
 
 
-    <menuitem
-    id="menu_barcode_format_lines"
-    name="Líneas de Formato"
-    parent="menu_barcode_format"
-    action="action_barcode_format_line"
-  />
+    <menuitem id="menu_barcode_format_lines" name="Líneas de Formato" parent="menu_barcode_format" action="action_barcode_format_line"/>
 </odoo>

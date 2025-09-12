@@ -16,7 +16,6 @@ Features
 * Link multiple suppliers to each format (Many2many)
 * View formats from supplier form (One2many)
 * Support for GS1 prefixes and field positions
-* Configurable field separator for variable barcodes
 
 Usage
 =====

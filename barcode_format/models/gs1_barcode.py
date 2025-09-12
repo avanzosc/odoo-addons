@@ -1,5 +1,4 @@
-from odoo import api, models
-
+from odoo import models, api
 
 class Gs1Barcode(models.Model):
     _inherit = "gs1_barcode"
@@ -12,7 +11,7 @@ class Gs1Barcode(models.Model):
         return result
 
     @api.model
-    def name_search(self, name="", args=None, operator="ilike", limit=100):
+    def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
-        domain = ["|", ("ai", operator, name), ("name", operator, name)] if name else []
+        domain = ['|', ('ai', operator, name), ('name', operator, name)] if name else []
         return self.search(domain + args, limit=limit).name_get()
