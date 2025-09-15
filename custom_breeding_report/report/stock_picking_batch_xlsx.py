@@ -63,26 +63,27 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         worksheet.write(0, 5, _("Entry Qty"), table_header)
         worksheet.write(0, 6, _("Output Qty"), table_header)
         worksheet.write(0, 7, _("Cancellation %"), table_header)
-        worksheet.write(0, 8, _("Density"), table_header)
-        worksheet.write(0, 9, _("Growth Speed"), table_header)
-        worksheet.write(0, 10, _("FEEP"), table_header)
-        worksheet.write(0, 11, _("Meat Kilos"), table_header)
-        worksheet.write(0, 12, _("Output Amount"), table_header)
-        worksheet.write(0, 13, _("Consume Feed"), table_header)
-        worksheet.write(0, 14, _("Feed Amount"), table_header)
-        worksheet.write(0, 15, _("Feed Family"), table_header)
-        worksheet.write(0, 16, _("Medicine Amount"), table_header)
-        worksheet.write(0, 17, _("Average Age"), table_header)
-        worksheet.write(0, 18, _("Farm Day"), table_header)
-        worksheet.write(0, 19, _("Average Weight"), table_header)
-        worksheet.write(0, 20, _("Conversion"), table_header)
-        worksheet.write(0, 21, _("Dif."), table_header)
-        worksheet.write(0, 22, _("Liquidation Amount"), table_header)
-        worksheet.write(0, 23, _("Chick Liquidation"), table_header)
-        worksheet.write(0, 24, _("Liquidation Area"), table_header)
-        worksheet.write(0, 25, _("Cost Kilo"), table_header)
-        worksheet.write(0, 26, _("m2"), table_header)
-        worksheet.write(0, 27, _("Kg/m2"), table_header)
+        worksheet.write(0, 8, _("Clear Up Percentage"), table_header)
+        worksheet.write(0, 9, _("Density"), table_header)
+        worksheet.write(0, 10, _("Growth Speed"), table_header)
+        worksheet.write(0, 11, _("FEEP"), table_header)
+        worksheet.write(0, 12, _("Meat Kilos"), table_header)
+        worksheet.write(0, 13, _("Output Amount"), table_header)
+        worksheet.write(0, 14, _("Consume Feed"), table_header)
+        worksheet.write(0, 15, _("Feed Amount"), table_header)
+        worksheet.write(0, 16, _("Feed Family"), table_header)
+        worksheet.write(0, 17, _("Medicine Amount"), table_header)
+        worksheet.write(0, 18, _("Average Age"), table_header)
+        worksheet.write(0, 19, _("Farm Day"), table_header)
+        worksheet.write(0, 20, _("Average Weight"), table_header)
+        worksheet.write(0, 21, _("Conversion"), table_header)
+        worksheet.write(0, 22, _("Dif."), table_header)
+        worksheet.write(0, 23, _("Liquidation Amount"), table_header)
+        worksheet.write(0, 24, _("Chick Liquidation"), table_header)
+        worksheet.write(0, 25, _("Liquidation Area"), table_header)
+        worksheet.write(0, 26, _("Cost Kilo"), table_header)
+        worksheet.write(0, 27, _("m2"), table_header)
+        worksheet.write(0, 28, _("Kg/m2"), table_header)
         for line in objects:
             worksheet.write(n, 0, line.name if line.name else "")
             worksheet.write(
@@ -106,35 +107,38 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             worksheet.write(
                 n, 7, round(line.cancellation_percentage, 2), two_decimal_format
             )
-            worksheet.write(n, 8, round(line.density, 2), two_decimal_format)
-            worksheet.write(n, 9, round(line.growth_speed, 2), two_decimal_format)
-            worksheet.write(n, 10, line.feed, int_format)
-            worksheet.write(n, 11, line.meat_kilos, int_format)
-            worksheet.write(n, 12, round(line.output_amount, 2), two_decimal_format)
-            worksheet.write(n, 13, line.consume_feed, int_format)
             worksheet.write(
-                n, 14, round(line.output_feed_amount, 2), two_decimal_format
+                n, 8, round(line.clear_up_percentage, 2), two_decimal_format
             )
-            worksheet.write(n, 15, line.feed_family.name if line.feed_family else "")
+            worksheet.write(n, 9, round(line.density, 2), two_decimal_format)
+            worksheet.write(n, 10, round(line.growth_speed, 2), two_decimal_format)
+            worksheet.write(n, 11, line.feed, int_format)
+            worksheet.write(n, 12, line.meat_kilos, int_format)
+            worksheet.write(n, 13, round(line.output_amount, 2), two_decimal_format)
+            worksheet.write(n, 14, line.consume_feed, int_format)
             worksheet.write(
-                n, 16, round(line.output_medicine_amount, 2), two_decimal_format
+                n, 15, round(line.output_feed_amount, 2), two_decimal_format
             )
-            worksheet.write(n, 17, round(line.average_age, 2), two_decimal_format)
-            worksheet.write(n, 18, line.farm_day, int_format)
-            worksheet.write(n, 19, round(line.average_weight, 3), three_decimal_format)
-            worksheet.write(n, 20, round(line.conversion, 3), three_decimal_format)
-            worksheet.write(n, 21, round(line.dif_weight, 3), three_decimal_format)
+            worksheet.write(n, 16, line.feed_family.name if line.feed_family else "")
             worksheet.write(
-                n, 22, round(line.liquidation_amount, 2), two_decimal_format
+                n, 17, round(line.output_medicine_amount, 2), two_decimal_format
+            )
+            worksheet.write(n, 18, round(line.average_age, 2), two_decimal_format)
+            worksheet.write(n, 19, line.farm_day, int_format)
+            worksheet.write(n, 20, round(line.average_weight, 3), three_decimal_format)
+            worksheet.write(n, 21, round(line.conversion, 3), three_decimal_format)
+            worksheet.write(n, 22, round(line.dif_weight, 3), three_decimal_format)
+            worksheet.write(
+                n, 23, round(line.liquidation_amount, 2), two_decimal_format
             )
             worksheet.write(
-                n, 23, round(line.chick_liquidation, 8), eight_decimal_format
+                n, 24, round(line.chick_liquidation, 8), eight_decimal_format
             )
             worksheet.write(
-                n, 24, round(line.liquidation_area, 8), eight_decimal_format
+                n, 25, round(line.liquidation_area, 8), eight_decimal_format
             )
-            worksheet.write(n, 25, round(line.cost_kilo, 3), three_decimal_format)
-            worksheet.write(n, 26, line.warehouse_id.farm_area, int_format)
+            worksheet.write(n, 26, round(line.cost_kilo, 3), three_decimal_format)
+            worksheet.write(n, 27, line.warehouse_id.farm_area, int_format)
             per_area = (
                 (line.meat_kilos / line.warehouse_id.farm_area)
                 if line.warehouse_id.farm_area != 0
@@ -142,7 +146,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             )
             worksheet.write(
                 n,
-                27,
+                28,
                 round(per_area, 3),
                 three_decimal_format,
             )
@@ -157,10 +161,20 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             else 0
         )
         worksheet.write(n, 7, round(cancellation, 2), two_decimal_format)
+        clear_up_percentage = (
+            (
+                sum(objects.mapped("output_chicken_download_unit"))
+                / sum(objects.mapped("entry_chicken_download_unit"))
+            )
+            * 100
+            if sum(objects.mapped("entry_chicken_download_unit"))
+            else 0
+        )
+        worksheet.write(n, 8, round(clear_up_percentage, 2), two_decimal_format)
         density = sum(objects.mapped("chick_entry_qty")) / sum(
             objects.mapped("warehouse_area")
         )
-        worksheet.write(n, 8, round(density, 2), two_decimal_format)
+        worksheet.write(n, 9, round(density, 2), two_decimal_format)
         average_age = (
             sum(objects.mapped("age_output")) / sum(objects.mapped("output_units"))
             if sum(objects.mapped("output_units"))
@@ -174,7 +188,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             if sum(objects.mapped("output_units")) and average_age
             else 0
         )
-        worksheet.write(n, 9, round(growth_speed, 2), two_decimal_format)
+        worksheet.write(n, 10, round(growth_speed, 2), two_decimal_format)
         conversion = (
             sum(objects.mapped("consume_feed")) / sum(objects.mapped("meat_kilos"))
             if sum(objects.mapped("meat_kilos"))
@@ -185,41 +199,41 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             if conversion != 0
             else 0
         )
-        worksheet.write(n, 10, round(feep, 0), int_format)
-        worksheet.write(n, 11, sum(objects.mapped("meat_kilos")), int_format)
+        worksheet.write(n, 11, round(feep, 0), int_format)
+        worksheet.write(n, 12, sum(objects.mapped("meat_kilos")), int_format)
         worksheet.write(
-            n, 12, round(sum(objects.mapped("output_amount")), 2), two_decimal_format
+            n, 13, round(sum(objects.mapped("output_amount")), 2), two_decimal_format
         )
-        worksheet.write(n, 13, sum(objects.mapped("consume_feed")), int_format)
+        worksheet.write(n, 14, sum(objects.mapped("consume_feed")), int_format)
         worksheet.write(
             n,
-            14,
+            15,
             round(sum(objects.mapped("output_feed_amount")), 2),
             two_decimal_format,
         )
         worksheet.write(
             n,
-            16,
+            17,
             round(sum(objects.mapped("output_medicine_amount")), 2),
             two_decimal_format,
         )
-        worksheet.write(n, 17, round(average_age, 2), two_decimal_format)
+        worksheet.write(n, 18, round(average_age, 2), two_decimal_format)
         worksheet.write(
-            n, 18, int(sum(objects.mapped("farm_day")) / (n - 1)), int_format
+            n, 19, int(sum(objects.mapped("farm_day")) / (n - 1)), int_format
         )
         average_weight = (
             sum(objects.mapped("meat_kilos")) / sum(objects.mapped("output_units"))
             if sum(objects.mapped("output_units"))
             else 0
         )
-        worksheet.write(n, 19, round(average_weight, 3), three_decimal_format)
-        worksheet.write(n, 20, round(conversion, 3), three_decimal_format)
+        worksheet.write(n, 20, round(average_weight, 3), three_decimal_format)
+        worksheet.write(n, 21, round(conversion, 3), three_decimal_format)
         worksheet.write(
-            n, 21, round(average_weight - conversion, 3), three_decimal_format
+            n, 22, round(average_weight - conversion, 3), three_decimal_format
         )
         worksheet.write(
             n,
-            22,
+            23,
             round(sum(objects.mapped("liquidation_amount")), 2),
             two_decimal_format,
         )
@@ -229,10 +243,10 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
             if sum(objects.mapped("output_units"))
             else 0
         )
-        worksheet.write(n, 23, round(average, 8), eight_decimal_format)
+        worksheet.write(n, 24, round(average, 8), eight_decimal_format)
         worksheet.write(
             n,
-            24,
+            25,
             round(
                 sum(objects.mapped("liquidation_amount"))
                 / sum(objects.mapped("warehouse_area")),
@@ -242,7 +256,7 @@ class ReportStockPickingBatchXlsx(models.AbstractModel):
         )
         worksheet.write(
             n,
-            25,
+            26,
             round(sum(objects.mapped("cost_kilo")) / (n - 1), 3),
             three_decimal_format,
         )
