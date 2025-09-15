@@ -15,7 +15,7 @@
         "security/ir.model.access.csv",
         "security/barcode_format_security.xml",
         "views/barcode_format_view.xml",
-        "views/res_partner_view.xml"
+        "views/res_partner_view.xml",
     ],
     "installable": True,
 }
