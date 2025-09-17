@@ -1,0 +1,1 @@
+This module propagates partner between pickings.
