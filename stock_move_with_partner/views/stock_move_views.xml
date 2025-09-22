@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_search" model="ir.ui.view">
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_search" />
+      <field name="arch" type="xml">
+        <xpath expr="//filter[@name='by_product']" position="before">
+            <filter
+                string="Partner"
+                name="by_partner"
+                domain="[]"
+                context="{'group_by':'partner_id'}"
+            />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_move_tree" model="ir.ui.view">
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_tree" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='product_id']" position="after">
+            <field name="partner_id" string="Partner" optional="show" />
+        </xpath>
+        <xpath expr="//field[@name='location_dest_id']" position="before">
+            <field name="date_deadline" optional="show" />
+        </xpath>
+      </field>
+    </record>
+
+    <record id="view_move_form" model="ir.ui.view">
+      <field name="model">stock.move</field>
+      <field name="inherit_id" ref="stock.view_move_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='product_id']" position="after">
+            <field name="partner_id" string="Partner" />
+        </xpath>
+      </field>
+    </record>
+</odoo>
