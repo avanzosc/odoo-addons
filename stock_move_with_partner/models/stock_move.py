@@ -6,7 +6,7 @@ from odoo import api, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    @api.model_create_multi  
+    @api.model_create_multi
     def create(self, vals_list):
         picking_obj = self.env["stock.picking"]
         for vals in vals_list:

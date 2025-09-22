@@ -10,15 +10,15 @@ def pre_init_hook(env):
     Hook pre-init para Odoo v18 - recibe solo env como parámetro
     """
     _logger.info("Starting pre_init_hook for stock_move_with_partner")
-    
+
     _logger.info("Checking if partner_id column exists in stock_move_line")
     env.cr.execute("""
-        SELECT column_name 
-        FROM information_schema.columns 
-        WHERE table_name = 'stock_move_line' 
+        SELECT column_name
+        FROM information_schema.columns
+        WHERE table_name = 'stock_move_line'
         AND column_name = 'partner_id'
     """)
-    
+
     if not env.cr.fetchone():
         _logger.info("Creating partner_id column in stock_move_line")
         env.cr.execute("""
@@ -26,7 +26,7 @@ def pre_init_hook(env):
             ADD COLUMN partner_id integer;
             COMMENT ON COLUMN stock_move_line.partner_id IS 'Destination Address';
         """)
-    
+
     _logger.info("Updating partner_id in stock_move")
     env.cr.execute(
         """
@@ -38,7 +38,7 @@ def pre_init_hook(env):
           AND sm.picking_id IS NOT NULL
         """
     )
-    
+
     _logger.info("Updating partner_id in stock_move_line")
     env.cr.execute(
         """
@@ -49,5 +49,5 @@ def pre_init_hook(env):
           AND sml.move_id IS NOT NULL
         """
     )
-    
+
     _logger.info("Completed pre_init_hook for stock_move_with_partner")

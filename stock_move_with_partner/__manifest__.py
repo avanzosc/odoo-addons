@@ -5,9 +5,6 @@
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "summary": "Add partner information to stock moves and move lines",
-    "description": """
-    This module extends the stock functionality by adding partner 
-    (customer/supplier) information to both stock movements and their lines.""",
     "depends": [
         "stock",
     ],
