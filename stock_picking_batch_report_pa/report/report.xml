@@ -44,7 +44,7 @@
               t-set="partners"
               t-value="non_container_moves.mapped('picking_partner_id')"
             />
-
+                        <t t-set="total_quantity" t-value="0.0" />
                         <t t-foreach="partners" t-as="partner">
                             <h2>Customer: <t t-esc="partner.name" /></h2>
                             <t
@@ -93,7 +93,12 @@
                                                 <td>
                                                     <t
                             t-esc="'%.2f' % (move.qty_done or 0.0)"
-                          /></td>
+                          />
+                            <t
+                            t-set="total_quantity"
+                            t-value="total_quantity + move.qty_done or 0.0"
+                          />
+                            </td>
                                                 <td>
                                                     <t
                             t-esc="move.product_uom_id.name or ''"
@@ -107,11 +112,6 @@
                             </t>
                             <hr />
                         </t>
-
-                        <t
-              t-set="total_quantity"
-              t-value="sum((m.qty_done or 0.0) for m in batch.move_line_ids)"
-            />
                         <t
               t-set="total_palet"
               t-value="sum(
@@ -151,11 +151,11 @@
                                 <t t-esc="'%.2f' % (total_cardboard_box)" />
                             </span>
                         </div>
+                        <t t-set="total_quantity" t-value="0.0" />
 
                     </t>
                 </div>
             </t>
         </t>
     </template>
-
 </odoo>

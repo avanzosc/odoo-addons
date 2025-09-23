@@ -53,6 +53,19 @@ class TransportCarrierLinesToInvoice(models.Model):
     )
     origin = fields.Char(string="Origin", related="transfer_id.origin", store=True)
 
+    transfer_date_done = fields.Datetime(
+        string="Date Done",
+        related="transfer_id.custom_date_done",
+        store=True,
+        readonly=True,
+    )
+    transfer_license_plate = fields.Char(
+        string="License Plate",
+        related="transfer_id.license_plate",
+        store=True,
+        readonly=True,
+    )
+
     def _compute_state(self):
         for line in self:
             line.state = "to_invoice"
