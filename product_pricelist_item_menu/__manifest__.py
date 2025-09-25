@@ -2,7 +2,8 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Product Pricelist Item Menu",
-    "version": "16.0.1.0.0",
+    "summary": "Show and access partner's assigned pricelist items easily",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "depends": [
         "sale",
