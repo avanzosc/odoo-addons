@@ -57,12 +57,7 @@ class TestAccountBankingMandateUsability(AccountBankingMandateUsabilityCommon):
         today = fields.Date.context_today(self.mandate_model)
         self.assertFalse(self.bank._check_active_mandate())
         self.assertIn(self.bank, self.wizard.bank_ids)
-        self.wizard.write(
-            {
-                "signed": True,
-                "validate": True,
-            }
-        )
+        self.wizard.write({"signed": True, "validate": True})
         self.wizard.button_generate_mandates()
         self.assertTrue(self.bank._check_active_mandate())
         mandate = self.bank.mandate_ids[:1]
@@ -75,12 +70,7 @@ class TestAccountBankingMandateUsability(AccountBankingMandateUsabilityCommon):
         today = fields.Date.context_today(self.mandate_model)
         self.assertFalse(bank._check_active_mandate())
         self.assertIn(bank, wizard.bank_ids)
-        wizard.write(
-            {
-                "signed": True,
-                "validate": True,
-            }
-        )
+        wizard.write({"signed": True, "validate": True})
         wizard.button_generate_mandates()
         self.assertTrue(bank._check_active_mandate())
         mandate = bank.mandate_ids[:1]

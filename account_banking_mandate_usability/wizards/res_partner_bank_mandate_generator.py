@@ -27,7 +27,7 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
         return default_dict.get("recurrent_sequence_type")
 
     bank_ids = fields.Many2many(
-        comodel_name="res.partner.bank", string="Banks", required=True
+        comodel_name="res.partner.bank", string="Banks", required=True,
     )
     mandate_format = fields.Selection(
         selection="_get_format_selection",
@@ -113,11 +113,7 @@ class ResPartnerBankMandateGenerator(models.TransientModel):
                     }
                 )
                 if signature_date:
-                    mandate_dict.update(
-                        {
-                            "signature_date": signature_date,
-                        }
-                    )
+                    mandate_dict.update({"signature_date": signature_date})
                 mandate = mandate_obj.create(mandate_dict)
                 if self.validate:
                     mandate.validate()

@@ -8,8 +8,7 @@ class ResPartnerBank(models.Model):
     _inherit = "res.partner.bank"
 
     error_bank_acc = fields.Boolean(
-        string="Bank account error",
-        compute="_compute_validate_bank_account",
+        string="Bank account error", compute="_compute_validate_bank_account",
     )
 
     def _check_active_mandate(self):

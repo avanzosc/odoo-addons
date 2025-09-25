@@ -14,8 +14,7 @@ class ResPartner(models.Model):
         readonly=True,
     )
     error_bank_acc = fields.Boolean(
-        string="Bank account error",
-        compute="_compute_partner_validate_bank_account",
+        string="Bank account error", compute="_compute_partner_validate_bank_account",
     )
 
     def _compute_bank_acc_count(self):
