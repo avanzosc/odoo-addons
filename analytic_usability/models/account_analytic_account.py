@@ -8,8 +8,11 @@ class AccountAnalyticAccount(models.Model):
     _inherit = "account.analytic.account"
 
     user_id = fields.Many2one(
-        comodel_name="res.users", string="Salesperson", index=True,
-        default=lambda self: self.env.user)
+        comodel_name="res.users",
+        string="Salesperson",
+        index=True,
+        default=lambda self: self.env.user,
+    )
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):

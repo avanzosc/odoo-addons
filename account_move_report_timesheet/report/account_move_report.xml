@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="report_invoice_document_inh_timesheet" inherit_id="account.report_invoice_document">
+    <template
+    id="report_invoice_document_inh_timesheet"
+    inherit_id="account.report_invoice_document"
+  >
         <div id="qrcode" position="after">
             <div t-if="o.type == 'out_invoice' and o.timesheet_ids" class="clearfix">
-              <p style="page-break-before:always;"></p>
+              <p style="page-break-before:always;" />
               <div id="hours-tittle" class="row mt32 mb32">
               <div class="col-12 bm-2" style="text-align:center;font-size:20px">
                  <strong>Timesheet relationship</strong>
@@ -33,19 +36,22 @@
                  <t t-foreach="o.timesheet_ids" t-as="line">
                    <tr>
                      <td>
-                       <span t-field="line.date"/>
+                       <span t-field="line.date" />
                      </td>
                      <td>
-                       <span t-field="line.employee_id.name"/>
+                       <span t-field="line.employee_id.name" />
                      </td>
                      <td>
-                       <span t-field="line.name"/>
+                       <span t-field="line.name" />
                      </td>
                      <td>
-                       <span t-field="line.task_id.name"/>
+                       <span t-field="line.task_id.name" />
                      </td>
                      <td class="text-right">
-                       <span t-field="line.unit_amount" t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"/>
+                       <span
+                    t-field="line.unit_amount"
+                    t-options="{'widget': 'duration', 'digital': True, 'unit': 'hour', 'round': 'minute'}"
+                  />
                      </td>
                    </tr>
                  </t>

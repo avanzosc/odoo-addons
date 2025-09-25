@@ -8,7 +8,7 @@
         "base",
     ],
     "author": "AvanzOSC",
-    "website": "http://www.avanzosc.es",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Custom",
     "data": [
         "data/ir_attachment_prl_data.xml",

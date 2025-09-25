@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+    <template
+    id="assets_frontend"
+    inherit_id="website.assets_frontend"
+    name="Adding files"
+  >
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/website_membership_format/static/src/js/website.js"></script>
-            <link rel="stylesheet" href="/website_membership_format/static/src/css/style.css" />
+            <script
+        type="text/javascript"
+        src="/website_membership_format/static/src/js/website.js"
+      />
+            <link
+        rel="stylesheet"
+        href="/website_membership_format/static/src/css/style.css"
+      />
         </xpath>
     </template>
 
-    <template id="website_membership_format_template" name="Members membership 
+    <template
+    id="website_membership_format_template"
+    name="Members membership
   format"
-        inherit_id="website_membership.index" priority="50">
+    inherit_id="website_membership.index"
+    priority="50"
+  >
         <xpath expr="//div[@class='media mt-3']" position="replace">
             <div class="row mx-auto mt-2">
                 <div class="col-md-3">
-                    <a t-attf-href="/members/#{slug(partner)}" t-field="partner.image_128"
-                        t-options='{"widget": "image", "class": "media-object mr-3"}'></a>
+                    <a
+            t-attf-href="/members/#{slug(partner)}"
+            t-field="partner.image_128"
+            t-options='{"widget": "image", "class": "media-object mr-3"}'
+          />
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -27,7 +44,7 @@
                         <div class="col">
                             <t t-if="partner.phone">
                                 <p>
-                                    <i class="fa fa-phone"></i>
+                                    <i class="fa fa-phone" />
                                     <em>
                                         <t t-esc="partner.phone" />
                                     </em>
@@ -35,7 +52,7 @@
                             </t>
                             <t t-if="partner.mobile">
                                 <p>
-                                    <i class="fa fa-mobile"></i>
+                                    <i class="fa fa-mobile" />
                                     <em>
                                         <t t-esc="partner.mobile" />
                                     </em>
@@ -43,7 +60,7 @@
                             </t>
                             <t t-if="partner.email">
                                 <p>
-                                    <i class="fa fa-envelope"></i>
+                                    <i class="fa fa-envelope" />
                                     <em>
                                         <t t-esc="partner.email" />
                                     </em>
@@ -53,9 +70,11 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <t t-if="partner.country_id or partner.state_id or partner.city or partner.partner_zone_id">
+                    <t
+            t-if="partner.country_id or partner.state_id or partner.city or partner.partner_zone_id"
+          >
                         <p>
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-home" />
                         </p>
                         <t t-if="partner.country_id.name">
                             <p>
@@ -99,17 +118,23 @@
                     <li class="nav-header nav-item">
                         <h3>States</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_state_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_state_dropdown"
+          >
                         <t t-foreach="state_ids" t-as="state">
                             <option
-                                t-att-value="request.httprequest.path + '?' + keep_query('*', state=state.id)"
-                                t-att-selected="state.id">
+                t-att-value="request.httprequest.path + '?' + keep_query('*', state=state.id)"
+                t-att-selected="state.id"
+              >
                                 <t t-esc="state.name" />
                             </option>
                         </t>
                         <option
-                            t-att-value="request.httprequest.path + '?' + keep_query('*', state='All states')"
-                            selected="All states">All states</option>
+              t-att-value="request.httprequest.path + '?' + keep_query('*', state='All states')"
+              selected="All states"
+            >All states</option>
                     </select>
                 </ul>
             </t>
@@ -118,15 +143,23 @@
                     <li class="nav-header nav-item">
                         <h3>Zones</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_zone_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_zone_dropdown"
+          >
                         <t t-foreach="zone_ids" t-as="zone">
-                            <option t-att-value="request.httprequest.path + '?' + keep_query('*', zone=zone.id)"
-                                t-att-selected="zone.id">
+                            <option
+                t-att-value="request.httprequest.path + '?' + keep_query('*', zone=zone.id)"
+                t-att-selected="zone.id"
+              >
                                 <t t-esc="zone.name" />
                             </option>
                         </t>
-                        <option t-att-value="request.httprequest.path + '?' + keep_query('*', state='All zones')"
-                            selected="All zones">All zones</option>
+                        <option
+              t-att-value="request.httprequest.path + '?' + keep_query('*', state='All zones')"
+              selected="All zones"
+            >All zones</option>
                     </select>
                 </ul>
             </t>
@@ -135,24 +168,36 @@
                     <li class="nav-header nav-item">
                         <h3>Cities</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_city_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_city_dropdown"
+          >
                         <t t-foreach="city_ids" t-as="city">
-                            <option t-att-value="request.httprequest.path + '?' + keep_query('*', city=city)"
-                                t-att-selected="city">
+                            <option
+                t-att-value="request.httprequest.path + '?' + keep_query('*', city=city)"
+                t-att-selected="city"
+              >
                                 <t t-esc="city" />
                             </option>
                         </t>
-                        <option t-att-value="request.httprequest.path + '?' + keep_query('*', city='All cities')"
-                            selected="All cities">All cities</option>
+                        <option
+              t-att-value="request.httprequest.path + '?' + keep_query('*', city='All cities')"
+              selected="All cities"
+            >All cities</option>
                     </select>
                 </ul>
             </t>
         </xpath>
     </template>
 
-    <template id="website_membership_details_format_template" name="Members membership details
+    <template
+    id="website_membership_details_format_template"
+    name="Members membership details
   format"
-        inherit_id="website_partner.partner_detail" priority="50">
+    inherit_id="website_partner.partner_detail"
+    priority="50"
+  >
         <xpath expr="//div[@class='col-lg-8 mt32']" position="inside">
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -164,7 +209,7 @@
                                     <th colspan="2">Product</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
-                                    <th></th>
+                                    <th />
                                 </tr>
                             </thead>
                             <tbody>
@@ -174,45 +219,69 @@
                                             <t t-esc="product.product_tmpl_id.id" />
                                         </td>
                                         <td>
-                                            <a href="#" t-field="product.product_tmpl_id.image_128"
-                                                t-options='{"widget": "image", "class": "media-object"}'></a>
+                                            <a
+                        href="#"
+                        t-field="product.product_tmpl_id.image_128"
+                        t-options='{"widget": "image", "class": "media-object"}'
+                      />
                                         </td>
                                         <td>
                                             <t t-esc="product.product_tmpl_id.name" />
                                             -
-                                            <t t-esc="product.product_tmpl_id.uom_name" />
+                                            <t
+                        t-esc="product.product_tmpl_id.uom_name"
+                      />
                                         </td>
                                         <td>
-                                            <t t-esc="product.product_tmpl_id.list_price" />
+                                            <t
+                        t-esc="product.product_tmpl_id.list_price"
+                      />
                                         </td>
                                         <td>
                                             <div class="text-center td-qty">
-                                                <div class="css_quantity input-group mx-auto oe_website_spinner">
+                                                <div
+                          class="css_quantity input-group mx-auto oe_website_spinner"
+                        >
                                                     <div class="input-group-prepend">
-                                                        <a t-attf-href="#"
-                                                            class="btn btn-link js_add_cart_json d-none d-md-inline-block"
-                                                            aria-label="Remove one" title="Remove one">
-                                                            <i class="fa fa-minus"></i>
+                                                        <a
+                              t-attf-href="#"
+                              class="btn btn-link js_add_cart_json d-none d-md-inline-block"
+                              aria-label="Remove one"
+                              title="Remove one"
+                            >
+                                                            <i class="fa fa-minus" />
                                                         </a>
                                                     </div>
-                                                    <input type="text" class="js_quantity form-control quantity"
-                                                        value="0" name="quant" />
+                                                    <input
+                            type="text"
+                            class="js_quantity form-control quantity"
+                            value="0"
+                            name="quant"
+                          />
                                                     <div class="input-group-append">
-                                                        <a t-attf-href="#"
-                                                            class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
-                                                            aria-label="Add one" title="Add one">
-                                                            <i class="fa fa-plus"></i>
+                                                        <a
+                              t-attf-href="#"
+                              class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
+                              aria-label="Add one"
+                              title="Add one"
+                            >
+                                                            <i class="fa fa-plus" />
                                                         </a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <form action="/shop/cart/update" method="post">
+                                            <form
+                        action="/shop/cart/update"
+                        method="post"
+                      >
                                                 <button type="submit" class="nav-link">
-                                                    <i class="fa fa-shopping-cart"></i>
+                                                    <i class="fa fa-shopping-cart" />
                                                     Cart
-                                                    <sup t-attf-class="my_cart_quantity badge badge-primary" />
+                                                    <sup
+                            t-attf-class="my_cart_quantity badge badge-primary"
+                          />
                                                 </button>
                                             </form>
                                         </td>

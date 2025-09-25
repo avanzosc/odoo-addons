@@ -2,8 +2,7 @@
 <odoo>
     <record id="account_analytic_line_view_tree" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id"
-               ref="analytic.view_account_analytic_line_tree" />
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
         <field name="arch" type="xml">
             <field name="move_id" position="after">
                 <field name="account_move_id" optional="hide" />
@@ -17,8 +16,10 @@
     <record model="ir.ui.view" id="account_analytic_line_invoice_view_tree">
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="account_analytic_line_view_tree" />
-        <field name="groups_id"
-               eval="[(4, ref('analytic_usability.group_show_invoice_data'))]"/>
+        <field
+      name="groups_id"
+      eval="[(4, ref('analytic_usability.group_show_invoice_data'))]"
+    />
         <field name="arch" type="xml">
             <field name="account_move_id" position="after">
                 <field name="invoice_name" optional="show" />
@@ -31,8 +32,10 @@
 
     <record id="account_analytic_line_view_search" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id"
-               ref="account.view_account_analytic_line_filter_inherit_account" />
+        <field
+      name="inherit_id"
+      ref="account.view_account_analytic_line_filter_inherit_account"
+    />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
                 <field name="account_move_id" />
@@ -43,43 +46,65 @@
             </field>
             <field name="tag_ids" position="after">
                 <separator />
-                <filter string="Revenue" name="revenue" context="{}"
-                        domain="[('amount_type', '=', 'revenue')]" />
-                <filter string="Cost" name="cost" context="{}"
-                        domain="[('amount_type', '=', 'cost')]" />
+                <filter
+          string="Revenue"
+          name="revenue"
+          context="{}"
+          domain="[('amount_type', '=', 'revenue')]"
+        />
+                <filter
+          string="Cost"
+          name="cost"
+          context="{}"
+          domain="[('amount_type', '=', 'cost')]"
+        />
             </field>
             <filter name="partner" position="after">
                 <separator />
-                <filter string="Cost/Revenue" name="group_amount_type"
-                        context="{'group_by': 'amount_type'}" />
+                <filter
+          string="Cost/Revenue"
+          name="group_amount_type"
+          context="{'group_by': 'amount_type'}"
+        />
                 <separator />
-                <filter name="group_invoice" string="Invoice"
-                        context="{'group_by':'account_move_id'}" />
-                <filter name="group_partner" string="Invoice Partner"
-                        context="{'group_by':'invoice_partner_id'}" />
-                <filter name="group_invoice_user" string="Invoice Salesperson"
-                        context="{'group_by': 'invoice_user_id'}" />
+                <filter
+          name="group_invoice"
+          string="Invoice"
+          context="{'group_by':'account_move_id'}"
+        />
+                <filter
+          name="group_partner"
+          string="Invoice Partner"
+          context="{'group_by':'invoice_partner_id'}"
+        />
+                <filter
+          name="group_invoice_user"
+          string="Invoice Salesperson"
+          context="{'group_by': 'invoice_user_id'}"
+        />
             </filter>
         </field>
     </record>
 
     <record model="ir.ui.view" id="account_analytic_line_form_view">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id" ref="account.view_account_analytic_line_form_inherit_account"/>
+        <field
+      name="inherit_id"
+      ref="account.view_account_analytic_line_form_inherit_account"
+    />
         <field name="arch" type="xml">
             <field name="move_id" position="after">
-                <field name="account_move_id" readonly="1"/>
+                <field name="account_move_id" readonly="1" />
             </field>
         </field>
     </record>
 
     <record id="account_analytic_line_view_pivot" model="ir.ui.view">
         <field name="model">account.analytic.line</field>
-        <field name="inherit_id"
-               ref="analytic.view_account_analytic_line_pivot" />
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_pivot" />
         <field name="arch" type="xml">
             <field name="account_id" position="after">
-                <field name="amount_type" type="col"/>
+                <field name="amount_type" type="col" />
             </field>
         </field>
     </record>

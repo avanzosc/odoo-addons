@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Adding files">
+    <template
+    id="assets_frontend"
+    inherit_id="website.assets_frontend"
+    name="Adding files"
+  >
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/website_supplier_zone_filter/static/src/js/website.js"></script>
-            <link rel="stylesheet" href="/website_supplier_zone_filter/static/src/css/style.css" />
+            <script
+        type="text/javascript"
+        src="/website_supplier_zone_filter/static/src/js/website.js"
+      />
+            <link
+        rel="stylesheet"
+        href="/website_supplier_zone_filter/static/src/css/style.css"
+      />
         </xpath>
     </template>
 
-    <template id="website_supplier_filters_zone" name="Members zones" inherit_id="website_sale.products"
-        priority="30">
+    <template
+    id="website_supplier_filters_zone"
+    name="Members zones"
+    inherit_id="website_sale.products"
+    priority="30"
+  >
         <xpath expr="//div[@id='products_grid_before']" position="inside">
             <t t-if="members_total > 0">
                 <ul class="nav nav-pills flex-column mt16">
                     <li class="nav-header nav-item">
                         <h3>Members</h3>
                     </li>
-                    <select class="form-control" name="member" id="product_member_dropdown">
+                    <select
+            class="form-control"
+            name="member"
+            id="product_member_dropdown"
+          >
                         <t t-foreach="member_ids" t-as="member">
                             <option
-                                t-att-value="request.httprequest.path + '?' + keep_query('*', member=member.id)"
-                                t-att-selected="member.id">
+                t-att-value="request.httprequest.path + '?' + keep_query('*', member=member.id)"
+                t-att-selected="member.id"
+              >
                                 <t t-esc="member.name" />
                             </option>
                         </t>
                         <option
-                            t-att-value="request.httprequest.path + '?' + keep_query('*', member='All members')"
-                            selected="All members">All members</option>
+              t-att-value="request.httprequest.path + '?' + keep_query('*', member='All members')"
+              selected="All members"
+            >All members</option>
                     </select>
                 </ul>
             </t>
@@ -34,17 +54,23 @@
                     <li class="nav-header nav-item">
                         <h3>States</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_state_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_state_dropdown"
+          >
                         <t t-foreach="state_ids" t-as="state">
                             <option
-                                t-att-value="request.httprequest.path + '?' + keep_query('*', state=state.id)"
-                                t-att-selected="state.id">
+                t-att-value="request.httprequest.path + '?' + keep_query('*', state=state.id)"
+                t-att-selected="state.id"
+              >
                                 <t t-esc="state.name" />
                             </option>
                         </t>
                         <option
-                            t-att-value="request.httprequest.path + '?' + keep_query('*', state='All states')"
-                            selected="All states">All states</option>
+              t-att-value="request.httprequest.path + '?' + keep_query('*', state='All states')"
+              selected="All states"
+            >All states</option>
                     </select>
                 </ul>
             </t>
@@ -53,15 +79,23 @@
                     <li class="nav-header nav-item">
                         <h3>Zones</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_zone_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_zone_dropdown"
+          >
                         <t t-foreach="zone_ids" t-as="zone">
-                            <option t-att-value="request.httprequest.path + '?' + keep_query('*', zone=zone.id)"
-                                t-att-selected="zone.id">
+                            <option
+                t-att-value="request.httprequest.path + '?' + keep_query('*', zone=zone.id)"
+                t-att-selected="zone.id"
+              >
                                 <t t-esc="zone.name" />
                             </option>
                         </t>
-                        <option t-att-value="request.httprequest.path + '?' + keep_query('*', state='All zones')"
-                            selected="All zones">All zones</option>
+                        <option
+              t-att-value="request.httprequest.path + '?' + keep_query('*', state='All zones')"
+              selected="All zones"
+            >All zones</option>
                     </select>
                 </ul>
             </t>
@@ -70,15 +104,23 @@
                     <li class="nav-header nav-item">
                         <h3>Cities</h3>
                     </li>
-                    <select class="form-control" name="state" id="product_city_dropdown">
+                    <select
+            class="form-control"
+            name="state"
+            id="product_city_dropdown"
+          >
                         <t t-foreach="city_ids" t-as="city">
-                            <option t-att-value="request.httprequest.path + '?' + keep_query('*', city=city)"
-                                t-att-selected="city">
+                            <option
+                t-att-value="request.httprequest.path + '?' + keep_query('*', city=city)"
+                t-att-selected="city"
+              >
                                 <t t-esc="city" />
                             </option>
                         </t>
-                        <option t-att-value="request.httprequest.path + '?' + keep_query('*', city='All cities')"
-                            selected="All cities">All cities</option>
+                        <option
+              t-att-value="request.httprequest.path + '?' + keep_query('*', city='All cities')"
+              selected="All cities"
+            >All cities</option>
                     </select>
                 </ul>
             </t>
@@ -92,30 +134,43 @@
                             <t t-foreach="products" t-as="product">
                                 <div class="col-md-4 mx-auto m-2 product-grid-card">
                                     <div class="card align-items-center">
-                                        <a itemprop="url" class="card-img-top"
-                                            t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
-                                            t-field="product.image_128"
-                                            t-options='{"widget": "image", "class": "media-object mr-3 mx-auto"}'>
+                                        <a
+                      itemprop="url"
+                      class="card-img-top"
+                      t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
+                      t-field="product.image_128"
+                      t-options='{"widget": "image", "class": "media-object mr-3 mx-auto"}'
+                    >
                                         </a>
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-8">
-                                                    <div id="product-grid-id" style="display:none;">
+                                                    <div
+                            id="product-grid-id"
+                            style="display:none;"
+                          >
                                                         <span itemprop="id">
-                                                            <t t-esc="product.product_variant_id.id" />
+                                                            <t
+                                t-esc="product.product_variant_id.id"
+                              />
                                                         </span>
                                                     </div>
                                                     <h5 class="card-title">
-                                                        <a itemprop="name"
-                                                            t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
-                                                            t-att-content="product.name" t-field="product.name" />
+                                                        <a
+                              itemprop="name"
+                              t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
+                              t-att-content="product.name"
+                              t-field="product.name"
+                            />
                                                     </h5>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <t t-if="product.list_price">
                                                         <td>
                                                             <span itemprop="price">
-                                                                <t t-esc="product.list_price" />
+                                                                <t
+                                  t-esc="product.list_price"
+                                />
                                                                 €
                                                             </span>
                                                         </td>
@@ -124,42 +179,65 @@
                                             </div>
                                             <p class="card-text">
                                                 <small>
-                                                    <t t-esc="product.description_sale" />
+                                                    <t
+                            t-esc="product.description_sale"
+                          />
                                                 </small>
                                             </p>
                                             <div class="row product-seller-list">
-                                                <t t-foreach="product.seller_ids" t-as="supplier">
-                                                    <div class="col-md-6 seller mx-auto">
+                                                <t
+                          t-foreach="product.seller_ids"
+                          t-as="supplier"
+                        >
+                                                    <div
+                            class="col-md-6 seller mx-auto"
+                          >
                                                         <p>
-                                                            <i class="fa fa-home"></i>
+                                                            <i class="fa fa-home" />
                                                         </p>
                                                         <p>
-                                                            <span itemprop="supplier_name">
+                                                            <span
+                                itemprop="supplier_name"
+                              >
                                                                 <small>
                                                                     <b>
-                                                                        <t t-esc="supplier.name.name" />
+                                                                        <t
+                                      t-esc="supplier.name.name"
+                                    />
                                                                     </b>
                                                                 </small>
                                                             </span>
                                                         </p>
                                                         <p>
-                                                            <span itemprop="address_state">
+                                                            <span
+                                itemprop="address_state"
+                              >
                                                                 <small>
-                                                                    <t t-esc="supplier.supplier_state.name" />
+                                                                    <t
+                                    t-esc="supplier.supplier_state.name"
+                                  />
                                                                 </small>
                                                             </span>
                                                         </p>
                                                         <p>
-                                                            <span itemprop="address_zone">
+                                                            <span
+                                itemprop="address_zone"
+                              >
                                                                 <small>
-                                                                    <t t-esc="supplier.supplier_zone.name" />
+                                                                    <t
+                                    t-esc="supplier.supplier_zone.name"
+                                  />
                                                                 </small>
                                                             </span>
                                                         </p>
                                                         <p>
-                                                            <span itemprop="address_city">
+                                                            <span
+                                itemprop="address_city"
+                              >
                                                                 <small>
-                                                                    <t t-esc="supplier.supplier_city" />
+                                                                    <t
+                                    t-esc="supplier.supplier_city"
+                                  />
                                                                 </small>
                                                             </span>
                                                         </p>
@@ -170,34 +248,61 @@
                                                 <div class="col-md-6">
                                                     <div class="text-center td-qty">
                                                         <div
-                                                            class="css_quantity input-group mx-auto oe_website_spinner">
-                                                            <div class="input-group-prepend">
-                                                                <a t-attf-href="#"
-                                                                    class="btn btn-link js_add_cart_json d-none d-md-inline-block"
-                                                                    aria-label="Remove one" title="Remove one">
-                                                                    <i class="fa fa-minus"></i>
+                              class="css_quantity input-group mx-auto oe_website_spinner"
+                            >
+                                                            <div
+                                class="input-group-prepend"
+                              >
+                                                                <a
+                                  t-attf-href="#"
+                                  class="btn btn-link js_add_cart_json d-none d-md-inline-block"
+                                  aria-label="Remove one"
+                                  title="Remove one"
+                                >
+                                                                    <i
+                                    class="fa fa-minus"
+                                  />
                                                                 </a>
                                                             </div>
-                                                            <input type="text"
-                                                                class="js_quantity form-control quantity" value="0"
-                                                                name="quant" />
-                                                            <div class="input-group-append">
-                                                                <a t-attf-href="#"
-                                                                    class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
-                                                                    aria-label="Add one" title="Add one">
-                                                                    <i class="fa fa-plus"></i>
+                                                            <input
+                                type="text"
+                                class="js_quantity form-control quantity"
+                                value="0"
+                                name="quant"
+                              />
+                                                            <div
+                                class="input-group-append"
+                              >
+                                                                <a
+                                  t-attf-href="#"
+                                  class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
+                                  aria-label="Add one"
+                                  title="Add one"
+                                >
+                                                                    <i
+                                    class="fa fa-plus"
+                                  />
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <form action="/shop/cart/update" method="post">
-                                                        <button type="submit"
-                                                            class="nav-link product-cart-button">
-                                                            <i class="fa fa-shopping-cart"></i>
+                                                    <form
+                            action="/shop/cart/update"
+                            method="post"
+                          >
+                                                        <button
+                              type="submit"
+                              class="nav-link product-cart-button"
+                            >
+                                                            <i
+                                class="fa fa-shopping-cart"
+                              />
                                                             Cart
-                                                            <sup t-attf-class="my_cart_quantity badge badge-primary" />
+                                                            <sup
+                                t-attf-class="my_cart_quantity badge badge-primary"
+                              />
                                                         </button>
                                                     </form>
                                                 </div>
@@ -225,10 +330,12 @@
                         <tbody>
                             <tr t-foreach="products" t-as="product">
                                 <td>
-                                    <a itemprop="url"
-                                        t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
-                                        t-field="product.image_128"
-                                        t-options='{"widget": "image", "class": "media-object mr-3"}'>
+                                    <a
+                    itemprop="url"
+                    t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
+                    t-field="product.image_128"
+                    t-options='{"widget": "image", "class": "media-object mr-3"}'
+                  >
                                     </a>
                                 </td>
                                 <td style="display:none;">
@@ -237,9 +344,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a itemprop="name"
-                                        t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
-                                        t-att-content="product.name" t-field="product.name" />
+                                    <a
+                    itemprop="name"
+                    t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']&gt;1 else None))"
+                    t-att-content="product.name"
+                    t-field="product.name"
+                  />
                                     <span itemprop="description">
                                         <small>
                                             <t t-esc="product.description_sale" />
@@ -248,16 +358,21 @@
                                 </td>
                                 <td>
                                     <div class="row">
-                                        <t t-foreach="product.seller_ids" t-as="supplier">
+                                        <t
+                      t-foreach="product.seller_ids"
+                      t-as="supplier"
+                    >
                                             <div class="col-md-6 seller mx-auto">
                                                 <p>
-                                                    <i class="fa fa-home"></i>
+                                                    <i class="fa fa-home" />
                                                 </p>
                                                 <p>
                                                     <span itemprop="supplier_name">
                                                         <small>
                                                             <b>
-                                                                <t t-esc="supplier.name.name" />
+                                                                <t
+                                  t-esc="supplier.name.name"
+                                />
                                                             </b>
                                                         </small>
                                                     </span>
@@ -265,21 +380,27 @@
                                                 <p>
                                                     <span itemprop="address_state">
                                                         <small>
-                                                            <t t-esc="supplier.supplier_state.name" />
+                                                            <t
+                                t-esc="supplier.supplier_state.name"
+                              />
                                                         </small>
                                                     </span>
                                                 </p>
                                                 <p>
                                                     <span itemprop="address_zone">
                                                         <small>
-                                                            <t t-esc="supplier.supplier_zone.name" />
+                                                            <t
+                                t-esc="supplier.supplier_zone.name"
+                              />
                                                         </small>
                                                     </span>
                                                 </p>
                                                 <p>
                                                     <span itemprop="address_city">
                                                         <small>
-                                                            <t t-esc="supplier.supplier_city" />
+                                                            <t
+                                t-esc="supplier.supplier_city"
+                              />
                                                         </small>
                                                     </span>
                                                 </p>
@@ -297,21 +418,33 @@
                                 </t>
                                 <td>
                                     <div class="text-center td-qty">
-                                        <div class="css_quantity input-group mx-auto oe_website_spinner">
+                                        <div
+                      class="css_quantity input-group mx-auto oe_website_spinner"
+                    >
                                             <div class="input-group-prepend">
-                                                <a t-attf-href="#"
-                                                    class="btn btn-link js_add_cart_json d-none d-md-inline-block"
-                                                    aria-label="Remove one" title="Remove one">
-                                                    <i class="fa fa-minus"></i>
+                                                <a
+                          t-attf-href="#"
+                          class="btn btn-link js_add_cart_json d-none d-md-inline-block"
+                          aria-label="Remove one"
+                          title="Remove one"
+                        >
+                                                    <i class="fa fa-minus" />
                                                 </a>
                                             </div>
-                                            <input type="text" class="js_quantity form-control quantity" value="0"
-                                                name="quant" />
+                                            <input
+                        type="text"
+                        class="js_quantity form-control quantity"
+                        value="0"
+                        name="quant"
+                      />
                                             <div class="input-group-append">
-                                                <a t-attf-href="#"
-                                                    class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
-                                                    aria-label="Add one" title="Add one">
-                                                    <i class="fa fa-plus"></i>
+                                                <a
+                          t-attf-href="#"
+                          class="btn btn-link float_left js_add_cart_json d-none d-md-inline-block"
+                          aria-label="Add one"
+                          title="Add one"
+                        >
+                                                    <i class="fa fa-plus" />
                                                 </a>
                                             </div>
                                         </div>
@@ -319,10 +452,15 @@
                                 </td>
                                 <td>
                                     <form action="/shop/cart/update" method="post">
-                                        <button type="submit" class="nav-link product-cart-button">
-                                            <i class="fa fa-shopping-cart"></i>
+                                        <button
+                      type="submit"
+                      class="nav-link product-cart-button"
+                    >
+                                            <i class="fa fa-shopping-cart" />
                                             Cart
-                                            <sup t-attf-class="my_cart_quantity badge badge-primary" />
+                                            <sup
+                        t-attf-class="my_cart_quantity badge badge-primary"
+                      />
                                         </button>
                                     </form>
                                 </td>
