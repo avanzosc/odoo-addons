@@ -1,23 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
   <record id="view_account_invoice_report_search_inherit_brand_tags" model="ir.ui.view">
     <field name="name">account.invoice.report.search.brand.tags</field>
     <field name="model">account.invoice.report</field>
-    <field name="inherit_id" ref="account.view_account_invoice_report_search"/>
+    <field name="inherit_id" ref="account.view_account_invoice_report_search" />
     <field name="arch" type="xml">
       <xpath expr="//search" position="inside">
-        <field name="brand_id" string="Product Brand" options="{'no_create': True}"/>
-        <field name="partner_category_ids" string="Contact labels" options="{'no_create': True}"/>
+        <field name="brand_id" string="Product Brand" options="{'no_create': True}" />
+        <field
+          name="partner_category_ids"
+          string="Contact labels"
+          options="{'no_create': True}"
+        />
       </xpath>
     </field>
   </record>
   <record id="view_account_invoice_report_pivot_inherit_brand" model="ir.ui.view">
     <field name="name">account.invoice.report.pivot.brand</field>
     <field name="model">account.invoice.report</field>
-    <field name="inherit_id" ref="account.view_account_invoice_report_pivot"/>
+    <field name="inherit_id" ref="account.view_account_invoice_report_pivot" />
     <field name="arch" type="xml">
       <xpath expr="//pivot" position="inside">
-        <field name="brand_id" type="row"/>
+        <field name="brand_id" type="row" />
       </xpath>
     </field>
   </record>

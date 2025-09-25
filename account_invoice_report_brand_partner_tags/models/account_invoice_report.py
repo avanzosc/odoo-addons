@@ -1,13 +1,18 @@
 from odoo import fields, models
 
+
 class AccountInvoiceReport(models.Model):
     _inherit = "account.invoice.report"
 
-  
     brand_id = fields.Many2one("product.brand", string="Product Brand", readonly=True)
 
-    partner_category_ids = fields.Many2many("res.partner.category", string="contact labels",
-                                            store=False, readonly=True, search="_search_partner_category_ids")
+    partner_category_ids = fields.Many2many(
+        "res.partner.category",
+        string="contact labels",
+        store=False,
+        readonly=True,
+        search="_search_partner_category_ids",
+    )
 
     def _select(self):
         select = super()._select()
@@ -28,7 +33,6 @@ class AccountInvoiceReport(models.Model):
         group_by = super()._group_by()
         group_by += ", pt_brand.product_brand_id"
         return group_by
-
 
     def _search_partner_category_ids(self, operator, value):
         return [("commercial_partner_id.category_id", operator, value)]

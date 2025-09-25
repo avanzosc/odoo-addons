@@ -7,7 +7,7 @@
     "category": "Accounting",
     "license": "AGPL-3",
     "author": "AvanzOSC",
-    "website": "https://github.com/tuusuario/odoo-addons",
+    "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "account",
         "product",
