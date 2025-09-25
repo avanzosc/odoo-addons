@@ -15,7 +15,9 @@ class ResPartner(models.Model):
     def _compute_count_pricelists_item(self):
         for partner in self:
             if partner.property_product_pricelist:
-                partner.count_pricelists_item = len(partner.property_product_pricelist.item_ids)
+                partner.count_pricelists_item = len(
+                    partner.property_product_pricelist.item_ids
+                )
             else:
                 partner.count_pricelists_item = 0
 
