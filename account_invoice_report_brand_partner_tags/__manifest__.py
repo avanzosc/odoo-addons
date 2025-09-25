@@ -11,7 +11,6 @@
     "depends": [
         "account",
         "product",
-        "atharva_theme_general",
     ],
     "data": [
         "views/account_invoice_report_views.xml",
