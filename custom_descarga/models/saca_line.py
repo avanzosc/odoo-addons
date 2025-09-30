@@ -745,8 +745,9 @@ class SacaLine(models.Model):
                     line.sudo().download_unit = self.download_unit
             vals = {"stage_id": stage_descarga.id}
             if not self.unload_date:
-                date = self.date
-                time = datetime.now().time()
+                now = datetime.now()
+                date = now.date()
+                time = now.time()
                 time = time.strftime("%H:%M:%S")
                 fecha = "{} {}".format(date, time)
                 vals.update({"unload_date": fecha})
