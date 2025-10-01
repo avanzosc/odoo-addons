@@ -9,6 +9,14 @@
                 <field name="brand_code" optional="show" />
                 <field name="brand_marking" optional="show" readonly="1" />
             </field>
+            <field name="partner_id" position="after">
+                <field name="product_tmpl_id_domain" invisible="1" />
+                <field
+          name="brand_product_id"
+          options="{'no_create': True}"
+          domain="[('product_tmpl_id','=', product_tmpl_id_domain)]"
+        />
+            </field>
         </field>
     </record>
 
