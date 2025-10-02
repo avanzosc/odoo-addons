@@ -8,6 +8,7 @@ Stock move sale unit price
 
 * In stock movements two new fields. "Sale unit price": sale line price with
   discount. "Subtotal sale unit price": sale unit price * quantity done.
+* In stock movements be able to search and filter by "Unit of Measure".
 
 Bug Tracker
 ===========
