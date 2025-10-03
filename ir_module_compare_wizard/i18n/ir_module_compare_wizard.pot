@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-19 11:07+0000\n"
-"PO-Revision-Date: 2025-06-19 11:07+0000\n"
+"POT-Creation-Date: 2025-07-30 12:02+0000\n"
+"PO-Revision-Date: 2025-07-30 12:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,7 @@ msgstr ""
 
 #. module: ir_module_compare_wizard
 #: model:ir.ui.menu,name:ir_module_compare_wizard.module_import_management_menu
+#: model:ir.ui.menu,name:ir_module_compare_wizard.module_import_menu
 msgid "Compare Module to Install"
 msgstr ""
 
@@ -468,6 +469,16 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__old_version
+msgid "Origin Version"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__module_path
 msgid "Path"
 msgstr ""
@@ -567,4 +578,54 @@ msgstr ""
 #. module: ir_module_compare_wizard
 #: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
 msgid "You must use this column names in order to fill the table:"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v10
+msgid "v10"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v11
+msgid "v11"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v12
+msgid "v12"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v13
+msgid "v13"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v14
+msgid "v14"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v15
+msgid "v15"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v16
+msgid "v16"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v17
+msgid "v17"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v8
+msgid "v8"
+msgstr ""
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields.selection,name:ir_module_compare_wizard.selection__ir_module_import__old_version__v9
+msgid "v9"
 msgstr ""
