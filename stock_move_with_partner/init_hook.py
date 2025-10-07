@@ -10,9 +10,9 @@ except Exception:
 _logger = logging.getLogger(__name__)
 
 
-def pre_init_hook(cr):
-    stored_partner_in_stock_move(cr)
-    stored_partner_in_stock_move_line(cr)
+def pre_init_hook(env):
+    stored_partner_in_stock_move(env.cr)
+    stored_partner_in_stock_move_line(env.cr)
 
 
 def stored_partner_in_stock_move(cr):
