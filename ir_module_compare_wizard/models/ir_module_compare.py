@@ -1,7 +1,8 @@
 # Copyright 2024 Unai Beristan, Ana Juaristi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, fields, models
+import odoo.release
+from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.modules.module import get_module_path
 from odoo.tools.safe_eval import safe_eval
@@ -21,6 +22,35 @@ class IrModuleImport(models.Model):
         string="# Modules",
         compute="_compute_module_count",
     )
+    installed_module_count = fields.Integer(
+        string="# Additional Modules",
+        compute="_compute_installed_count",
+    )
+    is_enterprise = fields.Boolean(
+        default=lambda self: self._default_is_enterprise(),
+    )
+    old_version = fields.Selection(
+        selection=[
+            ("v8", "v8"),
+            ("v9", "v9"),
+            ("v10", "v10"),
+            ("v11", "v11"),
+            ("v12", "v12"),
+            ("v13", "v13"),
+            ("v14", "v14"),
+            ("v15", "v15"),
+            ("v16", "v16"),
+            ("v17", "v17"),
+        ],
+        string="Origin Version",
+    )
+    partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Partner",
+    )
+
+    def _default_is_enterprise(self):
+        return True if odoo.release.version_info[5] == "e" else False
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -78,12 +108,39 @@ class IrModuleImport(models.Model):
         for record in self:
             record.module_count = len(record.mapped("import_line_ids.import_module_id"))
 
+    def _compute_installed_count(self):
+        module_obj = self.env["ir.module.module"]
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        for record in self:
+            modules = record.mapped("import_line_ids.import_module_id")
+            domain = expression.AND(
+                [
+                    [("id", "not in", modules.ids), ("state", "=", "installed")],
+                    safe_eval(action.get("domain") or "[]"),
+                ]
+            )
+            additional_count = module_obj.search_count(domain)
+            record.installed_module_count = additional_count
+
     def button_open_modules(self):
         self.ensure_one()
         modules = self.mapped("import_line_ids.import_module_id")
         action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
         action["domain"] = expression.AND(
             [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action
+
+    def button_open_additional_modules(self):
+        self.ensure_one()
+        modules = self.mapped("import_line_ids.import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        action["domain"] = expression.AND(
+            [
+                [("id", "not in", modules.ids), ("state", "=", "installed")],
+                safe_eval(action.get("domain") or "[]"),
+            ]
         )
         action["context"] = dict(self._context, create=False)
         return action
@@ -108,10 +165,17 @@ class IrModuleImportLine(models.Model):
     import_module_state = fields.Selection(
         string="Database State",
         related="import_module_id.state",
+        store=True,
     )
     installed_version = fields.Char(
         string="Database Version",
         related="import_module_id.installed_version",
+        store=True,
+    )
+    license = fields.Selection(
+        string="License",
+        related="import_module_id.license",
+        store=True,
     )
     action = fields.Selection(
         selection_add=[("install", "Install"), ("update", "Update")],
@@ -150,6 +214,22 @@ class IrModuleImportLine(models.Model):
     )
     priority = fields.Integer()
 
+    def decode_generic_author(self, module_author):
+        module_author_generic = False
+        if "Odoo Community Association (OCA)" in module_author:
+            module_author_generic = "Odoo Community Association (OCA)"
+        elif "Odoo S.A." in module_author:
+            module_author_generic = "Odoo S.A."
+        elif "AvanzOSC" in module_author:
+            module_author_generic = "AvanzOSC"
+        return module_author_generic
+
+    @api.onchange("import_module_id")
+    def _onchange_import_module(self):
+        for record in self:
+            module_author = record.import_module_id.author
+            record.module_author_generic = record.decode_generic_author(module_author)
+
     def _action_validate(self):
         self.ensure_one()
         update_values = super()._action_validate()
@@ -158,8 +238,9 @@ class IrModuleImportLine(models.Model):
         if log_info_module:
             log_infos.append(log_info_module)
         path = False
+        module_author = module and module.author or self.module_author
         if module:
-            path = get_module_path(self.module_technical_name, display_warning=False)
+            path = get_module_path(module.name, display_warning=False)
             if not path:
                 log_infos.append(
                     _("Module %(module_name)s not installable")
@@ -174,6 +255,9 @@ class IrModuleImportLine(models.Model):
         update_values.update(
             {
                 "import_module_id": module and module.id,
+                "module_author": module_author,
+                "module_author_generic": self.decode_generic_author(module_author)
+                or self.module_author_generic,
                 "migrate_module": (
                     False if module and state != "error" else self.migrate_module
                 ),

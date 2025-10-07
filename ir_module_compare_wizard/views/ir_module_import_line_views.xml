@@ -85,9 +85,14 @@
         decoration-success="import_module_id"
         decoration-bf="import_module_id"
         decoration-it="log_info"
+        multi_edit="1"
         editable="top"
+        duplicate="false"
       >
-        <field name="import_id" invisible="1" />
+        <field
+          name="import_id"
+          column_invisible="context.get('default_import_id', True)"
+        />
         <field
           name="action"
           decoration-muted="action == 'nothing'"
@@ -111,6 +116,7 @@
         <field name="module_author" readonly="state == 'done'" optional="show" />
         <field name="module_notes" readonly="state == 'done'" optional="hide" />
         <field name="module_path" optional="hide" />
+        <field name="license" optional="hide" />
         <field name="state" optional="show" />
         <field name="log_info" readonly="state == 'done'" optional="hide" />
         <button
@@ -152,7 +158,7 @@
     <field name="mode">primary</field>
     <field name="arch" type="xml">
       <field name="import_id" position="attributes">
-        <attribute name="invisible" />
+        <attribute name="column_invisible" />
         <attribute name="optional">hide</attribute>
       </field>
     </field>
@@ -169,7 +175,7 @@
   <menuitem
     id="ir_module_import_line_menu"
     action="ir_module_import_line_action"
-    parent="base_import_wizard.base_import_menu"
+    parent="module_import_menu"
     sequence="11"
   />
 
