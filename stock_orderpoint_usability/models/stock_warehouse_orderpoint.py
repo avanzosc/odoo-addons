@@ -97,10 +97,8 @@ class StockWarehouseOrderpoint(models.Model):
         return [("id", "in", ids)]
 
     def button_recompute_qty_to_order(self):
-        fnames = ["qty_to_order"]
-        for fname in fnames:
-            self.env.add_to_compute(self._fields[fname], self)
-        self.modified(fnames)
+        for record in self:
+            record._compute_qty_to_order()
 
     def open_form_view(self):
         self.ensure_one()

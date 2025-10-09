@@ -12,6 +12,7 @@
     "category": "Hidden",
     "data": [
         "views/stock_orderpoint_view.xml",
+        "data/server_actions.xml",
     ],
     "installable": True,
 }
