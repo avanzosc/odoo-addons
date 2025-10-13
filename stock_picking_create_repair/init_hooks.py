@@ -32,6 +32,16 @@ def pre_init_hook(cr):
             IS 'It''s repair';
             """
         )
+    _logger.info("Pre-creating column repair_amount_untaxed for table sale_order_line")
+    if not openupgrade.column_exists(cr, "sale_order_line", "repair_amount_untaxed"):
+        cr.execute(
+            """
+            ALTER TABLE sale_order_line
+            ADD COLUMN repair_amount_untaxed numeric;
+            COMMENT ON COLUMN sale_order_line.repair_amount_untaxed
+            IS 'Repair untaxed amount';
+            """
+        )
     _logger.info("Pre-creating column is_repair for table stock_move")
     if not openupgrade.column_exists(cr, "stock_move", "is_repair"):
         cr.execute(
