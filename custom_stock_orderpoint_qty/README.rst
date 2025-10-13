@@ -6,7 +6,7 @@
 Custom Stock Orderpoint Qty
 ===========================
 
-Remove compute to quantity to order and create a cron to recalculate.
+Remove compute to quantity to order field, override recompute button from stock_orderpoint_usability module and create a cron and a server action to recalculate values.
 
 Bug Tracker
 ===========

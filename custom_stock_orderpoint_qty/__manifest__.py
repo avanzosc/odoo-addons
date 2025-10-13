@@ -10,9 +10,11 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock",
+        "stock_orderpoint_usability",
     ],
     "data": [
         "data/ir_cron_data.xml",
+        "data/server_actions.xml",
     ],
     "installable": True,
 }
