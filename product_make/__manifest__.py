@@ -21,7 +21,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "security/spacorp_product_make_groups.xml",
+        "security/product_make_groups.xml",
         "views/res_partner_relation_views.xml",
         "views/res_partner_classification_views.xml",
         "views/product_make_views.xml",
