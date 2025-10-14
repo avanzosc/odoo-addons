@@ -27,7 +27,6 @@
           domain="[('id','in',allowed_commercial_make_ids)]"
           attrs="{'invisible':['|', ('move_type', 'in',('in_invoice', 'in_refund')), ('num_allowed_commercial_make', '=', 1)], 'required':[('move_type', 'in',('out_invoice', 'out_refund')), ('num_allowed_commercial_make', '!=', 1)]}"
         />
-                <field name="team_id" string="Division" />
             </field>
             <field name="invoice_line_ids" position="attributes">
                 <attribute
@@ -93,7 +92,6 @@
           string="Input channel"
           optional="hide"
         />
-                <field name="team_id" string="Division" optional="show" />
             </field>
             <field name="company_id" position="before">
                 <field name="market_id" string="Sale channel" optional="hide" />
@@ -108,22 +106,12 @@
         <field name="arch" type="xml">
             <field name="invoice_user_id" position="after">
                 <field name="makes_on_invoice" />
-                <field name="team_id" string="Division" />
                 <field name="classification_id" string="Input channel" />
             </field>
             <field name="date" position="after">
                 <field name="market_id" string="Sale channel" />
                 <field name="market_sector_id" string="Market niche" />
-
             </field>
-            <filter name="status" position="after">
-                <separator />
-                <filter
-          name="division"
-          string="Division"
-          context="{'group_by':'team_id'}"
-        />
-            </filter>
             <filter name="duedate" position="after">
                 <filter
           name="classification"
