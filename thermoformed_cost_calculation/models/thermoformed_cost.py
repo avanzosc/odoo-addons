@@ -44,29 +44,6 @@ class ThermoformedCost(models.Model):
         related="company_id.currency_id",
         store=True,
     )
-    amount = fields.Float(
-        compute="_compute_amount",
-        digits="Price Unit",
-    )
-    commission = fields.Float(
-        default=1,
-    )
-    commission_amount = fields.Float(
-        compute="_compute_commission_amount",
-        digits="Price Unit",
-    )
-    margin_purchase = fields.Float(
-        string="Default Purchase Margin",
-    )
-    value_added_margin = fields.Float(
-        string="Default Value Added Margin",
-    )
-    unit_retail_price = fields.Float(
-        digits="Price Unit",
-    )
-    margin = fields.Float(
-        compute="_compute_margin",
-    )
     workcenter_id = fields.Many2one(
         string="Work center",
         comodel_name="mrp.workcenter",
@@ -75,17 +52,60 @@ class ThermoformedCost(models.Model):
         string="Frame",
         comodel_name="frame",
     )
-    width = fields.Float()
-    step = fields.Float()
-    thickness = fields.Float()
-    figure = fields.Integer(
-        default=1,
-    )
     product_id = fields.Many2one(
         string="Material",
         comodel_name="product.template",
     )
+    serie = fields.Integer(
+        string="Series",
+        default=10000,
+    )
+    figure = fields.Integer(
+        default=1,
+    )
+    adjustment_plates = fields.Integer(
+        default=100,
+    )
+    width = fields.Float()
+    step = fields.Float()
+    thickness = fields.Float()
     density = fields.Float()
+    plate_weight = fields.Float(
+        compute="_compute_weight",
+        digits="Stock Weight",
+        store=True,
+    )
+    serie_weight = fields.Float(
+        compute="_compute_weight",
+        digits="Stock Weight",
+        store=True,
+    )
+    amount = fields.Float(
+        compute="_compute_amount",
+        digits="Price Unit",
+    )
+    commission = fields.Float(
+        default=1,
+        digits="Discount",
+    )
+    commission_amount = fields.Float(
+        compute="_compute_margin_commission",
+        digits="Product Price",
+        store=True,
+    )
+    margin_purchase = fields.Float(
+        string="Default Purchase Margin",
+    )
+    value_added_margin = fields.Float(
+        string="Default Value Added Margin",
+    )
+    unit_retail_price = fields.Float(
+        digits="Product Price",
+    )
+    margin = fields.Float(
+        compute="_compute_margin_commission",
+        store=True,
+    )
     plate_hour = fields.Integer(
         string="Plates in hour",
         default=1,
@@ -95,135 +115,127 @@ class ThermoformedCost(models.Model):
         string="Operators",
         default=1.0,
     )
-    serie = fields.Integer(
-        string="Series",
-        default=10000,
+    material_cost = fields.Float(
+        string="Material Cost Price",
+        digits="Product Price",
     )
-    plate_weight = fields.Float(
-        compute="_compute_plate_weight",
-        digits="Price Unit",
+    workcenter_cost = fields.Float(
+        digits="Product Price",
     )
-    costs_kilo = fields.Float(
-        string="Euros per Kilo",
-        digits="Price Unit",
+    operator_cost = fields.Float(
+        digits="Product Price",
     )
-    costs_plate = fields.Float(
+    mechanic_cost = fields.Float(
+        digits="Product Price",
+    )
+    plate_cost = fields.Float(
+        string="Plate's cost",
         compute="_compute_plate_costs",
-        digits="Price Unit",
+        digits="Product Price",
     )
-    costs_hour = fields.Float()
-    costs_operator = fields.Float()
-    costs_unit = fields.Float(
-        string="Costs per Unit Manufactured",
+    manufacturing_cost_unit = fields.Float(
+        string="Manufacturing Cost per Unit",
         compute="_compute_costs_unit",
-        digits="Price Unit",
+        digits="Product Price",
+        store=True,
     )
-    costs_mechanic = fields.Float()
-    costs_assembly = fields.Float(
-        string="Costs per Assembly",
-        compute="_compute_costs_assembly",
-        digits="Price Unit",
+    assembly_cost = fields.Float(
+        compute="_compute_assembly_cost",
+        digits="Product Price",
     )
-    costs_assembly_unit = fields.Float(
-        string="Cost Assembly per Unit",
-        compute="_compute_costs_assembly_unit",
-        digits="Price Unit",
+    assembly_cost_unit = fields.Float(
+        string="Assembly Cost per Unit",
+        compute="_compute_assembly_cost",
+        digits="Product Price",
     )
     box_id = fields.Many2one(
         string="Box reference",
         comodel_name="product.template",
     )
-    costs_box = fields.Float(
-        string="Cost of the Box",
-    )
     box_quantity = fields.Integer(
-        string="Units per Box",
+        string="Plates per Box",
         default=1,
     )
     pallet_id = fields.Many2one(
         string="Pallet Reference",
         comodel_name="product.template",
     )
-    costs_pallet = fields.Float(
-        string="Pallet Costs",
-    )
     box_pallet = fields.Integer(
         string="Box per Pallet",
         default=16,
     )
-    unit_costs_packaging = fields.Float(
-        string="Unit Packaging Cost",
-        compute="_compute_unit_costs_packaging",
-        digits="Price Unit",
+    box_cost = fields.Float(
+        digits="Product Price",
     )
-    costs_pallet_transport = fields.Float(
-        string="Pallet Transport Cost",
+    pallet_cost = fields.Float(
+        digits="Product Price",
+    )
+    pallet_transport_cost = fields.Float(
         default=40,
+        digits="Product Price",
     )
-    costs_transport_unit = fields.Float(
-        string="Unit Transport Cost",
-        compute="_compute_costs_transport_unit",
-        digits="Price Unit",
+    packaging_cost = fields.Float(
+        compute="_compute_packaging_cost",
+        digits="Product Price",
     )
-    hide_button = fields.Boolean(
-        string="Hide button",
-        default=False,
+    packaging_cost_unit = fields.Float(
+        compute="_compute_packaging_cost",
+        digits="Product Price",
     )
-    plate_weight_serie = fields.Float(
-        string="Plate weight per serie",
-        compute="_compute_plate_weight_serie",
-        digits="Price Unit",
+    transport_cost_unit = fields.Float(
+        compute="_compute_transport_cost_unit",
+        digits="Product Price",
     )
     annual_amount = fields.Integer()
-    hour_machine_serie = fields.Float(
-        string="Hours Machine per Serie",
-        compute="_compute_hour_machine_serie",
-        digits="Price Unit",
+    machine_hour_serie = fields.Float(
+        string="Machine Hours per Serie",
+        compute="_compute_machine_hour",
+        digits="Product Price",
     )
-    annual_machine_hour = fields.Float(
+    machine_hour_annual = fields.Float(
         string="Annual Machine Hours",
-        compute="_compute_annual_machine_hour",
-        digits="Price Unit",
+        compute="_compute_machine_hour",
+        digits="Product Price",
     )
-    unit_purchase_cost = fields.Float(
-        compute="_compute_unit_purchase_cost",
-        digits="Price Unit",
+    purchase_cost_unit = fields.Float(
+        compute="_compute_purchase_cost",
+        digits="Product Price",
     )
     purchase_cost_serie = fields.Float(
         string="Purchase Cost per Serie",
-        compute="_compute_purchase_cost_serie",
-        digits="Price Unit",
+        compute="_compute_purchase_cost",
+        digits="Product Price",
     )
-    annual_purchase_cost = fields.Float(
-        compute="_compute_annual_purchase_cost",
-        digits="Price Unit",
+    purchase_cost_annual = fields.Float(
+        compute="_compute_purchase_cost",
+        digits="Product Price",
     )
     value_added_unit = fields.Float(
         string="Manufacturing cost",
-        compute="_compute_value_added_unit",
-        digits="Price Unit",
+        compute="_compute_value_added",
+        digits="Product Price",
     )
     invoicing_serie = fields.Float(
         string="Invoicing By Series",
-        compute="_compute_invoicing_serie",
-        digits="Price Unit",
+        compute="_compute_invoicing",
+        digits="Product Price",
     )
-    annual_invoicing = fields.Float(
-        compute="_compute_annual_invoicing",
-        digits="Price Unit",
+    invoicing_annual = fields.Float(
+        compute="_compute_invoicing",
+        digits="Product Price",
     )
     value_added_serie = fields.Float(
         string="Value Added per Serie",
-        compute="_compute_value_added_serie",
-        digits="Price Unit",
+        compute="_compute_value_added",
+        digits="Product Price",
     )
-    annual_value_added = fields.Float(
-        compute="_compute_annual_value_added",
-        digits="Price Unit",
+    value_added_annual = fields.Float(
+        compute="_compute_value_added",
+        digits="Product Price",
     )
     value_added_hour = fields.Float(
-        compute="_compute_value_added_hour",
-        digits="Price Unit",
+        compute="_compute_value_added",
+        digits="Product Price",
     )
     cost_sales = fields.Float(
         string="Cost Over Sale",
@@ -233,252 +245,322 @@ class ThermoformedCost(models.Model):
         comodel_name="product.product",
         string="Product Reference",
     )
+    waste_percentage = fields.Float(
+        default=3.0,
+    )
 
-    @api.depends("width", "step", "thickness", "density")
-    def _compute_plate_weight(self):
-        for record in self:
-            record.plate_weight = (
-                (record.width * record.step) * (record.thickness * record.density)
-            ) / 1000000
+    _sql_constraints = [
+        ("name_unique", "UNIQUE(name)", "The name must be unique!"),
+        (
+            "figure_positive",
+            "CHECK(figure > 0)",
+            "The figure value must be strictly positive.",
+        ),
+        (
+            "plate_hour_positive",
+            "CHECK(plate_hour > 0)",
+            "The plate hour value must be strictly positive.",
+        ),
+        (
+            "serie_positive",
+            "CHECK(serie > 0)",
+            "The serie value must be strictly positive.",
+        ),
+        (
+            "box_quantity_positive",
+            "CHECK(box_quantity > 0)",
+            "The box quantity must be strictly positive.",
+        ),
+        (
+            "box_pallet_positive",
+            "CHECK(box_pallet > 0)",
+            "The box pallet value must be strictly positive.",
+        ),
+        (
+            "adjustment_plates_positive",
+            "CHECK(adjustment_plates >= 0)",
+            "The adjustment plates must be strictly positive.",
+        ),
+        (
+            "waste_percentage_is_percentage",
+            "CHECK(waste_percentage >= 0)",
+            "The waste percentage must be positive or 0 at least.",
+        ),
+    ]
 
     @api.depends(
-        "costs_plate",
+        "width",
+        "step",
+        "thickness",
+        "density",
+        "serie",
+        "waste_percentage",
+        "adjustment_plates",
+    )
+    def _compute_weight(self):
+        # width, step and thickness are defined in millimeters
+        # density is defined as mg/mm3
+        # weight is in kg
+        for record in self:
+            weight_mg = record.width * record.step * record.thickness * record.density
+            plate_weight = weight_mg / 1000000
+
+            plates = record.serie / record.figure
+            plate_per_serie = plates * (1 + record.waste_percentage / 100)
+            plate_units = plate_per_serie + record.adjustment_plates
+
+            record.update(
+                {
+                    "plate_weight": plate_weight,
+                    "serie_weight": plate_weight * plate_units,
+                }
+            )
+
+    @api.depends("plate_weight", "material_cost")
+    def _compute_plate_costs(self):
+        for record in self:
+            record.plate_cost = record.plate_weight * record.material_cost
+
+    @api.depends("workcenter_cost", "operator_cost", "operator", "plate_hour", "figure")
+    def _compute_costs_unit(self):
+        for record in self:
+            manufacturing_cost_unit = 0
+            if record.plate_hour != 0 and record.figure != 0:
+                manufacturing_cost_unit = (
+                    record.workcenter_cost + (record.operator_cost * record.operator)
+                ) / (record.plate_hour * record.figure)
+            record.manufacturing_cost_unit = manufacturing_cost_unit
+
+    @api.depends("mechanic_cost", "workcenter_cost", "assembly", "serie")
+    def _compute_assembly_cost(self):
+        for record in self:
+            assembly_cost_unit = 0.0
+            assembly_cost = (
+                record.workcenter_cost + record.mechanic_cost
+            ) * record.assembly
+            if record.serie:
+                assembly_cost_unit = assembly_cost / record.serie
+            record.update(
+                {
+                    "assembly_cost": assembly_cost,
+                    "assembly_cost_unit": assembly_cost_unit,
+                }
+            )
+
+    @api.depends("serie", "box_quantity", "box_pallet", "box_cost", "pallet_cost")
+    def _compute_packaging_cost(self):
+        for record in self:
+            packaging_cost_unit = packaging_cost = 0.0
+            if record.box_quantity and record.box_pallet:
+                boxes = int(record.serie / record.box_quantity)
+                pallets = int(boxes / record.box_pallet)
+                packaging_cost = (boxes * record.box_cost) + (
+                    pallets * record.pallet_cost
+                )
+            if record.serie:
+                packaging_cost_unit = packaging_cost / record.serie
+            record.update(
+                {
+                    "packaging_cost": packaging_cost,
+                    "packaging_cost_unit": packaging_cost_unit,
+                }
+            )
+
+    @api.depends("box_quantity", "box_pallet", "pallet_transport_cost")
+    def _compute_transport_cost_unit(self):
+        for record in self:
+            transport_cost_unit = 0.0
+            if record.box_quantity and record.box_pallet:
+                transport_cost_unit = record.pallet_transport_cost / (
+                    record.box_quantity * record.box_pallet
+                )
+            record.transport_cost_unit = transport_cost_unit
+
+    @api.depends(
         "figure",
-        "costs_unit",
-        "costs_assembly_unit",
-        "unit_costs_packaging",
-        "costs_transport_unit",
+        "serie",
+        "plate_cost",
+        "manufacturing_cost_unit",
+        "assembly_cost_unit",
+        "packaging_cost",
+        "transport_cost_unit",
     )
     def _compute_amount(self):
         for record in self:
-            if record.figure == 0:
-                raise ValidationError(_("The figure quantity cannot be 0."))
-            else:
-                record.amount = (
-                    (record.costs_plate / record.figure)
-                    + (record.costs_unit + record.costs_assembly_unit)
-                    + (record.unit_costs_packaging + record.costs_transport_unit)
+            record._compute_costs_unit()
+            amount = 0.0
+            if record.figure:
+                amount = (
+                    (record.plate_cost / record.figure)
+                    + record.manufacturing_cost_unit
+                    + record.assembly_cost_unit
+                    + record.packaging_cost_unit
+                    + record.transport_cost_unit
                 )
+            record.amount = amount
 
-    @api.depends("unit_retail_price", "commission")
-    def _compute_commission_amount(self):
+    @api.depends(
+        "adjustment_plates",
+        "waste_percentage",
+        "unit_retail_price",
+        "amount",
+        "commission",
+    )
+    def _compute_margin_commission(self):
         for record in self:
-            record.commission_amount = record.unit_retail_price * (
-                record.commission / 100
-            )
-
-    @api.depends("unit_retail_price", "amount", "commission_amount")
-    def _compute_margin(self):
-        for record in self:
-            if record.unit_retail_price != 0:
-                record.margin = (
-                    (
-                        (record.unit_retail_price)
-                        - record.commission_amount
-                        - (record.amount)
-                    )
+            margin = 0.0
+            commission_amount = record.unit_retail_price * (record.commission / 100)
+            if record.unit_retail_price:
+                margin = (
+                    (record.unit_retail_price - commission_amount - record.amount)
                     * 100
                     / record.unit_retail_price
                 )
-            else:
-                record.margin = 0
-
-    @api.depends("plate_weight", "costs_kilo")
-    def _compute_plate_costs(self):
-        for record in self:
-            record.costs_plate = record.plate_weight * record.costs_kilo
-
-    @api.depends("costs_hour", "costs_operator", "operator", "plate_hour", "figure")
-    def _compute_costs_unit(self):
-        for record in self:
-            if record.plate_hour != 0 and record.figure != 0:
-                record.costs_unit = (
-                    record.costs_hour + (record.costs_operator * record.operator)
-                ) / (record.plate_hour * record.figure)
-            else:
-                raise ValidationError(
-                    _(
-                        "The number of figures or the number of plates per hour "
-                        "can not be 0."
-                    )
-                )
-
-    @api.depends("costs_mechanic", "costs_hour", "assembly")
-    def _compute_costs_assembly(self):
-        for record in self:
-            record.costs_assembly = (
-                record.costs_hour + record.costs_mechanic
-            ) * record.assembly
-
-    @api.depends("costs_assembly", "serie")
-    def _compute_costs_assembly_unit(self):
-        for record in self:
-            if record.serie != 0:
-                record.costs_assembly_unit = record.costs_assembly / record.serie
-            else:
-                raise ValidationError(_("The number of series can not be 0."))
-
-    @api.depends("box_quantity", "box_pallet", "costs_box", "costs_pallet")
-    def _compute_unit_costs_packaging(self):
-        for record in self:
-            if record.box_quantity != 0 and record.box_pallet != 0:
-                record.unit_costs_packaging = (
-                    record.costs_box + record.costs_pallet / (record.box_pallet)
-                ) / record.box_quantity
-            else:
-                raise ValidationError(
-                    _(
-                        "The quantity of boxes or the number of boxes per "
-                        "pallet can not be 0."
-                    )
-                )
-
-    @api.depends("box_quantity", "box_pallet", "costs_pallet_transport")
-    def _compute_costs_transport_unit(self):
-        for record in self:
-            if record.box_quantity != 0 and record.box_pallet != 0:
-                record.costs_transport_unit = record.costs_pallet_transport / (
-                    record.box_quantity * record.box_pallet
-                )
-            else:
-                raise ValidationError(
-                    _(
-                        "The quantity of boxes or the number of boxes per "
-                        "pallet can not be 0."
-                    )
-                )
-
-    @api.depends("plate_weight", "serie", "figure")
-    def _compute_plate_weight_serie(self):
-        for record in self:
-            if record.figure != 0:
-                record.plate_weight_serie = record.plate_weight * (
-                    record.serie / record.figure
-                )
-            else:
-                raise ValidationError(_("The figure can not be 0."))
-
-    @api.depends("assembly", "serie", "figure", "plate_hour")
-    def _compute_hour_machine_serie(self):
-        for record in self:
-            if record.plate_hour != 0 and record.figure:
-                record.hour_machine_serie = (
-                    record.assembly + (record.serie / record.figure) / record.plate_hour
-                )
-            else:
-                raise ValidationError(_("Plate per hour and figure can not be 0."))
-
-    @api.depends("annual_amount", "serie", "hour_machine_serie")
-    def _compute_annual_machine_hour(self):
-        for record in self:
-            if record.serie != 0:
-                record.annual_machine_hour = (record.annual_amount / record.serie) * (
-                    record.hour_machine_serie
-                )
-            else:
-                raise ValidationError(_("Serie can not be 0."))
+            record.update(
+                {
+                    "commission_amount": commission_amount,
+                    "margin": margin,
+                }
+            )
 
     @api.depends(
-        "costs_plate", "figure", "unit_costs_packaging", "costs_transport_unit"
+        "assembly", "serie", "figure", "plate_hour", "waste_percentage", "annual_amount"
     )
-    def _compute_unit_purchase_cost(self):
+    def _compute_machine_hour(self):
         for record in self:
-            record.unit_purchase_cost = (
-                record.costs_plate / record.figure
-                + (record.unit_costs_packaging)
-                + record.costs_transport_unit
+            machine_hour_annual = machine_hour_serie = 0.0
+            if record.plate_hour and record.figure:
+                machine_hour_serie = record.assembly + (
+                    (
+                        (record.serie * (1 + record.waste_percentage / 100))
+                        / record.figure
+                    )
+                    / record.plate_hour
+                )
+            if record.serie:
+                machine_hour_annual = (
+                    machine_hour_serie / record.serie
+                ) * record.annual_amount
+            record.update(
+                {
+                    "machine_hour_serie": machine_hour_serie,
+                    "machine_hour_annual": machine_hour_annual,
+                }
             )
 
-    @api.depends("unit_purchase_cost", "serie")
-    def _compute_purchase_cost_serie(self):
+    @api.depends(
+        "figure",
+        "serie",
+        "plate_cost",
+        "packaging_cost_unit",
+        "transport_cost_unit",
+        "adjustment_plates",
+        "waste_percentage",
+        "annual_amount",
+    )
+    def _compute_purchase_cost(self):
         for record in self:
-            record.purchase_cost_serie = record.unit_purchase_cost * (record.serie)
-
-    @api.depends("unit_purchase_cost", "annual_amount")
-    def _compute_annual_purchase_cost(self):
-        for record in self:
-            record.annual_purchase_cost = record.unit_purchase_cost * (
-                record.annual_amount
+            purchase_cost_unit = (
+                (record.plate_cost / record.figure)
+                + record.packaging_cost_unit
+                + record.transport_cost_unit
+            )
+            purchase_cost_serie = purchase_cost_unit * record.serie
+            purchase_cost_annual = purchase_cost_unit * record.annual_amount
+            record.update(
+                {
+                    "purchase_cost_unit": purchase_cost_unit,
+                    "purchase_cost_serie": purchase_cost_serie,
+                    "purchase_cost_annual": purchase_cost_annual,
+                }
             )
 
-    @api.depends("costs_unit", "costs_assembly_unit")
-    def _compute_value_added_unit(self):
+    @api.depends("unit_retail_price", "serie", "annual_amount")
+    def _compute_invoicing(self):
         for record in self:
-            record.value_added_unit = record.costs_unit + record.costs_assembly_unit
+            invoicing_serie = record.unit_retail_price * record.serie
+            invoicing_annual = record.unit_retail_price * record.annual_amount
+            record.update(
+                {
+                    "invoicing_serie": invoicing_serie,
+                    "invoicing_annual": invoicing_annual,
+                }
+            )
 
-    @api.depends("unit_retail_price", "serie")
-    def _compute_invoicing_serie(self):
+    @api.depends(
+        "commission",
+        "manufacturing_cost_unit",
+        "assembly_cost_unit",
+        "machine_hour_serie",
+        "purchase_cost_serie",
+        "purchase_cost_annual",
+        "invoicing_serie",
+        "invoicing_annual",
+        "adjustment_plates",
+        "waste_percentage",
+    )
+    def _compute_value_added(self):
         for record in self:
-            record.invoicing_serie = record.unit_retail_price * record.serie
-
-    @api.depends("unit_retail_price", "annual_amount")
-    def _compute_annual_invoicing(self):
-        for record in self:
-            record.annual_invoicing = record.unit_retail_price * record.annual_amount
-
-    @api.depends("invoicing_serie", "commission", "purchase_cost_serie")
-    def _compute_value_added_serie(self):
-        for record in self:
-            record.value_added_serie = (
+            record._compute_costs_unit()
+            value_added_unit = (
+                record.manufacturing_cost_unit + record.assembly_cost_unit
+            )
+            value_added_serie = (
                 record.invoicing_serie * (1 - record.commission / 100)
                 - record.purchase_cost_serie
             )
-
-    @api.depends("annual_invoicing", "commission", "annual_purchase_cost")
-    def _compute_annual_value_added(self):
-        for record in self:
-            record.annual_value_added = (
-                record.annual_invoicing * (1 - record.commission / 100)
-                - record.annual_purchase_cost
+            value_added_hour = 0.0
+            if record.machine_hour_serie:
+                value_added_hour = value_added_serie / record.machine_hour_serie
+            value_added_annual = (
+                record.invoicing_annual * (1 - record.commission / 100)
+                - record.purchase_cost_annual
             )
-
-    @api.depends("value_added_serie", "hour_machine_serie")
-    def _compute_value_added_hour(self):
-        for record in self:
-            if record.hour_machine_serie != 0:
-                record.value_added_hour = (
-                    record.value_added_serie / record.hour_machine_serie
-                )
-            else:
-                raise ValidationError(_("Hour machine per serie can not be 0."))
+            record.update(
+                {
+                    "value_added_unit": value_added_unit,
+                    "value_added_serie": value_added_serie,
+                    "value_added_hour": value_added_hour,
+                    "value_added_annual": value_added_annual,
+                }
+            )
 
     @api.depends("purchase_cost_serie", "invoicing_serie")
     def _compute_cost_sale(self):
         for record in self:
-            record.cost_sales = 0
-            if record.invoicing_serie != 0:
-                record.cost_sales = (
-                    record.purchase_cost_serie / record.invoicing_serie
-                ) * 100
+            cost_sales = 0.0
+            if record.invoicing_serie:
+                cost_sales = (record.purchase_cost_serie / record.invoicing_serie) * 100
+            record.cost_sales = cost_sales
 
     @api.onchange("product_id")
     def onchange_product_id(self):
         if self.product_id:
             self.density = self.product_id.density
-            self.costs_kilo = self.product_id.list_price
+            self.material_cost = self.product_id.list_price
 
     @api.onchange("workcenter_id")
     def onchange_workcenter_id(self):
         if self.workcenter_id:
-            self.costs_hour = self.workcenter_id.costs_hour
+            self.workcenter_cost = self.workcenter_id.costs_hour
 
     @api.onchange("company_id")
     def onchange_company_id(self):
         if self.company_id:
-            self.costs_operator = self.company_id.costs_operator
-            self.costs_mechanic = self.company_id.costs_mechanic
+            self.operator_cost = self.company_id.costs_operator
+            self.mechanic_cost = self.company_id.costs_mechanic
             self.margin_purchase = self.company_id.margin_purchase
             self.value_added_margin = self.company_id.value_added_margin
 
     @api.onchange("box_id")
     def onchange_box_id(self):
         if self.box_id:
-            self.costs_box = self.box_id.list_price
+            self.box_cost = self.box_id.list_price
 
     @api.onchange("pallet_id")
     def onchange_pallet_id(self):
         if self.pallet_id:
-            self.costs_pallet = self.pallet_id.list_price
+            self.pallet_cost = self.pallet_id.list_price
 
     @api.onchange("frame_id")
     def onchange_frame_id(self):
@@ -487,53 +569,53 @@ class ThermoformedCost(models.Model):
             self.step = self.frame_id.step
 
     @api.onchange(
-        "unit_purchase_cost",
+        "purchase_cost_unit",
         "value_added_margin",
         "margin_purchase",
         "value_added_unit",
+        "adjustment_plates",
+        "waste_percentage",
     )
     def onchange_unit_retail_price(self):
-        if self.unit_purchase_cost and self.value_added_unit:
-            self.unit_retail_price = self.unit_purchase_cost * (
-                1 + self.margin_purchase / 100
-            ) + self.value_added_unit * (1 + self.value_added_margin / 100)
+        if self.purchase_cost_unit and self.value_added_unit:
+            self.unit_retail_price = (
+                self.purchase_cost_unit * (1 + self.margin_purchase / 100)
+            ) + (self.value_added_unit * (1 + self.value_added_margin / 100))
 
     @api.onchange("serie")
     def onchange_annual_amount(self):
         if self.serie:
             self.annual_amount = self.serie
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", _("New")) == _("New"):
-            vals["name"] = self.env["ir.sequence"].next_by_code(
-                "thermoformed.cost"
-            ) or _("New")
-        if vals.get("product_id"):
-            vals["density"] = (
-                self.env["product.template"].browse(vals.get("product_id")).density
-            )
-        result = super().create(vals)
-        return result
+    @api.model_create_multi
+    def create(self, vals_list):
+        for values in vals_list:
+            if values.get("name", _("New")) == _("New"):
+                values["name"] = self.env["ir.sequence"].next_by_code(
+                    "thermoformed.cost"
+                ) or _("New")
+            if values.get("product_id") and not values.get("density"):
+                values["density"] = (
+                    self.env["product.template"]
+                    .browse(values.get("product_id"))
+                    .density
+                )
+        return super().create(vals_list)
 
     def write(self, vals):
-        if vals.get("product_id"):
+        if not vals.get("density") and vals.get("product_id"):
             vals["density"] = (
                 self.env["product.template"].browse(vals.get("product_id")).density
             )
-        res = super().write(vals)
-        return res
+        return super().write(vals)
 
     def action_block(self):
         self.state = "closed"
-        self.hide_button = True
 
     def action_draft(self):
         self.state = "draft"
-        self.hide_button = False
 
     def unlink(self):
-        for thermoformed in self:
-            if thermoformed.state in ("closed"):
-                raise ValidationError(_("Deleting is only possible in case of draft"))
+        if any(thermoformed.state in ["closed"] for thermoformed in self):
+            raise ValidationError(_("Deleting is only possible in case of draft"))
         return super().unlink()
