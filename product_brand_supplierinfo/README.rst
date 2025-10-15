@@ -9,6 +9,8 @@ Product brand supplierinfo 1
 * In "Product Brand" new field "Code".
 * New objects "Brand Products Footprint" and "Brand Products".
 * In "Supplier Pricelist" new fields "Brand Product, "Brand", and "Brand Code".
+* New group "Brands Manager" for "Product Brand", "Brand Products Footprint"
+  and "Brand Products"
 
 
 Bug Tracker

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 05:38+0000\n"
-"PO-Revision-Date: 2025-10-08 05:38+0000\n"
+"POT-Creation-Date: 2025-10-15 07:45+0000\n"
+"PO-Revision-Date: 2025-10-15 07:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #. odoo-python
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid ""
 "%(old_message)s, dehomologation date: %(deshomologation_date)s: "
@@ -27,12 +28,14 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #. odoo-python
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "%(old_message)s, homologation date: %(homologation_date)s"
 msgstr ""
 
 #. module: product_brand_supplierinfo
 #. odoo-python
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "%(old_state)s --> %(new_state)s"
@@ -100,8 +103,30 @@ msgid "Brand Product"
 msgstr ""
 
 #. module: product_brand_supplierinfo
+#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_product__brand_product_count
+#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_template__brand_product_count
+msgid "Brand Product Counter"
+msgstr ""
+
+#. module: product_brand_supplierinfo
+#: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.product_template_form_view
+msgid "Brand Products"
+msgstr ""
+
+#. module: product_brand_supplierinfo
 #: model:ir.model,name:product_brand_supplierinfo.model_brand_product_footprint
 msgid "Brand Products Footprint"
+msgstr ""
+
+#. module: product_brand_supplierinfo
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_action
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_menu
+msgid "Brands"
+msgstr ""
+
+#. module: product_brand_supplierinfo
+#: model:res.groups,name:product_brand_supplierinfo.group_brand_product_manager
+msgid "Brands Manager"
 msgstr ""
 
 #. module: product_brand_supplierinfo
@@ -147,6 +172,7 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #. odoo-python
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "Dehomologation Date Changed To: %(dehomologation_date)s"
 msgstr ""
@@ -191,6 +217,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:product_brand_supplierinfo.brand_product_footprint_action
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__footprint_id
 #: model:ir.ui.menu,name:product_brand_supplierinfo.menu_brand_product_footprint
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_product_footprint_action
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_filter_view
 msgid "Footprint"
 msgstr ""
@@ -218,6 +245,7 @@ msgstr ""
 
 #. module: product_brand_supplierinfo
 #. odoo-python
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "Homologation Date Changed To: %(homologation_date)s"
@@ -291,7 +319,6 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__marking
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_brand__marking
-#: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_form_view
 msgid "Marking"
 msgstr ""
 
@@ -377,6 +404,7 @@ msgid "Portal Access URL"
 msgstr ""
 
 #. module: product_brand_supplierinfo
+#: model:ir.model,name:product_brand_supplierinfo.model_product_template
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__product_tmpl_id
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_filter_view
 msgid "Product"
@@ -396,13 +424,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:product_brand_supplierinfo.brand_product_action
 #: model:ir.model,name:product_brand_supplierinfo.model_brand_product
 #: model:ir.ui.menu,name:product_brand_supplierinfo.menu_brand_product
+#: model:ir.ui.menu,name:product_brand_supplierinfo.menu_stock_brand_product
 msgid "Product Brands"
 msgstr ""
 
 #. module: product_brand_supplierinfo
-#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_customerinfo__product_tmpl_id_domain
-#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_supplierinfo__product_tmpl_id_domain
-msgid "Product Template Domain"
+#: model:ir.model,name:product_brand_supplierinfo.model_product_product
+msgid "Product Variant"
 msgstr ""
 
 #. module: product_brand_supplierinfo
@@ -493,6 +521,11 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,help:product_brand_supplierinfo.field_brand_product__activity_exception_decoration
 msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: product_brand_supplierinfo
+#: model:ir.ui.menu,name:product_brand_supplierinfo.menu_stock_product_supplierinfo
+msgid "Vendor Pricelist"
 msgstr ""
 
 #. module: product_brand_supplierinfo

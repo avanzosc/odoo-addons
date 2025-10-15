@@ -33,7 +33,7 @@ class BrandProduct(models.Model):
         copy=False,
     )
     dehomologation_reason = fields.Text(copy=False)
-    marking = fields.Text(copy=False)
+    marking = fields.Char(copy=False)
     footprint_id = fields.Many2one(
         string="Footprint", comodel_name="brand.product.footprint", copy=False
     )
