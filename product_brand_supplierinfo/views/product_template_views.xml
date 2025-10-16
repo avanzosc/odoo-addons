@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <button name="open_pricelist_rules" position="after">
+                <button
+          name="action_view_brand_products"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-pencil-square-o"
+          attrs="{'invisible': [('brand_product_count', '=', 0)]}"
+        >
+                    <field
+            name="brand_product_count"
+            widget="statinfo"
+            string="Brand Products"
+          />
+                </button>
+            </button>
+        </field>
+    </record>
+</odoo>

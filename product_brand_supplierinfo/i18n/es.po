@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-08 05:39+0000\n"
-"PO-Revision-Date: 2025-10-08 05:39+0000\n"
+"POT-Creation-Date: 2025-10-15 07:46+0000\n"
+"PO-Revision-Date: 2025-10-15 07:46+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. module: product_brand_supplierinfo
 #. odoo-python
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid ""
@@ -29,6 +30,7 @@ msgstr ""
 #. module: product_brand_supplierinfo
 #. odoo-python
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "%(old_message)s, homologation date: %(homologation_date)s"
 msgstr "%(old_message)s, fecha homologación: %(homologation_date)s"
@@ -36,9 +38,10 @@ msgstr "%(old_message)s, fecha homologación: %(homologation_date)s"
 #. module: product_brand_supplierinfo
 #. odoo-python
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "%(old_state)s --> %(new_state)s"
-msgstr ""
+msgstr "%(old_state)s --> %(new_state)s"
 
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__access_warning
@@ -102,9 +105,31 @@ msgid "Brand Product"
 msgstr "Producto marca"
 
 #. module: product_brand_supplierinfo
+#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_product__brand_product_count
+#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_template__brand_product_count
+msgid "Brand Product Counter"
+msgstr "Contador marcas producto"
+
+#. module: product_brand_supplierinfo
+#: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.product_template_form_view
+msgid "Brand Products"
+msgstr "Marcas producto"
+
+#. module: product_brand_supplierinfo
 #: model:ir.model,name:product_brand_supplierinfo.model_brand_product_footprint
 msgid "Brand Products Footprint"
 msgstr "Huella marcas"
+
+#. module: product_brand_supplierinfo
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_action
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_menu
+msgid "Brands"
+msgstr "Marcas"
+
+#. module: product_brand_supplierinfo
+#: model:res.groups,name:product_brand_supplierinfo.group_brand_product_manager
+msgid "Brands Manager"
+msgstr "Gestor de marcas"
 
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__campaign_id
@@ -148,6 +173,7 @@ msgstr "Fecha deshomologación"
 
 #. module: product_brand_supplierinfo
 #. odoo-python
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "Dehomologation Date Changed To: %(dehomologation_date)s"
@@ -193,6 +219,7 @@ msgstr "Icono de la fuente, por ejemplo, fa-tasks"
 #: model:ir.actions.act_window,name:product_brand_supplierinfo.brand_product_footprint_action
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__footprint_id
 #: model:ir.ui.menu,name:product_brand_supplierinfo.menu_brand_product_footprint
+#: model:ir.ui.menu,name:product_brand_supplierinfo.stock_brand_product_footprint_action
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_filter_view
 msgid "Footprint"
 msgstr "Huella"
@@ -220,6 +247,7 @@ msgstr "Fecha homologación"
 
 #. module: product_brand_supplierinfo
 #. odoo-python
+#: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #: code:addons/product_brand_supplierinfo/models/brand_product.py:0
 #, python-format
 msgid "Homologation Date Changed To: %(homologation_date)s"
@@ -293,9 +321,8 @@ msgstr "Adjuntos principales"
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__marking
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_brand__marking
-#: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_form_view
 msgid "Marking"
-msgstr "Calificación"
+msgstr "Marking"
 
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__medium_id
@@ -379,6 +406,7 @@ msgid "Portal Access URL"
 msgstr "URL de acceso al portal"
 
 #. module: product_brand_supplierinfo
+#: model:ir.model,name:product_brand_supplierinfo.model_product_template
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__product_tmpl_id
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_filter_view
 msgid "Product"
@@ -398,14 +426,14 @@ msgstr "Marca de producto"
 #: model:ir.actions.act_window,name:product_brand_supplierinfo.brand_product_action
 #: model:ir.model,name:product_brand_supplierinfo.model_brand_product
 #: model:ir.ui.menu,name:product_brand_supplierinfo.menu_brand_product
+#: model:ir.ui.menu,name:product_brand_supplierinfo.menu_stock_brand_product
 msgid "Product Brands"
-msgstr "Marcas producto"
+msgstr "Marcas"
 
 #. module: product_brand_supplierinfo
-#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_customerinfo__product_tmpl_id_domain
-#: model:ir.model.fields,field_description:product_brand_supplierinfo.field_product_supplierinfo__product_tmpl_id_domain
-msgid "Product Template Domain"
-msgstr "Dominio plantilla producto"
+#: model:ir.model,name:product_brand_supplierinfo.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
 
 #. module: product_brand_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.wizard_dehomologation_reason_form_view
@@ -441,12 +469,12 @@ msgstr "Token de seguridad"
 #. module: product_brand_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_form_view
 msgid "Set to Dehomologation"
-msgstr "Deshomologar"
+msgstr "Poner a deshomologación"
 
 #. module: product_brand_supplierinfo
 #: model_terms:ir.ui.view,arch_db:product_brand_supplierinfo.brand_product_form_view
 msgid "Set to Homologation"
-msgstr "Homologar"
+msgstr "Poner a homologación"
 
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__source_id
@@ -507,6 +535,11 @@ msgstr ""
 #: model:ir.model.fields,help:product_brand_supplierinfo.field_brand_product__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr "Tipo de actividad de excepción registrada."
+
+#. module: product_brand_supplierinfo
+#: model:ir.ui.menu,name:product_brand_supplierinfo.menu_stock_product_supplierinfo
+msgid "Vendor Pricelist"
+msgstr "Tarifas proveedor"
 
 #. module: product_brand_supplierinfo
 #: model:ir.model.fields,field_description:product_brand_supplierinfo.field_brand_product__website_message_ids
