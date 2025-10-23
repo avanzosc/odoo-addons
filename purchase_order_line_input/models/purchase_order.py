@@ -296,9 +296,10 @@ class PurchaseOrderLine(models.Model):
 
     def action_purchase_order_form(self):
         self.ensure_one()
-        action = self.env.ref("purchase.purchase_form_action")
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "purchase.purchase_form_action"
+        )
         form = self.env.ref("purchase.purchase_order_form")
-        action = action.read()[0]
         action["views"] = [(form.id, "form")]
         action["res_id"] = self.order_id.id
         return action

@@ -30,7 +30,7 @@ class LiquidationContractLine(models.Model):
     contract_id = fields.Many2one(
         string="Contract", comodel_name="liquidation.contract"
     )
-    price = fields.Float(string="Price")
+    price = fields.Float(string="Price", digits="Standard Price Decimal Precision")
 
     @api.onchange("product_id")
     def onchange_product_id(self):
