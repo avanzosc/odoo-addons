@@ -51,6 +51,7 @@
                             <field name="brand_id" />
                             <field name="responsible_id" />
                             <field name="brand_code" />
+                            <field name="marking" />
                         </group>
                         <group>
                             <field name="footprint_id" />
@@ -58,20 +59,8 @@
                             <field name="dehomologation_date" />
                         </group>
                     </group>
-                    <group name="brand_product_body">
-                        <group>
-                            <separator string="Dehomologation Reason" />
-                            <field
-                name="dehomologation_reason"
-                nolabel="1"
-                colspan="2"
-              />
-                        </group>
-                        <group>
-                            <separator string="Marking" />
-                            <field name="marking" nolabel="1" colspan="2" />
-                        </group>
-                    </group>
+                    <separator string="Dehomologation Reason" colspan="4" />
+                    <field name="dehomologation_reason" nolabel="1" />
                     <separator string="Observations" colspan="4" />
                     <field name="observations" nolabel="1" />
                 </sheet>
@@ -159,6 +148,14 @@
     id="menu_brand_product"
     action="brand_product_action"
     parent="purchase.menu_product_in_config_purchase"
+    sequence="30"
+  />
+
+    <menuitem
+    name="Product Brands"
+    id="menu_stock_brand_product"
+    action="brand_product_action"
+    parent="product_brand_supplierinfo.stock_brand_menu"
     sequence="30"
   />
 </odoo>

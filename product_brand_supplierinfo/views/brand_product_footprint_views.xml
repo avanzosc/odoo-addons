@@ -25,4 +25,28 @@
     parent="purchase.menu_product_in_config_purchase"
     sequence="20"
   />
+
+    <menuitem
+    id="stock_brand_menu"
+    name="Brands"
+    parent="stock.menu_stock_config_settings"
+    sequence="6"
+    groups="product_brand_supplierinfo.group_brand_product_manager"
+  />
+
+    <menuitem
+    name="Brands"
+    id="stock_brand_action"
+    action="product_brand.action_product_brand"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="10"
+  />
+
+    <menuitem
+    name="Footprint"
+    id="stock_brand_product_footprint_action"
+    action="brand_product_footprint_action"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="20"
+  />
 </odoo>
