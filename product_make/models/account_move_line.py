@@ -6,14 +6,12 @@ from odoo import _, api, exceptions, fields, models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    @api.depends(
-        "move_id", "move_id.invoice_line_ids", "move_id.invoice_line_ids.make_id"
-    )
+    @api.depends("move_id", "move_id.commercial_make_id")
     def _compute_make_id(self):
         for line in self.filtered(
             lambda x: x.move_id and x.move_id.move_type in ("out_invoice", "out_refund")
         ):
-            line.make_ids.unlink()
+            line.make_ids = [(5, 0, 0)]
             if line.move_id.commercial_make_id:
                 line.make_ids = [(6, 0, line.move_id.commercial_make_id.ids)]
                 line.make_literal = line.move_id.commercial_make_id.name
