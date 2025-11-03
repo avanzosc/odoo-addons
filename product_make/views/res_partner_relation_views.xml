@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<odoo>
+    <menuitem
+    id="menu_customer_classification"
+    name="Customer classification"
+    parent="contacts.res_partner_menu_config"
+    sequence="10"
+    groups="base.group_erp_manager"
+  />
+
+    <record id="res_partner_relation_form_view" model="ir.ui.view">
+        <field name="model">res.partner.relation</field>
+        <field name="arch" type="xml">
+            <form string="Relation">
+                <sheet>
+                    <group name="head" colspan="4">
+                        <field name="name" colspan="4" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_relation_action" model="ir.actions.act_window">
+        <field name="name">Relation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.relation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="res_partner_relation_menu"
+    name="Relation"
+    action="res_partner_relation_action"
+    parent="menu_customer_classification"
+    sequence="3"
+    groups="base.group_erp_manager"
+  />
+</odoo>
