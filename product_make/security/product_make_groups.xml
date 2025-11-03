@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record id="make_amount_user" model="res.groups">
+        <field name="name">Amounts by makes</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+</odoo>

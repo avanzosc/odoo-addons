@@ -114,15 +114,59 @@ class StockMoveLine(models.Model):
                     "divide": 1,
                 }
             )
-            self.env["stock.move.line"].create(new_vals)
+            self.env["stock.move.line"].with_context(from_action_divide=True).create(
+                new_vals
+            )
 
     @api.onchange("product_packaging_id")
     def _onchange_product_packaging_id(self):
-        if self.product_packaging_id:
-            self.product_packaging_qty = (
-                self.move_id.product_uom_qty / self.product_packaging_id.qty
+        packaging = self.product_packaging_id
+        move = self.move_id
+
+        if packaging and move and packaging.qty and not move.raw_material_production_id:
+            base_qty = (
+                move.product_uom_qty - move.quantity_done
+                if move.quantity_done
+                else move.product_uom_qty
             )
-            self.divide = self.move_id.product_uom_qty / self.product_packaging_id.qty
+            ratio = base_qty / packaging.qty
+            self.qty_done = base_qty
+            self.product_packaging_qty = ratio
+            self.divide = ratio
         else:
             self.product_packaging_qty = 0
             self.qty_done = 1
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if self.env.context.get("from_action_divide"):
+                continue
+
+            move = self.env["stock.move"].browse(vals.get("move_id"))
+            packaging = (
+                move.production_id.product_packaging_id if move.production_id else None
+            )
+
+            if (
+                packaging
+                and packaging.qty
+                and not move.raw_material_production_id
+                and move.product_id == move.production_id.product_id
+            ):
+                vals["product_packaging_id"] = packaging.id
+                base_qty = (
+                    move.product_uom_qty - move.quantity_done
+                    if move.quantity_done
+                    else move.product_uom_qty
+                )
+                ratio = base_qty / packaging.qty
+                vals.update(
+                    {
+                        "product_packaging_qty": ratio,
+                        "divide": ratio,
+                        "qty_done": base_qty,
+                    }
+                )
+
+        return super().create(vals_list)
