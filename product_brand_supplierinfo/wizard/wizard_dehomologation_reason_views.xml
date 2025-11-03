@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="wizard_dehomologation_reason_form_view" model="ir.ui.view">
+        <field name="model">wizard.dehomologation.reason</field>
+        <field name="arch" type="xml">
+            <form string="Introduce Dehomologation Reason">
+                <sheet>
+                    <group colspan="4">
+                        <field name="brand_product_id" colspan="4" invisible="1" />
+                        <separator string="Dehomologation Reason" colspan="4" />
+                        <field name="dehomologation_reason" nolabel="1" colspan="4" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+            string="Put Dehomologation Reason"
+            name="change_dehomologation_reason"
+            type="object"
+            class="oe_highlight"
+          />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_dehomologation_reason" model="ir.actions.act_window">
+        <field name="name">Introduce Dehomologation Reason</field>
+        <field name="res_model">wizard.dehomologation.reason</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{}</field>
+        <field
+      name="binding_model_id"
+      ref="product_brand_supplierinfo.model_brand_product"
+    />
+        <field name="view_id" ref="wizard_dehomologation_reason_form_view" />
+    </record>
+</odoo>

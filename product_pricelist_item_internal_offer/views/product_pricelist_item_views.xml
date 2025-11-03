@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_pricelist_item_view_search" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field
+      name="inherit_id"
+      ref="product_pricelist_item_menu.product_pricelist_item_view_search"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="internal_offer" />
+            </xpath>
+            <xpath expr="//group[1]" position="inside">
+                <filter
+          string="Internal Offer"
+          name="groupby_internal_offer"
+          domain="[]"
+          context="{'group_by': 'internal_offer'}"
+        />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_tree_view" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[last()]" position="after">
+                <field name="internal_offer" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_item_form_view" model="ir.ui.view">
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='pricelist_rule_limits']" position="after">
+                <group string="Internal Offer">
+                    <field name="internal_offer" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pricelist_view" model="ir.ui.view">
+	<field name="model">product.pricelist</field>
+	<field name="inherit_id" ref="product.product_pricelist_view" />
+	<field name="arch" type="xml">
+		<xpath
+        expr="//field[@name='item_ids']/tree[@groups='product.group_sale_pricelist']/field[@name='date_end']"
+        position="after"
+      >
+	<field name="internal_offer" />
+		</xpath>
+	</field>
+    </record>
+</odoo>

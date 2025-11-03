@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_partner_make_amount_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.lang)" />
+                <t t-set="partner" t-value="o" />
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                        <div
+              t-esc="partner"
+              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True}'
+            />
+                   </t>
+                </t>
+                <div class="page">
+                    <br />
+                    <br />
+                    <strong>Tariff: </strong><span
+            t-field="o.property_product_pricelist"
+          />
+                    <table class="table table-sm mt48">
+                        <thead>
+                            <tr>
+                                <th><strong>Make</strong></th>
+                                <th><strong>State</strong></th>
+                                <th><strong>Commercial</strong></th>
+                                <th><strong>Amount</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="lines" t-value="o.make_amount_ids" />
+                            <tr t-foreach="lines" t-as="line">
+                                <td>
+                                    <span t-field="line.make_id" />
+                                </td>
+                                <td>
+                                    <span t-field="line.partner_state_id" />
+                                </td>
+                                <td>
+                                    <span t-field="line.commercial_id" />
+                                </td>
+                                <td>
+                                    <span t-field="line.debit" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+         </t>
+    </template>
+
+    <template id="report_partner_make_amount">
+        <t t-foreach="docs" t-as="o">
+            <t
+        t-call="product_make.report_partner_make_amount_document"
+        t-lang="o.lang"
+      />
+        </t>
+    </template>
+
+    <record id="action_report_partner_make_amount" model="ir.actions.report">
+        <field name="name">Tariff and amount by makes</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">product_make.report_partner_make_amount</field>
+        <field name="report_file">product_make.report_partner_make_amount</field>
+        <field
+      name="print_report_name"
+    >'Tariff and amoutn by makes for customer - %s ' % (object.name or '')</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
