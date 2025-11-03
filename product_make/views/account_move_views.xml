@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                 <button
+          name="action_makes_in_lines"
+          type="object"
+          string="Reload marks on lines without marks"
+          states="open"
+        />
+            </field>
+            <field name="invoice_vendor_bill_id" position="after">
+                <field name="makes_on_invoice" invisible="1" />
+                <field name="allowed_commercial_make_ids" invisible="1" />
+                <field name="num_allowed_commercial_make" invisible="1" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          readonly="1"
+          invisible="1"
+        />
+                <field
+          name="commercial_make_id"
+          domain="[('id','in',allowed_commercial_make_ids)]"
+          attrs="{'invisible':['|', ('move_type', 'in',('in_invoice', 'in_refund')), ('num_allowed_commercial_make', '=', 1)], 'required':[('move_type', 'in',('out_invoice', 'out_refund')), ('num_allowed_commercial_make', '!=', 1)]}"
+        />
+            </field>
+            <field name="invoice_line_ids" position="attributes">
+                <attribute
+          name="context"
+        >{'default_move_type': context.get('default_move_type'),
+                                           'journal_id': journal_id,
+                                           'default_partner_id': commercial_partner_id,
+                                           'default_currency_id': currency_id or company_currency_id,
+                                           'default_display_type': 'product',
+                                           'quick_encoding_vals': quick_encoding_vals,
+                                           'commercial_make_id': commercial_make_id,}</attribute>
+            </field>
+            <xpath
+        expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']"
+        position="after"
+      >
+                <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+                <field
+          name="make_id"
+          domain="[('id','in',allowed_make_ids)]"
+          optional="show"
+        />
+            </xpath>
+
+            <xpath
+        expr="//field[@name='line_ids']/tree/field[@name='analytic_distribution']"
+        position="after"
+      >
+                <field name="make_ids" widget="many2many_tags" optional="show" />
+            </xpath>
+            <xpath
+        expr="//field[@name='line_ids']/form//field[@name='analytic_distribution']"
+        position="after"
+      >
+                <field name="make_ids" widget="many2many_tags" />
+            </xpath>
+            <field name="invoice_cash_rounding_id" position="before">
+                <field
+          name="market_id"
+          string="Sale channel"
+          readonly="1"
+          invisible="1"
+        />
+                <field
+          name="market_sector_id"
+          string="Market niche"
+          readonly="1"
+          invisible="1"
+        />
+
+            </field>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="invoice_user_id" position="after">
+                <field name="makes_on_invoice" optional="hide" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          optional="hide"
+        />
+            </field>
+            <field name="company_id" position="before">
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_invoice_filter" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter" />
+        <field name="arch" type="xml">
+            <field name="invoice_user_id" position="after">
+                <field name="makes_on_invoice" />
+                <field name="classification_id" string="Input channel" />
+            </field>
+            <field name="date" position="after">
+                <field name="market_id" string="Sale channel" />
+                <field name="market_sector_id" string="Market niche" />
+            </field>
+            <filter name="duedate" position="after">
+                <filter
+          name="classification"
+          string="Input channel"
+          domain="[]"
+          context="{'group_by' : 'classification_id'}"
+        />
+                <filter
+          name="market"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+                <filter
+          name="market_sector"
+          string="Market niche"
+          domain="[]"
+          context="{'group_by' : 'market_sector_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

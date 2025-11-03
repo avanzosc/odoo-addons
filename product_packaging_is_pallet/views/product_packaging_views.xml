@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_packaging_form_view" model="ir.ui.view">
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="stock.product_packaging_form_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="is_pallet" />
+            </field>
+            <xpath expr="//field[@name='package_type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_packaging_tree_view" model="ir.ui.view">
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_pallet" optional="hide" />
+            </field>
+            <xpath expr="//field[@name='package_type_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
