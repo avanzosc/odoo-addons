@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_partner_purchase_group2_tree_view" model="ir.ui.view">
+        <field name="model">res.partner.purchase_group2</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_purchase_group2_action" model="ir.actions.act_window">
+        <field name="name">Purchase Group</field>
+        <field name="res_model">res.partner.purchase_group2</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+    action="res_partner_purchase_group2_action"
+    id="menu_res_partner_purchase_group2"
+    name="Purchase Groups"
+    parent="contacts.res_partner_menu_config"
+    sequence="4"
+  />
+</odoo>

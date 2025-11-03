@@ -4,7 +4,8 @@
         <t t-as="ml" position="attributes">
             <attribute
         name="t-foreach"
-      >o.move_line_ids_without_package.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))</attribute>
+      >o.move_line_ids_without_package.sorted(lambda ml: (ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))
+            </attribute>
         </t>
         <!--
         <xpath expr="//thead/tr/th[4]" position="attributes">
@@ -21,21 +22,21 @@
             <t
         t-if="lines"
         t-set="lines"
-        t-value="lines.sorted(lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))"
+        t-value="lines.sorted(lambda m: (m.categ_id.display_name or '', m.product_brand_id.name or '', m.product_id.display_name or ''))"
       />
         </t>
         <t t-set="package_move_lines" position="after">
             <t
         t-if="package_move_lines"
         t-set="package_move_lines"
-        t-value="package_move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))"
+        t-value="package_move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))"
       />
         </t>
         <t t-set="move_lines" position="after">
             <t
         t-if="move_lines"
         t-set="move_lines"
-        t-value="move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))"
+        t-value="move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))"
       />
         </t>
         <xpath
@@ -44,13 +45,13 @@
     >
             <attribute
         name="t-foreach"
-      >o.move_line_ids.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))</attribute>
+      >o.move_line_ids.sorted(lambda ml: (ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))</attribute>
         </xpath>
         <t t-set="bo_lines" position="after">
             <t
         t-if="bo_lines"
         t-set="bo_lines"
-        t-value="bo_lines.sorted(lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))"
+        t-value="bo_lines.sorted(lambda m: (m.categ_id.display_name or '', m.product_brand_id.name or '', m.product_id.display_name or ''))"
       />
         </t>
     </template>
