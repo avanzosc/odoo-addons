@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Res Partner Required Fields",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales/CRM",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -11,7 +11,7 @@
         "account",
         "product",
         "partner_group_purchase",
-        "commission",
+        "commission_oca",
         "delivery",
         "account_payment_partner",
     ],
