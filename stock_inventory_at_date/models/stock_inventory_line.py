@@ -17,7 +17,7 @@ class StockInventoryLine(models.Model):
                 if (
                     inventory
                     and (inventory.accounting_date)
-                    and (inventory.accounting_date != today)
+                    and (inventory.accounting_date.date() != today)
                 ):
                     product = self.env["product.product"].browse(group["product_id"])
                     location = group["location_id"] or False
