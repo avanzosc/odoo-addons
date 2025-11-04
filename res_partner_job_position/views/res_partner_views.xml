@@ -26,7 +26,8 @@
         <field name="customer_rank" invisible="1" />
         <field
           name="function_id"
-          attrs="{'invisible':[('parent_id','=',False)], 'required':[('customer_rank', '>', 0), ('parent_id', '!=', False), ('type','=','contact')]}"
+          invisible="parent_id == False"
+          required="customer_rank > 0 and parent_id != False and type == 'contact'"
         />
       </field>
       <field name="function" position="attributes">
@@ -37,10 +38,7 @@
         position="before"
       >
         <field name="customer_rank" invisible="1" />
-        <field
-          name="function_id"
-          attrs="{'required':[('customer_rank', '>', 0), ('type','=','contact')]}"
-        />
+        <field name="function_id" required="customer_rank > 0 and type == 'contact'" />
       </xpath>
       <xpath
         expr="//field[@name='child_ids']/form//field[@name='function']"
@@ -49,24 +47,16 @@
         <attribute name="invisible">1</attribute>
       </xpath>
       <xpath
-        expr="//field[@name='child_ids']/kanban/field[@name='function']"
+        expr="//field[@name='child_ids']/kanban//field[@name='function']"
         position="after"
       >
         <field name="function_id" />
       </xpath>
       <xpath
-        expr="//field[@name='child_ids']/kanban/field[@name='function']"
+        expr="//field[@name='child_ids']/kanban//field[@name='function']"
         position="attributes"
       >
         <attribute name="invisible">1</attribute>
-      </xpath>
-      <xpath
-        expr="//field[@name='child_ids']/kanban//div[@t-if='record.function.raw_value']"
-        position="replace"
-      >
-        <div t-if="record.function_id.raw_value">
-          <field name="function_id" />
-        </div>
       </xpath>
     </field>
   </record>
