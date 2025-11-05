@@ -1,57 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="report_picking" inherit_id="stock.report_picking">
-        <t t-as="ml" position="attributes">
-            <attribute
-        name="t-foreach"
-      >o.move_line_ids_without_package.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))</attribute>
-        </t>
-        <!--
-        <xpath expr="//thead/tr/th[4]" position="attributes">
-            <attribute name="t-if"/>
-        </xpath>
-        <xpath expr="//tbody/t[1]/t/tr/td[4]" position="attributes">
-            <attribute name="t-if"/>
-        </xpath>
-        -->
-    </template>
-
-    <template id="report_delivery_document" inherit_id="stock.report_delivery_document">
-        <t t-set="lines" position="after">
-            <t
-        t-if="lines"
-        t-set="lines"
-        t-value="lines.sorted(lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))"
+  <template id="report_picking_sorted" inherit_id="stock.report_picking">
+    <xpath expr="//table[@class='table table-borderless mt16']/tbody" position="before">
+      <t
+        t-set="sorted_moves"
+        t-value="o.move_line_ids_without_package.sorted(key=lambda ml:(ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))"
       />
-        </t>
-        <t t-set="package_move_lines" position="after">
-            <t
-        t-if="package_move_lines"
-        t-set="package_move_lines"
-        t-value="package_move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))"
-      />
-        </t>
-        <t t-set="move_lines" position="after">
-            <t
-        t-if="move_lines"
-        t-set="move_lines"
-        t-value="move_lines.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))"
-      />
-        </t>
-        <xpath
-      expr="//table[@name='stock_move_line_table']/tbody/t[@t-else='']/t/tr"
+    </xpath>
+    <xpath
+      expr="//tr[@t-foreach='o.move_line_ids_without_package.sorted(lambda ml: (ml.location_id.complete_name, ml.location_dest_id.complete_name))']"
       position="attributes"
     >
-            <attribute
-        name="t-foreach"
-      >o.move_line_ids.sorted(lambda ml: (ml.move_id.categ_id.display_name, ml.move_id.product_brand_id.name, ml.product_id.display_name))</attribute>
-        </xpath>
-        <t t-set="bo_lines" position="after">
-            <t
-        t-if="bo_lines"
-        t-set="bo_lines"
-        t-value="bo_lines.sorted(lambda m: (m.categ_id.display_name, m.product_brand_id.name, m.product_id.display_name))"
+      <attribute name="t-foreach">sorted_moves</attribute>
+    </xpath>
+    <xpath expr="//table[@t-else='']/tbody" position="before">
+      <t
+        t-set="sorted_packages"
+        t-value="o.package_level_ids.sorted(key=lambda p:(p.package_id.name or '', p.location_id.display_name or '', p.location_dest_id.display_name or ''))"
       />
-        </t>
-    </template>
+    </xpath>
+    <xpath
+      expr="//tr[@t-foreach='o.package_level_ids.sorted(key=lambda p: p.package_id.name)']"
+      position="attributes"
+    >
+      <attribute name="t-foreach">sorted_packages</attribute>
+    </xpath>
+  </template>
 </odoo>

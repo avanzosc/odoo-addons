@@ -10,6 +10,7 @@ class StockMove(models.Model):
         comodel_name="product.category",
         compute="_compute_categ_id",
         compute_sudo=True,
+        store=True,
     )
     product_brand_id = fields.Many2one(
         comodel_name="product.brand",
@@ -17,12 +18,12 @@ class StockMove(models.Model):
         store=True,
     )
 
-    @api.depends("product_id", "product_id.categ_id")
+    @api.depends("product_id.categ_id")
     def _compute_categ_id(self):
         for move in self:
             move.categ_id = move.product_id.categ_id
 
-    @api.depends("product_id", "product_id.product_brand_id")
+    @api.depends("product_id.product_brand_id")
     def _compute_product_brand_id(self):
         for move in self:
             move.product_brand_id = move.product_id.product_brand_id
