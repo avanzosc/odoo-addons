@@ -1,6 +1,7 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import _, models
+from odoo.exceptions import ValidationError
 
 
 class StockPicking(models.Model):
@@ -11,6 +12,16 @@ class StockPicking(models.Model):
             lambda c: c.quantity_done == 0
         )
         for move in zero_moves:
+            if move.product_id.tracking != "none" and not move.move_line_ids.filtered(
+                lambda ml: ml.lot_id
+            ):
+                raise ValidationError(
+                    _(
+                        "Product '%s' requires lot/serial number "
+                        "before validating the picking."
+                    )
+                    % move.product_id.display_name
+                )
             move.write(
                 {
                     "state": "done",
