@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         templates = super().create(vals_list)
-        for template, vals in zip(templates, vals_list):
+        for template, vals in zip(templates, vals_list, strict=False):
             related_vals = {}
             if vals.get("external_url"):
                 related_vals["external_url"] = vals["external_url"]
