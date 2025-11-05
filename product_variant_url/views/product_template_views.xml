@@ -15,11 +15,7 @@
     <field name="inherit_id" ref="product.product_template_only_form_view" />
     <field name="arch" type="xml">
       <field name="categ_id" position="after">
-        <field
-          name="external_url"
-          widget="url"
-          attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
-        />
+        <field name="external_url" widget="url" invisible="product_variant_count > 1" />
       </field>
     </field>
   </record>
