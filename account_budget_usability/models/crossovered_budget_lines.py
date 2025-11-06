@@ -6,9 +6,9 @@ from odoo import api, fields, models
 class CrossoveredBudgetLines(models.Model):
     _inherit = "crossovered.budget.lines"
 
-    result_amount = fields.Float()
-    practical_amount = fields.Float(store=True)
-    difference = fields.Float(
+    result_amount = fields.Monetary()
+    practical_amount = fields.Monetary(store=True)
+    difference = fields.Monetary(
         store=True,
         copy=False,
         digits=0,
