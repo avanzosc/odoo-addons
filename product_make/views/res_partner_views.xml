@@ -8,17 +8,20 @@
         <field
           name="market_id"
           string="Sale channel"
-          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
+          required="customer_rank > 0 and company_type == 'company'"
         />
         <field
           name="market_sector_id"
           string="Market niche"
-          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
+          required="customer_rank > 0 and company_type == 'company'"
         />
         <field
           name="classification_id"
           string="Input channel"
-          attrs="{'invisible': ['|',('customer_rank', '=', 0), '&amp;',('customer_rank', '>', 0), ('company_type', '!=', 'company')],'required':[('customer_rank','>',0),('company_type', '=', 'company')]}"
+          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
+          required="customer_rank > 0 and company_type == 'company'"
         />
       </field>
       <xpath expr="//field[@name='is_company']/.." position="after">
@@ -33,18 +36,18 @@
         <page
           name="make-salesperson"
           string="Makes and salesperson"
-          attrs="{'invisible': [('customer_rank', '=', 0)]}"
+          invisible="customer_rank == 0"
         >
           <field
             name="make_saleperson_ids"
             nolabel="1"
-            context="{'default_partner_id': active_id,'default_salesperson_id': user_id}"
+            context="{'default_partner_id': id,'default_salesperson_id': user_id}"
           >
-            <tree editable="bottom">
+            <list editable="bottom">
               <field name="partner_id" invisible="1" />
               <field name="make_id" required="1" />
               <field name="salesperson_id" required="1" />
-            </tree>
+            </list>
           </field>
           <field name="make_amount_ids" invisible="1" />
           <field name="customer_rank" invisible="1" />
@@ -57,7 +60,7 @@
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="base.view_partner_tree" />
     <field name="arch" type="xml">
-      <field name="active" position="after">
+      <field name="company_id" position="after">
         <field name="market_id" string="Sale channel" optional="show" />
         <field name="market_sector_id" string="Market niche" optional="show" />
         <field name="classification_id" string="Input channel" optional="show" />

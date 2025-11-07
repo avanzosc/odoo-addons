@@ -9,12 +9,8 @@
           name="action_makes_in_lines"
           type="object"
           string="Reload customer parent information"
-          states="confirmed,waiting,assigned,done"
-          attrs="{'invisible': [('picking_type_code', '!=', 'outgoing')]}"
+          invisible="picking_type_code != 'outgoing' or state not in ('confirmed','waiting','assigned','done')"
         />
-      </field>
-      <field name="company_id" position="after">
-        <field name="user_id" />
       </field>
       <xpath
         expr="//field[@name='move_ids_without_package']//field[@name='product_id']"
@@ -23,19 +19,22 @@
         <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
         <field name="make_id" required="1" />
       </xpath>
+
       <field name="picking_type_id" position="after">
         <field name="makes_in_lines" invisible="1" />
         <field name="allowed_commercial_make_ids" invisible="1" />
         <field name="num_allowed_commercial_make" invisible="1" />
+
         <field
           name="commercial_make_id"
           domain="[('id','in',allowed_commercial_make_ids)]"
-          attrs="{'invisible':['|', ('picking_type_code', '!=', 'outgoing'), ('num_allowed_commercial_make', '=', 1)], 'required':[('picking_type_code', '==', 'outgoing'),('num_allowed_commercial_make', '!=', 1)]}"
+          invisible="picking_type_code != 'outgoing' or num_allowed_commercial_make == 1"
+          required="picking_type_code == 'outgoing' and num_allowed_commercial_make != 1"
         />
         <field
           name="team_id"
           string="Division"
-          attrs="{'invisible':[('picking_type_code', '!=', 'outgoing')]}"
+          invisible="picking_type_code != 'outgoing'"
         />
       </field>
       <field name="move_ids_without_package" position="attributes">

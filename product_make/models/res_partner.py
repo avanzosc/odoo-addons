@@ -74,7 +74,10 @@ class ResPartner(models.Model):
                     for user in users:
                         imp = 0
                         lines = partner.account_move_line_ids.filtered(
-                            lambda c: make in c.make_ids and c.move_id.user_id == user
+                            lambda c, current_make=make, current_user=user: (
+                                current_make in c.make_ids
+                                and c.move_id.user_id == current_user
+                            )
                         )
                         if lines:
                             imp_positive = sum([x.credit for x in lines])

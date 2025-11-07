@@ -175,11 +175,9 @@ class AccountMove(models.Model):
                     accounts = fiscal_pos.with_context(
                         division=invoice.team_id.id
                     ).map_accounts(accounts)
+                product_categ = product.product_tmpl_id.categ_id
                 accounts.update(
-                    {
-                        "stock_journal": product.product_tmpl_id.categ_id.property_stock_journal
-                        or False
-                    }
+                    {"stock_journal": product_categ.property_stock_journal or False}
                 )
                 if invoice.move_type in ("out_invoice", "out_refund"):
                     line.account_id = accounts["income"].id

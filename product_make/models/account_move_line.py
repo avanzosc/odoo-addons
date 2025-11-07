@@ -22,8 +22,10 @@ class AccountMoveLine(models.Model):
                     else line.debit
                 )
                 invoice_lines = line.move_id.invoice_line_ids.filtered(
-                    lambda x: x.product_id == line.product_id
-                    and x.price_subtotal == price_subtotal
+                    lambda x, current_line=line, subtotal=price_subtotal: (
+                        x.product_id == current_line.product_id
+                        and x.price_subtotal == subtotal
+                    )
                 )
                 invoice_line = False
                 for invline in invoice_lines:

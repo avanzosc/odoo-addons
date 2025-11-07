@@ -9,7 +9,7 @@
           name="action_makes_in_lines"
           type="object"
           string="Reload marks on lines without marks"
-          states="open"
+          invisible="state != 'open'"
         />
       </field>
       <field name="invoice_vendor_bill_id" position="after">
@@ -25,7 +25,7 @@
         <field
           name="commercial_make_id"
           domain="[('id','in',allowed_commercial_make_ids)]"
-          attrs="{'invisible':['|', ('move_type', 'in',('in_invoice', 'in_refund')), ('num_allowed_commercial_make', '=', 1)], 'required':[('move_type', 'in',('out_invoice', 'out_refund')), ('num_allowed_commercial_make', '!=', 1)]}"
+          invisible="move_type in ('in_invoice', 'in_refund') or num_allowed_commercial_make == 1"
         />
       </field>
       <field name="invoice_line_ids" position="attributes">
@@ -39,8 +39,9 @@
                                            'quick_encoding_vals': quick_encoding_vals,
                                            'commercial_make_id': commercial_make_id,}</attribute>
       </field>
+
       <xpath
-        expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']"
+        expr="//field[@name='invoice_line_ids']/list/field[@name='account_id']"
         position="after"
       >
         <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
@@ -48,7 +49,7 @@
       </xpath>
 
       <xpath
-        expr="//field[@name='line_ids']/tree/field[@name='analytic_distribution']"
+        expr="//field[@name='line_ids']/list/field[@name='analytic_distribution']"
         position="after"
       >
         <field name="make_ids" widget="many2many_tags" optional="show" />
