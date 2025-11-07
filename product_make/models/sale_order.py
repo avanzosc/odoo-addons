@@ -57,7 +57,7 @@ class SaleOrder(models.Model):
                     if not makes:
                         makes = line.make_id.name
                     else:
-                        makes = "{}, {}".format(makes, line.make_id.name)
+                        makes = f"{makes}, {line.make_id.name}"
             sale.makes_in_orders = makes
 
     def action_makes_in_lines(self):

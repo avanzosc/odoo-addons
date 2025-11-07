@@ -82,7 +82,7 @@ class StockPicking(models.Model):
                     if not makes:
                         makes = line.make_id.name
                     else:
-                        makes = "{}, {}".format(makes, line.make_id.name)
+                        makes = f"{makes}, {line.make_id.name}"
             picking.makes_in_lines = makes
 
     def action_makes_in_lines(self):

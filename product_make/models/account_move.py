@@ -17,7 +17,7 @@ class AccountMove(models.Model):
                     if not makes:
                         makes = line.make_id.name
                     else:
-                        makes = "{}, {}".format(makes, line.make_id.name)
+                        makes = f"{makes}, {line.make_id.name}"
             invoice.makes_on_invoice = makes
 
     makes_on_invoice = fields.Char(
