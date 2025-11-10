@@ -20,14 +20,16 @@ class StockWarehouseOrderpoint(models.Model):
     _inherit = "stock.warehouse.orderpoint"
 
     virtual_available = fields.Float(
-        string="Forecaster",
+        string="Forecast Quantity",
         compute="_compute_virtual_available",
         digits="Product Unit of Measure",
+        readonly=True,
     )
     forecaster_distinct_forecast = fields.Boolean(
-        string="Forecaster distinct forecast",
+        string="Qty in progress",
         compute="_compute_forecaster_distinct_forecast",
         search="_search_forecaster_distinct_forecast",
+        readonly=True,
     )
     qty_available = fields.Float(
         string="Quantity On Hand",
