@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_form_sharepoint_url" model="ir.ui.view">
+        <field name="name">res.partner.form.sharepoint.url</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page string="Technical Info">
+                    <group string="SharePoint Information">
+                        <field
+              name="sharepoint_url"
+              widget="url"
+              placeholder="https://company.sharepoint.com/sites/..."
+            />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_partner_tree_sharepoint_url" model="ir.ui.view">
+        <field name="name">res.partner.tree.sharepoint.url</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field
+          name="sharepoint_url"
+          string="SharePoint"
+          widget="url"
+          optional="show"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
