@@ -1268,37 +1268,23 @@
                         </table>
                         <t t-set="total_units" t-value="0" />
                         <t t-set="total_amount" t-value="0" />
+
                         <table
               class="table table-bordered table-sm"
               style="width:322mm;"
               name="medicine_move_lines"
             >
                             <tbody name="medicine_move_lines">
+
+                                <!-- Entradas (location_dest_id == o.location_id) -->
                                 <tr
-                  t-foreach="medicine_move_lines"
+                  t-foreach="medicine_move_lines.filtered(lambda c: c.location_dest_id == o.location_id)"
                   t-as="line"
                   name="medicine_move_lines"
                 >
-                                    <t
-                    t-set="units"
-                    t-if="line.location_dest_id == o.location_id"
-                    t-value="line.download_unit"
-                  />
-                                    <t
-                    t-set="units"
-                    t-if="line.location_dest_id != o.location_id"
-                    t-value="-1*line.download_unit"
-                  />
-                                    <t
-                    t-set="amount"
-                    t-if="line.location_dest_id == o.location_id"
-                    t-value="line.amount"
-                  />
-                                    <t
-                    t-set="amount"
-                    t-if="line.location_dest_id != o.location_id"
-                    t-value="-1*line.amount"
-                  />
+
+                                    <t t-set="units" t-value="line.download_unit" />
+                                    <t t-set="amount" t-value="line.amount" />
                                     <t
                     t-set="total_units"
                     t-value="total_units + units"
@@ -1307,6 +1293,7 @@
                     t-set="total_amount"
                     t-value="total_amount + amount"
                   />
+
                                     <td name="medicine_concept" style="width:18mm;">
                                         <span>Medicine</span>
                                     </td>
@@ -1368,7 +1355,7 @@
                   >
                                         <span
                       t-if="line.download_unit"
-                      t-field="line.download_unit"
+                      t-esc="'{:,}'.format(int(units)).replace(',','~').replace('.',',').replace('~','.')"
                     />
                                     </td>
                                     <td
@@ -1405,7 +1392,7 @@
                   >
                                         <span
                       t-if="line.amount"
-                      t-esc="'{0:,.2f}'.format(line.amount).replace(',','~').replace('.',',').replace('~','.')"
+                      t-esc="'{0:,.2f}'.format(amount).replace(',','~').replace('.',',').replace('~','.')"
                     />
                                     </td>
                                     <td
@@ -1436,15 +1423,169 @@
                     />
                                     </td>
                                 </tr>
+
+                                <!-- Devoluciones (location_id == o.location_id) -->
+                                <tr
+                  t-foreach="medicine_move_lines.filtered(lambda c: c.location_id == o.location_id)"
+                  t-as="line"
+                  name="medicine_move_lines"
+                >
+
+                                    <t
+                    t-set="units"
+                    t-value="-1 * line.download_unit"
+                  />
+                                    <t t-set="amount" t-value="-1 * line.amount" />
+                                    <t
+                    t-set="total_units"
+                    t-value="total_units + units"
+                  />
+                                    <t
+                    t-set="total_amount"
+                    t-value="total_amount + amount"
+                  />
+
+                                    <td name="medicine_concept" style="width:18mm;">
+                                        <span>Medicine</span>
+                                    </td>
+                                    <td
+                    name="medicine_transfer"
+                    class="text-center"
+                    style="width:36mm;"
+                  >
+                                        <span>Devoluciones </span>
+                                        <span
+                      t-if="line.picking_id"
+                      t-field="line.picking_id.name"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_date"
+                    class="text-center"
+                    style="width:22mm;"
+                  >
+                                        <span
+                      t-if="line.picking_id.custom_date_done"
+                      t-field="line.date"
+                      t-options='{"format": "d/MM/yyyy"}'
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_cod"
+                    class="text-center"
+                    style="width:15mm;"
+                  >
+                                        <span
+                      t-if="line.product_id.default_code"
+                      t-field="line.product_id.default_code"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_article"
+                    class="text-center"
+                    style="width:55mm;"
+                  >
+                                        <span
+                      t-if="line.product_id"
+                      t-field="line.product_id.name"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_kgs"
+                    class="text-center"
+                    style="width:18mm;"
+                  >
+                                        <span
+                      t-if="line.weight_area"
+                      t-esc="round(line.weight_area,2)"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_units"
+                    class="text-center"
+                    style="width:16mm;"
+                  >
+                                        <span
+                      t-if="line.download_unit"
+                      t-esc="'{:,}'.format(int(units)).replace(',','~').replace('.',',').replace('~','.')"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_weight"
+                    class="text-center"
+                    style="width:18mm;"
+                  >
+                                        <span
+                      t-if="line.average_weight"
+                      t-esc="round(line.average_weight,2)"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_kilos"
+                    class="text-center"
+                    style="width:22mm;"
+                  >
+                                        <span />
+                                    </td>
+                                    <td
+                    name="medicine_price"
+                    class="text-center"
+                    style="width:22mm;"
+                  >
+                                        <span
+                      t-if="line.standard_price"
+                      t-esc="'{0:,.7f}'.format(line.standard_price).replace(',','~').replace('.',',').replace('~','.')"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_amount"
+                    class="text-center"
+                    style="width:18mm;"
+                  >
+                                        <span
+                      t-if="line.amount"
+                      t-esc="'{0:,.2f}'.format(amount).replace(',','~').replace('.',',').replace('~','.')"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_age"
+                    class="text-center"
+                    style="width:10mm;"
+                  >
+                                        <span t-if="line.days" t-field="line.days" />
+                                    </td>
+                                    <td
+                    name="medicine_lot"
+                    class="text-center"
+                    style="width:30mm;"
+                  >
+                                        <span
+                      t-if="line.lot_id"
+                      t-field="line.lot_id.name"
+                    />
+                                    </td>
+                                    <td
+                    name="medicine_week"
+                    class="text-center"
+                    style="width:10mm;"
+                  >
+                                        <span
+                      t-if="line.picking_id.date_done_week"
+                      t-field="line.picking_id.date_done_week"
+                    />
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
+
                         <table
               class="table table-sm table-bordered"
               style="width:322mm;"
               name="medicine_lines_total"
             >
                             <tbody
-                style="background-color:#b68119;font-size: 15px;"
+                style="background-color:#b68119;font-size:15px;"
                 name="medicine_lines_total"
               >
                                 <td
@@ -1453,7 +1594,7 @@
                   class="text-right"
                 >
                                     <strong
-                    style="color:white; font-weight: bold;"
+                    style="color:white; font-weight:bold;"
                   >Subtotal medicinas:</strong>
                                 </td>
                                 <td
@@ -1462,7 +1603,7 @@
                   class="text-left"
                 >
                                     <span
-                    style="color:white; font-weight: bold;"
+                    style="color:white; font-weight:bold;"
                     t-esc="'{:,}'.format(int(total_units)).replace(',','~').replace('.',',').replace('~','.')"
                   />
                                 </td>
@@ -1472,8 +1613,8 @@
                   class="text-center"
                 >
                                     <span
-                    style="color:white; font-weight: bold;"
                     t-if="total_units != 0"
+                    style="color:white; font-weight:bold;"
                     t-esc="'{0:,.7f}'.format(total_amount/total_units).replace(',','~').replace('.',',').replace('~','.')"
                   />
                                 </td>
@@ -1482,7 +1623,7 @@
                   style="width:68mm;"
                 >
                                     <span
-                    style="color:white; font-weight: bold;"
+                    style="color:white; font-weight:bold;"
                     t-esc="'{0:,.2f}'.format(total_amount).replace(',','~').replace('.',',').replace('~','.')"
                   />
                                 </td>
