@@ -6,15 +6,18 @@
 Stock Quant Valuation
 =====================
 
-This module extends the **Stock Quant** model to provide additional cost and valuation information for inventory quants.  
+This module extends the **Stock Quant** and **Stock Lot** models to provide additional cost and valuation information for inventory management.  
 
-**Features**
+Features
+--------
 
-- **Product Cost**: Displays the standard price of the product related to the quant.
-- **Lot Purchase Cost**:  
-  Uses the purchase cost from the linked lot if available, otherwise falls back to the product's standard price.
-- **Lot Purchase Value**:  
-  Calculates the total valuation of the quant based on its quantity and the lot purchase cost.
+- **New computed fields for `stock.quant`:**
+  - `product_cost`: Standard product cost (related to `product_id.standard_price`).
+  - `lot_cost`: Unit cost of the lot (related to `lot_id.purchase_price`).
+  - `lot_value`: Quant quantity × lot cost.
+
+- **New computed field for `stock.lot`:**
+  - `lot_value`: Lot quantity × lot cost.
 
 Bug Tracker
 ===========

@@ -1,6 +1,7 @@
 # Copyright 2025 Lucía Echeverría - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from odoo.tools.float_utils import float_compare
 
 
 class StockQuant(models.Model):
@@ -10,41 +11,40 @@ class StockQuant(models.Model):
         related="product_id.standard_price",
         digits="Product Price",
         groups="stock.group_stock_manager",
-        help=("Standard price of the product " "(product_id.standard_price)."),
+        help=("Standard price of the product."),
     )
 
-    lot_purchase_cost = fields.Float(
-        compute="_compute_lot_purchase_cost",
+    lot_cost = fields.Float(
+        related="lot_id.purchase_price",
         digits="Product Price",
         groups="stock.group_stock_manager",
-        help=(
-            "If linked to a lot, takes the lot's purchase cost "
-            "(quant.lot_id.purchase_price). Otherwise, uses the "
-            "product's standard price "
-            "(quant.product_id.standard_price)."
-        ),
+        help=("Unit price of the lot."),
     )
 
-    lot_purchase_value = fields.Float(
+    lot_value = fields.Float(
+        compute="_compute_lot_value",
         digits="Account",
-        compute="_compute_lot_purchase_value",
         groups="stock.group_stock_manager",
-        help=(
-            "Quant quantity multiplied by the lot purchase cost "
-            "(quant.quantity * quant.lot_purchase_cost)."
-        ),
+        store=True,
+        help=("Quant quantity multiplied by the lot cost."),
     )
 
-    @api.depends("lot_id", "product_id")
-    def _compute_lot_purchase_cost(self):
-        for quant in self:
-            quant.lot_purchase_cost = (
-                quant.lot_id.purchase_price
-                if quant.lot_id
-                else quant.product_id.standard_price or 0.0
-            )
+    cost_mismatch = fields.Boolean(compute="_compute_cost_mismatch", store=True)
 
-    @api.depends("quantity", "lot_purchase_cost")
-    def _compute_lot_purchase_value(self):
+    @api.depends("lot_cost", "quantity")
+    def _compute_lot_value(self):
         for quant in self:
-            quant.lot_purchase_value = quant.quantity * quant.lot_purchase_cost
+            quant.lot_value = quant.lot_cost * quant.quantity
+
+    @api.depends("product_cost", "lot_cost")
+    def _compute_cost_mismatch(self):
+        for quant in self:
+            if quant.product_cost and quant.lot_cost:
+                quant.cost_mismatch = (
+                    float_compare(
+                        quant.product_cost,
+                        quant.lot_cost,
+                        precision_rounding=quant.product_id.uom_id.rounding,
+                    )
+                    != 0
+                )
