@@ -85,7 +85,9 @@
         decoration-success="import_module_id"
         decoration-bf="import_module_id"
         decoration-it="log_info"
+        multi_edit="1"
         editable="top"
+        duplicate="false"
       >
         <field
           name="import_id"
@@ -173,7 +175,7 @@
   <menuitem
     id="ir_module_import_line_menu"
     action="ir_module_import_line_action"
-    parent="base_import_wizard.base_import_menu"
+    parent="module_import_menu"
     sequence="11"
   />
 
