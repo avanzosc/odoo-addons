@@ -65,10 +65,17 @@ class LiquidationLine(models.Model):
                     lambda c: c.move_type_id == contract_line.move_type_id
                     and c.state == "done"
                 )
+                entry_movelines = movelines.filtered(
+                    lambda c: c.location_dest_id == self.batch_id.location_id
+                )
+                return_movelines = movelines.filtered(
+                    lambda c: c.location_id == self.batch_id.location_id
+                    and c.location_dest_id != self.batch_id.location_id
+                )
                 if contract_line.quantity_type == "unit" and movelines:
-                    unit = sum(movelines.mapped("download_unit"))
+                    unit = abs(sum(entry_movelines.mapped("download_unit")) - sum(return_movelines.mapped("download_unit")))
                 if contract_line.quantity_type == "kg" and movelines:
-                    quantity = sum(movelines.mapped("qty_done"))
+                    quantity = abs(sum(entry_movelines.mapped("qty_done")) - sum(return_movelines.mapped("qty_done")))
                 if contract_line.quantity_type == "fixed":
                     quantity = 1
                 if contract_line.price_type == "feed":
@@ -79,12 +86,12 @@ class LiquidationLine(models.Model):
                     price = contract_line.price
                 if (
                     contract_line.price_type == "average"
-                    and (movelines)
-                    and sum(movelines.mapped("qty_done")) != 0
+                    and entry_movelines 
+                    and sum(entry_movelines.mapped("qty_done")) != 0
                 ):
-                    price = sum(movelines.mapped("amount")) / sum(
-                        movelines.mapped("qty_done")
-                    )
+                    total_amount = sum(entry_movelines.mapped("amount")) - sum(return_movelines.mapped("amount"))
+                    total_qty_done = abs(sum(entry_movelines.mapped("qty_done")) - sum(return_movelines.mapped("qty_done")))
+                    price = total_amount / total_qty_done
                 if contract_line.type == "charge":
                     n = -1
                 if contract_line.type == "variable":
