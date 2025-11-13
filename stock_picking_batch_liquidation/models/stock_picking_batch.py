@@ -200,14 +200,14 @@ class StockPickingBatch(models.Model):
     move_line_ids = fields.One2many(inverse_name="mother_id")
 
     @api.depends(
-    "move_line_ids",
-    "move_line_ids.move_type_id",
-    "move_line_ids.location_dest_id",
-    "move_line_ids.location_id", 
-    "move_line_ids.picking_id",
-    "move_line_ids.amount",
-    "location_id",
-    "move_line_ids.state",
+        "move_line_ids",
+        "move_line_ids.move_type_id",
+        "move_line_ids.location_dest_id",
+        "move_line_ids.location_id",
+        "move_line_ids.picking_id",
+        "move_line_ids.amount",
+        "location_id",
+        "move_line_ids.state",
     )
     def _compute_output_medicine_amount(self):
         for batch in self:
@@ -229,7 +229,10 @@ class StockPickingBatch(models.Model):
                     and c.location_id == batch.location_id
                     and c.picking_id
                 )
-                output_medicine_amount = sum(entry_lines.mapped("amount")) - sum(return_lines.mapped("amount"))
+                output_medicine_amount = abs(
+                    sum(entry_lines.mapped("amount"))
+                    - sum(return_lines.mapped("amount"))
+                )
             batch.output_medicine_amount = output_medicine_amount
 
     @api.depends(
@@ -308,13 +311,13 @@ class StockPickingBatch(models.Model):
             batch.average_weight = average_weight
 
     @api.depends(
-    "move_line_ids",
-    "move_line_ids.state",
-    "move_line_ids.move_type_id",
-    "move_line_ids.location_dest_id",
-    "move_line_ids.location_id",  
-    "move_line_ids.qty_done",
-    "location_id",
+        "move_line_ids",
+        "move_line_ids.state",
+        "move_line_ids.move_type_id",
+        "move_line_ids.location_dest_id",
+        "move_line_ids.location_id",
+        "move_line_ids.qty_done",
+        "location_id",
     )
     def _compute_medicine(self):
         for batch in self:
@@ -333,9 +336,12 @@ class StockPickingBatch(models.Model):
                     lambda c: c.move_type_id == move_type
                     and (c.state == "done")
                     and c.location_id == batch.location_id
-                    and c.location_dest_id != batch.location_id  
+                    and c.location_dest_id != batch.location_id
                 )
-                medicine_qty = abs(sum(entry_lines.mapped("qty_done")) - sum(return_lines.mapped("qty_done")))
+                medicine_qty = abs(
+                    sum(entry_lines.mapped("qty_done"))
+                    - sum(return_lines.mapped("qty_done"))
+                )
             batch.medicine_qty = medicine_qty
 
     @api.depends("warehouse_id", "warehouse_id.farm_area", "chick_units")
@@ -903,17 +909,21 @@ class StockPickingBatch(models.Model):
                     and (c.state == "done" and c.picking_id)
                 )
                 entry_movelines = movelines.filtered(
-                    lambda c: c.location_dest_id == self.location_id
-                    and c.picking_id
+                    lambda c: c.location_dest_id == self.location_id and c.picking_id
                 )
                 return_movelines = movelines.filtered(
-                    lambda c: c.location_id == self.location_id
-                    and c.picking_id
+                    lambda c: c.location_id == self.location_id and c.picking_id
                 )
                 if line.quantity_type == "unit" and movelines:
-                    unit = abs(sum(entry_movelines.mapped("download_unit")) - sum(return_movelines.mapped("download_unit")))
+                    unit = abs(
+                        sum(entry_movelines.mapped("download_unit"))
+                        - sum(return_movelines.mapped("download_unit"))
+                    )
                 if line.quantity_type == "kg" and movelines:
-                    quantity = abs(sum(entry_movelines.mapped("qty_done")) - sum(return_movelines.mapped("qty_done")))
+                    quantity = abs(
+                        sum(entry_movelines.mapped("qty_done"))
+                        - sum(return_movelines.mapped("qty_done"))
+                    )
                 if line.quantity_type == "fixed":
                     quantity = 1
                 if line.price_type == "feed":
@@ -924,11 +934,17 @@ class StockPickingBatch(models.Model):
                     price = line.price
                 if (
                     line.price_type == "average"
-                    and entry_movelines 
-                    and sum(entry_movelines.mapped("qty_done")) != 0
+                    and entry_movelines
+                    and sum(movelines.mapped("qty_done")) != 0
                 ):
-                    total_amount = sum(entry_movelines.mapped("amount")) - sum(return_movelines.mapped("amount"))
-                    total_qty_done = abs(sum(entry_movelines.mapped("qty_done")) - sum(return_movelines.mapped("qty_done")))
+                    total_amount = abs(
+                        sum(entry_movelines.mapped("amount"))
+                        - sum(return_movelines.mapped("amount"))
+                    )
+                    total_qty_done = abs(
+                        sum(entry_movelines.mapped("qty_done"))
+                        - sum(return_movelines.mapped("qty_done"))
+                    )
                     price = total_amount / total_qty_done
                 if line.type == "charge":
                     n = -1
@@ -940,14 +956,7 @@ class StockPickingBatch(models.Model):
                     amount = n * quantity * price
                 if unit != 0:
                     amount = n * unit * price
-                    
-                print("=== FINAL VALUES ===")
-                print(f"price: {price}")
-                print(f"unit: {unit}") 
-                print(f"quantity: {quantity}")
-                print(f"amount: {amount}")
-                print(f"n: {n}")
-                print("=====================")
+
                 liquidation_line = self.env["liquidation.line"].create(
                     {
                         "product_id": line.product_id.id,
@@ -1042,17 +1051,19 @@ class StockPickingBatch(models.Model):
             }
         )
         entry_lines = self.move_line_ids.filtered(
-        lambda c: c.move_type_id == drug_type
-        and c.state == "done"
-        and c.location_dest_id == self.location_id
+            lambda c: c.move_type_id == drug_type
+            and c.state == "done"
+            and c.location_dest_id == self.location_id
         )
         return_lines = self.move_line_ids.filtered(
             lambda c: c.move_type_id == drug_type
             and c.state == "done"
             and c.location_id == self.location_id
-            and c.picking_id  
+            and c.picking_id
         )
-        net_medicine_amount = sum(entry_lines.mapped("amount")) - sum(return_lines.mapped("amount"))
+        net_medicine_amount = abs(
+            sum(entry_lines.mapped("amount")) - sum(return_lines.mapped("amount"))
+        )
         self.env["account.analytic.line"].create(
             {
                 "name": "Medicamento",
