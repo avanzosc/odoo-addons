@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* picking_generate_zero_lines
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-06 13:38+0000\n"
+"PO-Revision-Date: 2025-11-06 13:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: picking_generate_zero_lines
+#: code:addons/picking_generate_zero_lines/models/stock_quant.py:0
+#, python-format
+msgid "Cannot create quant for a traceable product without a lot."
+msgstr "No se pueden crear quants de un producto trazable sin lote."
+
+#. module: picking_generate_zero_lines
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_move_line__display_name
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_quant__display_name
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_return_picking__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: picking_generate_zero_lines
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_move_line__id
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_picking__id
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_quant__id
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_return_picking__id
+msgid "ID"
+msgstr "Identificador"
+
+#. module: picking_generate_zero_lines
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_move_line____last_update
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_quant____last_update
+#: model:ir.model.fields,field_description:picking_generate_zero_lines.field_stock_return_picking____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: picking_generate_zero_lines
+#: model:ir.model,name:picking_generate_zero_lines.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: picking_generate_zero_lines
+#: model:ir.model,name:picking_generate_zero_lines.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: picking_generate_zero_lines
+#: model:ir.model,name:picking_generate_zero_lines.model_stock_return_picking
+msgid "Return Picking"
+msgstr "Devolución para recolección"
+
+#. module: picking_generate_zero_lines
+#: model:ir.model,name:picking_generate_zero_lines.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"
+
+#. module: picking_generate_zero_lines
+#: code:addons/picking_generate_zero_lines/models/stock_move_line.py:0
+#: code:addons/picking_generate_zero_lines/models/stock_picking.py:0
+#, python-format
+msgid "You need to supply a Lot/Serial number for product %s"
+msgstr ""
