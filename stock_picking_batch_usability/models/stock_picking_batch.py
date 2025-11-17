@@ -17,7 +17,9 @@ class StockPickingBatch(models.Model):
             domain = [("state", "=", "done")]
             if batch.picking_type_id:
                 domain += [("picking_type_id", "=", batch.picking_type_id.id)]
-            new_pickings = self.env["stock.picking"].search(domain)
+            new_pickings = self.env["stock.picking"].search(
+                domain, order="date_done desc", limit=1000
+            )
             allowed_pickings += new_pickings
             batch.allowed_picking_ids = allowed_pickings
         return result
