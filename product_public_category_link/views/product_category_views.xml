@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_category_form_view" model="ir.ui.view">
+    <field name="inherit_id" ref="product.product_category_form_view" />
+    <field name="arch" type="xml">
+      <field name="parent_id" position="after">
+        <field
+          name="public_category"
+          widget="many2many_tags"
+          string="Public Category"
+          class="oe_inline"
+        />
+      </field>
+
+      <div name="button_box" position="inside">
+        <button
+          name="open_remove_public_wizard"
+          string="Remove Public Categories"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-chain-broken"
+        />
+      </div>
+    </field>
+  </record>
+</odoo>
