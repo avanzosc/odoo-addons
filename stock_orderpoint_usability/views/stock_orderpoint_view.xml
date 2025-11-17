@@ -18,12 +18,13 @@
             <field name="location_id" position="after">
                 <field name="qty_on_hand" readonly="1" optional="show" />
                 <field name="qty_forecast" readonly="1" optional="show" />
-                <field name="virtual_available" readonly="1" optional="show" />
                 <field
-          name="forecaster_distinct_forecast"
+          name="virtual_available"
           readonly="1"
           optional="show"
+          decoration-danger="forecaster_distinct_forecast"
         />
+                <field name="forecaster_distinct_forecast" readonly="1" invisible="1" />
                 <field name="lead_days_date" optional="show" />
                 <field name="incoming_qty" optional="show" />
                 <field name="outgoing_qty" optional="show" />
@@ -91,8 +92,12 @@
         />
             </button>
             <field name="route_id" position="before">
-                <field name="virtual_available" optional="show" />
-                <field name="forecaster_distinct_forecast" optional="show" />
+                <field
+          name="virtual_available"
+          optional="show"
+          decoration-danger="forecaster_distinct_forecast"
+        />
+                <field name="forecaster_distinct_forecast" invisible="1" />
                 <field name="lead_days_date" optional="show" />
                 <field name="incoming_qty" optional="show" />
                 <field name="outgoing_qty" optional="show" />
@@ -118,14 +123,16 @@
                     </div>
                     <label for="virtual_available" />
                     <div class="o_row">
-                        <field name="virtual_available" />
-                        <field name="product_uom_name" />
+                        <field
+              name="virtual_available"
+              decoration-danger="forecaster_distinct_forecast"
+            />
+                        <field
+              name="product_uom_name"
+              decoration-danger="forecaster_distinct_forecast"
+            />
                     </div>
-                    <label for="forecaster_distinct_forecast" />
-                    <div class="o_row">
-                        <field name="forecaster_distinct_forecast" />
-                        <field name="product_uom_name" />
-                    </div>
+                    <field name="forecaster_distinct_forecast" invisible="1" />
                     <label for="qty_to_order" />
                     <div class="o_row">
                         <field name="qty_to_order" />
@@ -152,12 +159,12 @@
             </field>
             <filter name="filter_to_reorder" position="after">
                 <filter
-          string="Forecaster distinct forecast"
+          string="Pending forecasted quantity"
           name="filter_distinct"
           domain="[('forecaster_distinct_forecast', '=', True)]"
         />
                 <filter
-          string="Forecaster NOT distinct forecast"
+          string="Not pending forecasted quantity"
           name="filter_not_distinct"
           domain="[('forecaster_distinct_forecast', '=', False)]"
         />
