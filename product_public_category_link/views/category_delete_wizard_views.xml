@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_category_delete_wizard_form" model="ir.ui.view">
+    <field name="name">category.delete.wizard.form</field>
+    <field name="model">category.delete.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Remove Public Categories">
+        <group>
+          <label
+            string="Select removal option"
+            for="remove_public_categories"
+            class="o_form_label"
+          />
+          <separator />
+          <field
+            name="remove_public_categories"
+            string="Remove public categories from products"
+          />
+        </group>
+        <footer>
+          <button
+            name="action_remove_public_categories"
+            string="Remove"
+            type="object"
+            class="btn-danger"
+          />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
