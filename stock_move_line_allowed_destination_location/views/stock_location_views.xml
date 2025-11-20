@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="stock.view_location_tree2" />
         <field name="arch" type="xml">
             <field name="usage" position="after">
-                <field name="not_allow_movelines_at_destination" optional="show" />
+                <field name="not_allowed_as_destination" optional="show" />
             </field>
         </field>
     </record>
@@ -15,7 +15,7 @@
         <field name="inherit_id" ref="stock.view_location_form" />
         <field name="arch" type="xml">
             <field name="usage" position="after">
-                <field name="not_allow_movelines_at_destination" />
+                <field name="not_allowed_as_destination" />
             </field>
         </field>
     </record>
@@ -29,12 +29,12 @@
                 <filter
           string="Do Not Allow Move Lines At Destination"
           name="not-move-lines-in-destination"
-          domain="[('not_allow_movelines_at_destination','=',True)]"
+          domain="[('not_allowed_as_destination','=',True)]"
         />
                 <filter
           string="Allow Move Lines At Destination"
           name="move-lines-in-destination"
-          domain="[('not_allow_movelines_at_destination','=',False)]"
+          domain="[('not_allowed_as_destination','=',False)]"
         />
             </field>
         </field>

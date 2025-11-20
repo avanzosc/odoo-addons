@@ -6,6 +6,6 @@ from odoo import fields, models
 class StockLocation(models.Model):
     _inherit = "stock.location"
 
-    not_allow_movelines_at_destination = fields.Boolean(
+    not_allowed_as_destination = fields.Boolean(
         string="Do Not Allow Move Lines At Destination", default=False
     )
