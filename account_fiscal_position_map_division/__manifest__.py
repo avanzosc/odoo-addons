@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["account", "crm"],
+    "depends": ["account", "crm", "sale"],
     "data": [
         "views/account_fiscal_position_views.xml",
         "views/account_invoice_views.xml",

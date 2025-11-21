@@ -15,7 +15,8 @@
                 <field
           name="brand_product_id"
           options="{'no_create': True}"
-          domain="[('product_tmpl_id','=', product_tmpl_id)]"
+          domain="[('product_tmpl_id','=', product_tmpl_id),
+                   ('state', '=', 'homologation')]"
         />
             </field>
         </field>
@@ -30,7 +31,8 @@
                 <field
           name="brand_product_id"
           options="{'no_create': True}"
-          domain="[('product_tmpl_id','=', product_tmpl_id)]"
+          domain="[('product_tmpl_id','=', product_tmpl_id),
+                   ('state', '=', 'homologation')]"
         />
                 <field name="product_brand_id" />
                 <field name="brand_code" />
