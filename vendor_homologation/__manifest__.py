@@ -3,7 +3,7 @@
 {
     "name": "Vendor Homologation",
     "version": "18.0.1.0.0",
-    'summary': 'Adds food homologation fields on vendor partner form.',
+    "summary": "Adds food homologation fields on vendor partner form.",
     "category": "Contacts",
     "license": "AGPL-3",
     "author": "AvanzOSC",
