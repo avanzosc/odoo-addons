@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-25 13:33+0000\n"
-"PO-Revision-Date: 2025-11-25 13:33+0000\n"
+"POT-Creation-Date: 2026-02-12 13:28+0000\n"
+"PO-Revision-Date: 2026-02-12 13:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_rebuild_from_history
+#: model:ir.actions.server,name:stock_rebuild_from_history.action_convert_consumable_to_stockable
+msgid "Convert Stockable and Rebuild Stock"
+msgstr "Voorraadbaar maken en de voorraad herstellen"
 
 #. module: stock_rebuild_from_history
 #: model:ir.model.fields,field_description:stock_rebuild_from_history.field_product_template__display_name
@@ -34,11 +39,6 @@ msgstr "Laatst gewijzigd op"
 #: model:ir.model,name:stock_rebuild_from_history.model_product_template
 msgid "Product Template"
 msgstr "Productsjabloon"
-
-#. module: stock_rebuild_from_history
-#: model_terms:ir.ui.view,arch_db:stock_rebuild_from_history.product_template_only_form_view
-msgid "Rebuild Stock"
-msgstr "Voorraad herstellen"
 
 #. module: stock_rebuild_from_history
 #: code:addons/stock_rebuild_from_history/models/product_template.py:0

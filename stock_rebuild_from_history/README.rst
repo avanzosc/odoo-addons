@@ -9,17 +9,21 @@ Stock Rebuild From History
 This module adds a **“Rebuild Stock”** button to the product template form.  
 Its purpose is to recalculate product quants based on all **completed stock move lines**.
 
-### Features
+Features
+--------
+
 - Resets the quantities of existing quants for the product and its variants.
 - Recomputes stock levels by reading all `done` move lines.
 - Updates or creates quants for each combination of:
-  - Source & destination locations  
-  - Lot/serial  
-  - Package  
-  - Owner  
+  - Source & destination locations
+  - Lot/serial
+  - Package
+  - Owner
 - Ensures stock data is rebuilt accurately without deleting any quant records.
 
-### Usage
+Usage
+-----
+
 From the product template form, click **Rebuild Stock**.  
 The module will:
 1. Set all related quants to `0`.
