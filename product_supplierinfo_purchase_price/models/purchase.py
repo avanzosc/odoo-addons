@@ -10,8 +10,8 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def button_approve(self, force=False):
-        res = super(PurchaseOrder, self).button_approve(force)
-        for line in self.order_line:
+        res = super(PurchaseOrder, self).button_approve(force=force)
+        for line in self.mapped("order_line"):
             seller = line.product_id._select_seller(
                 partner_id=self.partner_id,
                 quantity=line.product_qty,
