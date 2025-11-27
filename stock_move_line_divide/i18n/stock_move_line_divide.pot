@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-21 10:02+0000\n"
-"PO-Revision-Date: 2025-07-21 10:02+0000\n"
+"POT-Creation-Date: 2025-11-27 12:12+0000\n"
+"PO-Revision-Date: 2025-11-27 12:12+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,13 +47,27 @@ msgid "Name packages by reference"
 msgstr ""
 
 #. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_mrp_production__packaged_finished_moves
+msgid "Packaged Finished Moves"
+msgstr ""
+
+#. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr ""
 
 #. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr ""
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_mrp_production
+msgid "Production Order"
+msgstr ""
+
+#. module: stock_move_line_divide
 #. odoo-python
-#: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #, python-format
 msgid "The dividing amount or done quantity can not be 0."

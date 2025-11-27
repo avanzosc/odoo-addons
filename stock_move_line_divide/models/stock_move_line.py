@@ -1,6 +1,8 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import re
+
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
@@ -15,35 +17,48 @@ class StockMoveLine(models.Model):
             return self.location_dest_id
         return super()._get_default_dest_location()
 
-    def action_create_package(self, base_prefix=None):
+    def action_create_package(self, base_prefix=None, seq_number=None):
         self.ensure_one()
+
         name_packages = (
             self.env["ir.config_parameter"]
             .sudo()
             .get_param("stock.name_packages_by_reference")
         )
+
         pack_vals = {}
+        normalized_prefix = None
 
-        prefix = None
         if base_prefix:
-            prefix = base_prefix.strip()
+            normalized_prefix = base_prefix.strip()
+            normalized_prefix = re.sub(r"-\d+$", "", normalized_prefix)
         elif name_packages and self.reference:
-            prefix = self.reference.strip()
+            normalized_prefix = re.sub(r"[\\/\-]", "", self.reference.strip())
+            if re.search(r"\d+-\d{3}$", self.reference):
+                normalized_prefix = re.sub(r"(\d+)\d{3}$", r"\1", normalized_prefix)
 
-        if prefix:
-            domain = [("name", "like", prefix + " -%")]
-            existing_packages = self.env["stock.quant.package"].search(domain)
-            sequence_numbers = []
-            for pkg in existing_packages:
-                parts = pkg.name.rsplit(" - ", 1)
-                if len(parts) == 2 and parts[1].isdigit():
-                    sequence_numbers.append(int(parts[1]))
-            next_seq = max(sequence_numbers) + 1 if sequence_numbers else 1
-            name = f"{prefix} - {next_seq:03}"
-            pack_vals.update({"name": name})
+        if normalized_prefix:
+            if self.move_id.production_id:
+                next_seq = seq_number or (
+                    self.move_id.production_id.packaged_finished_moves + 1
+                )
+            else:
+                domain = [("name", "like", f"{normalized_prefix}-%")]
+                existing_packages = self.env["stock.quant.package"].search(domain)
+                sequence_numbers = [
+                    int(pkg.name.rsplit("-", 1)[1])
+                    for pkg in existing_packages
+                    if len(pkg.name.rsplit("-", 1)) == 2
+                    and pkg.name.rsplit("-", 1)[1].isdigit()
+                ]
+                if seq_number:
+                    next_seq = seq_number
+                else:
+                    next_seq = max(sequence_numbers, default=0) + 1
 
-        package = self.env["stock.quant.package"].create(pack_vals)
-        return package
+            pack_vals["name"] = f"{normalized_prefix}-{next_seq:02}"
+
+        return self.env["stock.quant.package"].create(pack_vals)
 
     def action_divide(self):
         self.ensure_one()
@@ -61,7 +76,6 @@ class StockMoveLine(models.Model):
             base_qty = qty // divide
             rest = qty % divide
             qty_quantities = [base_qty] * divide
-
             base_pack_qty = packaging_qty // divide
             packaging_qty_quantities = [base_pack_qty] * divide
 
@@ -73,20 +87,34 @@ class StockMoveLine(models.Model):
             base_qty = round(qty / divide, 2)
             qty_quantities = [base_qty] * divide
             qty_quantities[-1] = round(qty - sum(qty_quantities[:-1]), 2)
-
             base_pack_qty = round(packaging_qty / divide, 2)
             packaging_qty_quantities = [base_pack_qty] * divide
             packaging_qty_quantities[-1] = round(
                 packaging_qty - sum(packaging_qty_quantities[:-1]), 2
             )
 
-        base_prefix = (
-            self.result_package_id.name if self.result_package_id else self.reference
-        )
+        base_prefix = self.result_package_id.name if self.result_package_id else None
+
+        if base_prefix:
+            domain = [("name", "like", re.sub(r"-\d+$", "", base_prefix) + "-%")]
+            existing_packages = self.env["stock.quant.package"].search(domain)
+            sequence_numbers = [
+                int(pkg.name.rsplit("-", 1)[1])
+                for pkg in existing_packages
+                if len(pkg.name.rsplit("-", 1)) == 2
+                and pkg.name.rsplit("-", 1)[1].isdigit()
+            ]
+            start_seq = max(sequence_numbers, default=0) + 1
+        elif self.move_id.production_id:
+            start_seq = self.move_id.production_id.packaged_finished_moves + 1
+        else:
+            start_seq = 1
 
         first_qty = qty_quantities.pop(0)
         first_packaging_qty = packaging_qty_quantities.pop(0)
-        first_package = self.action_create_package(base_prefix=base_prefix)
+        first_package = self.action_create_package(
+            base_prefix=base_prefix, seq_number=start_seq
+        )
 
         self.write(
             {
@@ -100,8 +128,11 @@ class StockMoveLine(models.Model):
             }
         )
 
-        for i, qty in enumerate(qty_quantities):
-            package = self.action_create_package(base_prefix=base_prefix)
+        for i, qty in enumerate(qty_quantities, start=1):
+            package_seq = start_seq + i
+            package = self.action_create_package(
+                base_prefix=base_prefix, seq_number=package_seq
+            )
             new_vals = self.copy_data()[0]
             new_vals.update(
                 {
@@ -109,7 +140,7 @@ class StockMoveLine(models.Model):
                     "reserved_uom_qty": (
                         qty if self.move_id.raw_material_production_id else 0.0
                     ),
-                    "product_packaging_qty": packaging_qty_quantities[i],
+                    "product_packaging_qty": packaging_qty_quantities[i - 1],
                     "result_package_id": package.id,
                     "divide": 1,
                 }
