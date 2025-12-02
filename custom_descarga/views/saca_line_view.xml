@@ -553,6 +553,9 @@
         />
                 <field name="is_canceled" invisible="1" />
             </field>
+            <field name="saca_time" position="after">
+                <field name="distance_done" optional="hide" />
+            </field>
             <tree position="attributes">
                 <attribute name="decoration-muted">is_canceled == True</attribute>
             </tree>
