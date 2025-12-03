@@ -10,19 +10,19 @@ class StockMoveLine(models.Model):
     )
     dif_qty = fields.Float(string="Difference", compute="_compute_dif_qty", store=True)
 
-    @api.depends("quantity", "location_id", "location_id.usage")  
+    @api.depends("quantity", "location_id", "location_id.usage")
     def _compute_in_qty(self):
         for line in self:
             line.in_qty = 0
             if line.location_id and line.location_id.usage != "internal":
-                line.in_qty = line.quantity  
+                line.in_qty = line.quantity
 
-    @api.depends("quantity", "location_dest_id", "location_dest_id.usage")  
+    @api.depends("quantity", "location_dest_id", "location_dest_id.usage")
     def _compute_out_qty(self):
         for line in self:
             line.out_qty = 0
             if line.location_dest_id and (line.location_dest_id.usage) != ("internal"):
-                line.out_qty = line.quantity * (-1)  
+                line.out_qty = line.quantity * (-1)
 
     @api.depends("in_qty", "out_qty")
     def _compute_dif_qty(self):
