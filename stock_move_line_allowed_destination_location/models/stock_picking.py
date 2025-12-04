@@ -11,12 +11,13 @@ class StockPicking(models.Model):
         for picking in self:
             error = []
             for move_line in picking.move_line_ids.filtered(
-                "location_dest_id.not_allowed_as_destination"
+                lambda ml: ml.product_id.type == "product"
+                and ml.location_dest_id.not_allowed_as_destination
             ):
                 error.append(
                     _(
                         "The product: %(product_name)s, has the destination "
-                        "location:: %(destination_name)s, and this location "
+                        "location: %(destination_name)s, and this location "
                         "is not permitted as a destination location."
                     )
                     % {
