@@ -7,22 +7,19 @@ from odoo import api, fields, models
 class StockMove(models.Model):
     _inherit = "stock.move"
 
-    in_qty = fields.Float(string="Incoming Qty", compute="_compute_in_out_qty", store=True)
-    out_qty = fields.Float(string="Outgoing Qty", compute="_compute_in_out_qty", store=True)
-    dif_qty = fields.Float(string="Difference", compute="_compute_dif_qty", store=True)
+    in_qty = fields.Float(
+        string="Incoming Qty", compute="_compute_in_out_qty", store=True
+    )
+    out_qty = fields.Float(
+        string="Outgoing Qty", compute="_compute_in_out_qty", store=True
+    )
+    dif_qty = fields.Float(
+        string="Difference", compute="_compute_in_out_qty", store=True
+    )
 
-    @api.depends('move_line_ids.in_qty', 'move_line_ids.out_qty')
+    @api.depends("move_line_ids.in_qty", "move_line_ids.out_qty")
     def _compute_in_out_qty(self):
         for move in self:
-            in_total = 0.0
-            out_total = 0.0
-            for line in move.move_line_ids:
-                in_total += line.in_qty
-                out_total += line.out_qty
-            move.in_qty = in_total
-            move.out_qty = out_total
-
-    @api.depends('in_qty', 'out_qty')
-    def _compute_dif_qty(self):
-        for move in self:
+            move.in_qty = sum(move.move_line_ids.mapped("in_qty"))
+            move.out_qty = sum(move.move_line_ids.mapped("out_qty"))
             move.dif_qty = move.in_qty + move.out_qty

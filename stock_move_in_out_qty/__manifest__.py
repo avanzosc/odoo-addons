@@ -4,7 +4,7 @@
 {
     "name": "Stock Move In Out Qty",
     "version": "18.0.1.0.0",
-    "summary": """Adds incoming, outgoing and difference 
+    "summary": """Adds incoming, outgoing and difference
     quantity fields to stock moves, move lines and lots""",
     "author": "Avanzosc",
     "category": "Inventory",
