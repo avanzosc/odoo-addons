@@ -98,7 +98,7 @@ class StockMove(models.Model):
                     move.put_makes_in_line()
 
             moves += move
-        moves._update_orderpoints()
+        # moves._update_orderpoints()
         for move in moves:
             move.picking_id.update_division_in_pickings()
         return moves
