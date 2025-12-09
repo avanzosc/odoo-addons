@@ -7,7 +7,7 @@
     <field name="priority" eval="99" />
     <field name="arch" type="xml">
       <xpath expr="//field[@name='package_type_id']" position="after">
-        <field name="partner_id" string="Partner" readonly="1" />
+        <field name="partner_id" string="Partner" readonly="0" />
       </xpath>
     </field>
   </record>

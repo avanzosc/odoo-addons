@@ -10,7 +10,7 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Warehouse Management",
-    "data": ["views/stock_quant_package_view.xml"],
+    "data": ["views/stock_quant_package_view.xml", "views/stock_quant_view.xml"],
     "installable": True,
     "application": False,
 }
