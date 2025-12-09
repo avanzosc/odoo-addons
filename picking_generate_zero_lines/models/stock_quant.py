@@ -8,7 +8,11 @@ class StockQuant(models.Model):
     @api.model
     def create(self, vals):
         product = self.env["product.product"].browse(vals.get("product_id"))
-        if product.tracking != "none" and not vals.get("lot_id"):
+        if (
+            product.tracking != "none"
+            and not vals.get("lot_id")
+            and vals.get("quantity") > 0
+        ):
             raise UserError(
                 _("Cannot create quant for a traceable " "product without a lot.")
             )
