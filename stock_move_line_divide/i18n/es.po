@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-04 06:13+0000\n"
-"PO-Revision-Date: 2025-04-04 06:13+0000\n"
+"POT-Creation-Date: 2025-07-21 10:03+0000\n"
+"PO-Revision-Date: 2025-07-21 10:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de configuración"
 
 #. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
@@ -27,20 +32,34 @@ msgid "Divide in"
 msgstr "Dividir en"
 
 #. module: stock_move_line_divide
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.res_config_settings_view_form
+msgid "Enable automatic naming of packages based on reference."
+msgstr "Activar el nombrado automático de los paquetes en función de la referencia."
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_uom_uom__is_unit
+msgid "Is Unit"
+msgstr "Es unidad"
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_res_config_settings__name_packages_by_reference
+msgid "Name packages by reference"
+msgstr "Nombrar paquetes por referencia"
+
+#. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos productos (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
 
 #. module: stock_move_line_divide
 #. odoo-python
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
-#, python-format
-msgid "The dividing amount can not be 0."
-msgstr "El importe de la división no puede ser 0."
-
-#. module: stock_move_line_divide
-#. odoo-python
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #, python-format
 msgid "The dividing amount or done quantity can not be 0."
 msgstr "El importe de la división o la cantidad hecha no puedes ser 0."
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_stock_picking
+msgid "Transfer"
+msgstr "Traslado"

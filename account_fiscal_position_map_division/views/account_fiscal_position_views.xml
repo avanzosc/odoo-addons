@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_position_form" model="ir.ui.view">
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='account_ids']/tree/field[@name='account_dest_id']"
+        position="after"
+      >
+                <field name="team_id" />
+            </xpath>
+            <xpath
+        expr="//field[@name='account_ids']/form/field[@name='account_dest_id']"
+        position="after"
+      >
+                <field name="team_id" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

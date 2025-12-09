@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_paneling_tree_view" model="ir.ui.view">
+        <field name="name">product.paneling.tree.view</field>
+        <field name="model">product.paneling</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="product_paneling_action" model="ir.actions.act_window">
+        <field name="name">Paneling</field>
+        <field name="res_model">product.paneling</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="product_paneling_tree_view" />
+        <field name="context" />
+    </record>
+
+    <menuitem
+    id="menu_product_paneling"
+    parent="stock.menu_product_in_config_stock"
+    action="product_paneling_action"
+    sequence="15"
+    groups="base.group_system"
+  />
+</odoo>
