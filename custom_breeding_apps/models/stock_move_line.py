@@ -345,7 +345,9 @@ class StockMoveLine(models.Model):
     @api.onchange("lot_id")
     def _onchange_lot_id(self):
         result = super()._onchange_lot_id()
-        if self.lot_id:
+        picking_type = self.picking_id.picking_type_id
+        is_internal_transfer = picking_type and picking_type.code == "internal"
+        if not is_internal_transfer and self.lot_id:
             self.lot_id._compute_purchase_cost()
             self.standard_price = self.lot_id.purchase_cost
         return result
