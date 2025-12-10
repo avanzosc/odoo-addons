@@ -6,7 +6,11 @@
     "author": "Avanzosc",
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["delivery_package_number", "stock_quant_package_dimension"],
+    "depends": [
+        "delivery_package_number",
+        "stock_quant_package_dimension",
+        "delivery_total_weight_from_packaging",
+    ],
     "data": [
         "views/stock_quant_package_views.xml",
         "views/stock_picking_views.xml",
