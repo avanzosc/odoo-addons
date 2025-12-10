@@ -7,9 +7,10 @@
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "delivery",
         "delivery_package_number",
         "stock_quant_package_dimension",
-        "delivery_total_weight_from_packaging",
+        "supertronic_custom",
     ],
     "data": [
         "views/stock_quant_package_views.xml",

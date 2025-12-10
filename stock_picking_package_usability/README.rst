@@ -8,6 +8,8 @@ Stock Picking Package Usability
 
 * One to many from stock piking to package.
 * In transfers, button to generate indicated packages.
+* Added the calculation of move line weights, including the weight of destination packages, 
+  in stock picking operations.
 
 Bug Tracker
 ===========
@@ -28,3 +30,4 @@ Contributors
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
+* Ane Gurruchaga <aneavanzosc@avanzosc.es>
