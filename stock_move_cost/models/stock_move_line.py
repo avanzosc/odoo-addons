@@ -18,15 +18,19 @@ class StockMoveLine(models.Model):
         compute="_compute_cost",
     )
 
-    @api.depends("qty_done", "price_unit_cost")
+    @api.depends("quantity", "price_unit_cost")
     def _compute_cost(self):
         for line in self:
-            line.cost = line.qty_done * line.price_unit_cost
+            line.cost = line.quantity * line.price_unit_cost
 
     @api.onchange("product_id", "product_uom_id")
     def _onchange_product_id(self):
-        if self.product_id and self.product_id.standard_price:
-            self.price_unit_cost = self.product_id.standard_price
+        if self.product_id:
+            self.price_unit_cost = (
+                self.product_id.last_purchase_price
+                if self.product_id.last_purchase_price
+                else self.product_id.standard_price
+            )
         return super()._onchange_product_id()
 
     @api.onchange("lot_name", "lot_id")
@@ -54,5 +58,7 @@ class StockMoveLine(models.Model):
         if self.lot_id and self.lot_id.purchase_price:
             self._onchange_serial_number()
         else:
-            if self.price_unit_cost == 0 and self.product_id.standard_price:
+            if self.price_unit_cost == 0 and (
+                self.product_id.standard_price or self.product_id.last_purchase_price
+            ):
                 self._onchange_product_id()

@@ -20,12 +20,12 @@ class StockMove(models.Model):
         compute="_compute_price_unit_cost",
     )
 
-    @api.depends("quantity_done", "move_line_ids", "move_line_ids.cost")
+    @api.depends("quantity", "move_line_ids", "move_line_ids.cost")
     def _compute_price_unit_cost(self):
         for move in self:
             cost = sum(move.move_line_ids.mapped("cost"))
             move.cost = cost
-            if cost and move.quantity_done:
-                move.price_unit_cost = cost / move.quantity_done
+            if cost and move.quantity:
+                move.price_unit_cost = cost / move.quantity
             else:
                 move.price_unit_cost = 0
