@@ -17,3 +17,7 @@ class StockLot(models.Model):
     def _compute_lot_value(self):
         for lot in self:
             lot.lot_value = lot.product_qty * lot.purchase_price
+
+    @api.model
+    def recompute_lot_values(self):
+        self._compute_lot_value()

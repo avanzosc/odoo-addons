@@ -5,10 +5,11 @@
     "summary": "Product and lot cost valuation in stock quants",
     "version": "16.0.1.0.0",
     "category": "Inventory/Inventory",
+    "post_init_hook": "post_init_recompute",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["stock_lot_purchase_info"],
+    "depends": ["stock_lot_purchase_info", "purchase_last_price_info"],
     "data": ["views/stock_quant_view.xml", "views/stock_lot_view.xml"],
     "installable": True,
 }
