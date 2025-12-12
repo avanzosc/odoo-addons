@@ -44,3 +44,15 @@ class StockQuantPackage(models.Model):
             line.picking_id.name, "-", len(line.picking_id.quant_package_ids)
         )
         return line
+
+    def action_open_package(self):
+        self.ensure_one()
+        return {
+            "name": "Paquete",
+            "type": "ir.actions.act_window",
+            "res_model": "stock.quant.package",
+            "res_id": self.id,
+            "view_mode": "form",
+            "views": [(self.env.ref("stock.view_quant_package_form").id, "form")],
+            "target": "current",
+        }

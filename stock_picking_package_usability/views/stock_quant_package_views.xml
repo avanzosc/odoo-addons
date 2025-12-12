@@ -40,6 +40,13 @@
         <field name="arch" type="xml">
             <tree editable="bottom">
                 <field name="display_name" />
+                <button
+          name="action_open_package"
+          type="object"
+          icon="fa-external-link"
+          class="oe_edit_only"
+          title="Abrir paquete"
+        />
                 <field name="packaging_id" />
                 <field name="height" />
                 <field name="width" />
