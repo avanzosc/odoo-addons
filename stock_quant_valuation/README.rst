@@ -13,7 +13,7 @@ Features
 
 - **New computed fields for `stock.quant`:**
   - `product_cost`: Standard product cost (related to `product_id.standard_price`).
-  - `lot_cost`: Unit cost of the lot (related to `lot_id.purchase_price`).
+  - `lot_cost`: Unit cost of the lot if lot, otherwise purchase last price.
   - `lot_value`: Quant quantity × lot cost.
 
 - **New computed field for `stock.lot`:**
