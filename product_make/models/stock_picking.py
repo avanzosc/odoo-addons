@@ -60,14 +60,17 @@ class StockPicking(models.Model):
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
-        result = super().onchange_partner_id()
+        # result = super().onchange_partner_id()
         if not self.partner_id:
-            return result
+            self.commercial_make_id = False
+            self.allowed_commercial_make_ids = [(5, 0, 0)]
+            self.num_allowed_commercial_make = 0
+            return
         info = self.partner_id.get_partner_makes_info()
         self.commercial_make_id = info.get("commercial_make_id")
         self.allowed_commercial_make_ids = info.get("allowed_commercial_make_ids")
         self.num_allowed_commercial_make = info.get("num_allowed_commercial_make")
-        return result
+        # return result
 
     @api.depends(
         "move_ids_without_package",
