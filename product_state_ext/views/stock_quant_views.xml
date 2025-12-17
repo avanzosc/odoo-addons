@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record
+    id="view_stock_quant_tree_editable_inherit_product_state"
+    model="ir.ui.view"
+  >
+        <field name="name">stock.quant.tree.editable.product_state</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_state_id" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree_inherit_product_state" model="ir.ui.view">
+        <field name="name">stock.quant.tree.product_state</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_state_id" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_search_inherit_product_state" model="ir.ui.view">
+        <field name="name">stock.quant.search.product_state</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_state_id" />
+            </field>
+
+            <xpath expr="//search" position="inside">
+                <separator />
+                <filter
+          string="Product State"
+          name="groupby_product_state"
+          domain="[]"
+          context="{'group_by': 'product_state_id'}"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
