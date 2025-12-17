@@ -1,6 +1,6 @@
 # Copyright 2021 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockMoveLine(models.Model):
@@ -13,11 +13,13 @@ class StockMoveLine(models.Model):
         store=True,
         readonly=False,
     )
-    shipping_weight = fields.Float(
-        string="Shipping Weight",
-        related="result_package_id.shipping_weight",
-        readonly=False,
+
+    line_weight = fields.Float(
+        string="weight line",
+        compute="_compute_weight_line",
+        store=True,
     )
+
     weight_uom_name = fields.Char(
         string="Weight UOM", related="result_package_id.weight_uom_name", store=True
     )
@@ -44,3 +46,13 @@ class StockMoveLine(models.Model):
                 if not line.result_package_id.max_weight:
                     line.result_package_id.max_weight = line.packaging_id.max_weight
         return result
+
+    @api.depends("qty_done", "product_uom_qty", "product_id.weight")
+    def _compute_weight_line(self):
+        for line in self:
+            qty = (
+                line.qty_done
+                if line.qty_done > 0
+                else (line.product_uom_qty if line.product_uom_qty > 0 else 0.0)
+            )
+            line.line_weight = qty * (line.product_id.weight or 0.0)
