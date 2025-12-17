@@ -7,8 +7,10 @@ class StockMoveLine(models.Model):
 
     def action_done(self):
         for line in self:
-            if line.product_id.tracking != "none" and (
-                not line.lot_id or line.lot_name
+            if (
+                line.product_id.tracking != "none"
+                and line.qty_done > 0
+                and not (line.lot_id or line.lot_name)
             ):
                 raise UserError(
                     _("You need to supply a Lot/Serial number for product %s")

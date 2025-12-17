@@ -12,8 +12,8 @@ class StockPicking(models.Model):
             lambda c: c.quantity_done == 0
         )
         for move in zero_moves:
-            if move.product_id.tracking != "none" and not move.move_line_ids.filtered(
-                lambda ml: ml.lot_id
+            if move.product_id.tracking != "none" and move.move_line_ids.filtered(
+                lambda ml: ml.qty_done > 0 and not (ml.lot_id or ml.lot_name)
             ):
                 raise UserError(
                     _("You need to supply a Lot/Serial number for product %s")
