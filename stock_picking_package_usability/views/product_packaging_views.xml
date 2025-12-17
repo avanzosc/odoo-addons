@@ -18,4 +18,18 @@
             </field>
         </field>
     </record>
+    <record id="view_delivery_product_packaging_form_inherit" model="ir.ui.view">
+            <field name="name">delivery.product_packaging_delivery_form.inherit</field>
+            <field name="model">product.packaging</field>
+            <field name="inherit_id" ref="delivery.product_packaging_delivery_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='max_weight']" position="after">
+                    <label string="Peso vacío" for="empty_weight" />
+                    <div class="o_row" name="empty_weight">
+                        <field name="empty_weight" />
+                        <span><field name="weight_uom_name" /></span>
+                    </div>
+                </xpath>
+            </field>
+    </record>
 </odoo>

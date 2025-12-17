@@ -20,6 +20,30 @@ class StockQuantPackage(models.Model):
         store=True,
     )
 
+    move_line_ids = fields.One2many(
+        "stock.move.line",
+        "result_package_id",
+        string="Move Lines",
+    )
+
+    shipping_weight = fields.Float(
+        compute="_compute_shipping_weight", store=True, readonly=False
+    )
+
+    @api.depends(
+        "packaging_id.empty_weight",
+        "picking_id",
+        "move_line_ids.line_weight",
+        "move_line_ids.picking_id",
+    )
+    def _compute_shipping_weight(self):
+        for pkg in self:
+            empty = (pkg.packaging_id.empty_weight or 0.0) if pkg.packaging_id else 0.0
+            lines = pkg.move_line_ids
+            if pkg.picking_id:
+                lines = lines.filtered(lambda l: l.picking_id.id == pkg.picking_id.id)
+            pkg.shipping_weight = empty + sum(lines.mapped("line_weight"))
+
     @api.onchange("packaging_id")
     def onchange_dimension(self):
         if self.packaging_id.height:
