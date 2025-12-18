@@ -12,11 +12,8 @@ class PurchaseOrderLine(models.Model):
 
     @api.depends("sale_line_id", "sale_line_id.sequence")
     def _compute_sequence(self):
-        for purchase in self:
-            sequence = 0
-            if purchase.sale_line_id:
-                sequence = purchase.sale_line_id.sequence
-            purchase.sequence = sequence
+        for line in self:
+            line.sequence = line.sale_line_id.sequence if line.sale_line_id else 0
 
     @api.model_create_multi
     def create(self, vals_list):
