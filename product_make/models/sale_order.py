@@ -76,14 +76,6 @@ class SaleOrder(models.Model):
         res = super(
             SaleOrder, self.with_context(recompute_delivery=recompute_delivery)
         ).write(vals)
-        if recompute_delivery:
-            for order in self:
-                delivery_line = order.order_line.filtered("is_delivery")
-                if len(delivery_line) > 1:
-                    continue
-                order.with_context(
-                    delivery_discount=delivery_line.discount,
-                )._auto_refresh_delivery()
         return res
 
     def _recompute_delivery(self, vals):
@@ -106,11 +98,6 @@ class SaleOrder(models.Model):
                     recompute_delivery = True
                     break
         return recompute_delivery
-
-    def _auto_refresh_delivery(self):
-        self.ensure_one()
-        if "recompute_delivery" not in self.env.context:
-            return super()._auto_refresh_delivery()
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
@@ -263,3 +250,24 @@ class SaleOrder(models.Model):
                 sale.team_id = team_id
             sale.picking_ids.write({"team_id": team_id})
             sale.invoice_ids.write({"team_id": team_id})
+
+    def action_open_delivery_wizard(self):
+        result = super().action_open_delivery_wizard()
+        result["context"].update({"default_make_id": self.commercial_make_id.id})
+        carriers = self.env["delivery.carrier"].search(
+            self.env["delivery.carrier"]._check_company_domain(self.company_id)
+        )
+        available_carriers = (
+            carriers.available_carriers(self.partner_shipping_id, self)
+            if self.partner_id
+            else carriers
+        )
+        available_carriers = available_carriers.filtered(
+            lambda c: self.commercial_make_id
+            in c.product_id.product_tmpl_id.product_make_ids
+        )
+        if len(available_carriers) == 1:
+            result["context"].update({"default_carrier_id": available_carriers.id})
+        else:
+            result["context"].update({"default_carrier_id": False})
+        return result
