@@ -44,6 +44,11 @@ class StockQuantPackage(models.Model):
                 lines = lines.filtered(lambda l: l.picking_id.id == pkg.picking_id.id)
             pkg.shipping_weight = empty + sum(lines.mapped("line_weight"))
 
+    @api.depends("shipping_weight")
+    def _compute_estimated_pack_weight_kg(self):
+        for pkg in self:
+            pkg.estimated_pack_weight_kg = pkg.shipping_weight
+
     @api.onchange("packaging_id")
     def onchange_dimension(self):
         if self.packaging_id.height:
