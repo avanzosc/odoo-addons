@@ -250,24 +250,3 @@ class SaleOrder(models.Model):
                 sale.team_id = team_id
             sale.picking_ids.write({"team_id": team_id})
             sale.invoice_ids.write({"team_id": team_id})
-
-    def action_open_delivery_wizard(self):
-        result = super().action_open_delivery_wizard()
-        result["context"].update({"default_make_id": self.commercial_make_id.id})
-        carriers = self.env["delivery.carrier"].search(
-            self.env["delivery.carrier"]._check_company_domain(self.company_id)
-        )
-        available_carriers = (
-            carriers.available_carriers(self.partner_shipping_id, self)
-            if self.partner_id
-            else carriers
-        )
-        available_carriers = available_carriers.filtered(
-            lambda c: self.commercial_make_id
-            in c.product_id.product_tmpl_id.product_make_ids
-        )
-        if len(available_carriers) == 1:
-            result["context"].update({"default_carrier_id": available_carriers.id})
-        else:
-            result["context"].update({"default_carrier_id": False})
-        return result
