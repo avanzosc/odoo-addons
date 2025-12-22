@@ -30,6 +30,12 @@ class ProductTemplate(models.Model):
         related="categ_id.parent_id",
         store=True,
     )
+    show_incoming_qty_status_button = fields.Boolean(
+        compute="_compute_show_qty_status_button"
+    )
+    show_outgoing_qty_status_button = fields.Boolean(
+        compute="_compute_show_qty_status_button"
+    )
 
     @api.depends("seller_ids")
     def _compute_main_seller(self):
@@ -37,3 +43,11 @@ class ProductTemplate(models.Model):
             seller = product.seller_ids[:1]
             product.main_seller_id = seller.partner_id
             product.main_seller_price = seller.price
+
+    @api.depends("is_storable")
+    def _compute_show_qty_status_button(self):
+        result = super()._compute_show_qty_status_button()
+        for template in self:
+            template.show_incoming_qty_status_button = template.is_storable
+            template.show_outgoing_qty_status_button = template.is_storable
+        return result

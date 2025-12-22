@@ -6,14 +6,28 @@
     <field name="arch" type="xml">
       <field name="virtual_available" position="after">
         <field
+          name="show_incoming_qty_status_button"
+          column_invisible="True"
+          groups="stock.group_stock_user"
+        />
+        <field
+          name="show_outgoing_qty_status_button"
+          column_invisible="True"
+          groups="stock.group_stock_user"
+        />
+        <field
           name="incoming_qty"
+          invisible="not show_incoming_qty_status_button"
           optional="show"
-          modifiers="{'invisible':[('type', '!=', 'product')]}"
+          decoration-danger="incoming_qty &lt; 0"
+          groups="stock.group_stock_user"
         />
         <field
           name="outgoing_qty"
+          invisible="not show_outgoing_qty_status_button"
           optional="show"
-          modifiers="{'invisible':[('type', '!=', 'product')]}"
+          decoration-danger="outgoing_qty &lt; 0"
+          groups="stock.group_stock_user"
         />
         <field name="main_seller_id" optional="show" />
         <field name="main_seller_price" optional="show" />

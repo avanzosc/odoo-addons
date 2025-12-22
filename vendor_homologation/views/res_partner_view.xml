@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page string="HOMOLOGATION" invisible="not is_company">
+          <group>
+            <group>
+              <field name="food_homologated" />
+              <field name="food_homologation_first_date" />
+              <field name="food_homologation_last_review_date" />
+            </group>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_partner_tree" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree" />
+    <field name="arch" type="xml">
+      <xpath expr="//list" position="inside">
+        <field name="food_homologated" optional="hide" />
+        <field name="food_homologation_first_date" optional="hide" />
+        <field name="food_homologation_last_review_date" optional="hide" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_res_partner_filter" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="arch" type="xml">
+      <xpath expr="//search" position="inside">
+        <filter
+          name="food_homologated"
+          string="Homologated"
+          domain="[('food_homologated', '=', True)]"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>
