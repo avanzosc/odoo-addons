@@ -17,7 +17,6 @@
         "partner_group_purchase",
         "sale_order_line_sequence",
         "delivery",
-        "delivery_auto_refresh",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -36,6 +35,7 @@
         "views/res_partner_market_views.xml",
         "views/res_partner_market_sector_views.xml",
         "views/res_users_views.xml",
+        "wizard/choose_delivery_carrier_views.xml",
         "reports/report_res_partner_make_amount.xml",
         "reports/sale_report_views.xml",
     ],

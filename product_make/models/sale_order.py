@@ -76,14 +76,6 @@ class SaleOrder(models.Model):
         res = super(
             SaleOrder, self.with_context(recompute_delivery=recompute_delivery)
         ).write(vals)
-        if recompute_delivery:
-            for order in self:
-                delivery_line = order.order_line.filtered("is_delivery")
-                if len(delivery_line) > 1:
-                    continue
-                order.with_context(
-                    delivery_discount=delivery_line.discount,
-                )._auto_refresh_delivery()
         return res
 
     def _recompute_delivery(self, vals):
@@ -106,11 +98,6 @@ class SaleOrder(models.Model):
                     recompute_delivery = True
                     break
         return recompute_delivery
-
-    def _auto_refresh_delivery(self):
-        self.ensure_one()
-        if "recompute_delivery" not in self.env.context:
-            return super()._auto_refresh_delivery()
 
     @api.onchange("partner_id")
     def _onchange_partner_id(self):
