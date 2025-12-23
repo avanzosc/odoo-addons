@@ -24,14 +24,12 @@
           required="customer_rank > 0 and company_type == 'company'"
         />
       </field>
-      <xpath expr="//field[@name='is_company']/.." position="after">
+      <xpath expr="//field[@name='is_company']" position="after">
         <group>
-          <group>
-            <field name="make_logo" widget='image' class="oe_avatar" nolabel="1" />
-          </group>
-          <group />
+          <field name="make_logo" widget="image" class="oe_avatar" nolabel="1" />
         </group>
       </xpath>
+
       <page name="sales_purchases" position="after">
         <page
           name="make-salesperson"
