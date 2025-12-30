@@ -24,20 +24,26 @@
         <sheet>
           <group>
             <group>
-              <field name="product_name" />
-              <field name="product_default_code" />
-              <field name="product_type" />
-              <field name="product_uom" />
-              <field name="category_name" />
+              <field name="product_name" readonly="state == 'done'" />
+              <field name="product_default_code" readonly="state == 'done'" />
+              <field name="product_type" readonly="state == 'done'" />
+              <field name="product_uom" readonly="state == 'done'" />
+              <field name="category_name" readonly="state == 'done'" />
             </group>
             <group>
-              <field name="product_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="product_id"
+                readonly="state == 'done'"
+                options="{'no_create': True, 'no_open': True}"
+              />
               <field
                 name="product_uom_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
               <field
                 name="category_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
             </group>
@@ -62,52 +68,72 @@
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'create'"
           decoration-info="action == 'update'"
+          readonly="state == 'done'"
         />
-        <field name="product_name" />
-        <field name="product_default_code" />
-        <field name="product_id" optional="hide" options="{'no_create': True}" />
-        <field name="sale_ok" optional="hide" />
-        <field name="purchase_ok" optional="hide" />
-        <field name="barcode" optional="show" />
-        <field name="list_price" optional="show" />
-        <field name="customer_tax" optional="show" />
+        <field name="product_name" readonly="state == 'done'" />
+        <field name="product_default_code" readonly="state == 'done'" />
+        <field
+          name="product_id"
+          readonly="state == 'done'"
+          optional="hide"
+          options="{'no_create': True}"
+        />
+        <field name="sale_ok" readonly="state == 'done'" optional="hide" />
+        <field name="purchase_ok" readonly="state == 'done'" optional="hide" />
+        <field name="barcode" readonly="state == 'done'" optional="show" />
+        <field name="list_price" readonly="state == 'done'" optional="show" />
+        <field name="customer_tax" readonly="state == 'done'" optional="show" />
         <field
           name="customer_tax_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="standard_price" optional="show" />
-        <field name="product_uom" />
+        <field name="standard_price" readonly="state == 'done'" optional="show" />
+        <field name="product_uom" readonly="state == 'done'" />
         <field
           name="product_uom_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="purchase_uom_name" optional="show" />
+        <field name="purchase_uom_name" readonly="state == 'done'" optional="show" />
         <field
           name="purchase_uom_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="invoice_policy" optional="show" />
-        <field name="category_name" />
+        <field name="invoice_policy" readonly="state == 'done'" optional="show" />
+        <field name="category_name" readonly="state == 'done'" />
         <field
           name="category_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="product_type" optional="show" />
-        <field name="purchase_method" optional="show" />
-        <field name="description_purchase" optional="show" />
-        <field name="property_account_income" optional="show" />
+        <field name="product_type" readonly="state == 'done'" optional="show" />
+        <field name="purchase_method" readonly="state == 'done'" optional="show" />
+        <field name="description_purchase" readonly="state == 'done'" optional="show" />
+        <field
+          name="property_account_income"
+          readonly="state == 'done'"
+          optional="show"
+        />
         <field
           name="property_account_income_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="property_account_expense" optional="show" />
+        <field
+          name="property_account_expense"
+          readonly="state == 'done'"
+          optional="show"
+        />
         <field
           name="property_account_expense_id"
+          readonly="state == 'done'"
           optional="hide"
           options="{'no_create': True, 'no_open': True}"
         />

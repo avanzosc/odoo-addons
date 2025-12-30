@@ -26,13 +26,11 @@ class ProductImport(models.Model):
     product_type = fields.Selection(
         selection="_get_selection_product_type",
         string="Default Product Type",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     uom_id = fields.Many2one(
         string="Default Unit of Measure",
         comodel_name="uom.uom",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_count = fields.Integer(
@@ -44,18 +42,15 @@ class ProductImport(models.Model):
         comodel_name="res.company",
         required=True,
         default=lambda self: self.env.company.id,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_found_reference = fields.Boolean(
         string="Found Product Only By Internal Reference",
         default=False,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     data = fields.Binary(
         required=False,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -232,141 +227,116 @@ class ProductImportLine(models.Model):
             ("update", "Update"),
         ],
         ondelete={"update": "set default", "create": "set default"},
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_name = fields.Char(
         required=True,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_default_code = fields.Char(
         string="Internal Reference",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     barcode = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_type = fields.Selection(
         selection="_get_selection_product_type",
         default=default_product_type,
         required=True,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_uom = fields.Char(
         string="Product UoM",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_uom_id = fields.Many2one(
         string="Unit of Measure",
         comodel_name="uom.uom",
         domain="[('name','ilike',product_uom)]",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     category_name = fields.Char(
         string="Product Category Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     category_id = fields.Many2one(
         string="Product Category",
         comodel_name="product.category",
         domain="[('name','ilike',category_name)]",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     sale_ok = fields.Boolean(
         string="Can be Sold",
         default=default_sale_ok,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_ok = fields.Boolean(
         string="Can be Purchased",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     list_price = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     customer_tax = fields.Char(
         string="Customer Tax Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     standard_price = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_uom_name = fields.Char(
         string="Purchase UoM Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     invoice_policy = fields.Selection(
         selection="_get_selection_invoice_policy",
         default=default_invoice_policy,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_uom_id = fields.Many2one(
         string="Purchase UoM",
         comodel_name="uom.uom",
         domain="[('name','ilike',purchase_uom_name)]",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     customer_tax_id = fields.Many2one(
         string="Customer Tax",
         comodel_name="account.tax",
         domain="[('name','ilike',customer_tax)]",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_method = fields.Selection(
         selection="_get_selection_purchase_method",
         default=default_purchase_method,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     description_purchase = fields.Text(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_income = fields.Char(
         string="Income Account Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_income_id = fields.Many2one(
         string="Income Account",
         comodel_name="account.account",
         domain=ACCOUNT_DOMAIN,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_expense = fields.Char(
         string="Expense Account Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_expense_id = fields.Many2one(
         string="Expense Account",
         comodel_name="account.account",
         domain=ACCOUNT_DOMAIN,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 

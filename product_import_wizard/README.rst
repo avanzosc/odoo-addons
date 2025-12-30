@@ -8,7 +8,7 @@ Product Import Wizard
 
 * This module adds a wizard to import products into Odoo from CSV or XLSX files.  
 * It lets you validate records before processing, showing lines with errors or pending status, and then
- create or update products with their main data (internal reference, name, type, categories, UoM, prices, etc.).
+  create or update products with their main data (internal reference, name, type, categories, UoM, prices, etc.).
 
 Bug Tracker
 ===========
