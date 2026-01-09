@@ -14,11 +14,14 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/res_partner_interes.xml",
         "views/res_partner_view.xml",
         "views/calendar_event_view.xml",
         "views/principal_activity_view.xml",
         "views/water_subactivity_view.xml",
         "views/industry_subactivity_view.xml",
+        "views/responsable_flowserve_view.xml",
+        "views/res_partner_interes_view.xml",
     ],
     "installable": True,
 }
