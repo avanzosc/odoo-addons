@@ -6,14 +6,55 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-25 14:02+0000\n"
-"PO-Revision-Date: 2023-09-25 14:02+0000\n"
+"POT-Creation-Date: 2026-01-07 12:20+0000\n"
+"PO-Revision-Date: 2026-01-07 12:20+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__flowserve_manager_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__flowserve_manager_id
+msgid "*Flowserve Manager"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__active
+msgid "Active"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model,name:res_partner_activity.model_calendar_event
@@ -43,30 +84,68 @@ msgstr ""
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__create_uid
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__create_uid
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__create_uid
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__create_uid
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__create_date
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__create_date
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__create_date
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__create_date
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__customer_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__partner_id
 #: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
 msgid "Customer"
 msgstr ""
 
 #. module: res_partner_activity
-#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__display_name
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__name
+msgid "Description"
+msgstr ""
+
+#. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__display_name
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__display_name
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__display_name
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__display_name
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__display_name
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__display_name
 msgid "Display Name"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.actions.act_window,name:res_partner_activity.action_open_gestora_members
+msgid "Entidades que gestiona"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.actions.act_window,name:res_partner_activity.responsable_flowserve_action
+#: model:ir.model,name:res_partner_activity.model_x_responsable_flowserv
+#: model:ir.ui.menu,name:res_partner_activity.responsable_flowserve_menu
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
+msgid "Flowserve Manager"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: res_partner_activity
@@ -81,12 +160,37 @@ msgid "General Industry Subactivity"
 msgstr ""
 
 #. module: res_partner_activity
-#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event__id
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__id
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__id
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__id
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__id
 msgid "ID"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__message_has_error
+msgid "If checked, some messages have a delivery error."
 msgstr ""
 
 #. module: res_partner_activity
@@ -104,33 +208,115 @@ msgid "Industry Principal Activity"
 msgstr ""
 
 #. module: res_partner_activity
-#: model:ir.model.fields,field_description:res_partner_activity.field_calendar_event____last_update
-#: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity____last_update
-#: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity____last_update
-#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner____last_update
-#: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity____last_update
-msgid "Last Modified on"
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__interest_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__interest_id
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_partner_form
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_partner_tree
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
+msgid "Interest"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.actions.act_window,name:res_partner_activity.res_partner_intereses_action
+msgid "Interests"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_is_follower
+msgid "Is Follower"
 msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__write_uid
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__write_uid
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__write_uid
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__write_uid
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__write_date
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__write_date
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner_interes__write_date
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__write_date
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__managing_entity_id
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__managing_entity_id
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
+msgid "Managing Entity"
+msgstr ""
+
+#. module: res_partner_activity
+#: model_terms:ir.ui.view,arch_db:res_partner_activity.res_partner_intereses_tree_view
+msgid "Master of interests"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__my_activity_date_deadline
+msgid "My Activity Deadline"
 msgstr ""
 
 #. module: res_partner_activity
 #: model:ir.model.fields,field_description:res_partner_activity.field_industry_subactivity__name
 #: model:ir.model.fields,field_description:res_partner_activity.field_principal_activity__name
 #: model:ir.model.fields,field_description:res_partner_activity.field_water_subactivity__name
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__name
 msgid "Name"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__message_has_error_counter
+msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: res_partner_activity
@@ -142,6 +328,36 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
 #: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
 msgid "Principal Activity"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__schedule
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__schedule
+msgid "Schedule"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_x_responsable_flowserv__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,help:res_partner_activity.field_x_responsable_flowserv__activity_exception_decoration
+msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: res_partner_activity
@@ -167,4 +383,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:res_partner_activity.view_calendar_event_search
 #: model_terms:ir.ui.view,arch_db:res_partner_activity.view_res_partner_filter
 msgid "Water Subactivity"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_partner__what_do_they_do
+#: model:ir.model.fields,field_description:res_partner_activity.field_res_users__what_do_they_do
+msgid "What Do They Do"
+msgstr ""
+
+#. module: res_partner_activity
+#: model:ir.model,name:res_partner_activity.model_res_partner_interes
+msgid "interest"
 msgstr ""
