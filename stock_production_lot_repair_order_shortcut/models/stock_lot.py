@@ -5,8 +5,8 @@ from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
 
-class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+class StockLot(models.Model):
+    _inherit = "stock.lot"
 
     repair_order_ids = fields.One2many(
         string="Repairs", comodel_name="repair.order", inverse_name="lot_id", copy=False
