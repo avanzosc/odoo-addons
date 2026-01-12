@@ -6,7 +6,11 @@
 Stock picking cancel
 ====================
 
-In pickings new button to cancel pickings in "done" status.
+* If the status of a picking is "Done", the new "Cancel" button is displayed.
+* This new button will take the moves in "draft" state, and for each move line
+  it will update the quants, then remove the reserves from the moves, and delete
+  the move lines. By performing all of this, the picking will automatically
+  change to "Draft" status.
 
 
 Bug Tracker

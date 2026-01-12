@@ -10,10 +10,10 @@ class StockMoveLine(models.Model):
         quant_obj = self.env["stock.quant"]
         cond = self._quant_condition_for_picking_cancelation(self.location_dest_id)
         quant = quant_obj.search(cond)
-        quant.sudo().quantity = quant.quantity - self.qty_done
+        quant.sudo().quantity = quant.quantity - self.quantity
         cond = self._quant_condition_for_picking_cancelation(self.location_id)
         quant = quant_obj.search(cond)
-        quant.sudo().quantity = quant.quantity + self.qty_done
+        quant.sudo().quantity = quant.quantity + self.quantity
 
     def _quant_condition_for_picking_cancelation(self, location):
         cond = [

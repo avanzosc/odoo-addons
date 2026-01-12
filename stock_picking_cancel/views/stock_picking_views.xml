@@ -10,7 +10,7 @@
           string="Cancel"
           groups="base.group_user"
           type="object"
-          attrs="{'invisible': [('state', '!=', 'done')]}"
+          invisible="state != 'done'"
         />
       </field>
     </field>
