@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-19 09:39+0000\n"
-"PO-Revision-Date: 2025-11-19 09:39+0000\n"
+"POT-Creation-Date: 2026-01-13 12:31+0000\n"
+"PO-Revision-Date: 2026-01-13 12:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,16 @@ msgid "Cost Mismatch"
 msgstr "Incohérence de coût"
 
 #. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__cost_value
+msgid "Cost Value"
+msgstr ""
+
+#. module: stock_quant_valuation
+#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_cost
+msgid "Lot Cost"
+msgstr "Prix d'achat unitaire"
+
+#. module: stock_quant_valuation
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_lot__lot_value
 #: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_value
 msgid "Lot Value"
@@ -39,7 +49,7 @@ msgstr "Quantité du lot multipliée par le coût du lot."
 #. module: stock_quant_valuation
 #: model:ir.model,name:stock_quant_valuation.model_stock_lot
 msgid "Lot/Serial"
-msgstr "Lot/Série"
+msgstr "Lot/N° série"
 
 #. module: stock_quant_valuation
 #: model_terms:ir.ui.view,arch_db:stock_quant_valuation.quant_search_view
@@ -47,9 +57,9 @@ msgid "Product/Lot Cost mismatch"
 msgstr "Incohérence de coût Produit/Lot"
 
 #. module: stock_quant_valuation
-#: model:ir.model.fields,field_description:stock_quant_valuation.field_stock_quant__lot_cost
-msgid "Purchase Price Unit"
-msgstr "Prix d'achat unitaire"
+#: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__cost_value
+msgid "Quant quantity multiplied by cost."
+msgstr ""
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_value
@@ -59,12 +69,25 @@ msgstr "Quantité du quant multipliée par le coût du lot."
 #. module: stock_quant_valuation
 #: model:ir.model,name:stock_quant_valuation.model_stock_quant
 msgid "Quants"
-msgstr "Quants"
+msgstr "Quantités"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__product_cost
 msgid "Standard price of the product."
 msgstr "Prix standard du produit."
+
+#. module: stock_quant_valuation
+#: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_production_lot_tree
+#: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_stock_quant_tree_editable
+#: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_stock_quant_tree_inventory_editable
+msgid "Total"
+msgstr ""
+
+#. module: stock_quant_valuation
+#: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_stock_quant_tree_editable
+#: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_stock_quant_tree_inventory_editable
+msgid "Total Product cost"
+msgstr ""
 
 #. module: stock_quant_valuation
 #: model_terms:ir.ui.view,arch_db:stock_quant_valuation.view_production_lot_form
@@ -74,5 +97,5 @@ msgstr "Prix unitaire"
 
 #. module: stock_quant_valuation
 #: model:ir.model.fields,help:stock_quant_valuation.field_stock_quant__lot_cost
-msgid "Unit price of the lot."
-msgstr "Prix unitaire du lot si lot, sinon dernier prix d’achat."
+msgid "Unit price of the lot if lot, otherwise purchase last price."
+msgstr ""

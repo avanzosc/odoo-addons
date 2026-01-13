@@ -6,7 +6,8 @@
             <field name="product_uom_id" position="after">
                 <field name="lot_cost" optional="show" />
                 <field name="lot_value" optional="show" sum="Total" />
-                <field name="product_cost" optional="hide" />
+                <field name="product_cost" optional="show" />
+                <field name="cost_value" optional="show" sum="Total Cost Value" />
             </field>
         </field>
     </record>
@@ -18,7 +19,8 @@
             <field name="product_uom_id" position="after">
                 <field name="lot_cost" optional="show" />
                 <field name="lot_value" optional="show" sum="Total" />
-                <field name="product_cost" optional="hide" />
+                <field name="product_cost" optional="show" />
+                <field name="cost_value" optional="show" sum="Total Cost Value" />
             </field>
         </field>
     </record>
