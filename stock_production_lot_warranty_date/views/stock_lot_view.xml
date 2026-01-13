@@ -40,15 +40,13 @@
     <field name="inherit_id" ref="product_expiry.view_move_form_expiry" />
     <field name="arch" type="xml">
       <field name="removal_date" position="attributes">
-        <attribute
-          name="attrs"
-        >{'invisible': [('removal_date', '=', False)]}</attribute>
+        <attribute name="invisible">removal_date == False</attribute>
       </field>
       <field name="use_date" position="attributes">
-        <attribute name="attrs">{'invisible': [('use_date', '=', False)]}</attribute>
+        <attribute name="invisible">use_date == False</attribute>
       </field>
       <field name="alert_date" position="attributes">
-        <attribute name="attrs">{'invisible': [('alert_date', '=', False)]}</attribute>
+        <attribute name="invisible">alert_date == False</attribute>
       </field>
     </field>
   </record>
