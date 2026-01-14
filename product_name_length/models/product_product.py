@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductProduct(models.Model):
@@ -10,6 +10,7 @@ class ProductProduct(models.Model):
         string="Name for labels", compute="_compute_name_for_labels"
     )
 
+    @api.depends("name")
     def _compute_name_for_labels(self):
         max_length = int(
             self.env["ir.config_parameter"]
