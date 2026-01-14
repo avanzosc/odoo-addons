@@ -1,6 +1,6 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
 
@@ -19,15 +19,12 @@ class AccountMove(models.Model):
     )
     repairs_ids = fields.One2many(
         string="Repairs",
+        compute="_compute_repairs_ids",
         comodel_name="repair.order",
-        inverse_name="invoice_id",
-        copy=False,
+        store=False,
     )
     count_repairs = fields.Integer(
-        string="Num. repairs",
-        compute="_compute_count_repairs",
-        store=True,
-        copy=False,
+        string="Num. repairs", compute="_compute_count_repairs", store=False
     )
 
     def _compute_is_repair(self):
@@ -48,10 +45,15 @@ class AccountMove(models.Model):
                         amount_total_products_rmas += line.amount_products_rmas
                 invoice.amount_total_products_rmas = amount_total_products_rmas
 
-    @api.depends("repair_ids")
+    def _compute_repairs_ids(self):
+        for account_move in self:
+            sale_orders = account_move.mapped("line_ids.sale_line_ids.order_id")
+            invoices = sale_orders.mapped("repair_order_ids")
+            account_move.repairs_ids = invoices
+
     def _compute_count_repairs(self):
         for invoice in self:
-            invoice.count_repairs = len(invoice.repair_ids)
+            invoice.count_repairs = len(invoice.repairs_ids)
 
     def unlink(self):
         repair_obj = self.env["repair.order"]

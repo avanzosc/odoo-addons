@@ -4,8 +4,6 @@ from . import product_product
 from . import product_rma
 from . import product_template
 from . import purchase_order
-from . import repair_fee
-from . import repair_line
 from . import repair_order
 from . import sale_order_line
 from . import sale_order_type

@@ -20,11 +20,13 @@
         <field name="is_repair" />
         <field
           name="picking_type_repair_out_id"
-          attrs="{'invisible': [('is_repair', '=', False)], 'required': [('is_repair', '=', True)]}"
+          invisible="not is_repair"
+          required="is_repair"
         />
         <field
           name="picking_type_repair_in_id"
-          attrs="{'invisible': [('is_repair', '=', False)], 'required': [('is_repair', '=', True)]}"
+          invisible="not is_repair"
+          required="is_repair"
         />
       </field>
     </field>

@@ -13,7 +13,7 @@
         />
         <field name="created_from_move_line_id" optional="show" />
         <field name="sale_order_id" optional="show" />
-        <field name="invoice_id" optional="show" />
+        <field name="invoice_ids" widget="many2many_tags" optional="show" />
       </field>
       <field name="company_id" position="before">
         <field
@@ -26,6 +26,10 @@
       <field name="product_id" position="after">
         <field name="lot_id" optional="show" />
       </field>
+      <field name="partner_id" position="after">
+        <field name="partner_invoice_id" readonly="1" optional="show" />
+        <field name="address_id" readonly="1" optional="hide" />
+      </field>
     </field>
   </record>
 
@@ -34,7 +38,6 @@
     <field name="inherit_id" ref="repair.view_repair_order_form" />
     <field name="priority">100</field>
     <field name="arch" type="xml">
-      <field name="invoice_id" position="replace" />
       <field name="user_id" position="after">
         <field name="created_from_picking_id" />
         <field name="purchase_order_id" />
@@ -44,16 +47,26 @@
       <field name="tag_ids" position="after">
         <field name="created_from_move_line_id" />
         <field name="sale_order_id" />
-        <field name="invoice_id" readonly="1" />
+        <field name="invoice_ids" widget="many2many_tags" readonly="1" />
       </field>
-      <xpath expr="//page[@name='extra_info']//field[@name='move_id']" position="after">
+      <xpath
+        expr="//page[@name='page_miscellaneous']//field[@name='picking_type_id']"
+        position="after"
+      >
         <field name="from_repair_picking_out_id" readonly="1" />
       </xpath>
-      <button name="action_repair_invoice_create" position="attributes">
-        <attribute
-          name="attrs"
-        >{'invisible': ['|', ('is_repair', '=', True), '|', ('state', '!=', '2binvoiced'), ('invoice_id', '!=', False)]}</attribute>
-      </button>
+      <field name="partner_id" position="after">
+        <field
+          name="partner_invoice_id"
+          widget="res_partner_many2one"
+          readonly="sale_order_id"
+        />
+        <field
+          name="address_id"
+          widget="res_partner_many2one"
+          readonly="sale_order_id"
+        />
+      </field>
     </field>
   </record>
 
@@ -61,13 +74,20 @@
     <field name="model">repair.order</field>
     <field name="inherit_id" ref="repair.view_repair_order_form_filter" />
     <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field
+          name="partner_invoice_id"
+          filter_domain="[('partner_invoice_id', 'child_of', self)]"
+        />
+        <field name="address_id" filter_domain="[('address_id', 'child_of', self)]" />
+      </field>
       <field name="partner_id" position="before">
         <field name="purchase_order_id" />
         <field name="created_from_picking_id" />
         <field name="sale_order_id" />
-        <field name="invoice_id" />
+        <field name="invoice_ids" />
       </field>
-      <filter name="ready_to_repair" position="after">
+      <filter name="returned" position="after">
         <separator />
         <filter
           string="Created from incoming picking"
@@ -104,7 +124,21 @@
           string="Invoice"
           name="group-invoice"
           domain="[]"
-          context="{'group_by': 'invoice_id'}"
+          context="{'group_by': 'invoice_ids'}"
+        />
+      </filter>
+      <filter name="partner" position="after">
+        <filter
+          string="Invoicing Address"
+          name="partner-invoice"
+          domain="[]"
+          context="{'group_by': 'partner_invoice_id'}"
+        />
+        <filter
+          string="Delivery Address"
+          name="address"
+          domain="[]"
+          context="{'group_by': 'address_id'}"
         />
       </filter>
     </field>

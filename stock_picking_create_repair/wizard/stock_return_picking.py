@@ -12,8 +12,11 @@ class StockReturnPicking(models.TransientModel):
         for line in self.picking_id.move_line_ids.filtered(
             lambda x: x.state == "done" and x.is_repair and x.lot_id and x.sale_line_id
         ):
+            product_id = line.product_id
             for new_line in new_picking.move_line_ids.filtered(
-                lambda z: z.product_id == line.product_id and not z.lot_id
+                lambda z, product_id=product_id: (
+                    z.product_id == product_id and not z.lot_id
+                )
             ):
                 new_line.lot_id = line.lot_id.id
                 new_line._onchange_serial_number()

@@ -12,7 +12,7 @@
           class="oe_stat_button"
           icon="fa-tasks"
           type="object"
-          attrs="{'invisible': [('count_repairs', '=', 0)]}"
+          invisible="count_repairs == 0"
         >
           <field name="count_repairs" widget="statinfo" string="Repairs" />
         </button>

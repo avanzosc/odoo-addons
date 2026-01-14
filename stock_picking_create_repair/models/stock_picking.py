@@ -68,7 +68,7 @@ class StockPicking(models.Model):
             lambda x: x.picking_type_code == "incoming" and x.is_repair
         ):
             for line in picking.move_line_ids.filtered(
-                lambda x: x.qty_done > 0 and not x.created_repair_id
+                lambda x: x.quantity > 0 and not x.created_repair_id
             ):
                 vals = line.catch_values_from_create_repair_from_picking()
                 repair = self.env["repair.order"].create(vals)
@@ -188,11 +188,13 @@ class StockPicking(models.Model):
                     repairs = my_repairs
                 if repairs:
                     repairs.write({"move_id": False})
+                    lot_id = line.lot_id
                     repairs_not_to_treat = repairs.filtered(
-                        lambda x: x.lot_id != line.lot_id
+                        lambda x, lot_id=lot_id: x.lot_id != lot_id
                     )
+                    lot_id = line.lot_id
                     repairs_to_treat = repairs.filtered(
-                        lambda x: x.lot_id == line.lot_id
+                        lambda x, lot_id=lot_id: x.lot_id == lot_id
                     )
                 origin = ""
                 for repair in repairs_not_to_treat:

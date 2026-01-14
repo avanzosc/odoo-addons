@@ -27,9 +27,11 @@ class AccountMoveLine(models.Model):
                 line.amount_products_rmas = 0
             else:
                 products = []
+                move_id = line.move_id
                 for repair in line.sale_line_id.repair_order_ids.filtered(
-                    lambda x: x.state in ("done", "2binvoiced")
-                    and x.invoice_id == line.move_id
+                    lambda x, move_id=move_id: (
+                        x.state in ("done", "2binvoiced") and x.invoice_id == move_id
+                    )
                 ):
                     for operation in repair.operations:
                         if repair.invoice_method != "none":

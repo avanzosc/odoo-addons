@@ -45,19 +45,18 @@ class SaleOrderLine(models.Model):
 
     @api.depends(
         "repair_order_ids",
-        "repair_order_ids.amount_untaxed",
-        "repair_order_ids.invoice_method",
+        "repair_order_ids.sale_order_id.invoice_ids.amount_untaxed",
         "repair_order_ids.state",
     )
     def _compute_repair_amount_untaxed(self):
         for line in self:
             repair_amount_untaxed = 0
             if line.is_service and line.is_repair and line.product_to_repair_id:
-                repairs = line.repair_order_ids.filtered(
-                    lambda x: x.invoice_method != "none" and x.state != "cancel"
-                )
+                repairs = line.repair_order_ids.filtered(lambda x: x.state != "cancel")
                 if repairs:
-                    repair_amount_untaxed = sum(repairs.mapped("amount_untaxed"))
+                    repair_amount_untaxed = sum(
+                        repairs.mapped("sale_order_id.invoice_ids.amount_untaxed")
+                    )
             line.repair_amount_untaxed = repair_amount_untaxed
 
     @api.onchange("product_id")
@@ -161,9 +160,13 @@ class SaleOrderLine(models.Model):
             if not repair.from_repair_picking_out_id:
                 amount_pending_delivery += repair.amount_untaxed
             else:
+                lot_id = repair.lot_id
+                picking_id = repair.from_repair_picking_out_id
+
                 move_lines = self.repair_picking_move_line_ids.filtered(
-                    lambda x: x.lot_id == repair.lot_id
-                    and x.picking_id == repair.from_repair_picking_out_id
+                    lambda x, lot_id=lot_id, picking_id=picking_id: (
+                        x.lot_id == lot_id and x.picking_id == picking_id
+                    )
                 )
                 if not move_lines:
                     amount_pending_delivery += repair.amount_untaxed
@@ -182,10 +185,9 @@ class SaleOrderLine(models.Model):
         "price_unit",
         "repair_order_ids",
         "repair_order_ids.state",
-        "repair_order_ids.amount_untaxed",
-        "repair_order_ids.invoice_method",
+        "repair_order_ids.sale_order_id.invoice_ids.amount_untaxed",
         "repair_order_ids.from_repair_picking_out_id",
-        "repair_order_ids.invoice_id",
+        "repair_order_ids.sale_order_id.invoice_ids",
         "repair_picking_move_line_ids",
         "repair_picking_move_line_ids.state",
         "repair_picking_move_line_ids.lot_id",
@@ -220,11 +222,19 @@ class SaleOrderLine(models.Model):
             and x.invoice_method != "none"
             and not x.invoice_id
         ):
+            picking_id = repair.from_repair_picking_out_id
+            sale_line_id = repair.sale_line_id
+            lot_id = repair.lot_id
             move_lines = self.repair_picking_move_line_ids.filtered(
-                lambda z: z.picking_id == repair.from_repair_picking_out_id
-                and z.sale_line_id == repair.sale_line_id
-                and z.lot_id == repair.lot_id
-                and z.state == "done"
+                lambda z,
+                picking_id=picking_id,
+                sale_line_id=sale_line_id,
+                lot_id=lot_id: (
+                    z.picking_id == picking_id
+                    and z.sale_line_id == sale_line_id
+                    and z.lot_id == lot_id
+                    and z.state == "done"
+                )
             )
             if move_lines:
                 amount += repair.amount_untaxed
@@ -237,12 +247,11 @@ class SaleOrderLine(models.Model):
         "discount",
         "price_unit",
         "repair_order_ids",
-        "repair_order_ids.amount_untaxed",
-        "repair_order_ids.invoice_method",
+        "repair_order_ids.sale_order_id.invoice_ids.amount_untaxed",
         "repair_order_ids.state",
-        "repair_order_ids.invoice_id",
-        "repair_order_ids.invoice_id.state",
-        "repair_order_ids.invoice_id.amount_residual",
+        "repair_order_ids.sale_order_id.invoice_ids",
+        "repair_order_ids.sale_order_id.invoice_ids.state",
+        "repair_order_ids.sale_order_id.invoice_ids.amount_residual",
     )
     def _compute_qty_amount_pending_invoicing(self):
         result = True
@@ -268,9 +277,7 @@ class SaleOrderLine(models.Model):
     def _get_amount_pending_invoicing(self):
         amount = 0
         repairs_without_invoice = self.repair_order_ids.filtered(
-            lambda x: not x.invoice_id
-            and x.state != "cancel"
-            and x.invoice_method != "none"
+            lambda x: not x.invoice_ids and x.state != "cancel"
         )
         if repairs_without_invoice:
             amount += sum(repairs_without_invoice.mapped("amount_untaxed"))
@@ -306,6 +313,22 @@ class SaleOrderLine(models.Model):
                 }
             )
             line._compute_qty_delivered_method()
+        return result
+
+    @api.depends(
+        "product_id",
+        "product_id.type",
+        "state",
+        "qty_invoiced",
+        "qty_delivered",
+        "move_ids",
+    )
+    def _compute_product_updatable(self):
+        result = super()._compute_product_updatable()
+        for line in self:
+            if line.move_ids.filtered(lambda m: m.state != "cancel"):
+                if not line.product_updatable and line.product_to_repair_id:
+                    line.product_updatable = True
         return result
 
     # @api.onchange("qty_delivered")

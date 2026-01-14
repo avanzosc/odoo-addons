@@ -6,6 +6,16 @@ from odoo import api, fields, models
 class RepairOrder(models.Model):
     _inherit = "repair.order"
 
+    partner_invoice_id = fields.Many2one(
+        string="Invoicing Address", comodel_name="res.partner", check_company=True
+    )
+    address_id = fields.Many2one(
+        string="Delivery Address",
+        comodel_name="res.partner",
+        domain="[('parent_id','=',partner_id)]",
+        check_company=True,
+        states={"confirmed": [("readonly", True)]},
+    )
     created_from_move_line_id = fields.Many2one(
         string="Created from detailed operation",
         copy=False,
@@ -43,6 +53,29 @@ class RepairOrder(models.Model):
     is_repair = fields.Boolean(
         string="Is repair", compute="_compute_is_repair", store=True, copy=False
     )
+    amount_untaxed = fields.Float(
+        string="Untaxed Amount",
+        digits="Account",
+        copy=False,
+        store=True,
+        compute="_compute_amount_untaxed",
+    )
+    invoice_ids = fields.Many2many(
+        string="Invoices",
+        comodel_name="account.move",
+        related="sale_order_id.invoice_ids",
+    )
+
+    @api.depends(
+        "sale_order_id",
+        "sale_order_id.invoice_ids",
+        "sale_order_id.invoice_ids.amount_untaxed",
+    )
+    def _compute_amount_untaxed(self):
+        for repair in self:
+            repair.amount_untaxed = sum(
+                repair.mapped("sale_order_id.invoice_ids.amount_untaxed")
+            )
 
     @api.depends("sale_order_id", "sale_order_id.is_repair")
     def _compute_is_repair(self):
