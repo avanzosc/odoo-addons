@@ -164,9 +164,7 @@ class StockPicking(models.Model):
             origin = ""
             new_origin = ""
             for line in picking.move_line_ids.filtered(lambda m: m.origin):
-                origin = (
-                    line.origin if not origin else "{}/{}".format(origin, line.origin)
-                )
+                origin = line.origin if not origin else f"{origin}/{line.origin}"
             for line in picking.move_line_ids.filtered(
                 lambda z: z.is_repair
                 and z.sale_line_id
@@ -198,16 +196,10 @@ class StockPicking(models.Model):
                     )
                 origin = ""
                 for repair in repairs_not_to_treat:
-                    origin = (
-                        repair.name
-                        if not origin
-                        else "{}/{}".format(origin, repair.name)
-                    )
+                    origin = repair.name if not origin else f"{origin}/{repair.name}"
                 for repair in repairs_to_treat:
                     new_origin = (
-                        repair.name
-                        if not new_origin
-                        else "{}/{}".format(new_origin, repair.name)
+                        repair.name if not new_origin else f"{new_origin}/{repair.name}"
                     )
                     if not repair.move_id:
                         repair.move_id = line.move_id.id
@@ -243,11 +235,7 @@ class StockPicking(models.Model):
                 if repairs:
                     line.origin = ""
                 for repair in repairs:
-                    origin = (
-                        repair.name
-                        if not origin
-                        else "{}, {}".format(origin, repair.name)
-                    )
+                    origin = repair.name if not origin else f"{origin}, {repair.name}"
                     if not repair.move_id:
                         repair.move_id = line.id
                 if origin:
