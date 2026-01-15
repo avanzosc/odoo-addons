@@ -89,15 +89,3 @@ class StockPicking(models.Model):
                 self.name, "-", len(self.quant_package_ids)
             )
             return result
-
-    def _action_done(self):
-        res = super()._action_done()
-
-        for picking in self:
-            packages = picking.move_line_ids.mapped("result_package_id")
-            packages = packages.filtered(lambda p: p)
-
-            for package in packages:
-                if package.pack_weight > 0:
-                    package.pack_weight = package.shipping_weight
-        return res
