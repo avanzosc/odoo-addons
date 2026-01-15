@@ -13,6 +13,8 @@ class StockMove(models.Model):
 
     def button_action_assign(self):
         self._action_assign()
+        return True
 
     def button_do_unreserve(self):
         self._do_unreserve()
+        return True
