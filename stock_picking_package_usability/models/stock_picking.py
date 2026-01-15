@@ -98,6 +98,6 @@ class StockPicking(models.Model):
             packages = packages.filtered(lambda p: p)
 
             for package in packages:
-                package.pack_weight = package.shipping_weight
-
+                if package.pack_weight > 0:
+                    package.pack_weight = package.shipping_weight
         return res
