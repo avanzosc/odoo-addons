@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_picking_view_search" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search" />
+        <field name="arch" type="xml">
+            <filter name="my_transfers" position="before">
+                <field name="agreement_id" />
+            </filter>
+            <group expand="0" position="inside">
+                <filter
+          string="Agreement"
+          name="agreement_groupby"
+          context="{'group_by': 'agreement_id'}"
+        />
+            </group>
+        </field>
+    </record>
+
+</odoo>

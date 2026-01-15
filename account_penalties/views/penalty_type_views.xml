@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="penalty_type_tree_view" model="ir.ui.view">
+        <field name="name">penalty.type.tree</field>
+        <field name="model">penalty.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="product_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="penalty_type_form_view" model="ir.ui.view">
+        <field name="name">penalty.type.form</field>
+        <field name="model">penalty.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="product_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="penalty_type_search_view" model="ir.ui.view">
+        <field name="name">penalty.type.search</field>
+        <field name="model">penalty.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                </search>
+        </field>
+    </record>
+
+    <act_window
+    id="penalty_type_action"
+    name="Penalty Types"
+    res_model="penalty.type"
+    view_mode="tree,form"
+  />
+
+    <menuitem
+    id="config_penalties_menu"
+    name="Penalties"
+    parent="sale.menu_sale_config"
+    sequence="50"
+  />
+
+    <menuitem
+    id="penalty_type_menu"
+    name="Penalty Types"
+    parent="config_penalties_menu"
+    action="penalty_type_action"
+    sequence="10"
+  />
+</odoo>
