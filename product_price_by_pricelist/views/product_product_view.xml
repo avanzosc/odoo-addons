@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="product_normal_form_view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <page name="purchase" position="after">
+                <page string="Product price by pricelist" name="price-by_pricelist">
+                    <button string="Load product price by pricelist" type="object"
+                        name="calculate_price_by_pricelist" />
+                    <field name="product_price_by_pricelist_ids" nolabel="1">
+                        <tree>
+                            <field name="product_id" invisible="1"/>
+                            <field name="pricelist_id" />
+                            <field name="price_unit" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
