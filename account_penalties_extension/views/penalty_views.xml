@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="penalty_form_view" model="ir.ui.view">
+        <field name="model">account.penalty</field>
+        <field name="inherit_id" ref="account_penalties.penalty_form_view" />
+        <field name="arch" type="xml">
+            <field name="amount" position="before">
+                <field
+          name="penalty_price"
+          widget="monetary"
+          readonly="1"
+          force_save="1"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="penalty_tree_view" model="ir.ui.view">
+        <field name="model">account.penalty</field>
+        <field name="inherit_id" ref="account_penalties.penalty_tree_view" />
+        <field name="arch" type="xml">
+            <field name="amount" position="before">
+                <field
+          name="penalty_price"
+          optional="show"
+          readonly="1"
+          force_save="1"
+        />
+            </field>
+        </field>
+    </record>
+</odoo>
