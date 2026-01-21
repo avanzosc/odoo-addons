@@ -1,40 +1,45 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * agreement_penalty_type
+#     * agreement_penalty_type
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-07 00:00+0000\n"
-"PO-Revision-Date: 2026-01-07 00:00+0000\n"
+"POT-Creation-Date: 2026-01-21 15:12+0000\n"
+"PO-Revision-Date: 2026-01-21 15:15+0100\n"
 "Last-Translator: \n"
-"Language-Team: Spanish\n"
-"Language: es\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: agreement_penalty_type
-#: model:ir.model,name:agreement_penalty_type.model_agreement_penalty_type
-msgid "Agreement Penalty Type"
-msgstr "Tipo de penalización del acuerdo"
-
-#. module: agreement_penalty_type
+#: model:ir.model,name:agreement_penalty_type.model_agreement
 #: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__agreement_id
 msgid "Agreement"
 msgstr "Acuerdo"
 
 #. module: agreement_penalty_type
-#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__penalty_type_id
-msgid "Penalty Type"
-msgstr "Tipo de penalización"
+#: model:ir.model,name:agreement_penalty_type.model_agreement_penalty_type
+msgid "Agreement Penalty Type"
+msgstr "Tipo de penalización de acuerdo"
 
 #. module: agreement_penalty_type
-#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__number
-msgid "Duration"
-msgstr "Duración"
+#: model:ir.model.fields,help:agreement_penalty_type.field_agreement_penalty_type__penalty_price
+msgid "Base price for this penalty. Auto-filled from product list price."
+msgstr "Precio base para esta penalización. Se rellena automáticamente con el precio de lista del producto."
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__create_date
+msgid "Created on"
+msgstr "Creado el"
 
 #. module: agreement_penalty_type
 #: model:ir.model.fields.selection,name:agreement_penalty_type.selection__agreement_penalty_type__term__days
@@ -42,24 +47,42 @@ msgid "Days"
 msgstr "Días"
 
 #. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement__display_name
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement__id
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement____last_update
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: agreement_penalty_type
 #: model:ir.model.fields.selection,name:agreement_penalty_type.selection__agreement_penalty_type__term__months
 msgid "Months"
 msgstr "Meses"
 
 #. module: agreement_penalty_type
-#: model:ir.model.fields.selection,name:agreement_penalty_type.selection__agreement_penalty_type__term__years
-msgid "Years"
-msgstr "Años"
-
-#. module: agreement_penalty_type
-#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__penalty_percentage
-msgid "Penalty %"
-msgstr "% penalización"
-
-#. module: agreement_penalty_type
-#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__active_subscription_count
-msgid "Active Subscriptions"
-msgstr "Suscripciones activas"
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__name
+msgid "Name"
+msgstr "Nombre"
 
 #. module: agreement_penalty_type
 #: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__notes
@@ -67,17 +90,51 @@ msgid "Notes"
 msgstr "Notas"
 
 #. module: agreement_penalty_type
-#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement__agreement_penalty_ids
-msgid "Penalty Types"
-msgstr "Tipos de penalización"
-
-#. module: agreement_penalty_type
 #: model_terms:ir.ui.view,arch_db:agreement_penalty_type.agreement_form
 msgid "Penalties"
 msgstr "Penalizaciones"
 
 #. module: agreement_penalty_type
-#: model_terms:ir.ui.view,arch_db:agreement_penalty_type.agreement_form
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__penalty_price
+msgid "Penalty Price"
+msgstr "Precio de penalización"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__penalty_type_id
+msgid "Penalty Type"
+msgstr "Tipo de penalización"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement__agreement_penalty_ids
+msgid "Penalty Types"
+msgstr "Tipos de penalizaciones"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,help:agreement_penalty_type.field_agreement_penalty_type__percentage
+msgid "Penalty percentage (e.g. 10%)"
+msgstr "Porcentaje de penalización (ej. 10%)"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__percentage
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: agreement_penalty_type
+#: model:ir.model.fields,field_description:agreement_penalty_type.field_agreement_penalty_type__term
 msgid "Term"
 msgstr "Plazo"
 
+#. module: agreement_penalty_type
+#: model:ir.model.fields.selection,name:agreement_penalty_type.selection__agreement_penalty_type__term__years
+msgid "Years"
+msgstr "Años"
