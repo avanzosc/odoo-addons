@@ -6,12 +6,20 @@ from odoo import _, api, fields, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    @api.depends("quant_package_ids", "quant_package_ids.shipping_weight")
+    @api.depends(
+        "quant_package_ids",
+        "quant_package_ids.pack_weight",
+        "quant_package_ids.shipping_weight",
+    )
     def _compute_packages_weight(self):
         for picking in self:
-            picking.packages_weight = sum(
-                picking.quant_package_ids.mapped("shipping_weight")
-            )
+            total = 0.0
+            for package in picking.quant_package_ids:
+                if package.pack_weight != 0.0:
+                    total += package.pack_weight
+                else:
+                    total += package.shipping_weight
+            picking.packages_weight = total
 
     @api.depends("quant_package_ids", "quant_package_ids.volume")
     def _compute_packages_volume(self):

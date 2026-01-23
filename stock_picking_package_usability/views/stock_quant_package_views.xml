@@ -29,7 +29,7 @@
                 <field name="length_uom_id" string=" " />
                 <field name="height" />
                 <field name="shipping_weight" sum="Total Shipping Weight" />
-                <field name="pack_weight" />
+                <field name="pack_weight" sum="Total Pack Weight" />
                 <field name="weight_uom_id" string=" " />
             </field>
         </field>
@@ -56,7 +56,7 @@
                 <field name="volume" sum="Totat Volume" />
                 <field name="volume_uom_id" string=" " />
                 <field name="shipping_weight" sum="Total Shipping Weight" />
-                <field name="pack_weight" />
+                <field name="pack_weight" sum="Total Pack Weight" />
                 <field name="max_weight" />
                 <field name="weight_uom_id" string=' ' />
                 <field name="partner_id" optional="show" />
