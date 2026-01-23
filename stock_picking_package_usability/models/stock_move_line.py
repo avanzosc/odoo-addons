@@ -24,6 +24,27 @@ class StockMoveLine(models.Model):
         string="Weight UOM", related="result_package_id.weight_uom_name", store=True
     )
 
+    manual_pack_weight = fields.Float(
+        string="Pack Weight",
+    )
+
+    @api.onchange("manual_pack_weight")
+    def onchange_manual_pack_weight(self):
+        for line in self:
+            package = line.result_package_id
+            if package:
+                package.pack_weight = line.manual_pack_weight
+                for other_line in package.move_line_ids:
+                    if other_line != line:
+                        other_line.manual_pack_weight = line.manual_pack_weight
+
+    @api.onchange("packaging_id")
+    def _onchange_packaging_id(self):
+        for line in self:
+            package = line.result_package_id
+            if package and line.packaging_id:
+                package.length_uom_id = line.packaging_id.length_uom_id
+
     def write(self, values):
         result = super().write(values)
         if "result_package_id" in values:

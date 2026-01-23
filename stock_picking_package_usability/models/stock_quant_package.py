@@ -30,6 +30,16 @@ class StockQuantPackage(models.Model):
         compute="_compute_shipping_weight", store=True, readonly=False
     )
 
+    length_uom_id = fields.Many2one(
+        "uom.uom",
+        "Dimensions Units of Measure",
+        domain=lambda self: [
+            ("category_id", "=", self.env.ref("uom.uom_categ_length").id)
+        ],
+        help="UoM for pack length, height, width (based on length UoM)",
+        default=lambda self: self.env.ref("uom.product_uom_cm").id,
+    )
+
     @api.depends(
         "packaging_id.empty_weight",
         "picking_id",
