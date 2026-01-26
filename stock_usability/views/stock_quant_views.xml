@@ -4,11 +4,9 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
         <field name="arch" type="xml">
-            <field name="tracking" position="attributes">
-                <attribute name="invisible">0</attribute>
-                <attribute name="optional">show</attribute>
-                <attribute name="readonly">1</attribute>
-            </field>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="tracking" readonly="1" optional="show" />
+            </xpath>
         </field>
     </record>
 
@@ -16,11 +14,9 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable" />
         <field name="arch" type="xml">
-            <field name="tracking" position="attributes">
-                <attribute name="invisible">0</attribute>
-                <attribute name="optional">show</attribute>
-                <attribute name="readonly">1</attribute>
-            </field>
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="tracking" readonly="1" optional="show" />
+            </xpath>
         </field>
     </record>
 
@@ -28,9 +24,9 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock.view_stock_quant_tree" />
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
+            <xpath expr="//field[@name='product_id']" position="after">
                 <field name="tracking" readonly="1" optional="show" />
-            </field>
+            </xpath>
         </field>
     </record>
 
@@ -38,16 +34,16 @@
         <field name="model">stock.quant</field>
         <field name="inherit_id" ref="stock.quant_search_view" />
         <field name="arch" type="xml">
-            <field name="product_id" position="after">
+            <xpath expr="//field[@name='product_id']" position="after">
                 <field name="tracking" />
-            </field>
-            <filter name="productgroup" position="after">
+            </xpath>
+            <xpath expr="//filter[@name='productgroup']" position="after">
                 <filter
-          string="Tracking"
-          name="trackinggroup"
-          context="{'group_by': 'tracking'}"
-        />
-            </filter>
+                    string="Tracking"
+                    name="trackinggroup"
+                    context="{'group_by': 'tracking'}"
+                />
+            </xpath>
         </field>
     </record>
 </odoo>
