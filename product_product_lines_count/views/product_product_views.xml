@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+           <field name="active" position="after">
+               <field name="sale_lines_count"  />
+               <field name="purchase_lines_count"  />
+               <field name="invoice_lines_count"  />
+           </field>
+        </field>
+    </record>
+
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+           <field name="product_tmpl_id" position="after">    
+               <separator/>
+               <filter string="Without Sale Lines" name="without-sale-lines"
+                        domain="[('sale_lines_count','=',0)]" /> 
+               <filter string="Without Purchase Lines" name="without-purchase-lines"
+                        domain="[('purchase_lines_count','=',0)]"/>
+               <filter string="Without Invoice Lines" name="without-invoice-lines"
+                        domain="[('invoice_lines_count','=',0)]" />
+               <filter string="Without Sale/Purchase/Invoice Lines" name="without-lines"
+                        domain="[('sale_lines_count','=',0), ('purchase_lines_count','=',0), ('invoice_lines_count','=',0)]" />
+           </field>
+        </field>
+    </record>
+</odoo>
