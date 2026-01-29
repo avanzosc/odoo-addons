@@ -9,7 +9,7 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
-    "depends": ["stock", "hr"],
+    "depends": ["stock", "hr", "stock_picking_package_usability"],
     "data": [
         "views/stock_picking_views.xml",
         "views/stock_quant_package_views.xml",
