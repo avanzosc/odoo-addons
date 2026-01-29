@@ -6,7 +6,12 @@
 Stock Employee
 ==============
 
-* Add Employee in stock picking and stock quant package.
+This module adds an employee on stock operations:
+
+* Adds an employee field on **stock pickings**.
+* Adds an employee field on **stock quant packages**.
+* Adds an employee field on **stock move lines** (detailed operations).
+
 
 Bug Tracker
 ===========
@@ -25,4 +30,5 @@ Contributors
 ------------
 
 * Unai Beristain <unaiberistain@avanzosc.es>
+* Eñaut Alberdi <enautavanzosc@gmail.com>
 * Ana Juaristi <anajuaristi@avanzosc.es>
