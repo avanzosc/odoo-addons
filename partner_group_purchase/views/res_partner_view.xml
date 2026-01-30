@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record model="ir.ui.view" id="view_partner_form_purchase_group">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <field name="category_id" position="after">
+        <field
+          name="purchase_group_id"
+          placeholder="Cooperative"
+          options='{"no_open": True}'
+          invisible="is_company == False"
+        />
+        <field name="supplier_rank" invisible="1" />
+        <field
+          name="purchase_group2_id"
+          placeholder="Purchases Group"
+          options='{"no_open": True}'
+          invisible="supplier_rank != 1"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="view_partner_tree_purchase_group">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree" />
+    <field name="arch" type="xml">
+      <field name="email" position="after">
+        <field
+          name="purchase_group_id"
+          invisible="is_company == False"
+          optional="show"
+        />
+        <field name="supplier_rank" invisible="1" />
+        <field
+          name="purchase_group2_id"
+          invisible="supplier_rank != 1"
+          optional="show"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="view_res_partner_filter_purchase_group">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="arch" type="xml">
+      <field name="category_id" position="after">
+        <field
+          name="purchase_group_id"
+          string="Cooperative"
+          filter_domain="[('purchase_group_id','ilike',self)]"
+        />
+        <field name="purchase_group2_id" />
+      </field>
+      <filter name="group_country" position="after">
+        <filter
+          name="group_purchase_group"
+          string="Cooperative"
+          context="{'group_by': 'purchase_group_id'}"
+        />
+        <filter
+          name="group_purchase_group2"
+          string="Purchase Group"
+          context="{'group_by': 'purchase_group2_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
