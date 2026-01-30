@@ -112,5 +112,50 @@
         </tbody>
       </table>
     </xpath>
+
+    <xpath expr="//p[i[contains(@class,'fa-exclamation-triangle')]]" position="replace">
+    <t
+        t-set="no_reserved_product"
+        t-value="o.move_ids.filtered(lambda m: m.state != 'done' and m.move_line_ids and m.product_uom_qty != m.reserved_availability)"
+      />
+
+    <t t-if="no_reserved_product">
+        <div class="mt16">
+            <p style="margin-bottom: 6px;">
+                <i
+              class="fa fa-exclamation-triangle"
+            /> Productos con cantidad no reservada:
+            </p>
+
+            <table class="table table-sm" style="font-size: 10px;">
+                <thead>
+                    <tr>
+                        <th><strong>Producto</strong></th>
+                        <th class="text-right"><strong>Demanda</strong></th>
+                        <th class="text-right"><strong>Reservado</strong></th>
+                        <th class="text-right"><strong>No reservado</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="no_reserved_product" t-as="m">
+                        <td><span t-field="m.product_id.display_name" /></td>
+                        <td class="text-right"><t t-esc="m.product_uom_qty" /> <t
+                    t-esc="m.product_uom.name"
+                  /></td>
+                        <td class="text-right"><t t-esc="m.reserved_availability" /> <t
+                    t-esc="m.product_uom.name"
+                  /></td>
+                        <td class="text-right" style="color:red">
+                            <strong><t
+                      t-esc="m.product_uom_qty - m.reserved_availability"
+                    /> <t t-esc="m.product_uom.name" /></strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</xpath>
+
   </template>
 </odoo>

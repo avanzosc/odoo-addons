@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import api, models
 
 
 class AssignManualQuants(models.TransientModel):
@@ -14,3 +14,7 @@ class AssignManualQuants(models.TransientModel):
         if lines:
             lines.unlink()
         return result
+
+    @api.constrains("quants_lines")
+    def _check_qty(self):
+        return
