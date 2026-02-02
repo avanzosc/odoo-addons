@@ -4,10 +4,16 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
-            <button name="button_return_picking" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': [('picking_count', '&gt;', 1)]}</attribute>
+            <header position="inside">
+                <button
+          name="button_validate_everything"
+          type="object"
+          string="Validate Everything"
+          class="oe_highlight"
+        />
+            </header>
+            <button name="button_confirm_pickings" position="attributes">
+                <attribute name="attrs">{'invisible': True}</attribute>
             </button>
             <xpath
         expr="//field[@name='order_line']/tree/field[@name='product_qty']"
@@ -15,12 +21,6 @@
       >
                 <field name="return_qty" />
             </xpath>
-<!--            <xpath
-        expr="//field[@name='order_line']/form//div[@name='product_qty']"
-        position="after"
-      >
-                <field name="return_qty" />
-            </xpath>-->
             <xpath
         expr="//field[@name='order_line']/kanban/field[@name='product_qty']"
         position="after"

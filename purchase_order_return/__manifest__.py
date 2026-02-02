@@ -7,7 +7,6 @@
     "category": "Sales",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
-        "purchase_picking_generate_zero_lines",
         "purchase_order_confirm_usability",
     ],
     "data": [
