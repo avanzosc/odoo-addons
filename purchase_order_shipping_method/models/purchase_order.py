@@ -34,4 +34,5 @@ class PurchaseOrder(models.Model):
         if "shipping_cost" in vals:
             for order in self:
                 order.picking_ids.write({"shipping_cost": vals["shipping_cost"]})
+                order.picking_ids.action_invoice_trasport_lines()
         return res

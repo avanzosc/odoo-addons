@@ -54,7 +54,7 @@ class StockPicking(models.Model):
             for line in self.move_ids_without_package:
                 cond = [
                     ("transfer_id", "=", self.id),
-                    ("product_id", "=", line.product_id.id),
+                    ("product_id", "=", self.carrier_id.product_id.id),
                 ]
                 line_done = self.env["transport.carrier.lines.to.invoice"].search(
                     cond, limit=1
@@ -73,6 +73,8 @@ class StockPicking(models.Model):
                 }
                 if not line_done:
                     self.env["transport.carrier.lines.to.invoice"].create(vals)
+                else:
+                    line_done.total_price = line_done.product_qty * line_done.price_unit
 
     def button_validate(self):
         result = super().button_validate()
@@ -86,6 +88,7 @@ class StockPicking(models.Model):
             for picking in self:
                 for line in picking.mapped("move_line_ids_without_package"):
                     line.onchange_shipping_cost()
+                picking.action_invoice_trasport_lines()
         return result
 
     @api.model
