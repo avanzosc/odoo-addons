@@ -13,6 +13,10 @@ This module lets you register and track expected treasury movements to forecast 
 - **Forecast Lines**: Register expected income and expense lines with date, partner, product and journal.
 - **Automatic Balance**: Line balance is computed as income minus expense.
 - **Recurrence**: Define a monthly recurrence indicator for repeated movements.
+- **Editable List View**: Create and edit lines directly from the list view.
+- **Generate Lines Wizard**: Generate recurring lines up to a selected date limit.
+- **Pivot Analysis**: Analyze income, expense and balance in a pivot view.
+- **Manual Currency**: Currency can be selected per line.
 - **Search & Grouping**: Filter and group by partner, product, journal and date.
 - **Totals in List View**: Totals for income, expense and balance are shown in the list view.
 - **Archiving**: Archive lines that are no longer relevant.
@@ -23,6 +27,7 @@ This module lets you register and track expected treasury movements to forecast 
 - Create forecast lines with income or expense (the other value is cleared automatically).
 - Review balances and totals in the list view.
 - Use filters and group by options to analyze the forecast.
+- Select one or more lines and use the "Generate Treasury Lines" action to create recurring entries up to a date limit.
 
 Bug Tracker
 ===========
