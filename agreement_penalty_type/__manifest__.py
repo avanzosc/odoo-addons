@@ -6,14 +6,8 @@
     "version": "14.0.1.0.0",
     "category": "Contract",
     "summary": "Per-agreement penalty types and settings",
-    "depends": [
-        "agreement",
-        "account_penalty",
-    ],
-    "data": [
-        "security/ir.model.access.csv",
-        "views/agreement_view.xml",
-    ],
+    "depends": [],
+    "data": [],
     "application": False,
     "installable": True,
     "auto_install": False,
