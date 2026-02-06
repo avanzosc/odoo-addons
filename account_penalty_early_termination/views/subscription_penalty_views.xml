@@ -1,0 +1,31 @@
+<odoo>
+    <record id="view_subscription_penalty_tree_inherit" model="ir.ui.view">
+        <field name="model">subscription.penalty</field>
+        <field
+      name="inherit_id"
+      ref="subscription_penalty.view_subscription_penalty_tree"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='applied_date']" position="after">
+                <field name="monthly_price" />
+                <field name="penalty_months" />
+                <field name="penalty_amount" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_subscription_penalty_form_inherit" model="ir.ui.view">
+        <field name="model">subscription.penalty</field>
+        <field
+      name="inherit_id"
+      ref="subscription_penalty.view_subscription_penalty_form"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='applied_date']" position="after">
+                <field name="monthly_price" />
+                <field name="penalty_months" />
+                <field name="penalty_amount" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
