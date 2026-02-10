@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qc_test_form_view" model="ir.ui.view">
+        <field name="model">qc.test</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_test_form_view" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='test_lines']/tree/field[@name='name']"
+        position="after"
+      >
+                <field name="reference" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
