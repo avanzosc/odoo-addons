@@ -15,6 +15,7 @@
         "security/ir.model.access.csv",
         "security/stock_security.xml",
         "views/product_view.xml",
+        "views/res_config_settings_views.xml",
         "views/stock_orderpoint_view.xml",
         "views/stock_orderpoint_weekdays_view.xml",
     ],

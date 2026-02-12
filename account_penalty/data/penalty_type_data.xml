@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_product_penalty_early_termination" model="product.product">
+        <field name="name">Early Termination</field>
+        <field name="default_code">PENALTY_ET</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all" />
+        <field name="list_price">100.0</field>
+        <field name="standard_price">0.0</field>
+        <field name="invoice_policy">order</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+    </record>
+
+    <record id="product_product_penalty_device_not_returned" model="product.product">
+        <field name="name">Device Not Returned</field>
+        <field name="default_code">PENALTY_DNR</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all" />
+        <field name="list_price">200.0</field>
+        <field name="standard_price">0.0</field>
+        <field name="invoice_policy">order</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">False</field>
+    </record>
+
+    <record id="penalty_type_early_termination" model="penalty.type">
+        <field name="name">Early Termination</field>
+        <field name="product_id" ref="product_product_penalty_early_termination" />
+    </record>
+
+    <record id="penalty_type_device_not_returned" model="penalty.type">
+        <field name="name">Device Not Returned</field>
+        <field name="product_id" ref="product_product_penalty_device_not_returned" />
+    </record>
+</odoo>

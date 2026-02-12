@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qc_inspection_form_view" model="ir.ui.view">
+        <field name="model">qc.inspection</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_inspection_form_view" />
+        <field name="arch" type="xml">
+            <field name="date" position="before">
+                <field name="quality_manager_id" />
+            </field>
+            <xpath
+        expr="//field[@name='inspection_lines']/tree/field[@name='question_type']"
+        position="before"
+      >
+                <field name="person_performs_inspection_id" />
+                <field name="measurement_date" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="qc_inspection_tree_view" model="ir.ui.view">
+        <field name="model">qc.inspection</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_inspection_tree_view" />
+        <field name="arch" type="xml">
+            <field name="user" position="after">
+                <field name="quality_manager_id" />
+            </field>
+        </field>
+    </record>
+
+    <record id="qc_inspection_search_view" model="ir.ui.view">
+        <field name="model">qc.inspection</field>
+        <field name="inherit_id" ref="quality_control_oca.qc_inspection_search_view" />
+        <field name="arch" type="xml">
+            <field name="user" position="after">
+                <field name="quality_manager_id" />
+            </field>
+            <filter name="group_by_user" position="after">
+                <filter
+          string="Quality Manager"
+          name="group_by_quality_manager"
+          domain="[]"
+          context="{'group_by': 'quality_manager_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -12,7 +12,7 @@
                 <field
           name="reader"
           attrs="{
-             'invisible': [('picking_type_code','in',('incoming','outgoing'))],
+             'invisible': [('picking_type_code','in',('incoming'))],
              'readonly': [('state', '=', 'done')]}"
           context="{'from_stock_picking':True}"
           optional="show"
@@ -30,7 +30,7 @@
               <field
           name="reader"
           attrs="{
-                'invisible': [('picking_type_code','in',('incoming','outgoing'))],
+                'invisible': [('picking_type_code','in',('incoming'))],
                 'readonly': [('state', '=', 'done')]}"
           context="{'from_stock_picking':True}"
           optional="show"

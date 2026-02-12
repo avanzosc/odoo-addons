@@ -32,22 +32,26 @@ class StockPicking(models.Model):
             for product in expiration_products:
                 time = product.expiration_time
                 date = picking.expired_date - timedelta(days=time)
-                date_stock = product.with_context(
+                stock_at_date = product.with_context(
                     to_date=datetime.combine(date, datetime.max.time()),
                     location=picking.location_id.id,
                 ).qty_available
-                out_ml = move_line_obj.search(
+                out_qty = move_line_obj.read_group(
                     [
                         ("product_id", "=", product.id),
                         ("location_id", "=", picking.location_id.id),
                         ("state", "=", "done"),
-                    ]
+                        ("date", ">", datetime.combine(date, datetime.min.time())),
+                        (
+                            "date",
+                            "<=",
+                            datetime.combine(picking.expired_date, datetime.max.time()),
+                        ),
+                    ],
+                    ["qty_done"],
+                    "product_id",
                 )
-                out_ml = out_ml.filtered(
-                    lambda ln: date < ln.date.date() <= picking.expired_date
-                )
-                out_qty = sum(out_ml.mapped("qty_done"))
-                dif = date_stock - out_qty
+                dif = stock_at_date - (out_qty[0]["qty_done"] if out_qty else 0.0)
                 if (
                     float_compare(dif, 0.0, precision_rounding=product.uom_id.rounding)
                     > 0.0
