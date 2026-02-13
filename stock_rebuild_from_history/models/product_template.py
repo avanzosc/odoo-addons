@@ -1,4 +1,4 @@
-from odoo import _, models
+from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
@@ -90,3 +90,23 @@ class ProductTemplate(models.Model):
                 )
 
         return True
+
+    @api.model
+    def cron_convert_all_consumables_and_rebuild_stock(self, limit=100):
+        Product = self.env["product.template"].sudo()
+        while True:
+            products = Product.search([("type", "=", "consu")], limit=limit)
+            if not products:
+                break
+            for record in products:
+                self.env.cr.execute(
+                    """
+                    UPDATE product_template
+                    SET type = 'product'
+                    WHERE id = %s
+                """,
+                    (record.id,),
+                )
+                record.invalidate_cache(["type"])
+                record.sudo().action_rebuild_stock()
+            self.env.cr.commit()

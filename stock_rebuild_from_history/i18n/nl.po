@@ -41,6 +41,13 @@ msgid "Product Template"
 msgstr "Productsjabloon"
 
 #. module: stock_rebuild_from_history
+#: model:ir.actions.server,name:stock_rebuild_from_history.ir_cron_convert_all_consumables_rebuild_stock_ir_actions_server
+#: model:ir.cron,cron_name:stock_rebuild_from_history.ir_cron_convert_all_consumables_rebuild_stock
+#: model:ir.cron,name:stock_rebuild_from_history.ir_cron_convert_all_consumables_rebuild_stock
+msgid "Rebuild Stock All Products"
+msgstr "De voorraad van alle producten herstellen"
+
+#. module: stock_rebuild_from_history
 #: code:addons/stock_rebuild_from_history/models/product_template.py:0
 #, python-format
 msgid "There are not variants for this product."
