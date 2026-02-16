@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_quant_package_form_inherit" model="ir.ui.view">
-        <field name="name">stock.quant.package.form.inherit</field>
+    <record id="view_quant_package_form" model="ir.ui.view">
         <field name="model">stock.quant.package</field>
         <field name="inherit_id" ref="stock.view_quant_package_form" />
         <field name="arch" type="xml">
@@ -10,4 +9,28 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_quant_package_tree" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="employee_id" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_quant_package_view_tree" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_package_usability.stock_quant_package_view_tree"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="employee_id" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

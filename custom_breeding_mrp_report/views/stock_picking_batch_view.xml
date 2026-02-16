@@ -1,0 +1,27 @@
+<odoo>
+    <record id="stock_picking_batch_form" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_batch_liquidation.stock_picking_batch_form"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='clear_up_percentage']" position="after">
+                <field name="seized_percentage" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="breeding_liquidated_line_view_tree" model="ir.ui.view">
+        <field name="model">stock.picking.batch</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_batch_liquidation.breeding_liquidated_line_view_tree"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='clear_up_percentage']" position="after">
+                <field name="seized_percentage" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

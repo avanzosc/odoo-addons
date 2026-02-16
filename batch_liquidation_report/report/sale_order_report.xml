@@ -104,6 +104,10 @@
                             <tr t-foreach="lines" t-as="line">
                                 <td>
                                     <span t-field="line.product_id.name" />
+                                    <t t-if="line.lot_id">
+                                        <br />
+                                        <span t-if="line.lot_id"> LT: </span>
+                                    </t>
                                     <span t-field="line.lot_id.name" />
                                 </td>
                                 <td class="text-center">

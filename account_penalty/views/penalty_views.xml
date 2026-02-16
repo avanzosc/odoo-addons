@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="penalty_tree_view" model="ir.ui.view">
+        <field name="name">penalty.tree</field>
+        <field name="model">account.penalty</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="quantity" />
+                <field name="amount" />
+                <field name="invoice_date" />
+                <field name="state" readonly="1" />
+                <field name="to_invoice" />
+                <field name="penalty_type_id" />
+                <field name="product_id" />
+                <field name="journal_id" domain="[('type', '=', 'sale')]" />
+                <field name="invoice_id" />
+                <button
+          name="action_create_invoice"
+          string="Create Invoice"
+          type="object"
+          class="btn-primary"
+          attrs="{'invisible': [('state', '=', 'invoiced')]}"
+        />
+            </tree>
+        </field>
+    </record>
+
+    <record id="penalty_form_view" model="ir.ui.view">
+        <field name="name">penalty.form</field>
+        <field name="model">account.penalty</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+            name="action_create_invoice"
+            string="Create Invoice"
+            type="object"
+            class="btn-primary"
+            attrs="{'invisible': [('state', '=', 'invoiced')]}"
+          />
+                    <field
+            name="state"
+            widget="statusbar"
+            statusbar_visible="draft,invoiced"
+          />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="partner_id" />
+                        <field name="journal_id" domain="[('type', '=', 'sale')]" />
+                        <field name="penalty_type_id" />
+                        <field name="product_id" />
+                        <field name="quantity" />
+                        <field name="amount" />
+                        <field name="invoice_date" />
+                        <field name="to_invoice" />
+                        <field name="invoice_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="penalty_search_view" model="ir.ui.view">
+        <field name="name">penalty.search</field>
+        <field name="model">account.penalty</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="penalty_type_id" />
+                <field name="invoice_date" />
+                <field name="to_invoice" />
+                <filter
+          name="pending_invoicing"
+          string="Pending Invoicing"
+          domain="[('to_invoice','=',True)]"
+        />
+                <filter
+          name="invoiced"
+          string="Invoiced"
+          domain="[('invoice_id','!=',False)]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            name="group_penalty_type"
+            string="Penalty Type"
+            context="{'group_by': 'penalty_type_id'}"
+          />
+                    <filter
+            name="group_partner"
+            string="Partner"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <filter
+            name="group_invoice_date"
+            string="Invoice Date"
+            context="{'group_by': 'invoice_date'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <act_window
+    id="penalty_action"
+    name="Penalties"
+    res_model="account.penalty"
+    view_mode="tree,form"
+    context="{'search_default_pending_invoicing': 1}"
+  />
+
+    <menuitem
+    id="penalty_menu"
+    name="Penalties"
+    parent="sale.sale_order_menu"
+    action="penalty_action"
+    sequence="10"
+  />
+
+    <record id="action_create_invoice_multi" model="ir.actions.server">
+        <field name="name">Create Invoice</field>
+        <field name="model_id" ref="model_account_penalty" />
+        <field name="binding_model_id" ref="model_account_penalty" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_create_invoice()
+</field>
+    </record>
+</odoo>

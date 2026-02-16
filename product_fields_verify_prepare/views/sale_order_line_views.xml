@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="sale_view_order_form_inherit" model="ir.ui.view">
+        <field name="name">sale.order.line.form.inherit</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <!-- <field name="verification_by" attrs="{'invisible': [('product_id.type', '!=', 'service')]}"/>
+                <field name="preparation" attrs="{'invisible': [('product_id.type', '!=', 'service')]}"/> -->
+                <field name="verification_by" />
+                <field name="preparation" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_line_tree" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.inherit</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='qty_invoiced']" position="after">
+                <field name="verification_by" optional="show" />
+                <field name="preparation" optional="show" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

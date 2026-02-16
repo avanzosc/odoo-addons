@@ -26,8 +26,9 @@
         <field name="model">product.packaging</field>
         <field name="inherit_id" ref="delivery.product_packaging_delivery_tree" />
         <field name="arch" type="xml">
-            <field name="packaging_length" position="after">
+            <field name="max_weight" position="before">
                 <field name="volume" />
+                <field name="volume_uom_id" string=" " />
             </field>
         </field>
     </record>

@@ -1,0 +1,257 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_penalties
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-25 15:21+0000\n"
+"PO-Revision-Date: 2025-11-25 15:21+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__amount
+msgid "Amount"
+msgstr "Importe"
+
+#. module: account_penalties
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_form_view
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_tree_view
+msgid "Create Invoice"
+msgstr "Crear Factura"
+
+#. module: account_penalties
+#: code:addons/account_penalties/models/penalty.py:0
+#, python-format
+msgid "Created Invoices"
+msgstr "Facturas Creadas"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__create_uid
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__create_date
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: account_penalties
+#: model:product.product,name:account_penalties.product_product_penalty_device_not_returned
+#: model:product.template,name:account_penalties.product_product_penalty_device_not_returned_product_template
+msgid "Device Not Returned"
+msgstr "Dispositivo No Devuelto"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__display_name
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__display_name
+msgid "Display Name"
+msgstr "Nombre a Mostrar"
+
+#. module: account_penalties
+#: model:product.product,name:account_penalties.product_product_penalty_early_termination
+#: model:product.template,name:account_penalties.product_product_penalty_early_termination_product_template
+msgid "Early Termination"
+msgstr "Baja Anticipada"
+
+#. module: account_penalties
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Group By"
+msgstr "Agrupar Por"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__id
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__invoice_id
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__invoice_date
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Invoice Date"
+msgstr "Fecha Factura"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__account_penalty__state__invoiced
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__journal_id
+msgid "Journal"
+msgstr "Diario"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty____last_update
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type____last_update
+msgid "Last Modified on"
+msgstr "Última Modificación"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__write_uid
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__write_uid
+msgid "Last Updated by"
+msgstr "Última Actualización por"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__write_date
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__write_date
+msgid "Last Updated on"
+msgstr "Última Actualización el"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__name
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: account_penalties
+#: code:addons/account_penalties/models/penalty.py:0
+#, python-format
+msgid "No penalties to invoice."
+msgstr "No hay penalizaciones para facturar."
+
+#. module: account_penalties
+#: code:addons/account_penalties/models/penalty.py:0
+#, python-format
+msgid "No income account found. Please configure an income account for the product or its category."
+msgstr "No se encontró cuenta de ingresos. Por favor configure una cuenta de ingresos para el producto o su categoría."
+
+#. module: account_penalties
+#: code:addons/account_penalties/models/penalty.py:0
+#, python-format
+msgid "No sales journal found."
+msgstr "No se encontró diario de ventas."
+
+#. module: account_penalties
+#: code:addons/account_penalties/models/penalty.py:0
+#, python-format
+msgid "No receivable account found for partner %s."
+msgstr "No se encontró cuenta por cobrar para el partner %s."
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__partner_id
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: account_penalties
+#: model:ir.actions.act_window,name:account_penalties.penalty_action
+#: model:ir.ui.menu,name:account_penalties.penalty_menu
+#: model:ir.ui.menu,name:account_penalties.config_penalties_menu
+msgid "Penalties"
+msgstr "Penalizaciones"
+
+#. module: account_penalties
+#: model:ir.model,name:account_penalties.model_account_penalty
+msgid "Penalty"
+msgstr "Penalización"
+
+#. module: account_penalties
+#: model:ir.model,name:account_penalties.model_penalty_type
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__penalty_type_id
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Penalty Type"
+msgstr "Tipo de Penalización"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__product_id
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: account_penalties
+#: model:ir.model.fields,help:account_penalties.field_account_penalty__currency_id
+msgid "The currency used to enter statement"
+msgstr "La moneda utilizada para introducir el extracto"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__to_invoice
+#: model:ir.model.fields.selection,name:account_penalties.selection__account_penalty__state__draft
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "To Invoice"
+msgstr "A Facturar"
+
+#. module: account_penalties
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_search_view
+msgid "Pending Invoicing"
+msgstr "Pendiente de Facturación"
+
+#. module: account_penalties
+#: model:product.product,uom_name:account_penalties.product_product_penalty_device_not_returned
+#: model:product.product,uom_name:account_penalties.product_product_penalty_early_termination
+#: model:product.template,uom_name:account_penalties.product_product_penalty_device_not_returned_product_template
+#: model:product.template,uom_name:account_penalties.product_product_penalty_early_termination_product_template
+msgid "Units"
+msgstr "Unidades"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_account_penalty__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__internal_number
+msgid "Internal Number"
+msgstr "Número Interno"
+
+#. module: account_penalties
+#: model:ir.model.fields,field_description:account_penalties.field_penalty_type__internal_type
+#: model_terms:ir.ui.view,arch_db:account_penalties.penalty_type_search_view
+msgid "Internal Type"
+msgstr "Tipo Interno"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__penalty_type__internal_type__minutes
+msgid "Minutes"
+msgstr "Minutos"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__penalty_type__internal_type__hours
+msgid "Hours"
+msgstr "Horas"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__penalty_type__internal_type__days
+msgid "Days"
+msgstr "Días"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__penalty_type__internal_type__months
+msgid "Months"
+msgstr "Meses"
+
+#. module: account_penalties
+#: model:ir.model.fields.selection,name:account_penalties.selection__penalty_type__internal_type__years
+msgid "Years"
+msgstr "Años"
+
+#. module: account_penalties
+#: model:ir.actions.act_window,name:account_penalties.penalty_type_action
+#: model:ir.ui.menu,name:account_penalties.penalty_type_menu
+msgid "Penalty Types"
+msgstr "Tipos de Penalización"

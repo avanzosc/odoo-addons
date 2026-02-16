@@ -7,3 +7,7 @@ class StockOrderpoint(models.Model):
     _inherit = "stock.warehouse.orderpoint"
 
     qty_to_order = fields.Float(compute=False)
+
+    def button_recompute_qty_to_order(self):
+        for record in self:
+            record._compute_qty_to_order()

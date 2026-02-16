@@ -8,4 +8,13 @@
         <field name="report_file">contact_risk_xlsx</field>
         <field name="binding_type">report</field>
     </record>
+
+    <record id="report_contact_risk_xlsx_opt" model="ir.actions.report">
+        <field name="name">Contact Risk XLSX (Optimized)</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">contact_risk_xlsx_opt</field>
+        <field name="report_file">contact_risk_xlsx_opt</field>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

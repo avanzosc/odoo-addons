@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_task_form_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='extra_info']" position="before">
+                <page name="production_fields" string="Production Fields">
+                    <group>
+                        <!-- <field name="production_verification_by" attrs="{'invisible': [('sale_line_product_id.product_id.type', '!=', 'service')]}"/>
+                        <field name="production_preparation" attrs="{'invisible': [('sale_line_product_id.product_id.type', '!=', 'service')]}"/> -->
+                        <field name="production_verification_by" />
+                        <field name="production_preparation" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_tree_inherit" model="ir.ui.view">
+        <field name="name">project.task.tree.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="production_verification_by" optional="show" />
+                <field name="production_preparation" optional="show" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
