@@ -107,6 +107,7 @@ class PurchaseOrderLine(models.Model):
                 "product_uom_qty": qty,
                 "product_uom": self.product_uom.id,
                 "picking_id": picking.id,
+                "picking_type_id": picking.picking_type_id.id,
                 "location_id": picking.location_id.id,
                 "location_dest_id": picking.location_dest_id.id,
                 "purchase_line_id": self.id,
@@ -132,7 +133,8 @@ class PurchaseOrderLine(models.Model):
     def _compute_qty_received(self):
         super(PurchaseOrderLine, self)._compute_qty_received()
         for line in self:
-            line.product_qty = line.qty_received
+            if line.return_qty and line.return_qty > 0:
+                line.product_qty = line.qty_received
 
     def _create_or_update_picking(self):
         return True
