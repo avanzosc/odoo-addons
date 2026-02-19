@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 12:47+0000\n"
-"PO-Revision-Date: 2026-02-20 12:47+0000\n"
+"POT-Creation-Date: 2026-02-20 12:49+0000\n"
+"PO-Revision-Date: 2026-02-20 12:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_stock_backorder_confirmation
 msgid "Backorder Confirmation"
-msgstr ""
+msgstr "Confirmation de reliquat"
 
 #. module: stock_picking_create_repair
 #: model:ir.actions.server,name:stock_picking_create_repair.action_confirm_repair_multiple
@@ -153,7 +153,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_quant__display_name
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_return_picking__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nom à afficher"
 
 #. module: stock_picking_create_repair
 #: model:ir.actions.server,name:stock_picking_create_repair.action_repair_end_multiple
@@ -260,12 +260,12 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Pièce comptable"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Écriture comptable"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_account_move____last_update
@@ -287,7 +287,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_quant____last_update
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_return_picking____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Dernière modification le"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_product_rma__write_uid
@@ -364,17 +364,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_product_rma__product_rma
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_fee__product_id
 msgid "Product"
-msgstr ""
+msgstr "Article"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "Mouvements d'article (Ligne de mouvement de stock)"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_product_template
 msgid "Product Template"
-msgstr ""
+msgstr "Modèle d'article"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__product_to_repair_id
@@ -391,7 +391,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__purchase_order_id
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
 msgid "Purchase Order"
-msgstr ""
+msgstr "Commande fournisseur"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__purchase_state
@@ -412,17 +412,17 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_repair_fee
 msgid "Repair Fees"
-msgstr ""
+msgstr "Frais de réparation"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_repair_line
 msgid "Repair Line (parts)"
-msgstr ""
+msgstr "Ligne de réparation (pièces)"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_repair_order
 msgid "Repair Order"
-msgstr ""
+msgstr "Ordre de réparation"
 
 #. module: stock_picking_create_repair
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.repair_order_calendar_view
@@ -493,7 +493,7 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_stock_return_picking
 msgid "Return Picking"
-msgstr ""
+msgstr "Retour à la cueillette"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__sale_order_id
@@ -529,12 +529,12 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Bon de commande"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_sale_order_line
 msgid "Sales Order Line"
-msgstr ""
+msgstr "Ligne de bons de commande"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__service_repair_product_id
@@ -549,7 +549,7 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_stock_move
 msgid "Stock Move"
-msgstr ""
+msgstr "Stock déplacer"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__repair_picking_move_line_ids
@@ -606,12 +606,12 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transfert"
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_sale_order_type
 msgid "Type of sale order"
-msgstr ""
+msgstr "Type de bon de commande"
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_picking__untreated_origin
