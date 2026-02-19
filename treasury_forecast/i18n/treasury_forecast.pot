@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-03 00:00+0000\n"
-"PO-Revision-Date: 2026-02-03 00:00+0000\n"
+"POT-Creation-Date: 2026-02-20 07:01+0000\n"
+"PO-Revision-Date: 2026-02-20 07:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,18 +17,14 @@ msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__active
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_form
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_tree
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #. module: treasury_forecast
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
-msgid "Group By"
-msgstr ""
-
-#. module: treasury_forecast
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
-msgid "Archived"
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__balance
+msgid "Balance"
 msgstr ""
 
 #. module: treasury_forecast
@@ -43,12 +39,26 @@ msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__create_uid
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__create_date
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__currency_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__date
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+msgid "Date"
 msgstr ""
 
 #. module: treasury_forecast
@@ -57,35 +67,32 @@ msgid "Date Limit"
 msgstr ""
 
 #. module: treasury_forecast
-#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__currency_id
-msgid "Currency"
-msgstr ""
-
-#. module: treasury_forecast
-#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__date
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
-msgid "Date"
-msgstr ""
-
-#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__name
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__name
 msgid "Description"
 msgstr ""
 
 #. module: treasury_forecast
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
-#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__journal_id
-msgid "Journal"
-msgstr ""
-
-#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__display_name
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__display_name
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__expense
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__debit
 msgid "Expense"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__date
+msgid "Fecha"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields.selection,name:treasury_forecast.selection__treasury_forecast_report__source__forecast
+msgid "Forecast"
 msgstr ""
 
 #. module: treasury_forecast
@@ -102,22 +109,39 @@ msgid "Generate Treasury Lines"
 msgstr ""
 
 #. module: treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+msgid "Group By"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__id
 msgid "ID"
 msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__income
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__credit
 msgid "Income"
 msgstr ""
 
 #. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__journal_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__journal_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+msgid "Journal"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__write_uid
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__write_date
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -127,15 +151,55 @@ msgid "Line Balance"
 msgstr ""
 
 #. module: treasury_forecast
+#: model:ir.model.fields.selection,name:treasury_forecast.selection__treasury_forecast_report__source__move_line
+msgid "Move Line"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__source
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+msgid "Origen"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__partner_id
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__partner_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Partner"
 msgstr ""
 
 #. module: treasury_forecast
+#: model:ir.ui.menu,name:treasury_forecast.menu_treasury_forecast_report_pivot
+msgid "Previsión Tesorería + Real"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_report_pivot
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_pivot
+msgid "Previsión de tesorería + Real"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__product_id
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__product_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Product"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__recurrence_months
+msgid "Recurrence (Months)"
+msgstr ""
+
+#. module: treasury_forecast
+#. odoo-python
+#: code:addons/treasury_forecast/models/treasury_forecast.py:0
+msgid "Recurrence must be at least 1 month."
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__residual
+msgid "Residual"
 msgstr ""
 
 #. module: treasury_forecast
@@ -154,21 +218,15 @@ msgid "Total Income"
 msgstr ""
 
 #. module: treasury_forecast
-#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__recurrence_months
-msgid "Recurrence (Months)"
-msgstr ""
-
-#. module: treasury_forecast
-#. odoo-python
-#: code:addons/treasury_forecast/models/treasury_forecast.py:0
-msgid "Recurrence must be at least 1 month."
-msgstr ""
-
-#. module: treasury_forecast
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast
 #: model:ir.model,name:treasury_forecast.model_treasury_forecast
 #: model:ir.ui.menu,name:treasury_forecast.menu_treasury_forecast
 msgid "Treasury Forecast"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model,name:treasury_forecast.model_treasury_forecast_report
+msgid "Treasury Forecast Report"
 msgstr ""
 
 #. module: treasury_forecast
