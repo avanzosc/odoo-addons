@@ -84,18 +84,28 @@
     </field>
   </record>
 
-  <record id="view_treasury_forecast_pivot" model="ir.ui.view">
-    <field name="name">treasury.forecast.pivot</field>
-    <field name="model">treasury.forecast</field>
+  <record id="view_treasury_forecast_report_pivot" model="ir.ui.view">
+    <field name="name">treasury.forecast.report.pivot</field>
+    <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
-      <pivot>
-        <field name="income" type="measure" />
-        <field name="expense" type="measure" />
-        <field name="balance" type="measure" />
-        <field name="date" type="row" />
-        <field name="partner_id" type="row" />
-        <field name="product_id" type="row" />
-      </pivot>
+        <pivot string="Previsión de tesorería + Real">
+
+        
+            <field name="balance" type="measure"/>
+            <field name="debit" type="measure"/>
+            <field name="credit" type="measure"/>
+            <field name="residual" type="measure"/>
+
+            <field name="date" type="row"/>
+            <field name="partner_id" type="row"/>
+            <field name="product_id" type="row"/>
+            <field name="journal_id" type="row"/>
+            <field name="currency_id" type="row"/>
+            <field name="source" type="row"/>
+            <field name="name" type="row"/>
+
+        </pivot>
     </field>
-  </record>
+</record>
+
 </odoo>
