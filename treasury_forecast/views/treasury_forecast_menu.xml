@@ -1,0 +1,16 @@
+<odoo>
+  <record id="action_treasury_forecast" model="ir.actions.act_window">
+    <field name="name">Treasury Forecast</field>
+    <field name="res_model">treasury.forecast</field>
+    <field name="view_mode">list,form,pivot</field>
+    <field name="search_view_id" ref="view_treasury_forecast_search" />
+  </record>
+
+  <menuitem
+    id="menu_treasury_forecast"
+    name="Treasury Forecast"
+    parent="account.menu_finance_reports"
+    action="action_treasury_forecast"
+    sequence="50"
+  />
+</odoo>
