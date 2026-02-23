@@ -11,7 +11,8 @@ except Exception:
 _logger = logging.getLogger(__name__)
 
 
-def pre_init_hook(cr):
+def pre_init_hook(env):
+    cr = env.cr if hasattr(env, "cr") else env
     _logger.info("Pre-creating column is_repair for table sale_order")
     if not openupgrade.column_exists(cr, "sale_order", "is_repair"):
         cr.execute(

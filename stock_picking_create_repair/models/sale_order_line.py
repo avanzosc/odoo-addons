@@ -163,9 +163,12 @@ class SaleOrderLine(models.Model):
             if not repair.from_repair_picking_out_id:
                 amount_pending_delivery += repair.amount_untaxed
             else:
+                repair_lot_id = repair.lot_id
+                repair_picking_id = repair.from_repair_picking_out_id
                 move_lines = self.repair_picking_move_line_ids.filtered(
-                    lambda x: x.lot_id == repair.lot_id
-                    and x.picking_id == repair.from_repair_picking_out_id
+                    lambda x, repair_lot_id=repair_lot_id, repair_picking_id=repair_picking_id: x.lot_id
+                    == repair_lot_id
+                    and x.picking_id == repair_picking_id
                 )
                 if not move_lines:
                     amount_pending_delivery += repair.amount_untaxed
@@ -222,10 +225,16 @@ class SaleOrderLine(models.Model):
             and x.invoice_method != "none"
             and not x.invoice_id
         ):
+            repair_picking_id = repair.from_repair_picking_out_id
+            repair_sale_line_id = repair.sale_line_id
+            repair_lot_id = repair.lot_id
             move_lines = self.repair_picking_move_line_ids.filtered(
-                lambda z: z.picking_id == repair.from_repair_picking_out_id
-                and z.sale_line_id == repair.sale_line_id
-                and z.lot_id == repair.lot_id
+                lambda z,
+                repair_picking_id=repair_picking_id,
+                repair_sale_line_id=repair_sale_line_id,
+                repair_lot_id=repair_lot_id: z.picking_id == repair_picking_id
+                and z.sale_line_id == repair_sale_line_id
+                and z.lot_id == repair_lot_id
                 and z.state == "done"
             )
             if move_lines:

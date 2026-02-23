@@ -36,7 +36,7 @@ class StockMoveLine(models.Model):
         vals = {
             "partner_id": self.picking_id.partner_id.id,
             "product_id": self.product_id.id,
-            "product_qty": self.qty_done,
+            "product_qty": self.quantity,
             "product_uom": self.product_uom_id.id,
             "location_id": self.location_dest_id.id,
             "invoice_method": "after_repair",

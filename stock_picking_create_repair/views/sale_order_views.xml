@@ -4,9 +4,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_quotation_tree" />
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="decoration-info">is_repair</attribute>
-            </tree>
+            </list>
             <field name="company_id" position="after">
                 <field name="is_repair" optional="hide" />
                 <field name="repairs_count" optional="show" />
@@ -18,9 +18,9 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree" />
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="decoration-info">is_repair</attribute>
-            </tree>
+            </list>
             <field name="company_id" position="after">
                 <field name="is_repair" optional="hide" />
                 <field name="repairs_count" optional="show" />
@@ -36,11 +36,11 @@
                 <field
           name="is_repair"
           readonly="1"
-          attrs="{'invisible': [('is_repair', '=', False)]}"
+                    invisible="not is_repair"
         />
                 <field
           name="repairs_amount_untaxed"
-          attrs="{'invisible': [('is_repair', '=', False)]}"
+                    invisible="not is_repair"
         />
             </field>
         </field>
@@ -54,14 +54,10 @@
                 <field name="count_pending_repairs" invisible="1" />
             </field>
             <xpath expr="//header/button[3]" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': ['|', ('is_repair', '=', True), ('invoice_status', '!=', 'to invoice')]}</attribute>
+                                <attribute name="invisible">is_repair or invoice_status != 'to invoice'</attribute>
             </xpath>
             <xpath expr="//header/button[4]" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': ['|', ('is_repair', '=', True), '|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}</attribute>
+                                <attribute name="invisible">is_repair or invoice_status != 'no' or state != 'sale'</attribute>
             </xpath>
             <xpath expr="//header/button[4]" position="after">
                 <button
@@ -69,7 +65,7 @@
           string="Create Invoice"
           type="action"
           context="{'from_repair': True}"
-          attrs="{'invisible': ['|', ('is_repair', '=', False), ('count_pending_repairs', '=', 0)]}"
+                    invisible="not is_repair or count_pending_repairs == 0"
         />
             </xpath>
             <button name="action_view_invoice" position="after">
@@ -78,7 +74,7 @@
           class="oe_stat_button"
           icon="fa-tasks"
           type="object"
-          attrs="{'invisible': [('count_repair_devolution_picking', '=', 0)]}"
+                    invisible="count_repair_devolution_picking == 0"
         >
                     <field
             name="count_repair_devolution_picking"
@@ -91,7 +87,7 @@
           class="oe_stat_button"
           icon="fa-tasks"
           type="object"
-          attrs="{'invisible': [('repairs_count', '=', 0)]}"
+                invisible="repairs_count == 0"
         >
                     <field name="repairs_count" widget="statinfo" string="Repairs" />
                 </button>
@@ -100,7 +96,7 @@
           class="oe_stat_button"
           icon="fa-tasks"
           type="object"
-          attrs="{'invisible': [('count_in_picking_repairs', '=', 0)]}"
+                invisible="count_in_picking_repairs == 0"
         >
                     <field
             name="count_in_picking_repairs"
@@ -113,7 +109,7 @@
           class="oe_stat_button"
           icon="fa-tasks"
           type="object"
-          attrs="{'invisible': [('count_out_picking_repairs', '=', 0)]}"
+                invisible="count_out_picking_repairs == 0"
         >
                     <field
             name="count_out_picking_repairs"
@@ -123,19 +119,19 @@
                 </button>
             </button>
             <xpath
-        expr="//field[@name='order_line']/tree/field[@name='name']"
+                expr="//field[@name='order_line']/list/field[@name='name']"
         position="after"
       >
                 <field name="is_repair" invisible="1" />
                 <field
           name="product_to_repair_id"
           optional="show"
-          attrs="{'required': [('is_repair', '=', True)]}"
+                required="is_repair"
           domain="[('type','=','product')]"
         />
             </xpath>
             <xpath
-        expr="//field[@name='order_line']/tree/field[@name='price_unit']"
+                expr="//field[@name='order_line']/list/field[@name='price_unit']"
         position="before"
       >
                 <field name="initial_price_unit" readonly="1" optional="show" />
@@ -146,13 +142,13 @@
         />
             </xpath>
             <xpath
-        expr="//field[@name='order_line']/tree/field[@name='price_unit']"
+                expr="//field[@name='order_line']/list/field[@name='price_unit']"
         position="after"
       >
                 <field name="repair_amount_untaxed" readonly="1" optional="show" />
             </xpath>
             <!--
-            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="after">
+            <xpath expr="//field[@name='order_line']/list/field[@name='product_uom_qty']" position="after">
                 <field name="qty_delivered" readonly="1" optional="show" />
             </xpath>
             -->
@@ -161,7 +157,7 @@
           name="action_create_in_picking_repair_from_sale_order"
           type="object"
           string="Create repair in picking"
-          attrs="{'invisible': ['|', ('is_repair', '=', False), ('count_in_picking_repairs', '>', 0)]}"
+          invisible="not is_repair or count_in_picking_repairs &gt; 0"
         />
             </button>
         </field>
@@ -171,7 +167,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_sales_order_filter" />
         <field name="arch" type="xml">
-            <field name="analytic_account_id" position="after">
+            <field name="team_id" position="after">
                 <field name="is_repair" />
             </field>
             <filter name="activities_upcoming_all" position="after">

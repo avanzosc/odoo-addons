@@ -48,10 +48,10 @@ class AccountMove(models.Model):
                         amount_total_products_rmas += line.amount_products_rmas
                 invoice.amount_total_products_rmas = amount_total_products_rmas
 
-    @api.depends("repair_ids")
+    @api.depends("repairs_ids")
     def _compute_count_repairs(self):
         for invoice in self:
-            invoice.count_repairs = len(invoice.repair_ids)
+            invoice.count_repairs = len(invoice.repairs_ids)
 
     def unlink(self):
         repair_obj = self.env["repair.order"]
@@ -69,7 +69,7 @@ class AccountMove(models.Model):
         )
         action["domain"] = expression.AND(
             [
-                [("id", "in", self.repair_ids.ids)],
+                [("id", "in", self.repairs_ids.ids)],
                 safe_eval(action.get("domain") or "[]"),
             ]
         )

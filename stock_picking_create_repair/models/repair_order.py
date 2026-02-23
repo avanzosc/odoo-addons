@@ -6,6 +6,26 @@ from odoo import api, fields, models
 class RepairOrder(models.Model):
     _inherit = "repair.order"
 
+    invoice_id = fields.Many2one(
+        comodel_name="account.move",
+        copy=False,
+        readonly=True,
+    )
+    invoice_method = fields.Selection(
+        selection=[("none", "No Invoice"), ("after_repair", "After Repair")],
+        string="Invoicing",
+        default="after_repair",
+        required=True,
+        copy=False,
+    )
+    invoiced = fields.Boolean(default=False, copy=False)
+    amount_untaxed = fields.Float(
+        digits="Product Price",
+        compute="_compute_amount_untaxed",
+        store=True,
+        copy=False,
+    )
+
     created_from_move_line_id = fields.Many2one(
         string="Created from detailed operation",
         copy=False,
@@ -43,6 +63,24 @@ class RepairOrder(models.Model):
     is_repair = fields.Boolean(
         string="Is repair", compute="_compute_is_repair", store=True, copy=False
     )
+
+    @api.depends(
+        "move_ids",
+        "move_ids.repair_line_type",
+        "move_ids.product_uom_qty",
+        "move_ids.quantity",
+        "move_ids.price_unit",
+        "move_ids.state",
+    )
+    def _compute_amount_untaxed(self):
+        for repair in self:
+            amount = 0.0
+            for move in repair.move_ids.filtered(
+                lambda m: m.repair_line_type == "add" and m.state != "cancel"
+            ):
+                qty = move.quantity if move.state == "done" else move.product_uom_qty
+                amount += qty * move.price_unit
+            repair.amount_untaxed = amount
 
     @api.depends("sale_order_id", "sale_order_id.is_repair")
     def _compute_is_repair(self):

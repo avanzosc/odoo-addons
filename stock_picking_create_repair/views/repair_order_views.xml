@@ -38,7 +38,6 @@
         <field name="inherit_id" ref="repair.view_repair_order_form" />
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <field name="invoice_id" position="replace" />
             <field name="user_id" position="after">
                 <field name="created_from_picking_id" />
                 <field name="purchase_order_id" />
@@ -50,17 +49,9 @@
                 <field name="sale_order_id" />
                 <field name="invoice_id" readonly="1" />
             </field>
-            <xpath
-        expr="//page[@name='extra_info']//field[@name='move_id']"
-        position="after"
-      >
+            <field name="picking_id" position="after">
                 <field name="from_repair_picking_out_id" readonly="1" />
-            </xpath>
-            <button name="action_repair_invoice_create" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': ['|', ('is_repair', '=', True), '|', ('state', '!=', '2binvoiced'), ('invoice_id', '!=', False)]}</attribute>
-            </button>
+            </field>
         </field>
     </record>
 
@@ -74,7 +65,7 @@
                 <field name="sale_order_id" />
                 <field name="invoice_id" />
             </field>
-            <filter name="ready_to_repair" position="after">
+            <filter name="ready" position="after">
                 <separator />
                 <filter
           string="Created from incoming picking"
