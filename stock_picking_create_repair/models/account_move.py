@@ -78,7 +78,5 @@ class AccountMove(models.Model):
     def get_rma_to_print(self):
         repairs = ""
         for repair in self.repairs_ids:
-            repairs = (
-                repair.name if not repairs else "{}, {}".format(repairs, repair.name)
-            )
+            repairs = repair.name if not repairs else f"{repairs}, {repair.name}"
         return repairs

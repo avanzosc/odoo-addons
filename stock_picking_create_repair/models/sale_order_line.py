@@ -119,9 +119,7 @@ class SaleOrderLine(models.Model):
     def get_rma_to_print(self):
         repairs = ""
         for repair in self.repair_order_ids:
-            repairs = (
-                repair.name if not repairs else "{}, {}".format(repairs, repair.name)
-            )
+            repairs = repair.name if not repairs else f"{repairs}, {repair.name}"
         return repairs
 
     @api.depends(
@@ -166,8 +164,9 @@ class SaleOrderLine(models.Model):
                 repair_lot_id = repair.lot_id
                 repair_picking_id = repair.from_repair_picking_out_id
                 move_lines = self.repair_picking_move_line_ids.filtered(
-                    lambda x, repair_lot_id=repair_lot_id, repair_picking_id=repair_picking_id: x.lot_id
-                    == repair_lot_id
+                    lambda x,
+                    repair_lot_id=repair_lot_id,
+                    repair_picking_id=repair_picking_id: x.lot_id == repair_lot_id
                     and x.picking_id == repair_picking_id
                 )
                 if not move_lines:
