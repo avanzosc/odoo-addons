@@ -17,6 +17,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/treasury_forecast_views.xml",
+        "views/treasury_forecast_generate_lines_views.xml",
         "views/treasury_forecast_menu.xml",
     ],
     "installable": True,
