@@ -74,3 +74,13 @@ class TreasuryForecast(models.Model):
         for record in self:
             if record.recurrence_months < 1:
                 raise ValidationError(_("Recurrence must be at least 1 month."))
+
+    def action_open_generate_lines_wizard(self):
+        active_ids = self.env.context.get("active_ids", self.ids)
+        action = self.env.ref(
+            "treasury_forecast.action_treasury_forecast_generate_lines"
+        ).read()[0]
+        action["context"] = dict(
+            self.env.context, active_ids=active_ids, active_model="treasury.forecast"
+        )
+        return action

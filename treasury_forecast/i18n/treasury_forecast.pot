@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-02 00:00+0000\n"
-"PO-Revision-Date: 2026-02-02 00:00+0000\n"
+"POT-Creation-Date: 2026-02-03 00:00+0000\n"
+"PO-Revision-Date: 2026-02-03 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,11 @@ msgid "Archived"
 msgstr ""
 
 #. module: treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
+msgid "Cancel"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__company_id
 msgid "Company"
 msgstr ""
@@ -44,6 +49,11 @@ msgstr ""
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__date_limit
+msgid "Date Limit"
 msgstr ""
 
 #. module: treasury_forecast
@@ -76,6 +86,19 @@ msgstr ""
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__expense
 msgid "Expense"
+msgstr ""
+
+#. module: treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
+msgid "Generate"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_generate_lines
+#: model:ir.actions.server,name:treasury_forecast.treasury_forecast_generate_lines_server_action
+#: model:ir.model,name:treasury_forecast.model_treasury_forecast_generate_lines
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
+msgid "Generate Treasury Lines"
 msgstr ""
 
 #. module: treasury_forecast
