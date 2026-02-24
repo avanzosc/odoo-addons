@@ -28,4 +28,5 @@ Contributors
 ------------
 
 * Daniel Campos <danielcampos@avanzosc.es>
+* Eñaut Alberdi <enautavanzosc@gmail.com>
 * Ana Juaristi <anajuaristi@avanzosc.es>
