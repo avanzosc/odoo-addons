@@ -7,12 +7,12 @@
       <page name="contact_addresses" position="after">
         <page name="extra_phone" string="Extra Phones">
           <field name="extra_phone_ids">
-            <tree editable="bottom">
-              <field name="partner_id" invisible="1" />
+            <list editable="bottom">
+              <field name="partner_id" column_invisible="True" />
               <field name="description" />
               <field name="phone" widget="phone" />
               <field name="email" widget="email" />
-            </tree>
+            </list>
           </field>
         </page>
       </page>

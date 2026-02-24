@@ -7,7 +7,10 @@ class ExtraPhone(models.Model):
     _name = "extra.phone"
     _description = "Contacts Extra Phones"
 
-    partner_id = fields.Many2one(string="Partner", comodel_name="res.partner")
-    phone = fields.Text(string="Phone")
-    email = fields.Text(string="Email")
-    description = fields.Text(string="Description")
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner",
+    )
+    phone = fields.Text()
+    email = fields.Text()
+    description = fields.Text()
