@@ -49,14 +49,14 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error"
+            invisible="state not in ('2validate','error')"
           />
           <button
             name="action_process"
             string="Process"
             type="object"
             class="oe_read_only"
-            states="error,pass"
+            invisible="state not in ('error','pass')"
           />
           <field name="state" widget="statusbar" />
         </header>
@@ -82,7 +82,7 @@
   <record id="res_partner_phone_import_line_view_tree" model="ir.ui.view">
     <field name="model">res.partner.phone.import.line</field>
     <field name="arch" type="xml">
-      <tree
+      <list
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-it="log_info"
@@ -93,7 +93,7 @@
           decoration-muted="action == 'nothing'"
           decoration-success="action == 'create'"
         />
-        <field name="import_id" invisible="1" />
+        <field name="import_id" column_invisible="True" />
         <field name="contact_name" />
         <field name="contact_code" />
         <field name="contact_id" />
@@ -102,7 +102,7 @@
         <field name="contact_email" />
         <field name="state" />
         <field name="log_info" optional="show" />
-      </tree>
+      </list>
     </field>
   </record>
 
@@ -110,7 +110,7 @@
     <field name="name">Import Contact Phone Lines</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">res.partner.phone.import.line</field>
-    <field name="view_mode">tree,form</field>
+    <field name="view_mode">list,form</field>
     <field name="view_id" ref="res_partner_phone_import_line_view_tree" />
   </record>
 </odoo>

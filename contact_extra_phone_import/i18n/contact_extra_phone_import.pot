@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-19 13:53+0000\n"
-"PO-Revision-Date: 2023-10-19 13:53+0000\n"
+"POT-Creation-Date: 2026-02-24 13:13+0000\n"
+"PO-Revision-Date: 2026-02-24 13:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -176,11 +176,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -194,6 +189,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_search
 msgid "Group By"
+msgstr ""
+
+#. module: contact_extra_phone_import
+#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: contact_extra_phone_import
@@ -224,7 +224,6 @@ msgstr ""
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_needaction
-#: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -277,12 +276,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import____last_update
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__write_uid
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import_line__write_uid
 msgid "Last Updated by"
@@ -311,11 +304,6 @@ msgid "Log Info"
 msgstr ""
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_main_attachment_id
-msgid "Main Attachment"
-msgstr ""
-
-#. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -326,8 +314,8 @@ msgid "Messages"
 msgstr ""
 
 #. module: contact_extra_phone_import
+#. odoo-python
 #: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
-#, python-format
 msgid "More than one contact found."
 msgstr ""
 
@@ -357,8 +345,8 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: contact_extra_phone_import
+#. odoo-python
 #: code:addons/contact_extra_phone_import/models/res_partner_phone_import.py:0
-#, python-format
 msgid "No contact found."
 msgstr ""
 
@@ -374,17 +362,12 @@ msgstr ""
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: contact_extra_phone_import
-#: model:ir.model.fields,help:contact_extra_phone_import.field_res_partner_phone_import__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: contact_extra_phone_import
@@ -411,6 +394,11 @@ msgstr ""
 #. module: contact_extra_phone_import
 #: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_has_sms_error
 msgid "SMS Delivery error"
+msgstr ""
+
+#. module: contact_extra_phone_import
+#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__split_size
+msgid "Split Size"
 msgstr ""
 
 #. module: contact_extra_phone_import
@@ -441,16 +429,6 @@ msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: contact_extra_phone_import
-#: model:ir.model.fields,field_description:contact_extra_phone_import.field_res_partner_phone_import__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_form
 msgid "Validate"
@@ -473,5 +451,5 @@ msgstr ""
 
 #. module: contact_extra_phone_import
 #: model_terms:ir.ui.view,arch_db:contact_extra_phone_import.res_partner_phone_import_view_form
-msgid "You must use this column names in order to fill the table:"
+msgid "You must use these column names in order to fill the table:"
 msgstr ""
