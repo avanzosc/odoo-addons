@@ -9,13 +9,13 @@ class SaleOrderHistory(models.Model):
     _description = "Sale Order History"
 
     name = fields.Char(string='Description', required=True)
-    partner = fields.Char(string='Partner')
-    partner_id = fields.Many2one('res.partner', string='Partner')
+    partner = fields.Char()
+    partner_id = fields.Many2one('res.partner')
     amount_tax = fields.Float(string='Taxes', default=0.0)
     amount_total = fields.Float(string='Total', default=0.0)
     amount_untaxed = fields.Float(string='Amount untaxed', default=0.0)
-    confirmation_date = fields.Date(string='Confirmation Date')
-    order_date = fields.Date(string='Order Date')
+    confirmation_date = fields.Date()
+    order_date = fields.Date()
     history_lines = fields.One2many(
         comodel_name='sale.order.line.history', inverse_name='order_id',
         string='Order History Lines')
@@ -29,19 +29,17 @@ class SaleOrderLineHistory(models.Model):
         comodel_name='sale.order.history', string='Order Reference',
         required=True, readonly=True)
     partner_id = fields.Many2one(
-        relation='sale.order.history', string='Partner', readonly=True,
-        related='order_id.partner_id')
-    partner = fields.Char(string='Partner', readonly=True,
-                          related='order_id.partner')
+        comodel_name='res.partner', readonly=True, related='order_id.partner_id')
+    partner = fields.Char(readonly=True, related='order_id.partner')
     name = fields.Text(string='Description', required=True)
     price_unit = fields.Float('Unit Price', readonly=True, default=0.0)
     discount = fields.Float(string='Discount (%)', readonly=True, default=0.0)
-    product = fields.Char(string='Product', readonly=True)
+    product = fields.Char(readonly=True)
     product_uom_qty = fields.Float(string='Ordered Quantity', default=1.0,
                                    readonly=True)
     product_uos_qty = fields.Float(string='Ordered Quantity (UoS)',
                                    default=1.0, readonly=True)
     product_uom = fields.Char(string='Unit of Measure', readonly=True)
-    type = fields.Char(string='Type', readonly=True)
+    type = fields.Char(readonly=True)
     salesman = fields.Char(string='Salesperson', readonly=True)
-    invoiced = fields.Boolean(string='Invoiced', default=True, readonly=True)
+    invoiced = fields.Boolean(default=True, readonly=True)

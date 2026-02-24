@@ -3,7 +3,7 @@
 
 {
     'name': 'Sale Invoice Lines History',
-    'version': '12.0.1.0.0',
+    'version': '18.0.1.0.0',
     'depends': [
         'account',
         'base',
@@ -13,7 +13,7 @@
     'author':  "AvanzOSC",
     'license': "AGPL-3",
     'summary': '''Sale Invoice Lines History''',
-    'website': 'http://www.avanzosc.es',
+    'website': 'https://www.avanzosc.es',
     'data': [
         'views/invoice_history_view.xml',
         'views/sale_history_view.xml',
