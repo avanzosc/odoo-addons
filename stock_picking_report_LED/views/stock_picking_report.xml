@@ -37,7 +37,7 @@
 
 
     <xpath expr="//table[contains(@class, 'table')]" position="after">
-      <table class="table table-sm" style="font-size: 10px;">
+      <table class="table table-sm" style="font-size: 12px;">
         <thead>
           <tr>
             <th><strong>Producto</strong></th>
@@ -97,7 +97,7 @@
                             'height': 30,'img_style': 'height:18px;'}"
                           t-esc="line.lot_id.name or line.lot_name"
                         />
-                          <div style="font-size: 10px; margin-top: 2px;">
+                          <div style="font-size: 12px; margin-top: 2px;">
                             <t t-esc="line.lot_id.name or line.lot_name" />
                           </div>
                         </div>
@@ -127,7 +127,7 @@
             /> Productos con cantidad no reservada:
             </p>
 
-            <table class="table table-sm" style="font-size: 10px;">
+            <table class="table table-sm" style="font-size: 12px;">
                 <thead>
                     <tr>
                         <th><strong>Producto</strong></th>
