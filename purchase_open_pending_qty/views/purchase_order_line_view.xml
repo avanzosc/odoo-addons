@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_order_line_tree_pending_qty" model="ir.ui.view">
+    <field name="name">purchase.order.line.tree.pending.qty</field>
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase_open_qty.view_purchase_order_line_tree" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='qty_to_invoice']" position="after">
+        <field name="pending_qty_to_invoice" optional="show" />
+      </xpath>
+      <xpath expr="//field[@name='qty_received']" position="after">
+        <field name="pending_qty_to_receive" optional="show" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
