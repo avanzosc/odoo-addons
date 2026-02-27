@@ -19,19 +19,10 @@ class AgreementPenaltyType(models.Model):
         string="Penalty Type",
         required=True,
     )
-    number = fields.Integer(string="Duration", default=1)
-    term = fields.Selection(
-        selection=[
-            ("days", "Days"),
-            ("months", "Months"),
-            ("years", "Years"),
-        ],
-        default="months",
-        required=True,
-    )
+    number = fields.Integer(string="Duration Months", default=1)
     penalty_percentage = fields.Float(string="Penalty %", digits=(16, 2))
     active_subscription_count = fields.Integer(
         string="Active Subscriptions",
         default=0,
     )
-    notes = fields.Text(string="Notes")
+    notes = fields.Text()
