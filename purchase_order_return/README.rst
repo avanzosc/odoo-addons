@@ -6,8 +6,27 @@
 Purchase Order Return
 =====================
 
-* New field in purchase order lines to put the quantity you are going to return.
-* Action to generate a return to a picking with new fields quantities.
+This module extends the Purchase Order functionality to allow specifying return quantities directly on purchase order lines, and automatically creates return pickings based on those quantities.
+
+Key Features
+============
+
+- **Return Quantity Field (`return_qty`)**: Dedicated field to register quantities to be returned on purchase order lines
+- **Smart Picking Management**: Automatic creation and updating of reception and return pickings based on quantity changes
+- **Respects Done States**: Never modifies pickings that are already in DONE state, always creates new ones for remaining quantities
+- **"Validate Everything" Button**: Single button to confirm and validate all pending pickings for an order
+
+1. **Reception Quantities Handling**
+When values are entered in the **Quantity** column:
+
+- **If a pending reception picking exists:** The picking will be updated, either by adding a new line or updating the existing one.
+- **If a reception picking exists but is already DONE:** It will not be modified at all. A new picking will always be created for any remaining quantities to be received.
+
+2. **Return Quantities Handling**
+When values are entered in the **To Return (return_qty)** column:
+
+- **If a pending return picking exists:** The picking will be updated, either by adding a new line or updating the existing one.
+- **If a return picking exists but is already DONE:** It will not be modified at all. A new picking will always be created for any remaining quantities to be returned.
 
 Bug Tracker
 ===========
@@ -26,4 +45,5 @@ Contributors
 ------------
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
