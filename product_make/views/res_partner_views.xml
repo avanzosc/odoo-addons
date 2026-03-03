@@ -4,26 +4,25 @@
     <field name="model">res.partner</field>
     <field name="inherit_id" ref="base.view_partner_form" />
     <field name="arch" type="xml">
-      <field name="vat" position="after">
+      <xpath expr="//sheet/group/group[1]" position="inside">
         <field
           name="market_id"
-          string="Sale channel"
-          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
-          required="customer_rank > 0 and company_type == 'company'"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
         />
+
         <field
           name="market_sector_id"
-          string="Market niche"
-          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
-          required="customer_rank > 0 and company_type == 'company'"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
         />
+
         <field
           name="classification_id"
-          string="Input channel"
-          invisible="customer_rank == 0 or (customer_rank > 0 and company_type != 'company')"
-          required="customer_rank > 0 and company_type == 'company'"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
         />
-      </field>
+      </xpath>
       <xpath expr="//field[@name='is_company']" position="after">
         <group>
           <field name="make_logo" widget="image" class="oe_avatar" nolabel="1" />
