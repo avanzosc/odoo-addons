@@ -27,7 +27,7 @@
             name="action_validate"
             string="Validate"
             type="object"
-            states="2validate,error"
+            states="2validate,pass,error"
           />
                     <button
             name="action_process"
@@ -72,7 +72,6 @@
                         </group>
                         <group string="Account Move Information">
                             <field name="ref" />
-                            <field name="unbalance" />
                             <field name="accounting_date" />
                             <field name="journal_id" />
                             <field name="account_move_id" invisible="1" />
@@ -93,27 +92,28 @@
               name="help_page"
               attrs="{'invisible': [('state', '=', 'done')]}"
             >
-                            <group>
-                                <div style="margin-top: 4px;">
-                                    <h3>Help with Excel column names</h3>
-                                    <p
-                  >You must use this column names in order to fill the table:</p>
-                                    <ul name="tutorial">
-                                        <li><code>Account</code>: this will fill <b
-                      >Account Code</b></li>
-                                        <li><code>Name</code>: this will fill <b
-                      >Account Description</b></li>
-                                        <li><code>Partner Code</code>: this will fill <b
-                      >Partner Reference</b></li>
-                                        <li><code>Partner Name</code>: this will fill <b
-                      >Partner Name</b></li>
-                                        <li><code>Debit</code>: this will fill <b
-                      >Debit</b></li>
-                                        <li><code>Credit</code>: this will fill <b
-                      >Credit</b></li>
-                                    </ul>
-                                </div>
-                            </group>
+                            <div style="margin-top: 4px;">
+                                <h3>Help with Excel column names</h3>
+                                <p
+                >You must use this column names in order to fill the table:</p>
+                                <ul name="tutorial">
+                                	<li><code
+                      t-translation="off"
+                    >Account</code>: this will fill <b>Account Code</b></li>
+                <li><code t-translation="off">Name</code>: this will fill <b
+                    >Account Description</b></li>
+                <li><code t-translation="off">Partner Code</code>: this will fill <b
+                    >Partner Reference</b></li>
+                <li><code t-translation="off">Partner Name</code>: this will fill <b
+                    >Partner Name</b></li>
+                <li><code t-translation="off">Debit</code>: this will fill <b
+                    >Debit</b></li>
+                <li><code t-translation="off">Credit</code>: this will fill <b
+                    >Credit</b></li>
+                <li><code t-translation="off">Distribution</code>: this will fill <b
+                    >Analytic Distribution</b></li>
+                                </ul>
+                            </div>
                         </page>
                     </notebook>
                 </sheet>

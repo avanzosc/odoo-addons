@@ -38,9 +38,6 @@ class AccountMoveImport(models.Model):
     ref = fields.Char(
         string="Account Move Ref",
     )
-    unbalance = fields.Boolean(
-        default=False,
-    )
     accounting_date = fields.Date(
         required=True,
         default=default_accounting_date,
@@ -64,6 +61,7 @@ class AccountMoveImport(models.Model):
             account_description = row_values.get("Name", "")
             debit = row_values.get("Debit", 0.0)
             credit = row_values.get("Credit", 0.0)
+            distribution = row_values.get("Distribution", "")
             partner_ref = row_values.get("Partner Code", "")
             partner_name = row_values.get("Partner Name", "")
             log_info = ""
@@ -72,6 +70,7 @@ class AccountMoveImport(models.Model):
                     {
                         "account_code": convert2str(account_code),
                         "account_description": convert2str(account_description),
+                        "distribution": convert2str(distribution),
                         "debit": check_number(debit),
                         "credit": check_number(credit),
                         "partner_ref": convert2str(partner_ref),
@@ -91,7 +90,6 @@ class AccountMoveImport(models.Model):
         self.ensure_one()
         vals = {
             "ref": self.ref,
-            "unbalance": self.unbalance,
             "date": self.accounting_date,
             "journal_id": self.journal_id and self.journal_id.id,
             "company_id": self.company_id and self.company_id.id,
@@ -140,7 +138,6 @@ class AccountMoveImportLine(models.Model):
     account_code = fields.Char(
         states={"done": [("readonly", True)]},
         copy=False,
-        required=True,
     )
     account_description = fields.Char(
         states={"done": [("readonly", True)]},
@@ -174,25 +171,44 @@ class AccountMoveImportLine(models.Model):
         states={"done": [("readonly", True)]},
         copy=False,
     )
+    distribution = fields.Char(
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    analytic_distribution = fields.Json(
+        comodel_name="account.analytic.distribution.model",
+    )
+    analytic_precision = fields.Integer(
+        compute="_compute_analytic_precision", store=False
+    )
+
+    def _compute_analytic_precision(self):
+        precision = self.env["decimal.precision"].precision_get("Percentage Analytic")
+        for record in self:
+            record.analytic_precision = precision
 
     def _action_validate(self):
         update_values = super()._action_validate()
         log_infos = []
-        account = partner = False
-        if self.account_code:
-            account, log_info_account = self._check_account()
-            if log_info_account:
-                log_infos.append(log_info_account)
+        partner = distribution = False
+        account, log_info_account = self._check_account()
+        if log_info_account:
+            log_infos.append(log_info_account)
         if self.partner_ref or self.partner_name:
             partner, log_info_partner = self._check_partner()
             if log_info_partner:
                 log_infos.append(log_info_partner)
+        if self.distribution:
+            distribution, log_info_distribution = self._check_distribution()
+            if log_info_distribution:
+                log_infos.append(log_info_distribution)
         state = "error" if log_infos else "pass"
         action = "create" if state != "error" else "nothing"
         update_values.update(
             {
                 "account_id": account and account.id,
                 "partner_id": partner and partner.id,
+                "analytic_distribution": distribution,
                 "log_info": "\n".join(log_infos),
                 "state": state,
                 "action": action,
@@ -222,6 +238,9 @@ class AccountMoveImportLine(models.Model):
         log_info = ""
         if self.account_id:
             return self.account_id, log_info
+        if not self.account_code:
+            log_info = _("Error: No account code.")
+            return False, log_info
         account_obj = self.env["account.account"]
         search_domain = [("code", "=", self.account_code)]
         if self.import_id.company_id:
@@ -279,10 +298,56 @@ class AccountMoveImportLine(models.Model):
             log_info = _("Error: More than one partner found.")
         return partners and partners[:1], log_info
 
+    def _check_distribution(self):
+        self.ensure_one()
+        log_info = ""
+        log_messages = []
+        analytic_distribution = {}
+        distributions = [
+            (c, float(p.replace("%", "")))
+            for c, p in [item.split(";") for item in self.distribution.split("|")]
+        ]
+        codes = [code for code, _ in distributions]
+        domain = [("name", "in", codes)]
+        if self.import_id.company_id:
+            domain = expression.AND(
+                [
+                    [
+                        "|",
+                        ("company_id", "=", self.import_id.company_id.id),
+                        ("company_id", "=", False),
+                    ],
+                    domain,
+                ]
+            )
+        analytic_obj = self.env["account.analytic.account"].with_company(
+            self.import_id.company_id
+        )
+        analytics = analytic_obj.search(domain)
+        analytics_by_name = {a.name: a for a in analytics}
+        for code, percentage in distributions:
+            analytic = analytics_by_name.get(code)
+            if not analytic:
+                log_messages.append(
+                    _("Error: No analytic account found for %s.") % code
+                )
+            elif len(analytic) > 1:
+                log_messages.append(
+                    _("Error: More than one analytic account found for %s.") % code
+                )
+            else:
+                analytic_distribution[analytic.id] = percentage
+            log_info = "\n".join(log_messages)
+        return analytic_distribution, log_info
+
     def _create_account_move_line(self):
         self.ensure_one()
         vals = self._account_move_vals()
-        account_move_line = self.env["account.move.line"].create(vals)
+        account_move_line = (
+            self.env["account.move.line"]
+            .with_context(check_move_validity=False)
+            .create(vals)
+        )
         return account_move_line
 
     def _account_move_vals(self):
@@ -294,5 +359,6 @@ class AccountMoveImportLine(models.Model):
             "debit": self.debit,
             "credit": self.credit,
             "move_id": self.account_move_id and self.account_move_id.id,
+            "analytic_distribution": self.analytic_distribution,
         }
         return vals
