@@ -1,7 +1,7 @@
 # Copyright 2026 Aner Arregi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class AgreementPenaltyType(models.Model):
@@ -26,3 +26,15 @@ class AgreementPenaltyType(models.Model):
         default=0,
     )
     notes = fields.Text()
+    product_id = fields.Many2one(
+        comodel_name="product.product",
+        related="penalty_type_id.product_id",
+        string="Product",
+        readonly=True,
+    )
+    penalty_price = fields.Float(string="Penalty Price", digits=(16, 2))
+
+    @api.onchange("penalty_type_id")
+    def _onchange_penalty_type_id(self):
+        if self.penalty_type_id and self.penalty_type_id.product_id:
+            self.penalty_price = self.penalty_type_id.product_id.list_price

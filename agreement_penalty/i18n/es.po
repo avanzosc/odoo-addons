@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-05 13:17+0000\n"
-"PO-Revision-Date: 2026-02-05 13:17+0000\n"
+"POT-Creation-Date: 2026-03-04 12:51+0000\n"
+"PO-Revision-Date: 2026-03-04 12:51+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,11 @@ msgstr "Acuerdo"
 #: model:ir.model,name:agreement_penalty.model_agreement_penalty_type
 msgid "Agreement Penalty Type"
 msgstr "Tipo de penalización del acuerdo"
+
+#. module: agreement_penalty
+#: model:ir.actions.server,name:agreement_penalty.action_server_apply_penalties
+msgid "Apply Penalties"
+msgstr "Aplicar penalizaciones"
 
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__create_uid
@@ -60,7 +65,7 @@ msgstr "Plazo meses"
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement__id
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_account_penalty____last_update
@@ -86,6 +91,7 @@ msgstr "Notas"
 
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement__agreement_penalty_ids
+#: model:ir.model.fields,field_description:agreement_penalty.field_agreement__penalty_count
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement__penalty_ids
 #: model_terms:ir.ui.view,arch_db:agreement_penalty.agreement_form
 msgid "Penalties"
@@ -102,6 +108,16 @@ msgid "Penalty %"
 msgstr "% penalización"
 
 #. module: agreement_penalty
+#: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__penalty_price
+msgid "Penalty Price"
+msgstr "Precio"
+
+#. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__penalty_type_id
 msgid "Penalty Type"
 msgstr "Tipo de penalización"
+
+#. module: agreement_penalty
+#: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__product_id
+msgid "Product"
+msgstr "Producto"

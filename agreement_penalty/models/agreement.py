@@ -35,3 +35,32 @@ class Agreement(models.Model):
             "domain": [("agreement_id", "=", self.id)],
             "context": {"default_agreement_id": self.id},
         }
+
+    def _get_penalty_journal(self):
+        self.ensure_one()
+        return (
+            self.sale_type_id.journal_id
+            if self.sale_type_id and self.sale_type_id.journal_id
+            else self.env["account.journal"].search([("type", "=", "sale")], limit=1)
+        )
+
+    def _create_account_penalty(self, penalty_line, quantity, amount):
+        self.ensure_one()
+        self.env["account.penalty"].create(
+            {
+                "agreement_id": self.id,
+                "name": penalty_line.penalty_type_id.name,
+                "quantity": quantity,
+                "amount": amount,
+                "invoice_date": fields.Date.today(),
+                "penalty_type_id": penalty_line.penalty_type_id.id,
+                "product_id": penalty_line.penalty_type_id.product_id.id
+                if penalty_line.penalty_type_id.product_id
+                else False,
+                "partner_id": self.partner_id.id if self.partner_id else False,
+                "journal_id": self._get_penalty_journal().id,
+            }
+        )
+
+    def apply_penalties(self):
+        return
