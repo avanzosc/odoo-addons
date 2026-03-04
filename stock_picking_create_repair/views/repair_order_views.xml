@@ -10,7 +10,7 @@
             </tree>
             <field name="user_id" position="before">
                 <field name="line_color" invisible="1" />
-                <field name="purchase_order_id" optional="show" />
+                <field name="purchase_order_id" optional="hide" />
                 <field name="purchase_state" widget="badge" optional="hide" />
                 <field
           name="created_from_picking_id"
@@ -18,22 +18,22 @@
           optional="show"
         />
                 <field name="created_from_move_line_id" optional="hide" />
-                <field name="sale_order_id" optional="show" />
+                <field name="sale_order_id" optional="hide" />
                 <field name="sale_state" widget="badge" optional="hide" />
-                <field name="deadline_delivery" optional="show" />
+                <field name="deadline_delivery" optional="hide" />
                 <field name="commitment_date" optional="hide" />
-                <field name="invoice_id" optional="show" />
+                <field name="invoice_id" optional="hide" />
             </field>
             <field name="company_id" position="before">
                 <field
           name="price_in_sale_budget"
-          optional="show"
+          optional="hide"
           sum="Total price in budget"
         />
                 <field
           name="amount_untaxed"
           optional="show"
-          sum="Total amount untaxec"
+          sum="Total amount untaxed"
         />
             </field>
             <field name="product_id" position="after">
@@ -50,15 +50,12 @@
             <field name="invoice_id" position="replace" />
             <field name="user_id" position="after">
                 <field name="created_from_picking_id" />
-                <field name="purchase_order_id" />
                 <field name="price_in_sale_budget" />
                 <field name="is_repair" invisible="1" />
             </field>
             <field name="tag_ids" position="after">
                 <field name="created_from_move_line_id" />
-                <field name="sale_order_id" />
                 <field name="deadline_delivery" />
-                <field name="commitment_date" />
                 <field name="invoice_id" readonly="1" />
             </field>
             <xpath
@@ -66,6 +63,22 @@
         position="after"
       >
                 <field name="from_repair_picking_out_id" readonly="1" />
+                <field name="purchase_order_id" />
+                <field
+          name="purchase_state"
+          widget="badge"
+          attrs="{'invisible': [('purchase_order_id','=',False)]}"
+        />
+                <field name="sale_order_id" />
+                <field
+          name="sale_state"
+          widget="badge"
+          attrs="{'invisible': [('sale_order_id','=',False)]}"
+        />
+                <field
+          name="commitment_date"
+          attrs="{'invisible': [('sale_order_id','=',False)]}"
+        />
             </xpath>
             <button name="action_repair_invoice_create" position="attributes">
                 <attribute
