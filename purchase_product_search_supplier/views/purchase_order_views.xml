@@ -1,0 +1,25 @@
+<odoo>
+    <record id="purchase_order_form_product_search" model="ir.ui.view">
+        <field name="name">purchase.order.form.product.search</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//field[@name='order_line']//tree//field[@name='product_id']"
+        position="attributes"
+      >
+                <attribute
+          name="context"
+        >{'partner_id': parent.partner_id, 'quantity': product_qty, 'company_id': parent.company_id, 'from_purchase': True}</attribute>
+            </xpath>
+            <xpath
+        expr="//field[@name='order_line']//form//field[@name='product_id']"
+        position="attributes"
+      >
+                <attribute
+          name="context"
+        >{'partner_id': parent.partner_id, 'company_id': parent.company_id, 'from_purchase': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
