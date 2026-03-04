@@ -3,7 +3,20 @@
         <field name="model">agreement</field>
         <field name="inherit_id" ref="agreement.agreement_form" />
         <field name="arch" type="xml">
-
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button
+          name="action_open_penalties"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-exclamation-triangle"
+        >
+                    <field
+            name="penalty_count"
+            widget="statinfo"
+            string="Penalizaciones"
+          />
+                </button>
+            </xpath>
             <xpath expr="//notebook" position="inside">
                 <page string="Penalties" name="penalties_tab">
                     <field name="agreement_penalty_ids">
@@ -14,15 +27,13 @@
                 string="Active Subscriptions"
                 optional="show"
               />
-                            <field name="number" string="Duration" optional="show" />
-                            <field name="term" string="Term" optional="show" />
+                            <field name="number" optional="show" />
                             <field
                 name="penalty_percentage"
-                string="Penalty %"
                 widget="percentage"
                 optional="show"
               />
-                            <field name="notes" string="Notes" optional="hide" />
+                            <field name="notes" optional="hide" />
                         </tree>
                     </field>
                 </page>

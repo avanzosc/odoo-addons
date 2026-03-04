@@ -11,15 +11,17 @@
             <field name="user_id" position="before">
                 <field name="line_color" invisible="1" />
                 <field name="purchase_order_id" optional="show" />
+                <field name="purchase_state" widget="badge" optional="hide" />
                 <field
           name="created_from_picking_id"
           string="Incoming Picking"
           optional="show"
         />
-                <field name="created_from_move_line_id" optional="show" />
+                <field name="created_from_move_line_id" optional="hide" />
                 <field name="sale_order_id" optional="show" />
+                <field name="sale_state" widget="badge" optional="hide" />
                 <field name="deadline_delivery" optional="show" />
-                <field name="commitment_date" optional="show" />
+                <field name="commitment_date" optional="hide" />
                 <field name="invoice_id" optional="show" />
             </field>
             <field name="company_id" position="before">
@@ -113,10 +115,16 @@
           context="{'group_by': 'commitment_date'}"
         />
                 <filter
-          string="Purchase order"
+          string="Purchase Order"
           name="group-purchase-order"
           domain="[]"
           context="{'group_by': 'purchase_order_id'}"
+        />
+                <filter
+          string="Purchase Status"
+          name="group-purchase-state"
+          domain="[]"
+          context="{'group_by': 'purchase_state'}"
         />
                 <filter
           string="Created from incoming picking"
@@ -125,10 +133,16 @@
           context="{'group_by': 'created_from_picking_id'}"
         />
                 <filter
-          string="Sale order"
+          string="Sale Order"
           name="group-sale-order"
           domain="[]"
           context="{'group_by': 'sale_order_id'}"
+        />
+                <filter
+          string="Sale Status"
+          name="group-sale-state"
+          domain="[]"
+          context="{'group_by': 'sale_state'}"
         />
                 <filter
           string="Invoice"
@@ -145,7 +159,7 @@
             <field name="model">repair.order</field>
             <field name="arch" type="xml">
                 <calendar
-        string="Repairs order"
+        string="Repair Orders"
         create="0"
         mode="month"
         date_start="deadline_delivery"
