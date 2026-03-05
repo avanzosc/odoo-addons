@@ -5,7 +5,7 @@
     <field name="inherit_id" ref="account.view_move_form" />
     <field name="arch" type="xml">
       <field name="fiscal_position_id" position="attributes">
-        <attribute name="context">{'division': team_id}</attribute>
+        <attribute name="context">{'division': invoice_user_id.team_id.id}</attribute>
       </field>
     </field>
   </record>
