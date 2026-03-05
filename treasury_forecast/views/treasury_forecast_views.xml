@@ -55,13 +55,46 @@
     <field name="name">treasury.forecast.report.search</field>
     <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
-      <search>
+      <search string="Treasury Analysis">
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
         <field name="journal_id" />
         <field name="source" />
         <field name="name" />
+
+        <separator />
+
+        <filter string="Ingresos" name="filter_income" domain="[('debit','&gt;',0)]" />
+        <filter string="Gastos" name="filter_expense" domain="[('credit','&gt;',0)]" />
+        <filter
+          string="Previsión"
+          name="filter_forecast"
+          domain="[('source','=','forecast')]"
+        />
+        <filter
+          string="Real"
+          name="filter_real"
+          domain="[('source','=','move_line')]"
+        />
+        <filter
+          string="Clientes"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Productos"
+          name="filter_products"
+          domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Diarios"
+          name="filter_journals"
+          domain="[('journal_id','!=',False)]"
+        />
+        <filter name="filter_date" date="date" />
+
+        <separator />
 
         <group expand="0" string="Group By">
           <filter string="Date" name="group_date" context="{'group_by': 'date'}" />

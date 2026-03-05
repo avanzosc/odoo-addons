@@ -63,5 +63,8 @@ class TreasuryForecastReport(models.Model):
                 FROM account_move_line aml
                 WHERE aml.date_maturity IS NOT NULL
                   AND aml.amount_residual > 0
+                  AND aml.move_id IN (
+                            SELECT id FROM account_move WHERE state='posted'
+                    )
             )
         """)
