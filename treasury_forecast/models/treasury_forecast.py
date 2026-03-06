@@ -41,6 +41,11 @@ class TreasuryForecast(models.Model):
     )
     recurrence_months = fields.Integer(string="Recurrence (Months)", default=1)
 
+    financing_id = fields.Many2one(
+        comodel_name="treasury.financing",
+        string="Financing",
+    )
+
     @api.depends("income", "expense")
     def _compute_balance(self):
         for record in self:

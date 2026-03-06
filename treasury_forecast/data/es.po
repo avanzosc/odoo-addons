@@ -35,23 +35,23 @@ msgstr "Cancelar"
 #. module: treasury_forecast
 #: model:ir.model,name:treasury_forecast.model_treasury_financing_category
 msgid "Categoría de financiación"
-msgstr ""
+msgstr "Categoría de financiación"
 
 #. module: treasury_forecast
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_financing_category
 #: model:ir.ui.menu,name:treasury_forecast.menu_treasury_financing_category
 msgid "Categorías de financiación"
-msgstr ""
+msgstr "Categoría de financiación"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Clientes"
-msgstr ""
+msgstr "Clientes"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__code
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__company_id
@@ -62,12 +62,12 @@ msgstr "Compañía"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__contract_date
 msgid "Contract Date"
-msgstr ""
+msgstr "Fecha contratación"
 
 #. module: treasury_forecast
 #: model:ir.actions.server,name:treasury_forecast.treasury_financing_generate_lines_server_action
 msgid "Crear previsiones"
-msgstr ""
+msgstr "Crear previsiones"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__create_uid
@@ -94,7 +94,7 @@ msgstr "Moneda"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__current_interest_percent
 msgid "Current Interest (%)"
-msgstr ""
+msgstr "(%)interes actual"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__date
@@ -111,7 +111,7 @@ msgstr "Fecha límite"
 #. odoo-python
 #: code:addons/treasury_forecast/models/treasury_financing.py:0
 msgid "Debe indicar la fecha inicio cuotas."
-msgstr ""
+msgstr "Debe indicar la fecha inicio cuotas"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__name
@@ -122,7 +122,7 @@ msgstr "Descripción"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Diarios"
-msgstr ""
+msgstr "Diarios"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__display_name
@@ -138,7 +138,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:treasury_forecast.field_account_move__estimated_journal_id
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__estimated_journal_id
 msgid "Estimated Journal"
-msgstr ""
+msgstr "Diario estimado"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__expense
@@ -150,7 +150,7 @@ msgstr "Gasto"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__date
 msgid "Fecha"
-msgstr ""
+msgstr "Fecha"
 
 #. module: treasury_forecast
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_financing
@@ -159,7 +159,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__financing_id
 #: model:ir.ui.menu,name:treasury_forecast.menu_treasury_financing
 msgid "Financing"
-msgstr ""
+msgstr "Financiación"
 
 #. module: treasury_forecast
 #: model:ir.model.fields.selection,name:treasury_forecast.selection__treasury_forecast_report__source__forecast
@@ -169,7 +169,7 @@ msgstr "Previsión"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Gastos"
-msgstr ""
+msgstr "Gastos"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
@@ -187,7 +187,7 @@ msgstr "Generar líneas de tesorería"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Group By"
-msgstr ""
+msgstr "Agrupar por"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__id
@@ -208,7 +208,7 @@ msgstr "Ingreso"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Ingresos"
-msgstr ""
+msgstr "Ingresos"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_form
@@ -218,22 +218,22 @@ msgstr ""
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__end_date
 msgid "Installment End Date"
-msgstr ""
+msgstr "Fecha fin cuotas"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__installment_recurrence
 msgid "Installment Recurrence (Months)"
-msgstr ""
+msgstr "Recurrencia cuota en meses"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__start_date
 msgid "Installment Start Date"
-msgstr ""
+msgstr "Fecha inicio cuotas"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__interest_review_recurrence
 msgid "Interest Review Recurrence (Months)"
-msgstr ""
+msgstr "Recurrencia revisión interés"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__journal_id
@@ -278,12 +278,12 @@ msgstr "Real"
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__name
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing_category__name
 msgid "Name"
-msgstr ""
+msgstr "Nombre"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__installment_number
 msgid "Number of Installments"
-msgstr ""
+msgstr "Nº cuotas"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__source
@@ -302,18 +302,18 @@ msgstr "Contacto"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Previsión"
-msgstr ""
+msgstr "Previsión"
 
 #. module: treasury_forecast
 #: model:ir.ui.menu,name:treasury_forecast.menu_treasury_forecast_report_pivot
 msgid "Previsión Tesorería + Real"
-msgstr ""
+msgstr "Previsión Tesorería + Real"
 
 #. module: treasury_forecast
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_report_pivot
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_pivot
 msgid "Previsión de tesorería + Real"
-msgstr ""
+msgstr "Previsión Tesorería + Real"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__product_id
@@ -325,22 +325,22 @@ msgstr "Producto"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__base_product_id
 msgid "Product base"
-msgstr ""
+msgstr "Producto base"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__interest_product_id
 msgid "Product interest"
-msgstr ""
+msgstr "Producto interés"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Productos"
-msgstr ""
+msgstr "Productos"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Real"
-msgstr ""
+msgstr "Real"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__recurrence_months
@@ -356,7 +356,7 @@ msgstr "La recurrencia debe ser de al menos 1 mes."
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__residual
 msgid "Residual"
-msgstr ""
+msgstr "Residual"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_tree
@@ -388,13 +388,13 @@ msgstr "Previsión de tesorería"
 #. module: treasury_forecast
 #: model:ir.model,name:treasury_forecast.model_treasury_forecast_report
 msgid "Treasury Forecast Report"
-msgstr ""
+msgstr "Treasury forecast report"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__category_type
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing_category__category_type
 msgid "Type"
-msgstr ""
+msgstr "tipo"
 
 #. module: treasury_forecast
 #. odoo-python
@@ -410,29 +410,29 @@ msgstr ""
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__total_amount
 msgid "amount total"
-msgstr ""
+msgstr "Importe cuota"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__interest_conditions
 msgid "condicions interest"
-msgstr ""
+msgstr "Condiciones interés"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__category_id
 msgid "financing category"
-msgstr ""
+msgstr "Categoría de financiación"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__last_forecast_date
 msgid "forecast last date"
-msgstr ""
+msgstr "Fecha última previsión"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__base_installment
 msgid "installment base"
-msgstr ""
+msgstr "Cuota Base"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__interest_installment
 msgid "installment interest"
-msgstr ""
+msgstr "Cuota interés"

@@ -7,6 +7,7 @@
       <list editable="bottom">
         <field name="date" />
         <field name="partner_id" />
+        <field name="company_id" />
         <field name="product_id" />
         <field name="name" />
         <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
@@ -34,6 +35,7 @@
           <group>
             <field name="date" />
             <field name="partner_id" />
+            <field name="company_id" />
             <field name="product_id" />
             <field name="name" />
             <field name="journal_id" />
@@ -60,9 +62,10 @@
         <field name="partner_id" />
         <field name="product_id" />
         <field name="journal_id" />
+        <field name="estimated_journal_id" />
         <field name="source" />
         <field name="name" />
-
+        <field name="financing_id" />
         <separator />
 
         <filter string="Ingresos" name="filter_income" domain="[('debit','&gt;',0)]" />

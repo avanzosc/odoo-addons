@@ -1,0 +1,144 @@
+from dateutil.relativedelta import relativedelta
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
+
+
+class TreasuryFinancing(models.Model):
+    _name = "treasury.financing"
+    _description = "Financing"
+
+    code = fields.Char(required=True)
+    name = fields.Char(required=True)
+    partner_id = fields.Many2one(
+        "res.partner",
+    )
+    journal_id = fields.Many2one("account.journal", domain=[("type", "=", "bank")])
+
+    display_name = fields.Char(
+        compute="_compute_display_name",
+        store=True,
+    )
+
+    category_type = fields.Selection(
+        selection=[
+            ("income", "Income"),
+            ("expense", "Expense"),
+        ],
+        string="Type",
+        related="category_id.category_type",
+        store=True,
+        readonly=True,
+    )
+
+    contract_date = fields.Date()
+    start_date = fields.Date(string="Installment Start Date")
+    end_date = fields.Date(string="Installment End Date")
+
+    installment_recurrence = fields.Integer(
+        string="Installment Recurrence (Months)", default=1
+    )
+
+    interest_review_recurrence = fields.Integer(
+        string="Interest Review Recurrence (Months)",
+        default=6,
+    )
+
+    installment_number = fields.Integer(string="Number of Installments")
+
+    interest_conditions = fields.Text(string="condicions interest")
+
+    total_amount = fields.Float(string="amount total")
+
+    base_installment = fields.Float(string="installment base")
+
+    current_interest_percent = fields.Float(string="Current Interest (%)")
+
+    interest_installment = fields.Float(string="installment interest")
+
+    installment_amount = fields.Float(
+        string="amount installment",
+        compute="_compute_installment_amount",
+        store=True,
+    )
+
+    category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="financing category",
+        required=True,
+    )
+
+    base_product_id = fields.Many2one(
+        "product.template",
+        string="Product base",
+        domain=[("type", "=", "service")],
+    )
+
+    interest_product_id = fields.Many2one(
+        "product.template",
+        string="Product interest",
+        domain=[("type", "=", "service")],
+    )
+
+    last_forecast_date = fields.Date(
+        string="forecast last date",
+        compute="_compute_last_forecast_date",
+    )
+
+    company_id = fields.Many2one(
+        "res.company",
+        required=True,
+        default=lambda self: self.env.company,
+    )
+
+    @api.depends("code", "name")
+    def _compute_display_name(self):
+        for rec in self:
+            if rec.code and rec.name:
+                rec.display_name = f"{rec.code} {rec.name}"
+            else:
+                rec.display_name = rec.code or rec.name or ""
+
+    @api.depends("base_installment", "interest_installment")
+    def _compute_installment_amount(self):
+        for rec in self:
+            rec.installment_amount = (rec.base_installment or 0.0) + (
+                rec.interest_installment or 0.0
+            )
+
+    def _compute_last_forecast_date(self):
+        forecast_model = self.env["treasury.forecast"]
+        for rec in self:
+            last_forecast = forecast_model.search(
+                [("financing_id", "=", rec.id)],
+                order="date desc, id desc",
+                limit=1,
+            )
+            rec.last_forecast_date = last_forecast.date if last_forecast else False
+
+    def action_open_generate_lines_wizard(self):
+        self.ensure_one()
+
+        if not self.start_date:
+            raise ValidationError(_("Debe indicar la fecha inicio cuotas."))
+
+        if self.last_forecast_date:
+            base_date = self.last_forecast_date
+        else:
+            base_date = self.start_date
+
+        wizard_date = fields.Date.to_date(base_date) + relativedelta(
+            months=self.interest_review_recurrence or 0
+        )
+
+        action = self.env.ref(
+            "treasury_forecast.action_treasury_forecast_generate_lines"
+        ).read()[0]
+
+        action["context"] = dict(
+            self.env.context,
+            active_ids=self.ids,
+            active_model="treasury.financing",
+            default_date_limit=wizard_date,
+        )
+        return action

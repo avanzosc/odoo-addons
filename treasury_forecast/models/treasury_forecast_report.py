@@ -12,6 +12,10 @@ class TreasuryForecastReport(models.Model):
     name = fields.Char(string="Description")
 
     journal_id = fields.Many2one("account.journal", string="Journal")
+    estimated_journal_id = fields.Many2one(
+        "account.journal",
+        string="Estimated Journal",
+    )
     currency_id = fields.Many2one("res.currency", string="Currency")
 
     debit = fields.Monetary(string="Expense", currency_field="currency_id")
@@ -23,6 +27,7 @@ class TreasuryForecastReport(models.Model):
         [("forecast", "Forecast"), ("move_line", "Move Line")],
         string="Origen",
     )
+    financing_id = fields.Many2one("treasury.financing", string="Financing")
 
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
@@ -40,7 +45,9 @@ class TreasuryForecastReport(models.Model):
                     (tf.income - tf.expense) AS balance,
                     (tf.income - tf.expense) AS residual,
                     tf.journal_id AS journal_id,
+                    tf.journal_id AS estimated_journal_id,
                     tf.currency_id AS currency_id,
+                    tf.financing_id AS financing_id,
                     'forecast'::text AS source
                 FROM treasury_forecast tf
                 WHERE tf.active = true
@@ -58,13 +65,14 @@ class TreasuryForecastReport(models.Model):
                     aml.balance AS balance,
                     aml.amount_residual AS residual,
                     aml.journal_id AS journal_id,
+                    am.estimated_journal_id AS estimated_journal_id,
                     aml.currency_id AS currency_id,
+                    NULL AS financing_id,
                     'move_line'::text AS source
                 FROM account_move_line aml
+                JOIN account_move am ON am.id = aml.move_id
                 WHERE aml.date_maturity IS NOT NULL
                   AND aml.amount_residual > 0
-                  AND aml.move_id IN (
-                            SELECT id FROM account_move WHERE state='posted'
-                    )
+                  AND am.state = 'posted'
             )
         """)
