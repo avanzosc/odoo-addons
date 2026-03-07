@@ -19,6 +19,10 @@ class StockInventoryImport(models.Model):
         string="# Inventory Lines",
         compute="_compute_inventory_line_count",
     )
+    lot_line_count = fields.Integer(
+        string="Lot Line Count",
+        compute="_compute_lot_line_count",
+    )
     lot_create = fields.Boolean(
         string="Create Lot",
         default=False,
@@ -56,11 +60,30 @@ class StockInventoryImport(models.Model):
         for record in self:
             record.inventory_line_count = len(record.mapped("import_line_ids.quant_id"))
 
+    def _compute_lot_line_count(self):
+        for record in self:
+            record.lot_line_count = len(
+                record.mapped("import_line_ids.inventory_lot_id")
+            )
+
     def button_open_inventory(self):
         self.ensure_one()
         quants = self.mapped("import_line_ids.quant_id")
         action = self.env["stock.quant"].action_view_inventory()
         action["domain"] = [("id", "in", quants.ids)]
+        return action
+
+    def button_view_lots(self):
+        self.ensure_one()
+        lots = self.mapped("import_line_ids.inventory_lot_id")
+        action = {
+            "type": "ir.actions.act_window",
+            "name": "Lotes de Inventario",
+            "res_model": "stock.lot",
+            "view_mode": "tree,form",
+            "domain": [("id", "in", lots.ids)],
+            "context": {"create": False},
+        }
         return action
 
 

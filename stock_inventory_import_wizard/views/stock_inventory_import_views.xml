@@ -56,6 +56,18 @@
             >
                             <field name="inventory_line_count" />
                         </button>
+
+                        <button
+              string="Lot Lines"
+              type="object"
+              name="button_view_lots"
+              attrs="{'invisible':[('lot_line_count', '=', 0)]}"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+                            <field name="lot_line_count" />
+                        </button>
+
                     </div>
                     <group>
                         <group>
