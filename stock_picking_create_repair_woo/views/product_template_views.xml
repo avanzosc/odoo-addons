@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_tree_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_create_repair.product_template_tree_view"
+    />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="default_product_manufacturing_operations" position="after">
+                    <field name="generic_repair_product" optional="hide" />
+                </field>
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_create_repair.product_template_form_view"
+    />
+        <field name="arch" type="xml">
+            <field name="default_product_manufacturing_operations" position="after">
+                <field
+          name="generic_repair_product"
+          attrs="{'invisible': [('type', '=', 'service')]}"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="product_template_search_view" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+      name="inherit_id"
+      ref="stock_picking_create_repair.product_template_search_view"
+    />
+        <field name="arch" type="xml">
+            <filter name="filter-is-repair" position="after">
+                <filter
+          string="It's a generic repair product"
+          name="filter-is-generic_repair_product"
+          domain="[('generic_repair_product','=', True)]"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

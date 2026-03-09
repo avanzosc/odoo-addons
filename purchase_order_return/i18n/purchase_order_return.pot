@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 12:31+0000\n"
-"PO-Revision-Date: 2024-11-05 12:31+0000\n"
+"POT-Creation-Date: 2026-01-21 09:49+0000\n"
+"PO-Revision-Date: 2026-01-21 09:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -55,11 +55,6 @@ msgid "Quantity"
 msgstr ""
 
 #. module: purchase_order_return
-#: model_terms:ir.ui.view,arch_db:purchase_order_return.purchase_order_form
-msgid "Return Picking"
-msgstr ""
-
-#. module: purchase_order_return
 #: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__return_qty
 msgid "Return Qty"
 msgstr ""
@@ -76,6 +71,35 @@ msgid "The product {} has not lot"
 msgstr ""
 
 #. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#, python-format
+msgid ""
+"The quantities on your purchase order indicate less\n"
+"than billed. You should ask for a refund."
+msgstr ""
+
+#. module: purchase_order_return
+#: model_terms:ir.ui.view,arch_db:purchase_order_return.purchase_order_form
+msgid "Validate Everything"
+msgstr ""
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#, python-format
+msgid ""
+"You cannot decrease the ordered quantity below\n"
+"the received quantity. Create a return first."
+msgstr ""
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#, python-format
+msgid ""
+"You cannot decrease the return quantity below\n"
+"the already returned quantity. Create a reception first."
+msgstr ""
+
+#. module: purchase_order_return
 #: code:addons/purchase_order_return/models/purchase_order.py:0
 #, python-format
 msgid "You must enter the picking type."
@@ -85,4 +109,10 @@ msgstr ""
 #: code:addons/purchase_order_return/models/purchase_order.py:0
 #, python-format
 msgid "You must enter the return picking type of picking type."
+msgstr ""
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must set a Vendor Location for this partner %s"
 msgstr ""

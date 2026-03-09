@@ -36,6 +36,7 @@
                <field
           name="reader_ps"
           context="{'from_stock_picking': True}"
+          optional="show"
           attrs="{
                         'invisible': [('picking_type_code','not in',('incoming','outgoing'))]
                       }"

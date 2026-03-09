@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qc_inspection_line_tree_view" model="ir.ui.view">
+        <field name="model">qc.inspection.line</field>
+        <field
+      name="inherit_id"
+      ref="quality_control_oca.qc_inspection_line_tree_view"
+    />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="person_performs_inspection_id" />
+                <field name="measurement_date" widget="date" />
+            </field>
+        </field>
+    </record>
+
+    <record id="qc_inspection_line_search_view" model="ir.ui.view">
+        <field name="model">qc.inspection.line</field>
+        <field
+      name="inherit_id"
+      ref="quality_control_oca.qc_inspection_line_search_view"
+    />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="person_performs_inspection_id" />
+                <field name="measurement_date" widget="date" />
+            </field>
+            <filter name="group_by_inspection_id" position="after">
+                <filter
+          string="Person who performed the measurement"
+          name="group_by_person_performs_inspection"
+          domain="[]"
+          context="{'group_by': 'person_performs_inspection_id'}"
+        />
+                <filter
+          string="Measurement Date"
+          name="group_by_measurement_date"
+          domain="[]"
+          context="{'group_by': 'measurement_date'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
