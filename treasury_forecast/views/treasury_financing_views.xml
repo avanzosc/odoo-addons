@@ -5,27 +5,27 @@
     <field name="model">treasury.financing</field>
     <field name="arch" type="xml">
       <list>
-        <field name="code" />
-        <field name="name" />
-        <field name="journal_id" />
-        <field name="partner_id" />
-        <field name="category_id" />
-        <field name="category_type" />
-        <field name="base_product_id" />
-        <field name="interest_product_id" />
-        <field name="contract_date" />
-        <field name="start_date" />
-        <field name="end_date" />
-        <field name="installment_recurrence" />
-        <field name="interest_review_recurrence" />
-        <field name="installment_number" />
-        <field name="interest_conditions" />
-        <field name="total_amount" />
-        <field name="base_installment" />
-        <field name="current_interest_percent" />
-        <field name="interest_installment" />
-        <field name="installment_amount" />
-        <field name="last_forecast_date" />
+        <field name="code" optional="show" />
+        <field name="name" optional="show" />
+        <field name="journal_id" optional="show" />
+        <field name="partner_id" optional="show" />
+        <field name="category_id" optional="show" />
+        <field name="category_type" optional="show" />
+        <field name="base_product_id" optional="show" />
+        <field name="interest_product_id" optional="show" />
+        <field name="contract_date" optional="show" />
+        <field name="start_date" optional="show" />
+        <field name="end_date" optional="show" />
+        <field name="installment_recurrence" optional="show" />
+        <field name="interest_review_recurrence" optional="show" />
+        <field name="installment_number" optional="show" />
+        <field name="interest_conditions" optional="show" />
+        <field name="total_amount" optional="show" />
+        <field name="base_installment" optional="show" />
+        <field name="current_interest_percent" optional="show" />
+        <field name="interest_installment" optional="show" />
+        <field name="installment_amount" optional="show" />
+        <field name="last_forecast_date" optional="show" />
       </list>
     </field>
   </record>
@@ -35,6 +35,22 @@
     <field name="arch" type="xml">
       <form>
         <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              type="object"
+              name="action_view_forecast_lines"
+              class="oe_stat_button"
+              icon="fa-line-chart"
+              invisible="forecast_line_count == 0"
+            >
+              <field
+                name="forecast_line_count"
+                widget="statinfo"
+                string="Forecast Lines"
+              />
+            </button>
+          </div>
+
           <group>
             <group>
               <field name="code" />
@@ -93,10 +109,10 @@
   </record>
   <menuitem
     id="menu_treasury_financing"
-    name="Financing"
-    parent="account.menu_finance_reports"
+    name="Financiación"
+    parent="menu_treasury_forecast_root"
     action="action_treasury_financing"
-    sequence="52"
+    sequence="3"
   />
   <record
     id="treasury_financing_generate_lines_server_action"

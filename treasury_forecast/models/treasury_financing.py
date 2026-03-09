@@ -91,6 +91,41 @@ class TreasuryFinancing(models.Model):
         default=lambda self: self.env.company,
     )
 
+    forecast_line_count = fields.Integer(
+        string="Forecast Lines",
+        compute="_compute_forecast_line_count",
+    )
+
+    def _compute_forecast_line_count(self):
+        for record in self:
+            if record.id:
+                forecast_lines = self.env["treasury.forecast"].search_count(
+                    [("financing_id", "=", record.id)]
+                )
+                record.forecast_line_count = forecast_lines
+            else:
+                record.forecast_line_count = 0
+
+    def action_view_forecast_lines(self):
+        self.ensure_one()
+        forecast_lines = self.env["treasury.forecast"].search(
+            [("financing_id", "=", self.id)]
+        )
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "treasury_forecast.action_treasury_forecast"
+        )
+        if len(forecast_lines) > 1:
+            action["domain"] = [("id", "in", forecast_lines.ids)]
+        elif len(forecast_lines) == 1:
+            action["views"] = [
+                (
+                    self.env.ref("treasury_forecast.view_treasury_forecast_form").id,
+                    "form",
+                )
+            ]
+            action["res_id"] = forecast_lines.id
+        return action
+
     @api.depends("code", "name")
     def _compute_display_name(self):
         for rec in self:
@@ -122,10 +157,15 @@ class TreasuryFinancing(models.Model):
         if not self.start_date:
             raise ValidationError(_("Debe indicar la fecha inicio cuotas."))
 
+        today = fields.Date.context_today(self)
+
         if self.last_forecast_date:
             base_date = self.last_forecast_date
         else:
-            base_date = self.start_date
+            if self.start_date <= today:
+                base_date = today
+            else:
+                base_date = self.start_date
 
         wizard_date = fields.Date.to_date(base_date) + relativedelta(
             months=self.interest_review_recurrence or 0

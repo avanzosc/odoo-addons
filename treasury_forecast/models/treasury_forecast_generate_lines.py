@@ -56,6 +56,7 @@ class TreasuryForecastGenerateLines(models.TransientModel):
     def _generate_from_financing(self, active_ids):
         financing_model = self.env["treasury.financing"]
         financings = financing_model.browse(active_ids).exists()
+        today = fields.Date.context_today(self)
         for financing in financings:
             recurrence = financing.installment_recurrence or 1
             recurrence = max(recurrence, 1)
@@ -65,7 +66,10 @@ class TreasuryForecastGenerateLines(models.TransientModel):
                     financing.last_forecast_date
                 ) + relativedelta(months=recurrence)
             else:
-                next_date = fields.Date.to_date(financing.start_date)
+                if financing.start_date <= today:
+                    next_date = today
+                else:
+                    next_date = fields.Date.to_date(financing.start_date)
             while next_date <= self.date_limit:
                 if financing.base_installment and financing.base_installment > 0:
                     self._create_financing_forecast_line(
