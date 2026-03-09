@@ -100,7 +100,7 @@ class TreasuryForecast(models.Model):
             "view_mode": "form",
             "views": [
                 (
-                    self.env.ref("treasury_forecast.treasury_forecast_form_view").id,
+                    self.env.ref("treasury_forecast.view_treasury_forecast_form").id,
                     "form",
                 )
             ],
