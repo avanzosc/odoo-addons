@@ -21,10 +21,24 @@ class RepairOrder(models.Model):
         copy=False,
     )
     purchase_order_id = fields.Many2one(
-        string="Purchase order", comodel_name="purchase.order", copy=False
+        string="Purchase Order",
+        comodel_name="purchase.order",
+        copy=False,
+    )
+    purchase_state = fields.Selection(
+        string="Purchase Status",
+        related="purchase_order_id.state",
+        store=True,
     )
     sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
+        string="Sale Order",
+        comodel_name="sale.order",
+        copy=False,
+    )
+    sale_state = fields.Selection(
+        string="Sale Status",
+        related="sale_order_id.state",
+        store=True,
     )
     sale_line_id = fields.Many2one(
         string="Sale line",
@@ -40,10 +54,16 @@ class RepairOrder(models.Model):
         index=True,
     )
     price_in_sale_budget = fields.Float(
-        string="Price in sale budget", digits="Product Price", default=0.0, copy=False
+        string="Price in sale budget",
+        digits="Product Price",
+        default=0.0,
+        copy=False,
     )
     is_repair = fields.Boolean(
-        string="Is repair", compute="_compute_is_repair", store=True, copy=False
+        string="Is repair",
+        compute="_compute_is_repair",
+        store=True,
+        copy=False,
     )
     commitment_date = fields.Date(
         string="Order Delivery Date",
@@ -52,10 +72,15 @@ class RepairOrder(models.Model):
         copy=False,
     )
     deadline_delivery = fields.Date(
-        string="Repair start date", default=False, copy=False
+        string="Repair start date",
+        default=False,
+        copy=False,
     )
     line_color = fields.Char(
-        string="Line color", compute="_compute_line_color", store=True, copy=False
+        string="Line color",
+        compute="_compute_line_color",
+        store=True,
+        copy=False,
     )
 
     @api.depends("sale_order_id", "sale_order_id.commitment_date")

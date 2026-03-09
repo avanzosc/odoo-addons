@@ -48,16 +48,6 @@ msgid "<span>Quantity</span>"
 msgstr ""
 
 #. module: stock_picking_create_repair
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.report_invoice_document_inh_pick_create_repair
-msgid "<strong>Total invoice line</strong>"
-msgstr ""
-
-#. module: stock_picking_create_repair
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.report_invoice_document_inh_pick_create_repair
-msgid "<strong>Total invoice lines</strong>"
-msgstr ""
-
-#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_product_rma__amount
 msgid "Amount"
 msgstr ""
@@ -171,11 +161,6 @@ msgid "End repairs"
 msgstr ""
 
 #. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_move_line__from_devolution_move_line_id
-msgid "From devolution move line"
-msgstr ""
-
-#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__from_repair_picking_out_id
 msgid "From repair picking out"
 msgstr ""
@@ -203,6 +188,11 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_picking_create_repair
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_tree
+msgid "Incoming Picking"
+msgstr ""
+
+#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__initial_price_unit
 msgid "Initial price unit"
 msgstr ""
@@ -220,6 +210,11 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.product_template_search_view
 msgid "Is default product for manufacturing operations"
+msgstr ""
+
+#. module: stock_picking_create_repair
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.stock_picking_view_search
+msgid "Is it repair?"
 msgstr ""
 
 #. module: stock_picking_create_repair
@@ -248,7 +243,6 @@ msgstr ""
 
 #. module: stock_picking_create_repair
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.purchase_order_view_search
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_picking_internal_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_purchase_order_filter
 msgid "It's not repair"
 msgstr ""
@@ -259,7 +253,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_move_line__is_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_picking__is_repair
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.purchase_order_view_search
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_picking_internal_search
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_purchase_order_filter
 msgid "It's repair"
 msgstr ""
@@ -307,8 +300,18 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_picking_create_repair
+#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__line_color
+msgid "Line color"
+msgstr ""
+
+#. module: stock_picking_create_repair
 #: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
 msgid "No created from incoming picking"
+msgstr ""
+
+#. module: stock_picking_create_repair
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.stock_picking_view_search
+msgid "Not repair"
 msgstr ""
 
 #. module: stock_picking_create_repair
@@ -326,6 +329,12 @@ msgstr ""
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_stock_move_line__picking_type_id
 msgid "Operation Type"
+msgstr ""
+
+#. module: stock_picking_create_repair
+#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__commitment_date
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
+msgid "Order Delivery Date"
 msgstr ""
 
 #. module: stock_picking_create_repair
@@ -389,13 +398,6 @@ msgid "Purchase order"
 msgstr ""
 
 #. module: stock_picking_create_repair
-#: model:ir.actions.server,name:stock_picking_create_repair.ircron_put_invoice_in_repair_form_sale_repair_ir_actions_server
-#: model:ir.cron,cron_name:stock_picking_create_repair.ircron_put_invoice_in_repair_form_sale_repair
-#: model:ir.cron,name:stock_picking_create_repair.ircron_put_invoice_in_repair_form_sale_repair
-msgid "Put invoice in repairs from sale repair"
-msgstr ""
-
-#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_product_rma__quantity
 msgid "Quantity"
 msgstr ""
@@ -404,11 +406,6 @@ msgstr ""
 #: model:ir.model,name:stock_picking_create_repair.model_stock_quant
 msgid "Quants"
 msgstr "份"
-
-#. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__recompute_qty_pending_delivery
-msgid "Recompute delivery pending qty"
-msgstr ""
 
 #. module: stock_picking_create_repair
 #: model:ir.model,name:stock_picking_create_repair.model_repair_fee
@@ -453,6 +450,12 @@ msgid "Repair out pickings"
 msgstr ""
 
 #. module: stock_picking_create_repair
+#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__deadline_delivery
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
+msgid "Repair start date"
+msgstr ""
+
+#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__repair_amount_untaxed
 msgid "Repair untaxed amount"
 msgstr ""
@@ -471,6 +474,11 @@ msgid "Repairs"
 msgstr ""
 
 #. module: stock_picking_create_repair
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.repair_order_calendar_view
+msgid "Repairs order"
+msgstr ""
+
+#. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_sale_order_line__repair_price_in_sale_budget
 msgid "Repairs price in sale budget"
 msgstr ""
@@ -484,6 +492,11 @@ msgstr ""
 #: model:ir.model,name:stock_picking_create_repair.model_stock_return_picking
 msgid "Return Picking"
 msgstr "退回拣货"
+
+#. module: stock_picking_create_repair
+#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__sale_state
+msgid "Sale Status"
+msgstr ""
 
 #. module: stock_picking_create_repair
 #: model:ir.model.fields,field_description:stock_picking_create_repair.field_product_rma__sale_line_id
@@ -537,6 +550,7 @@ msgid "Stock move lines from repair pickings"
 msgstr ""
 
 #. module: stock_picking_create_repair
+#: code:addons/stock_picking_create_repair/wizard/stock_backorder_confirmation.py:0
 #: code:addons/stock_picking_create_repair/wizard/stock_backorder_confirmation.py:0
 #, python-format
 msgid ""
@@ -597,11 +611,6 @@ msgid "UoM"
 msgstr ""
 
 #. module: stock_picking_create_repair
-#: model:res.groups,name:stock_picking_create_repair.group_view_event_training_itinerary
-msgid "View Training itinerary in events"
-msgstr ""
-
-#. module: stock_picking_create_repair
 #: code:addons/stock_picking_create_repair/models/sale_order_line.py:0
 #: code:addons/stock_picking_create_repair/models/sale_order_line.py:0
 #, python-format
@@ -624,6 +633,7 @@ msgstr ""
 
 #. module: stock_picking_create_repair
 #: code:addons/stock_picking_create_repair/models/stock_move.py:0
+#: code:addons/stock_picking_create_repair/models/stock_move.py:0
 #, python-format
 msgid ""
 "You cannot delete this movement, because it is associated with repair: {}. "
@@ -643,26 +653,3 @@ msgstr ""
 #, python-format
 msgid "You must enter the product to repair"
 msgstr ""
-
-#. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__commitment_date
-msgid "Order Delivery Date"
-msgstr ""
-
-#. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__employee_id
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
-msgid "Employee"
-msgstr ""
-
-#. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__deadline_delivery
-#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair.view_repair_order_form_filter
-msgid "Repair start date"
-msgstr ""
-
-#. module: stock_picking_create_repair
-#: model:ir.model.fields,field_description:stock_picking_create_repair.field_repair_order__line_color
-msgid "Line color"
-msgstr ""
-

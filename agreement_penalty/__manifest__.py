@@ -1,8 +1,7 @@
 # Copyright 2026 Aner Arregi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-
 {
-    "name": "Agreement Penalty Type",
+    "name": "Agreement Penalty",
     "version": "14.0.1.0.0",
     "category": "Contract",
     "summary": "Per-agreement penalty types and settings",
@@ -13,6 +12,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/agreement_view.xml",
+        "views/account_penalty_view.xml",
     ],
     "application": False,
     "installable": True,
