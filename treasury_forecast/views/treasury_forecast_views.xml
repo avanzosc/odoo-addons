@@ -5,9 +5,17 @@
     <field name="model">treasury.forecast</field>
     <field name="arch" type="xml">
       <list editable="bottom">
+        <button
+          name="action_open_form"
+          type="object"
+          string="Abrir"
+          icon="fa-external-link"
+          class="oe_edit_only"
+        />
         <field name="date" />
         <field name="partner_id" />
         <field name="company_id" />
+        <field name="financing_id" optional="show" />
         <field name="product_id" />
         <field name="name" />
         <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
@@ -36,6 +44,7 @@
             <field name="date" />
             <field name="partner_id" />
             <field name="company_id" />
+            <field name="financing_id" optional="show" />
             <field name="product_id" />
             <field name="name" />
             <field name="journal_id" />
@@ -126,6 +135,75 @@
     </field>
   </record>
 
+  <record id="view_treasury_forecast_search" model="ir.ui.view">
+    <field name="name">treasury.forecast.search</field>
+    <field name="model">treasury.forecast</field>
+    <field name="arch" type="xml">
+      <search string="Previsión de Tesorería">
+        <field name="date" />
+        <field name="partner_id" />
+        <field name="product_id" />
+        <field name="journal_id" />
+        <field name="financing_id" />
+        <field name="name" />
+        <field name="company_id" />
+
+        <separator />
+
+        <filter string="Ingresos" name="filter_income" domain="[('income','&gt;',0)]" />
+        <filter string="Gastos" name="filter_expense" domain="[('expense','&gt;',0)]" />
+        <filter string="Activas" name="filter_active" domain="[('active','=',True)]" />
+        <filter
+          string="No Activas"
+          name="filter_inactive"
+          domain="[('active','=',False)]"
+        />
+        <filter
+          string="Clientes"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Productos"
+          name="filter_products"
+          domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Diarios"
+          name="filter_journals"
+          domain="[('journal_id','!=',False)]"
+        />
+        <filter name="filter_date" date="date" />
+
+        <separator />
+
+        <group expand="0" string="Group By">
+          <filter string="Date" name="group_date" context="{'group_by': 'date'}" />
+          <filter
+            string="Partner"
+            name="group_partner"
+            context="{'group_by': 'partner_id'}"
+          />
+          <filter
+            string="Product"
+            name="group_product"
+            context="{'group_by': 'product_id'}"
+          />
+          <filter
+            string="Journal"
+            name="group_journal"
+            context="{'group_by': 'journal_id'}"
+          />
+          <filter
+            string="Financiación"
+            name="group_financing"
+            context="{'group_by': 'financing_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
   <record id="view_treasury_forecast_report_pivot" model="ir.ui.view">
     <field name="name">treasury.forecast.report.pivot</field>
     <field name="model">treasury.forecast.report</field>
@@ -138,6 +216,22 @@
 
         <field name="journal_id" type="row" />
         <field name="source" type="row" />
+        <field name="date" type="column" interval="month" />
+      </pivot>
+    </field>
+  </record>
+
+  <record id="view_treasury_forecast_pivot" model="ir.ui.view">
+    <field name="name">treasury.forecast.pivot</field>
+    <field name="model">treasury.forecast</field>
+    <field name="arch" type="xml">
+      <pivot string="Previsión de Tesorería">
+        <field name="income" type="measure" operator="sum" />
+        <field name="expense" type="measure" operator="sum" />
+        <field name="balance" type="measure" operator="sum" />
+
+        <field name="journal_id" type="row" />
+        <field name="financing_id" type="row" />
         <field name="date" type="column" interval="month" />
       </pivot>
     </field>

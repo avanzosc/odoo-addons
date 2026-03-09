@@ -89,3 +89,20 @@ class TreasuryForecast(models.Model):
             self.env.context, active_ids=active_ids, active_model="treasury.forecast"
         )
         return action
+
+    def action_open_form(self):
+        self.ensure_one()
+        return {
+            "name": "Previsión de Tesorería",
+            "type": "ir.actions.act_window",
+            "res_model": "treasury.forecast",
+            "res_id": self.id,
+            "view_mode": "form",
+            "views": [
+                (
+                    self.env.ref("treasury_forecast.treasury_forecast_form_view").id,
+                    "form",
+                )
+            ],
+            "target": "current",
+        }
