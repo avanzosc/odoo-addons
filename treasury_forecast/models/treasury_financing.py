@@ -152,24 +152,43 @@ class TreasuryFinancing(models.Model):
             rec.last_forecast_date = last_forecast.date if last_forecast else False
 
     def action_open_generate_lines_wizard(self):
+        if len(self) > 1:
+            wizard_model = self.env["treasury.forecast.generate.lines"]
+            for record in self:
+                wizard = wizard_model.create(
+                    {
+                        "date_limit": record.end_date,
+                    }
+                )
+                wizard = wizard.with_context(
+                    active_ids=[record.id],
+                    active_model="treasury.financing",
+                )
+                wizard.action_generate()
+
+            return {"type": "ir.actions.act_window_close"}
+
         self.ensure_one()
 
         if not self.start_date:
             raise ValidationError(_("Debe indicar la fecha inicio cuotas."))
 
         today = fields.Date.context_today(self)
+        start_date = fields.Date.to_date(self.start_date)
 
         if self.last_forecast_date:
             base_date = self.last_forecast_date
         else:
             if self.start_date <= today:
-                base_date = today
+                base_date = today + relativedelta(day=start_date.day)
             else:
                 base_date = self.start_date
 
         wizard_date = fields.Date.to_date(base_date) + relativedelta(
             months=self.interest_review_recurrence or 0
         )
+        if self.end_date and wizard_date > fields.Date.to_date(self.end_date):
+            wizard_date = fields.Date.to_date(self.end_date)
 
         action = self.env.ref(
             "treasury_forecast.action_treasury_forecast_generate_lines"
@@ -179,6 +198,6 @@ class TreasuryFinancing(models.Model):
             self.env.context,
             active_ids=self.ids,
             active_model="treasury.financing",
-            default_date_limit=wizard_date,
+            default_date_limit=self.end_date,
         )
         return action
