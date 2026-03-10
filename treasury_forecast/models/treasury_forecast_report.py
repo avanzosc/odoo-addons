@@ -56,7 +56,7 @@ class TreasuryForecastReport(models.Model):
 
                 SELECT
                     row_number() OVER() + 1000000 AS id,
-                    aml.date::date AS date,
+                    aml.date_maturity::date AS date,
                     aml.partner_id AS partner_id,
                     aml.product_id AS product_id,
                     aml.name AS name,
