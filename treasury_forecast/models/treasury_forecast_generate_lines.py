@@ -114,6 +114,7 @@ class TreasuryForecastGenerateLines(models.TransientModel):
             "recurrence_months": financing.installment_recurrence or 1,
             "active": True,
             "financing_id": financing.id,
+            "category_id": financing.category_id.id if financing.category_id else False,
             "company_id": financing.company_id.id,
             "currency_id": financing.company_id.currency_id.id,
         }

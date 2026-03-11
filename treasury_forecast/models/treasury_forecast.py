@@ -18,6 +18,10 @@ class TreasuryForecast(models.Model):
     journal_id = fields.Many2one(
         comodel_name="account.journal", domain="[('type', 'in', ('bank', 'cash'))]"
     )
+    estimated_journal_id = fields.Many2one(
+        "account.journal",
+        string="Estimated Journal",
+    )
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
@@ -45,6 +49,24 @@ class TreasuryForecast(models.Model):
         comodel_name="treasury.financing",
         string="Financing",
     )
+
+    category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="Categoría",
+    )
+
+    parent_category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="Parent Category",
+        related="financing_id.parent_category_id",
+        store=True,
+        readonly=True,
+    )
+
+    @api.onchange("financing_id")
+    def _onchange_financing_id(self):
+        if self.financing_id:
+            self.category_id = self.financing_id.category_id
 
     @api.depends("income", "expense")
     def _compute_balance(self):
