@@ -104,6 +104,12 @@ class TreasuryForecastGenerateLines(models.TransientModel):
         self, financing, line_date, amount, product_tmpl
     ):
         product = product_tmpl.product_variant_id if product_tmpl else False
+        account = False
+        if product:
+            if financing.category_type == "income":
+                account = product.property_account_income_id
+            else:
+                account = product.property_account_expense_id
 
         vals = {
             "date": line_date,
@@ -117,6 +123,7 @@ class TreasuryForecastGenerateLines(models.TransientModel):
             "category_id": financing.category_id.id if financing.category_id else False,
             "company_id": financing.company_id.id,
             "currency_id": financing.company_id.currency_id.id,
+            "account_id": account.id if account else False,
         }
         if financing.category_type == "income":
             vals["income"] = amount

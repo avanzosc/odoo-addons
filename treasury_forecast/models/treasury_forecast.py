@@ -63,6 +63,26 @@ class TreasuryForecast(models.Model):
         readonly=True,
     )
 
+    account_id = fields.Many2one(
+        "account.account",
+        string="Cuenta contable",
+    )
+
+    account_type_filter = fields.Char(
+        compute="_compute_account_type_filter",
+        store=True,
+    )
+
+    @api.depends("income", "expense")
+    def _compute_account_type_filter(self):
+        for record in self:
+            if record.income > 0:
+                record.account_type_filter = "income"
+            elif record.expense > 0:
+                record.account_type_filter = "expense"
+            else:
+                record.account_type_filter = False
+
     @api.onchange("financing_id")
     def _onchange_financing_id(self):
         if self.financing_id:

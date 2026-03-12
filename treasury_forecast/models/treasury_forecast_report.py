@@ -29,6 +29,12 @@ class TreasuryForecastReport(models.Model):
     )
     financing_id = fields.Many2one("treasury.financing", string="Financing")
 
+    category_id = fields.Many2one("treasury.financing.category", string="Category")
+
+    parent_category_id = fields.Many2one(
+        "treasury.financing.category", string="Parent Category"
+    )
+
     def init(self):
         tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute("""
@@ -48,6 +54,8 @@ class TreasuryForecastReport(models.Model):
                     tf.journal_id AS estimated_journal_id,
                     tf.currency_id AS currency_id,
                     tf.financing_id AS financing_id,
+                    tf.category_id AS category_id,
+                    tf.parent_category_id AS parent_category_id,
                     'forecast'::text AS source
                 FROM treasury_forecast tf
                 WHERE tf.active = true
@@ -68,6 +76,8 @@ class TreasuryForecastReport(models.Model):
                     am.estimated_journal_id AS estimated_journal_id,
                     aml.currency_id AS currency_id,
                     NULL AS financing_id,
+                    NULL AS category_id,
+                    NULL AS parent_category_id,
                     'move_line'::text AS source
                 FROM account_move_line aml
                 JOIN account_move am ON am.id = aml.move_id

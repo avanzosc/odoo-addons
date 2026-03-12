@@ -18,6 +18,11 @@
         <field name="financing_id" optional="show" />
         <field name="category_id" optional="show" />
         <field name="parent_category_id" optional="show" />
+        <field
+          name="account_id"
+          domain="[('account_type', '=', account_type_filter)]"
+          optional="show"
+        />
         <field name="product_id" />
         <field name="name" />
         <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
@@ -49,6 +54,11 @@
             <field name="financing_id" optional="show" />
             <field name="category_id" optional="show" />
             <field name="parent_category_id" optional="show" />
+            <field
+              name="account_id"
+              domain="[('account_type', '=', account_type_filter)]"
+              optional="show"
+            />
             <field name="product_id" />
             <field name="name" />
             <field name="journal_id" />
@@ -113,6 +123,16 @@
           name="filter_estimated_journals"
           domain="[('estimated_journal_id','!=',False)]"
         />
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría Padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
         <filter name="filter_date" date="date" />
 
         <separator />
@@ -144,6 +164,16 @@
             name="group_source"
             context="{'group_by': 'source'}"
           />
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
+          />
         </group>
       </search>
     </field>
@@ -162,6 +192,7 @@
         <field name="financing_id" />
         <field name="category_id" />
         <field name="parent_category_id" />
+        <field name="account_id" />
         <field name="name" />
         <field name="company_id" />
 
@@ -205,6 +236,11 @@
           name="filter_parent_category"
           domain="[('parent_category_id','!=',False)]"
         />
+        <filter
+          string="Cuenta Contable"
+          name="filter_account"
+          domain="[('account_id','!=',False)]"
+        />
         <filter name="filter_date" date="date" />
 
         <separator />
@@ -245,6 +281,11 @@
             string="Categoría Padre"
             name="group_parent_category"
             context="{'group_by': 'parent_category_id'}"
+          />
+          <filter
+            string="Cuenta Contable"
+            name="group_account"
+            context="{'group_by': 'account_id'}"
           />
         </group>
       </search>
