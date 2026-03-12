@@ -19,11 +19,14 @@
       ref="purchase_last_price_info.product_product_last_purchase_info_form_view"
     />
         <field name="arch" type="xml">
-            <group name="last_purchase_info" position="attributes">
+            <xpath
+                expr="//group[@name='last_purchase_info' and contains(@invisible, '&lt;= 1')]"
+                position="attributes"
+            >
                 <attribute
           name="groups"
         >product_cost_visible.group_product_cost_visible</attribute>
-            </group>
+            </xpath>
         </field>
     </record>
 
