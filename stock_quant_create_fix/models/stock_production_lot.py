@@ -3,8 +3,8 @@
 from odoo import models
 
 
-class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+class StockLot(models.Model):
+    _inherit = "stock.lot"
 
     def action_repair_lot_location(self):
         result = False
