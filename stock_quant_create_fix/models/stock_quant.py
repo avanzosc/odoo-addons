@@ -50,7 +50,13 @@ class StockQuant(models.Model):
         )
 
     def _get_gather_domain(
-        self, product_id, location_id, lot_id=None, package_id=None, owner_id=None, strict=False
+        self,
+        product_id,
+        location_id,
+        lot_id=None,
+        package_id=None,
+        owner_id=None,
+        strict=False,
     ):
         domain = [("product_id", "=", product_id.id)]
         if not strict:
@@ -76,7 +82,9 @@ class StockQuant(models.Model):
                         domain,
                     ]
                 )
-            domain = expression.AND([[("location_id", "child_of", location_id.id)], domain])
+            domain = expression.AND(
+                [[("location_id", "child_of", location_id.id)], domain]
+            )
         else:
             domain = expression.AND(
                 [
