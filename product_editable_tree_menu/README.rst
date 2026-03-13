@@ -6,7 +6,7 @@
 Product editable tree menu
 ==========================
 
-New menu to be able to edit products in tree view.
+New menu to be able to edit products in list view.
 
 Bug Tracker
 ===========

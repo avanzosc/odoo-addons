@@ -6,11 +6,11 @@
          <field name="mode">primary</field>
          <field name="priority">20</field>
          <field name="arch" type="xml">
-             <tree position="attributes">
+             <list position="attributes">
                  <attribute name="editable">bottom</attribute>
                  <attribute name="create">0</attribute>
                  <attribute name="delete">0</attribute>
-             </tree>
+             </list>
              <field name="standard_price" position="attributes">
                  <attribute name="readonly" />
              </field>
@@ -18,10 +18,10 @@
      </record>
 
      <record id="product_template_editable_tree_action" model="ir.actions.act_window">
-         <field name="name">Products editable tree</field>
+         <field name="name">Products editable list</field>
          <field name="type">ir.actions.act_window</field>
          <field name="res_model">product.template</field>
-         <field name="view_mode">tree</field>
+         <field name="view_mode">list</field>
          <field name="view_id" ref="product_template_editable_tree_view" />
      </record>
 
