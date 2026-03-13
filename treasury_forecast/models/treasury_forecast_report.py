@@ -18,8 +18,8 @@ class TreasuryForecastReport(models.Model):
     )
     currency_id = fields.Many2one("res.currency", string="Currency")
 
-    debit = fields.Monetary(string="Expense", currency_field="currency_id")
-    credit = fields.Monetary(string="Income", currency_field="currency_id")
+    debit = fields.Monetary(string="Income", currency_field="currency_id")
+    credit = fields.Monetary(string="Expense", currency_field="currency_id")
     balance = fields.Monetary(currency_field="currency_id")
     residual = fields.Monetary(currency_field="currency_id")
 
@@ -46,8 +46,8 @@ class TreasuryForecastReport(models.Model):
                     tf.partner_id AS partner_id,
                     tf.product_id AS product_id,
                     tf.name AS name,
-                    tf.expense AS debit,
-                    tf.income AS credit,
+                    tf.expense AS credit,
+                    tf.income AS debit,
                     (tf.income - tf.expense) AS balance,
                     (tf.income - tf.expense) AS residual,
                     tf.journal_id AS journal_id,
@@ -68,23 +68,9 @@ class TreasuryForecastReport(models.Model):
                     aml.partner_id AS partner_id,
                     aml.product_id AS product_id,
                     aml.name AS name,
-                    CASE
-                        WHEN am.move_type IN (
-                            'in_invoice', 'in_refund') THEN aml.debit
-                        ELSE 0.0
-                    END AS debit,
-                    CASE
-                        WHEN am.move_type IN (
-                            'out_invoice', 'out_refund') THEN aml.credit
-                        ELSE 0.0
-                    END AS credit,
-                    CASE
-                        WHEN am.move_type IN (
-                            'in_invoice', 'in_refund') THEN aml.debit
-                        WHEN am.move_type IN (
-                            'out_invoice', 'out_refund') THEN aml.credit
-                        ELSE 0.0
-                    END AS balance,
+                    aml.debit AS debit,
+                    aml.credit AS credit,
+                    aml.balance AS balance,
                     aml.amount_residual AS residual,
                     aml.journal_id AS journal_id,
                     am.estimated_journal_id AS estimated_journal_id,
@@ -95,8 +81,13 @@ class TreasuryForecastReport(models.Model):
                     'move_line'::text AS source
                 FROM account_move_line aml
                 JOIN account_move am ON am.id = aml.move_id
+                JOIN account_account aa ON aa.id = aml.account_id
                 WHERE aml.date_maturity IS NOT NULL
-                  AND aml.amount_residual > 0
                   AND am.state = 'posted'
+                  AND aa.reconcile = TRUE
+                  AND (
+                  aml.matching_number is NULL
+                  OR aml.amount_residual > 0
+                  )
             )
         """)
