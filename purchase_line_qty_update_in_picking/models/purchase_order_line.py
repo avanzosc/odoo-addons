@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, models
 from odoo.exceptions import UserError
+from odoo.tools.float_utils import float_compare
 
 
 class PurchaseOrderLine(models.Model):
@@ -9,26 +10,56 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange("product_qty", "product_uom", "company_id")
     def _onchange_quantity(self):
-        result = super(PurchaseOrderLine, self)._onchange_quantity()
-        if self.qty_received and self.product_qty < self.qty_received:
-            raise UserError(_("Amount less than amount received."))
+        result = {}
+        parent_onchange = getattr(super(), "_onchange_quantity", None)
+        if parent_onchange:
+            result = parent_onchange()
+        for line in self:
+            rounding = line.product_uom.rounding if line.product_uom else 0.01
+            if (
+                line.qty_received
+                and float_compare(
+                    line.product_qty,
+                    line.qty_received,
+                    precision_rounding=rounding,
+                )
+                < 0
+            ):
+                raise UserError(
+                    _(
+                        "You cannot decrease the ordered quantity below the received"
+                        " quantity."
+                    )
+                )
         return result
 
     def write(self, values):
-        found = False
-        if (
-            len(self) == 1
-            and "product_qty" in values
-            and values.get("produt_qty", 0.0) < self.product_qty
-        ):
-            found = True
-        result = super(PurchaseOrderLine, self).write(values)
-        if found:
-            self._put_new_qty_in_picking()
+        lines_to_update_picking = self.env["purchase.order.line"]
+        if "product_qty" in values:
+            for line in self:
+                rounding = line.product_uom.rounding if line.product_uom else 0.01
+                if (
+                    float_compare(
+                        values["product_qty"],
+                        line.product_qty,
+                        precision_rounding=rounding,
+                    )
+                    < 0
+                ):
+                    lines_to_update_picking |= line
+        result = super().write(values)
+        if lines_to_update_picking:
+            lines_to_update_picking._put_new_qty_in_picking()
         return result
 
     def _put_new_qty_in_picking(self):
-        qty_in_picking = self.product_qty - self.qty_received
-        move = self.move_ids.filtered(lambda x: x.state == "assigned")
-        if len(move) == 1:
-            move.product_uom_qty = qty_in_picking
+        for line in self:
+            qty_in_picking = line.product_qty - line.qty_received
+            line_product = line.product_id
+            move = line.move_ids.filtered(
+                lambda m, product=line_product: (
+                    m.state == "assigned" and m.product_id == product
+                )
+            )
+            if len(move) == 1:
+                move.product_uom_qty = qty_in_picking
