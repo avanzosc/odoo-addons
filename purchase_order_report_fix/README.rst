@@ -6,9 +6,16 @@
 Purchase order report fix
 =========================
 
-* With odoo modules, when a purchase order is printed, if the
-  "shipping address" is printed, it offsets the printing of the "supplier"
-  information. This module solves this problem.
+This module fixes purchase PDF addresses and replaces the address block
+with an improved version:
+
+* Left column: shipping address. It uses ``dest_address_id`` when defined,
+  otherwise the warehouse partner from
+  ``picking_type_id.warehouse_id.partner_id``.
+* Right column: supplier address including VAT/Tax ID when available.
+
+It also disables the standard ``purchase_stock`` report inheritance to avoid
+duplicated shipping address blocks.
 
 Bug Tracker
 ===========
