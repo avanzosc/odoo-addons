@@ -7,7 +7,7 @@ Purchase last price info discount visible
 =========================================
 
 * In products, to view fields: "Last Purchase Discount", "Last Purchase Net
-  Unit Price", new group "Visible costs in products".
+  Unit Price", new group "Visible last purchase info in products".
 
 Bug Tracker
 ===========
