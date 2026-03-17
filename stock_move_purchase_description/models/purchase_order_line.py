@@ -13,5 +13,5 @@ class PurchaseOrderLine(models.Model):
         vals = super()._prepare_stock_move_vals(
             picking, price_unit, product_uom_qty, product_uom
         )
-        vals["name"] = self.name
+        vals["name"] = (self.name or "")[:2000]
         return vals
