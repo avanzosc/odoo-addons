@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-11 08:48+0000\n"
-"PO-Revision-Date: 2024-06-11 08:48+0000\n"
+"POT-Creation-Date: 2026-03-17 13:37+0000\n"
+"PO-Revision-Date: 2026-03-17 13:37+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,8 +21,18 @@ msgid "<span class=\"o_stat_text\">Detailed Operations</span>"
 msgstr ""
 
 #. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
+msgid "<span class=\"o_stat_text\">Lots</span>"
+msgstr ""
+
+#. module: stock_picking_usability
 #: model:ir.model,name:stock_picking_usability.model_res_config_settings
 msgid "Config Settings"
+msgstr ""
+
+#. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_detailed_view_form
+msgid "Detailed Operations"
 msgstr ""
 
 #. module: stock_picking_usability
@@ -36,31 +46,28 @@ msgid "Detailed operations always visible."
 msgstr ""
 
 #. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings__id
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__id
-msgid "ID"
-msgstr ""
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: stock_picking_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
 msgid "List view of detailed operations"
 msgstr ""
 
 #. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
+msgid "List view of lots"
+msgstr ""
+
+#. module: stock_picking_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
 msgid "Lot:"
+msgstr ""
+
+#. module: stock_picking_usability
+#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__count_lots
+msgid "Lots"
+msgstr ""
+
+#. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_detailed_view_form
+msgid "Put in Pack"
 msgstr ""
 
 #. module: stock_picking_usability
@@ -77,14 +84,3 @@ msgstr ""
 #: model:ir.model,name:stock_picking_usability.model_stock_picking
 msgid "Transfer"
 msgstr ""
-
-#. module: stock_picking_usability
-#: model:ir.model.fields,field_description:stock_picking_usability.field_stock_picking__count_lots
-msgid "Lots"
-msgstr ""
-
-#. module: stock_picking_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
-msgid "<span class=\"o_stat_text\">Lots</span>"
-msgstr ""
-
