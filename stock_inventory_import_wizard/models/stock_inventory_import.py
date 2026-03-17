@@ -203,7 +203,11 @@ class StockInventoryImportLine(models.Model):
                     }
                 )
             self.inventory_lot_id = lot
-        quant_obj = self.env["stock.quant"].with_company(self.company_id)
+        quant_obj = (
+            self.env["stock.quant"]
+            .with_company(self.company_id)
+            .with_context(inventory_mode=True)
+        )
         domain = [
             ("product_id", "=", self.inventory_product_id.id),
             ("lot_id", "=", self.inventory_lot_id.id),
