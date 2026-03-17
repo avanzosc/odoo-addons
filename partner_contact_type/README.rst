@@ -6,7 +6,11 @@
 Partner contact type
 ====================
 
-* Creats a new object called contact type.
+This module adds contact types for partners.
+
+* Adds the Contact type field on contacts.
+* Adds a configuration menu to manage Contact types.
+* Adds search and group by Contact type in contacts.
 
 Bug Tracker
 ===========
