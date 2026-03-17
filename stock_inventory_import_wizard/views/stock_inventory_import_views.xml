@@ -3,11 +3,11 @@
     <record id="stock_inventory_import_view_tree" model="ir.ui.view">
         <field name="model">stock.inventory.import</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+            <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
                 <field name="file_date" />
                 <field name="state" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -20,19 +20,19 @@
             name="action_import_file"
             string="Import"
             type="object"
-            states="draft,2validate,pass,error"
+                    invisible="state not in ('draft', '2validate', 'pass', 'error')"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            states="2validate,error,pass"
+                    invisible="state not in ('2validate', 'error', 'pass')"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            states="pass"
+                    invisible="state != 'pass'"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -42,7 +42,7 @@
               string="Import Lines"
               type="object"
               name="button_open_import_line"
-              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+                            invisible="not import_line_ids"
               class="oe_stat_button"
               icon="fa-bars"
             />
@@ -50,7 +50,7 @@
               string="Inventory Lines"
               type="object"
               name="button_open_inventory"
-              attrs="{'invisible':[('inventory_line_count', '=', 0)]}"
+                            invisible="inventory_line_count == 0"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
@@ -73,14 +73,14 @@
                         </page>
                         <page
               string="Error Log"
-              attrs="{'invisible':[('log_info','=','')]}"
+              invisible="not log_info"
             >
                             <field name="log_info" />
                         </page>
                         <page
               string="Help"
               name="help_page"
-              attrs="{'invisible': [('state', '=', 'done')]}"
+              invisible="state == 'done'"
             >
                             <div style="margin-top: 4px;">
                                 <h3>Help with Excel column names</h3>
@@ -106,11 +106,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
+                <chatter/>
             </form>
         </field>
     </record>
@@ -151,7 +147,7 @@
         <field name="name">Import Inventory</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.inventory.import</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="stock_inventory_import_view_tree" />
     </record>
 

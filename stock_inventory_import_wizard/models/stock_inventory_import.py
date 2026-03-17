@@ -90,68 +90,56 @@ class StockInventoryImportLine(models.Model):
     )
     inventory_product = fields.Char(
         string="Product Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_product_code = fields.Char(
         string="Product Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_location = fields.Char(
         string="Location Name",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     inventory_lot = fields.Char(
         string="Lot Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_owner = fields.Char(
         string="Owner Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_package = fields.Char(
         string="Package Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_product_qty = fields.Float(
         string="Product Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
-        domain=[("type", "=", "product")],
-        states={"done": [("readonly", True)]},
+        domain=[("is_storable", "=", True)],
     )
     inventory_location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_lot_id = fields.Many2one(
         comodel_name="stock.lot",
         string="Lot",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_owner_id = fields.Many2one(
         comodel_name="res.partner",
         string="Owner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_package_id = fields.Many2one(
         comodel_name="stock.quant.package",
         string="Package",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -273,7 +261,7 @@ class StockInventoryImportLine(models.Model):
         if self.inventory_product_id:
             return self.inventory_product_id, log_info
         product_obj = self.env["product.product"].with_company(company)
-        search_domain = [("type", "=", "product")]
+        search_domain = [("is_storable", "=", True)]
         if self.inventory_product_code:
             search_domain = expression.AND(
                 [[("default_code", "=", self.inventory_product_code)], search_domain]
