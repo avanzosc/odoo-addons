@@ -19,8 +19,12 @@ class StockQuant(models.Model):
                 ("state", "=", "assigned"),
             ]
             moves = move_obj.search(domain)
-            reserved_qty = sum(moves.mapped("quantity_product_uom")) - quant.reserved_quantity
-            if float_is_zero(reserved_qty, precision_rounding=quant.product_id.uom_id.rounding):
+            reserved_qty = (
+                sum(moves.mapped("quantity_product_uom")) - quant.reserved_quantity
+            )
+            if float_is_zero(
+                reserved_qty, precision_rounding=quant.product_id.uom_id.rounding
+            ):
                 continue
             quant.sudo()._update_reserved_quantity(
                 quant.product_id,
