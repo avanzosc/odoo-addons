@@ -36,7 +36,7 @@ class StockWarehouse(models.Model):
         context.update({"default_warehouse_id": self.id})
         return {
             "name": _("Locations"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.location",
             "domain": [("id", "in", self.location_ids.ids)],
             "type": "ir.actions.act_window",

@@ -7,7 +7,7 @@ Stock Location Warehouse Usability
 ==================================
 
 * Bring the partner's address to the warehouse.
-* Shorcut from stock warehouse to stock location.
+* Shortcut from stock warehouse to stock location.
 
 Bug Tracker
 ===========
