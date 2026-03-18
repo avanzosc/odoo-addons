@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+             <xpath
+        expr="//div[@name='multicompany_setting_container']"
+        position="inside"
+      >
+                <div class="col-12 col-lg-6 o_setting_box" id="picking_inter_company">
+                    <div class="o_setting_left_pane" />
+                    <div class="o_setting_right_pane">
+                        <div
+              class="o_form_label mt8"
+            >Intercompany Picking Validation</div>
+                        <div id="validate_picking_inter_company">
+                            <label
+                string="Validate picking"
+                class="o_light_label"
+                for="picking_intercompany_validation"
+              />
+                            <field
+                name="picking_intercompany_validation"
+                class="oe_inline"
+              />
+                        </div>
+                        <div
+              id="validate_picking_inter_company"
+              attrs="{'invisible': [('picking_intercompany_validation','=',False)]}"
+            >
+                            <label
+                string="Avoid creating backorder when validating intercompany picking"
+                class="o_light_label"
+                for="picking_intercompany_validation_backorder"
+              />
+                            <field
+                name="picking_intercompany_validation_backorder"
+                class="oe_inline"
+              />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
