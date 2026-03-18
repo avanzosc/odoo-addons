@@ -8,34 +8,30 @@ class PurchaseOrder(models.Model):
 
     qty_invoiced = fields.Float(
         compute="_compute_qty_invoiced",
-        string="Qty Billed",
+        string="Billed Qty",
+        digits="Product Unit of Measure",
     )
     qty_received = fields.Float(
         compute="_compute_qty_received",
-        string="Qty Received",
+        digits="Product Unit of Measure",
     )
-    qty_ordered = fields.Float(compute="_compute_qty_ordered", string="Ordered Qty")
+    qty_ordered = fields.Float(
+        compute="_compute_qty_ordered",
+        string="Ordered Qty",
+        digits="Product Unit of Measure",
+    )
 
     @api.depends("order_line", "order_line.qty_invoiced")
     def _compute_qty_invoiced(self):
         for purchase in self:
-            qty_invoiced = 0
-            if purchase.order_line:
-                qty_invoiced = sum(purchase.order_line.mapped("qty_invoiced"))
-            purchase.qty_invoiced = qty_invoiced
+            purchase.qty_invoiced = sum(purchase.order_line.mapped("qty_invoiced"))
 
     @api.depends("order_line", "order_line.qty_received")
     def _compute_qty_received(self):
         for purchase in self:
-            qty_received = 0
-            if purchase.order_line:
-                qty_received = sum(purchase.order_line.mapped("qty_received"))
-            purchase.qty_received = qty_received
+            purchase.qty_received = sum(purchase.order_line.mapped("qty_received"))
 
     @api.depends("order_line", "order_line.product_qty")
     def _compute_qty_ordered(self):
         for purchase in self:
-            qty_ordered = 0
-            if purchase.order_line:
-                qty_ordered = sum(purchase.order_line.mapped("product_qty"))
-            purchase.qty_ordered = qty_ordered
+            purchase.qty_ordered = sum(purchase.order_line.mapped("product_qty"))
