@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="vpicktree_inh_project" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.vpicktree" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="account_analytic_purchase_order" />
+      </field>
+    </field>
+  </record>
+  <record id="view_picking_internal_search_inh_project" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <separator />
+        <field name="account_analytic_purchase_order" />
+        <separator />
+      </field>
+      <filter name="activities_overdue" position="after">
+        <filter
+          string="Project"
+          name="group_project"
+          domain="[]"
+          context="{'group_by':'account_analytic_purchase_order'}"
+        />
+      </filter>
+    </field>
+  </record>
+  <record id="stock_picking_form_inh_project" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form" />
+    <field name="arch" type="xml">
+      <field name="origin" position="after">
+        <field name="account_analytic_purchase_order" />
+      </field>
+    </field>
+  </record>
+</odoo>
