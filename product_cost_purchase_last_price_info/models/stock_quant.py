@@ -21,10 +21,8 @@ class StockQuant(models.Model):
         copy=False,
     )
     standard_price = fields.Float(
+        compute="_compute_standard_price",
         string="Product Price",
-        related="product_id.standard_price",
-        store=True,
-        copy=False,
         groups="stock.group_stock_manager",
     )
     value = fields.Monetary(string="Product cost price value")
@@ -51,3 +49,8 @@ class StockQuant(models.Model):
             quant.sudo().purchase_value = quant.quantity * round(
                 quant.product_id.last_purchase_price_company_currency, 2
             )
+
+    @api.depends("product_id")
+    def _compute_standard_price(self):
+        for quant in self:
+            quant.standard_price = quant.product_id.standard_price
