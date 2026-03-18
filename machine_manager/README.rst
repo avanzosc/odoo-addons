@@ -6,7 +6,7 @@
 Machine Manager
 ===============
 
-Machine Manager is a module for Odoo 18 that allows companies to keep a
+Machine Manager is a module for Odoo that allows companies to keep a
 complete and organized record of all their physical machinery and equipment.
 Whether you own, lease, or rent machines, this module gives you a single
 place to manage everything related to them — from basic identification data
@@ -50,8 +50,7 @@ Machine Models (Type Catalogue)
 ---------------------------------
  
 To keep your machine list consistent and well-organised, the module includes
-a **Machine Model catalogue**. This lets you define standard model types
-(for example: "Forklift", "CNC Lathe", "Industrial Compressor") and assign
+a **Machine Model catalogue**. This lets you define standard model types and assign
 them to machines, making it easy to group and filter your equipment by type.
  
 Link to Products and Serial Numbers
@@ -59,7 +58,7 @@ Link to Products and Serial Numbers
  
 Machine Manager integrates with Odoo's existing product and inventory system:
  
-- Any product in your catalogue can be flagged as **"Can be a Machine"**,
+- Any serial product in your catalogue can be flagged as **"Can be a Machine"**,
   which makes it available for linking to a machine record. This is useful
   to associate manufacturer information, product category, and other
   product-level data with your machines.
@@ -152,3 +151,4 @@ Contributors
 * Ana Juaristi <ajuaristio@gmail.com>
 * Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>
 * Esther Martín <esthermartin@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
