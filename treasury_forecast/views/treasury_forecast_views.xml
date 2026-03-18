@@ -5,8 +5,24 @@
     <field name="model">treasury.forecast</field>
     <field name="arch" type="xml">
       <list editable="bottom">
+        <button
+          name="action_open_form"
+          type="object"
+          string="Abrir"
+          icon="fa-external-link"
+          class="oe_edit_only"
+        />
         <field name="date" />
         <field name="partner_id" />
+        <field name="company_id" />
+        <field name="financing_id" optional="show" />
+        <field name="category_id" optional="show" />
+        <field name="parent_category_id" optional="show" />
+        <field
+          name="account_id"
+          domain="[('account_type', '=', account_type_filter)]"
+          optional="show"
+        />
         <field name="product_id" />
         <field name="name" />
         <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
@@ -34,6 +50,15 @@
           <group>
             <field name="date" />
             <field name="partner_id" />
+            <field name="company_id" />
+            <field name="financing_id" optional="show" />
+            <field name="category_id" optional="show" />
+            <field name="parent_category_id" optional="show" />
+            <field
+              name="account_id"
+              domain="[('account_type', '=', account_type_filter)]"
+              optional="show"
+            />
             <field name="product_id" />
             <field name="name" />
             <field name="journal_id" />
@@ -51,18 +76,69 @@
     </field>
   </record>
 
-  <record id="view_treasury_forecast_search" model="ir.ui.view">
-    <field name="name">treasury.forecast.search</field>
-    <field name="model">treasury.forecast</field>
+  <record id="view_treasury_forecast_report_search" model="ir.ui.view">
+    <field name="name">treasury.forecast.report.search</field>
+    <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
-      <search>
+      <search string="Treasury Analysis">
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
         <field name="journal_id" />
-        <filter string="Active" name="active" domain="[('active','=',True)]" />
-        <filter string="Archived" name="inactive" domain="[('active','=',False)]" />
+        <field name="estimated_journal_id" />
+        <field name="source" />
+        <field name="name" />
+        <field name="financing_id" />
+        <separator />
+
+        <filter string="Ingresos" name="filter_income" domain="[('debit','&gt;',0)]" />
+        <filter string="Gastos" name="filter_expense" domain="[('credit','&gt;',0)]" />
+        <filter
+          string="Previsión"
+          name="filter_forecast"
+          domain="[('source','=','forecast')]"
+        />
+        <filter
+          string="Real"
+          name="filter_real"
+          domain="[('source','=','move_line')]"
+        />
+        <filter
+          string="Clientes"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Productos"
+          name="filter_products"
+          domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Diarios"
+          name="filter_journals"
+          domain="[('journal_id','!=',False)]"
+        />
+        <filter
+          string="Diarios estimados"
+          name="filter_estimated_journals"
+          domain="[('estimated_journal_id','!=',False)]"
+        />
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría Padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
+        <filter name="filter_date" date="date" />
+
+        <separator />
+
         <group expand="0" string="Group By">
+          <filter string="Date" name="group_date" context="{'group_by': 'date'}" />
           <filter
             string="Partner"
             name="group_partner"
@@ -78,23 +154,173 @@
             name="group_journal"
             context="{'group_by': 'journal_id'}"
           />
-          <filter string="Date" name="group_date" context="{'group_by': 'date'}" />
+          <filter
+            string="Estimated Journal"
+            name="group_estimated_journal"
+            context="{'group_by': 'estimated_journal_id'}"
+          />
+          <filter
+            string="Origen"
+            name="group_source"
+            context="{'group_by': 'source'}"
+          />
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
+          />
         </group>
       </search>
     </field>
   </record>
 
+  <record id="view_treasury_forecast_search" model="ir.ui.view">
+    <field name="name">treasury.forecast.search</field>
+    <field name="model">treasury.forecast</field>
+    <field name="arch" type="xml">
+      <search string="Previsión de Tesorería">
+        <field name="date" />
+        <field name="partner_id" />
+        <field name="product_id" />
+        <field name="journal_id" />
+        <field name="estimated_journal_id" />
+        <field name="financing_id" />
+        <field name="category_id" />
+        <field name="parent_category_id" />
+        <field name="account_id" />
+        <field name="name" />
+        <field name="company_id" />
+
+        <separator />
+
+        <filter string="Ingresos" name="filter_income" domain="[('income','&gt;',0)]" />
+        <filter string="Gastos" name="filter_expense" domain="[('expense','&gt;',0)]" />
+        <filter string="Activas" name="filter_active" domain="[('active','=',True)]" />
+        <filter
+          string="No Activas"
+          name="filter_inactive"
+          domain="[('active','=',False)]"
+        />
+        <filter
+          string="Clientes"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Productos"
+          name="filter_products"
+          domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Diarios"
+          name="filter_journals"
+          domain="[('journal_id','!=',False)]"
+        />
+        <filter
+          string="Diarios estimados"
+          name="filter_estimated_journals"
+          domain="[('estimated_journal_id','!=',False)]"
+        />
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría Padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
+        <filter
+          string="Cuenta Contable"
+          name="filter_account"
+          domain="[('account_id','!=',False)]"
+        />
+        <filter name="filter_date" date="date" />
+
+        <separator />
+
+        <group expand="0" string="Group By">
+          <filter string="Date" name="group_date" context="{'group_by': 'date'}" />
+          <filter
+            string="Partner"
+            name="group_partner"
+            context="{'group_by': 'partner_id'}"
+          />
+          <filter
+            string="Product"
+            name="group_product"
+            context="{'group_by': 'product_id'}"
+          />
+          <filter
+            string="Journal"
+            name="group_journal"
+            context="{'group_by': 'journal_id'}"
+          />
+          <filter
+            string="Estimated Journal"
+            name="group_estimated_journal"
+            context="{'group_by': 'estimated_journal_id'}"
+          />
+          <filter
+            string="Financiación"
+            name="group_financing"
+            context="{'group_by': 'financing_id'}"
+          />
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
+          />
+          <filter
+            string="Cuenta Contable"
+            name="group_account"
+            context="{'group_by': 'account_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_treasury_forecast_report_pivot" model="ir.ui.view">
+    <field name="name">treasury.forecast.report.pivot</field>
+    <field name="model">treasury.forecast.report</field>
+    <field name="arch" type="xml">
+      <pivot string="Previsión de tesorería + Real">
+        <field name="credit" type="measure" operator="sum" />
+        <field name="debit" type="measure" operator="sum" />
+        <field name="balance" type="measure" operator="sum" />
+        <field name="residual" type="measure" operator="sum" />
+
+        <field name="journal_id" type="row" />
+        <field name="source" type="row" />
+        <field name="date" type="column" interval="month" />
+      </pivot>
+    </field>
+  </record>
   <record id="view_treasury_forecast_pivot" model="ir.ui.view">
     <field name="name">treasury.forecast.pivot</field>
     <field name="model">treasury.forecast</field>
     <field name="arch" type="xml">
-      <pivot>
-        <field name="income" type="measure" />
-        <field name="expense" type="measure" />
-        <field name="balance" type="measure" />
-        <field name="date" type="row" />
-        <field name="partner_id" type="row" />
-        <field name="product_id" type="row" />
+      <pivot string="Previsión de Tesorería">
+        <field name="income" type="measure" operator="sum" />
+        <field name="expense" type="measure" operator="sum" />
+        <field name="balance" type="measure" operator="sum" />
+
+        <field name="journal_id" type="row" />
+        <field name="estimated_journal_id" type="row" />
+        <field name="financing_id" type="row" />
+        <field name="date" type="column" interval="month" />
       </pivot>
     </field>
   </record>

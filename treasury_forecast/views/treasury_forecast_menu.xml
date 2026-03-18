@@ -1,16 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <record id="action_treasury_forecast" model="ir.actions.act_window">
     <field name="name">Treasury Forecast</field>
     <field name="res_model">treasury.forecast</field>
     <field name="view_mode">list,form,pivot</field>
-    <field name="search_view_id" ref="view_treasury_forecast_search" />
+    <field
+      name="view_ids"
+      eval="[
+        (ref('view_treasury_forecast_tree'), 'list'),
+        (ref('view_treasury_forecast_form'), 'form'),
+        (ref('view_treasury_forecast_pivot'), 'pivot')
+    ]"
+    />
+  </record>
+
+  <record id="action_treasury_forecast_report_pivot" model="ir.actions.act_window">
+    <field name="name">Previsión de tesorería + Real</field>
+    <field name="res_model">treasury.forecast.report</field>
+    <field name="view_mode">pivot</field>
+    <field name="view_id" ref="view_treasury_forecast_report_pivot" />
+    <field name="search_view_id" ref="view_treasury_forecast_report_search" />
   </record>
 
   <menuitem
+    id="menu_treasury_forecast_root"
+    name="Previsión de Tesorería"
+    parent="account.menu_finance_entries"
+    sequence="150"
+  />
+
+  <menuitem
     id="menu_treasury_forecast"
-    name="Treasury Forecast"
-    parent="account.menu_finance_reports"
+    name="Previsión de Tesorería"
+    parent="menu_treasury_forecast_root"
     action="action_treasury_forecast"
-    sequence="50"
+    sequence="1"
+  />
+
+  <menuitem
+    id="menu_treasury_forecast_report_pivot"
+    name="Previsión Tesorería + Real"
+    parent="menu_treasury_forecast_root"
+    action="action_treasury_forecast_report_pivot"
+    sequence="2"
   />
 </odoo>
