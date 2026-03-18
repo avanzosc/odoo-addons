@@ -8,15 +8,12 @@ class Machine(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Holds Machine Records"
 
-    def _def_company(self):
-        return self.env.user.company_id.id
-
     name = fields.Char(string="Machine Name", required=True)
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
         required=True,
-        default=_def_company,
+        default=lambda self: self.env.company.id,
     )
     year = fields.Char()
     model = fields.Char()
