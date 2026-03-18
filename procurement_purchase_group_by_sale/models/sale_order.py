@@ -3,10 +3,15 @@
 from odoo import models
 
 
-class SaleOrder(models.Model):
-    _inherit = "sale.order"
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
 
-    def action_confirm(self):
-        return super(
-            SaleOrder, self.with_context(sale_origin=self.name)
-        ).action_confirm()
+    def _prepare_procurement_values(self, group_id=False):
+        values = super()._prepare_procurement_values(group_id=group_id)
+        sale_origin = (
+            f"{self.order_id.name} - {self.order_id.client_order_ref}"
+            if self.order_id.client_order_ref
+            else self.order_id.name
+        )
+        values["sale_origin"] = sale_origin
+        return values

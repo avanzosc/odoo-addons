@@ -8,8 +8,8 @@ class StockRule(models.Model):
 
     def _make_po_get_domain(self, company_id, values, partner):
         domain = super()._make_po_get_domain(company_id, values, partner)
-        if "sale_origin" in self.env.context:
-            domain += (("origin", "=", self.env.context.get("sale_origin")),)
+        if values.get("sale_origin"):
+            domain += (("origin", "=", values["sale_origin"]),)
         if (
             "from_orderpoint" in self.env.context
             and self.env.context.get("from_orderpoint", False)
