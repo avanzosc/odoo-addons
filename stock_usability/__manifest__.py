@@ -12,6 +12,8 @@
     ],
     "data": [
         "views/stock_warehouse_orderpoint_views.xml",
+        "views/stock_move_line_views.xml",
+        "views/stock_quant_views.xml",
     ],
     "installable": True,
 }

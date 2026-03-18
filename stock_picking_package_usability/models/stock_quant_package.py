@@ -36,11 +36,3 @@ class StockQuantPackage(models.Model):
             self.weight_uom_id = self.product_packaging_id.weight_uom_id.id
         if self.product_packaging_id.volume:
             self.volume = self.product_packaging_id.volume
-
-    @api.model
-    def create(self, vals):
-        line = super().create(vals)
-        line.name = "{} {} {:0>3}".format(
-            line.picking_id.name, "-", len(line.picking_id.quant_package_ids)
-        )
-        return line

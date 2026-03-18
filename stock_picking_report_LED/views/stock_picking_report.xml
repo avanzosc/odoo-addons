@@ -1,0 +1,161 @@
+<odoo>
+  <template
+    id="custom_report_picking_inherit"
+    inherit_id="stock.report_picking"
+    priority="100"
+  >
+
+
+    <xpath expr="//div[@class='row justify-content-end mb16']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+    <xpath expr="//th[@name='th_serial_number']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//th[@name='th_to']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//th[@name='th_barcode']" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+
+    <xpath expr="//tr[th[@name='th_product']]/th[@name='th_product']" position="after">
+      <th name="th_from" groups="stock.group_stock_multi_locations">
+        <strong>Desde</strong>
+      </th>
+    </xpath>
+
+
+    <xpath expr="//table[contains(@class, 'table')]/thead" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//table[contains(@class, 'table')]/tbody" position="attributes">
+      <attribute name="t-if">False</attribute>
+    </xpath>
+
+
+    <xpath expr="//table[contains(@class, 'table')]" position="after">
+      <table class="table table-sm" style="font-size: 12px;">
+        <thead>
+          <tr>
+            <th><strong>Producto</strong></th>
+            <th><strong>Desde</strong></th>
+            <th><strong>Cantidad</strong></th>
+            <th t-if="has_serial_number"><strong>Lote/Serie</strong></th>
+          </tr>
+        </thead>
+        <tbody>
+          <t t-set="shown_products" t-value="[]" />
+          <t
+            t-foreach="o.move_line_ids_without_package.filtered(lambda ml: ml.qty_done or ml.reserved_uom_qty).sorted(key=lambda ml: ml.product_id.id)"
+            t-as="ml"
+          >
+
+            <t t-if="ml.product_id.id not in shown_products">
+              <t t-set="shown_products" t-value="shown_products + [ml.product_id.id]" />
+
+              <tr>
+                <td>
+                   <span t-field="ml.product_id.display_name" />
+                   <t t-if="ml.product_id.description_picking">
+                     — <span t-field="ml.product_id.description_picking" />
+                   </t>
+                </td>
+                <td />
+                <td>
+                    <strong>
+                      <t
+                      t-esc="sum([line.qty_done if o.state == 'done' else line.reserved_uom_qty for line in o.move_line_ids_without_package if line.product_id.id == ml.product_id.id])"
+                    />
+                      <t t-esc="ml.product_uom_id.name" /> (total)
+                    </strong>
+                </td>
+                <td />
+              </tr>
+
+              <t
+                t-foreach="o.move_line_ids_without_package.filtered(lambda l: l.product_id.id == ml.product_id.id)"
+                t-as="line"
+              >
+                <tr style="line-height: 1.2;">
+                  <td />
+                  <td>
+                    <t t-esc="line.location_id.display_name" />
+                  </td>
+                  <td>
+                    <t
+                      t-esc="line.qty_done if o.state == 'done' else line.reserved_uom_qty"
+                    />
+                  </td>
+                  <td t-if="has_serial_number">
+                    <t t-if="line.lot_id.name or line.lot_name">
+                        <div style="text-align: center;">
+                          <div
+                          t-options="{'widget': 'barcode','humanreadable': 0,'width': 200,
+                            'height': 30,'img_style': 'height:18px;'}"
+                          t-esc="line.lot_id.name or line.lot_name"
+                        />
+                          <div style="font-size: 12px; margin-top: 2px;">
+                            <t t-esc="line.lot_id.name or line.lot_name" />
+                          </div>
+                        </div>
+                    </t>
+                  </td>
+                </tr>
+              </t>
+
+            </t>
+
+          </t>
+        </tbody>
+      </table>
+    </xpath>
+
+    <xpath expr="//p[i[contains(@class,'fa-exclamation-triangle')]]" position="replace">
+    <t
+        t-set="no_reserved_product"
+        t-value="o.move_ids.filtered(lambda m: m.state != 'done' and m.move_line_ids and m.product_uom_qty != m.reserved_availability)"
+      />
+
+    <t t-if="no_reserved_product">
+        <div class="mt16">
+            <p style="margin-bottom: 6px;">
+                <i
+              class="fa fa-exclamation-triangle"
+            /> Productos con cantidad no reservada:
+            </p>
+
+            <table class="table table-sm" style="font-size: 12px;">
+                <thead>
+                    <tr>
+                        <th><strong>Producto</strong></th>
+                        <th class="text-right"><strong>Demanda</strong></th>
+                        <th class="text-right"><strong>Reservado</strong></th>
+                        <th class="text-right"><strong>No reservado</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="no_reserved_product" t-as="m">
+                        <td><span t-field="m.product_id.display_name" /></td>
+                        <td class="text-right"><t t-esc="m.product_uom_qty" /> <t
+                    t-esc="m.product_uom.name"
+                  /></td>
+                        <td class="text-right"><t t-esc="m.reserved_availability" /> <t
+                    t-esc="m.product_uom.name"
+                  /></td>
+                        <td class="text-right" style="color:red">
+                            <strong><t
+                      t-esc="m.product_uom_qty - m.reserved_availability"
+                    /> <t t-esc="m.product_uom.name" /></strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </t>
+</xpath>
+
+  </template>
+</odoo>

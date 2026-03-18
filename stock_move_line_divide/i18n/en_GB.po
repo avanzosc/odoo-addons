@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 09:57+0000\n"
-"PO-Revision-Date: 2024-06-18 09:57+0000\n"
+"POT-Creation-Date: 2025-07-21 10:03+0000\n"
+"PO-Revision-Date: 2025-07-21 10:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,13 +16,34 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_operation_tree
 msgid "Divide"
 msgstr ""
 
 #. module: stock_move_line_divide
 #: model:ir.model.fields,field_description:stock_move_line_divide.field_stock_move_line__divide
 msgid "Divide in"
+msgstr ""
+
+#. module: stock_move_line_divide
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.res_config_settings_view_form
+msgid "Enable automatic naming of packages based on reference."
+msgstr ""
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_uom_uom__is_unit
+msgid "Is Unit"
+msgstr ""
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_res_config_settings__name_packages_by_reference
+msgid "Name packages by reference"
 msgstr ""
 
 #. module: stock_move_line_divide
@@ -33,6 +54,12 @@ msgstr ""
 #. module: stock_move_line_divide
 #. odoo-python
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
+#: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #, python-format
 msgid "The dividing amount can not be 0."
+msgstr ""
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_stock_picking
+msgid "Transfer"
 msgstr ""

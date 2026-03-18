@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="nif_template">
+        <span
+      t-if="doc.partner_id.vat if doc else o.partner_id.vat if o else False"
+      style="margin-top: -16px;"
+    >
+            <strong>NIF:</strong>
+            <span
+        t-esc="doc.partner_id.vat if doc else o.partner_id.vat if o else ''"
+      />
+        </span>
+    </template>
+
+    <template
+    id="web_external_layout_standard_nif_inherit"
+    inherit_id="web.external_layout_standard"
+  >
+        <xpath expr="/t/div[1]/div[3]/div/ul/li[1]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[3]/div/ul/li[2]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[3]/div/ul/li[3]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+    </template>
+
+    <template
+    id="web_external_layout_bold_nif_inherit"
+    inherit_id="web.external_layout_bold"
+  >
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/ul/li[1]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/ul/li[2]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/ul/li[3]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+    </template>
+
+    <template
+    id="web_external_layout_striped_nif_inherit"
+    inherit_id="web.external_layout_striped"
+  >
+        <xpath expr="/t/div[1]/div[1]/div[2]/ul/li[1]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[2]/ul/li[2]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[2]/ul/li[3]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+    </template>
+
+    <template
+    id="web_external_layout_boxed_nif_inherit"
+    inherit_id="web.external_layout_boxed"
+  >
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/div[2]/ul/li[1]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/div[2]/ul/li[2]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+        <xpath expr="/t/div[1]/div[1]/div[1]/div[2]/div[2]/ul/li[3]" position="inside">
+            <t t-call="web_external_layout_nif.nif_template" />
+        </xpath>
+    </template>
+</odoo>

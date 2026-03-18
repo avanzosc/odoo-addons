@@ -8,8 +8,18 @@
         expr="//field[@name='order_line']/tree/field[@name='product_uom']"
         position="after"
       >
-                <field name="product_brand_code" optional="show" readonly="1" />
-                <field name="brand_fabricators" optional="show" readonly="1" />
+                <field
+          name="product_brand_code"
+          optional="show"
+          readonly="1"
+          force_save="1"
+        />
+                <field
+          name="product_brand_id"
+          optional="show"
+          readonly="1"
+          force_save="1"
+        />
             </xpath>
         </field>
     </record>

@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_partner_form_inherit_dms" model="ir.ui.view">
+        <field name="name">res.partner.form.geolocation.dms</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base_geolocalize.view_crm_partner_geo_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_localization']" position="after">
+                <div>
+                    <span>Lat DMS: <field
+              name="latitude_dms"
+              nolabel="1"
+              readonly="1"
+              class="oe_inline"
+            /></span>
+                    <br />
+                    <span>Long DMS: <field
+              name="longitude_dms"
+              nolabel="1"
+              readonly="1"
+              class="oe_inline"
+            /></span>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

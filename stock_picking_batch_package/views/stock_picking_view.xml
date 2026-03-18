@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_picking_tree_batch" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock_picking_batch.view_picking_tree_batch" />
+        <field name="arch" type="xml">
+            <field name="location_id" position="after">
+                <field name="partner_id" string="Delivery Address" />
+                <field name="carrier_id" string='Shipping Method' />
+                <field name="number_of_packages" />
+                <field name="shipping_weight" />
+            </field>
+        </field>
+    </record>
+</odoo>

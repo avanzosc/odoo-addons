@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="product_packaging_tree_view" model="ir.ui.view">
+     <record id="product_packaging_tree_view" model="ir.ui.view">
         <field name="model">product.packaging</field>
         <field name="inherit_id" ref="product.product_packaging_tree_view" />
         <field name="arch" type="xml">
             <field name="product_uom_id" position="after">
+                <field name="package_type_id" />
                 <field name="height" />
                 <field name="length_uom_id" string=" " />
                 <field name="width" />
                 <field name="length_uom_id" string=" " />
                 <field name="packaging_length" />
                 <field name="length_uom_id" string=" " />
+                <field name="weight" />
                 <field name="max_weight" />
                 <field name="weight_uom_id" string=" " />
             </field>
+            <xpath expr="//field[@name='name']" position="before">
+            <button
+          name="action_open_wizard"
+          type="object"
+          icon="fa-external-link"
+          string=""
+          class="oe_edit_only"
+        />
+        </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="product_packaging_form_inherit_show_package_type" model="ir.ui.view">
+        <field name="name">product.packaging.form.inherit.show.package.type</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="stock.product_packaging_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='qty']" position="before">
+                <field name="package_type_id" />
+            </xpath>
         </field>
     </record>
 </odoo>

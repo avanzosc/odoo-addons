@@ -20,23 +20,6 @@
           attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
           optional="show"
         />
-                <field
-          name="palet_id"
-          options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-          context="{'form_view_ref': 'product.product_packaging_form_view'}"
-        />
-                <field
-          name="palet_qty"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-        />
-                <field
-          name="gross_weight"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-        />
             </field>
         </field>
     </record>
@@ -55,23 +38,6 @@
         />
                 <field
           name="product_packaging_qty"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-        />
-                <field
-          name="palet_id"
-          options="{'no_create': True, 'no_create_edit':True, 'no_open': True}"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-          context="{'form_view_ref': 'product.product_packaging_form_view'}"
-        />
-                <field
-          name="palet_qty"
-          attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
-          optional="show"
-        />
-                <field
-          name="gross_weight"
           attrs="{'readonly': [('state', 'in', ('cancel', 'done'))]}"
           optional="show"
         />

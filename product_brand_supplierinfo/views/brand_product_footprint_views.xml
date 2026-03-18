@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="brand_product_footprint_tree_view" model="ir.ui.view">
+        <field name="name">brand.product.footprint.tree.view</field>
+        <field name="model">brand.product.footprint</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="brand_product_footprint_action" model="ir.actions.act_window">
+        <field name="name">Footprint</field>
+        <field name="res_model">brand.product.footprint</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="brand_product_footprint_tree_view" />
+        <field name="context" />
+    </record>
+
+    <menuitem
+    name="Footprint"
+    id="menu_brand_product_footprint"
+    action="brand_product_footprint_action"
+    parent="purchase.menu_product_in_config_purchase"
+    sequence="20"
+  />
+
+        <menuitem
+    id="stock_brand_menu"
+    name="Product homologation brand"
+    parent="stock.menu_stock_root"
+    sequence="3"
+    groups="product_brand_supplierinfo.group_brand_product_manager"
+  />
+
+    <menuitem
+    name="Brands"
+    id="stock_brand_action"
+    action="product_brand.action_product_brand"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="10"
+  />
+
+    <menuitem
+    name="Footprint"
+    id="stock_brand_product_footprint_action"
+    action="brand_product_footprint_action"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="20"
+  />
+</odoo>

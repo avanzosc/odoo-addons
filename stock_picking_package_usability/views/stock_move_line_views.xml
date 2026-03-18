@@ -7,9 +7,6 @@
       ref="stock.view_stock_move_line_detailed_operation_tree"
     />
         <field name="arch" type="xml">
-            <field name="result_package_id" position="attributes">
-                <attribute name="domain">[('picking_id','=',picking_id)]</attribute>
-            </field>
             <field name="result_package_id" position="after">
                 <field name="packaging_id" optional="show" />
                 <field name="shipping_weight" />

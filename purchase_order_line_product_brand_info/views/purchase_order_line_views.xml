@@ -5,8 +5,18 @@
         <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
         <field name="arch" type="xml">
             <field name="date_planned" position="after">
-                <field name="product_brand_code" optional="show" readonly="1" />
-                <field name="brand_fabricators" optional="show" readonly="1" />
+                <field
+          name="product_brand_code"
+          optional="show"
+          readonly="1"
+          force_save="1"
+        />
+                <field
+          name="product_brand_id"
+          optional="show"
+          readonly="1"
+          force_save="1"
+        />
             </field>
         </field>
     </record>
@@ -16,8 +26,8 @@
         <field name="inherit_id" ref="purchase.purchase_order_line_form2" />
         <field name="arch" type="xml">
             <field name="price_unit" position="after">
-                <field name="product_brand_code" readonly="1" />
-                <field name="brand_fabricators" readonly="1" />
+                <field name="product_brand_code" readonly="1" force_save="1" />
+                <field name="product_brand_id" readonly="1" force_save="1" />
             </field>
         </field>
     </record>
@@ -28,7 +38,7 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field name="product_brand_code" />
-                <field name="brand_fabricators" />
+                <field name="product_brand_id" />
             </field>
         </field>
     </record>

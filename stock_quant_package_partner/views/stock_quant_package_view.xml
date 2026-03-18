@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_stock_quant_package_form_inherit_partner" model="ir.ui.view">
+    <field name="name">stock.quant.package.form.inherit.partner</field>
+    <field name="model">stock.quant.package</field>
+    <field name="inherit_id" ref="stock.view_quant_package_form" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='package_type_id']" position="after">
+        <field name="partner_id" string="Partner" readonly="0" />
+      </xpath>
+    </field>
+  </record>
+  <record id="view_quant_package_tree_partner" model="ir.ui.view">
+    <field name="name">stock.quant.package.tree.partner</field>
+    <field name="model">stock.quant.package</field>
+    <field name="inherit_id" ref="stock.view_quant_package_tree" />
+    <field name="arch" type="xml">
+      <xpath expr="//tree/field[@name='display_name']" position="after">
+        <field name="partner_id" string="Partner" optional="show" />
+      </xpath>
+    </field>
+  </record>
+  <record id="view_quant_package_search_partner" model="ir.ui.view">
+    <field name="name">stock.quant.package.search.partner</field>
+    <field name="model">stock.quant.package</field>
+    <field name="inherit_id" ref="stock.quant_package_search_view" />
+    <field name="arch" type="xml">
+        <xpath expr="//search" position="inside">
+            <field name="partner_id" string="Partner" />
+        </xpath>
+        <xpath expr="//search/group" position="inside">
+            <filter
+          name="group_by_partner"
+          string="Partner"
+          context="{'group_by': 'partner_id'}"
+        />
+        </xpath>
+    </field>
+  </record>
+
+
+</odoo>

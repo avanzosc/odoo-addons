@@ -14,7 +14,7 @@ Invoice supplier last price info
 * When an supplier move is validated or canceled, the information of the
   last move in products is recalculated.
 * When modifying the unit price of a supplier move line that is not in draft
-  status, update the information of the last purchase of the product.
+  status, update the information of the last invoice of the product.
 
 
 Bug Tracker

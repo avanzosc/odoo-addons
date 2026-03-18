@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="valued_report_picking"
+    inherit_id="stock_picking_report_valued.valued_report_picking"
+    priority="100"
+  >
+        <th name="th_sml_taxes" position="replace" />
+        <xpath
+      expr="//table[@class='table table-sm mt32']/thead/tr/th[2]"
+      position="replace"
+    >
+            <th />
+        </xpath>
+        <span t-field="o.amount_tax" position="replace" />
+    </template>
+
+    <template
+    id="valued_report_picking_has_serial_move_line"
+    inherit_id="stock_picking_report_valued.valued_report_picking_has_serial_move_line"
+    priority="100"
+  >
+        <td name="td_sml_taxes" position="replace" />
+    </template>
+</odoo>

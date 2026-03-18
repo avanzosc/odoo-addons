@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_thermoformed_cost_form" model="ir.ui.view">
+        <field name="model">thermoformed.cost</field>
+        <field name="arch" type="xml">
+            <form string="Thermoformed Cost" attrs="{'edit': [('state', '=', 'new')]}">
+                <header>
+                    <button
+            name="action_block"
+            string="Block"
+            class="oe_highlight"
+            type="object"
+            attrs="{'invisible': [('state', '!=', 'draft')]}"
+          />
+                    <button
+            name="action_draft"
+            string="Back to Draft"
+            type="object"
+            attrs="{'invisible': [('state', '!=', 'closed')]}"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="General Description">
+                            <field
+                name="code"
+                attrs="{'readonly': [('state', '=', 'closed')]}"
+              />
+                            <field
+                name="user_id"
+                attrs="{'readonly': [('state', '=', 'closed')]}"
+              />
+                            <field
+                name="partner_id"
+                attrs="{'readonly': [('state', '=', 'closed')]}"
+              />
+                            <field name="create_date" />
+                            <field name="write_date" />
+                            <field name="variant_id" />
+                            <field name="company_id" invisible="1" />
+                            <field name="currency_id" invisible="1" />
+                        </group>
+                        <group string="Cost and Price">
+                            <label for="amount" />
+                            <div class="o_row" name="amount">
+                                <field name="amount" readonly="1" />
+                                <span>€</span>
+                            </div>
+                            <label for="commission" />
+                            <div class="o_row">
+                                <field
+                  name="commission"
+                  attrs="{'readonly': [('state', '=', 'closed')]}"
+                /><span>%%</span>
+                            </div>
+                            <label for="unit_retail_price" />
+                            <div class="o_row" name="unit_retail_price">
+                                <field
+                  name="unit_retail_price"
+                  attrs="{'readonly': [('state', '=', 'closed')]}"
+                />
+                                <span>€</span>
+                            </div>
+                            <label for="margin" />
+                            <div class="o_row" name="margin">
+                                <field name="margin" readonly="1" />
+                                <span>%%</span>
+                            </div>
+                            <field
+                name="serie"
+                attrs="{'readonly': [('state', '=', 'closed')]}"
+              />
+                            <label for="serie_weight" />
+                            <div class="o_row" name="serie_weight">
+                                <field name="serie_weight" />
+                                <span>kg</span>
+                            </div>
+                        </group>
+                    </group>
+                    <separator string="Description" />
+                    <field
+            name="description"
+            placeholder="Add a description..."
+            attrs="{'readonly': [('state', '=', 'closed')]}"
+          />
+                    <notebook>
+                        <page
+              string="Manufacturing parametres"
+              name="manufacturig_paramentres"
+            >
+                            <group>
+                                <group>
+                                    <field
+                    name="workcenter_id"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <field
+                    name="frame_id"
+                    domain="[('workcenter_id', '=', workcenter_id)]"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="width" />
+                                    <div class="o_row" name="width">
+                                        <field
+                      name="width"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    />
+                                        <span>mm</span>
+                                    </div>
+                                    <label for="step" />
+                                    <div class="o_row" name="step">
+                                        <field
+                      name="step"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    />
+                                        <span>mm</span>
+                                    </div>
+                                    <label for="thickness" />
+                                    <div class="o_row" name="thickness">
+                                        <field
+                      name="thickness"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    />
+                                        <span>mm</span>
+                                    </div>
+                                    <field
+                    name="figure"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="product_id"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="density" />
+                                    <div class="o_row" name="density">
+                                        <field name="density" />
+                                        <span>mg/mm³</span>
+                                    </div>
+                                    <field
+                    name="plate_hour"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <field
+                    name="adjustment_plates"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="assembly" />
+                                    <div class="o_row" name="assembly">
+                                        <field
+                      name="assembly"
+                      widget="float_time"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    />
+                                        <span>h</span>
+                                    </div>
+                                    <field
+                    name="operator"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Manufacturing cost" name="manufacturing_cost">
+                            <group>
+                                <group>
+                                    <label for="plate_weight" />
+                                    <div class="o_row" name="plate_weight">
+                                        <field name="plate_weight" />
+                                        <span>kg</span>
+                                    </div>
+                                    <label for="material_cost" />
+                                    <div class="o_row" name="material_cost">
+                                        <field
+                      name="material_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€/kg</span>
+                                    </div>
+                                    <label for="plate_cost" />
+                                    <div class="o_row" name="plate_cost">
+                                        <field name="plate_cost" /><span>€</span>
+                                    </div>
+                                    <label for="workcenter_cost" />
+                                    <div class="o_row" name="workcenter_cost">
+                                        <field
+                      name="workcenter_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€/h</span>
+                                    </div>
+                                    <label for="operator_cost" />
+                                    <div class="o_row" name="operator_cost">
+                                        <field
+                      name="operator_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€/h</span>
+                                    </div>
+                                </group>
+                                <group>
+                                    <label for="manufacturing_cost_unit" />
+                                    <div class="o_row" name="manufacturing_cost_unit">
+                                        <field
+                      name="manufacturing_cost_unit"
+                      readonly="1"
+                    /><span>€</span>
+                                    </div>
+                                    <label for="mechanic_cost" />
+                                    <div class="o_row" name="mechanic_cost">
+                                        <field
+                      name="mechanic_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€/h</span>
+                                    </div>
+                                    <label for="assembly_cost" />
+                                    <div class="o_row" name="assembly_cost">
+                                        <field name="assembly_cost" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="assembly_cost_unit" />
+                                    <div class="o_row" name="assembly_cost_unit">
+                                        <field name="assembly_cost_unit" />
+                                        <span>€</span>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page
+              string="Packaging and transportation costs"
+              name="packaging_transportation"
+            >
+                            <group>
+                                <group>
+                                    <field
+                    name="box_id"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="box_cost" />
+                                    <div class="o_row" name="box_cost">
+                                        <field
+                      name="box_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€</span>
+                                    </div>
+                                    <field
+                    name="box_quantity"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <field
+                    name="pallet_id"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="pallet_cost" />
+                                    <div class="o_row" name="pallet_cost">
+                                        <field
+                      name="pallet_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€</span>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field
+                    name="box_pallet"
+                    attrs="{'readonly': [('state', '=', 'closed')]}"
+                  />
+                                    <label for="packaging_cost_unit" />
+                                    <div class="o_row" name="packaging_cost_unit">
+                                        <field name="packaging_cost_unit" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="packaging_cost" />
+                                    <div class="o_row" name="packaging_cost">
+                                        <field name="packaging_cost" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="pallet_transport_cost" />
+                                    <div class="o_row" name="pallet_transport_cost">
+                                        <field
+                      name="pallet_transport_cost"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€</span>
+                                    </div>
+                                    <label for="transport_cost_unit" />
+                                    <div class="o_row" name="transport_cost_unit">
+                                        <field name="transport_cost_unit" />
+                                        <span>€</span>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Analysis" name="analysis">
+                            <group>
+                                <group>
+                                    <label for="margin_purchase" />
+                                    <div class="o_row" name="margin_purchase">
+                                        <field
+                      name="margin_purchase"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>%%</span>
+                                    </div>
+                                    <label for="value_added_margin" />
+                                    <div class="o_row">
+                                        <field
+                      name="value_added_margin"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>%%</span>
+                                    </div>
+                                    <label for="waste_percentage" />
+                                    <div class="o_row">
+                                        <field
+                      name="waste_percentage"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>%%</span>
+                                    </div>
+                                    <label for="annual_amount" />
+                                    <div class="o_row">
+                                    <field
+                      name="annual_amount"
+                      attrs="{'readonly': [('state', '=', 'closed')]}"
+                    /><span>€</span>
+                                    </div>
+                                </group>
+                                <group string="Planned Machine Occupancy">
+                                    <label for="machine_hour_serie" />
+                                    <div class="o_row" name="machine_hour_serie">
+                                        <field
+                      name="machine_hour_serie"
+                      widget="float_time"
+                      readonly="1"
+                    /><span>h</span>
+                                    </div>
+                                    <label for="machine_hour_annual" />
+                                    <div class="o_row" name="machine_hour_annual">
+                                        <field
+                      name="machine_hour_annual"
+                      widget="float_time"
+                      readonly="1"
+                    /><span>h</span>
+                                    </div>
+                                </group>
+                            </group>
+                            <group>
+                                <group string="Theorical Costs">
+                                    <label for="purchase_cost_unit" />
+                                    <div class="o_row" name="purchase_cost_unit">
+                                        <field name="purchase_cost_unit" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="purchase_cost_serie" />
+                                    <div class="o_row" name="purchase_cost_serie">
+                                        <field name="purchase_cost_serie" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="purchase_cost_annual" />
+                                    <div class="o_row" name="purchase_cost_annual">
+                                        <field name="purchase_cost_annual" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="cost_sales" />
+                                    <div class="o_row" name="cost_sales">
+                                        <field name="cost_sales" />
+                                        <span>%%</span>
+                                    </div>
+                                </group>
+                                <group string="Sale and Added Value">
+                                    <label for="invoicing_serie" />
+                                    <div class="o_row" name="invoicing_serie">
+                                        <field name="invoicing_serie" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="invoicing_annual" />
+                                    <div class="o_row" name="invoicing_annual">
+                                        <field name="invoicing_annual" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="value_added_serie" />
+                                    <div class="o_row" name="value_added_serie">
+                                        <field name="value_added_serie" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="value_added_annual" />
+                                    <div class="o_row" name="value_added_annual">
+                                        <field name="value_added_annual" />
+                                        <span>€</span>
+                                    </div>
+                                    <label for="value_added_hour" />
+                                    <div class="o_row" name="value_added_hour">
+                                        <field name="value_added_hour" />
+                                        <span>€/h</span>
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_thermoformed_cost_tree" model="ir.ui.view">
+        <field name="model">thermoformed.cost</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="description" optional="show" />
+                <field name="code" />
+                <field name="user_id" optional="show" />
+                <field name="partner_id" optional="show" />
+                <field name="workcenter_id" optional="show" />
+                <field name="serie" optional="show" />
+                <field name="value_added_hour" optional="show" />
+                <field name="machine_hour_serie" optional="show" />
+                <field name="machine_hour_annual" optional="show" />
+                <field name="amount" optional="show" />
+                <field name="unit_retail_price" optional="show" />
+                <field name="margin" optional="show" />
+                <field
+          name="state"
+          widget="badge"
+          decoration-success="state == 'closed'"
+          decoration-info="state not in ('closed')"
+          optional="show"
+        />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_thermoformed_cost_search">
+        <field name="model">thermoformed.cost</field>
+        <field name="arch" type="xml">
+            <search string="Thermoformed Cost">
+                <field name="name" />
+                <field name="state" />
+                <field name="user_id" />
+                <field name="code" />
+                <field name="partner_id" />
+                <field name="workcenter_id" />
+                <field name="variant_id" />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Status"
+            name="group_state"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+                    <filter
+            string="Responsible"
+            name="group_user"
+            domain="[]"
+            context="{'group_by':'user_id'}"
+          />
+                    <filter
+            string="Customer"
+            name="group_partner"
+            domain="[]"
+            context="{'group_by': 'partner_id'}"
+          />
+                    <filter
+            string="Workcenter"
+            name="group_workcenter"
+            domain="[]"
+            context="{'group_by': 'workcenter_id'}"
+          />
+                    <filter
+            string="Reference Product"
+            name="group_variant"
+            domain="[]"
+            context="{'group_by': 'variant_id'}"
+          />
+               </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_thermoformed_cost" model="ir.actions.act_window">
+        <field name="name">Thermoformed Cost</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="res_model">thermoformed.cost</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+    id="menu_thermoformed_cost"
+    action="action_thermoformed_cost"
+    name="Thermoformed Cost Calculation"
+    parent="mrp.menu_mrp_manufacturing"
+    sequence="20"
+  />
+
+    <menuitem
+    id="menu_sale_thermoformed_cost"
+    action="action_thermoformed_cost"
+    parent="sale.product_menu_catalog"
+    sequence="100"
+  />
+</odoo>

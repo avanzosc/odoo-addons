@@ -2,15 +2,9 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Product Sale Configuration",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.1.0",
     "license": "AGPL-3",
-    "depends": [
-        "sale",
-        "stock",
-        "stock_account",
-        "purchase_last_price_info",
-        "invoice_supplier_last_price_info",
-    ],
+    "depends": ["sale", "stock", "stock_account", "purchase_last_price_info"],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",

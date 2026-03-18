@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="product_nutrition_information_view"
+    inherit_id="product_nutrition_allergen.product_nutrition_information"
+  >
+        <xpath expr="//a[@id='show_nutrition']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//a[@id='show_nutrition']" position="after">
+            <a id="show_nutrition" href="#">Ingredientes y Alérgenos</a>
+        </xpath>
+        <xpath expr="//button[@id='button_nutrition']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//button[@id='button_ingredients']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//button[@id='button_ingredients']" position="after">
+            <button
+        type="button"
+        id="button_ingredients"
+        class="btn btn-primary"
+      >Ingredientes
+            </button>
+        </xpath>
+        <xpath expr="//button[@id='button_allergy']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+        <xpath expr="//button[@id='button_allergy']" position="after">
+            <button type="button" id="button_allergy" class="btn btn-primary">Alérgenos
+            </button>
+        </xpath>
+    </template>
+</odoo>

@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_product_brand_tree" model="ir.ui.view">
-        <field name="model">product.brand</field>
-        <field name="inherit_id" ref="product_brand.view_product_brand_tree" />
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="code" optional="show" />
-                <field name="marking" optional="show" />
-            </field>
-        </field>
-    </record>
+    <menuitem
+    name="Brands"
+    id="product_brand.menu_product_brand"
+    action="product_brand.action_product_brand"
+    parent="sale.prod_config_main"
+  />
 
-    <record id="view_product_brand_form" model="ir.ui.view">
-        <field name="model">product.brand</field>
-        <field name="inherit_id" ref="product_brand.view_product_brand_form" />
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="code" />
-                <field name="marking" />
-            </field>
-        </field>
-    </record>
-
-    <record id="product_brand_search_form_view" model="ir.ui.view">
-        <field name="model">product.brand</field>
-        <field name="inherit_id" ref="product_brand.product_brand_search_form_view" />
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="code" />
-                <field name="marking" />
-            </field>
-        </field>
-    </record>
+    <menuitem
+    id="product_brand_purchase.menu_product_in_config_purchase_product_brand"
+    action="product_brand.action_product_brand"
+    parent="purchase.menu_product_in_config_purchase"
+    name="Brands"
+    sequence="1"
+  />
 </odoo>

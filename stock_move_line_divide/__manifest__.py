@@ -9,9 +9,12 @@
     "depends": [
         "stock",
         "stock_picking_package_usability",
+        "stock_move_qty_by_packaging",
     ],
     "data": [
         "views/stock_move_line_views.xml",
+        "views/res_config_settings_view.xml",
+        "views/uom_uom_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,

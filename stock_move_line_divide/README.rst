@@ -6,7 +6,11 @@
 Stock Move Line Divide
 ======================
 
-* A button in stock move lines to divide the products in different packages.
+* Adds a button in stock move lines to divide the products in different packages.
+* Adds a configuration option to enable naming of packages using the product's reference and a sequence number.
+* Generates packages dynamically with unique names derived from references, maintaining sequential integrity.
+* Updates divide and product_packaging_qty fields when package selected.
+* Adds is_unit field to uom to distinguish which UoMs are unit based.
 
 Bug Tracker
 ===========
@@ -26,4 +30,5 @@ Contributors
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>

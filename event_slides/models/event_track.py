@@ -19,20 +19,26 @@ class EventTrack(models.Model):
     def button_show_event_courses(self):
         self.ensure_one()
         if self.count_courses > 0:
-            action = self.env.ref("website_slides.slide_channel_action_overview")
-            action_dict = action and action.read()[0]
-            action_dict["context"] = safe_eval(action_dict.get("context", "{}"))
-            action_dict["context"].update(
+            action = self.env["ir.actions.actions"]._for_xml_id(
+                "website_slides.slide_channel_action_overview"
+            )
+            domain = expression.AND(
+                [
+                    [("id", "in", self.event_id.slides_ids.ids)],
+                    safe_eval(action.get("domain") or "[]"),
+                ]
+            )
+            context = safe_eval(action.get("context") or "{}")
+            context.update(
                 {
                     "default_event_id": self.event_id.id,
                     "search_default_event_id": self.event_id.id,
                 }
             )
-            domain = expression.AND(
-                [
-                    [("id", "in", self.event_id.slides_ids.ids)],
-                    safe_eval(action.domain or "[]"),
-                ]
+            action.update(
+                {
+                    "domain": domain,
+                    "context": context,
+                }
             )
-            action_dict.update({"domain": domain})
-            return action_dict
+            return action
