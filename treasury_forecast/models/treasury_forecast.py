@@ -34,14 +34,14 @@ class TreasuryForecast(models.Model):
         required=True,
         default=lambda self: self.env.company.currency_id,
     )
-    expense = fields.Monetary(currency_field="currency_id", group_operator="sum")
-    income = fields.Monetary(currency_field="currency_id", group_operator="sum")
+    expense = fields.Monetary(currency_field="currency_id", aggregator="sum")
+    income = fields.Monetary(currency_field="currency_id", aggregator="sum")
     balance = fields.Monetary(
         string="Line Balance",
         compute="_compute_balance",
         store=True,
         currency_field="currency_id",
-        group_operator="sum",
+        aggregator="sum",
     )
     recurrence_months = fields.Integer(string="Recurrence (Months)", default=1)
 
