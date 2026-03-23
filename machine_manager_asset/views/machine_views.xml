@@ -4,10 +4,9 @@
         <field name="model">machine</field>
         <field name="inherit_id" ref="machine_manager.machine_form_view" />
         <field name="arch" type="xml">
-            <group name="finalcial-details2" position="inside">
-                <separator string="Other info" />
+            <field name="enrolldate" position="after">
                 <field name="account_asset_id" />
-            </group>
+            </field>
         </field>
     </record>
 
