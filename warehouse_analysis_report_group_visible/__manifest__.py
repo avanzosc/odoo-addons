@@ -2,12 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Warehouse Analysis Report Group Visible",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Hidden",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["stock_enterprise", "product_cost_visible"],
+    "depends": ["stock_enterprise", "purchase_last_price_info_discount_visible"],
     "data": [
         "views/stock_report_views.xml",
     ],
