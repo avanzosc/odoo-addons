@@ -8,7 +8,6 @@ class PurchaseOrder(models.Model):
 
     def button_confirm(self):
         result = super().button_confirm()
-        for picking in self.picking_ids:
-            for move in picking.move_ids_without_package:
-                move._onchange_purchase_line_id()
+        moves = self.mapped("picking_ids.move_ids")
+        moves._set_standard_price_from_source(force=True)
         return result

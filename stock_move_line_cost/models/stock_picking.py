@@ -6,24 +6,28 @@ from odoo import models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
+    def _propagate_standard_price_to_move_lines(self):
+        for picking in self:
+            picking.move_ids._set_standard_price_from_source()
+            for move in picking.move_ids:
+                move.move_line_ids.filtered(
+                    lambda line: not line.standard_price
+                ).standard_price = move.standard_price
+            picking.move_line_ids.filtered(
+                lambda line: not line.standard_price and not line.move_id
+            )._set_standard_price_from_source()
+
     def button_force_done_detailed_operations(self):
         result = super().button_force_done_detailed_operations()
-        for line in self.move_line_ids_without_package:
-            line._onchange_product_id()
-            line.onchange_standard_price()
+        self._propagate_standard_price_to_move_lines()
         return result
 
     def action_assign(self):
         result = super().action_assign()
-        for move in self.move_ids_without_package:
-            if move.standard_price:
-                for line in move.move_line_ids:
-                    if not line.standard_price:
-                        line.standard_price = move.standard_price
+        self._propagate_standard_price_to_move_lines()
         return result
 
     def button_validate(self):
         result = super().button_validate()
-        for line in self.move_line_ids_without_package:
-            line.onchange_standard_price()
+        self._propagate_standard_price_to_move_lines()
         return result
