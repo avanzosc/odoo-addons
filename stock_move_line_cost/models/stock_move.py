@@ -32,15 +32,14 @@ class StockMove(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         moves = super().create(vals_list)
-        for move, vals in zip(moves, vals_list):
+        for move, vals in zip(moves, vals_list, strict=False):
             if "standard_price" not in vals:
                 move._set_standard_price_from_source()
         return moves
 
     def write(self, vals):
-        update_from_source = (
-            "standard_price" not in vals
-            and any(key in vals for key in ("sale_line_id", "purchase_line_id", "product_id"))
+        update_from_source = "standard_price" not in vals and any(
+            key in vals for key in ("sale_line_id", "purchase_line_id", "product_id")
         )
         result = super().write(vals)
         if update_from_source:
