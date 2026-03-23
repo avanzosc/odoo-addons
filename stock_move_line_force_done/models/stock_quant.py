@@ -16,7 +16,7 @@ class StockQuant(models.Model):
         lot_id=None,
         package_id=None,
         owner_id=None,
-        strict=False,
+        strict=True,
     ):
         self = self.sudo()
         rounding = product_id.uom_id.rounding
@@ -37,10 +37,11 @@ class StockQuant(models.Model):
                 > 0
             ):
                 if len(quants) == 1:
-                    if quantity < 0:
-                        quantity = quantity * -1
-                    my_quantity = available_quantity + quantity
-                    quants.write({"reserved_quantity": my_quantity})
+                    quantity = -available_quantity
+                    if float_compare(
+                        quantity, 0, precision_rounding=rounding
+                    ) == 0:
+                        return
         return super()._update_reserved_quantity(
             product_id,
             location_id,
