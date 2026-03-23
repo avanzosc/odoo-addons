@@ -38,9 +38,7 @@ class StockQuant(models.Model):
             ):
                 if len(quants) == 1:
                     quantity = -available_quantity
-                    if float_compare(
-                        quantity, 0, precision_rounding=rounding
-                    ) == 0:
+                    if float_compare(quantity, 0, precision_rounding=rounding) == 0:
                         return
         return super()._update_reserved_quantity(
             product_id,
