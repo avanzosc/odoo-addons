@@ -7,7 +7,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["stock_enterprise", "purchase_last_price_info_discount_visible"],
+    "depends": ["stock_enterprise", "product_cost_visible"],
     "data": [
         "views/stock_report_views.xml",
     ],
