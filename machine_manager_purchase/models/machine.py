@@ -71,7 +71,7 @@ class Machine(models.Model):
                 user_tz = self.env.user.tz or self.env.context.get("tz")
                 user_pytz = pytz.timezone(user_tz) if user_tz else pytz.utc
                 purch_date = (
-                    pline.order_id.date_approve.now()
+                    pline.order_id.date_approve
                     .astimezone(user_pytz)
                     .replace(tzinfo=None)
                     .date()
