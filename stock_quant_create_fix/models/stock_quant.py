@@ -1,5 +1,7 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+import inspect
+
 from odoo import models
 from odoo.osv import expression
 
@@ -15,16 +17,50 @@ class StockQuant(models.Model):
         package_id=None,
         owner_id=None,
         strict=False,
+        qty=0,
+        **kwargs,
     ):
-        self.env["stock.quant"].flush(
-            ["location_id", "owner_id", "package_id", "lot_id", "product_id"]
-        )
-        self.env["product.product"].flush(["virtual_available"])
+        quants_cache = self.env.context.get("quants_cache")
         removal_strategy = self._get_removal_strategy(product_id, location_id)
-        removal_strategy_order = self._get_removal_strategy_order(removal_strategy)
-        domain = [
-            ("product_id", "=", product_id.id),
-        ]
+        if quants_cache is not None and strict and removal_strategy != "least_packages":
+            quants = self.env["stock.quant"]
+            lot_ids = [False]
+            if lot_id:
+                lot_ids.insert(0, lot_id.id)
+            package_ids = [False] if not package_id else [package_id.id, False]
+            owner_ids = [False] if not owner_id else [owner_id.id, False]
+            for lot_cache_id in lot_ids:
+                for package_cache_id in package_ids:
+                    for owner_cache_id in owner_ids:
+                        quants |= quants_cache[
+                            product_id.id,
+                            location_id.id,
+                            lot_cache_id,
+                            package_cache_id,
+                            owner_cache_id,
+                        ]
+            if removal_strategy == "closest":
+                quants = quants.sorted(lambda q: (q.location_id.complete_name, -q.id))
+            return quants.sorted(lambda q: not q.lot_id)
+        super_gather = super()._gather
+        gather_kwargs = {
+            "lot_id": lot_id,
+            "package_id": package_id,
+            "owner_id": owner_id,
+            "strict": strict,
+            **kwargs,
+        }
+        super_params = inspect.signature(super_gather).parameters
+        if "qty" in super_params or any(
+            p.kind == inspect.Parameter.VAR_KEYWORD for p in super_params.values()
+        ):
+            gather_kwargs["qty"] = qty
+        return super_gather(product_id, location_id, **gather_kwargs)
+
+    def _get_gather_domain(
+        self, product_id, location_id, lot_id=None, package_id=None, owner_id=None, strict=False
+    ):
+        domain = [("product_id", "=", product_id.id)]
         if not strict:
             if lot_id:
                 domain = expression.AND(
@@ -48,9 +84,7 @@ class StockQuant(models.Model):
                         domain,
                     ]
                 )
-            domain = expression.AND(
-                [[("location_id", "child_of", location_id.id)], domain]
-            )
+            domain = expression.AND([[("location_id", "child_of", location_id.id)], domain])
         else:
             domain = expression.AND(
                 [
@@ -81,23 +115,15 @@ class StockQuant(models.Model):
                 ]
             )
             domain = expression.AND([[("location_id", "=", location_id.id)], domain])
-
-        # Copy code of _search for special NULLS FIRST/LAST order
-        self.check_access_rights("read")
-        query = self._where_calc(domain)
-        self._apply_ir_rules(query, "read")
-        from_clause, where_clause, where_clause_params = query.get_sql()
-        where_str = where_clause and (" WHERE %s" % where_clause) or ""
-        query_str = (
-            'SELECT "%s".id FROM ' % self._table
-            + from_clause
-            + where_str
-            + " ORDER BY "
-            + removal_strategy_order
-        )
-        self._cr.execute(query_str, where_clause_params)
-        res = self._cr.fetchall()
-        # No uniquify list necessary as auto_join is not applied anyways...
-        quants = self.browse([x[0] for x in res])
-        quants = quants.sorted(lambda q: not q.lot_id)
-        return quants
+        if self.env.context.get("with_expiration"):
+            domain = expression.AND(
+                [
+                    [
+                        "|",
+                        ("expiration_date", ">=", self.env.context["with_expiration"]),
+                        ("expiration_date", "=", False),
+                    ],
+                    domain,
+                ]
+            )
+        return domain
