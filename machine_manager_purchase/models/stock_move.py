@@ -11,7 +11,7 @@ class StockMove(models.Model):
         if "state" in vals and vals.get("state", False) == "done":
             for move in self.filtered(
                 lambda x: x.product_id.machine_ok
-                and x.product_id.tracking == 'serial'
+                and x.product_id.tracking == "serial"
                 and x.picking_type_id.code == "incoming"
             ):
                 if move.move_line_ids:

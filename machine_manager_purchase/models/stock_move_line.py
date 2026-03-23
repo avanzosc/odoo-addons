@@ -19,10 +19,10 @@ class StockMoveLine(models.Model):
             name = (
                 self.product_id.default_code
                 if not name
-                else "{} {}".format(name, self.product_id.default_code)
+                else f"{name} {self.product_id.default_code}"
             )
         if self.lot_name:
-            name = self.lot_name if not name else "{} {}".format(name, self.lot_name)
+            name = self.lot_name if not name else f"{name} {self.lot_name}"
         vals = {
             "name": name,
             "product_id": self.product_id.id,

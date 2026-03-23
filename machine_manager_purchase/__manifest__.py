@@ -13,7 +13,7 @@
         "Ana Juaristi <ajuaristio@gmail.com>",
         "Oihane Crucelaegui <oihanecrucelaegi@avanzosc.es>",
         "Esther Martín <esthermartin@avanzosc.es>",
-        "Lucía Echeverría <luciaecheverria@avanzosc.es>"
+        "Lucía Echeverría <luciaecheverria@avanzosc.es>",
     ],
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
@@ -24,7 +24,7 @@
     "data": [
         "views/machine_views.xml",
         "views/purchase_order_views.xml",
-        "views/stock_picking_views.xml"
+        "views/stock_picking_views.xml",
     ],
     "installable": True,
     "auto_install": True,
