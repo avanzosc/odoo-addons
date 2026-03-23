@@ -1,6 +1,7 @@
 # Copyright 2015 Daniel Campos - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class Machine(models.Model):
@@ -8,21 +9,19 @@ class Machine(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = "Holds Machine Records"
 
-    def _def_company(self):
-        return self.env.user.company_id.id
-
     name = fields.Char(string="Machine Name", required=True)
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
         required=True,
-        default=_def_company,
+        default=lambda self: self.env.company.id,
     )
     year = fields.Char()
     model = fields.Char()
     product_id = fields.Many2one(
         comodel_name="product.product",
         string="Associated product",
+        domain="[('machine_ok','=',True), ('tracking','=','serial')]",
         help="This product will contain information about the machine such as"
         " the manufacturer.",
     )
@@ -77,3 +76,15 @@ class Machine(models.Model):
         related="product_id.categ_id",
         store=True,
     )
+
+    @api.constrains("product_id")
+    def _check_product_tracking(self):
+        for machine in self:
+            if machine.product_id and machine.product_id.tracking != "serial":
+                raise ValidationError(
+                    _(
+                        "Product '%s' must have serial number tracking "
+                        "to be used as a machine."
+                    )
+                    % machine.product_id.display_name
+                )

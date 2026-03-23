@@ -5,10 +5,10 @@ from odoo.tests import common
 
 
 class TestMachineManager(common.TransactionCase):
-
-    def setUp(self):
-        super().setUp()
-        self.machine1 = self.env.ref("machine_manager.machinery_1")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.machine1 = cls.env.ref("machine_manager.machinery_1")
 
     def test_machine_manager_count(self):
         self.product1 = self.machine1.product_id

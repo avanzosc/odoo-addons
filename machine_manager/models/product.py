@@ -27,5 +27,11 @@ class ProductProduct(models.Model):
     )
 
     def _compute_machine_count(self):
+        read_group = self.env["machine"]._read_group(
+            domain=[("product_id", "in", self.ids)],
+            groupby=["product_id"],
+            aggregates=["__count"],
+        )
+        counts = {product.id: count for product, count in read_group}
         for product in self:
-            product.machine_count = len(product.machine_ids)
+            product.machine_count = counts.get(product.id, 0)
