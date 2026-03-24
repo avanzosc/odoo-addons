@@ -111,68 +111,56 @@ class StockPickingImportLine(models.Model):
     )
     picking_date = fields.Datetime(
         string="Date Done",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_location = fields.Char(
         string="Location",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     picking_location_dest = fields.Char(
         string="Location Dest",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     picking_product_code = fields.Char(
         string="Product Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_product_name = fields.Char(
         string="Product Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_lot = fields.Char(
         string="Lot",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_qty_done = fields.Float(
         string="Qty Done",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
     )
     picking_location_dest_id = fields.Many2one(
         string="Location Dest",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_lot_id = fields.Many2one(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="Lot/Serial Number",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_type_id = fields.Many2one(
         comodel_name="stock.picking.type",
         string="Picking Type",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_id = fields.Many2one(
@@ -186,12 +174,12 @@ class StockPickingImportLine(models.Model):
     )
     help = fields.Text()
     picking_owner = fields.Char(
-        string="Owner", states={"done": [("readonly", True)]}, copy=False
+        string="Owner",
+        copy=False,
     )
     picking_owner_id = fields.Many2one(
         string="Owner",
         comodel_name="res.partner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -518,7 +506,7 @@ class StockPickingImportLine(models.Model):
     def _moveline_values(self, qty=0):
         vals = {
             "product_id": self.picking_product_id.id,
-            "qty_done": qty,
+            "quantity": qty,
             "product_uom_id": self.picking_product_id.uom_id.id,
             "location_id": self.picking_type_id.default_location_src_id.id,
             "location_dest_id": (self.picking_type_id.default_location_dest_id.id),

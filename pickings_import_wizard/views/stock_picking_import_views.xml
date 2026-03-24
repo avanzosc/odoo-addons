@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="stock_picking_import_view_tree" model="ir.ui.view">
-        <field name="model">stock.picking.import</field>
-        <field name="arch" type="xml">
-            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
-                <field name="name" />
-                <field name="file_date" />
-                <field name="company_id" groups="base.group_multi_company" />
-                <field name="state" />
-            </tree>
-        </field>
-    </record>
+  <record id="stock_picking_import_view_tree" model="ir.ui.view">
+    <field name="model">stock.picking.import</field>
+    <field name="arch" type="xml">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+        <field name="name" />
+        <field name="file_date" />
+        <field name="company_id" groups="base.group_multi_company" />
+        <field name="state" />
+      </list>
+    </field>
+  </record>
 
     <record id="stock_picking_import_view_form" model="ir.ui.view">
         <field name="model">stock.picking.import</field>
@@ -21,22 +21,19 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
-            states="draft,2validate,pass,error"
+            invisible="state == 'done'"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            states="2validate,error,pass"
+            invisible="state in ('draft','done')"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
-            states="pass,error"
+            invisible="state != 'pass'"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -46,14 +43,14 @@
               string="Import Lines"
               type="object"
               name="button_open_import_line"
-              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              invisible="not import_line_ids"
               class="oe_stat_button"
               icon="fa-bars"
             />
                         <button
               type="object"
               name="button_open_picking"
-              attrs="{'invisible':[('picking_count', '=', 0)]}"
+              invisible="not picking_count"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
@@ -62,66 +59,65 @@
                     </div>
                     <group>
                         <group>
-                            <field name="filename" />
-                            <field name="data" filename="filename" />
-                            <field name="file_date" />
+                            <field name="filename" invisible="1" readonly="state == 'done'" />
+                            <field name="data" filename="filename" readonly="state == 'done'" />
+                            <field name="file_date" readonly="state == 'done'" />
                         </group>
                         <group>
                             <field
                 name="company_id"
                 groups="base.group_multi_company"
                 options="{'no_create': True}"
+                readonly="state == 'done'"
               />
                         </group>
                     </group>
                     <notebook>
                         <page string="Imported Lines">
-                            <field name="import_line_ids" />
+                            <field 
+                              name="import_line_ids" 
+                              context="{'list_view_ref': 'pickings_import_wizard.stock_picking_import_line_view_tree'}"
+                			  readonly="state == 'done'"
+                            />
                         </page>
                         <page
               string="Error Log"
-              attrs="{'invisible':[('log_info','=','')]}"
+              invisible="not log_info"
             >
                             <field name="log_info" />
                         </page>
                         <page
               string="Help"
               name="help_page"
-              attrs="{'invisible': [('state', '=', 'done')]}"
+              invisible="state == 'done'"
             >
-                            <group>
                                 <div style="margin-top: 4px;">
                                     <h3>Help with Excel column names</h3>
                                     <p
                   >You must use this column names in order to fill the table:</p>
                                     <ul name="tutorial">
-                                        <li><code>Date</code>: this will fill <b
+                                        <li><code t-translation="off">Date</code>: this will fill <b
                       >Picking Date Done</b></li>
-                                        <li><code>Location</code>: this will fill <b
+                                        <li><code t-translation="off">Location</code>: this will fill <b
                       >Picking Location Origin</b></li>
-                                        <li><code>LocationDest</code>: this will fill <b
+                                        <li><code t-translation="off">LocationDest</code>: this will fill <b
                       >Picking Location Destination</b></li>
-                                        <li><code>Owner</code>: this will fill <b
+                                        <li><code t-translation="off">Owner</code>: this will fill <b
                       >Picking Owner</b></li>
-                                        <li><code>ProductCode</code>: this will fill <b
+                                        <li><code t-translation="off">ProductCode</code>: this will fill <b
                       >Picking Product Code</b></li>
-                                        <li><code>ProductName</code>: this will fill <b
+                                        <li><code t-translation="off">ProductName</code>: this will fill <b
                       >Picking Product Name</b></li>
-                                        <li><code>Lot</code>: this will fill <b
+                                        <li><code t-translation="off">Lot</code>: this will fill <b
                       >Picking Product Lot</b></li>
-                                        <li><code>QtyDone</code>: this will fill <b
+                                        <li><code t-translation="off">QtyDone</code>: this will fill <b
                       >Picking Product Quantity Done</b></li>
                                     </ul>
                                 </div>
-                            </group>
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
+                <chatter />
             </form>
         </field>
     </record>
@@ -162,7 +158,7 @@
         <field name="name">Import Pickings</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.import</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="stock_picking_import_view_tree" />
     </record>
 

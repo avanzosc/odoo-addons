@@ -74,61 +74,69 @@
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,error,pass"
+            invisible="state in ('draft','done')"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
             class="oe_read_only"
-            states="pass"
+            invisible="state != 'pass'"
           />
                     <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
                     <group>
                         <group>
-                            <field name="picking_date" />
-                            <field name="picking_location" />
-                            <field name="picking_location_dest" />
-                            <field name="picking_owner" />
-                            <field name="picking_product_code" />
-                            <field name="picking_product_name" />
-                            <field name="picking_lot" />
-                            <field name="picking_qty_done" />
+                            <field name="picking_date" readonly="state == 'done'" />
+                            <field name="picking_location" readonly="state == 'done'" />
+                            <field name="picking_location_dest" readonly="state == 'done'" />
+                            <field name="picking_owner" readonly="state == 'done'" />
+                            <field name="picking_product_code" readonly="state == 'done'" />
+                            <field name="picking_product_name" readonly="state == 'done'" />
+                            <field name="picking_lot" readonly="state == 'done'" />
+                            <field name="picking_qty_done" readonly="state == 'done'" />
                         </group>
                         <group>
                             <field
                 name="picking_location_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="picking_location_dest_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="picking_type_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="picking_owner_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="picking_product_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
                 name="picking_lot_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
-              <field name="picking_id" options="{'no_create': True, 'no_open': True}" />
+              <field name="picking_id" readonly="state == 'done'" options="{'no_create': True, 'no_open': True}" />
               <field
                 name="move_line_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
               <field
                 name="lot_location_id"
+                readonly="state == 'done'"
                 options="{'no_create': True, 'no_open': True}"
               />
                         </group>
@@ -143,34 +151,34 @@
     <record id="stock_picking_import_line_view_tree" model="ir.ui.view">
         <field name="model">stock.picking.import.line</field>
         <field name="arch" type="xml">
-            <tree
+            <list
         decoration-danger="state == 'error'"
         decoration-muted="state == 'done'"
         decoration-it="log_info"
         editable="top"
       >
-                <field name="action" />
-                <field name="picking_date" />
-                <field name="picking_location" />
-                <field name="picking_location_id" optional="hide" />
-                <field name="picking_location_dest" />
-                <field name="picking_location_dest_id" optional="hide" />
-                <field name="picking_type_id" optional="hide" />
-                <field name="picking_owner" optional="hide" />
-                <field name="picking_owner_id" optional="hide" />
-                <field name="picking_product_code" />
-                <field name="picking_product_name" />
-                <field name="picking_product_id" optional="hide" />
-                <field name="picking_lot" />
-                <field name="picking_lot_id" optional="hide" />
-                <field name="picking_qty_done" />
-                <field name="picking_id" optional="hide" />
-                <field name="move_line_id" optional="hide" />
-                <field name="lot_location_id" optional="hide" />
-                <field name="state" />
-                <field name="log_info" optional="show" />
-                <field name="help" optional="show" />
-            </tree>
+                <field name="action" readonly="state == 'done'" />
+                <field name="picking_date" readonly="state == 'done'" />
+                <field name="picking_location" readonly="state == 'done'" />
+                <field name="picking_location_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_location_dest" readonly="state == 'done'" />
+                <field name="picking_location_dest_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_type_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_owner" readonly="state == 'done'" optional="hide" />
+                <field name="picking_owner_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_product_code" readonly="state == 'done'" />
+                <field name="picking_product_name" readonly="state == 'done'" />
+                <field name="picking_product_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_lot" readonly="state == 'done'" />
+                <field name="picking_lot_id" readonly="state == 'done'" optional="hide" />
+                <field name="picking_qty_done" readonly="state == 'done'" />
+                <field name="picking_id" readonly="state == 'done'" optional="hide" />
+                <field name="move_line_id" readonly="state == 'done'" optional="hide" />
+                <field name="lot_location_id" readonly="state == 'done'" optional="hide" />
+                <field name="state" readonly="state == 'done'" />
+                <field name="log_info" readonly="state == 'done'" optional="show" />
+                <field name="help" readonly="state == 'done'" optional="show" />
+            </list>
         </field>
     </record>
 
@@ -178,7 +186,7 @@
         <field name="name">Import Picking Lines</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.import.line</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="stock_picking_import_line_view_tree" />
     </record>
 </odoo>
