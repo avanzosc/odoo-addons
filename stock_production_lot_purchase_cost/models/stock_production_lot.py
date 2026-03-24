@@ -4,11 +4,9 @@ from odoo import fields, models
 
 
 class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+    _inherit = "stock.lot"
 
-    purchase_cost = fields.Float(
-        string="Purchase Cost", compute="_compute_purchase_cost"
-    )
+    purchase_cost = fields.Float(compute="_compute_purchase_cost")
 
     def _compute_purchase_cost(self):
         for lot in self:
@@ -20,6 +18,6 @@ class StockProductionLot(models.Model):
                     ("state", "=", "done"),
                 ]
             )
-            if lines and sum(lines.mapped("qty_done")) != 0:
-                cost = sum(lines.mapped("amount")) / sum(lines.mapped("qty_done"))
+            if lines and sum(lines.mapped("quantity")) != 0:
+                cost = sum(lines.mapped("cost")) / sum(lines.mapped("quantity"))
             lot.purchase_cost = cost
