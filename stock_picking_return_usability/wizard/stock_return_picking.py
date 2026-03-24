@@ -70,9 +70,7 @@ class StockReturnPicking(models.TransientModel):
                     "location_id": location.id,
                     "location_dest_id": location_dest.id,
                     "origin": _(
-                        "{} - Return of {}".format(
-                            self.picking_id.origin, self.picking_id.name
-                        )
+                        f"{self.picking_id.origin} - Return of {self.picking_id.name}"
                     ),
                 }
             )
@@ -83,7 +81,6 @@ class StockReturnPicking(models.TransientModel):
         ):
             for move in return_picking.move_ids_without_package:
                 move.state = "draft"
-        return_picking.do_unreserve()
         for move in return_picking.move_ids_without_package:
             move.with_context(prefetch_fields=False).mapped("move_line_ids").unlink()
             move_line_obj = self.env["stock.move.line"]

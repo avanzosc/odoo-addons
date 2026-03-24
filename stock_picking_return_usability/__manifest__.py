@@ -9,7 +9,6 @@
     "depends": ["sale_stock"],
     "data": [
         "views/stock_picking_type_view.xml",
-        "wizard/stock_return_picking_view.xml",
     ],
     "license": "AGPL-3",
     "installable": True,
