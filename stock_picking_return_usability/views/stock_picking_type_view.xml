@@ -5,7 +5,7 @@
         <field name="model">stock.picking.type</field>
         <field name="inherit_id" ref="stock.view_picking_type_form" />
         <field name="arch" type="xml">
-            <xpath expr="//sheet/group/group" position="inside">
+            <xpath expr="//field[@name='return_picking_type_id']" position="after">
                 <field name="retun_picking_draft" />
             </xpath>
         </field>

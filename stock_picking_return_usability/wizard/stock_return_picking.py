@@ -4,6 +4,37 @@
 from odoo import _, api, models
 
 
+class StockReturnPickingLine(models.TransientModel):
+    _inherit = "stock.return.picking.line"
+
+    def _prepare_move_default_values(self, new_picking):
+        result = super()._prepare_move_default_values(new_picking)
+        wizard = self.wizard_id
+        if (
+            wizard
+            and wizard.picking_id
+            and (wizard.picking_id.picking_type_id)
+            and (wizard.picking_id.picking_type_id.return_picking_type_id)
+        ):
+            return_type = wizard.picking_id.picking_type_id.return_picking_type_id
+            location = (
+                return_type.default_location_src_id
+                if return_type.default_location_src_id.usage
+                and return_type.default_location_src_id.usage != "view"
+                else self.move_id.location_dest_id
+            )
+            location_dest = (
+                return_type.default_location_dest_id
+                if return_type.default_location_dest_id.usage
+                and return_type.default_location_dest_id.usage != "view"
+                else self.move_id.location_id
+            )
+            result.update(
+                {"location_id": location.id, "location_dest_id": location_dest.id}
+            )
+        return result
+
+
 class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
 
@@ -14,34 +45,8 @@ class StockReturnPicking(models.TransientModel):
             result["quantity"] = 0
         return result
 
-    def _prepare_move_default_values(self, return_line, new_picking):
-        result = super()._prepare_move_default_values(return_line, new_picking)
-        if (
-            self.picking_id
-            and (self.picking_id.picking_type_id)
-            and (self.picking_id.picking_type_id.return_picking_type_id)
-        ):
-            return_type = self.picking_id.picking_type_id.return_picking_type_id
-            location = (
-                return_type.default_location_src_id
-                if return_type.default_location_src_id.usage
-                and return_type.default_location_src_id.usage != "view"
-                else return_line.move_id.location_dest_id
-            )
-            location_dest = (
-                return_type.default_location_dest_id
-                if return_type.default_location_dest_id.usage
-                and return_type.default_location_dest_id.usage != "view"
-                else return_line.move_id.location_id
-            )
-            result.update(
-                {"location_id": location.id, "location_dest_id": location_dest.id}
-            )
-        return result
-
-    def _create_returns(self):
-        new_picking, picking_type_id = super()._create_returns()
-        return_picking = self.env["stock.picking"].browse(new_picking)
+    def _create_return(self):
+        return_picking = super()._create_return()
         if (
             self.picking_id
             and (self.picking_id.picking_type_id)
@@ -58,7 +63,7 @@ class StockReturnPicking(models.TransientModel):
                 return_type.default_location_dest_id
                 if return_type.default_location_dest_id.usage
                 and return_type.default_location_dest_id.usage != "view"
-                else self.location_id
+                else self.picking_id.location_id
             )
             return_picking.write(
                 {
@@ -89,4 +94,4 @@ class StockReturnPicking(models.TransientModel):
                         "lot_id": line.lot_id.id,
                     }
                 )
-        return new_picking, picking_type_id
+        return return_picking
