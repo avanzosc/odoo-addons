@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<odoo>
+  <record id="res_partner_classification_form_view" model="ir.ui.view">
+    <field name="model">res.partner.classification</field>
+    <field name="arch" type="xml">
+      <form string="Classification">
+        <sheet>
+          <group name="head" colspan="4">
+            <field name="name" colspan="4" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="res_partner_classification_action" model="ir.actions.act_window">
+    <field name="name">Classification</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">res.partner.classification</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem
+    id="res_partner_classification_menu"
+    name="Classification"
+    action="res_partner_classification_action"
+    parent="menu_customer_classification"
+    sequence="3"
+    groups="base.group_erp_manager"
+  />
+</odoo>
