@@ -185,91 +185,119 @@ class StockPickingImportLine(models.Model):
 
     def action_validate(self):
         super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            log_info = ""
-            help_msg = ""
-            picking_type = (
-                product
-            ) = lot = location = location_dest = lot_location = owner = False
-            location, log_info_location = line._check_location()
-            if log_info_location:
-                log_info += log_info_location
-            location_dest, log_info_location_dest = line._check_location_dest()
-            if log_info_location_dest:
-                log_info += log_info_location_dest
-            if not log_info_location and not log_info_location_dest:
-                picking_type, log_info_picking_type = line._check_picking_type(
-                    location=location, location_dest=location_dest
-                )
-                if log_info_picking_type:
-                    log_info += log_info_picking_type
-            product, log_info_product = line._check_product()
-            if log_info_product:
-                log_info += log_info_product
-            if (
-                not log_info_product
-                and (line.picking_lot)
-                and (product.tracking != "none" and not log_info_picking_type)
-            ):
-                lot, log_info_lot = line._check_lot(
-                    product=product, picking_type=picking_type
-                )
-                if log_info_lot:
-                    log_info += log_info_lot
-                if product.tracking == "serial" and lot:
-                    log_info_lot_location = ""
-                    quants = self.env["stock.quant"].search([("lot_id", "=", lot.id)])
-                    for quant in quants:
-                        if quant.available_quantity < 1:
-                            quants -= quant
-                    if not quants:
-                        help_msg = _(
-                            "Help: The product is not in any location so"
-                            + " negative stock will remain in the origin"
-                            + " location."
-                        )
-                    elif len(quants) > 1:
-                        log_info_lot_location = _(
-                            "Error: The product is in more than one location."
-                        )
-                    elif len(quants) == 1:
-                        lot_location = quants[:1].location_id
-                        if location != lot_location:
-                            log_info_lot_location = _(
-                                "Error: The product is not in the "
-                                + "location from which you are moving it."
-                            )
-                    if log_info_lot_location:
-                        log_info += log_info_lot_location
-            owner, log_info_owner = line._check_owner()
-            if log_info_owner:
-                log_info += log_info_owner
-            state = "error" if log_info else "pass"
-            action = "nothing"
-            if state != "error":
-                action = "create"
-            update_values = {
-                "picking_location_id": location and location.id,
-                "picking_location_dest_id": (location_dest and location_dest.id),
-                "picking_type_id": picking_type and picking_type.id,
-                "picking_product_id": product and product.id,
-                "picking_lot_id": lot and lot.id,
-                "lot_location_id": lot_location and lot_location.id,
-                "picking_owner_id": owner and owner.id,
-                "log_info": log_info,
-                "help": help_msg,
-                "state": state,
-                "action": action,
-            }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
-                )
+        return [
+            self._process_line(line)
+            for line in self.filtered(lambda ln: ln.state != "done")
+        ]
+
+    def _process_line(self, line):
+        log_info = ""
+        help_msg = ""
+        location, log = line._check_location()
+        log_info += log or ""
+        location_dest, log = line._check_location_dest()
+        log_info += log or ""
+        picking_type = False
+        if not log_info:
+            picking_type, log = line._check_picking_type(
+                location=location, location_dest=location_dest
             )
-        return line_values
+            log_info += log or ""
+        product, log = line._check_product()
+        log_info += log or ""
+        lot = lot_location = False
+        if self._should_check_lot(line, product, log_info):
+            lot, lot_location, log, help_msg = self._process_lot(
+                line, product, picking_type, location
+            )
+            log_info += log or ""
+        owner, log = line._check_owner()
+        log_info += log or ""
+
+        state, action = self._get_state_action(log_info)
+        values = self._prepare_update_values(
+            line,
+            location,
+            location_dest,
+            picking_type,
+            product,
+            lot,
+            lot_location,
+            owner,
+            log_info,
+            help_msg,
+            state,
+            action,
+        )
+        return (1, line.id, values)
+
+    def _should_check_lot(self, line, product, log_info):
+        return (
+            not log_info and line.picking_lot and product and product.tracking != "none"
+        )
+
+    def _process_lot(self, line, product, picking_type, location):
+        log_info = ""
+        help_msg = ""
+        lot_location = False
+
+        lot, log = line._check_lot(product=product, picking_type=picking_type)
+        log_info += log or ""
+
+        if product.tracking == "serial" and lot:
+            quants = self.env["stock.quant"].search([("lot_id", "=", lot.id)])
+            quants = quants.filtered(lambda q: q.available_quantity >= 1)
+
+            if not quants:
+                help_msg = _(
+                    "Help: The product is not in any location so negative "
+                    + "stock will remain in the origin location."
+                )
+            elif len(quants) > 1:
+                log_info += _("Error: The product is in more than one location.")
+            else:
+                lot_location = quants.location_id
+                if location != lot_location:
+                    log_info += _(
+                        "Error: The product is not in the location "
+                        + "from which you are moving it."
+                    )
+
+        return lot, lot_location, log_info, help_msg
+
+    def _get_state_action(self, log_info):
+        if log_info:
+            return "error", "nothing"
+        return "pass", "create"
+
+    def _prepare_update_values(
+        self,
+        line,
+        location,
+        location_dest,
+        picking_type,
+        product,
+        lot,
+        lot_location,
+        owner,
+        log_info,
+        help_msg,
+        state,
+        action,
+    ):
+        return {
+            "picking_location_id": location.id if location else False,
+            "picking_location_dest_id": location_dest.id if location_dest else False,
+            "picking_type_id": picking_type.id if picking_type else False,
+            "picking_product_id": product.id if product else False,
+            "picking_lot_id": lot.id if lot else False,
+            "lot_location_id": lot_location.id if lot_location else False,
+            "picking_owner_id": owner.id if owner else False,
+            "log_info": log_info,
+            "help": help_msg,
+            "state": state,
+            "action": action,
+        }
 
     def action_process(self):
         super().action_validate()
@@ -278,7 +306,7 @@ class StockPickingImportLine(models.Model):
         for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
             if line.action == "create":
                 if self.import_id.import_line_ids.filtered(
-                    lambda ln: ln.picking_type_id == (line.picking_type_id)
+                    lambda ln, line=line: ln.picking_type_id == line.picking_type_id
                     and (ln.picking_date == line.picking_date)
                     and (ln.state == "error")
                 ):
@@ -290,7 +318,8 @@ class StockPickingImportLine(models.Model):
                     if not line.picking_id:
                         picking = line._create_picking()
                         lines = self.import_id.import_line_ids.filtered(
-                            lambda ln: ln.picking_type_id == (line.picking_type_id)
+                            lambda ln, line=line: ln.picking_type_id
+                            == (line.picking_type_id)
                             and (ln.picking_date == line.picking_date)
                             and (ln.state not in ("error", "done"))
                         )
@@ -298,7 +327,7 @@ class StockPickingImportLine(models.Model):
                             record.picking_id = picking.id
                             if not record.move_line_id:
                                 same_product = lines.filtered(
-                                    lambda c: c.picking_product_id
+                                    lambda c, record=record: c.picking_product_id
                                     == (record.picking_product_id)
                                     and (c.picking_lot_id) == (record.picking_lot_id)
                                 )
