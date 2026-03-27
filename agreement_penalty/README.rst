@@ -2,23 +2,27 @@
    :target: https://opensource.org/licenses/AGPL-3.0
    :alt: License: AGPL-3
 
-========================
-Agreement Penalty Types
-========================
+=================
+Agreement Penalty
+=================
 
-This module links penalty types to agreements so each contract can define its own penalty settings.
+This module extends Agreements to support per-agreement penalty configuration.  
+It allows defining which penalty types apply to each agreement and storing specific parameters such as duration, percentage, and operational information.  
+Penalties are also linked to their originating agreement.
 
-**Features**
+Features
+--------
 
-- New model `agreement.penalty.type` to connect agreements with penalty types.
-- Stores number, term (days/months/years), penalty percentage, active subscription count and notes per agreement line.
-- Agreement extended with a One2many of linked penalty types, shown in a dedicated tab.
-
-**Usage**
-
-1. Open an Agreement and add penalty types in the new tab/list.
-2. Set term, percentage and other details manually for that agreement.
-3. Track active subscription count and notes per penalty link.
+- New model `agreement.penalty.type` to link Agreements with Penalty Types.
+- Per-agreement configuration of:
+  - Duration (months).
+  - Penalty percentage.
+  - Active subscription count.
+  - Internal notes.
+- Dedicated **Penalty Types** tab inside the Agreement form with editable lines.
+- Extension of `account.penalty` to include a reference to the Agreement.
+- Smart button on Agreements to view related penalties.
+- Agreement field added to penalty list view for better traceability.
 
 Bug Tracker
 ===========
@@ -38,6 +42,7 @@ Contributors
 
 * Ana Juaristi <anajuaristi@avanzosc.es>
 * Aner Arregi <aneravanzosc@gmail.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 
 For specific questions regarding this module, please contact the contributors. For support, please use the official issue tracker.
 

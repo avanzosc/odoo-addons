@@ -478,6 +478,8 @@ class PurchaseOrderImportLine(models.Model):
         log_info = ""
         if self.purchase_picking_type_id:
             return self.purchase_picking_type_id, log_info
+        if warehouse and warehouse.in_type_id:
+            return warehouse.in_type_id, log_info
         picking_type_obj = self.env["stock.picking.type"]
         search_domain = [("code", "=", "incoming")]
         if warehouse:

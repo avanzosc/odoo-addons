@@ -19,11 +19,11 @@ class StockPicking(models.Model):
         string="# Repairs", compute="_compute_repairs_count", store=True, copy=True
     )
     sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=True
+        string="Sale Order", comodel_name="sale.order", copy=True
     )
     untreated_origin = fields.Char(string="Untreated origin", copy=True)
     devolution_sale_order_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=True
+        string="Sale Order", comodel_name="sale.order", copy=True
     )
 
     @api.depends("created_repair_ids")
