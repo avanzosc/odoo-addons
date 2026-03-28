@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_purchase_requisition_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.requisition.form.inherit.filter.date</field>
+        <field name="model">purchase.requisition</field>
+        <field
+      name="inherit_id"
+      ref="purchase_requisition.view_purchase_requisition_form"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//group/group" position="inside">
+                <field name="date_from" />
+                <field name="date_to" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
