@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="view_calendar_event_form_inherit_map" model="ir.ui.view">
+            <field name="name">calendar.event.form.inherit.map</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ids']" position="after">
+                    <field name="visit_address_id" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_calendar_event_map" model="ir.ui.view">
+            <field name="name">calendar.event.map</field>
+            <field name="model">calendar.event</field>
+            <field name="arch" type="xml">
+                <map string="Event Location" zoom="12" center="40.712776,-74.005974">
+                    <marker lat="40.712776" lon="-74.005974" name="Visit Address" />
+                </map>
+            </field>
+        </record>
+</odoo>
