@@ -397,6 +397,18 @@ msgid "Type"
 msgstr "tipo"
 
 #. module: treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_category_search
+msgid "Parent"
+msgstr "Padre"
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__parent_category_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing_category__parent_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__parent_category_id
+msgid "Parent Category"
+msgstr "Categoría padre"
+
+#. module: treasury_forecast
 #. odoo-python
 #: code:addons/treasury_forecast/models/treasury_forecast.py:0
 msgid "Values for expense and income must be positive."

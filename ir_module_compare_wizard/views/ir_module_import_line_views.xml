@@ -30,7 +30,16 @@
         />
         <group expand="0" name="group_by" string="Group By">
           <filter name="group_status" string="Status" context="{'group_by': 'state'}" />
-          <filter string="Action" name="group_action" context="{'group_by':'action'}" />
+          <filter
+            string="Action"
+            name="group_action"
+            context="{'group_by': 'action'}"
+          />
+          <filter
+            string="Author Generic"
+            name="group_module_author_generic"
+            context="{'group_by': 'module_author_generic'}"
+          />
           <filter
             name="group_wizard"
             string="Import Wizard"
@@ -112,8 +121,8 @@
         />
         <field name="module_last_version" readonly="state == 'done'" optional="show" />
         <field name="installed_version" readonly="1" optional="show" />
-        <field name="module_website" readonly="state == 'done'" optional="show" />
-        <field name="module_author" readonly="state == 'done'" optional="show" />
+        <field name="module_website" readonly="state == 'done'" optional="hide" />
+        <field name="module_author" readonly="state == 'done'" optional="hide" />
         <field name="module_notes" readonly="state == 'done'" optional="hide" />
         <field name="module_path" optional="hide" />
         <field name="license" optional="hide" />
@@ -143,7 +152,7 @@
         <field
           name="module_author_generic"
           readonly="state == 'done'"
-          optional="hide"
+          optional="show"
         />
         <field name="migrate_module" readonly="state == 'done'" optional="hide" />
         <field name="install_module" readonly="state == 'done'" optional="hide" />

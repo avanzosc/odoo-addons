@@ -19,3 +19,5 @@ class TreasuryFinancingCategory(models.Model):
         required=True,
         default="expense",
     )
+
+    parent_id = fields.Many2one("treasury.financing.category", string="Parent Category")
