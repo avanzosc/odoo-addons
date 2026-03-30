@@ -1,0 +1,28 @@
+<odoo>
+  <record id="account_move_machine_action" model="ir.actions.act_window">
+    <field name="name">Machines</field>
+    <field name="res_model">machine</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('purch_inv_id', '=', active_id)]</field>
+    <field name="context">{'default_purch_inv_id': active_id}</field>
+  </record>
+
+  <record id="view_move_form" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+      <div name="button_box" position="inside">
+        <button
+          class="oe_stat_button"
+          type="action"
+          name="%(machine_manager_purchase_account.account_move_machine_action)d"
+          icon="fa-gear"
+          groups="machine_manager.group_machine_user"
+          invisible="machine_count == 0"
+        >
+          <field name="machine_count" widget="statinfo" string="Machines" />
+        </button>
+      </div>
+    </field>
+  </record>
+</odoo>
