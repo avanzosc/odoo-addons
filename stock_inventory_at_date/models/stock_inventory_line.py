@@ -19,6 +19,8 @@ class StockInventoryLine(models.Model):
                     and (inventory.accounting_date)
                     and (inventory.accounting_date.date() != today)
                 ):
+                    if "product_id" not in group:
+                        continue
                     product = self.env["product.product"].browse(group["product_id"])
                     location = group["location_id"] or False
                     lot = (
