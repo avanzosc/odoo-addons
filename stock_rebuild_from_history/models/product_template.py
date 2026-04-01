@@ -10,9 +10,10 @@ class ProductTemplate(models.Model):
         Rebuilds the quants for the products (all variants of the template) based on
         stock.move.line records with state='done'.
 
-        - Takes into account: location_id, location_dest_id, lot_id, package_id, owner_id.
-        - Does not delete quants: sets the quantity of existing quants for the product(s) to 0
-          and then adds/subtracts according to the move lines.
+        - Takes into account: location_id, location_dest_id, lot_id, package_id,
+          owner_id.
+        - Does not delete quants: sets the quantity of existing quants for the
+          product(s) to 0 and then adds/subtracts according to the move lines.
         - If a quant for the combination does not exist, it creates one.
 
         Usage: button from the template form view.
@@ -84,4 +85,4 @@ class ProductTemplate(models.Model):
                 )
                 record.invalidate_recordset(["is_storable"])
                 record.sudo().action_rebuild_stock()
-            self.env.cr.commit()
+            self.env.cr.flush()
