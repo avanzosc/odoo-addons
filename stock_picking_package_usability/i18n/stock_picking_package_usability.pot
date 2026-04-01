@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-27 08:46+0000\n"
-"PO-Revision-Date: 2024-09-27 08:46+0000\n"
+"POT-Creation-Date: 2026-04-20 08:34+0000\n"
+"PO-Revision-Date: 2026-04-20 08:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgid "# Packages"
 msgstr ""
 
 #. module: stock_picking_package_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
+msgid "Open package"
+msgstr ""
+
+#. module: stock_picking_package_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_form
 msgid "Create Packs"
 msgstr ""
@@ -31,6 +36,11 @@ msgid "Delivery Address"
 msgstr ""
 
 #. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__line_weight
+msgid "Line Weight"
+msgstr ""
+
+#. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__max_weight
 msgid "Max Weight"
 msgstr ""
@@ -38,6 +48,11 @@ msgstr ""
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__max_weight
 msgid "Maximum Weight"
+msgstr ""
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__move_line_ids
+msgid "Move Lines"
 msgstr ""
 
 #. module: stock_picking_package_usability
@@ -58,14 +73,14 @@ msgid "Pack Length"
 msgstr ""
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__width
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__width
-msgid "Pack Width"
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__manual_pack_weight
+msgid "Pack Weight"
 msgstr ""
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__packaging_id
-msgid "Package Type"
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__width
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__width
+msgid "Pack Width"
 msgstr ""
 
 #. module: stock_picking_package_usability
@@ -74,7 +89,6 @@ msgstr ""
 #: model:ir.model,name:stock_picking_package_usability.model_stock_quant_package
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__quant_package_ids
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_form
-#, python-format
 msgid "Packages"
 msgstr ""
 
@@ -96,10 +110,8 @@ msgid "Packages Weight"
 msgstr ""
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__packaging_id
-msgid ""
-"Packaging of the product, used for internal logisticstransfers, put-away "
-"rules, ..."
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__packaging_id
+msgid "Packaging"
 msgstr ""
 
 #. module: stock_picking_package_usability
@@ -114,6 +126,7 @@ msgstr ""
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__shipping_weight
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__shipping_weight
 msgid "Shipping Weight"
 msgstr ""
 
@@ -124,13 +137,14 @@ msgid "Total Shipping Weight"
 msgstr ""
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__shipping_weight
-msgid "Total weight of the package."
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
+msgid "Total Volume"
 msgstr ""
 
 #. module: stock_picking_package_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
-msgid "Totat Volume"
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__shipping_weight
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_quant_package__shipping_weight
+msgid "Total weight of the package."
 msgstr ""
 
 #. module: stock_picking_package_usability
@@ -147,4 +161,10 @@ msgstr ""
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__weight_uom_name
 msgid "Weight UOM"
+msgstr ""
+
+#. module: stock_picking_package_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_stock_move_line_detailed_operation_tree
+msgid "Weight UoM"
 msgstr ""

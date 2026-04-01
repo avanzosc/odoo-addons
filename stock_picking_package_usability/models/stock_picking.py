@@ -6,12 +6,21 @@ from odoo import _, api, fields, models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    @api.depends("quant_package_ids", "quant_package_ids.shipping_weight")
+    @api.depends(
+        "quant_package_ids",
+        "quant_package_ids.pack_weight",
+        "quant_package_ids.shipping_weight",
+    )
     def _compute_packages_weight(self):
         for picking in self:
-            picking.packages_weight = sum(
-                picking.quant_package_ids.mapped("shipping_weight")
-            )
+            total = 0.0
+            for package in picking.quant_package_ids:
+                total += (
+                    package.pack_weight
+                    if package.pack_weight
+                    else package.shipping_weight
+                )
+            picking.packages_weight = total
 
     @api.depends("quant_package_ids", "quant_package_ids.volume")
     def _compute_packages_volume(self):
@@ -23,10 +32,13 @@ class StockPicking(models.Model):
         for picking in self:
             picking.packages_qty = len(picking.quant_package_ids)
 
+    @api.depends("quant_package_ids", "quant_package_ids.volume_uom_name")
     def _compute_volume_uom_name(self):
-        for package in self:
-            if package.quant_package_ids:
-                package.volume_uom_name = package.quant_package_ids[0].volume_uom_name
+        for picking in self:
+            if picking.quant_package_ids:
+                picking.volume_uom_name = picking.quant_package_ids[0].volume_uom_name
+            else:
+                picking.volume_uom_name = ""
 
     @api.depends("packages_qty", "packages_weight", "weight_uom_name")
     def _compute_packages_qty_weight(self):
@@ -59,7 +71,7 @@ class StockPicking(models.Model):
         context.update({"default_picking_id": self.id})
         return {
             "name": _("Packages"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "res_model": "stock.quant.package",
             "domain": [("id", "in", self.quant_package_ids.ids)],
             "type": "ir.actions.act_window",
@@ -71,16 +83,17 @@ class StockPicking(models.Model):
 
     def action_create_package(self):
         self.ensure_one()
+        existing = len(self.quant_package_ids)
         pack_vals = {"picking_id": self.id}
-        for i in range(1, self.qty_packages + 1):
+        for i in range(existing + 1, existing + self.qty_packages + 1):
             name = "{} {} {:0>3}".format(self.name, "-", i)
             pack_vals.update({"name": name})
             self.env["stock.quant.package"].create(pack_vals)
 
-    def _put_in_pack(self, move_line_ids, create_package_level=True):
+    def _put_in_pack(self, move_line_ids):
         move_line_ids = move_line_ids.filtered(lambda x: not x.result_package_id)
         if move_line_ids:
-            result = super()._put_in_pack(move_line_ids, create_package_level=True)
+            result = super()._put_in_pack(move_line_ids)
             result.name = "{} {} {:0>3}".format(
                 self.name, "-", len(self.quant_package_ids)
             )

@@ -6,9 +6,23 @@
 Stock Picking Package Usability
 ===============================
 
-* Packaging length, width and height fields float instead of integer.
-* One to many from stock piking to package.
-* In transfers, button to generate indicated packages.
+This module improves the usability of packages in stock pickings with the following
+features:
+
+- **Float dimensions**: overrides the OCA integer fields for length, width and height
+  on both product packagings and quant packages, allowing decimal values.
+- **Picking-to-package relationship**: adds a one-to-many link from a stock picking
+  to its packages, with a smart button showing the package count and total weight.
+- **Automatic package creation**: a *Number of Packages* field and a *Create Packs*
+  button on the transfer form let users generate the required empty packages in one
+  click. Packages are named automatically following the pattern ``{picking} - 001``.
+- **Packaging synchronisation**: assigning a packaging to a move line propagates it
+  to the destination package, and vice versa, keeping both in sync at all times.
+- **Weight tracking**: each move line computes its own weight from product weight and
+  quantity. The package aggregates all line weights plus the tare weight of its
+  packaging, and exposes the total as shipping weight.
+- **Volume summary**: total volume and weight of all packages are shown on the
+  delivery carrier section of the transfer form.
 
 Bug Tracker
 ===========
@@ -28,4 +42,5 @@ Contributors
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Lucía Echeverría <luciaecheverría@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>

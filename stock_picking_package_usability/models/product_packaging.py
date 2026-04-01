@@ -16,26 +16,8 @@ class ProductPackaging(models.Model):
         for packaging in self:
             if packaging.package_type_id:
                 package_type = packaging.package_type_id
-
                 packaging.height = package_type.height
                 packaging.width = package_type.width
                 packaging.packaging_length = package_type.packaging_length
-
+                packaging.weight = package_type.base_weight
                 packaging.max_weight = package_type.max_weight
-
-    def action_open_wizard(self):
-        self.ensure_one()
-        return {
-            "name": "Packaging",
-            "type": "ir.actions.act_window",
-            "res_model": "product.packaging",
-            "res_id": self.id,
-            "view_mode": "form",
-            "views": [
-                (
-                    self.env.ref("product.product_packaging_form_view").id,
-                    "form",
-                )
-            ],
-            "target": "current",
-        }

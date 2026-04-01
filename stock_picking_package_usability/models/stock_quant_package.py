@@ -19,20 +19,57 @@ class StockQuantPackage(models.Model):
         related="picking_id.partner_id",
         store=True,
     )
+    move_line_ids = fields.One2many(
+        comodel_name="stock.move.line",
+        inverse_name="result_package_id",
+        string="Move Lines",
+    )
+    shipping_weight = fields.Float(
+        compute="_compute_shipping_weight",
+        store=True,
+        readonly=False,
+    )
 
-    @api.onchange("product_packaging_id")
-    def onchange_dimension(self):
-        if self.product_packaging_id.height:
-            self.height = self.product_packaging_id.height
-        if self.product_packaging_id.width:
-            self.width = self.product_packaging_id.width
-        if self.product_packaging_id.packaging_length:
-            self.pack_length = self.product_packaging_id.packaging_length
-        if self.product_packaging_id.length_uom_id:
-            self.length_uom_id = self.product_packaging_id.length_uom_id.id
-        if self.product_packaging_id.volume_uom_id:
-            self.volume_uom_id = self.product_packaging_id.volume_uom_id.id
-        if self.product_packaging_id.weight_uom_id:
-            self.weight_uom_id = self.product_packaging_id.weight_uom_id.id
-        if self.product_packaging_id.volume:
-            self.volume = self.product_packaging_id.volume
+    @api.depends(
+        "product_packaging_id.weight",
+        "picking_id",
+        "move_line_ids.line_weight",
+        "move_line_ids.picking_id",
+    )
+    def _compute_shipping_weight(self):
+        for pkg in self:
+            empty = pkg.product_packaging_id.weight if pkg.product_packaging_id else 0.0
+            lines = pkg.move_line_ids
+            if pkg.picking_id:
+                lines = lines.filtered(
+                    lambda line, p=pkg: line.picking_id == p.picking_id
+                )
+            pkg.shipping_weight = empty + sum(lines.mapped("line_weight"))
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "product_packaging_id" in vals:
+            move_lines = self.env["stock.move.line"].search(
+                [("result_package_id", "in", self.ids)]
+            )
+            for package in self:
+                lines = move_lines.filtered(
+                    lambda line, pkg=package: line.result_package_id == pkg
+                )
+                if lines:
+                    lines.with_context(
+                        skip_package_sync=True
+                    ).packaging_id = package.product_packaging_id
+        return res
+
+    def action_open_package(self):
+        self.ensure_one()
+        return {
+            "name": "Package",
+            "type": "ir.actions.act_window",
+            "res_model": "stock.quant.package",
+            "res_id": self.id,
+            "view_mode": "form",
+            "views": [(self.env.ref("stock.view_quant_package_form").id, "form")],
+            "target": "current",
+        }

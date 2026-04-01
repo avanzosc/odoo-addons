@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-27 08:46+0000\n"
-"PO-Revision-Date: 2024-09-27 08:46+0000\n"
+"POT-Creation-Date: 2026-04-20 08:34+0000\n"
+"PO-Revision-Date: 2026-04-20 08:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,11 @@ msgid "# Packages"
 msgstr "# Paquetes"
 
 #. module: stock_picking_package_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
+msgid "Open package"
+msgstr "Abrir paquete"
+
+#. module: stock_picking_package_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_form
 msgid "Create Packs"
 msgstr "Crear paquetes"
@@ -31,6 +36,11 @@ msgid "Delivery Address"
 msgstr "Dirección de entrega"
 
 #. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__line_weight
+msgid "Line Weight"
+msgstr "Peso línea"
+
+#. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__max_weight
 msgid "Max Weight"
 msgstr "Peso máximo"
@@ -39,6 +49,11 @@ msgstr "Peso máximo"
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__max_weight
 msgid "Maximum Weight"
 msgstr "Peso máximo"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__move_line_ids
+msgid "Move Lines"
+msgstr "Líneas de movimiento"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__qty_packages
@@ -55,18 +70,18 @@ msgstr "Altura"
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__packaging_length
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__pack_length
 msgid "Pack Length"
-msgstr "Largo"
+msgstr "Longitud"
+
+#. module: stock_picking_package_usability
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__manual_pack_weight
+msgid "Pack Weight"
+msgstr "Peso"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_product_packaging__width
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__width
 msgid "Pack Width"
-msgstr "Ancho"
-
-#. module: stock_picking_package_usability
-#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__packaging_id
-msgid "Package Type"
-msgstr "Tipo de Paquete"
+msgstr "Anchura"
 
 #. module: stock_picking_package_usability
 #. odoo-python
@@ -74,7 +89,6 @@ msgstr "Tipo de Paquete"
 #: model:ir.model,name:stock_picking_package_usability.model_stock_quant_package
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__quant_package_ids
 #: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_picking_form
-#, python-format
 msgid "Packages"
 msgstr "Paquetes"
 
@@ -96,24 +110,23 @@ msgid "Packages Weight"
 msgstr "Peso de paquetes"
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__packaging_id
-msgid ""
-"Packaging of the product, used for internal logisticstransfers, put-away "
-"rules, ..."
-msgstr ""
-"Embalaje del producto, utilizado para traslados logísticos internos, normas de almacenamiento, ..."
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__packaging_id
+msgid "Packaging"
+msgstr "Tipo de Paquete"
+
 #. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos de Producto (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
 
 #. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_product_packaging
 msgid "Product Packaging"
-msgstr "Empaquetado del producto"
+msgstr "Embalaje del producto"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__shipping_weight
+#: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__shipping_weight
 msgid "Shipping Weight"
 msgstr "Peso del envío"
 
@@ -124,20 +137,21 @@ msgid "Total Shipping Weight"
 msgstr "Peso total de envío"
 
 #. module: stock_picking_package_usability
-#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__shipping_weight
-msgid "Total weight of the package."
-msgstr "Peso total de los paquetes."
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
+msgid "Total Volume"
+msgstr "Volumen total"
 
 #. module: stock_picking_package_usability
-#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.stock_quant_package_view_tree
-msgid "Totat Volume"
-msgstr "Volumen total"
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_move_line__shipping_weight
+#: model:ir.model.fields,help:stock_picking_package_usability.field_stock_quant_package__shipping_weight
+msgid "Total weight of the package."
+msgstr "Peso total de los paquetes."
 
 #. module: stock_picking_package_usability
 #: model:ir.model,name:stock_picking_package_usability.model_stock_picking
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_quant_package__picking_id
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_picking__volume_uom_name
@@ -147,4 +161,10 @@ msgstr "Volumen UdM"
 #. module: stock_picking_package_usability
 #: model:ir.model.fields,field_description:stock_picking_package_usability.field_stock_move_line__weight_uom_name
 msgid "Weight UOM"
+msgstr "Peso UdM"
+
+#. module: stock_picking_package_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_move_line_tree
+#: model_terms:ir.ui.view,arch_db:stock_picking_package_usability.view_stock_move_line_detailed_operation_tree
+msgid "Weight UoM"
 msgstr "Peso UdM"
