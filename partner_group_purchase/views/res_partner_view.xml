@@ -16,7 +16,7 @@
           name="purchase_group2_id"
           placeholder="Purchases Group"
           options='{"no_open": True}'
-          invisible="supplier_rank != 1"
+          invisible="supplier_rank == 0"
         />
       </field>
     </field>
