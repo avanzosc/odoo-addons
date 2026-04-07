@@ -4,7 +4,6 @@ from odoo import api, fields, models
 class BarcodeFormat(models.Model):
     _name = "barcode.format"
     _description = "Barcode Format"
-
     name = fields.Char(string="Format", required=True)
 
     type = fields.Selection(

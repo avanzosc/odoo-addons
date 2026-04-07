@@ -37,7 +37,6 @@ class SaleOrder(models.Model):
         string="# Repair devolution pickings",
         compute="_compute_count_repair_devolution_picking",
     )
-
     repairs_amount_untaxed = fields.Monetary(
         string="Repairs untaxed amount", copy=False
     )
@@ -49,16 +48,12 @@ class SaleOrder(models.Model):
     def _default_type_id(self):
         type_obj = self.env["sale.order.type"]
         cond = [
-            ("company_id", "=", self.env.company.id),
+            ("company_id", "in", [self.env.company.id, False]),
             ("is_repair", "=", ("sale_order_from_repair" in self.env.context)),
         ]
         sale_type = type_obj.search(cond, limit=1)
         if not sale_type:
-            cond = [
-                ("company_id", "=", False),
-                ("is_repair", "=", ("sale_order_from_repair" in self.env.context)),
-            ]
-            sale_type = type_obj.search(cond, limit=1)
+            super()._default_type_id()
         return sale_type
 
     @api.depends("repair_ids")

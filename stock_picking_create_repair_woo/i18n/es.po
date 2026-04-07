@@ -1,0 +1,110 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_create_repair_woo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-25 13:35+0000\n"
+"PO-Revision-Date: 2026-02-25 13:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_product__display_name
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_template__display_name
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_sale_order_line__display_name
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_move__display_name
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_picking__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_product__generic_repair_product
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_template__generic_repair_product
+msgid "Generic Repair Product"
+msgstr "Producto Genérico Reparación"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_product__id
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_template__id
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_sale_order_line__id
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_move__id
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_picking__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_create_repair_woo
+#: model_terms:ir.ui.view,arch_db:stock_picking_create_repair_woo.product_template_search_view
+msgid "It's a generic repair product"
+msgstr "Es producto generico reparación"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model.fields,help:stock_picking_create_repair_woo.field_product_product__generic_repair_product
+#: model:ir.model.fields,help:stock_picking_create_repair_woo.field_product_template__generic_repair_product
+msgid "It's a generic repair product?"
+msgstr "¿Es producto genérico reparación?"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_product____last_update
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_product_template____last_update
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_sale_order_line____last_update
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_move____last_update
+#: model:ir.model.fields,field_description:stock_picking_create_repair_woo.field_stock_picking____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model,name:stock_picking_create_repair_woo.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model,name:stock_picking_create_repair_woo.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model,name:stock_picking_create_repair_woo.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model,name:stock_picking_create_repair_woo.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias"
+
+#. module: stock_picking_create_repair_woo
+#: code:addons/stock_picking_create_repair_woo/models/product_product.py:0
+#, python-format
+msgid ""
+"The product variant: %(product)s it is already marked as generic repair "
+"product."
+msgstr ""
+"La variante de producto: %(product)s ya está marcado como producto genérico de reparación."
+
+#. module: stock_picking_create_repair_woo
+#: code:addons/stock_picking_create_repair_woo/models/product_template.py:0
+#, python-format
+msgid ""
+"The product: %(product)s it is already marked as generic repair product."
+msgstr ""
+"El producto: %(product)s ya está marcado como producto genérico de reparación."
+
+#. module: stock_picking_create_repair_woo
+#: code:addons/stock_picking_create_repair_woo/models/stock_picking.py:0
+#, python-format
+msgid ""
+"This operation is not allowed because picking contains a generic repair "
+"product."
+msgstr "Esta operación no está permitida porque el albarán contiene un producto genérico de reparación."
+
+#. module: stock_picking_create_repair_woo
+#: model:ir.model,name:stock_picking_create_repair_woo.model_stock_picking
+msgid "Transfer"
+msgstr "Albarán"

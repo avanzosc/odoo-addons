@@ -1,0 +1,44 @@
+<odoo>
+    <record id="agreement_form" model="ir.ui.view">
+        <field name="model">agreement</field>
+        <field name="inherit_id" ref="agreement.agreement_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button
+          name="action_open_penalties"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-exclamation-triangle"
+        >
+                    <field
+            name="penalty_count"
+            widget="statinfo"
+            string="Penalizaciones"
+          />
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Penalties" name="penalties_tab">
+                    <field name="agreement_penalty_ids">
+                        <tree editable="bottom">
+                            <field name="penalty_type_id" />
+                            <field
+                name="active_subscription_count"
+                string="Active Subscriptions"
+                optional="show"
+              />
+                            <field name="number" optional="show" />
+                            <field
+                name="penalty_percentage"
+                widget="percentage"
+                optional="show"
+              />
+                            <field name="notes" optional="hide" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
