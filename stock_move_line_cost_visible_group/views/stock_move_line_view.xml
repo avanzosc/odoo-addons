@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+    <field name="model">stock.move.line</field>
+    <field
+      name="inherit_id"
+      ref="stock_move_line_cost.view_stock_move_line_detailed_operation_tree"
+    />
+    <field name="arch" type="xml">
+      <field name="standard_price" position="attributes">
+        <attribute
+          name="groups"
+        >stock_move_line_cost_visible_group.group_stock_move_line_show_cost</attribute>
+      </field>
+      <field name="amount" position="attributes">
+        <attribute
+          name="groups"
+        >stock_move_line_cost_visible_group.group_stock_move_line_show_cost</attribute>
+      </field>
+    </field>
+  </record>
+</odoo>
