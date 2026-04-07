@@ -625,6 +625,16 @@ class SacaLine(models.Model):
                         (6, 0, self.forklift_operator_ids.ids)
                     ]
 
+    def action_assign_workers(self):
+        for line in self:
+            other_lines = line.saca_id.saca_line_ids.filtered(
+                lambda l: l.id != line.id and (l.is_descarga or l.is_saca)
+            )
+            for target in other_lines:
+                target.slaughterer_ids = [(6, 0, line.slaughterer_ids.ids)]
+                target.hanger_ids = [(6, 0, line.hanger_ids.ids)]
+                target.forklift_operator_ids = [(6, 0, line.forklift_operator_ids.ids)]
+
     @api.onchange("gross_origin", "tara_origin", "download_unit")
     def onchange_origin(self):
         if self.breeding_id and self.breeding_id.estimate_weight_ids:
