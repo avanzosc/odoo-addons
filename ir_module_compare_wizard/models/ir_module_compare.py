@@ -216,11 +216,11 @@ class IrModuleImportLine(models.Model):
 
     def decode_generic_author(self, module_author):
         module_author_generic = False
-        if "Odoo Community Association (OCA)" in module_author:
+        if "Odoo Community Association (OCA)".lower() in module_author:
             module_author_generic = "Odoo Community Association (OCA)"
-        elif "Odoo S.A." in module_author:
+        elif "Odoo S.A.".lower() in module_author:
             module_author_generic = "Odoo S.A."
-        elif "AvanzOSC" in module_author:
+        elif "AvanzOSC".lower() in module_author:
             module_author_generic = "AvanzOSC"
         return module_author_generic
 
@@ -228,7 +228,9 @@ class IrModuleImportLine(models.Model):
     def _onchange_import_module(self):
         for record in self:
             module_author = record.import_module_id.author
-            record.module_author_generic = record.decode_generic_author(module_author)
+            record.module_author_generic = record.decode_generic_author(
+                module_author.lower()
+            )
 
     def _action_validate(self):
         self.ensure_one()
@@ -256,7 +258,9 @@ class IrModuleImportLine(models.Model):
             {
                 "import_module_id": module and module.id,
                 "module_author": module_author,
-                "module_author_generic": self.decode_generic_author(module_author)
+                "module_author_generic": self.decode_generic_author(
+                    module_author.lower()
+                )
                 or self.module_author_generic,
                 "migrate_module": (
                     False if module and state != "error" else self.migrate_module
