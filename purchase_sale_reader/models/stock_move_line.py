@@ -37,6 +37,31 @@ class StockMoveLine(models.Model):
         end = line.final_pos
         return reader[start:end]
 
+    def get_decimal_value_from_position(self, line, reader):
+        if not line.decimal_position:
+            return None
+        pos = line.decimal_position - 1
+        if pos < 0 or pos >= len(reader):
+            return None
+        value = reader[pos : pos + 1]
+        return int(value) if value.isdigit() else None
+
+    def filter_formats_by_decimal_position(self, barcode_formats, reader):
+        filtered_formats = self.env["barcode.format"]
+        for barcode_format in barcode_formats:
+            qty_line = barcode_format.line_ids.filtered(
+                lambda l: l.field_id.name == "qty_done"
+            )[:1]
+
+            if not qty_line:
+                continue
+            decimal_value = self.get_decimal_value_from_position(qty_line, reader)
+            if decimal_value is None:
+                continue
+            if (qty_line.decimals or 0) == decimal_value:
+                filtered_formats |= barcode_format
+        return filtered_formats or barcode_formats
+
     @api.onchange("reader_ps")
     def onchange_reader_ps(self):
         if self.reader_ps:
@@ -45,6 +70,10 @@ class StockMoveLine(models.Model):
                 model=self._name,
                 partner_id=self.picking_id.partner_id.id,
                 company_id=self.env.company.id,
+            )
+
+            barcode_formats = self.filter_formats_by_decimal_position(
+                barcode_formats, self.reader_ps
             )
 
             if not barcode_formats:
