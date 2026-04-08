@@ -1,0 +1,92 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* machine_manager_purchase
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-18 13:08+0000\n"
+"PO-Revision-Date: 2026-03-18 13:08+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: machine_manager_purchase
+#: model:ir.model,name:machine_manager_purchase.model_machine
+msgid "Holds Machine Records"
+msgstr "Registros de máquina"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__in_picking_id
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.machine_search_view
+msgid "In Picking"
+msgstr "Albarán entrada"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_purchase_order__machine_count
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_stock_picking__machine_count
+msgid "Machine Count"
+msgstr "Contador máquinas"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,help:machine_manager_purchase.field_machine__purch_date
+msgid "Machine's date of purchase"
+msgstr "Fecha de compra de la máquina"
+
+#. module: machine_manager_purchase
+#: model:ir.actions.act_window,name:machine_manager_purchase.purchase_order_machine_action
+#: model:ir.actions.act_window,name:machine_manager_purchase.stock_picking_machine_action
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_purchase_order__machine_ids
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_stock_picking__machine_ids
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.purchase_order_form
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.view_picking_form
+msgid "Machines"
+msgstr "Máquinas"
+
+#. module: machine_manager_purchase
+#: model:ir.model,name:machine_manager_purchase.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__purch_date
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.machine_search_view
+msgid "Purchase Date"
+msgstr "Fecha compra"
+
+#. module: machine_manager_purchase
+#: model:ir.model,name:machine_manager_purchase.model_purchase_order
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__purchase_id
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.machine_search_view
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__purch_cost
+msgid "Purchase Value"
+msgstr "Valor compra"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__purch_partner_id
+#: model_terms:ir.ui.view,arch_db:machine_manager_purchase.machine_search_view
+msgid "Purchased From"
+msgstr "Comprado en"
+
+#. module: machine_manager_purchase
+#: model:ir.model,name:machine_manager_purchase.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: machine_manager_purchase
+#: model:ir.model.fields,field_description:machine_manager_purchase.field_machine__move_line_id
+msgid "Stock Move Line"
+msgstr "Línea Mvto. Stock"
+
+#. module: machine_manager_purchase
+#: model:ir.model,name:machine_manager_purchase.model_stock_picking
+msgid "Transfer"
+msgstr "Traslado"
