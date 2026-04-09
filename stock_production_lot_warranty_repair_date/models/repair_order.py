@@ -20,6 +20,7 @@ class RepairOrder(models.Model):
         store=True,
         related="lot_id.warranty_repair_date",
     )
+    in_warranty = fields.Boolean(default=False)
 
     @api.onchange("lot_expiration_date", "lot_warranty_repair_date")
     def onchange_expiration_warranty_repair_date(self):
@@ -52,5 +53,4 @@ class RepairOrder(models.Model):
             and fields.Date.context_today(self) < self.lot_id.warranty_repair_date
         ):
             in_warranty = True
-        if in_warranty and self.invoice_method != "none":
-            self.invoice_method = "none"
+        self.in_warranty = in_warranty
