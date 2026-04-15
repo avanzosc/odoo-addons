@@ -8,6 +8,7 @@ class ResPartnerMakeSaleperson(models.Model):
     _description = "Make and saleperson for customers"
     _rec_name = "make_id"
 
+    commission_id = fields.Many2one(string="Commission", comodel_name="commission")
     partner_id = fields.Many2one(string="Partner", comodel_name="res.partner")
     make_id = fields.Many2one(string="Make", comodel_name="product.make")
     salesperson_id = fields.Many2one(string="Salesperson", comodel_name="res.users")
