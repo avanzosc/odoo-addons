@@ -11,3 +11,5 @@ class Agreement(models.Model):
         comodel_name="agreement",
         string="Agreement",
     )
+
+    affected_subscription = fields.Integer(string="Affected Subs.")

@@ -21,8 +21,8 @@ class AgreementPenaltyType(models.Model):
     )
     number = fields.Integer(string="Duration Months", default=1)
     penalty_percentage = fields.Float(string="Penalty %", digits=(16, 2))
-    active_subscription_count = fields.Integer(
-        string="Active Subscriptions",
+    inactive_subscription_count = fields.Integer(
+        string="Inactive Subscriptions",
         default=0,
     )
     notes = fields.Text()

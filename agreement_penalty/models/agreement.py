@@ -1,6 +1,8 @@
 # Copyright 2026 Aner Arregi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields, models
 
 
@@ -44,13 +46,14 @@ class Agreement(models.Model):
             else self.env["account.journal"].search([("type", "=", "sale")], limit=1)
         )
 
-    def _create_account_penalty(self, penalty_line, quantity, amount):
+    def _create_account_penalty(self, penalty_line, amount, affected_subscription):
         self.ensure_one()
         self.env["account.penalty"].create(
             {
                 "agreement_id": self.id,
                 "name": penalty_line.penalty_type_id.name,
-                "quantity": quantity,
+                "quantity": 1,
+                "affected_subscription": affected_subscription,
                 "amount": amount,
                 "invoice_date": fields.Date.today(),
                 "penalty_type_id": penalty_line.penalty_type_id.id,
@@ -61,6 +64,23 @@ class Agreement(models.Model):
                 "journal_id": self._get_penalty_journal().id,
             }
         )
+
+    def _check_existing_month_penalty(self, penalty_type_name):
+        self.ensure_one()
+        today = fields.Date.today()
+        first_day_this_month = today.replace(day=1)
+        first_day_next_month = first_day_this_month + relativedelta(months=1)
+        existing = self.penalty_ids.filtered(
+            lambda p: (
+                first_day_this_month <= p.invoice_date < first_day_next_month
+                and p.penalty_type_id.name == penalty_type_name
+            )
+        )
+        if existing:
+            if existing.state == "invoiced":
+                return True
+            existing.unlink()
+        return False
 
     def apply_penalties(self):
         return

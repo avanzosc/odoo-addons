@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-04 12:51+0000\n"
-"PO-Revision-Date: 2026-03-04 12:51+0000\n"
+"POT-Creation-Date: 2026-04-29 09:24+0000\n"
+"PO-Revision-Date: 2026-04-29 09:24+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,10 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: agreement_penalty
-#: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__active_subscription_count
-#: model_terms:ir.ui.view,arch_db:agreement_penalty.agreement_form
-msgid "Active Subscriptions"
-msgstr "Suscripciones activas"
+#: model:ir.model.fields,field_description:agreement_penalty.field_account_penalty__affected_subscription
+msgid "Affected Subs."
+msgstr "Subs. afectadas"
 
 #. module: agreement_penalty
 #: model:ir.model,name:agreement_penalty.model_agreement
@@ -34,7 +33,15 @@ msgid "Agreement Penalty Type"
 msgstr "Tipo de penalización del acuerdo"
 
 #. module: agreement_penalty
+#: model:ir.ui.menu,name:agreement_penalty.agreement_operation_menu
+msgid "Agreements"
+msgstr "Acuerdos"
+
+#. module: agreement_penalty
 #: model:ir.actions.server,name:agreement_penalty.action_server_apply_penalties
+#: model:ir.actions.server,name:agreement_penalty.ir_cron_apply_penalties_ir_actions_server
+#: model:ir.cron,cron_name:agreement_penalty.ir_cron_apply_penalties
+#: model:ir.cron,name:agreement_penalty.ir_cron_apply_penalties
 msgid "Apply Penalties"
 msgstr "Aplicar penalizaciones"
 
@@ -58,7 +65,7 @@ msgstr "Nombre para Mostrar"
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__number
 msgid "Duration Months"
-msgstr "Plazo meses"
+msgstr "Plazo en meses"
 
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_account_penalty__id
@@ -66,6 +73,12 @@ msgstr "Plazo meses"
 #: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__id
 msgid "ID"
 msgstr "ID (identificación)"
+
+#. module: agreement_penalty
+#: model:ir.model.fields,field_description:agreement_penalty.field_agreement_penalty_type__inactive_subscription_count
+#: model_terms:ir.ui.view,arch_db:agreement_penalty.agreement_form
+msgid "Inactive Subscriptions"
+msgstr "Suscripciones inactivas"
 
 #. module: agreement_penalty
 #: model:ir.model.fields,field_description:agreement_penalty.field_account_penalty____last_update

@@ -21,8 +21,8 @@
                             <field name="product_id" optional="show" />
                             <field name="penalty_price" optional="show" />
                             <field
-                name="active_subscription_count"
-                string="Active Subscriptions"
+                name="inactive_subscription_count"
+                string="Inactive Subscriptions"
                 optional="show"
               />
                             <field name="number" optional="show" />
@@ -48,4 +48,25 @@
         <field name="state">code</field>
         <field name="code">records.apply_penalties()</field>
     </record>
+
+    <record id="ir_cron_apply_penalties" model="ir.cron">
+        <field name="name">Apply Penalties</field>
+        <field name="model_id" ref="agreement.model_agreement" />
+        <field name="state">code</field>
+        <field name="code">records = env["agreement"].search([]);
+for record in records:
+    record.apply_penalties()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="active" eval="False" />
+    </record>
+
+    <menuitem
+    id="agreement_operation_menu"
+    name="Agreements"
+    parent="account_penalty.penalty_operation_menu"
+    action="agreement.agreement_action"
+    sequence="20"
+  />
 </odoo>
