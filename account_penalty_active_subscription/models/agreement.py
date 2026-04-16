@@ -12,11 +12,16 @@ class Agreement(models.Model):
 
     def _apply_active_subscription_penalties(self):
         for agreement in self:
-            active_count = self.env["sale.subscription"].search_count(
+
+            if agreement._check_existing_month_penalty("Active Subscriptions"):
+                continue
+
+            inactive_count = self.env["sale.subscription"].search_count(
                 [
                     ("agreement_id", "=", agreement.id),
-                    ("date", "=", False),
-                    ("stage_id.category", "=", "progress"),
+                    "|",
+                    ("stage_id.category", "=", "closed"),
+                    ("stage_id", "=", 9),
                 ]
             )
 
@@ -27,20 +32,25 @@ class Agreement(models.Model):
             if not penalty_line:
                 continue
 
-            penalty_quantity = penalty_line.active_subscription_count - active_count
+            affected_subscription = (
+                inactive_count - penalty_line.inactive_subscription_count
+            )
 
-            if penalty_quantity <= 0 or not penalty_line.penalty_type_id.product_id:
+            if (
+                affected_subscription <= 0
+                or not penalty_line.penalty_type_id.product_id
+            ):
                 continue
 
             penalty_amount = (
                 penalty_line.penalty_percentage
-                * penalty_line.penalty_type_id.product_id.list_price
-                * penalty_quantity
+                * penalty_line.penalty_price
+                * affected_subscription
             )
 
             if penalty_amount <= 0:
                 continue
 
             agreement._create_account_penalty(
-                penalty_line, penalty_quantity, penalty_amount
+                penalty_line, penalty_amount, affected_subscription
             )
