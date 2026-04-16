@@ -16,6 +16,13 @@
         <field name="partner_id" />
         <field name="company_id" />
         <field name="financing_id" optional="show" />
+        <field name="category_id" optional="show" />
+        <field name="parent_category_id" optional="show" />
+        <field
+          name="account_id"
+          domain="[('account_type', '=', account_type_filter)]"
+          optional="show"
+        />
         <field name="product_id" />
         <field name="name" />
         <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
@@ -45,6 +52,13 @@
             <field name="partner_id" />
             <field name="company_id" />
             <field name="financing_id" optional="show" />
+            <field name="category_id" optional="show" />
+            <field name="parent_category_id" optional="show" />
+            <field
+              name="account_id"
+              domain="[('account_type', '=', account_type_filter)]"
+              optional="show"
+            />
             <field name="product_id" />
             <field name="name" />
             <field name="journal_id" />
@@ -104,6 +118,21 @@
           name="filter_journals"
           domain="[('journal_id','!=',False)]"
         />
+        <filter
+          string="Diarios estimados"
+          name="filter_estimated_journals"
+          domain="[('estimated_journal_id','!=',False)]"
+        />
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría Padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
         <filter name="filter_date" date="date" />
 
         <separator />
@@ -126,9 +155,24 @@
             context="{'group_by': 'journal_id'}"
           />
           <filter
+            string="Estimated Journal"
+            name="group_estimated_journal"
+            context="{'group_by': 'estimated_journal_id'}"
+          />
+          <filter
             string="Origen"
             name="group_source"
             context="{'group_by': 'source'}"
+          />
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
           />
         </group>
       </search>
@@ -144,7 +188,11 @@
         <field name="partner_id" />
         <field name="product_id" />
         <field name="journal_id" />
+        <field name="estimated_journal_id" />
         <field name="financing_id" />
+        <field name="category_id" />
+        <field name="parent_category_id" />
+        <field name="account_id" />
         <field name="name" />
         <field name="company_id" />
 
@@ -173,6 +221,26 @@
           name="filter_journals"
           domain="[('journal_id','!=',False)]"
         />
+        <filter
+          string="Diarios estimados"
+          name="filter_estimated_journals"
+          domain="[('estimated_journal_id','!=',False)]"
+        />
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría Padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
+        <filter
+          string="Cuenta Contable"
+          name="filter_account"
+          domain="[('account_id','!=',False)]"
+        />
         <filter name="filter_date" date="date" />
 
         <separator />
@@ -195,9 +263,29 @@
             context="{'group_by': 'journal_id'}"
           />
           <filter
+            string="Estimated Journal"
+            name="group_estimated_journal"
+            context="{'group_by': 'estimated_journal_id'}"
+          />
+          <filter
             string="Financiación"
             name="group_financing"
             context="{'group_by': 'financing_id'}"
+          />
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
+          />
+          <filter
+            string="Cuenta Contable"
+            name="group_account"
+            context="{'group_by': 'account_id'}"
           />
         </group>
       </search>
@@ -230,6 +318,7 @@
         <field name="balance" type="measure" operator="sum" />
 
         <field name="journal_id" type="row" />
+        <field name="estimated_journal_id" type="row" />
         <field name="financing_id" type="row" />
         <field name="date" type="column" interval="month" />
       </pivot>

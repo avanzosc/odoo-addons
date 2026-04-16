@@ -62,5 +62,6 @@ class SaleOrderLine(models.Model):
             and x.display_type not in ("line_section", "line_note")
         ):
             line.put_makes_in_line()
+        for line in lines.filtered(lambda z: z.make_id):
             line.order_id.update_division_in_sales()
         return lines

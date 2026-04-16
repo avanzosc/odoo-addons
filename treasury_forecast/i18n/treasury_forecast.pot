@@ -65,6 +65,18 @@ msgid "Contract Date"
 msgstr ""
 
 #. module: treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_category_search
+msgid "Parent"
+msgstr ""
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__parent_category_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing_category__parent_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__parent_category_id
+msgid "Parent Category"
+msgstr ""
+
+#. module: treasury_forecast
 #: model:ir.actions.server,name:treasury_forecast.treasury_financing_generate_lines_server_action
 msgid "Crear previsiones"
 msgstr ""

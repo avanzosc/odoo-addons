@@ -64,8 +64,15 @@ class TreasuryFinancing(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="financing category",
+        string="Categoría",
         required=True,
+    )
+    parent_category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="Parent Category",
+        related="category_id.parent_id",
+        store=True,
+        readonly=True,
     )
 
     base_product_id = fields.Many2one(
