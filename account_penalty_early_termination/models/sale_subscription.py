@@ -15,6 +15,9 @@ class SaleSubscription(models.Model):
             if not sub.agreement_id:
                 continue
 
+            if not sub.template_id.recurring_rule_type == "monthly":
+                continue
+
             delta = relativedelta(sub.date, sub.date_start)
             active_months = delta.years * 12 + delta.months
 

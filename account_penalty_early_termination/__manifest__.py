@@ -16,6 +16,7 @@
     "data": [
         "views/subscription_penalty_views.xml",
         "views/sale_subscription_views.xml",
+        "views/account_penalty_views.xml",
     ],
     "installable": True,
 }

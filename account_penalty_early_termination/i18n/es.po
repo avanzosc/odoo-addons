@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* account_penalty_early_termination
+#   * account_penalty_early_termination
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-04 12:28+0000\n"
-"PO-Revision-Date: 2026-03-04 12:28+0000\n"
+"POT-Creation-Date: 2026-04-08 12:44+0000\n"
+"PO-Revision-Date: 2026-04-08 12:44+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,14 @@ msgid "Agreement"
 msgstr "Acuerdo"
 
 #. module: account_penalty_early_termination
+#: model:ir.actions.server,name:account_penalty_early_termination.ir_cron_apply_early_termination_penalties_ir_actions_server
+#: model:ir.cron,cron_name:account_penalty_early_termination.ir_cron_apply_early_termination_penalties
+#: model:ir.cron,name:account_penalty_early_termination.ir_cron_apply_early_termination_penalties
+msgid "Apply Early Termination Penalties"
+msgstr "Aplicar penalizaciones por baja anticipada"
+
+#. module: account_penalty_early_termination
+#: model:ir.model.fields,field_description:account_penalty_early_termination.field_account_penalty__display_name
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_agreement__display_name
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_sale_subscription__display_name
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_subscription_penalty__display_name
@@ -28,6 +36,7 @@ msgid "Display Name"
 msgstr "Nombre para Mostrar"
 
 #. module: account_penalty_early_termination
+#: model:ir.model.fields,field_description:account_penalty_early_termination.field_account_penalty__id
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_agreement__id
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_sale_subscription__id
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_subscription_penalty__id
@@ -35,6 +44,12 @@ msgid "ID"
 msgstr "ID (identificación)"
 
 #. module: account_penalty_early_termination
+#: model:ir.model.fields,field_description:account_penalty_early_termination.field_account_penalty__is_early_termination
+msgid "Is Early Termination"
+msgstr "Es baja anticipada"
+
+#. module: account_penalty_early_termination
+#: model:ir.model.fields,field_description:account_penalty_early_termination.field_account_penalty____last_update
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_agreement____last_update
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_sale_subscription____last_update
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_subscription_penalty____last_update
@@ -45,6 +60,11 @@ msgstr "Última modificación el"
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_subscription_penalty__monthly_price
 msgid "Monthly Price"
 msgstr "Precio mensual"
+
+#. module: account_penalty_early_termination
+#: model:ir.model,name:account_penalty_early_termination.model_account_penalty
+msgid "Penalty"
+msgstr "Penalización"
 
 #. module: account_penalty_early_termination
 #: model:ir.model.fields,field_description:account_penalty_early_termination.field_subscription_penalty__penalty_amount
@@ -65,3 +85,8 @@ msgstr "Suscripción"
 #: model:ir.model,name:account_penalty_early_termination.model_subscription_penalty
 msgid "Subscription Penalty"
 msgstr "Penalización de la suscripción"
+
+#. module: account_penalty_early_termination
+#: model_terms:ir.ui.view,arch_db:account_penalty_early_termination.penalty_tree_view
+msgid "View Subscription Penalties"
+msgstr "Ver penalizaciones de la suscripción"

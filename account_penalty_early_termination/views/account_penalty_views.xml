@@ -1,0 +1,18 @@
+<odoo>
+    <record id="penalty_tree_view" model="ir.ui.view">
+        <field name="model">account.penalty</field>
+        <field name="inherit_id" ref="account_penalty.penalty_tree_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="is_early_termination" invisible="1" />
+                <button
+          name="action_view_subscription_penalties"
+          type="object"
+          string="View Subscription Penalties"
+          class="btn-primary"
+          attrs="{'invisible': [('is_early_termination', '=', False)]}"
+        />
+            </xpath>
+        </field>
+    </record>
+</odoo>
