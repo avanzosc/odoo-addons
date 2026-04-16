@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* subscription_penalty
+#   * subscription_penalty
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-05 13:18+0000\n"
-"PO-Revision-Date: 2026-02-05 13:18+0000\n"
+"POT-Creation-Date: 2026-04-08 13:02+0000\n"
+"PO-Revision-Date: 2026-04-08 13:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:subscription_penalty.field_subscription_penalty__applied_date
 #: model_terms:ir.ui.view,arch_db:subscription_penalty.view_subscription_penalty_search
 msgid "Applied Date"
-msgstr "Fecha"
+msgstr "Fecha aplicada"
 
 #. module: subscription_penalty
 #: model:ir.model.fields,field_description:subscription_penalty.field_subscription_penalty__create_uid
@@ -46,7 +46,7 @@ msgstr "Agrupar por..."
 #: model:ir.model.fields,field_description:subscription_penalty.field_sale_subscription__id
 #: model:ir.model.fields,field_description:subscription_penalty.field_subscription_penalty__id
 msgid "ID"
-msgstr ""
+msgstr "ID (identificación)"
 
 #. module: subscription_penalty
 #: model:ir.model.fields,field_description:subscription_penalty.field_sale_subscription____last_update
@@ -86,6 +86,7 @@ msgstr "Suscripción"
 #. module: subscription_penalty
 #: model:ir.actions.act_window,name:subscription_penalty.action_subscription_penalty
 #: model:ir.ui.menu,name:subscription_penalty.menu_subscription_penalty
+#: model:ir.ui.menu,name:subscription_penalty.subscription_penalty_operation_menu
 #: model_terms:ir.ui.view,arch_db:subscription_penalty.view_subscription_penalty_search
 msgid "Subscription Penalties"
 msgstr "Penalizaciones de la suscripción"
@@ -94,3 +95,8 @@ msgstr "Penalizaciones de la suscripción"
 #: model:ir.model,name:subscription_penalty.model_subscription_penalty
 msgid "Subscription Penalty"
 msgstr "Penalización de la suscripción"
+
+#. module: subscription_penalty
+#: model:ir.ui.menu,name:subscription_penalty.subscription_operation_menu
+msgid "Subscriptions"
+msgstr "Suscripciones"

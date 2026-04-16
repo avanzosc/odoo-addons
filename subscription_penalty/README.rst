@@ -6,23 +6,33 @@
 Subscription Penalty
 ====================
 
-New model to register penalties applied to each subscription, including the penalty type and the date it was applied.  
-A new tab is added inside the Subscription form to manage these penalty records directly.
+This module introduces a new model to register penalties applied to subscriptions, including the penalty type and the date it was applied.
 
-Features
------------
+**Features**
 
-- New `subscription.penalty` model linked to `sale.subscription`.
-- Ability to assign a penalty type and applied date.
-- Tree, form, and search views for penalty management.
-- New “Penalties” page inside the Subscription form.
-- Menu entry under the Subscription menu.
+- New ``subscription.penalty`` model linked to ``sale.subscription``; records are deleted automatically when the subscription is deleted
+- Fields: subscription, penalty type, and applied date
+- Tree, form, and search views for ``subscription.penalty``, with group-by options by subscription, penalty type, and applied date
+- **Penalties** tab inside the subscription form with an editable list of penalty records
+- Menu entries:
+
+  - *Subscriptions > Subscription Penalties*
+  - *Agreement Penalties > Operations > Subscription Penalties*
+  - *Agreement Penalties > Operations > Subscriptions*
+
+- Security: full access (read, write, create, delete) granted to all internal users
+
+**Technical Details**
+
+- **New model**: ``subscription.penalty``
+- **Model extended**: ``sale.subscription``
+- **Dependencies**: ``sale_subscription``, ``account_penalty``
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/avanzosc/mrp-addons/issues>`_. In case of trouble,
+<https://github.com/avanzosc/odoo-addons/issues>`_. In case of trouble,
 please check there if your issue has already been reported. If you spotted
 it first, help us smash it by providing detailed and welcomed feedback.
 
@@ -36,6 +46,3 @@ Contributors
 * Lucía Echeverría <luciaecheverria@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.
-
-
-

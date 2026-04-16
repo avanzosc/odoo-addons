@@ -15,4 +15,12 @@
             </notebook>
         </field>
     </record>
+
+    <menuitem
+    id="subscription_operation_menu"
+    name="Subscriptions"
+    parent="account_penalty.penalty_operation_menu"
+    action="sale_subscription.sale_subscription_action"
+    sequence="40"
+  />
 </odoo>
