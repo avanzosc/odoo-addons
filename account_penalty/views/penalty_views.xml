@@ -131,4 +131,33 @@ if records:
     action = records.action_create_invoice()
 </field>
     </record>
+
+    <menuitem
+    id="penalty_app_menu"
+    name="Agreement Penalties"
+    web_icon="account_penalty,static/src/img/icon.png"
+    sequence="100"
+  />
+
+    <menuitem
+    id="penalty_operation_menu"
+    name="Operations"
+    parent="penalty_app_menu"
+    sequence="10"
+  />
+
+    <menuitem
+    id="penalty_config_menu"
+    name="Settings"
+    parent="penalty_app_menu"
+    sequence="20"
+  />
+
+    <menuitem
+    id="agreement_operation_penalty_menu"
+    name="Agreement Penalties"
+    parent="account_penalty.penalty_operation_menu"
+    action="penalty_action"
+    sequence="10"
+  />
 </odoo>
