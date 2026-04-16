@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+  <record id="treasury_financing_category_mortgage" model="treasury.financing.category">
+    <field name="name">Hipoteca</field>
+    <field name="category_type">expense</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_personal_loan"
+    model="treasury.financing.category"
+  >
+    <field name="name">Préstamo personal</field>
+    <field name="category_type">expense</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_credit_line"
+    model="treasury.financing.category"
+  >
+    <field name="name">Línea de crédito</field>
+    <field name="category_type">expense</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_factoring"
+    model="treasury.financing.category"
+  >
+    <field name="name">Factoring</field>
+    <field name="category_type">income</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_confirming"
+    model="treasury.financing.category"
+  >
+    <field name="name">Confirming</field>
+    <field name="category_type">expense</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_interest_account"
+    model="treasury.financing.category"
+  >
+    <field name="name">Cuenta remunerada</field>
+    <field name="category_type">income</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_investments"
+    model="treasury.financing.category"
+  >
+    <field name="name">Inversiones</field>
+    <field name="category_type">income</field>
+  </record>
+
+  <record
+    id="treasury_financing_category_dividends"
+    model="treasury.financing.category"
+  >
+    <field name="name">Dividendos</field>
+    <field name="category_type">income</field>
+  </record>
+</odoo>
