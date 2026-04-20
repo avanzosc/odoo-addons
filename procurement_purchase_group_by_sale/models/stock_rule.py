@@ -11,4 +11,11 @@ class StockRule(models.Model):
         group = values.get("group_id")
         if group:
             domain += (("group_id", "=", group.id),)
+        else:
+            cond = [("company_id", "=", company_id.id), ("code", "=", "sale.order")]
+            sequence = self.env["ir.sequence"].search(cond, limit=1)
+            domain += (
+                ("company_id", "=", company_id.id),
+                ("origin", "not ilike", sequence.prefix),
+            )
         return domain
