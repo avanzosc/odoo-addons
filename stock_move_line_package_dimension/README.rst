@@ -6,7 +6,17 @@
 Stock Move Line Package Dimension
 =================================
 
-Volume, height, width, length fields in stock move line.
+This module extends stock move lines with packaging dimension information.
+
+When a packaging is assigned to a move line, the following fields are automatically
+populated from the packaging configuration:
+
+- **Height**, **Width**, **Length**: physical dimensions of the packaging, displayed
+  with their unit of measure.
+- **Volume**: computed from the packaging dimensions and shown with its unit of measure.
+
+All fields are optional columns in the detailed operations tree view and in the move
+line list view, so users can show or hide them as needed.
 
 Bug Tracker
 ===========
@@ -26,4 +36,5 @@ Contributors
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
