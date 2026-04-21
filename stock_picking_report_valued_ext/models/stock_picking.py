@@ -10,10 +10,8 @@ class StockPicking(models.Model):
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
-        result = super().onchange_partner_id()
         for picking in self:
             picking.valued = picking.partner_id.valued_picking
-        return result
 
     @api.model_create_multi
     def create(self, vals_list):
