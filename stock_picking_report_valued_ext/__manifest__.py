@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Report Valued Ext",
-    "summary": "Make the valued flag editable per picking and visible when creating delivery or other addresses",
+    "summary": "Make the valued flag editable per picking and visible "
+    "when creating delivery or other addresses",
     "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "category": "Inventory/Inventory",
