@@ -14,7 +14,7 @@ class StockPicking(models.Model):
                 and picking.category_type_id
                 and (picking.category_type_id.monthly_closing_date)
                 and (picking.custom_date_done.date())
-                < (picking.category_type_id.monthly_closing_date)
+                <= (picking.category_type_id.monthly_closing_date)
             ):
                 raise ValidationError(
                     _(
@@ -27,7 +27,7 @@ class StockPicking(models.Model):
                 and picking.dest_category_type_id
                 and (picking.dest_category_type_id.monthly_closing_date)
                 and (picking.custom_date_done.date())
-                < (picking.dest_category_type_id.monthly_closing_date)
+                <= (picking.dest_category_type_id.monthly_closing_date)
             ):
                 raise ValidationError(
                     _(
