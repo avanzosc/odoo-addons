@@ -190,6 +190,19 @@ class StockPicking(models.Model):
             self.birth_estimate_date = self.custom_date_done.date() + relativedelta(
                 days=21
             )
+        if (
+            self.custom_date_done
+            and self.dest_category_type_id
+            and (self.dest_category_type_id.monthly_closing_date)
+            and self.custom_date_done.date()
+            <= (self.dest_category_type_id.monthly_closing_date)
+        ):
+            raise ValidationError(
+                _(
+                    "The date of the picking cannot be earlier "
+                    + "than the monthly closing date of the sections."
+                )
+            )
 
     @api.onchange("location_id")
     def _onchange_location_id(self):
