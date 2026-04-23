@@ -4,16 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 08:31+0000\n"
-"PO-Revision-Date: 2024-03-05 08:31+0000\n"
+"POT-Creation-Date: 2026-04-27 11:36+0000\n"
+"PO-Revision-Date: 2026-04-27 11:36+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: account_asset_line_menu
+#: model:ir.model.fields,field_description:account_asset_line_menu.field_account_asset_line__depreciated_value
+msgid "Amount Already Depreciated"
+msgstr "Importe ya amortizado"
 
 #. module: account_asset_line_menu
 #: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_tree
@@ -26,11 +31,21 @@ msgid "Asset"
 msgstr "Activo"
 
 #. module: account_asset_line_menu
+#: model:ir.model,name:account_asset_line_menu.model_account_asset_line
+msgid "Asset depreciation table line"
+msgstr "Línea de amortización del activo"
+
+#. module: account_asset_line_menu
 #: model:ir.actions.act_window,name:account_asset_line_menu.account_asset_line_action
 #: model:ir.ui.menu,name:account_asset_line_menu.menu_account_asset_line
-#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_tree
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.view_account_asset_line_pivot_menu
 msgid "Assets Lines"
 msgstr "Líneas de activos"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Create"
+msgstr "Base Amortización"
 
 #. module: account_asset_line_menu
 #: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_tree
@@ -49,6 +64,11 @@ msgstr "Borrar/Deshacer movimiento"
 
 #. module: account_asset_line_menu
 #: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Depreciate"
+msgstr "Amortización"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
 msgid "Group By"
 msgstr "Agrupar por"
 
@@ -59,8 +79,38 @@ msgstr "Inicio"
 
 #. module: account_asset_line_menu
 #: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Last Month"
+msgstr "Último mes"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Last Week"
+msgstr "Última semana"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Last Year"
+msgstr "Último año"
+
+#. module: account_asset_line_menu
+#: model:ir.model.fields,field_description:account_asset_line_menu.field_account_asset_line__remaining_value
+msgid "Next Period Depreciation"
+msgstr "Amortización del siguiente período"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Remove"
+msgstr "Eliminación de activo"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
 msgid "Search Assets Lines"
 msgstr "Buscar líneas de activos"
+
+#. module: account_asset_line_menu
+#: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_filter
+msgid "Today"
+msgstr "Hoy"
 
 #. module: account_asset_line_menu
 #: model_terms:ir.ui.view,arch_db:account_asset_line_menu.account_asset_line_view_tree
