@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="res_partner_view_buttons_sale_history" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//div[@name='button_box']" position="inside">
+        <button
+          class="oe_stat_button"
+          type="object"
+          name="action_open_sale_order_line_history"
+          icon="fa-bar-chart"
+        >
+          <field
+            name="sale_order_line_history_count"
+            string="Sales History"
+            widget="statinfo"
+          />
+        </button>
+      </xpath>
+    </field>
+  </record>
+</odoo>

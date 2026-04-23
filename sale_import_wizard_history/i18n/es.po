@@ -1,0 +1,390 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_import_wizard_history
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-23 11:53+0000\n"
+"PO-Revision-Date: 2026-04-23 11:53+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__client_order_ref
+msgid "Client Order Ref"
+msgstr "Ref. pedido de cliente"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__commercial_partner_id
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Commercial Partner"
+msgstr "Empresa comercial"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__confirmation_date
+msgid "Confirmation Date"
+msgstr "Fecha de confirmación"
+
+#. module: sale_import_wizard_history
+#: model:ir.model,name:sale_import_wizard_history.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__currency_code_import
+msgid "Currency Code"
+msgstr "Código de moneda"
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "Customer not found."
+msgstr "Cliente no encontrado."
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__date_order
+msgid "Date Order"
+msgstr "Fecha de pedido"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__date_order_missing
+msgid "Date Order Missing"
+msgstr "Fecha de pedido ausente"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "Delivery Address not found."
+msgstr "Dirección de entrega no encontrada."
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__discount
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__discount
+msgid "Discount"
+msgstr "Descuento"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__entity_discount_percent
+msgid "Entity Discount Percent"
+msgstr "Porcentaje de descuento del documento"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__exchange_rate_import
+msgid "Exchange Rate"
+msgstr "Tipo de cambio"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__file_date
+msgid "File Date"
+msgstr "Fecha de archivo"
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import__historical
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__historical
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__historical
+#: model:ir.model.fields.selection,name:sale_import_wizard_history.selection__sale_order_line_history_report__source__historical
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_import_line_view_search_historical
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Historical"
+msgstr "Histórico"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "Historical import lines cannot be processed."
+msgstr "Las líneas de importación históricas no se pueden procesar."
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import.py:0
+msgid "Historical imports cannot be processed."
+msgstr "Las importaciones históricas no se pueden procesar."
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__import_id
+msgid "Import"
+msgstr "Importación"
+
+#. module: sale_import_wizard_history
+#: model:ir.actions.act_window,name:sale_import_wizard_history.sale_order_import_historical_action
+#: model:ir.ui.menu,name:sale_import_wizard_history.sale_order_import_historical_menu
+#: model:ir.ui.menu,name:sale_import_wizard_history.sale_order_import_historical_menu2
+msgid "Import Historical Sale Orders"
+msgstr "Importar pedidos de venta históricos"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "Invoice Address not found."
+msgstr "Dirección de facturación no encontrada."
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__invoiced
+msgid "Invoiced"
+msgstr "Facturado"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__is_inclusive_tax_import
+msgid "Is Inclusive Tax"
+msgstr "Impuesto incluido"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__item_total_amount
+msgid "Item Total"
+msgstr "Total de artículo"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__line_id
+msgid "Line"
+msgstr "Línea"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__line_subtotal_amount
+msgid "Line Subtotal"
+msgstr "Subtotal de línea"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__line_total_amount
+msgid "Line Total"
+msgstr "Total de línea"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__line_type
+msgid "Line Type"
+msgstr "Tipo de línea"
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Month"
+msgstr "Mes"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "More than one Delivery Address already exist."
+msgstr "Existe más de una dirección de entrega."
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "More than one Invoice Address already exist."
+msgstr "Existe más de una dirección de facturación."
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "More than one customer already exist."
+msgstr "Existe más de un cliente."
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "More than one product already exist."
+msgstr "Existe más de un producto."
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_import_line_view_search_historical
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Non Historical"
+msgstr "No histórico"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__order_id
+msgid "Order"
+msgstr "Pedido"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__order_name
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__order_name
+msgid "Order Name"
+msgstr "Nombre del pedido"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__product_uos_qty
+msgid "Ordered Quantity (UoS)"
+msgstr "Cantidad pedida (UdS)"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__origin_import
+msgid "Origin"
+msgstr "Origen"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__partner_id
+msgid "Partner"
+msgstr "Contacto"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__payment_terms_import
+msgid "Payment Terms"
+msgstr "Términos de pago"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__payment_terms_label_import
+msgid "Payment Terms Label"
+msgstr "Etiqueta de términos de pago"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__price_unit
+msgid "Price Unit"
+msgstr "Precio unitario"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__product_id
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: sale_import_wizard_history
+#. odoo-python
+#: code:addons/sale_import_wizard_history/models/sale_order_import_line.py:0
+msgid "Product not found."
+msgstr "Producto no encontrado."
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__purchase_order_import
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__quantity_invoiced
+msgid "Quantity Invoiced"
+msgstr "Cantidad facturada"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__quantity_packed
+msgid "Quantity Packed"
+msgstr "Cantidad empaquetada"
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_import_line_view_form_sku_label
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_import_line_view_tree_sku_visible
+msgid "SKU"
+msgstr "SKU"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields.selection,name:sale_import_wizard_history.selection__sale_order_line_history_report__source__sale
+msgid "Sale"
+msgstr "Venta"
+
+#. module: sale_import_wizard_history
+#: model:ir.model,name:sale_import_wizard_history.model_sale_order_line_history_report
+msgid "Sale Order Line History Report"
+msgstr "Informe histórico de líneas de pedido de venta"
+
+#. module: sale_import_wizard_history
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.res_partner_view_buttons_sale_history
+msgid "Sales History"
+msgstr "Histórico de ventas"
+
+#. module: sale_import_wizard_history
+#: model:ir.actions.act_window,name:sale_import_wizard_history.sale_order_line_history_report_action
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_res_partner__sale_order_line_history_count
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_res_users__sale_order_line_history_count
+#: model:ir.ui.menu,name:sale_import_wizard_history.sale_order_line_history_report_menu
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_pivot
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Sales History Lines"
+msgstr "Líneas históricas de ventas"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__sales_team_import
+msgid "Sales Team"
+msgstr "Equipo de ventas"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__salesorder_external_id
+msgid "SalesOrder ID"
+msgstr "ID de pedido de venta"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__salesman_name
+msgid "Salesperson"
+msgstr "Comercial"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__source
+#: model_terms:ir.ui.view,arch_db:sale_import_wizard_history.sale_order_line_history_report_view_search
+msgid "Source"
+msgstr "Origen"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__state
+msgid "State"
+msgstr "Estado"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__subtotal
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_line_history_report__total
+msgid "Total"
+msgstr "Total"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__product_uom_name
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__usage_unit
+msgid "Usage Unit"
+msgstr "Unidad de uso"
+
+#. module: sale_import_wizard_history
+#: model:ir.model.fields,field_description:sale_import_wizard_history.field_sale_order_import_line__warehouse_name_import
+msgid "Warehouse Name"
+msgstr "Nombre de almacén"
+
+#. module: sale_import_wizard_history
+#: model:ir.model,name:sale_import_wizard_history.model_sale_order_import_line
+msgid "Wizard lines to import sale orders"
+msgstr "Líneas del asistente para la importación de pedidos de venta"
+
+#. module: sale_import_wizard_history
+#: model:ir.model,name:sale_import_wizard_history.model_sale_order_import
+msgid "Wizard to import sale orders"
+msgstr "Asistente para la importación de pedidos de venta"

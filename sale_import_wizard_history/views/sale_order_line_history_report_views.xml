@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="sale_order_line_history_report_view_tree" model="ir.ui.view">
+    <field name="name">sale.order.line.history.report list</field>
+    <field name="model">sale.order.line.history.report</field>
+    <field name="arch" type="xml">
+      <list
+        create="0"
+        edit="0"
+        delete="0"
+        default_order="date_order_missing asc, date_order desc, id desc"
+      >
+        <field name="date_order" />
+        <field name="source" />
+        <field name="partner_id" />
+        <field name="order_name" />
+        <field name="client_order_ref" optional="hide" />
+        <field name="product_id" />
+        <field name="quantity" />
+        <field name="price_unit" />
+        <field name="discount" />
+        <field name="subtotal" />
+        <field name="total" />
+        <field name="state" optional="hide" />
+        <field name="company_id" groups="base.group_multi_company" optional="hide" />
+      </list>
+    </field>
+  </record>
+
+  <record id="sale_order_line_history_report_view_pivot" model="ir.ui.view">
+    <field name="name">sale.order.line.history.report pivot</field>
+    <field name="model">sale.order.line.history.report</field>
+    <field name="arch" type="xml">
+      <pivot string="Sales History Lines">
+        <field name="source" type="row" />
+        <field name="date_order" type="col" interval="month" />
+        <field name="quantity" type="measure" />
+        <field name="subtotal" type="measure" />
+        <field name="total" type="measure" />
+      </pivot>
+    </field>
+  </record>
+
+  <record id="sale_order_line_history_report_view_search" model="ir.ui.view">
+    <field name="name">sale.order.line.history.report search</field>
+    <field name="model">sale.order.line.history.report</field>
+    <field name="arch" type="xml">
+      <search string="Sales History Lines">
+        <field name="partner_id" />
+        <field name="commercial_partner_id" />
+        <field name="order_name" />
+        <field name="product_id" />
+        <field name="date_order" />
+        <filter
+          string="Historical"
+          name="historical_true"
+          domain="[('historical', '=', True)]"
+        />
+        <filter
+          string="Non Historical"
+          name="historical_false"
+          domain="[('historical', '=', False)]"
+        />
+        <group expand="0" string="Group By">
+          <filter
+            string="Customer"
+            name="group_partner"
+            domain="[]"
+            context="{'group_by': 'partner_id'}"
+          />
+          <filter
+            string="Commercial Partner"
+            name="group_commercial_partner"
+            domain="[]"
+            context="{'group_by': 'commercial_partner_id'}"
+          />
+          <filter
+            string="Product"
+            name="group_product"
+            domain="[]"
+            context="{'group_by': 'product_id'}"
+          />
+          <filter
+            string="Month"
+            name="group_month"
+            domain="[]"
+            context="{'group_by': 'date_order:month'}"
+          />
+          <filter
+            string="Source"
+            name="group_source"
+            domain="[]"
+            context="{'group_by': 'source'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="sale_order_line_history_report_action" model="ir.actions.act_window">
+    <field name="name">Sales History Lines</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">sale.order.line.history.report</field>
+    <field name="view_mode">list,pivot</field>
+    <field name="view_id" ref="sale_order_line_history_report_view_tree" />
+    <field name="search_view_id" ref="sale_order_line_history_report_view_search" />
+  </record>
+
+  <menuitem
+    id="sale_order_line_history_report_menu"
+    parent="sale.menu_sale_report"
+    action="sale_order_line_history_report_action"
+    sequence="60"
+  />
+</odoo>
