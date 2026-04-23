@@ -1,8 +1,8 @@
+import DevicesSynchronisation from "@point_of_sale/app/store/devices_synchronisation";
 import {Domain} from "@web/core/domain";
 import {PosData} from "@point_of_sale/app/models/data_service";
 import {PosStore} from "@point_of_sale/app/store/pos_store";
 import {patch} from "@web/core/utils/patch";
-import DevicesSynchronisation from "@point_of_sale/app/store/devices_synchronisation";
 
 function getSessionDateStr(session) {
   const startAt = session && session.start_at;
