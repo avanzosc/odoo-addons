@@ -63,6 +63,7 @@ class PurchaseOrderLine(models.Model):
             pending_picking = line._get_pending_picking(picking_type_code)
             if pending_picking:
                 pending_picking.do_unreserve()
+                pending_picking.button_force_done_detailed_operations()
 
     def _create_or_update_return_picking(self):
         self.ensure_one()
@@ -141,6 +142,7 @@ class PurchaseOrderLine(models.Model):
                 }
             )
         pending_move._action_confirm()
+        picking.button_force_done_detailed_operations()
 
     def _create_stock_moves(self, picking):
         if picking.picking_type_id.code == "outgoing":
@@ -151,7 +153,12 @@ class PurchaseOrderLine(models.Model):
         self.ensure_one()
         previous_qty = self.qty_received
         super()._track_qty_received(new_qty)
-        if not new_qty or new_qty == previous_qty or self.qty_to_receive > 0:
+        if (
+            not new_qty
+            or new_qty == previous_qty
+            or self.qty_to_receive > 0
+            or new_qty < self.product_qty
+        ):
             return
         if self.return_qty > 0:
             vals = {"product_qty": new_qty, "return_qty": abs(new_qty)}
