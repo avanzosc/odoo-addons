@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="sale_order_import_view_form_help_drc_columns" model="ir.ui.view">
+    <field name="model">sale.order.import</field>
+    <field name="inherit_id" ref="sale_import_wizard.sale_order_import_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//page[@name='help_page']//ul[@name='tutorial']" position="inside">
+        <li><code>Origin</code>: this will fill <b>Origin</b></li>
+        <li>
+          <code>Equipo de ventas (team_id)</code>: this will fill
+          <b>Sales Team</b>
+        </li>
+        <li><code>Currency Code</code>: this will fill <b>Currency Code</b></li>
+        <li>
+          <code>Entity Discount Percent</code>: this will fill
+          <b>Entity Discount Percent</b>
+        </li>
+        <li><code>QuantityInvoiced</code>: this will fill <b>Quantity Invoiced</b></li>
+        <li><code>QuantityPacked</code>: this will fill <b>Quantity Packed</b></li>
+        <li><code>Usage unit (UOM)</code>: this will fill <b>Usage Unit</b></li>
+        <li><code>Warehouse Name</code>: this will fill <b>Warehouse Name</b></li>
+        <li><code>Discount</code>: this will fill <b>Discount</b></li>
+        <li><code>Sales Person</code>: this will fill <b>Salesperson</b></li>
+        <li><code>Payment Terms</code>: this will fill <b>Payment Terms</b></li>
+        <li>
+          <code>Payment Terms Label</code>: this will fill
+          <b>Payment Terms Label</b>
+        </li>
+      </xpath>
+    </field>
+  </record>
+</odoo>
