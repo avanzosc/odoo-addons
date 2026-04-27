@@ -7,8 +7,8 @@
     "license": "LGPL-3",
     "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["account", "res_company_signature_fields"],
-    "data": ["views/account_report_views.xml"],
+    "depends": ["account", "res_company_signature_fields", "stock"],
+    "data": ["views/account_report_views.xml", "views/stock_picking_report_views.xml"],
     "installable": True,
     "application": False,
 }

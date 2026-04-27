@@ -13,6 +13,9 @@ The **account_invoice_report_stamp** module extends the **account** module by
 adding the company’s digital signature and stamp images to invoice reports.
 This functionality enhances the presentation and authenticity of invoice
 documents.
+The company's digital signature and stamp images are also added to picking
+report.
+
 
 Features
 ========
