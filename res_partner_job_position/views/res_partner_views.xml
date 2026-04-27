@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_res_partner_filter" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="arch" type="xml">
+      <field name="parent_id" position="before">
+        <field name="function_id" />
+      </field>
+      <filter name="group_country" position="after">
+        <filter
+          name="group_function_id"
+          string="Function"
+          context="{'group_by': 'function_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="priority">100</field>
+    <field name="arch" type="xml">
+      <field name="function" position="before">
+        <field name="customer_rank" invisible="1" />
+        <field
+          name="function_id"
+          invisible="parent_id == False"
+          required="customer_rank > 0 and parent_id != False and type == 'contact'"
+        />
+      </field>
+      <field name="function" position="attributes">
+        <attribute name="invisible">1</attribute>
+      </field>
+      <xpath
+        expr="//field[@name='child_ids']/form//field[@name='function']"
+        position="before"
+      >
+        <field name="customer_rank" invisible="1" />
+        <field name="function_id" required="customer_rank > 0 and type == 'contact'" />
+      </xpath>
+      <xpath
+        expr="//field[@name='child_ids']/form//field[@name='function']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath
+        expr="//field[@name='child_ids']/kanban//field[@name='function']"
+        position="after"
+      >
+        <field name="function_id" />
+      </xpath>
+      <xpath
+        expr="//field[@name='child_ids']/kanban//field[@name='function']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>
