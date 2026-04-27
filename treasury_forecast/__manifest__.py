@@ -24,6 +24,7 @@
         "views/account_move_views.xml",
         "data/treasury_financing_category_data.xml",
     ],
+    "post_init_hook": "create_treasury_forecast_view",
     "installable": True,
     "application": False,
     "auto_install": False,
