@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="stock_move_line_view_search" model="ir.ui.view">
+        <field name="model">stock.move.line</field>
+        <field name="inherit_id" ref="stock.stock_move_line_view_search" />
+        <field name="arch" type="xml">
+            <filter name="manufacturing" position="after">
+                <separator />
+                <filter
+          string="Incoming"
+          name="filter_type_incoming"
+          domain="[('move_line_type', '=', 'incoming')]"
+        />
+                <filter
+          string="Outgoing"
+          name="filter_type_outgoing"
+          domain="[('move_line_type', '=', 'outgoing')]"
+        />
+                <filter
+          string="Internal"
+          name="filter_type_internal"
+          domain="[('move_line_type', '=', 'internal')]"
+        />
+                <filter
+          string="Expired"
+          name="filter_type_expired"
+          domain="[('move_line_type', '=', 'expired')]"
+        />
+                <filter
+          string="Other"
+          name="filter_type_other"
+          domain="[('move_line_type', '=', 'other')]"
+        />
+            </filter>
+            <filter name="groupby_product_id" position="before">
+                <filter
+          string="Move Line Type"
+          name="group_by_move_line_type"
+          domain="[]"
+          context="{'group_by': 'move_line_type'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
