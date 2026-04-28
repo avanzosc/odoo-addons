@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-30 13:56+0000\n"
-"PO-Revision-Date: 2026-03-30 13:56+0000\n"
+"POT-Creation-Date: 2026-01-21 09:49+0000\n"
+"PO-Revision-Date: 2026-01-21 09:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "First you have to do the delivery."
+msgstr "Primero debes realizar la entrega."
 
 #. module: purchase_order_return
 #: model:ir.model.fields,field_description:purchase_order_return.field_purchase_order__id
@@ -59,21 +65,63 @@ msgid "Return Qty:"
 msgstr "A devolver:"
 
 #. module: purchase_order_return
-#: code:addons/purchase_order_return/models/purchase_order_line.py:0
-#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#: code:addons/purchase_order_return/models/purchase_order.py:0
 #, python-format
-msgid "Some qtys were already returned, qty can't be reduced."
-msgstr "Algunas cantidades ya han sido devueltas, la cantidad "
-"no puede ser reducida."
+msgid "The product {} has not lot"
+msgstr "El producto {} no tiene lote"
 
 #. module: purchase_order_return
-#: code:addons/purchase_order_return/models/purchase_order.py:0
-#: code:addons/purchase_order_return/models/purchase_order.py:0
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
 #, python-format
-msgid "The order has no return type configured."
-msgstr "El pedido no tiene tipo de devolución configurado."
+msgid ""
+"The quantities on your purchase order indicate less\n"
+"than billed. You should ask for a refund."
+msgstr ""
+"Las cantidades en tu pedido de compra indican menos\n"
+"de lo facturado. Deberías solicitar un reembolso."
 
 #. module: purchase_order_return
 #: model_terms:ir.ui.view,arch_db:purchase_order_return.purchase_order_form
 msgid "Validate Everything"
 msgstr "Validar pendientes"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#, python-format
+msgid ""
+"You cannot decrease the ordered quantity below\n"
+"the received quantity. Create a return first."
+msgstr ""
+"No puedes reducir la cantidad pedida por debajo\n"
+"de la cantidad recibida. Crea primero una devolución."
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order_line.py:0
+#, python-format
+msgid ""
+"You cannot decrease the return quantity below\n"
+"the already returned quantity. Create a reception first."
+msgstr ""
+"No puedes reducir la cantidad a devolver por debajo\n"
+"de la cantidad ya devuelta. Crea primero una recepción."
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must enter the picking type."
+msgstr "Debe meter el tipo de operación"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must enter the return picking type of picking type."
+msgstr ""
+"Debe meter el tipo de operación de devolución del tipo de operación del "
+"pedido de compra"
+
+#. module: purchase_order_return
+#: code:addons/purchase_order_return/models/purchase_order.py:0
+#, python-format
+msgid "You must set a Vendor Location for this partner %s"
+msgstr "Debes establecer una ubicación de proveedor para este socio %s"
+

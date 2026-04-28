@@ -8,8 +8,6 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_order_confirm_usability",
-        "purchase_open_qty",
-        "stock_move_line_force_done",
     ],
     "data": [
         "views/purchase_order_view.xml",
