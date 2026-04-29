@@ -14,6 +14,7 @@ class StockQuant(models.Model):
         package_id=None,
         owner_id=None,
         strict=False,
+        qty=0,
     ):
         force_lots = self.env.context.get("force_lots", None)
         records = self
@@ -25,6 +26,7 @@ class StockQuant(models.Model):
                 package_id=package_id,
                 owner_id=owner_id,
                 strict=strict,
+                qty=qty,
             )
         else:
             if lot_id:
@@ -37,5 +39,6 @@ class StockQuant(models.Model):
                     package_id=package_id,
                     owner_id=owner_id,
                     strict=strict,
+                    qty=qty,
                 )
         return records
