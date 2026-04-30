@@ -6,7 +6,12 @@
     <field name="arch" type="xml">
       <field name="analytic_distribution" position="before">
         <field name="make_ids" widget="many2many_tags" />
-        <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+        <field
+          name="allowed_make_ids"
+          widget="many2many_tags"
+          invisible="1"
+          optional="show"
+        />
         <field name="make_id" domain="[('id','in',allowed_make_ids)]" />
         <field name="team_id" />
       </field>
@@ -20,7 +25,12 @@
       <field name="account_id" position="after">
         <field name="make_ids" widget="many2many_tags" optional="show" />
         <field name="make_id" optional="show" />
-        <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+        <field
+          name="allowed_make_ids"
+          widget="many2many_tags"
+          invisible="1"
+          optional="show"
+        />
         <field name="team_id" optional="show" />
       </field>
     </field>
