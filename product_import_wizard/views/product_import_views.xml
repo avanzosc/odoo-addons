@@ -21,22 +21,19 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
-            modifiers="draft,2validate,pass,error"
+            invisible="state == 'done'"
           />
           <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            modifiers="2validate,pass,error"
+            invisible="state not in ('2validate', 'pass', 'error')"
           />
           <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
-            modifiers="pass,error"
+            invisible="state not in ('pass', 'error')"
           />
           <field name="state" widget="statusbar" />
         </header>
@@ -46,14 +43,14 @@
               string="Import Lines"
               type="object"
               name="button_open_import_line"
-              modifiers="{'invisible':[('import_line_ids', '=', [])]}"
+              invisible="not import_line_ids"
               class="oe_stat_button"
               icon="fa-bars"
             />
             <button
               type="object"
               name="button_open_product"
-              modifiers="{'invisible':[('product_count', '=', 0)]}"
+              invisible="product_count == 0"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
@@ -86,65 +83,63 @@
             <page string="Imported Lines">
               <field name="import_line_ids" />
             </page>
-            <page string="Error Log" modifiers="{'invisible':[('log_info','=','')]}">
+            <page string="Error Log" invisible="not log_info">
               <field name="log_info" />
             </page>
-            <page string="Help" modifiers="{'invisible': [('state', '=', 'done')]}">
+            <page string="Help" invisible="state == 'done'">
               <group>
                 <div name="help" style="margin-top: 4px;">
                   <h3>Help with Excel column names</h3>
                   <p>You must use this column names in order to fill the table:</p>
                   <ul>
-                    <li><code>Product Name</code>: this will fill <b
-                    >Product Name.</b></li>
-                    <li><code>Sale OK</code>: this will fill <b
-                    >Sale OK. </b>The field must be <code>True</code> or <code
+                    <li><code>Name</code>: this will fill <b>Name.</b></li>
+                    <li><code>Sales</code>: this will fill <b
+                    >Sales. </b>The field must be <code>True</code> or <code
                     >False</code>.</li>
-                    <li><code>Purchase OK</code>: this will fill <b
-                    >Purchase OK. </b>The field must be <code>True</code> or <code
+                    <li><code>Purchase</code>: this will fill <b
+                    >Purchase. </b>The field must be <code>True</code> or <code
                     >False</code>.</li>
-                    <li><code>Product Code</code>: this will fill <b
+                    <li><code>Internal Reference</code>: this will fill <b
                     >Internal Reference.</b></li>
                     <li><code>Product Type</code>: this will fill <b
                     >Product Type.</b>The field must be:
                                             <ul>
-                      <li><code>consu</code> for <b>Consumable</b></li>
+                      <li><code>consu</code> for <b>Goods</b></li>
                       <li><code>service</code> for <b>Service</b></li>
-                      <li><code>product</code> for <b>Storable Product</b></li>
                     </ul></li>
                     <li><code>Barcode</code>: this will fill <b>Barcode.</b></li>
-                    <li><code>List Price</code>: this will fill <b>List Price.</b></li>
-                    <li><code>Customer Tax</code>: this will fill <b
-                    >Customer Tax.</b></li>
-                    <li><code>Standard Price</code>: this will fill <b
-                    >Standard Price.</b></li>
-                    <li><code>Category Name</code>: this will fill <b
-                    >Product Category Name.</b></li>
-                    <li><code>UoM Name</code>: this will fill <b
-                    >Product Unit of Measure.</b></li>
-                    <li><code>Purchase UoM Name</code>: this will fill <b
-                    >Purchase Unit of Measure.</b></li>
-                    <li><code>Invoice Policy</code>: this will fill <b
-                    >Invoice Policy.</b> The field must be:
+                    <li><code>Sales Price</code>: this will fill <b
+                    >Sales Price.</b></li>
+                    <li><code>Sales Taxes</code>: this will fill <b
+                    >Sales Taxes.</b></li>
+                    <li><code>Cost</code>: this will fill <b>Cost.</b></li>
+                    <li><code>Product Category</code>: this will fill <b
+                    >Product Category.</b></li>
+                    <li><code>Unit of Measure</code>: this will fill <b
+                    >Unit of Measure.</b></li>
+                    <li><code>Purchase Unit</code>: this will fill <b
+                    >Purchase Unit.</b></li>
+                    <li><code>Invoicing Policy</code>: this will fill <b
+                    >Invoicing Policy.</b> The field must be:
                                             <ul>
                       <li><code>order</code> for <b>Ordered quantities</b></li>
                       <li><code>delivery</code> for <b>Delivered quantities</b></li>
                     </ul>
                                             </li>
-                    <li><code>Purchase Method</code>: this will fill <b
-                    >Purchase Method. </b>The field must be:
+                    <li><code>Control Policy</code>: this will fill <b
+                    >Control Policy. </b>The field must be:
                                             <ul>
                       <li><code>purchase</code> for <b>On
                                                 ordered quantities</b></li>
                       <li><code>receive</code> for <b>On received
                                                 quantities</b></li>
                     </ul></li>
-                    <li><code>Description Purchase</code>: this will fill <b
-                    >Description Purchase. </b></li>
-                    <li><code>Property Account Income</code>: this will fill <b
-                    >Property Account Income. </b></li>
-                    <li><code>Property Account Expense</code>: this will fill <b
-                    >Property Account Expense. </b></li>
+                    <li><code>Purchase Description</code>: this will fill <b
+                    >Purchase Description. </b></li>
+                    <li><code>Income Account</code>: this will fill <b
+                    >Income Account. </b></li>
+                    <li><code>Expense Account</code>: this will fill <b
+                    >Expense Account. </b></li>
                   </ul>
                 </div>
               </group>
