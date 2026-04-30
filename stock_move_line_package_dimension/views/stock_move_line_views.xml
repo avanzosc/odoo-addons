@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_move_line_tree" model="ir.ui.view">
+    <field name="model">stock.move.line</field>
+    <field name="inherit_id" ref="stock.view_move_line_tree" />
+    <field name="arch" type="xml">
+      <field name="result_package_id" position="after">
+        <field name="packaging_id" optional="show" />
+        <field name="height" optional="show" />
+        <field name="width" optional="show" />
+        <field name="packaging_length" optional="show" />
+        <field name="length_uom_name" string="Length UoM" optional="hide" />
+        <field name="volume" optional="show" />
+        <field name="volume_uom_name" string="Volume UoM" optional="hide" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+    <field name="model">stock.move.line</field>
+    <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='result_package_id'][@groups='stock.group_tracking_lot']"
+        position="after"
+      >
+        <field name="packaging_id" optional="show" />
+        <field name="height" optional="show" />
+        <field name="width" optional="show" />
+        <field name="packaging_length" optional="show" />
+        <field name="length_uom_name" string="Length UoM" optional="hide" />
+        <field name="volume" optional="show" />
+        <field name="volume_uom_name" string="Volume UoM" optional="hide" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
