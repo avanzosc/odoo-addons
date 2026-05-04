@@ -4,22 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-27 08:21+0000\n"
-"PO-Revision-Date: 2024-08-27 08:21+0000\n"
+"POT-Creation-Date: 2026-05-04 14:03+0000\n"
+"PO-Revision-Date: 2026-05-04 14:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__warehouse_count
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_users__warehouse_count
-msgid "# Warehouses"
-msgstr "# Almacenes"
 
 #. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.stock_warehouse_view_form
@@ -41,7 +35,7 @@ msgstr "Actividad"
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_picking_batch
 msgid "Batch Transfer"
-msgstr "Transferir agrupación"
+msgstr "Traslado por lote"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__batch_type
@@ -68,11 +62,6 @@ msgstr "Secciones"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__chick_production
 msgid "Chick Production"
 msgstr "Producción de pollito"
-
-#. module: stock_warehouse_farm
-#: model:ir.model,name:stock_warehouse_farm.model_res_partner
-msgid "Contact"
-msgstr "Contacto"
 
 #. module: stock_warehouse_farm
 #: model_terms:ir.actions.act_window,help:stock_warehouse_farm.action_other_view
@@ -112,18 +101,7 @@ msgstr "Sección destino"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type__display_name
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category__display_name
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_family__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__display_name
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -153,7 +131,7 @@ msgstr "Familia"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__warehouse_id
 msgid "Farm"
-msgstr "Granja"
+msgstr "Almacén"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__farm_area
@@ -230,18 +208,7 @@ msgstr "Agrupar po"
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type__id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category__id
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_family__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__id
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__id
 msgid "ID"
 msgstr "Identificador"
 
@@ -274,24 +241,6 @@ msgstr "Es producción de huevos"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location__is_hatchery
 msgid "Is Hatchery"
 msgstr "Es nacedora"
-
-#. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_category____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_family____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_location____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_batch____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_picking_type____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant____last_update
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_category_type__write_uid
@@ -378,26 +327,24 @@ msgid "Picking Batch Stage"
 msgstr "Estado de la agrupación"
 
 #. module: stock_warehouse_farm
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_move_line__picking_type_id
-msgid "Picking Section"
-msgstr "Sección del albarán"
-
-#. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_picking_type
 msgid "Picking Type"
 msgstr "Tipo de albarán"
 
 #. module: stock_warehouse_farm
+#: model:ir.model,name:stock_warehouse_farm.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_product_category
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__categ_id
-#: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.quant_search_view
 msgid "Product Category"
 msgstr "Categoría de producto"
 
 #. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.quant_search_view
 msgid "Product Category Type / Section"
-msgstr "Sección"
+msgstr "Sección de producto"
 
 #. module: stock_warehouse_farm
 #: model:ir.actions.act_window,name:stock_warehouse_farm.action_product_family_view
@@ -411,7 +358,7 @@ msgstr "Familia de producto"
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos de Producto (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_quant__category_type_id
@@ -419,14 +366,9 @@ msgid "Product Section"
 msgstr "Sección de producto"
 
 #. module: stock_warehouse_farm
-#: model:ir.model,name:stock_warehouse_farm.model_product_template
-msgid "Product Template"
-msgstr "Plantilla de producto"
-
-#. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_quant
 msgid "Quants"
-msgstr ""
+msgstr "Cuantos"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields.selection,name:stock_warehouse_farm.selection__stock_warehouse__activity__recry
@@ -453,11 +395,6 @@ msgstr "Sección"
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_product_template__type_ids
 msgid "Sections"
 msgstr "Secciones"
-
-#. module: stock_warehouse_farm
-#: model:ir.model.fields,help:stock_warehouse_farm.field_stock_quant__categ_id
-msgid "Select category for the current product"
-msgstr "Seleccione la categoría del producto actual"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_picking_batch_stage__sequence
@@ -491,7 +428,7 @@ msgstr "Estado"
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_move
 msgid "Stock Move"
-msgstr "Operaciones"
+msgstr "Movimiento de stock"
 
 #. module: stock_warehouse_farm
 #: model:ir.model.fields,field_description:stock_warehouse_farm.field_stock_warehouse__tax_entity_id
@@ -502,7 +439,7 @@ msgstr "Entidad fiscal"
 #. module: stock_warehouse_farm
 #: model:ir.model,name:stock_warehouse_farm.model_stock_picking
 msgid "Transfer"
-msgstr "Albarán"
+msgstr "Traslado"
 
 #. module: stock_warehouse_farm
 #: model_terms:ir.ui.view,arch_db:stock_warehouse_farm.product_category_search_view
@@ -514,12 +451,3 @@ msgstr "Tipo"
 #: model:ir.model,name:stock_warehouse_farm.model_stock_warehouse
 msgid "Warehouse"
 msgstr "Almacén"
-
-#. module: stock_warehouse_farm
-#: code:addons/stock_warehouse_farm/models/res_partner.py:0
-#: code:addons/stock_warehouse_farm/models/res_partner.py:0
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_partner__warehouse_ids
-#: model:ir.model.fields,field_description:stock_warehouse_farm.field_res_users__warehouse_ids
-#, python-format
-msgid "Warehouses"
-msgstr "Almacenes"

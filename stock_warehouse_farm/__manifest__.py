@@ -3,7 +3,7 @@
 
 {
     "name": "Warehouse Farm Data",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -13,7 +13,6 @@
         "account",
         "base_geolocalize",
         "contacts",
-        "stock_location_warehouse",
         "stock_picking_batch",
     ],
     "data": [
@@ -29,7 +28,6 @@
         "views/stock_picking_type_views.xml",
         "views/stock_picking_views.xml",
         "views/stock_warehouse_view.xml",
-        # "views/res_partner_view.xml",
         "views/picking_batch_stage_views.xml",
         "views/stock_picking_batch_views.xml",
         "views/stock_quant_views.xml",

@@ -8,6 +8,6 @@ class PickingBatchStage(models.Model):
     _description = "Picking Batch Stage"
     _order = "sequence"
 
-    name = fields.Char(string="Name")
-    sequence = fields.Integer(string="Sequence")
-    batch_type = fields.Selection(string="Batch Type", selection=[("other", "Other")])
+    name = fields.Char()
+    sequence = fields.Integer()
+    batch_type = fields.Selection(selection=[("other", "Other")])

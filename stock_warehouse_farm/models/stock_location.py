@@ -10,7 +10,7 @@ class StockLocation(models.Model):
     activity = fields.Selection(
         string="Activity", copy=False, related="warehouse_id.activity", store=True
     )
-    is_hatchery = fields.Boolean(string="Is Hatchery", default=False)
+    is_hatchery = fields.Boolean(default=False)
 
     @api.model
     def name_search(self, name="", args=None, operator="ilike", limit=100):
@@ -19,7 +19,7 @@ class StockLocation(models.Model):
         )
         if not name:
             return result
-        my_name = "%{}%".format(name)
+        my_name = f"%{name}%"
         cond = [("warehouse_id", "ilike", my_name), ("usage", "=", "internal")]
         warehouses = self.search(cond)
         for warehouse in warehouses:
@@ -32,9 +32,7 @@ class StockLocation(models.Model):
                 result.append(
                     (
                         warehouse.id,
-                        "{}, {}".format(
-                            warehouse.complete_name, warehouse.warehouse_id.name
-                        ),
+                        f"{warehouse.complete_name}, {warehouse.warehouse_id.name}",
                     )
                 )
         return result
@@ -45,6 +43,6 @@ class StockLocation(models.Model):
         for location in self:
             name = location.complete_name
             if location.warehouse_id:
-                name = "{}, {}".format(name, location.warehouse_id.name)
+                name = f"{name}, {location.warehouse_id.name}"
             result.append((location.id, name))
         return result

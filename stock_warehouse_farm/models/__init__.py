@@ -2,7 +2,6 @@ from . import stock_picking_type
 from . import category_type
 from . import picking_batch_stage
 from . import stock_warehouse
-from . import res_partner
 from . import product_category
 from . import product_family
 from . import product_template

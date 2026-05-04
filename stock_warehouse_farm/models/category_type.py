@@ -7,4 +7,4 @@ class CategoryType(models.Model):
     _name = "category.type"
     _description = "Category Type / Section"
 
-    name = fields.Char(string="Name")
+    name = fields.Char()
