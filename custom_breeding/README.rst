@@ -6,8 +6,21 @@
 Custom Breeding
 ===============
 
-* Two new selection fields, activity and farm type, in res partner.
-* Reference field in the tree view of contacts.
+This module extends the **res.partner** model to include additional fields for accounting management and external system integration.
+
+Features
+--------
+
+- Adds new fields to partners:
+  - Leaving Date
+  - Eurowin Account
+  - Purchase Journal (limited to purchase journals)
+
+- Updates partner views:
+  - Displays the new fields in the form view.
+  - Adds Eurowin Account and Journal in the list view.
+  - Enables filtering and grouping by Purchase Journal.
+  - Shows partner reference in kanban view.
 
 Bug Tracker
 ===========

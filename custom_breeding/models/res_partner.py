@@ -6,8 +6,8 @@ from odoo import fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    leaving_date = fields.Date(string="Leaving Date")
-    eurowin_account = fields.Char(string="Eurowin Account")
+    leaving_date = fields.Date()
+    eurowin_account = fields.Char()
     account_journal_id = fields.Many2one(
         string="Journal",
         comodel_name="account.journal",
