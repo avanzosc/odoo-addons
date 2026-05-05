@@ -16,7 +16,7 @@ class PurchaseOrder(models.Model):
         related="shipping_method_id.partner_id",
         store=True,
     )
-    shipping_cost = fields.Float(string="Shipping Cost")
+    shipping_cost = fields.Float()
 
     def button_confirm(self):
         result = super().button_confirm()

@@ -8,17 +8,17 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     shipping_cost = fields.Float(
-        digits="Shipping Cost Decimal Precision",
+        digits=(16, 5),
     )
     picking_shipping_cost = fields.Float(
         string="Picking Shipping Cost",
-        digits="Shipping Cost Decimal Precision",
+        digits=(16, 5),
         related="picking_id.shipping_cost",
         store=True,
     )
 
-    @api.onchange("qty_done", "product_id", "picking_id")
+    @api.onchange("quantity", "product_id", "picking_id")
     def onchange_shipping_cost(self):
         if self.product_id and (self.picking_id) and (self.picking_id.shipping_cost):
             weight = self.product_id.weight or 1
-            self.shipping_cost = self.qty_done * weight * self.picking_id.shipping_cost
+            self.shipping_cost = self.quantity * weight * self.picking_id.shipping_cost

@@ -22,16 +22,16 @@ class TransportCarrierLinesToInvoice(models.Model):
     transfer_id = fields.Many2one(string="Transfer", comodel_name="stock.picking")
     transporter_id = fields.Many2one(string="Transporter", comodel_name="res.partner")
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
-    product_qty = fields.Float(string="Product Quantity")
+    product_qty = fields.Float()
     price_unit = fields.Float(
         string="Price Unit",
-        digits="Shipping Cost Decimal Precision",
+        digits=(16, 5),
         related="transfer_id.shipping_cost",
         store=True,
         readonly=False,
     )
-    total_price = fields.Float(string="Total Price")
-    description = fields.Text(string="Description")
+    total_price = fields.Float()
+    description = fields.Text()
     currency_id = fields.Many2one(
         string="Currency",
         comodel_name="res.currency",
@@ -40,11 +40,11 @@ class TransportCarrierLinesToInvoice(models.Model):
     supplier_invoice_id = fields.Many2one(
         string="Supplier Invoice", comodel_name="account.move"
     )
-    date = fields.Date(string="Date")
+    date = fields.Date()
     shipping_method_id = fields.Many2one(
         string="Shipping Method", comodel_name="delivery.carrier"
     )
-    product_uom_id = fields.Many2one(string="Product UOM", comodel_name="uom.uom")
+    product_uom_id = fields.Many2one(comodel_name="uom.uom")
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
@@ -86,16 +86,14 @@ class TransportCarrierLinesToInvoice(models.Model):
                 today = fields.Date.today()
                 vals = {
                     "partner_id": record.transporter_id.id,
-                    "fiscal_position_id": record.transporter_id.property_account_position_id.id
-                    or False,
+                    "fiscal_position_id": (
+                        record.transporter_id.property_account_position_id.id or False
+                    ),
                     "invoice_date": today,
                     "journal_id": self.env["account.journal"]
                     .search([("type", "=", "purchase")], limit=1)
                     .id,
                     "partner_shipping_id": record.transporter_id.id,
-                    "invoice_filter_type_domain": "purchase",
-                    "payment_state": "not_paid",
-                    "bank_partner_id": record.transporter_id.id,
                     "move_type": "in_invoice",
                 }
                 account_move = self.env["account.move"].create(vals)

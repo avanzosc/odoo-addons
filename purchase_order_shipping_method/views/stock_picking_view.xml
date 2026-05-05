@@ -7,7 +7,7 @@
             <field name="picking_type_id" position="after">
                 <field
           name="carrier_id"
-          attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+          readonly="state in ('done', 'cancel')"
           string='Shipping Method'
         />
                 <field name="transporter_id" />
@@ -16,7 +16,7 @@
                     <div class="o_row" name="shipping_cost">
                         <field
             name="shipping_cost"
-            attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+            readonly="state in ('done', 'cancel') or is_locked"
           />
                         <span>€</span>
                     </div>
@@ -27,7 +27,7 @@
 
     <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+        <field name="inherit_id" ref="stock_delivery.view_picking_withcarrier_out_form" />
         <field name="arch" type="xml">
             <field name="carrier_id" position="attributes">
                 <attribute name="invisible">1</attribute>
@@ -65,14 +65,14 @@
                 <field name="transporter_id" />
                 <field name="license_plate" />
             </field>
-            <filter name="cancel" position="after">
+            <search position="inside">
                 <separator />
                 <filter
           name="invoice_transports"
           string="Invoice Transports"
-          domain="[('carrier_id', '!=', False), ('shipping_cost', '>', '0')]"
+          domain="[('carrier_id', '!=', False), ('shipping_cost', '>', 0.0)]"
         />
-            </filter>
+            </search>
             <filter name="picking_type" position="after">
                 <filter
           string="Shipping Method"

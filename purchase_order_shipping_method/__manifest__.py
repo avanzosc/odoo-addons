@@ -3,13 +3,14 @@
 
 {
     "name": "Purchase Order Shipping Method",
-    "version": "14.0.1.1.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "delivery",
+        "stock_delivery",
         "delivery_carrier_partner",
         "stock",
         "stock_picking_date_done",
@@ -18,7 +19,6 @@
     "data": [
         "security/ir.model.access.csv",
         "security/transport_carrier_lines_to_invoice_security.xml",
-        "data/shipping_decimal_precision.xml",
         "views/delivery_carrier_view.xml",
         "views/purchase_order_view.xml",
         "views/stock_picking_view.xml",
