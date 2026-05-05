@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_financing_tree" model="ir.ui.view">
+    <field name="name">treasury.financing.tree</field>
+    <field name="model">treasury.financing</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="code" optional="show" />
+        <field name="name" optional="show" />
+        <field name="journal_id" optional="show" />
+        <field name="partner_id" optional="show" />
+        <field name="category_id" optional="show" />
+        <field name="parent_category_id" optional="show" />
+        <field name="category_type" optional="show" />
+        <field name="base_product_id" optional="show" />
+        <field name="interest_product_id" optional="show" />
+        <field name="contract_date" optional="show" />
+        <field name="start_date" optional="show" />
+        <field name="end_date" optional="show" />
+        <field name="installment_recurrence" optional="show" />
+        <field name="interest_review_recurrence" optional="show" />
+        <field name="installment_number" optional="show" />
+        <field name="interest_conditions" optional="show" />
+        <field name="total_amount" optional="show" />
+        <field name="base_installment" optional="show" />
+        <field name="current_interest_percent" optional="show" />
+        <field name="interest_installment" optional="show" />
+        <field name="installment_amount" optional="show" />
+        <field name="last_forecast_date" optional="show" />
+      </list>
+    </field>
+  </record>
+  <record id="view_treasury_financing_form" model="ir.ui.view">
+    <field name="name">treasury.financing.form</field>
+    <field name="model">treasury.financing</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              type="object"
+              name="action_view_forecast_lines"
+              class="oe_stat_button"
+              icon="fa-line-chart"
+              invisible="forecast_line_count == 0"
+            >
+              <field
+                name="forecast_line_count"
+                widget="statinfo"
+                string="Forecast Lines"
+              />
+            </button>
+          </div>
+
+          <group>
+            <group>
+              <field name="code" />
+              <field name="name" />
+              <field name="journal_id" />
+              <field name="partner_id" />
+              <field name="category_id" />
+              <field name="parent_category_id" />
+              <field name="category_type" readonly="1" />
+              <field name="base_product_id" />
+              <field name="interest_product_id" />
+            </group>
+
+            <group>
+              <field name="contract_date" />
+              <field name="start_date" />
+              <field name="end_date" />
+              <field name="installment_number" />
+            </group>
+          </group>
+
+          <group>
+            <group>
+              <field name="installment_recurrence" />
+              <field name="interest_review_recurrence" />
+            </group>
+
+            <group>
+              <field name="total_amount" />
+              <field name="last_forecast_date" />
+            </group>
+          </group>
+
+          <group string="Installment Details">
+            <group>
+              <field name="base_installment" />
+              <field name="interest_installment" />
+            </group>
+
+            <group>
+              <field name="current_interest_percent" />
+              <field name="installment_amount" readonly="1" />
+            </group>
+          </group>
+
+          <group>
+            <field name="interest_conditions" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_treasury_financing" model="ir.actions.act_window">
+    <field name="name">Financing</field>
+    <field name="res_model">treasury.financing</field>
+    <field name="view_mode">list,form</field>
+  </record>
+  <menuitem
+    id="menu_treasury_financing"
+    name="Financiación"
+    parent="menu_treasury_forecast_root"
+    action="action_treasury_financing"
+    sequence="3"
+  />
+  <record
+    id="treasury_financing_generate_lines_server_action"
+    model="ir.actions.server"
+  >
+    <field name="name">Crear previsiones</field>
+    <field name="model_id" ref="model_treasury_financing" />
+    <field name="binding_model_id" ref="model_treasury_financing" />
+    <field name="binding_view_types">list,form</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_open_generate_lines_wizard()
+    </field>
+  </record>
+</odoo>
