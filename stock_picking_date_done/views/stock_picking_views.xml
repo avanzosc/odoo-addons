@@ -7,7 +7,7 @@
             <field name="origin" position="before">
                 <field
           name="custom_date_done"
-          attrs="{'readonly': [('state', 'in', ('done','cancel'))]}"
+          readonly="state in ['done', 'cancel']"
         />
             </field>
         </field>
@@ -30,7 +30,7 @@
             <field name="picking_type_id" position="after">
                 <field name="custom_date_done" />
             </field>
-            <filter name="cancel" position="after">
+            <filter name="backorder" position="after">
                 <separator />
                 <filter
           name="with-date-realized"
