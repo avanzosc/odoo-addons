@@ -65,7 +65,7 @@ class StockPicking(models.Model):
                     "price_unit": self.shipping_cost,
                     "total_price": (self.shipping_cost * line.quantity),
                     "date": self.date_done.date(),
-                    "description": "{} {}".format(self.name, self.date_done.date()),
+                    "description": f"{self.name} {self.date_done.date()}",
                 }
                 if not line_done:
                     self.env["transport.carrier.lines.to.invoice"].create(vals)

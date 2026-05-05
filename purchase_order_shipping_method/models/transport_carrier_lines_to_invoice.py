@@ -108,9 +108,7 @@ class TransportCarrierLinesToInvoice(models.Model):
                         move_line = {
                             "product_id": line.product_id.id,
                             "partner_id": line.transporter_id.id,
-                            "name": "{} {}".format(
-                                line.transfer_id.name, (line.product_id.name)
-                            ),
+                            "name": f"{line.transfer_id.name} {line.product_id.name}",
                             "quantity": line.product_qty,
                             "product_uom_id": line.product_uom_id.id,
                             "price_unit": line.price_unit,
