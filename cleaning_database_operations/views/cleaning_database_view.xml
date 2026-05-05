@@ -7,123 +7,676 @@
         <field name="arch" type="xml">
             <form string="Cleaning Database">
                 <header>
+                    <button
+            name="button_schedule"
+            type="object"
+            string="Schedule"
+            states="draft"
+          />
+                    <field name="state" widget="statusbar" />
                 </header>
                 <sheet>
+                    <widget
+            name="web_ribbon"
+            title="Pending"
+            bg_color="bg-danger"
+            attrs="{'invisible': [('is_clean', '=', True)]}"
+          />
                     <div class="oe_title">
                         <h1>
                             <field name="name" readonly="1" />
+                            <field name="is_clean" invisible="1" />
                         </h1>
                     </div>
-                    <group>
-                        <group>
-                            <div style="margin-top: 4px;">
-                                <h3>This will delete the following objects</h3>
-                                <p>Sales:</p>
-                                <p>Sale Order Line, Sale Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_sale_operations"
-                    type="object"
-                    string="Cleaning Sale Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Purchases:</p>
-                                <p>Purchase Order Line, Purchase Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_purchase_operations"
-                    type="object"
-                    string="Cleaning Purchase Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Accounting:</p>
-                                <p
-                >Account Analytic Line, Account Partial Reconcile, Account Move Line, Account Move, Account Payment Order.</p>
-                                <p>
-                                    <button
-                    name="action_delete_analytic_operations"
-                    type="object"
-                    string="Cleaning Accounting Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Manufacturing:</p>
-                                <p>MRP Workorder, MRP Production</p>
-                                <p>
-                                    <button
-                    name="action_delete_mrp_operations"
-                    type="object"
-                    string="Cleaning MRP Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Inventory:</p>
-                                <p
-                >Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation Layer, Stock Inventory, Stock Production Lot.</p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_valuation_operations"
-                    type="object"
-                    string="Cleaning Valuation Layers"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_operations"
-                    type="object"
-                    string="Cleaning Stock Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>
-                                    <button
-                    name="action_delete_stock_production_lot"
-                    type="object"
-                    string="Cleaning Lots"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Others</p>
-                                <p>Transport Carrier Lines To Invoice</p>
-                                <p>
-                                    <button
-                    name="action_delete_transport_operations"
-                    type="object"
-                    string="Cleaning Transport Operations"
-                    class="oe_highlight"
-                  />
-                                </p>
-                                <p>Squence</p>
+                    <group name="header">
+                        <group name="left_column">
+                            <field name="date_limit" />
+                            <field
+                name="delete_accounting"
+                widget="boolean_toggle"
+                string="Step 1: Accounting"
+              />
+                            <field
+                name="delete_manufacturing"
+                widget="boolean_toggle"
+                string="Step 2: Manufacturing"
+              />
+                            <field
+                name="delete_stock"
+                widget="boolean_toggle"
+                string="Step 3: Stock"
+              />
+                            <field
+                name="delete_sale"
+                widget="boolean_toggle"
+                string="Step 4: Sales"
+              />
+                            <field
+                name="delete_purchase"
+                widget="boolean_toggle"
+                string="Step 5: Purchases"
+              />
+                            <field
+                name="delete_point_of_sale"
+                widget="boolean_toggle"
+                string="Step 6: Point of Sale"
+              />
+                            <field
+                name="delete_others"
+                widget="boolean_toggle"
+                string="Step 7: Others"
+              />
+                        </group>
+                        <group name="right_column">
+                            <field name="company_ids" widget="many2many_tags" />
+                            <div>
+                                <separator string="Sequences" />
                                 <p>Reset sequences</p>
                                 <p>
                                     <button
-                    name="action_delete_sequance_operations"
+                    name="action_restart_sequences"
                     type="object"
-                    string="Cleaning Sequences"
+                    string="Restart Sequences"
                     class="oe_highlight"
+                    attrs="{'invisible': [('state','=','done')]}"
                   />
                                 </p>
                             </div>
                         </group>
-                        <group>
-                            <separator string="Companies" colspan="4" />
-                            <field
-                name="company_ids"
-                nolabel="1"
-                colspan="4"
-                required="1"
-              >
-                                <tree delete="0" create="0" editable="top">
-                                    <field name="name" readonly="1" />
-                                </tree>
-                            </field>
-                        </group>
                     </group>
+                    <notebook>
+                        <page
+              name="account_operations"
+              string="Account"
+              attrs="{'invisible': [('delete_accounting', '=', False)]}
+                        "
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <field
+                    name="delete_analytic_operations"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_analytic_operations', '=', False)]}"
+                  >
+                                    <li>Account Analytic Line
+                                        <field
+                        name="analytic_lines_2delete"
+                        attrs="{'invisible': [('analytic_lines_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                    <button
+                    name="button_delete_analytic_operations"
+                    type="object"
+                    string="Cleaning Analytic Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_analytic_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_account_move_operations"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_account_move_operations', '=', False)]}"
+                  >
+                                    <li>Account Move
+                                        <field
+                        name="account_moves_2delete"
+                        attrs="{'invisible': [('account_moves_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>Account Move Line
+                                        <field
+                        name="account_move_lines_2delete"
+                        attrs="{'invisible': [('account_move_lines_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>Account Partial Reconcile
+                                        <field
+                        name="partial_reconciles_2delete"
+                        attrs="{'invisible': [('partial_reconciles_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                    <button
+                    name="button_delete_account_move_operations"
+                    type="object"
+                    string="Cleaning Journal Entries"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_account_move_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_payment_operations"
+                    widget="boolean_toggle"
+                    string="Delete Payment Orders"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_payment_operations', '=', False)]}"
+                  >
+                                        <li>Account Payment Order
+                                            <field
+                        name="payment_orders_2delete"
+                        attrs="{'invisible': [('payment_orders_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Account Payment Order Lines
+                                            <field
+                        name="payment_lines_2delete"
+                        attrs="{'invisible': [('payment_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_payment_operations"
+                    type="object"
+                    string="Cleaning Payment Orders"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_payment_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_bank_statement_operations"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_bank_statement_operations', '=', False)]}"
+                  >
+                                        <li>Bank Statement
+                                            <field
+                        name="bank_statements_2delete"
+                        attrs="{'invisible': [('bank_statements_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Bank Statement Lines
+                                            <field
+                        name="bank_statement_lines_2delete"
+                        attrs="{'invisible': [('bank_statement_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_bank_statement_operations"
+                    type="object"
+                    string="Cleaning Bank Statements"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_bank_statement_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_check_deposit_operations"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_check_deposit_operations', '=', False)]}"
+                  >
+                                    <li>Check Deposit
+                                        <field
+                        name="check_deposits_2delete"
+                        attrs="{'invisible': [('check_deposits_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                <button
+                    name="button_delete_check_deposit_operations"
+                    type="object"
+                    string="Cleaning Check Deposits"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_check_deposit_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group name="account_asset">
+                                    <field
+                    name="delete_asset_operations"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_asset_operations', '=', False)]}"
+                  >
+                                    <li>Account Asset
+                                        <field
+                        name="assets_2delete"
+                        attrs="{'invisible': [('assets_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>Account Assets Lines
+                                        <field
+                        name="asset_lines_2delete"
+                        attrs="{'invisible': [('asset_lines_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                <button
+                    name="button_delete_asset_operations"
+                    type="object"
+                    string="Cleaning Assets"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_asset_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                            </group>
+                        </page>
+                        <page
+              string="Manufacturing"
+              attrs="{'invisible': [('delete_manufacturing', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <ul>
+                                        <li>MRP Workorder
+                                            <field
+                        name="mrp_workorders_2delete"
+                        attrs="{'invisible': [('mrp_workorders_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>MRP Production
+                                            <field
+                        name="mrp_productions_2delete"
+                        attrs="{'invisible': [('mrp_productions_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_mrp_operations"
+                    type="object"
+                    string="Cleaning MRP Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_manufacturing', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group />
+                            </group>
+                        </page>
+                        <page
+              name="stock_operations"
+              string="Inventory"
+              attrs="{'invisible': [('delete_stock', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <field
+                    name="delete_stock_operations"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_stock_operations', '=', False)]}"
+                  >
+                                        <li>Stock Move Line
+                                            <field
+                        name="stock_move_lines_2delete"
+                        attrs="{'invisible': [('stock_move_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Stock Move
+                                            <field
+                        name="stock_moves_2delete"
+                        attrs="{'invisible': [('stock_moves_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Stock Picking
+                                            <field
+                        name="stock_pickings_2delete"
+                        attrs="{'invisible': [('stock_pickings_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_stock_operations"
+                    type="object"
+                    string="Cleaning Stock Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_stock_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_inventory_operations"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_inventory_operations', '=', False)]}"
+                  >
+                                        <li>Stock Inventory
+                                            <field
+                        name="stock_inventories_2delete"
+                        attrs="{'invisible': [('stock_inventories_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Inventory Stock Move Line
+                                            <field
+                        name="stock_inventory_move_lines_2delete"
+                        attrs="{'invisible': [('stock_inventory_move_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Inventory Stock Move
+                                            <field
+                        name="stock_inventory_moves_2delete"
+                        attrs="{'invisible': [('stock_inventory_moves_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_inventory_operations"
+                    type="object"
+                    string="Cleaning Inventory Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_inventory_operations', '=', False),('state','!=','draft')]}"
+                  />
+
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_stock_production_lot"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_stock_production_lot', '=', False)]}"
+                  >
+                                    <li>Stock Production Lot
+                                        <field
+                        name="stock_lots_2delete"
+                        attrs="{'invisible': [('stock_lots_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                    <button
+                    name="button_delete_stock_production_lot"
+                    type="object"
+                    string="Cleaning Lots"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_stock_production_lot', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_quant"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_quant', '=', False)]}"
+                  >
+                                        <li>Stock Quant
+                                            <field
+                        name="stock_quants_2delete"
+                        attrs="{'invisible': [('stock_quants_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_quant"
+                    type="object"
+                    string="Cleaning Quants"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_quant', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group>
+                                    <field
+                    name="delete_stock_valuation_operations"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_stock_valuation_operations','=', False)]}"
+                  >
+                                        <li>Stock Valuation Layer
+                                            <field
+                        name="stock_valuation_layers_2delete"
+                        attrs="{'invisible': [('stock_valuation_layers_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_stock_valuation_operations"
+                    type="object"
+                    string="Clean Valuation Layers"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_stock_valuation_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                            </group>
+                        </page>
+                        <page
+              string="Sale"
+              attrs="{'invisible': [('delete_sale', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <ul>
+                                        <li>Sale Orders:
+                                            <field
+                        name="sale_orders_2delete"
+                        attrs="{'invisible': [('sale_orders_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Sale Order Line:
+                                            <field
+                        name="sale_lines_2delete"
+                        attrs="{'invisible': [('sale_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_sale_orders"
+                    type="object"
+                    string="Delete Sale Orders"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_sale', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group />
+                            </group>
+                        </page>
+                        <page
+              string="Purchase"
+              attrs="{'invisible':[('delete_purchase', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <ul>
+                                        <li>Purchase Order
+                                            <field
+                        name="purchase_orders_2delete"
+                        attrs="{'invisible': [('purchase_orders_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                        <li>Purchase Order Line
+                                            <field
+                        name="purchase_lines_2delete"
+                        attrs="{'invisible': [('purchase_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_purchase_operations"
+                    type="object"
+                    string="Clean Purchase Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_purchase', '=', False),('state','!=','draft')]}"
+                  />
+
+                                </group>
+                                <group />
+                            </group>
+                        </page>
+                        <page
+              string="Point of Sale"
+              attrs="{'invisible': [('delete_point_of_sale', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <field
+                    name="delete_pos_quotations"
+                    widget="boolean_toggle"
+                  />                                <ul
+                    attrs="{'invisible': [('delete_pos_quotations', '=', False)]}"
+                  >
+                                    <li>Point of Sale Quotations
+                                        <field
+                        name="pos_quotations_2delete"
+                        attrs="{'invisible': [('pos_quotations_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>Point of Sale Quotation Lines
+                                        <field
+                        name="pos_quotation_lines_2delete"
+                        attrs="{'invisible': [('pos_quotation_lines_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+
+                                    <button
+                    name="button_delete_pos_quotation_operations"
+                    type="object"
+                    string="Clean Point of Sale Quotations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_pos_quotations', '=', False),('state','!=','draft')]}"
+                  />
+                            </group>
+                            <group>
+                                    <field
+                    name="delete_pos_orders"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_pos_orders', '=', False)]}"
+                  >
+                                    <li>Pos Order
+                                        <field
+                        name="pos_orders_2delete"
+                        attrs="{'invisible': [('pos_orders_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>Pos Order Line
+                                        <field
+                        name="pos_order_lines_2delete"
+                        attrs="{'invisible': [('pos_order_lines_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                    <li>PoS Payment
+                                        <field
+                        name="pos_payments_2delete"
+                        attrs="{'invisible': [('pos_payments_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                    <button
+                    name="button_delete_pos_order"
+                    type="object"
+                    string="Cleaning PoS Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_pos_orders', '=', False),('state','!=','draft')]}"
+                  />
+                            </group>
+                                <group>
+                                    <field
+                    name="delete_pos_sessions"
+                    widget="boolean_toggle"
+                  />
+                                <ul
+                    attrs="{'invisible': [('delete_pos_sessions', '=', False)]}"
+                  >
+                                    <li>Pos Session
+                                        <field
+                        name="pos_sessions_2delete"
+                        attrs="{'invisible': [('pos_sessions_2delete', '=', 0)]}"
+                      />
+                                    </li>
+                                </ul>
+                                    <button
+                    name="button_delete_pos_session_operations"
+                    type="object"
+                    string="Cleaning PoS Sessions"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_pos_sessions', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                            </group>
+                        </page>
+                        <page
+              name="other"
+              string="Others"
+              attrs="{'invisible': [('delete_others', '=', False)]}"
+            >
+                            <p>This will delete the following objects</p>
+                            <group>
+                                <group>
+                                    <field
+                    name="delete_transport_operations"
+                    widget="boolean_toggle"
+                  />
+                                    <ul
+                    attrs="{'invisible': [('delete_transport_operations', '=', False)]}"
+                  >
+                                        <li>
+                                            Transport Carrier Lines To Invoice
+                                    <field
+                        name="transport_carrier_lines_2delete"
+                        attrs="{'invisible': [('transport_carrier_lines_2delete', '=', 0)]}"
+                      />
+                                        </li>
+                                    </ul>
+                                    <button
+                    name="button_delete_transport_operations"
+                    type="object"
+                    string="Cleaning Transport Operations"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|',('delete_transport_operations', '=', False),('state','!=','draft')]}"
+                  />
+                                </group>
+                                <group />
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
             </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cleaning_database_search_view">
+        <field name="name">cleaning.database.search</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="company_ids" />
+                <field name="state" />
+                <filter
+          name="draft"
+          string="Draft"
+          domain="[('state', '=', 'draft')]"
+        />
+                <filter
+          name="scheduled"
+          string="Scheduled"
+          domain="[('state', '=', 'scheduled')]"
+        />
+                <filter name="done" string="Done" domain="[('state', '=', 'done')]" />
+                <group expand="0" string="Group By">
+                    <filter
+            name="group_state"
+            string="State"
+            context="{'group_by': 'state'}"
+          />
+                </group>
+            </search>
         </field>
     </record>
 
@@ -131,8 +684,11 @@
         <field name="name">cleaning.database.tree.view</field>
         <field name="model">cleaning.database</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-info="state == 'draft'" decoration-muted="state == 'done'">
                 <field name="name" />
+                <field name="company_ids" widget="many2many_tags" />
+                <field name="date_limit" />
+                <field name="state" />
             </tree>
         </field>
     </record>
@@ -148,7 +704,7 @@
     name="Cleaning Database"
     id="cleaning_database"
     sequence="100"
-    web_icon="cleaning_database_operations,static/description/boom_icon.png"
+    web_icon="cleaning_database_operations,static/description/icon.png"
   />
 
     <menuitem
@@ -157,4 +713,5 @@
     parent="cleaning_database"
     sequence="1"
   />
+
 </odoo>
