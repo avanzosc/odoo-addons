@@ -8,7 +8,11 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
-    "depends": ["stock_picking_batch", "stock_move_qty_by_packaging"],
+    "depends": [
+        "stock_picking_batch",
+        "stock_move_qty_by_packaging",
+        "custom_mrp_line_cost",
+    ],
     "data": [
         "report/report.xml",
     ],
