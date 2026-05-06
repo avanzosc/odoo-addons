@@ -18,12 +18,12 @@ class StockMoveLine(models.Model):
     def _onchange_product_packaging_id(self):
         if self.product_packaging_id:
             self.product_packaging_qty = 1
-            self.qty_done = self.product_packaging_id.qty
+            self.quantity = self.product_packaging_id.qty
         else:
             self.product_packaging_qty = 0
-            self.qty_done = 1
+            self.quantity = 1
 
     @api.onchange("product_packaging_qty")
     def _onchange_product_packaging_qty(self):
         if self.product_packaging_id and self.product_packaging_qty:
-            self.qty_done = self.product_packaging_qty * self.product_packaging_id.qty
+            self.quantity = self.product_packaging_qty * self.product_packaging_id.qty

@@ -7,9 +7,14 @@ Stock move qty by packaging
 ===========================
 
 * In stock move, and stock move line, new field "Boxes/Sacks".
-* New fields in move and move lines: Product Packaging, Packaging quantity,
-  palet, palet quantity and gross weight.
-* When you force move lines, it going to take packaging, from the move.
+* New fields in stock move line: Packaging and Packaging Quantity.
+* New fields in stock move:
+  Product packaging qty (Demand), Product packaging qty (Done),
+  and Packaging Quantity.
+* In detailed operations, changing Packaging or Packaging Quantity updates
+  the move line Quantity.
+* When forcing detailed operations, packaging values are taken from the
+  stock move (or sale line when available).
 Bug Tracker
 ===========
 

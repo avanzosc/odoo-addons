@@ -13,8 +13,10 @@ class StockPicking(models.Model):
                 if line.move_id and line.move_id.product_packaging_id:
                     line.write(
                         {
-                            "product_packaging_id": line.move_id.product_packaging_id.id,
-                            "product_packaging_qty": line.move_id.quantity_done
+                            "product_packaging_id": (
+                                line.move_id.product_packaging_id.id
+                            ),
+                            "product_packaging_qty": line.move_id.quantity
                             / line.move_id.product_packaging_id.qty,
                         }
                     )
