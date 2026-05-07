@@ -46,9 +46,13 @@ class PurchaseOrderLine(models.Model):
                         )
         res = super(PurchaseOrderLine, self).write(values)
         if (
-            ("return_qty" in values and values["return_qty"] > 0)
-            or ("product_qty" in values and values["product_qty"] > 0)
-        ) and line.order_id.state == "purchase":
+            (
+                ("return_qty" in values and values["return_qty"] > 0)
+                or ("product_qty" in values and values["product_qty"] > 0)
+            )
+            and line.order_id.state == "purchase"
+            and not self.env.context.get("skip_picking_sync")
+        ):
             self._apply_line_quantities()
         return res
 
@@ -67,9 +71,15 @@ class PurchaseOrderLine(models.Model):
         picking = self._find_pending_picking("incoming")
         if not picking:
             picking = self.env["stock.picking"].create(self.order_id._prepare_picking())
-        move = self._find_or_create_move(picking, qty_to_receive)
-        self._prepare_move_lines(move)
-        move.picking_id.button_force_done_detailed_operations()
+            self._find_or_create_move(picking, qty_to_receive)
+            self.order_id._setup_new_picking(picking)
+        else:
+            move = self._find_or_create_move(picking, qty_to_receive)
+            if move.state == "draft":
+                move._action_confirm()
+                move._action_assign()
+                if not picking.picking_type_id.show_reserved:
+                    move._do_unreserve()
 
     def _apply_return_quantity(self):
         self.ensure_one()
@@ -81,9 +91,15 @@ class PurchaseOrderLine(models.Model):
             picking = self.env["stock.picking"].create(
                 self.order_id._prepare_return_picking()
             )
-        move = self._find_or_create_move(picking, qty_to_return, is_return=True)
-        self._prepare_move_lines(move)
-        move.picking_id.button_force_done_detailed_operations()
+            self._find_or_create_move(picking, qty_to_return, is_return=True)
+            self.order_id._setup_new_picking(picking)
+        else:
+            move = self._find_or_create_move(picking, qty_to_return, is_return=True)
+            if move.state == "draft":
+                move._action_confirm()
+                move._action_assign()
+                if not picking.picking_type_id.show_reserved:
+                    move._do_unreserve()
 
     def _find_pending_picking(self, picking_type_code):
         return self.order_id.picking_ids.filtered(
@@ -96,8 +112,6 @@ class PurchaseOrderLine(models.Model):
             lambda m: m.purchase_line_id == self and m.state not in ("done", "cancel")
         )[:1]
         if move:
-            if move.move_line_ids:
-                move.move_line_ids.unlink()
             move.product_uom_qty = qty
             return move
         return self.env["stock.move"].create(
@@ -115,26 +129,19 @@ class PurchaseOrderLine(models.Model):
             }
         )
 
-    def _prepare_move_lines(self, move):
-        if move.state == "draft":
-            move._action_confirm()
-        for ml in move.move_line_ids:
-            if move.purchase_line_id.lot_id:
-                ml.lot_id = move.purchase_line_id.lot_id.id
-
-    @api.depends(
-        "move_ids.state",
-        "move_ids.scrapped",
-        "move_ids.product_uom_qty",
-        "move_ids.product_uom",
-        "return_qty",
-        "move_ids.quantity_done",
-    )
-    def _compute_qty_received(self):
-        super(PurchaseOrderLine, self)._compute_qty_received()
-        for line in self:
-            if line.return_qty and line.return_qty > 0:
-                line.product_qty = line.qty_received
+    def _track_qty_received(self, new_qty):
+        self.ensure_one()
+        previous_qty = self.qty_received
+        super()._track_qty_received(new_qty)
+        if not new_qty or new_qty == previous_qty or self.qty_to_receive > 0:
+            return
+        if self.return_qty > 0:
+            vals = {"product_qty": new_qty, "return_qty": abs(new_qty)}
+        elif self.product_qty:
+            vals = {"product_qty": new_qty}
+        else:
+            return
+        self.with_context(skip_picking_sync=True).write(vals)
 
     def _create_or_update_picking(self):
         return True

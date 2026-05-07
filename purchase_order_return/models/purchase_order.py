@@ -42,13 +42,17 @@ class PurchaseOrder(models.Model):
             pending_pickings = order.picking_ids.filtered(
                 lambda p: p.state not in ("done", "cancel")
             )
-            for picking in pending_pickings:
-                picking.action_confirm()
-                picking.button_force_done_detailed_operations()
             action = pending_pickings.button_validate()
             if isinstance(action, dict):
                 return action
         return True
+
+    def _setup_new_picking(self, picking):
+        if picking.state == "draft":
+            picking.action_confirm()
+            picking.action_assign()
+        if not picking.picking_type_id.show_reserved:
+            picking.do_unreserve()
 
     def button_confirm(self):
         res = super().button_confirm()
@@ -57,6 +61,5 @@ class PurchaseOrder(models.Model):
                 lambda p: p.state not in ("done", "cancel")
             )
             for picking in pending_pickings:
-                picking.action_confirm()
-                picking.button_force_done_detailed_operations()
+                order._setup_new_picking(picking)
         return res
