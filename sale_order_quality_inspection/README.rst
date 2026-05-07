@@ -12,6 +12,7 @@ inspections associated with the order.
 **Features**
 
 - **Quality Inspections Shortcut**
+
   - Adds a stat button on the sale order form showing the total count of
     related quality inspections.
   - Clicking the button opens the list of inspections filtered to those linked

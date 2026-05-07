@@ -6,17 +6,17 @@
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button
-                    type="object"
-                    name="action_view_quality_inspections"
-                    class="oe_stat_button"
-                    icon="fa-check-circle"
-                    attrs="{'invisible': [('quality_inspection_count', '=', 0)]}"
-                >
+          type="object"
+          name="action_view_quality_inspections"
+          class="oe_stat_button"
+          icon="fa-check-circle"
+          attrs="{'invisible': [('quality_inspection_count', '=', 0)]}"
+        >
                     <field
-                        name="quality_inspection_count"
-                        widget="statinfo"
-                        string="Quality Inspections"
-                    />
+            name="quality_inspection_count"
+            widget="statinfo"
+            string="Quality Inspections"
+          />
                 </button>
             </div>
         </field>
