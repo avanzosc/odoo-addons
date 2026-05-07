@@ -1,6 +1,8 @@
 # Copyright 2022 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from calendar import month_name
+
 from odoo import _, api, fields, models
 
 
@@ -35,38 +37,20 @@ class StockPicking(models.Model):
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
-        super(StockPicking, self).onchange_partner_id()
+        parent_onchange = getattr(super(), "onchange_partner_id", None)
+        res = {}
+        if parent_onchange:
+            res = parent_onchange()
         if self.partner_id:
             self.crm_driver_id = self.partner_id.driver_id.id
+        return res
 
+    @api.depends("cmr_way_out_id")
     def _compute_site_date_info(self):
         my_date = fields.Date.context_today(self)
         for picking in self:
             city = picking.cmr_way_out_id.name if picking.cmr_way_out_id else ""
-            if my_date.month == 1:
-                month = _("January")
-            if my_date.month == 2:
-                month = _("February")
-            if my_date.month == 3:
-                month = _("March")
-            if my_date.month == 4:
-                month = _("April")
-            if my_date.month == 5:
-                month = _("May")
-            if my_date.month == 6:
-                month = _("June")
-            if my_date.month == 7:
-                month = _("July")
-            if my_date.month == 8:
-                month = _("August")
-            if my_date.month == 9:
-                month = _("September")
-            if my_date.month == 10:
-                month = _("October")
-            if my_date.month == 11:
-                month = _("November")
-            if my_date.month == 12:
-                month = _("December")
+            month = _(month_name[my_date.month])
             picking.site_date_info = "{}, {} of {} of {}".format(
                 city, my_date.day, month, my_date.year
             )

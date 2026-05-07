@@ -4,7 +4,7 @@
         <t t-call="web.external_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
             <div class="page">
-                <div class="oe_structure" />
+                <div class="oe_structure" id="oe_structure_stock_picking_cmr_report" />
                 <h2 class="mt16">
                     <table
             class="table table-sm"
@@ -116,12 +116,12 @@
                         <t
               t-set="lines"
               t-if="doc.state=='done'"
-              t-value="doc.move_line_ids.filtered(lambda x: x.qty_done)"
+              t-value="doc.move_line_ids.filtered(lambda x: x.quantity)"
             />
                         <t
               t-set="lines"
               t-if="doc.state!='done'"
-              t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"
+              t-value="doc.move_ids.filtered(lambda x: x.product_uom_qty)"
             />
                         <t t-foreach="lines" t-as="line">
                             <tr>
