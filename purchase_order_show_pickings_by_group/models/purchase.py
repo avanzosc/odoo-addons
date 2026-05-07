@@ -14,16 +14,22 @@ class PurchaseOrder(models.Model):
     def _compute_group_picking_count(self):
         for record in self:
             if record.group_id:
-                pickings = self.env["stock.picking"].search_count(
+                record.group_picking_count = self.env["stock.picking"].search_count(
                     [("group_id", "=", record.group_id.id)]
                 )
-                record.group_picking_count = pickings
             else:
                 record.group_picking_count = 0
 
-    def action_view_picking(self):
+    def action_view_group_picking(self):
         self.ensure_one()
-        pickings = self.env["stock.picking"].search(
-            [("group_id", "=", self.group_id.id)]
+        pickings = (
+            self.env["stock.picking"].search([("group_id", "=", self.group_id.id)])
+            if self.group_id
+            else self.picking_ids
         )
-        return self._get_action_view_picking(pickings)
+        result = self.env["ir.actions.actions"]._for_xml_id(
+            "stock.action_picking_tree_all"
+        )
+        result["context"] = {}
+        result["domain"] = [("id", "in", pickings.ids)]
+        return result

@@ -1,22 +1,18 @@
 <odoo>
     <record id="purchase_order_form" model="ir.ui.view">
         <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form" />
-        <field name="priority" eval="99" />
+        <field
+      name="inherit_id"
+      ref="purchase_stock.purchase_order_view_form_inherit"
+    />
         <field name="arch" type="xml">
-            <xpath expr="//form/header" position="before">
-                <field name="incoming_picking_count" invisible="1" />
-            </xpath>
-            <xpath
-        expr="//div[contains(@class, 'oe_button_box')]/button[@name='action_view_picking']"
-        position="replace"
-      >
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
                 <button
           type="object"
-          name="action_view_picking"
+          name="action_view_group_picking"
           class="oe_stat_button"
           icon="fa-truck"
-          attrs="{'invisible':[('group_picking_count','=', 0)]}"
+          attrs="{'invisible': [('group_picking_count', '=', 0)]}"
           groups="stock.group_stock_user"
         >
                     <field
@@ -25,6 +21,12 @@
             string="Pickings"
           />
                 </button>
+            </xpath>
+            <xpath
+        expr="//div[@name='button_box']/button[@name='action_view_picking']"
+        position="attributes"
+      >
+                <attribute name="invisible">1</attribute>
             </xpath>
         </field>
     </record>

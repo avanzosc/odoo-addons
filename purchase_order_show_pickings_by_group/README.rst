@@ -6,10 +6,13 @@
 Purchase Order Show Pickings By Group
 =====================================
 
-This module extends the default behavior of `purchase.order` to enhance the shortcut action `action_view_picking`. Instead of displaying only the pickings created from a specific purchase order, it shows **all `stock.picking` records that share the same `group_id`**.
+This module extends the default behavior of `purchase.order` to replace the standard picking shortcut button. Instead of showing only the pickings directly linked to the purchase order lines, it shows **all** ``stock.picking`` **records that share the same procurement group** (``group_id``).
 
-- Overrides the `action_view_picking` method in `purchase.order`.
-- Filters pickings based on shared `group_id`.
+Key changes:
+
+- Adds a new ``group_picking_count`` computed field that counts all pickings sharing the same ``group_id`` as the purchase order.
+- Adds a new ``action_view_group_picking`` method that opens a list of all those pickings.
+- Replaces the standard picking stat button with one using ``action_view_group_picking``.
 
 Bug Tracker
 ===========
