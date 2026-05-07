@@ -27,3 +27,16 @@ class StockQuant(models.Model):
                 lot_id=quant.lot_id,
                 package_id=quant.package_id,
             )
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "quantity" in vals and not self.env.context.get("repair_reserved_quantity"):
+            quants_to_repair = self.filtered(
+                lambda q: not q.location_id.should_bypass_reservation()
+                and q.reserved_quantity > 0
+            )
+            if quants_to_repair:
+                quants_to_repair.with_context(
+                    repair_reserved_quantity=True
+                ).action_repair_reserved_quantity()
+        return res
