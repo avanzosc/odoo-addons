@@ -51,6 +51,6 @@ class StockPicking(models.Model):
         for picking in self:
             city = picking.cmr_way_out_id.name if picking.cmr_way_out_id else ""
             month = _(month_name[my_date.month])
-            picking.site_date_info = "{}, {} of {} of {}".format(
-                city, my_date.day, month, my_date.year
+            picking.site_date_info = (
+                f"{city}, {my_date.day} of {month} of {my_date.year}"
             )
