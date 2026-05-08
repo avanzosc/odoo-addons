@@ -7,8 +7,8 @@ class Lineage(models.Model):
     _name = "lineage"
     _description = "Lineage"
 
-    name = fields.Char(string="Name")
-    code = fields.Char(string="Code")
+    name = fields.Char()
+    code = fields.Char()
     birth_rate_ids = fields.One2many(
         string="Birth Rate", comodel_name="birth.rate", inverse_name="lineage_id"
     )

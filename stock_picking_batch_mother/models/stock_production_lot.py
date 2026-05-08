@@ -4,7 +4,7 @@ from odoo import fields, models
 
 
 class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+    _inherit = "stock.lot"
 
     batch_id = fields.Many2one(
         string="Mother",

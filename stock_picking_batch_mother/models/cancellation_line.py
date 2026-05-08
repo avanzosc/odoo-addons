@@ -13,11 +13,11 @@ class CancellationLine(models.Model):
     _description = "Cancellation Line"
 
     batch_id = fields.Many2one(string="Mother", comodel_name="stock.picking.batch")
-    week = fields.Integer(string="Week", compute="_compute_week", store=True)
-    date = fields.Date(string="Date")
+    week = fields.Integer(compute="_compute_week", store=True)
+    date = fields.Date()
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
     lot_id = fields.Many2one(
-        string="Lot/Serial Number", comodel_name="stock.production.lot"
+        string="Lot/Serial Number", comodel_name="stock.lot"
     )
     cancellation_qty = fields.Integer(string="Cancellations")
     inventory_qty = fields.Integer(
@@ -32,7 +32,7 @@ class CancellationLine(models.Model):
     picking_id = fields.Many2one(string="Picking", comodel_name="stock.picking")
     move_line_id = fields.Many2one(string="Move Lines", comodel_name="stock.move.line")
     qty_done = fields.Float(
-        string="Cancellation Done", related="move_line_id.qty_done", store=True
+        string="Cancellation Done", related="move_line_id.quantity", store=True
     )
     hen_life_week = fields.Integer(
         string="Hen Life", compute="_compute_hen_life", store=True
@@ -44,9 +44,9 @@ class CancellationLine(models.Model):
             line.inventory_qty = 0
             stock_quant = self.env["stock.quant"].search(
                 [
-                    ("location_id", "=", self.location_id.id),
-                    ("product_id", "=", self.lot_id.product_id.id),
-                    ("lot_id", "=", self.lot_id.id),
+                    ("location_id", "=", line.location_id.id),
+                    ("product_id", "=", line.lot_id.product_id.id),
+                    ("lot_id", "=", line.lot_id.id),
                 ],
                 limit=1,
             )
@@ -121,8 +121,12 @@ class CancellationLine(models.Model):
                 raise ValidationError(
                     _(
                         "No picking type has been found with source "
-                        + "location {} and destination location {}."
-                    ).format(self.location_id.name, location_dest.name)
+                        "location %(src)s and destination location %(dst)s."
+                    )
+                    % {
+                        "src": self.location_id.name,
+                        "dst": location_dest.name,
+                    }
                 )
             location_dest = picking_type.default_location_dest_id
             if self.cancellation_qty != 0:
@@ -143,7 +147,8 @@ class CancellationLine(models.Model):
                                     "lot_id": self.lot_id.id,
                                     "location_id": self.location_id.id,
                                     "location_dest_id": location_dest.id,
-                                    "qty_done": self.cancellation_qty,
+                                    "quantity": self.cancellation_qty,
+                                    "picked": True,
                                 },
                             )
                         ],

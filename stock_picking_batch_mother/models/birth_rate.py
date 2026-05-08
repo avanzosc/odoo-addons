@@ -9,13 +9,13 @@ class BirthRate(models.Model):
 
     lineage_id = fields.Many2one(string="Lineage", comodel_name="lineage")
     mother_id = fields.Many2one(string="Mother", comodel_name="stock.picking.batch")
-    week = fields.Integer(string="Week")
+    week = fields.Integer()
     percentage_birth = fields.Float(string="% of Birth Over Total")
-    birth_start_date = fields.Date(string="Birth Start Date")
+    birth_start_date = fields.Date()
     estimate_birth = fields.Integer(
-        string="Estimate Birth", compute="_compute_estimate_birth", store=True
+        compute="_compute_estimate_birth", store=True
     )
-    real_birth = fields.Float(string="Real Birth")
+    real_birth = fields.Float()
 
     @api.depends("mother_id", "mother_id.hen_unit", "percentage_birth")
     def _compute_estimate_birth(self):

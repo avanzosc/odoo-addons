@@ -9,13 +9,13 @@ class LayingRate(models.Model):
 
     lineage_id = fields.Many2one(string="Lineage", comodel_name="lineage")
     mother_id = fields.Many2one(string="Mother", comodel_name="stock.picking.batch")
-    week = fields.Integer(string="Week")
+    week = fields.Integer()
     percentage_laying = fields.Float(string="% of Laying")
-    laying_start_date = fields.Date(string="Laying Start Date")
+    laying_start_date = fields.Date()
     estimate_laying = fields.Integer(
-        string="Estimate Laying", compute="_compute_estimate_laying", store=True
+        compute="_compute_estimate_laying", store=True
     )
-    real_laying = fields.Float(string="Real Laying")
+    real_laying = fields.Float()
 
     @api.depends("mother_id", "mother_id.hen_unit", "percentage_laying")
     def _compute_estimate_laying(self):
