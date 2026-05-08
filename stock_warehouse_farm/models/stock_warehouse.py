@@ -35,11 +35,10 @@ class StockWarehouse(models.Model):
             ("recry", "Recry"),
             ("birth", "Birth"),
         ],
-        string="Activity",
         copy=False,
     )
-    other_activity = fields.Char(string="Other Activity")
+    other_activity = fields.Char()
     farm_type = fields.Selection(
-        [("integrated", "Integrated"), ("own", "Own")], string="Farm Type", copy=False
+        [("integrated", "Integrated"), ("own", "Own")], copy=False
     )
     type_id = fields.Many2one(string="Section", comodel_name="category.type")

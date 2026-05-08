@@ -26,7 +26,7 @@ class ResPartner(models.Model):
         context.update({"default_partner_id": self.id})
         return {
             "name": _("Warehouses"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.warehouse",
             "domain": [("id", "in", self.warehouse_ids.ids)],
             "type": "ir.actions.act_window",
