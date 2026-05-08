@@ -36,17 +36,13 @@ class StockPickingBatch(models.Model):
         string="Rearing End Weeks", compute="_compute_end_rearing_weeks", store=True
     )
     end_laying_date = fields.Date(string="End Laying")
-    end_laying_weeks = fields.Integer(
-        compute="_compute_end_laying_weeks", store=True
-    )
+    end_laying_weeks = fields.Integer(compute="_compute_end_laying_weeks", store=True)
     end_birth_date = fields.Date(string="End Birth")
     end_birth_weeks = fields.Integer(
         string="End Weeks", compute="_compute_end_birth_weeks", store=True
     )
     closing_date = fields.Date(string="Closing")
-    closing_weeks = fields.Integer(
-        compute="_compute_closing_weeks", store=True
-    )
+    closing_weeks = fields.Integer(compute="_compute_closing_weeks", store=True)
     laying_correlation = fields.Float(string="% of Laying Correlation")
     birth_correlation = fields.Float(string="% of Birth Correlation")
     consumed_feed = fields.Float()

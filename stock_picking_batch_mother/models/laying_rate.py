@@ -12,9 +12,7 @@ class LayingRate(models.Model):
     week = fields.Integer()
     percentage_laying = fields.Float(string="% of Laying")
     laying_start_date = fields.Date()
-    estimate_laying = fields.Integer(
-        compute="_compute_estimate_laying", store=True
-    )
+    estimate_laying = fields.Integer(compute="_compute_estimate_laying", store=True)
     real_laying = fields.Float()
 
     @api.depends("mother_id", "mother_id.hen_unit", "percentage_laying")

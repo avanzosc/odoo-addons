@@ -16,9 +16,7 @@ class CancellationLine(models.Model):
     week = fields.Integer(compute="_compute_week", store=True)
     date = fields.Date()
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
-    lot_id = fields.Many2one(
-        string="Lot/Serial Number", comodel_name="stock.lot"
-    )
+    lot_id = fields.Many2one(string="Lot/Serial Number", comodel_name="stock.lot")
     cancellation_qty = fields.Integer(string="Cancellations")
     inventory_qty = fields.Integer(
         string="Inventory", compute="_compute_inventory_qty", store=True
