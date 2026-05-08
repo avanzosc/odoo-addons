@@ -73,6 +73,21 @@ class TreasuryForecast(models.Model):
         store=True,
     )
 
+    project_id = fields.Many2one(
+        "project.project",
+        string="Proyecto",
+        related="financing_id.project_id",
+        store=True,
+        readonly=True,
+    )
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Cuenta analítica",
+        related="financing_id.analytic_account_id",
+        store=True,
+        readonly=True,
+    )
+
     @api.depends("income", "expense")
     def _compute_account_type_filter(self):
         for record in self:

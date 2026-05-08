@@ -103,6 +103,15 @@ class TreasuryFinancing(models.Model):
         compute="_compute_forecast_line_count",
     )
 
+    project_id = fields.Many2one(
+        "project.project",
+        string="Proyecto",
+    )
+    analytic_account_id = fields.Many2one(
+        "account.analytic.account",
+        string="Cuenta analítica",
+    )
+
     def _compute_forecast_line_count(self):
         for record in self:
             if record.id:
