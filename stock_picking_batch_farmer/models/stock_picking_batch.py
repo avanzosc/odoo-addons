@@ -65,7 +65,7 @@ class StockPickingBatch(models.Model):
             )
         return {
             "name": _("Transfers"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.picking",
             "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
@@ -92,9 +92,9 @@ class StockPickingBatch(models.Model):
             domain = expression.AND([[("id", "not in", lines.ids)], domain])
         return {
             "name": _("Stock Moves"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "views": [
-                [self.env.ref("stock.view_move_tree").id, "tree"],
+                [self.env.ref("stock.view_move_tree").id, "list"],
                 [False, "form"],
             ],
             "res_model": "stock.move",
@@ -112,7 +112,7 @@ class StockPickingBatch(models.Model):
                 "search_default_group_category_type": 1,
             }
         )
-        domain = [("id", "in", self.move_line_ids.ids), ("qty_done", "!=", 0)]
+        domain = [("id", "in", self.move_line_ids.ids), ("quantity", "!=", 0)]
         if self.location_id and self.location_change_id:
             lines = self.env["stock.move.line"].search(
                 [
@@ -123,7 +123,7 @@ class StockPickingBatch(models.Model):
             domain = expression.AND([[("id", "not in", lines.ids)], domain])
         return {
             "name": _("Stock Move Lines"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.move.line",
             "domain": domain,
             "type": "ir.actions.act_window",

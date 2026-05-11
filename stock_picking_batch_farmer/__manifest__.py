@@ -3,7 +3,7 @@
 
 {
     "name": "Stock Picking Batch Farmer",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -17,7 +17,6 @@
     "data": [
         "views/stock_picking_batch_view.xml",
         "views/stock_picking_view.xml",
-        "views/stock_move_view.xml",
     ],
     "installable": True,
 }
