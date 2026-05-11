@@ -22,14 +22,16 @@ class AccountMove(models.Model):
     def _compute_payment_ids(self):
         for move in self:
             move.payment_ids = False
-            payment = self.env["account.payment"].search([("ref", "=", move.name)])
+            payment = self.env["account.payment"].search(
+                [("move_id.ref", "=", move.name)]
+            )
             if payment:
                 move.payment_ids = [(6, 0, payment.ids)]
 
     def action_view_payments(self):
         return {
             "name": _("Payments"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "account.payment",
             "domain": [("id", "in", self.payment_ids.ids)],
             "type": "ir.actions.act_window",
