@@ -1,0 +1,39 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div
+          class="app_settings_block"
+          data-string="Quality Control"
+          string="Quality Control"
+          data-key="quality_control_reference_value"
+          data-img="/quality_control_reference_value/static/img/icon.png"
+        >
+                    <h2>Quality Control</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane" />
+                            <div class="o_setting_right_pane">
+                                <label for="quality_default_uom_id" />
+                                <div class="text-muted">
+                                    Default unit for quantitative tests
+                                </div>
+                                <field name="quality_default_uom_id" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="quality_base_tolerance" />
+                                <field name="quality_base_tolerance" />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="quality_default_type" />
+                                <field name="quality_default_type" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

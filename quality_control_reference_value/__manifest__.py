@@ -14,6 +14,12 @@
         "views/qc_inspection_views.xml",
         "views/qc_test_question_views.xml",
         "views/qc_test_views.xml",
+        "views/res_config_settings_views.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "quality_control_reference_value/static/img/icon.png",
+        ],
+    },
     "installable": True,
 }

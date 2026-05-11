@@ -4,11 +4,25 @@
         <field name="model">qc.test</field>
         <field name="inherit_id" ref="quality_control_oca.qc_test_form_view" />
         <field name="arch" type="xml">
+            <xpath expr="//field[@name='test_lines']/tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
             <xpath
         expr="//field[@name='test_lines']/tree/field[@name='name']"
         position="after"
       >
                 <field name="reference" />
+            </xpath>
+            <xpath
+        expr="//field[@name='test_lines']/tree/field[@name='ql_values']"
+        position="after"
+      >
+                <button
+          name="action_open_form"
+          type="object"
+          icon="fa-external-link"
+          title="Abrir pregunta"
+        />
             </xpath>
         </field>
     </record>
