@@ -6,9 +6,8 @@ from odoo import fields, models
 class StockReturnPicking(models.TransientModel):
     _inherit = "stock.return.picking"
 
-    def _create_returns(self):
-        new_picking_id, picking_type_id = super()._create_returns()
-        new_picking = self.env["stock.picking"].browse(new_picking_id)
+    def _create_return(self):
+        new_picking = super()._create_return()
         if "active_id" in self.env.context:
             active = self.env["stock.picking"].browse(self.env.context["active_id"])
             if active and active.batch_id:
@@ -17,4 +16,4 @@ class StockReturnPicking(models.TransientModel):
         for line in new_picking.move_line_ids_without_package:
             if line.move_id and line.move_id.standard_price:
                 line.standard_price = line.move_id.standard_price
-        return new_picking_id, picking_type_id
+        return new_picking

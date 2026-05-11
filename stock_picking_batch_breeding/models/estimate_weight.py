@@ -19,10 +19,10 @@ class EstimateWeight(models.Model):
         except Exception:
             return False
 
-    day = fields.Integer(string="Day")
-    estimate_weight = fields.Float(string="Estimate Weight")
-    estimate_week_weight = fields.Float(string="Estimate Week Weight")
-    real_weight = fields.Float(string="Real Weight")
+    day = fields.Integer()
+    estimate_weight = fields.Float()
+    estimate_week_weight = fields.Float()
+    real_weight = fields.Float()
     weight_uom_id = fields.Many2one(
         string="Weight UOM",
         comodel_name="uom.uom",
@@ -33,7 +33,7 @@ class EstimateWeight(models.Model):
     )
     batch_id = fields.Many2one(string="Breeding", comodel_name="stock.picking.batch")
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
-    date = fields.Date(string="Date")
+    date = fields.Date()
     location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
@@ -52,10 +52,10 @@ class EstimateWeight(models.Model):
         related="warehouse_id.farmer_id",
         store=True,
     )
-    growth = fields.Float(string="Growth", compute="_compute_growth", store=True)
+    growth = fields.Float(compute="_compute_growth", store=True)
     unit = fields.Integer(string="Units")
-    casualties = fields.Integer(string="Casualties")
-    total_weight = fields.Float(string="Total Weight", compute="_compute_total_weight")
+    casualties = fields.Integer()
+    total_weight = fields.Float(compute="_compute_total_weight")
     total_weight_uom_id = fields.Many2one(
         string="Total Weight UOM",
         comodel_name="uom.uom",
@@ -64,7 +64,7 @@ class EstimateWeight(models.Model):
             ("category_id", "=", self.env.ref("uom.product_uom_categ_kgm").id)
         ],
     )
-    saca_casualties = fields.Integer(string="Saca Casualties")
+    saca_casualties = fields.Integer()
 
     @api.depends("day", "estimate_weight")
     def _compute_growth(self):

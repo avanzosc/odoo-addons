@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="estimate_weight_view_tree" model="ir.ui.view">
-        <field name="name">estimate.weight.tree</field>
+        <field name="name">estimate.weight.list</field>
         <field name="model">estimate.weight</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <field name="batch_id" optional="show" />
                 <field name="day" optional="show" />
                 <field name="date" optional="show" />
@@ -22,7 +22,7 @@
                 <field name="location_id" optional="show" />
                 <field name="warehouse_id" optional="show" />
                 <field name="farmer_id" optional="show" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -87,7 +87,7 @@
         <field name="name">Estimate Weight</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">estimate.weight</field>
-        <field name="view_mode">tree,pivot</field>
+        <field name="view_mode">list,pivot</field>
     </record>
 
     <menuitem

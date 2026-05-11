@@ -6,6 +6,4 @@ from odoo import fields, models
 class PickingBatchStage(models.Model):
     _inherit = "picking.batch.stage"
 
-    batch_type = fields.Selection(
-        string="Batch Type", selection_add=[("breeding", "Breeding")]
-    )
+    batch_type = fields.Selection(selection_add=[("breeding", "Breeding")])

@@ -20,15 +20,13 @@
         >[('location_id_computed', '=', batch_type)]</attribute>
             </field>
             <field name="picking_type_id" position="attributes">
-                <attribute
-          name="attrs"
-        >{'invisible': [('batch_type', '!=', 'other')]}</attribute>
+                <attribute name="invisible">batch_type != 'other'</attribute>
             </field>
             <xpath expr="//sheet/notebook/page[1]" position="before">
                 <page
           name="breeding"
           string="Breeding"
-          attrs="{'invisible': [('batch_type', '!=', 'breeding')]}"
+          invisible="batch_type != 'breeding'"
         >
                     <group>
                         <group name="details" string="Breeding Details">
@@ -61,10 +59,10 @@
                     </group>
                     <group string="Growth Rate">
                         <field name="lineage_percentage_ids" nolabel="1">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="lineage_id" />
                                 <field name="percentage" />
-                            </tree>
+                            </list>
                         </field>
                     </group>
                     <group string="Mother/Lineage">
@@ -80,9 +78,9 @@
                         <field
               name="estimate_weight_ids"
               nolabel="1"
-              context="{'default_batch_id': active_id}"
+              context="{'default_batch_id': id}"
             >
-                            <tree editable="bottom" limit="57">
+                            <list editable="bottom" limit="57">
                                 <field name="batch_id" invisible="1" />
                                 <field name="day" optional="show" />
                                 <field name="date" optional="show" />
@@ -100,7 +98,7 @@
                                 <field name="weight_uom_id" optional="show" />
                                 <field name="total_weight" optional="show" />
                                 <field name="total_weight_uom_id" optional="show" />
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </page>
@@ -115,10 +113,10 @@
     </record>
 
     <record model="ir.ui.view" id="picking_batch_breeding_tree_view">
-        <field name="name">stock.picking.batch.tree.view</field>
+        <field name="name">stock.picking.batch.list.view</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" decoration-bf="1" string="Name" />
                 <field name="batch_type" invisible="1" />
                 <field name="user_id" optional="hide" />
@@ -136,7 +134,7 @@
           widget="badge"
           decoration-info="1"
         />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -144,7 +142,7 @@
         <field name="name">Breeding</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field
       name="view_id"
       ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"
@@ -152,7 +150,7 @@
         <field name="context">{
             "search_default_draft" : True,
             "search_default_in_progress" : True,
-            "default_company_id"": allowed_company_ids[0],
+            "default_company_id": allowed_company_ids[0],
             "default_batch_type": 'breeding'
         }</field>
         <field name="domain">[('batch_type','=','breeding')]</field>

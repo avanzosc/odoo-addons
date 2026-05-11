@@ -14,8 +14,8 @@ class GrowthRate(models.Model):
             return False
 
     lineage_id = fields.Many2one(string="Lineage", comodel_name="lineage")
-    day = fields.Integer(string="Day")
-    weight = fields.Float(string="Weight")
+    day = fields.Integer()
+    weight = fields.Float()
     weight_uom_id = fields.Many2one(
         string="Weight UOM",
         default=_get_default_weight_uom,

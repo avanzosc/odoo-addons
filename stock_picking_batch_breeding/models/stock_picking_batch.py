@@ -16,12 +16,9 @@ class StockPickingBatch(models.Model):
         today = fields.Date.today()
         return today
 
-    batch_type = fields.Selection(
-        string="Batch Type",
-        selection_add=[("breeding", "Breeding")],
-    )
-    description = fields.Text(string="Description")
-    observation = fields.Text(string="Observation")
+    batch_type = fields.Selection(selection_add=[("breeding", "Breeding")])
+    description = fields.Text()
+    observation = fields.Text()
     entry_date = fields.Date(
         string="Entry date",
         default=lambda self: self._default_entry_date(),
@@ -31,28 +28,24 @@ class StockPickingBatch(models.Model):
         compute="_compute_entry_week",
         store=True,
     )
-    cleaned_date = fields.Date(string="Cleaned Date")
+    cleaned_date = fields.Date()
     cleaned_week = fields.Integer(
         string="Cleaned Weeks",
         compute="_compute_cleaned_week",
         store=True,
     )
-    liquidation_date = fields.Date(string="Liquidation Date")
+    liquidation_date = fields.Date()
     liquidation_week = fields.Integer(
-        string="Liquidation Week",
         compute="_compute_liquidation_week",
         store=True,
     )
-    billing_date = fields.Date(string="Billing Date")
+    billing_date = fields.Date()
     billing_week = fields.Integer(
         string="Billing Weeks",
         compute="_compute_billing_week",
         store=True,
     )
-    feed_family = fields.Many2one(
-        string="Feed Family",
-        comodel_name="breeding.feed",
-    )
+    feed_family = fields.Many2one(comodel_name="breeding.feed")
     picking_ids = fields.One2many(
         string="Transfers",
         domain="['|', ('location_id', '=', location_id), "
@@ -181,7 +174,7 @@ class StockPickingBatch(models.Model):
             else:
                 return super()._sanity_check()
 
-    @api.constrains("lineage_percentage_ids", "lineage_percentage_ids.percentage")
+    @api.constrains("lineage_percentage_ids")
     def _check_lineage_percentage(self):
         for batch in self:
             if batch.lineage_percentage_ids:
@@ -208,15 +201,15 @@ class StockPickingBatch(models.Model):
                     )
                 )
             if lines:
-                total_qty = sum(lines.mapped("qty_done"))
+                total_qty = sum(lines.mapped("quantity"))
                 lineage_percentages = []
                 for ml in lines:
                     if ml.lineage_id not in lineage and total_qty != 0:
                         lineage.append(ml.lineage_id)
                         lineage_qty = sum(
                             lines.filtered(
-                                lambda c: c.lineage_id == (ml.lineage_id)
-                            ).mapped("qty_done")
+                                lambda c, ml=ml: c.lineage_id == ml.lineage_id
+                            ).mapped("quantity")
                         )
                         lineage_percentages.append(
                             [
@@ -247,15 +240,16 @@ class StockPickingBatch(models.Model):
                     _("No line has been found for the purchase of chicks with mother.")
                 )
             if lines:
-                total_qty = sum(lines.mapped("qty_done"))
+                total_qty = sum(lines.mapped("quantity"))
                 mother_percentages = []
                 for ml in lines:
                     if ml.lot_id.batch_id not in mother and total_qty != 0:
                         mother.append(ml.lot_id.batch_id)
                         mother_qty = sum(
                             lines.filtered(
-                                lambda c: c.lot_id.batch_id == (ml.lot_id.batch_id)
-                            ).mapped("qty_done")
+                                lambda c, ml=ml: c.lot_id.batch_id
+                                == ml.lot_id.batch_id
+                            ).mapped("quantity")
                         )
                         mother_percentages.append(
                             [
@@ -299,7 +293,7 @@ class StockPickingBatch(models.Model):
             for lineage in self.lineage_percentage_ids:
                 percentage = lineage.percentage
                 search_day = lineage.lineage_id.growth_rate_ids.filtered(
-                    lambda c: c.day == day
+                    lambda c, day=day: c.day == day
                 )
                 if search_day:
                     weight.append(search_day.weight * 0.01 * percentage)
@@ -310,13 +304,13 @@ class StockPickingBatch(models.Model):
                         lambda c: c.product_id.one_day_chicken
                         and c.state == "done"
                         and c.location_dest_id == self.location_id
-                    ).mapped("qty_done")
+                    ).mapped("quantity")
                 ) - sum(
                     self.move_line_ids.filtered(
                         lambda c: c.product_id.one_day_chicken
                         and c.state == "done"
                         and c.location_id == self.location_id
-                    ).mapped("qty_done")
+                    ).mapped("quantity")
                 )
                 self.estimate_weight_ids = [
                     (
@@ -340,19 +334,28 @@ class StockPickingBatch(models.Model):
 
     def write(self, vals):
         stage_active = self.env.ref("stock_warehouse_farm.batch_stage2")
-        for line in self:
-            if (
-                "stage_id" in vals
-                and vals["stage_id"] == stage_active.id
-                and line.batch_type == "breeding"
-            ):
-                vals.update(
-                    {
-                        "name": self.env["ir.sequence"].next_by_code(
+        if (
+            "stage_id" in vals
+            and vals["stage_id"] == stage_active.id
+            and "name" not in vals
+        ):
+            breedings = self.filtered(lambda b: b.batch_type == "breeding")
+            if breedings:
+                rest = self - breedings
+                result = True
+                if rest:
+                    result = super(StockPickingBatch, rest).write(vals)
+                for breeding in breedings:
+                    breeding_vals = dict(
+                        vals,
+                        name=self.env["ir.sequence"].next_by_code(
                             "stock.picking.batch"
                         )
-                        or (line.location_id.name)
-                    }
-                )
-        result = super().write(vals)
-        return result
+                        or breeding.location_id.name,
+                    )
+                    result = (
+                        super(StockPickingBatch, breeding).write(breeding_vals)
+                        and result
+                    )
+                return result
+        return super().write(vals)

@@ -7,4 +7,4 @@ class BreedingFeed(models.Model):
     _name = "breeding.feed"
     _description = "Breeding Family"
 
-    name = fields.Char(string="Name")
+    name = fields.Char()

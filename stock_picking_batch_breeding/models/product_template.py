@@ -6,6 +6,6 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    one_day_chicken = fields.Boolean(string="One Day Chicken", default=False)
-    asphyxiated = fields.Boolean(string="Asphyxiated", default=False)
-    chicken_seized = fields.Boolean(string="Chicken Seized", default=False)
+    one_day_chicken = fields.Boolean(default=False)
+    asphyxiated = fields.Boolean(default=False)
+    chicken_seized = fields.Boolean(default=False)
