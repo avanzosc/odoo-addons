@@ -72,6 +72,7 @@ class ProductConsumptionXlsx(models.AbstractModel):
                     ("picking_code", "=", "incoming"),
                     ("date", ">=", data["date_start"]),
                     ("date", "<=", data["date_end"]),
+                    ("state", "=", "done"),
                 ]
             )
             entry_qty = sum(entry_lines.mapped("qty_done"))
