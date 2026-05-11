@@ -6,11 +6,7 @@
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
             <notebook position="inside">
-                <page
-          name="vehicles"
-          string="Vehicles"
-          attrs="{'invisible': [('company_type','=','person')]}"
-        >
+                <page name="vehicles" string="Vehicles" invisible="company_type == 'person'">
                     <field name="vehicle_ids" />
                 </page>
             </notebook>

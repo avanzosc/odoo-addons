@@ -13,9 +13,7 @@ class FleetVehicle(models.Model):
         store=True,
     )
 
-    @api.depends("driver_id")
+    @api.depends("driver_id", "driver_id.commercial_partner_id")
     def _compute_commercial_partner(self):
         for vehicle in self:
-            vehicle.commercial_partner_id = vehicle.driver_id.id
-            if vehicle.driver_id.company_type == "person":
-                vehicle.commercial_partner_id = vehicle.driver_id.parent_id.id
+            vehicle.commercial_partner_id = vehicle.driver_id.commercial_partner_id
