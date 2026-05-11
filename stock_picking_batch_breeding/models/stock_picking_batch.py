@@ -247,8 +247,7 @@ class StockPickingBatch(models.Model):
                         mother.append(ml.lot_id.batch_id)
                         mother_qty = sum(
                             lines.filtered(
-                                lambda c, ml=ml: c.lot_id.batch_id
-                                == ml.lot_id.batch_id
+                                lambda c, ml=ml: c.lot_id.batch_id == ml.lot_id.batch_id
                             ).mapped("quantity")
                         )
                         mother_percentages.append(
@@ -348,9 +347,7 @@ class StockPickingBatch(models.Model):
                 for breeding in breedings:
                     breeding_vals = dict(
                         vals,
-                        name=self.env["ir.sequence"].next_by_code(
-                            "stock.picking.batch"
-                        )
+                        name=self.env["ir.sequence"].next_by_code("stock.picking.batch")
                         or breeding.location_id.name,
                     )
                     result = (
