@@ -24,56 +24,64 @@ msgstr ""
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Category Name</code>: this will fill <b>Product Category Name.</b>"
+msgid "<code>Cost</code>: this will fill <b>Cost.</b>"
 msgstr ""
-"<code>Category Name</code>: esto rellenará el <b>Nombre de categoría de "
-"producto</b>"
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>Customer Tax</code>: this will fill <b>Customer Tax.</b>"
-msgstr ""
-"<code>Customer Tax</code>: esto rellenará el <b>impuesto de cliente</b> del "
-"producto."
+"<code>Cost</code>: esto rellenará el <b>coste</b> del producto."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Description Purchase</code>: this will fill <b>Description Purchase. "
-"</b>"
+"<code>Control Policy</code>: this will fill <b>Control Policy. </b>The "
+"field must be:"
 msgstr ""
-"<code>Description Purchase</code>: esto rellenará la <b>descripción de "
-"compra </b> del producto."
+"<code>Control Policy</code>: esto rellenará la <b>política de control</b> "
+"del producto. El campo tiene que ser:"
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Invoice Policy</code>: this will fill <b>Invoice Policy.</b> The field"
+"<code>Expense Account</code>: this will fill <b>Expense Account. </b>"
+msgstr ""
+"<code>Expense Account</code>: esto rellenará la <b>cuenta de gasto </b> "
+"del producto."
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid ""
+"<code>Income Account</code>: this will fill <b>Income Account. </b>"
+msgstr ""
+"<code>Income Account</code>: esto rellenará la <b>cuenta de ingreso </b> "
+"del producto."
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>Internal Reference</code>: this will fill <b>Internal Reference.</b>"
+msgstr ""
+"<code>Internal Reference</code>: esto rellenará la <b>Referencia interna</b>"
+" del producto."
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid ""
+"<code>Invoicing Policy</code>: this will fill <b>Invoicing Policy.</b> The field"
 " must be:"
 msgstr ""
-"<code>Invoice Policy</code>: esto rellenará la <b>política de facturación "
-"</b> del producto. El campo tiene que ser:"
+"<code>Invoicing Policy</code>: esto rellenará la <b>política de facturación"
+" </b> del producto. El campo tiene que ser:"
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>List Price</code>: this will fill <b>List Price.</b>"
+msgid "<code>Name</code>: this will fill <b>Name.</b>"
 msgstr ""
-"<code>List Price</code>: esto rellenará el <b>precio de venta</b> del "
-"producto."
+"<code>Name</code>: esto rellenará el <b>Nombre del producto.</b>"
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>Product Code</code>: this will fill <b>Internal Reference.</b>"
+msgid ""
+"<code>Product Category</code>: this will fill <b>Product Category.</b>"
 msgstr ""
-"<code>Product Code</code>: esto rellenará la <b>Referencia interna</b> del "
-"producto."
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>Product Name</code>: this will fill <b>Product Name.</b>"
-msgstr ""
-"<code>Product Name</code>: esto rellenará el <b>Nombre de producto.</b>"
+"<code>Product Category</code>: esto rellenará la <b>Categoría de "
+"producto.</b>"
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
@@ -87,73 +95,62 @@ msgstr ""
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Property Account Expense</code>: this will fill <b>Property Account "
-"Expense. </b>"
+"<code>Purchase Description</code>: this will fill <b>Purchase Description. "
+"</b>"
 msgstr ""
-"<code>Property Account Expense</code>: esto rellenará la <b>cuenta de gasto "
-"</b> del producto."
+"<code>Purchase Description</code>: esto rellenará la <b>descripción de "
+"compra </b> del producto."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Property Account Income</code>: this will fill <b>Property Account "
-"Income. </b>"
+"<code>Purchase Unit</code>: this will fill <b>Purchase Unit.</b>"
 msgstr ""
-"<code>Property Account Income</code>: esto rellenará la <b>cuenta de ingreso"
+"<code>Purchase Unit</code>: esto rellenará la <b>unidad de medida de compra"
 " </b> del producto."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Purchase Method</code>: this will fill <b>Purchase Method. </b>The "
-"field must be:"
-msgstr ""
-"<code>Purchase Method</code>: esto rellenará la <b>política de control</b> "
-"del producto. El campo tiene que ser:"
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Purchase OK</code>: this will fill <b>Purchase OK. </b>The field must "
+"<code>Purchase</code>: this will fill <b>Purchase. </b>The field must "
 "be <code>True</code> or <code>False</code>."
 msgstr ""
-"<code>Purchase OK</code>: esto rellenará el <b>puede ser comprado</b> del "
+"<code>Purchase</code>: esto rellenará el <b>puede ser comprado</b> del "
 "producto. El campo tiene que ser <code>True</code> o <code>False</code>."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid ""
-"<code>Purchase UoM Name</code>: this will fill <b>Purchase Unit of "
-"Measure.</b>"
+msgid "<code>Sales Price</code>: this will fill <b>Sales Price.</b>"
 msgstr ""
-"<code>Purchase UoM Name</code>: esto rellenará la <b>unidad medida de compra"
-" </b> del producto."
+"<code>Sales Price</code>: esto rellenará el <b>precio de venta</b> del "
+"producto."
+
+#. module: product_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
+msgid "<code>Sales Taxes</code>: this will fill <b>Sales Taxes.</b>"
+msgstr ""
+"<code>Sales Taxes</code>: esto rellenará los <b>impuestos de venta</b> del "
+"producto."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid ""
-"<code>Sale OK</code>: this will fill <b>Sale OK. </b>The field must be "
+"<code>Sales</code>: this will fill <b>Sales. </b>The field must be "
 "<code>True</code> or <code>False</code>."
 msgstr ""
-"<code>Sale OK</code>: esto rellenará el <b>puede ser vendido</b> del "
+"<code>Sales</code>: esto rellenará el <b>puede ser vendido</b> del "
 "producto. El campo tiene que ser <code>True</code> o <code>False</code>."
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>Standard Price</code>: this will fill <b>Standard Price.</b>"
+msgid "<code>Unit of Measure</code>: this will fill <b>Unit of Measure.</b>"
 msgstr ""
-"<code>Standard Price</code>: esto rellenará el <b>coste</b> del producto."
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>UoM Name</code>: this will fill <b>Product Unit of Measure.</b>"
-msgstr ""
-"<code>UoM Name</code>: esto rellenará la <b>Unidad de medida del "
+"<code>Unit of Measure</code>: esto rellenará la <b>Unidad de medida del "
 "producto</b>"
 
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>consu</code> for <b>Consumable</b>"
+msgid "<code>consu</code> for <b>Goods</b>"
 msgstr ""
 
 #. module: product_import_wizard
@@ -164,11 +161,6 @@ msgstr ""
 #. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
 msgid "<code>order</code> for <b>Ordered quantities</b>"
-msgstr ""
-
-#. module: product_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_view_form
-msgid "<code>product</code> for <b>Storable Product</b>"
 msgstr ""
 
 #. module: product_import_wizard
@@ -239,16 +231,6 @@ msgid "Barcode"
 msgstr "Código de barras"
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_ok
-msgid "Can be Purchased"
-msgstr "Puede ser comprado"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__sale_ok
-msgid "Can be Sold"
-msgstr "Puede ser vendido"
-
-#. module: product_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 msgid "Category"
 msgstr "Categoría"
@@ -257,6 +239,23 @@ msgstr "Categoría"
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__company_id
 msgid "Company"
 msgstr "Compañía"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_method
+msgid "Control Policy"
+msgstr "Política de control"
+
+#. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Control Policy not understood."
+msgstr "Política de control no entendida."
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__standard_price
+msgid "Cost"
+msgstr "Coste"
 
 #. module: product_import_wizard
 #: model:ir.model.fields.selection,name:product_import_wizard.selection__product_import_line__action__create
@@ -276,16 +275,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__customer_tax_id
-msgid "Customer Tax"
-msgstr "Impuesto del cliente"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__customer_tax
-msgid "Customer Tax Name"
-msgstr "Nombre del impuesto"
-
-#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_type
 msgid "Default Product Type"
 msgstr "Tipo de producto por defecto"
@@ -294,11 +283,6 @@ msgstr "Tipo de producto por defecto"
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__uom_id
 msgid "Default Unit of Measure"
 msgstr "Unidad de medida por defecto"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__description_purchase
-msgid "Description Purchase"
-msgstr "Descripción de compra"
 
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__display_name
@@ -469,14 +453,20 @@ msgid "Internal Reference"
 msgstr "Referencia interna"
 
 #. module: product_import_wizard
+#: code:addons/product_import_wizard/models/product_import.py:0
+#, python-format
+msgid "Internal Reference added as Name"
+msgstr "Referencia interna añadida como Nombre"
+
+#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__invoice_policy
-msgid "Invoice Policy"
+msgid "Invoicing Policy"
 msgstr "Política de facturación"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
-msgid "Invoice Policy not understood"
+msgid "Invoicing Policy not understood"
 msgstr "Política de facturación no comprendida"
 
 #. module: product_import_wizard
@@ -506,11 +496,6 @@ msgstr "Última actualización el"
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__import_line_ids
 msgid "Lines to Import"
 msgstr "Líneas a importar"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__list_price
-msgid "List Price"
-msgstr "Precio de venta"
 
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__log_info
@@ -576,6 +561,7 @@ msgstr "Mi actividad Plazo"
 
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__name
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name
 msgid "Name"
 msgstr "Nombre"
 
@@ -647,17 +633,6 @@ msgid "Product Category Name"
 msgstr "Nombre de categoría de producto"
 
 #. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Product Code added as Product Name"
-msgstr "Código de producto como nombre de producto"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_name
-msgid "Product Name"
-msgstr "Nombre de producto"
-
-#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_type
 #: model_terms:ir.ui.view,arch_db:product_import_wizard.product_import_line_view_search
 msgid "Product Type"
@@ -671,11 +646,6 @@ msgid "Product Type not understood."
 msgstr "Tipo de producto no comprendido."
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom
-msgid "Product UoM"
-msgstr "UdM del producto"
-
-#. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
 #, python-format
 msgid "Product category named %(category_name)s not found."
@@ -685,6 +655,26 @@ msgstr "Categoria de producto denominada %(category_name)s no encontrada."
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__product_count
 msgid "Products"
 msgstr "Productos"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_ok
+msgid "Purchase"
+msgstr "Puede ser comprado"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__description_purchase
+msgid "Purchase Description"
+msgstr "Descripción de compra"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_uom_id
+msgid "Purchase Unit"
+msgstr "Unidad de medida de compra"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_uom_name
+msgid "Purchase Unit Name"
+msgstr "Nombre de unidad de medida de compra"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
@@ -699,36 +689,29 @@ msgid "Property account income not found."
 msgstr "Cuenta de ingreso no encontrada."
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_method
-msgid "Purchase Method"
-msgstr "Política de control"
-
-#. module: product_import_wizard
-#: code:addons/product_import_wizard/models/product_import.py:0
-#: code:addons/product_import_wizard/models/product_import.py:0
-#, python-format
-msgid "Purchase Method not understood."
-msgstr "Política de control no comprendida."
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_uom_id
-msgid "Purchase UoM"
-msgstr "UdM de compra"
-
-#. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__purchase_uom_name
-msgid "Purchase UoM Name"
-msgstr "Nombre de UdM de compra"
-
-#. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__activity_user_id
 msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: product_import_wizard
-#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__standard_price
-msgid "Standard Price"
-msgstr "Coste"
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__sale_ok
+msgid "Sales"
+msgstr "Puede ser vendido"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__list_price
+msgid "Sales Price"
+msgstr "Precio de venta"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__customer_tax_id
+msgid "Sales Taxes"
+msgstr "Impuestos de venta"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__customer_tax
+msgid "Sales Taxes Name"
+msgstr "Nombre del impuesto de venta"
 
 #. module: product_import_wizard
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import__state
@@ -782,6 +765,11 @@ msgstr "Tipo de la actividad de excepción registrada."
 #: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom_id
 msgid "Unit of Measure"
 msgstr "Unidad de medida"
+
+#. module: product_import_wizard
+#: model:ir.model.fields,field_description:product_import_wizard.field_product_import_line__product_uom
+msgid "Unit of Measure Name"
+msgstr "Nombre de la unidad de medida"
 
 #. module: product_import_wizard
 #: code:addons/product_import_wizard/models/product_import.py:0
