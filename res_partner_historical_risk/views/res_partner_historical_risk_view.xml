@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="res_partner_historical_risk_tree_view">
+        <field name="name">res.partner.historical.risk.tree.view</field>
+        <field name="model">res.partner.historical.risk</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="partner_id" />
+                <field name="commercial_partner_id" />
+                <field name="sale_type" />
+                <field name="date" />
+                <field name="credit_policy_amount" />
+                <field name="risk_total_amount" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_historical_risk_search_view" model="ir.ui.view">
+        <field name="name">res.partner.historical.risk.search.view</field>
+        <field name="model">res.partner.historical.risk</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="commercial_partner_id" />
+                <field name="sale_type" />
+                <filter
+          string="With Risk"
+          name="with_risk"
+          domain="[('risk_total_amount', '!=', 0)]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Partner"
+            name="partner"
+            context="{'group_by':'partner_id'}"
+          />
+                    <filter
+            string="Commercial Partner"
+            name="commercial_partner"
+            context="{'group_by':'commercial_partner_id'}"
+          />
+      <filter string="Sale Type" name="sale_type" context="{'group_by':'sale_type'}" />
+                    <filter string="Date" name="date" context="{'group_by':'date'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="res_partner_historical_risk_pivot_view" model="ir.ui.view">
+        <field name="name">res.partner.historical.risk.pivot</field>
+        <field name="model">res.partner.historical.risk</field>
+        <field name="arch" type="xml">
+            <pivot string="Historical Risk">
+                <field name="commercial_partner_id" />
+                <field name="credit_policy_amount" type="measure" />
+                <field name="risk_total_amount" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_res_partner_historical_risk" model="ir.actions.act_window">
+        <field name="name">Res Partner Historical Risk</field>
+        <field name="res_model">res.partner.historical.risk</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="view_id" ref="res_partner_historical_risk_tree_view" />
+        <field name="domain">[]</field>
+        <field name="context">
+            {'search_default_commercial_partner': 1}
+        </field>
+    </record>
+
+    <menuitem
+    id="res_partner_historical_risk_menu"
+    action="action_res_partner_historical_risk"
+    parent="account.menu_finance_receivables"
+    sequence="130"
+  />
+
+</odoo>
