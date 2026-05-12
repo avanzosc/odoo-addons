@@ -19,23 +19,30 @@ class StockPicking(models.Model):
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
-        super(StockPicking, self).onchange_partner_id()
-        if self.partner_id:
-            self.cmr_tractor_id = self.partner_id.tractor_id.id
-            self.cmr_semi_trailer_id = self.partner_id.semi_trailer_id.id
+        res = super().onchange_partner_id()
+        for picking in self:
+            if picking.partner_id:
+                picking.cmr_tractor_id = picking.partner_id.tractor_id.id
+                picking.cmr_semi_trailer_id = picking.partner_id.semi_trailer_id.id
+        return res
 
     @api.onchange("cmr_tractor_id")
-    def onchange_cmr_tractor_id(self):
-        if self.cmr_tractor_id:
-            self.cmr_tractor_license_plate = self.cmr_tractor_id.license_plate
-            self.crm_driver_id = self.cmr_tractor_id.driver_id.id
+    def _onchange_cmr_tractor_id(self):
+        for picking in self:
+            if picking.cmr_tractor_id:
+                picking.cmr_tractor_license_plate = picking.cmr_tractor_id.license_plate
+                picking.crm_driver_id = picking.cmr_tractor_id.driver_id.id
 
     @api.onchange("cmr_semi_trailer_id")
-    def onchange_cmr_semi_trailer_id(self):
-        if self.cmr_semi_trailer_id:
-            self.cmr_semi_trailer_license_plate = self.cmr_semi_trailer_id.license_plate
+    def _onchange_cmr_semi_trailer_id(self):
+        for picking in self:
+            if picking.cmr_semi_trailer_id:
+                picking.cmr_semi_trailer_license_plate = (
+                    picking.cmr_semi_trailer_id.license_plate
+                )
 
     @api.onchange("crm_driver_id")
-    def onchange_crm_driver_id(self):
-        if self.crm_driver_id:
-            self.cmr_loader_id = self.crm_driver_id.parent_id.id
+    def _onchange_crm_driver_id(self):
+        for picking in self:
+            if picking.crm_driver_id:
+                picking.cmr_loader_id = picking.crm_driver_id.parent_id.id

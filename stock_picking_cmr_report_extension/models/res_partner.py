@@ -17,7 +17,7 @@ class ResPartner(models.Model):
     )
 
     @api.onchange("tractor_id")
-    def onchange_tractor_id(self):
-        self.ensure_one()
-        if self.tractor_id and self.tractor_id.driver_id:
-            self.driver_id = self.tractor_id.driver_id.id
+    def _onchange_tractor_id(self):
+        for partner in self:
+            if partner.tractor_id and partner.tractor_id.driver_id:
+                partner.driver_id = partner.tractor_id.driver_id.id
