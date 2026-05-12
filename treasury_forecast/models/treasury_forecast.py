@@ -15,6 +15,12 @@ class TreasuryForecast(models.Model):
     active = fields.Boolean(default=True)
     partner_id = fields.Many2one(comodel_name="res.partner", string="Partner")
     product_id = fields.Many2one(comodel_name="product.product", required=True)
+    product_category_id = fields.Many2one(
+        comodel_name="product.category",
+        related="product_id.categ_id",
+        store=True,
+        readonly=True,
+    )
     journal_id = fields.Many2one(
         comodel_name="account.journal", domain="[('type', 'in', ('bank', 'cash'))]"
     )

@@ -84,6 +84,7 @@
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
+        <field name="product_category_id" />
         <field name="journal_id" />
         <field name="estimated_journal_id" />
         <field name="source" />
@@ -112,6 +113,11 @@
           string="Productos"
           name="filter_products"
           domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Categoría de productos"
+          name="filter_category_products"
+          domain="[('product_category_id','!=',False)]"
         />
         <filter
           string="Diarios"
@@ -148,6 +154,11 @@
             string="Product"
             name="group_product"
             context="{'group_by': 'product_id'}"
+          />
+          <filter
+            string="Categoría de producto"
+            name="group_product_category"
+            context="{'group_by': 'product_category_id'}"
           />
           <filter
             string="Journal"
@@ -187,6 +198,7 @@
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
+        <field name="product_category_id" />
         <field name="journal_id" />
         <field name="estimated_journal_id" />
         <field name="financing_id" />
@@ -215,6 +227,11 @@
           string="Productos"
           name="filter_products"
           domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Categoría de productos"
+          name="filter_products_category"
+          domain="[('product_category_id','!=',False)]"
         />
         <filter
           string="Diarios"
@@ -257,6 +274,12 @@
             name="group_product"
             context="{'group_by': 'product_id'}"
           />
+          <filter
+            string="Categoría de producto"
+            name="group_product_category"
+            context="{'group_by': 'product_category_id'}"
+          />
+
           <filter
             string="Journal"
             name="group_journal"
