@@ -56,7 +56,7 @@ class FleetVehicle(models.Model):
             vals_list = [vals_list]
             vehicles = vehicles if len(vehicles) > 1 else vehicles
 
-        for vehicle, vals in zip(vehicles, vals_list):
+        for vehicle, vals in zip(vehicles, vals_list, strict=False):
             serial_number_id = self._extract_serial_number_id(vals)
             if serial_number_id:
                 self.env["stock.lot"].browse(serial_number_id).with_context(
@@ -70,14 +70,20 @@ class FleetVehicle(models.Model):
             if new_serial_number_id:
                 for vehicle in self:
                     if vehicle.serial_number_id.id != new_serial_number_id:
-                        vehicle.serial_number_id.with_context(no_update_vehicle=True).vehicle_id = False
+                        vehicle.serial_number_id.with_context(
+                            no_update_vehicle=True
+                        ).vehicle_id = False
             else:
                 for vehicle in self.filtered("serial_number_id"):
-                    vehicle.serial_number_id.with_context(no_update_vehicle=True).vehicle_id = False
+                    vehicle.serial_number_id.with_context(
+                        no_update_vehicle=True
+                    ).vehicle_id = False
 
         result = super().write(vals)
 
         if "serial_number_id" in vals and self._is_sync_enabled(self.env):
             for vehicle in self.filtered("serial_number_id"):
-                vehicle.serial_number_id.with_context(no_update_vehicle=True).vehicle_id = vehicle.id
+                vehicle.serial_number_id.with_context(
+                    no_update_vehicle=True
+                ).vehicle_id = vehicle.id
         return result

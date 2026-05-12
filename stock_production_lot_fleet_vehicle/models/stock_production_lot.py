@@ -55,12 +55,16 @@ class StockProductionLot(models.Model):
     def _clear_previous_vehicle_links(cls, lots, new_vehicle_id):
         for lot in lots:
             if lot.vehicle_id and lot.vehicle_id.id != new_vehicle_id:
-                lot.vehicle_id.with_context(no_update_serial_number=True).serial_number_id = False
+                lot.vehicle_id.with_context(
+                    no_update_serial_number=True
+                ).serial_number_id = False
 
     @classmethod
     def _clear_vehicle_link_if_removed(cls, lots):
         for lot in lots.filtered("vehicle_id"):
-            lot.vehicle_id.with_context(no_update_serial_number=True).serial_number_id = False
+            lot.vehicle_id.with_context(
+                no_update_serial_number=True
+            ).serial_number_id = False
 
     @classmethod
     def _sync_create(cls, lot, vals):
@@ -85,7 +89,9 @@ class StockProductionLot(models.Model):
 
         new_vehicle_id = cls._extract_vehicle_id(vals)
         if new_vehicle_id:
-            lots_with_vehicle = lots.filtered(lambda lot: lot.vehicle_id.id == new_vehicle_id)
+            lots_with_vehicle = lots.filtered(
+                lambda lot: lot.vehicle_id.id == new_vehicle_id
+            )
             for lot in lots_with_vehicle:
                 cls._sync_lot_to_vehicle(lot, new_vehicle_id)
 
@@ -100,7 +106,7 @@ class StockProductionLot(models.Model):
             self._sync_create_post(lots, vals_list)
             return lots
 
-        for lot, vals in zip(lots, vals_list):
+        for lot, vals in zip(lots, vals_list, strict=False):
             self._sync_create_post(lot, vals)
         return lots
 
