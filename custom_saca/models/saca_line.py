@@ -25,13 +25,11 @@ class SacaLine(models.Model):
             sequence = len(saca.saca_line_ids)
         return sequence
 
-    sequence = fields.Integer(
-        string="Sequence", copy=False, required=True, default=_default_sequence
-    )
-    name = fields.Char(string="Order", compute="_compute_name")
+    sequence = fields.Integer(copy=False, required=True, default=_default_sequence)
+    name = fields.Char(compute="_compute_name")
     saca_id = fields.Many2one(string="Saca", comodel_name="saca")
     lot = fields.Char(string="Lot/Serial Number", related="saca_id.name", store=True)
-    seq = fields.Char(string="Seq")
+    seq = fields.Char()
     external_supplier = fields.Boolean(string="Is external supplier?", default=False)
     breeding_id = fields.Many2one(
         string="Breeding",
@@ -65,27 +63,24 @@ class SacaLine(models.Model):
     )
     phone = fields.Char(string="Phone", related="farm_id.phone", store=True)
     mobile = fields.Char(string="Mobile", related="farm_id.mobile", store=True)
-    existence = fields.Integer(
-        string="Existence", compute="_compute_existence_age", store=True
-    )
-    age = fields.Integer(string="Age", compute="_compute_existence_age", store=True)
-    vehicle_id = fields.Many2one(string="Vehicle", comodel_name="fleet.vehicle")
-    remolque_id = fields.Many2one(string="Remolque", comodel_name="fleet.vehicle")
-    ates = fields.Char(string="Ates", related="remolque_id.ates")
+    existence = fields.Integer(compute="_compute_existence_age", store=True)
+    age = fields.Integer(compute="_compute_existence_age", store=True)
+    vehicle_id = fields.Many2one(comodel_name="fleet.vehicle")
+    remolque_id = fields.Many2one(comodel_name="fleet.vehicle")
+    ates = fields.Char(related="remolque_id.ates")
     cages_num = fields.Integer(string="Rows")
     driver_id = fields.Many2one(
         string="Driver",
         comodel_name="res.partner",
-        domain="['|', ('category_id', '=', 'Driver'), ('category_id', '=', 'Conductor')]",
+        domain=(
+            "['|', ('category_id', '=', 'Driver'),"
+            " ('category_id', '=', 'Conductor')]"
+        ),
     )
     unit_burden = fields.Float(string="Units per Cage")
-    estimate_weight = fields.Float(
-        string="Chicken Average Weight", digits="Weight Decimal Precision"
-    )
+    estimate_weight = fields.Float(string="Chicken Average Weight", digits=(16, 3))
     box_weight = fields.Float(
-        string="Box weight",
-        compute="_compute_box_weight",
-        digits="Weight Decimal Precision",
+        string="Box weight", compute="_compute_box_weight", digits=(16, 3)
     )
     max_weight = fields.Integer(
         string="Chicken Max Burden", help="Chicken unit", compute="_compute_max_weight"
@@ -93,14 +88,14 @@ class SacaLine(models.Model):
     estimate_burden = fields.Integer(
         string="Chicken Estimate Burden", help="Chicken unit"
     )
-    coya_id = fields.Many2one(string="Coya", comodel_name="coya")
+    coya_id = fields.Many2one(comodel_name="coya")
     burden_type_id = fields.Many2one(string="Burden Type", comodel_name="burden.type")
     cleaned_date = fields.Date(string="Remolque Disinfection Date")
-    saca_time = fields.Float(string="Saca Time")
-    cleaned_time = fields.Float(string="Cleaned Time")
-    cleaning_seal_number = fields.Char(string="Cleaning Seal Number")
+    saca_time = fields.Float()
+    cleaned_time = fields.Float()
+    cleaning_seal_number = fields.Char()
     main_scale = fields.Many2one(string="Scale", comodel_name="main.scale")
-    note = fields.Text(string="Note")
+    note = fields.Text()
     weight_uom_id = fields.Many2one(
         string="Weight UOM",
         comodel_name="uom.uom",
@@ -114,7 +109,7 @@ class SacaLine(models.Model):
         comodel_name="res.currency",
         default=lambda self: self.company_id.currency_id.id,
     )
-    distance = fields.Float(string="Distance", compute="_compute_distance", store=True)
+    distance = fields.Float(compute="_compute_distance", store=True)
     company_id = fields.Many2one(
         string="Company",
         comodel_name="res.company",
@@ -126,9 +121,9 @@ class SacaLine(models.Model):
         comodel_name="product.product",
         default=lambda self: self.env.company.disinfectant_id.id,
     )
-    date = fields.Date(string="Date", related="saca_id.date", store=True)
-    unload_date = fields.Datetime(string="Unload Date", copy=False)
-    is_historic = fields.Boolean(string="Is Historic", default=False)
+    date = fields.Date(related="saca_id.date", store=True)
+    unload_date = fields.Datetime(copy=False)
+    is_historic = fields.Boolean(default=False)
 
     @api.depends(
         "external_supplier",
@@ -174,7 +169,7 @@ class SacaLine(models.Model):
             name = 1
             if line.sequence:
                 name = line.sequence + 1
-            line.name = "{}".format(name)
+            line.name = f"{name}"
 
     @api.onchange("driver_id")
     def onchange_vehicle_id(self):

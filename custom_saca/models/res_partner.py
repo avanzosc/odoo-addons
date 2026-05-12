@@ -6,8 +6,8 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    ates = fields.Char(string="Ates")
-    distance = fields.Float(string="Distance")
+    ates = fields.Char()
+    distance = fields.Float()
     chicken_supplier = fields.Boolean(string="Is Live Chicken Supplier?", default=False)
     chicken_supplier_id = fields.Many2one(
         string="Chicken Supplier", comodel_name="res.partner"
@@ -62,20 +62,14 @@ class ResPartner(models.Model):
         "is_company", "name", "parent_id.display_name", "type", "company_name", "ref"
     )
     def _compute_display_name(self):
-        super()._compute_display_name()
-
-    def name_get(self):
-        super().name_get()
-        result = []
+        res = super()._compute_display_name()
         for partner in self:
-            name = partner._get_name()
-            name = name.split("\n")
-            p_name = partner.name
+            name = partner.display_name.split("\n")
+            p_name = partner.name or ""
             if partner.parent_id:
-                p_name = "{}, {}".format(p_name, partner.parent_id.name)
+                p_name = f"{p_name}, {partner.parent_id.name}"
             if partner.ref:
-                p_name = "{} {}".format(partner.ref, p_name)
+                p_name = f"{partner.ref} {p_name}"
             name[0] = p_name
-            name = "\n".join(name)
-            result.append((partner.id, name))
-        return result
+            partner.display_name = "\n".join(name)
+        return res

@@ -3,7 +3,7 @@
 
 {
     "name": "Custom Saca",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -19,7 +19,6 @@
     ],
     "data": [
         "data/contact_type.xml",
-        "data/weight_decimal_precision.xml",
         "security/saca_security.xml",
         "security/ir.model.access.csv",
         "data/partner_category.xml",

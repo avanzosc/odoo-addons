@@ -7,7 +7,6 @@ class FleetVehicleModelType(models.Model):
     _inherit = "fleet.vehicle.model.type"
 
     category = fields.Selection(
-        string="Category",
         selection=[("head", "Head"), ("trailer", "Trailer"), ("other", "Other")],
         copy=False,
     )

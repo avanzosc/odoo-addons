@@ -17,14 +17,13 @@ class Saca(models.Model):
     def _default_name(self):
         today = fields.Date.today()
         today = today + timedelta(days=1)
-        today = "{}".format(today)
+        today = f"{today}"
         today = today.replace("-", "")
         today = today[2:]
         return today
 
-    name = fields.Char(string="Name", required=True, copy=False, default=_default_name)
+    name = fields.Char(required=True, copy=False, default=_default_name)
     date = fields.Date(
-        string="Date",
         default=_default_date,
     )
     saca_line_ids = fields.One2many(
@@ -49,7 +48,7 @@ class Saca(models.Model):
     @api.onchange("date")
     def onchange_date(self):
         if self.date:
-            name = "{}".format(self.date + timedelta(days=1))
+            name = f"{self.date + timedelta(days=1)}"
             name = name.replace("-", "")
             name = name[2:]
             self.name = name
@@ -59,7 +58,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id, "default_lot": self.name})
         return {
             "name": _("Saca Lines"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "saca.line",
             "domain": [("id", "in", self.saca_line_ids.ids)],
             "type": "ir.actions.act_window",
