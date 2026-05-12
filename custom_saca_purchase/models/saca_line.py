@@ -22,7 +22,7 @@ class SacaLine(models.Model):
         string="Purchase Order", comodel_name="purchase.order", copy=False
     )
     purchase_order_line_ids = fields.One2many(
-        string="Purchase Orden Line",
+        string="Purchase Order Line",
         comodel_name="purchase.order.line",
         inverse_name="saca_line_id",
         copy=False,
@@ -35,9 +35,8 @@ class SacaLine(models.Model):
     )
     product_id = fields.Many2one(string="Product", comodel_name="product.product")
     price_unit = fields.Float(
-        string="Price Unit",
-        related="purchase_order_line_ids.price_unit",
-        readonly=False,
+        compute="_compute_price_unit",
+        inverse="_inverse_price_unit",
         digits="Weight Decimal Precision",
     )
     purchase_ids = fields.One2many(
@@ -53,6 +52,16 @@ class SacaLine(models.Model):
         for saca in self:
             saca.count_purchases = len(saca.purchase_ids)
 
+    @api.depends("purchase_order_line_ids.price_unit")
+    def _compute_price_unit(self):
+        for line in self:
+            line.price_unit = line.purchase_order_line_ids[:1].price_unit or 0.0
+
+    def _inverse_price_unit(self):
+        for line in self:
+            for purchase_line in line.purchase_order_line_ids:
+                purchase_line.price_unit = line.price_unit
+
     def _compute_purchase_ids(self):
         for line in self:
             purchase = []
@@ -64,7 +73,7 @@ class SacaLine(models.Model):
         context = self.env.context.copy()
         return {
             "name": _("Purchase Order"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "purchase.order",
             "domain": [("id", "in", self.purchase_ids.ids)],
             "type": "ir.actions.act_window",
@@ -82,7 +91,13 @@ class SacaLine(models.Model):
         if self.product_id:
             for line in self.purchase_order_line_ids:
                 line.product_id = self.product_id.id
-                line.onchange_product_id()
+                onchange_method = getattr(line, "onchange_product_id", None)
+                if onchange_method:
+                    onchange_method()
+                else:
+                    onchange_method = getattr(line, "_onchange_product_id", None)
+                    if onchange_method:
+                        onchange_method()
 
     @api.onchange("breeding_id", "external_supplier")
     def onchange_breeding_id(self):
@@ -143,7 +158,13 @@ class SacaLine(models.Model):
                     "company_id": company.id,
                 }
             )
-            purchase_order.onchange_partner_id()
+            partner_onchange = getattr(purchase_order, "onchange_partner_id", None)
+            if partner_onchange:
+                partner_onchange()
+            else:
+                partner_onchange = getattr(purchase_order, "_onchange_partner_id", None)
+                if partner_onchange:
+                    partner_onchange()
             self.write(
                 {
                     "purchase_order_id": purchase_order.id,

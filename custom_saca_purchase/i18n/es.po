@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-30 10:18+0000\n"
-"PO-Revision-Date: 2022-11-30 10:18+0000\n"
+"POT-Creation-Date: 2026-05-12 13:05+0000\n"
+"PO-Revision-Date: 2026-05-12 13:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,11 +46,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: custom_saca_purchase
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_product_template__display_name
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order__display_name
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__display_name
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__display_name
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__display_name
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line_stage__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
@@ -81,11 +76,6 @@ msgid "Green"
 msgstr "Verde"
 
 #. module: custom_saca_purchase
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_product_template__id
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order__id
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__id
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__id
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__id
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line_stage__id
 msgid "ID"
 msgstr "Identificador"
@@ -95,16 +85,6 @@ msgstr "Identificador"
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_product_template__egg
 msgid "Incubator Egg"
 msgstr "Huevos para incubar"
-
-#. module: custom_saca_purchase
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_product_template____last_update
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order____last_update
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line____last_update
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca____last_update
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line____last_update
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line_stage____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: custom_saca_purchase
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line_stage__write_uid
@@ -138,14 +118,10 @@ msgid "Price Unit"
 msgstr "Precio unitario"
 
 #. module: custom_saca_purchase
+#: model:ir.model,name:custom_saca_purchase.model_product_template
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__product_id
 msgid "Product"
 msgstr "Producto"
-
-#. module: custom_saca_purchase
-#: model:ir.model,name:custom_saca_purchase.model_product_template
-msgid "Product Template (Multi-Company)"
-msgstr "Plantilla de producto"
 
 #. module: custom_saca_purchase
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_form_view
@@ -153,11 +129,7 @@ msgid "Purchase"
 msgstr "Pedido de compra"
 
 #. module: custom_saca_purchase
-#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_line_ids
-msgid "Purchase Orden Line"
-msgstr "Línea de compra"
-
-#. module: custom_saca_purchase
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca_line.py:0
 #: model:ir.model,name:custom_saca_purchase.model_purchase_order
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__purchase_order_ids
@@ -165,29 +137,27 @@ msgstr "Línea de compra"
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_id
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_form_view
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_view_search
-#, python-format
 msgid "Purchase Order"
 msgstr "Pedido de compra"
 
 #. module: custom_saca_purchase
 #: model:ir.model,name:custom_saca_purchase.model_purchase_order_line
+#: model:ir.model.fields,field_description:custom_saca_purchase.field_saca_line__purchase_order_line_ids
 msgid "Purchase Order Line"
 msgstr "Línea de pedido de compra"
 
 #. module: custom_saca_purchase
-#: code:addons/custom_saca_purchase/models/saca.py:0
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca.py:0
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_saca__purchase_order_line_ids
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_form_view
-#, python-format
 msgid "Purchase Order Lines"
 msgstr "Líneas de compra"
 
 #. module: custom_saca_purchase
-#: code:addons/custom_saca_purchase/models/saca.py:0
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca.py:0
 #: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_form_view
-#, python-format
 msgid "Purchase Orders"
 msgstr "Órdenes de compra"
 
@@ -210,6 +180,7 @@ msgstr "Rojo"
 #: model:ir.model,name:custom_saca_purchase.model_saca
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order__saca_id
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__saca_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.purchase_order_view_search
 msgid "Saca"
 msgstr ""
 
@@ -217,6 +188,7 @@ msgstr ""
 #: model:ir.model,name:custom_saca_purchase.model_saca_line
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order__saca_line_id
 #: model:ir.model.fields,field_description:custom_saca_purchase.field_purchase_order_line__saca_line_id
+#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.purchase_order_view_search
 msgid "Saca Line"
 msgstr "Línea de saca"
 
@@ -224,7 +196,6 @@ msgstr "Línea de saca"
 #: model:ir.actions.act_window,name:custom_saca_purchase.action_saca_line_stage_view
 #: model:ir.model,name:custom_saca_purchase.model_saca_line_stage
 #: model:ir.ui.menu,name:custom_saca_purchase.menu_view_saca_line_stage
-#: model_terms:ir.ui.view,arch_db:custom_saca_purchase.saca_line_stage_tree_view
 msgid "Saca Line Stage"
 msgstr "Etapa de línes se saca"
 
@@ -250,23 +221,21 @@ msgid "Yellow"
 msgstr "Amarillo"
 
 #. module: custom_saca_purchase
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca_line.py:0
-#, python-format
 msgid ""
 "You cannot create a purchase from a supplier whose company is owned by your "
 "company"
-msgstr "No puede crear una compra a un proveedor cuya empresa sea la suya."
+msgstr ""
 
 #. module: custom_saca_purchase
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca_line.py:0
-#: code:addons/custom_saca_purchase/models/saca_line.py:0
-#, python-format
 msgid "You must introduce a product."
-msgstr "Debe introducir un producto."
+msgstr ""
 
 #. module: custom_saca_purchase
+#. odoo-python
 #: code:addons/custom_saca_purchase/models/saca_line.py:0
-#: code:addons/custom_saca_purchase/models/saca_line.py:0
-#, python-format
 msgid "You must introduce a supplier."
-msgstr "Debe introducir un proveedor"
+msgstr ""

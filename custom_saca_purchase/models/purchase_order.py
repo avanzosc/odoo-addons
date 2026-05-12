@@ -19,8 +19,6 @@ class PurchaseOrder(models.Model):
             for m in picking.move_ids_without_package:
                 if m.purchase_line_id:
                     m.standard_price = m.purchase_line_id.price_unit
-                    m.onchange_standard_price()
                 for ml in m.move_line_ids:
                     ml.standard_price = m.purchase_line_id.price_unit
-                    ml.onchange_standard_price()
         return result

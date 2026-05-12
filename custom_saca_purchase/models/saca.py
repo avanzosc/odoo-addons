@@ -34,7 +34,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Purchase Order Lines"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "purchase.order.line",
             "domain": [("id", "in", self.purchase_order_line_ids.ids)],
             "type": "ir.actions.act_window",
@@ -46,7 +46,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Purchase Orders"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "purchase.order",
             "domain": [("id", "in", self.purchase_order_ids.ids)],
             "type": "ir.actions.act_window",

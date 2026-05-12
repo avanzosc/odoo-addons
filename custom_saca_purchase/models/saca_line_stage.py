@@ -9,7 +9,7 @@ class SacaLineStage(models.Model):
     _order = "sequence"
 
     name = fields.Char(string="Stage")
-    sequence = fields.Integer(string="Sequence", copy=False)
+    sequence = fields.Integer(copy=False)
     color_name = fields.Selection(
         string="Color",
         selection=[

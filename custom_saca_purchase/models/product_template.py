@@ -6,5 +6,5 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    live_chicken = fields.Boolean(string="Live Chicken", default=False)
+    live_chicken = fields.Boolean(default=False)
     egg = fields.Boolean(string="Incubator Egg", default=False)

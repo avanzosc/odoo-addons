@@ -31,7 +31,14 @@ class PurchaseOrderLine(models.Model):
 
     @api.onchange("product_id")
     def onchange_product_id(self):
-        result = super().onchange_product_id()
+        result = {}
+        parent_onchange = getattr(super(), "onchange_product_id", None)
+        if parent_onchange:
+            result = parent_onchange()
+        else:
+            parent_onchange = getattr(super(), "_onchange_product_id", None)
+            if parent_onchange:
+                result = parent_onchange()
         if self.saca_line_id and self.saca_line_id.estimate_burden:
             self.product_qty = self.saca_line_id.estimate_burden * (
                 self.saca_line_id.estimate_weight
