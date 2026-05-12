@@ -12,9 +12,9 @@
           icon="fa-external-link"
           class="oe_edit_only"
         />
-        <field name="date" />
-        <field name="partner_id" />
-        <field name="company_id" />
+        <field name="date" optional="show" />
+        <field name="partner_id" optional="show" />
+        <field name="company_id" optional="hide" />
         <field name="financing_id" optional="show" />
         <field name="category_id" optional="show" />
         <field name="parent_category_id" optional="show" />
@@ -23,20 +23,31 @@
           domain="[('account_type', '=', account_type_filter)]"
           optional="show"
         />
-        <field name="product_id" />
-        <field name="name" />
-        <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
-        <field name="expense" sum="Total Expense" decoration-danger="expense &gt; 0" />
+        <field name="product_id" optional="show" />
+        <field name="name" optional="show" />
+        <field
+          name="income"
+          sum="Total Income"
+          decoration-success="income &gt; 0"
+          optional="show"
+        />
+        <field
+          name="expense"
+          sum="Total Expense"
+          decoration-danger="expense &gt; 0"
+          optional="show"
+        />
         <field
           name="balance"
           sum="Total Balance"
           decoration-success="balance &gt; 0"
           decoration-danger="balance &lt; 0"
+          optional="show"
         />
-        <field name="journal_id" />
-        <field name="recurrence_months" />
-        <field name="active" string="Active" />
-        <field name="currency_id" />
+        <field name="journal_id" optional="show" />
+        <field name="recurrence_months" optional="show" />
+        <field name="active" string="Active" optional="show" />
+        <field name="currency_id" optional="show" />
       </list>
     </field>
   </record>
