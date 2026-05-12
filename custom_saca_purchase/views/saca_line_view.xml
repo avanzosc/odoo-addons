@@ -13,7 +13,7 @@
           type="object"
           string="Next Stage"
           class="oe_highlight"
-          attrs="{'invisible': [('purchase_order_id','!=',False)]}"
+          invisible="purchase_order_id"
         />
             </header>
             <div name="button_box" position="inside">
@@ -43,10 +43,10 @@
             name="purchase_order_line_ids"
             options="{'create': false}"
             nolabel="1"
-            context="{'default_order_id':purchase_order_id, 'default_saca_line_id':active_id}"
-            attrs="{'invisible': [('purchase_order_id','=',False)]}"
+            context="{'default_order_id': purchase_order_id}"
+            invisible="not purchase_order_id"
           >
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <field name="product_uom_category_id" invisible="1" />
                             <field name="order_id" />
                             <field
@@ -71,7 +71,7 @@
                 decoration-warning="state == 'to approve'"
                 decoration-info="state == 'draft' or state == 'sent'"
               />
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </page>
@@ -110,8 +110,8 @@
 
     <record id="action_create_purchase" model="ir.actions.server">
         <field name="name">From Presaca to Saca</field>
-        <field name="model_id" ref="custom_saca_purchase.model_saca_line" />
-        <field name="binding_model_id" ref="custom_saca_purchase.model_saca_line" />
+        <field name="model_id" ref="custom_saca.model_saca_line" />
+        <field name="binding_model_id" ref="custom_saca.model_saca_line" />
         <field name="state">code</field>
         <field name="code">
             for record in records:

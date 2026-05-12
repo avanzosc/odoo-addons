@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Saca Purchase",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Purchase",
@@ -11,7 +11,6 @@
         "purchase",
         "purchase_stock",
         "stock_move_line_cost",
-        "account_payment_partner",
     ],
     "data": [
         "data/saca_line_stage.xml",
