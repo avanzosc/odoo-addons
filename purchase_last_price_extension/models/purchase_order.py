@@ -34,6 +34,7 @@ class PurchaseOrderLine(models.Model):
         string='Category',
         comodel_name='product.category',
         related='product_id.categ_id',
+        store=True,
         readonly=True,
     )
 
