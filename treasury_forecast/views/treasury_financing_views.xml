@@ -111,7 +111,7 @@
   </record>
   <menuitem
     id="menu_treasury_financing"
-    name="Financiación"
+    name="Financing"
     parent="menu_treasury_forecast_root"
     action="action_treasury_financing"
     sequence="3"
@@ -151,55 +151,55 @@ action = records.action_open_generate_lines_wizard()
         <separator />
 
         <filter
-          string="Clientes"
+          string="Partner"
           name="filter_customers"
           domain="[('partner_id','!=',False)]"
         />
         <filter
-          string="Diarios"
+          string="Journal"
           name="filter_journal"
           domain="[('journal_id','!=',False)]"
         />
 
         <filter
-          string="Categoría"
+          string="Category"
           name="filter_category"
           domain="[('category_id','!=',False)]"
         />
         <filter
-          string="Categoría padre"
+          string="Parent category"
           name="filter_parent_category"
           domain="[('parent_category_id','!=',False)]"
         />
         <filter
-          string="Tipo de categoría"
+          string="Category type"
           name="filter_category_type"
           domain="[('category_type','!=',False)]"
         />
 
         <filter
-          string="Productos"
+          string="Product"
           name="filter_product"
           domain="[('base_product_id','!=',False)]"
         />
         <filter
-          string="Productos interés"
+          string="Interest product"
           name="filter_interest_product"
           domain="[('interest_product_id','!=',False)]"
         />
 
         <filter
-          string="Fecha contrato"
+          string="Contract date"
           name="filter_contract_date"
           domain="[('contract_date','!=',False)]"
         />
         <filter
-          string="Fecha inicio"
+          string="Start date"
           name="filter_start_date"
           domain="[('start_date','!=',False)]"
         />
         <filter
-          string="Fecha fin"
+          string="End date"
           name="filter_end_date"
           domain="[('end_date','!=',False)]"
         />
@@ -208,56 +208,56 @@ action = records.action_open_generate_lines_wizard()
 
         <group expand="0" string="Group By">
           <filter
-            string="Cliente"
+            string="Partner"
             name="group_partner"
             context="{'group_by':'partner_id'}"
           />
           <filter
-            string="Diario"
+            string="Journal"
             name="group_journal"
             context="{'group_by':'journal_id'}"
           />
 
           <filter
-            string="Categoría"
+            string="Category"
             name="group_category"
             context="{'group_by':'category_id'}"
           />
           <filter
-            string="Categoría Padre"
+            string="Parent category"
             name="group_parent_category"
             context="{'group_by':'parent_category_id'}"
           />
 
           <filter
-            string="Tipo categoría"
+            string="Category type"
             name="group_category_type"
             context="{'group_by':'category_type'}"
           />
 
           <filter
-            string="Producto base"
+            string="Product"
             name="group_base_product"
             context="{'group_by':'base_product_id'}"
           />
           <filter
-            string="Producto interés"
+            string="Interest product"
             name="group_interest_product"
             context="{'group_by':'interest_product_id'}"
           />
 
           <filter
-            string="Fecha contrato"
+            string="Contract date"
             name="group_contract_date"
             context="{'group_by':'contract_date'}"
           />
           <filter
-            string="Fecha inicio"
+            string="Start date"
             name="group_start_date"
             context="{'group_by':'start_date'}"
           />
           <filter
-            string="Fecha fin"
+            string="End date"
             name="group_end_date"
             context="{'group_by':'end_date'}"
           />

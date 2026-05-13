@@ -58,7 +58,7 @@ class TreasuryForecast(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="Categoría",
+        string="Category",
     )
 
     parent_category_id = fields.Many2one(
@@ -71,7 +71,7 @@ class TreasuryForecast(models.Model):
 
     account_id = fields.Many2one(
         "account.account",
-        string="Cuenta contable",
+        string="Account",
     )
 
     account_type_filter = fields.Char(
@@ -141,7 +141,7 @@ class TreasuryForecast(models.Model):
     def action_open_form(self):
         self.ensure_one()
         return {
-            "name": "Previsión de Tesorería",
+            "name": "Treasury forecast",
             "type": "ir.actions.act_window",
             "res_model": "treasury.forecast",
             "res_id": self.id,
