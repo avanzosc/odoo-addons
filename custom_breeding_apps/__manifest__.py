@@ -28,6 +28,7 @@
         "stock_production_lot_purchase_cost",
         "stock_move_line_force_done",
         "custom_sale_order_type_route",
+        "category_type_monthly_closing_date",
     ],
     "data": [
         "security/ir.model.access.csv",
