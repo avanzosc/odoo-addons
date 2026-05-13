@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 09:53+0000\n"
-"PO-Revision-Date: 2026-02-10 09:53+0000\n"
+"POT-Creation-Date: 2026-05-11 07:11+0000\n"
+"PO-Revision-Date: 2026-05-11 07:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,35 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: quality_control_reference_value
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings__quality_base_tolerance
+msgid "Base Tolerance"
+msgstr "Tolerancia base"
+
+#. module: quality_control_reference_value
+#: model:ir.model,name:quality_control_reference_value.model_res_config_settings
+msgid "Config Settings"
+msgstr "res.config.settings"
+
+#. module: quality_control_reference_value
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings__quality_default_type
+msgid "Default Type"
+msgstr "Tipo por defecto"
+
+#. module: quality_control_reference_value
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings__quality_default_uom_id
+msgid "Default Unit"
+msgstr "Unidad por defecto"
+
+#. module: quality_control_reference_value
+#: model_terms:ir.ui.view,arch_db:quality_control_reference_value.res_config_settings_view_form
+msgid "Default unit for quantitative tests"
+msgstr "Unidad por defecto para los test cuantitativos"
+
+#. module: quality_control_reference_value
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection__display_name
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection_line__display_name
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_test_question__display_name
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -26,6 +52,7 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection__id
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection_line__id
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_test_question__id
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings__id
 msgid "ID"
 msgstr ""
 
@@ -33,8 +60,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection____last_update
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection_line____last_update
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_test_question____last_update
+#: model:ir.model.fields,field_description:quality_control_reference_value.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "Última modificación el"
+
+#. module: quality_control_reference_value
+#: model:ir.model.fields.selection,name:quality_control_reference_value.selection__res_config_settings__quality_default_type__qualitative
+msgid "Qualitative"
+msgstr "Cualitativo"
+
+#. module: quality_control_reference_value
+#: model_terms:ir.ui.view,arch_db:quality_control_reference_value.res_config_settings_view_form
+msgid "Quality Control"
+msgstr "Control de calidad"
 
 #. module: quality_control_reference_value
 #: model:ir.model,name:quality_control_reference_value.model_qc_inspection
@@ -50,6 +88,11 @@ msgstr "Línea de inspección del control de calidad"
 #: model:ir.model,name:quality_control_reference_value.model_qc_test_question
 msgid "Quality control question"
 msgstr "Pregunta del control de calidad"
+
+#. module: quality_control_reference_value
+#: model:ir.model.fields.selection,name:quality_control_reference_value.selection__res_config_settings__quality_default_type__quantitative
+msgid "Quantitative"
+msgstr "Cuantitativo"
 
 #. module: quality_control_reference_value
 #: model:ir.model.fields,field_description:quality_control_reference_value.field_qc_inspection_line__reference
