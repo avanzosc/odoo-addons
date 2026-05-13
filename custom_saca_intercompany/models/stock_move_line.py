@@ -15,3 +15,4 @@ class SaleMoveLine(models.Model):
         related="move_id.saca_line_id",
         store=True,
     )
+    tolvasa = fields.Boolean(string="Tolvasa", related="company_id.tolvasa", store=True)

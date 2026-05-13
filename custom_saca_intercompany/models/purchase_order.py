@@ -6,9 +6,7 @@ from odoo import api, fields, models
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    total_qty = fields.Float(
-        string="Total Qty", compute="_compute_total_qty", store=True
-    )
+    total_qty = fields.Float(compute="_compute_total_qty", store=True)
 
     @api.depends("order_line", "order_line.qty_received")
     def _compute_total_qty(self):

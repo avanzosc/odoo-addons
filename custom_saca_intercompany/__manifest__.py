@@ -3,7 +3,7 @@
 
 {
     "name": "Custom Saca Intercompany",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -17,6 +17,7 @@
         "sale_order_line_qty_by_packaging",
         "product_packaging_palet",
         "stock_move_qty_by_packaging",
+        "stock_picking_usability",
     ],
     "data": [
         "views/saca_view.xml",

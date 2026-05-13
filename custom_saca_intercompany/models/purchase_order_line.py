@@ -23,9 +23,7 @@ class PurchaseOrderLine(models.Model):
                 if line.saca_line_id and line.saca_line_id.stock_move_ids:
                     for move in line.saca_line_id.stock_move_ids:
                         move.standard_price = values["price_unit"]
-                        move.onchange_standard_price()
                 if line.saca_line_id and line.saca_line_id.move_line_ids:
                     for move_line in line.saca_line_id.move_line_ids:
                         move_line.standard_price = values["price_unit"]
-                        move_line.onchange_standard_price()
         return result

@@ -5,7 +5,6 @@ from odoo import api, fields, models
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
-
     saca_line_id = fields.Many2one(
         string="Saca Line",
         comodel_name="saca.line",
@@ -60,12 +59,12 @@ class StockPicking(models.Model):
                         lambda c: (c.lot_id)
                     ):
                         if not purchase_picking.move_line_ids_without_package.filtered(
-                            lambda c: c.product_id == line.product_id
+                            lambda c, line=line: c.product_id == line.product_id
                             and c.lot_id == line.lot_id
                         ):
                             purchase_line = (
                                 purchase_picking.move_line_ids_without_package.filtered(
-                                    lambda c: c.product_id == line.product_id
+                                    lambda c, line=line: c.product_id == line.product_id
                                     and not c.lot_id
                                 )
                             )
@@ -91,7 +90,7 @@ class StockPicking(models.Model):
                                     )
                                 )
                             lot = (
-                                self.env["stock.production.lot"]
+                                self.env["stock.lot"]
                                 .sudo()
                                 .search(
                                     [
@@ -108,7 +107,7 @@ class StockPicking(models.Model):
                             )
                             if not lot:
                                 lot = (
-                                    self.env["stock.production.lot"]
+                                    self.env["stock.lot"]
                                     .sudo()
                                     .create(
                                         {

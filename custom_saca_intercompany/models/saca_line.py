@@ -36,11 +36,11 @@ class SacaLine(models.Model):
 
     def _compute_count_sale(self):
         for line in self:
-            self.count_sale = len(line.sale_ids)
+            line.count_sale = len(line.sale_ids)
 
     def _compute_count_picking(self):
         for line in self:
-            self.count_picking = len(line.picking_ids)
+            line.count_picking = len(line.picking_ids)
 
     def _compute_sale_ids(self):
         for line in self:
@@ -61,7 +61,7 @@ class SacaLine(models.Model):
         context = self.env.context.copy()
         return {
             "name": _("Pickings"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.picking",
             "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
@@ -72,7 +72,7 @@ class SacaLine(models.Model):
         context = self.env.context.copy()
         return {
             "name": _("Sale Order"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "sale.order",
             "domain": [("id", "in", self.sale_ids.ids)],
             "type": "ir.actions.act_window",

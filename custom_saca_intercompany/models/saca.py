@@ -70,7 +70,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Sale Order Lines"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "sale.order.line",
             "domain": [("id", "in", self.sale_order_line_ids.ids)],
             "type": "ir.actions.act_window",
@@ -82,7 +82,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Sale Orders"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "sale.order",
             "domain": [("id", "in", self.sale_order_ids.ids)],
             "type": "ir.actions.act_window",
@@ -94,7 +94,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Pickings"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.picking",
             "domain": [("id", "in", self.picking_ids.ids)],
             "type": "ir.actions.act_window",
@@ -106,7 +106,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Stock Moves"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.move",
             "domain": [("id", "in", self.stock_move_ids.ids)],
             "type": "ir.actions.act_window",
@@ -118,7 +118,7 @@ class Saca(models.Model):
         context.update({"default_saca_id": self.id})
         return {
             "name": _("Move Lines"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.move.line",
             "domain": [("id", "in", self.move_line_ids.ids)],
             "type": "ir.actions.act_window",

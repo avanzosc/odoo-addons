@@ -30,4 +30,4 @@ class SaleOrderLine(models.Model):
         related="auto_purchase_line_id.farmer_id",
         store=True,
     )
-    surplus = fields.Boolean(string="Surplus", default=False)
+    surplus = fields.Boolean(default=False)

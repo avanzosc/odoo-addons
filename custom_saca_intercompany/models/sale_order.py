@@ -7,7 +7,7 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     saca_id = fields.Many2one(
-        string="Saca", comodel_name="saca", related="saca_line_id.saca_id", store="True"
+        string="Saca", comodel_name="saca", related="saca_line_id.saca_id", store=True
     )
     saca_line_id = fields.Many2one(string="Saca Line", comodel_name="saca.line")
     paasa = fields.Boolean(string="PAASA", related="company_id.paasa", store=True)
