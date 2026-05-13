@@ -129,4 +129,140 @@
 action = records.action_open_generate_lines_wizard()
     </field>
   </record>
+
+  <record id="view_treasury_financing_search" model="ir.ui.view">
+    <field name="name">treasury.financing.search</field>
+    <field name="model">treasury.financing</field>
+    <field name="arch" type="xml">
+      <search string="Financing">
+        <field name="code" />
+        <field name="name" />
+        <field name="partner_id" />
+        <field name="journal_id" />
+        <field name="category_id" />
+        <field name="parent_category_id" />
+        <field name="category_type" />
+        <field name="base_product_id" />
+        <field name="interest_product_id" />
+        <field name="contract_date" />
+        <field name="start_date" />
+        <field name="end_date" />
+        <field name="last_forecast_date" />
+        <separator />
+
+        <filter
+          string="Clientes"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Diarios"
+          name="filter_journal"
+          domain="[('journal_id','!=',False)]"
+        />
+
+        <filter
+          string="Categoría"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Categoría padre"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
+        <filter
+          string="Tipo de categoría"
+          name="filter_category_type"
+          domain="[('category_type','!=',False)]"
+        />
+
+        <filter
+          string="Productos"
+          name="filter_product"
+          domain="[('base_product_id','!=',False)]"
+        />
+        <filter
+          string="Productos interés"
+          name="filter_interest_product"
+          domain="[('interest_product_id','!=',False)]"
+        />
+
+        <filter
+          string="Fecha contrato"
+          name="filter_contract_date"
+          domain="[('contract_date','!=',False)]"
+        />
+        <filter
+          string="Fecha inicio"
+          name="filter_start_date"
+          domain="[('start_date','!=',False)]"
+        />
+        <filter
+          string="Fecha fin"
+          name="filter_end_date"
+          domain="[('end_date','!=',False)]"
+        />
+
+        <separator />
+
+        <group expand="0" string="Group By">
+          <filter
+            string="Cliente"
+            name="group_partner"
+            context="{'group_by':'partner_id'}"
+          />
+          <filter
+            string="Diario"
+            name="group_journal"
+            context="{'group_by':'journal_id'}"
+          />
+
+          <filter
+            string="Categoría"
+            name="group_category"
+            context="{'group_by':'category_id'}"
+          />
+          <filter
+            string="Categoría Padre"
+            name="group_parent_category"
+            context="{'group_by':'parent_category_id'}"
+          />
+
+          <filter
+            string="Tipo categoría"
+            name="group_category_type"
+            context="{'group_by':'category_type'}"
+          />
+
+          <filter
+            string="Producto base"
+            name="group_base_product"
+            context="{'group_by':'base_product_id'}"
+          />
+          <filter
+            string="Producto interés"
+            name="group_interest_product"
+            context="{'group_by':'interest_product_id'}"
+          />
+
+          <filter
+            string="Fecha contrato"
+            name="group_contract_date"
+            context="{'group_by':'contract_date'}"
+          />
+          <filter
+            string="Fecha inicio"
+            name="group_start_date"
+            context="{'group_by':'start_date'}"
+          />
+          <filter
+            string="Fecha fin"
+            name="group_end_date"
+            context="{'group_by':'end_date'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
 </odoo>
