@@ -22,6 +22,7 @@
         "views/treasury_financing_category_views.xml",
         "views/treasury_financing_views.xml",
         "views/account_move_views.xml",
+        "views/account_move_line_views.xml",
         "data/treasury_financing_category_data.xml",
     ],
     "post_init_hook": "create_treasury_forecast_view",

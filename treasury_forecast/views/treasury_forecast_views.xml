@@ -8,13 +8,12 @@
         <button
           name="action_open_form"
           type="object"
-          string="Abrir"
           icon="fa-external-link"
           class="oe_edit_only"
         />
-        <field name="date" />
-        <field name="partner_id" />
-        <field name="company_id" />
+        <field name="date" optional="show" />
+        <field name="partner_id" optional="show" />
+        <field name="company_id" optional="hide" />
         <field name="financing_id" optional="show" />
         <field name="category_id" optional="show" />
         <field name="parent_category_id" optional="show" />
@@ -23,20 +22,31 @@
           domain="[('account_type', '=', account_type_filter)]"
           optional="show"
         />
-        <field name="product_id" />
-        <field name="name" />
-        <field name="income" sum="Total Income" decoration-success="income &gt; 0" />
-        <field name="expense" sum="Total Expense" decoration-danger="expense &gt; 0" />
+        <field name="product_id" optional="show" />
+        <field name="name" optional="show" />
+        <field
+          name="income"
+          sum="Total Income"
+          decoration-success="income &gt; 0"
+          optional="show"
+        />
+        <field
+          name="expense"
+          sum="Total Expense"
+          decoration-danger="expense &gt; 0"
+          optional="show"
+        />
         <field
           name="balance"
           sum="Total Balance"
           decoration-success="balance &gt; 0"
           decoration-danger="balance &lt; 0"
+          optional="show"
         />
-        <field name="journal_id" />
-        <field name="recurrence_months" />
-        <field name="active" string="Active" />
-        <field name="currency_id" />
+        <field name="journal_id" optional="show" />
+        <field name="recurrence_months" optional="show" />
+        <field name="active" string="Active" optional="show" />
+        <field name="currency_id" optional="show" />
       </list>
     </field>
   </record>
@@ -84,6 +94,7 @@
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
+        <field name="product_category_id" />
         <field name="journal_id" />
         <field name="estimated_journal_id" />
         <field name="source" />
@@ -91,10 +102,10 @@
         <field name="financing_id" />
         <separator />
 
-        <filter string="Ingresos" name="filter_income" domain="[('debit','&gt;',0)]" />
-        <filter string="Gastos" name="filter_expense" domain="[('credit','&gt;',0)]" />
+        <filter string="Income" name="filter_income" domain="[('debit','&gt;',0)]" />
+        <filter string="Expense" name="filter_expense" domain="[('credit','&gt;',0)]" />
         <filter
-          string="Previsión"
+          string="Forecast"
           name="filter_forecast"
           domain="[('source','=','forecast')]"
         />
@@ -104,32 +115,37 @@
           domain="[('source','=','move_line')]"
         />
         <filter
-          string="Clientes"
+          string="Partner"
           name="filter_customers"
           domain="[('partner_id','!=',False)]"
         />
         <filter
-          string="Productos"
+          string="Product"
           name="filter_products"
           domain="[('product_id','!=',False)]"
         />
         <filter
-          string="Diarios"
+          string="Product category"
+          name="filter_category_products"
+          domain="[('product_category_id','!=',False)]"
+        />
+        <filter
+          string="Journal"
           name="filter_journals"
           domain="[('journal_id','!=',False)]"
         />
         <filter
-          string="Diarios estimados"
+          string="Estimated journal"
           name="filter_estimated_journals"
           domain="[('estimated_journal_id','!=',False)]"
         />
         <filter
-          string="Categoría"
+          string="Category"
           name="filter_category"
           domain="[('category_id','!=',False)]"
         />
         <filter
-          string="Categoría Padre"
+          string="Parent category"
           name="filter_parent_category"
           domain="[('parent_category_id','!=',False)]"
         />
@@ -150,6 +166,11 @@
             context="{'group_by': 'product_id'}"
           />
           <filter
+            string="Product category"
+            name="group_product_category"
+            context="{'group_by': 'product_category_id'}"
+          />
+          <filter
             string="Journal"
             name="group_journal"
             context="{'group_by': 'journal_id'}"
@@ -160,17 +181,17 @@
             context="{'group_by': 'estimated_journal_id'}"
           />
           <filter
-            string="Origen"
+            string="Origin"
             name="group_source"
             context="{'group_by': 'source'}"
           />
           <filter
-            string="Categoría"
+            string="Category"
             name="group_category"
             context="{'group_by': 'category_id'}"
           />
           <filter
-            string="Categoría Padre"
+            string="Parent category"
             name="group_parent_category"
             context="{'group_by': 'parent_category_id'}"
           />
@@ -183,10 +204,11 @@
     <field name="name">treasury.forecast.search</field>
     <field name="model">treasury.forecast</field>
     <field name="arch" type="xml">
-      <search string="Previsión de Tesorería">
+      <search string="Tresury forecast">
         <field name="date" />
         <field name="partner_id" />
         <field name="product_id" />
+        <field name="product_category_id" />
         <field name="journal_id" />
         <field name="estimated_journal_id" />
         <field name="financing_id" />
@@ -198,46 +220,55 @@
 
         <separator />
 
-        <filter string="Ingresos" name="filter_income" domain="[('income','&gt;',0)]" />
-        <filter string="Gastos" name="filter_expense" domain="[('expense','&gt;',0)]" />
-        <filter string="Activas" name="filter_active" domain="[('active','=',True)]" />
+        <filter string="Income" name="filter_income" domain="[('income','&gt;',0)]" />
         <filter
-          string="No Activas"
+          string="Expense"
+          name="filter_expense"
+          domain="[('expense','&gt;',0)]"
+        />
+        <filter string="Active" name="filter_active" domain="[('active','=',True)]" />
+        <filter
+          string="Inactive"
           name="filter_inactive"
           domain="[('active','=',False)]"
         />
         <filter
-          string="Clientes"
+          string="Partner"
           name="filter_customers"
           domain="[('partner_id','!=',False)]"
         />
         <filter
-          string="Productos"
+          string="Product"
           name="filter_products"
           domain="[('product_id','!=',False)]"
         />
         <filter
-          string="Diarios"
+          string="Product category"
+          name="filter_products_category"
+          domain="[('product_category_id','!=',False)]"
+        />
+        <filter
+          string="Journal"
           name="filter_journals"
           domain="[('journal_id','!=',False)]"
         />
         <filter
-          string="Diarios estimados"
+          string="Estimated journal"
           name="filter_estimated_journals"
           domain="[('estimated_journal_id','!=',False)]"
         />
         <filter
-          string="Categoría"
+          string="Category"
           name="filter_category"
           domain="[('category_id','!=',False)]"
         />
         <filter
-          string="Categoría Padre"
+          string="Parent category"
           name="filter_parent_category"
           domain="[('parent_category_id','!=',False)]"
         />
         <filter
-          string="Cuenta Contable"
+          string="Account"
           name="filter_account"
           domain="[('account_id','!=',False)]"
         />
@@ -258,6 +289,12 @@
             context="{'group_by': 'product_id'}"
           />
           <filter
+            string="Product category"
+            name="group_product_category"
+            context="{'group_by': 'product_category_id'}"
+          />
+
+          <filter
             string="Journal"
             name="group_journal"
             context="{'group_by': 'journal_id'}"
@@ -268,22 +305,22 @@
             context="{'group_by': 'estimated_journal_id'}"
           />
           <filter
-            string="Financiación"
+            string="Financing"
             name="group_financing"
             context="{'group_by': 'financing_id'}"
           />
           <filter
-            string="Categoría"
+            string="Category"
             name="group_category"
             context="{'group_by': 'category_id'}"
           />
           <filter
-            string="Categoría Padre"
+            string="Parent category"
             name="group_parent_category"
             context="{'group_by': 'parent_category_id'}"
           />
           <filter
-            string="Cuenta Contable"
+            string="Account"
             name="group_account"
             context="{'group_by': 'account_id'}"
           />
@@ -296,7 +333,7 @@
     <field name="name">treasury.forecast.report.pivot</field>
     <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
-      <pivot string="Previsión de tesorería + Real">
+      <pivot string="Tresury forecast + Real">
         <field name="credit" type="measure" operator="sum" />
         <field name="debit" type="measure" operator="sum" />
         <field name="balance" type="measure" operator="sum" />
@@ -312,7 +349,7 @@
     <field name="name">treasury.forecast.pivot</field>
     <field name="model">treasury.forecast</field>
     <field name="arch" type="xml">
-      <pivot string="Previsión de Tesorería">
+      <pivot string="Tresury forecast">
         <field name="income" type="measure" operator="sum" />
         <field name="expense" type="measure" operator="sum" />
         <field name="balance" type="measure" operator="sum" />
