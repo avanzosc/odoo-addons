@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-21 10:54+0000\n"
-"PO-Revision-Date: 2023-11-21 10:54+0000\n"
+"POT-Creation-Date: 2026-05-14 11:49+0000\n"
+"PO-Revision-Date: 2026-05-14 11:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,40 +17,21 @@ msgstr ""
 
 #. module: stock_inventory_at_date
 #: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory__accounting_date
-msgid "Date"
-msgstr ""
-
-#. module: stock_inventory_at_date
-#: model:ir.model.fields,help:stock_inventory_at_date.field_stock_inventory__accounting_date
-msgid ""
-"Date at which the accounting entries will be created in case of automated "
-"inventory valuation. If empty, the inventory date will be used."
-msgstr ""
-
-#. module: stock_inventory_at_date
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory__display_name
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory_line__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: stock_inventory_at_date
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory__id
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory_line__id
-msgid "ID"
+msgid "Accounting Date"
 msgstr ""
 
 #. module: stock_inventory_at_date
 #: model:ir.model,name:stock_inventory_at_date.model_stock_inventory
-msgid "Inventory"
+msgid "Inventory Adjustment Group"
 msgstr ""
 
 #. module: stock_inventory_at_date
-#: model:ir.model,name:stock_inventory_at_date.model_stock_inventory_line
-msgid "Inventory Line"
+#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_quant__inventory_at_date_qty
+#: model_terms:ir.ui.view,arch_db:stock_inventory_at_date.view_stock_quant_tree_inventory_editable_at_date
+msgid "Qty at Inventory Date"
 msgstr ""
 
 #. module: stock_inventory_at_date
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory____last_update
-#: model:ir.model.fields,field_description:stock_inventory_at_date.field_stock_inventory_line____last_update
-msgid "Last Modified on"
+#: model:ir.model,name:stock_inventory_at_date.model_stock_quant
+msgid "Quants"
 msgstr ""
