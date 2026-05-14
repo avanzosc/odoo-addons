@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="extended_contact" inherit_id="base.contact" priority="999">
+    <div t-if="vat and 'vat' in fields" position="before">
+      <div t-if="eori and 'eori' in fields">
+        <span>EORI: </span>
+        <span itemprop="eoriID" t-esc="eori" />
+      </div>
+    </div>
+  </template>
+</odoo>
