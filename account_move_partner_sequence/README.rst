@@ -6,7 +6,8 @@
 Account Move Partner Sequence
 =============================
 
-In supplier invoices, if the supplier has a sequence assigned to him, the next corresponding sequence will be written in the invoice reference field when confirming it.
+* New field in contacts to assign the invoice sequence.
+* In supplier invoices, a button to assign the next corresponding sequence of the contact to the invoice reference.
 
 ===========
 
