@@ -1,7 +1,8 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
 from datetime import date as date_type
+
+from odoo import fields, models
 
 
 class StockInventory(models.Model):
@@ -13,13 +14,14 @@ class StockInventory(models.Model):
         result = super().action_view_inventory_adjustment()
         result.setdefault("context", {})
         is_at_date = bool(
-            self.accounting_date
-            and self.accounting_date.date() < date_type.today()
+            self.accounting_date and self.accounting_date.date() < date_type.today()
         )
-        result["context"].update({
-            "inventory_date": self.accounting_date,
-            "inventory_is_at_date": is_at_date,
-        })
+        result["context"].update(
+            {
+                "inventory_date": self.accounting_date,
+                "inventory_is_at_date": is_at_date,
+            }
+        )
         return result
 
     def action_state_to_in_progress(self):
@@ -34,10 +36,12 @@ class StockInventory(models.Model):
             qty_map = rec._get_qty_at_date_batch(quants)
             for quant in quants:
                 qty = qty_map.get(quant.id, 0.0)
-                quant.write({
-                    "inventory_at_date_qty": qty,
-                    "inventory_quantity": qty,
-                })
+                quant.write(
+                    {
+                        "inventory_at_date_qty": qty,
+                        "inventory_quantity": qty,
+                    }
+                )
         return result
 
     def _get_qty_at_date_batch(self, quants):
@@ -59,11 +63,21 @@ class StockInventory(models.Model):
         domain_in = domain_base + [("location_dest_id", "in", location_ids)]
         domain_out = domain_base + [("location_id", "in", location_ids)]
 
-        groupby_in = ["product_id", "location_dest_id", "lot_id", "owner_id", "result_package_id"]
+        groupby_in = [
+            "product_id",
+            "location_dest_id",
+            "lot_id",
+            "owner_id",
+            "result_package_id",
+        ]
         groupby_out = ["product_id", "location_id", "lot_id", "owner_id", "package_id"]
 
-        in_groups = move_line.read_group(domain_in, ["quantity"], groupby_in, lazy=False)
-        out_groups = move_line.read_group(domain_out, ["quantity"], groupby_out, lazy=False)
+        in_groups = move_line.read_group(
+            domain_in, ["quantity"], groupby_in, lazy=False
+        )
+        out_groups = move_line.read_group(
+            domain_out, ["quantity"], groupby_out, lazy=False
+        )
 
         def _id(val):
             return val[0] if val else False
@@ -101,4 +115,3 @@ class StockInventory(models.Model):
             )
             result[quant.id] = in_dict.get(key, 0.0) - out_dict.get(key, 0.0)
         return result
-
