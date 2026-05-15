@@ -68,28 +68,28 @@ class ProductImport(models.Model):
         values = super()._get_line_values(row_values, datemode=datemode)
         if values and row_values:
             log_infos = []
-            product_code = row_values.get("Product Code", "")
-            product_name = row_values.get("Product Name", "")
+            product_code = row_values.get("Internal Reference", "")
+            product_name = row_values.get("Name", "")
             if not product_name and not product_code:
                 return {}
             import_line_obj = self.env["product.import.line"]
-            sale_ok = bool(row_values.get("Sale OK", import_line_obj.default_sale_ok()))
+            sale_ok = bool(row_values.get("Sales", import_line_obj.default_sale_ok()))
             purchase_ok = bool(
-                row_values.get("Purchase OK", import_line_obj.default_purchase_ok())
+                row_values.get("Purchase", import_line_obj.default_purchase_ok())
             )
             product_type = row_values.get("Product Type", "") or self.product_type
-            category_name = row_values.get("Category Name", "")
+            category_name = row_values.get("Product Category", "")
             barcode = row_values.get("Barcode", "")
-            list_price = row_values.get("List Price", "")
-            customer_tax = row_values.get("Customer Tax", "")
-            standard_price = row_values.get("Standard Price", "")
-            uom_name = row_values.get("UoM Name", self.uom_id.name)
-            purchase_uom_name = row_values.get("Purchase UoM Name", "")
-            invoice_policy = row_values.get("Invoice Policy", "")
-            purchase_method = row_values.get("Purchase Method", "")
-            description_purchase = row_values.get("Description Purchase", "")
-            property_account_income = row_values.get("Property Account Income", "")
-            property_account_expense = row_values.get("Property Account Expense", "")
+            list_price = row_values.get("Sales Price", "")
+            customer_tax = row_values.get("Sales Taxes", "")
+            standard_price = row_values.get("Cost", "")
+            uom_name = row_values.get("Unit of Measure", self.uom_id.name)
+            purchase_uom_name = row_values.get("Purchase Unit", "")
+            invoice_policy = row_values.get("Invoicing Policy", "")
+            purchase_method = row_values.get("Control Policy", "")
+            description_purchase = row_values.get("Purchase Description", "")
+            property_account_income = row_values.get("Income Account", "")
+            property_account_expense = row_values.get("Expense Account", "")
             values.update(
                 {
                     "product_name": product_name or convert2str(product_code),
@@ -109,7 +109,7 @@ class ProductImport(models.Model):
                 }
             )
             if not product_name:
-                log_infos.append(_("Product Code added as Product Name"))
+                log_infos.append(_("Internal Reference added as Name"))
             if product_type:
                 ln = [w for w, v in import_line_obj._get_selection_product_type()]
                 if product_type not in ln:
@@ -121,23 +121,19 @@ class ProductImport(models.Model):
                         }
                     )
             if purchase_method:
-                if (
-                    purchase_method
-                    not in import_line_obj._get_selection_purchase_method()
-                ):
-                    log_infos.append(_("Purchase Method not understood."))
+                ln = [w for w, v in import_line_obj._get_selection_purchase_method()]
+                if purchase_method not in ln:
+                    log_infos.append(_("Control Policy not understood."))
                 else:
                     values.update(
                         {
-                            "product_type": purchase_method,
+                            "purchase_method": purchase_method,
                         }
                     )
             if invoice_policy:
-                if (
-                    invoice_policy
-                    not in import_line_obj._get_selection_invoice_policy()
-                ):
-                    log_infos.append(_("Invoice Policy not understood"))
+                ln = [w for w, v in import_line_obj._get_selection_invoice_policy()]
+                if invoice_policy not in ln:
+                    log_infos.append(_("Invoicing Policy not understood"))
                 else:
                     values.update(
                         {
@@ -230,6 +226,7 @@ class ProductImportLine(models.Model):
         copy=False,
     )
     product_name = fields.Char(
+        string="Name",
         required=True,
         copy=False,
     )
@@ -252,7 +249,7 @@ class ProductImportLine(models.Model):
         copy=False,
     )
     product_uom = fields.Char(
-        string="Product UoM",
+        string="Unit of Measure Name",
         copy=False,
     )
     product_uom_id = fields.Many2one(
@@ -272,51 +269,56 @@ class ProductImportLine(models.Model):
         copy=False,
     )
     sale_ok = fields.Boolean(
-        string="Can be Sold",
+        string="Sales",
         default=default_sale_ok,
         copy=False,
     )
     purchase_ok = fields.Boolean(
-        string="Can be Purchased",
+        string="Purchase",
         copy=False,
     )
     list_price = fields.Float(
+        string="Sales Price",
         copy=False,
     )
     customer_tax = fields.Char(
-        string="Customer Tax Name",
+        string="Sales Taxes Name",
         copy=False,
     )
     standard_price = fields.Float(
+        string="Cost",
         copy=False,
     )
     purchase_uom_name = fields.Char(
-        string="Purchase UoM Name",
+        string="Purchase Unit Name",
         copy=False,
     )
     invoice_policy = fields.Selection(
+        string="Invoicing Policy",
         selection="_get_selection_invoice_policy",
         default=default_invoice_policy,
         copy=False,
     )
     purchase_uom_id = fields.Many2one(
-        string="Purchase UoM",
+        string="Purchase Unit",
         comodel_name="uom.uom",
         domain="[('name','ilike',purchase_uom_name)]",
         copy=False,
     )
     customer_tax_id = fields.Many2one(
-        string="Customer Tax",
+        string="Sales Taxes",
         comodel_name="account.tax",
         domain="[('name','ilike',customer_tax)]",
         copy=False,
     )
     purchase_method = fields.Selection(
+        string="Control Policy",
         selection="_get_selection_purchase_method",
         default=default_purchase_method,
         copy=False,
     )
     description_purchase = fields.Text(
+        string="Purchase Description",
         copy=False,
     )
     property_account_income = fields.Char(

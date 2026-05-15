@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_financing_tree" model="ir.ui.view">
+    <field name="model">treasury.financing</field>
+    <field name="inherit_id" ref="treasury_forecast.view_treasury_financing_tree" />
+    <field name="arch" type="xml">
+      <field name="journal_id" position="after">
+        <field name="project_id" optional="hide" />
+        <field name="analytic_account_id" optional="hide" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_treasury_financing_form" model="ir.ui.view">
+    <field name="model">treasury.financing</field>
+    <field name="inherit_id" ref="treasury_forecast.view_treasury_financing_form" />
+    <field name="arch" type="xml">
+      <field name="journal_id" position="after">
+        <field name="project_id" />
+        <field name="analytic_account_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_treasury_financing_search" model="ir.ui.view">
+    <field name="model">treasury.financing</field>
+    <field name="inherit_id" ref="treasury_forecast.view_treasury_financing_search" />
+    <field name="arch" type="xml">
+      <field name="journal_id" position="after">
+        <field name="project_id" />
+        <field name="analytic_account_id" />
+      </field>
+      <filter name="filter_journal" position="after">
+        <filter
+          string="Project"
+          name="filter_project"
+          domain="[('project_id','!=',False)]"
+        />
+        <filter
+          string="Analytic Account"
+          name="filter_analytic-account"
+          domain="[('analytic_account_id','!=',False)]"
+        />
+      </filter>
+      <filter name="group_journal" position="after">
+        <filter
+          string="Project"
+          name="group_project"
+          context="{'group_by':'project_id'}"
+        />
+        <filter
+          string="Analytic Account"
+          name="group_analytic_account"
+          context="{'group_by':'analytic_account_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
