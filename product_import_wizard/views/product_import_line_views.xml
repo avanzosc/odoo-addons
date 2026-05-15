@@ -9,15 +9,13 @@
             name="button_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
-            modifiers="2validate,error"
+            invisible="state not in ('2validate', 'error')"
           />
           <button
             name="button_process"
             string="Process"
             type="object"
-            class="oe_read_only"
-            modifiers="pass"
+            invisible="state != 'pass'"
           />
           <field name="state" widget="statusbar" />
         </header>

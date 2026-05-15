@@ -26,6 +26,26 @@ class ResPartner(models.Model):
         string="General Industry Subactivity", comodel_name="industry.subactivity"
     )
 
+    flowserve_manager_id = fields.Many2one(
+        comodel_name="responsable.flowserv",
+        string="*Flowserve Manager",
+        index=True,
+        ondelete="restrict",
+    )
+    schedule = fields.Char()
+    what_do_they_do = fields.Char()
+    managing_entity_id = fields.Many2one(
+        comodel_name="res.partner",
+        string="Managing Entity",
+        index=True,
+    )
+    interest_id = fields.Many2one(
+        comodel_name="res.partner.interes",
+        string="Interest",
+        index=True,
+        ondelete="restrict",
+    )
+
     @api.onchange("principal_activity_id")
     def _onchange_principal_activity(self):
         if self.principal_activity_id:
