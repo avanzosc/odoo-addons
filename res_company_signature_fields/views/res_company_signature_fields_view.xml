@@ -16,7 +16,7 @@
       <div t-if="o.company_id.signature_image" class="ml64 mr4" name="signature_image">
         <div>
           <img
-            t-att-src="image_data_uri(o.company_id.signature_image)"
+            t-attf-src="data:image/png;base64,#{o.company_id.signature_image.decode()}"
             style="max-height: 4cm; max-width: 8cm;"
           />
         </div>
@@ -25,7 +25,7 @@
       <div t-if="o.company_id.stamp_image" class="ml64 mr4" name="stamp_image">
         <div>
           <img
-            t-att-src="image_data_uri(o.company_id.stamp_image)"
+            t-attf-src="data:image/png;base64,#{o.company_id.stamp_image.decode()}"
             style="max-height: 4cm; max-width: 8cm;"
           />
         </div>

@@ -22,3 +22,11 @@ class AccountMove(models.Model):
         for move in supplier_moves:
             move.date = move.invoice_date
         return result
+
+    def copy_data(self, default=None):
+        default = dict(default or {})
+        if self.move_type in ("in_invoice", "in_refund"):
+            default.setdefault("date", self.date or self.invoice_date)
+            default.setdefault("invoice_date", self.invoice_date)
+
+        return super().copy_data(default)
