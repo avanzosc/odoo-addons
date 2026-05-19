@@ -1,5 +1,5 @@
 ============================
-Account Budget OCA Usability
+Budgets Management Usability
 ============================
 
 .. |badge1| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png

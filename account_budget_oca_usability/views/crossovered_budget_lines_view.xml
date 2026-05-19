@@ -10,8 +10,17 @@
       <field name="theoretical_amount" position="after">
         <field name="result_amount" optional="show" />
       </field>
+      <field name="practical_amount" position="after">
+        <button
+          name="button_recompute_practical_amount"
+          type="object"
+          icon="fa-refresh"
+          title="Refresh Practical Amount"
+        />
+      </field>
       <list position="attributes">
         <attribute name="editable">top</attribute>
+        <attribute name="open_form_view">True</attribute>
       </list>
     </field>
   </record>
@@ -66,6 +75,26 @@
         <field name="practical_amount" type="measure" />
         <field name="difference" type="measure" />
       </pivot>
+    </field>
+  </record>
+
+  <record id="crossovered_budget_line_view_form" model="ir.ui.view">
+    <field name="model">crossovered.budget.lines</field>
+    <field
+      name="inherit_id"
+      ref="account_budget_oca.view_crossovered_budget_line_form"
+    />
+    <field name="arch" type="xml">
+      <sheet position="before">
+        <header>
+          <button
+            name="button_recompute_practical_amount"
+            type="object"
+            icon="fa-refresh"
+            string="Refresh Practical Amount"
+          />
+        </header>
+      </sheet>
     </field>
   </record>
 
