@@ -121,7 +121,7 @@ SELECT
     NULL AS financing_id,
     NULL AS category_id,
     NULL AS parent_category_id,
-    al.product_category_id as product_category_id,
+    aml.product_category_id as product_category_id,
     'project'::text AS source
 FROM account_analytic_line al
 LEFT JOIN account_move_line aml
