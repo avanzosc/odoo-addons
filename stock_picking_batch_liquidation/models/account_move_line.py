@@ -8,7 +8,7 @@ class AccountMoveLine(models.Model):
 
     price_unit = fields.Float(digits="Account Line Price Decimal Precision")
     name = fields.Char(string="Description")
-    percentage = fields.Float(string="Percentage")
+    percentage = fields.Float()
     sale_type_id = fields.Many2one(
         string="Sale Type",
         comodel_name="sale.order.type",
@@ -18,7 +18,7 @@ class AccountMoveLine(models.Model):
     partner_category_ids = fields.Many2many(
         comodel_name="res.partner.category",
         related="partner_id.category_id",
-        string="Tags",
+        string="Partner Tags",
     )
     partner_shipping_id = fields.Many2one(
         comodel_name="res.partner", related="move_id.partner_shipping_id", store=True

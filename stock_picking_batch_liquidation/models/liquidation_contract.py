@@ -9,11 +9,9 @@ class LiquidationContract(models.Model):
     _description = "Liquidation Contract"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-    name = fields.Char(string="Name", required=True)
-    chicken_load = fields.Float(
-        string="Chicken Load", digits="Chicken Load Decimal Precision"
-    )
-    correction_factor = fields.Float(string="Correction Factor")
+    name = fields.Char(required=True)
+    chicken_load = fields.Float(digits="Chicken Load Decimal Precision")
+    correction_factor = fields.Float()
     initial_feed = fields.Integer(string="Initial FEEP")
     final_feed = fields.Integer(string="Final FEEP")
     feed_ratio = fields.Float(string="FEEP Ratio", digits="Feep Decimal Precision")
@@ -34,7 +32,7 @@ class LiquidationContract(models.Model):
     invoice_product_id = fields.Many2one(
         string="Product to Invoice", comodel_name="product.product"
     )
-    overhead = fields.Float(string="Overhead")
+    overhead = fields.Float()
 
     def action_create_feed_rate(self):
         self.ensure_one()
@@ -48,7 +46,7 @@ class LiquidationContract(models.Model):
             raise ValidationError(
                 _(
                     "some of the data required for the calculation of "
-                    + "the FEEP ratio are missing."
+                    "the FEEP ratio are missing."
                 )
             )
         else:

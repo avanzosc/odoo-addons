@@ -9,88 +9,80 @@ class StockMoveLine(models.Model):
     _inherit = "stock.move.line"
 
     move_type_id = fields.Many2one(
-        string="Move Type",
         comodel_name="move.type",
         related="product_id.categ_id.move_type_id",
         store=True,
     )
-    days = fields.Integer(string="Days", compute="_compute_days", store=True)
-    amount_days = fields.Float(
-        string="Amount Days", compute="_compute_amount_days", store=True
+    warehouse_id = fields.Many2one(
+        string="Origin Warehouse",
+        comodel_name="stock.warehouse",
+        related="location_id.warehouse_id",
+        store=True,
     )
+    download_unit = fields.Integer(string="Units")
+    days = fields.Integer(compute="_compute_days", store=True)
+    amount_days = fields.Float(compute="_compute_amount_days", store=True)
     average_weight = fields.Float(
-        string="Average Weight",
         compute="_compute_average_weight",
         store=True,
         digits="Feep Decimal Precision",
     )
-    farm_area = fields.Float(
-        string="Farm Area", related="warehouse_id.farm_area", store=True
-    )
+    farm_area = fields.Float(related="warehouse_id.farm_area", store=True)
     weight_area = fields.Float(
         string="Kgs./M2", compute="_compute_weight_area", store=True
     )
     type_category_id = fields.Many2one(
-        string="Type Catergory",
+        string="Type Category",
         comodel_name="stock.picking.type.category",
         compute="_compute_type_category_id",
         store=True,
     )
-    mother_id = fields.Many2one(compute="_compute_mother_id", store=True)
-    cleaned_date = fields.Date(
-        string="Cleaned Date", compute="_compute_mother_id", store=True
+    mother_id = fields.Many2one(
+        comodel_name="stock.picking.batch",
+        compute="_compute_mother_id",
+        store=True,
     )
+    cleaned_date = fields.Date(compute="_compute_mother_id", store=True)
 
     @api.depends(
         "picking_id",
         "picking_id.batch_id",
-        "move_id",
-        "move_id.inventory_id",
-        "move_id.inventory_id.batch_id",
     )
     def _compute_mother_id(self):
         for line in self:
             mother = False
             if line.picking_id and line.picking_id.batch_id:
                 mother = line.picking_id.batch_id
-            elif (
-                line.move_id
-                and line.move_id.inventory_id
-                and line.move_id.inventory_id.batch_id
-            ):
-                mother = line.move_id.inventory_id.batch_id
             line.mother_id = mother.id if mother else False
             line.cleaned_date = mother.cleaned_date if mother else False
 
     @api.depends(
         "picking_type_id",
         "picking_type_id.category_id",
-        "production_id",
-        "production_id.picking_type_id",
-        "production_id.picking_type_id.category_id",
         "move_id",
+        "move_id.production_id",
+        "move_id.production_id.picking_type_id",
+        "move_id.production_id.picking_type_id.category_id",
         "move_id.raw_material_production_id",
         "move_id.raw_material_production_id.picking_type_id",
         "move_id.raw_material_production_id.picking_type_id.category_id",
     )
     def _compute_type_category_id(self):
+        regularization = self.env.ref(
+            "stock_picking_batch_liquidation.picking_type_categ_regu",
+            raise_if_not_found=False,
+        )
         for line in self:
             categ_id = False
             if line.picking_id:
                 categ_id = line.picking_type_id.category_id.id
-            elif line.production_id:
-                categ_id = line.production_id.picking_type_id.category_id.id
             elif line.move_id and line.move_id.production_id:
                 categ_id = line.move_id.production_id.picking_type_id.category_id.id
             elif line.move_id and line.move_id.raw_material_production_id:
                 raw_production = line.move_id.raw_material_production_id
                 categ_id = raw_production.picking_type_id.category_id.id
-            else:
-                regularization = self.env.ref(
-                    "stock_picking_batch_liquidation.picking_type_categ_regu"
-                )
-                if regularization:
-                    categ_id = regularization.id
+            elif regularization:
+                categ_id = regularization.id
             line.type_category_id = categ_id
 
     @api.depends(
@@ -106,13 +98,15 @@ class StockMoveLine(models.Model):
         "mother_id.move_line_ids.date",
     )
     def _compute_weight_area(self):
+        move_type3 = self.env.ref(
+            "stock_picking_batch_liquidation.move_type3", raise_if_not_found=False
+        )
         for line in self:
             weight_area = 0
-            move_type3 = self.env.ref("stock_picking_batch_liquidation.move_type3")
-            if line.move_type_id == move_type3:
+            if move_type3 and line.move_type_id == move_type3:
                 before_lines = line.mother_id.move_line_ids.filtered(
-                    lambda c: c.state == "done"
-                    and c.move_type_id == (move_type3)
+                    lambda c, line=line, move_type3=move_type3: c.state == "done"
+                    and c.move_type_id == move_type3
                     and c.date < line.date
                 )
                 units = line.mother_id.chick_units
@@ -122,13 +116,13 @@ class StockMoveLine(models.Model):
                     weight_area = units * line.average_weight / line.farm_area
             line.weight_area = weight_area
 
-    @api.depends("download_unit", "qty_done")
+    @api.depends("download_unit", "quantity")
     def _compute_average_weight(self):
         for line in self:
             average_weight = 0
             unit = self.env.ref("uom.product_uom_unit")
             if line.download_unit != 0 and line.product_uom_id != unit:
-                average_weight = line.qty_done / line.download_unit
+                average_weight = line.quantity / line.download_unit
             line.average_weight = average_weight
 
     @api.depends("days", "download_unit")

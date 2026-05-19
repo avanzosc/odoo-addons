@@ -11,10 +11,9 @@ class LiquidationContractLine(models.Model):
         string="Product", comodel_name="product.product", required=True
     )
     type = fields.Selection(
-        string="Type",
         selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
     )
-    obligatory = fields.Boolean(string="Obligatory")
+    obligatory = fields.Boolean()
     price_type = fields.Selection(
         selection=[
             ("correction", "F. M. Correction"),
@@ -30,7 +29,7 @@ class LiquidationContractLine(models.Model):
     contract_id = fields.Many2one(
         string="Contract", comodel_name="liquidation.contract"
     )
-    price = fields.Float(string="Price", digits="Standard Price Decimal Precision")
+    price = fields.Float(digits="Standard Price Decimal Precision")
 
     @api.onchange("product_id")
     def onchange_product_id(self):

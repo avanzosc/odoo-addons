@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="view_payments_filter" model="ir.ui.view">
-        <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account_due_list.view_payments_filter" />
-        <field name="arch" type="xml">
-            <filter name="group_by_salesperson" position="after">
-                <filter
+  <record id="view_payments_filter" model="ir.ui.view">
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account_due_list.view_payments_filter" />
+    <field name="arch" type="xml">
+      <filter name="group_by_salesperson" position="after">
+        <filter
           string="Sale Type"
           name="sale_type"
           context="{'group_by':'sale_type_id'}"
         />
-                <filter
+        <filter
           string="Shipping"
           name="partner_shipping"
           context="{'group_by':'partner_shipping_id'}"
         />
-            </filter>
-        </field>
-    </record>
+      </filter>
+    </field>
+  </record>
 
-    <record id="view_payments_tree" model="ir.ui.view">
-        <field name="model">account.move.line</field>
-        <field name="inherit_id" ref="account_due_list.view_payments_tree" />
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field
+  <record id="view_payments_tree" model="ir.ui.view">
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account_due_list.view_payments_tree" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field
           name="partner_category_ids"
           optional="show"
           widget="many2many_tags"
           options="{'color_field': 'color', 'no_create_edit': True}"
         />
-            </field>
-        </field>
-    </record>
+      </field>
+    </field>
+  </record>
 </odoo>

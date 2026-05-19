@@ -11,5 +11,5 @@ class AccountMove(models.Model):
     partner_category_ids = fields.Many2many(
         comodel_name="res.partner.category",
         related="partner_id.category_id",
-        string="Tags",
+        string="Partner Tags",
     )

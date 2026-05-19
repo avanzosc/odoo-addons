@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch Liquidation",
-    "version": "14.0.1.1.0",
+    "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
@@ -16,9 +16,8 @@
         "stock_move_line_cost",
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
+        "stock_location_warehouse_usability",
         "custom_breeding_apps",
-        "stock_inventory_at_date",
-        "account_move_partner_sequence",
         "sale_order_type",
         "account_due_list",
     ],
@@ -27,10 +26,7 @@
         "data/account_move_line_decimal_precision.xml",
         "data/product_category_move_type.xml",
         "data/stock_picking_type_category.xml",
-        "data/account_analytic_line_tag.xml",
         "views/stock_picking_batch_view.xml",
-        "views/stock_inventory_view.xml",
-        "views/stock_inventory_line_view.xml",
         "views/feed_rate_view.xml",
         "views/product_category_view.xml",
         "views/liquidation_contract_view.xml",
@@ -49,5 +45,4 @@
     ],
     "license": "AGPL-3",
     "installable": True,
-    "pre_init_hook": "pre_init_hook",
 }

@@ -11,11 +11,6 @@ from odoo.exceptions import ValidationError
 class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
-    inventory_ids = fields.One2many(
-        string="Inventory adjustment",
-        comodel_name="stock.inventory",
-        inverse_name="batch_id",
-    )
     account_move_ids = fields.One2many(
         string="Account Moves", comodel_name="account.move", inverse_name="batch_id"
     )
@@ -25,29 +20,19 @@ class StockPickingBatch(models.Model):
     liquidation_contract_id = fields.Many2one(
         string="Liquidation Contract", comodel_name="liquidation.contract"
     )
-    chick_units = fields.Float(
-        string="Chick Units", compute="_compute_chick_units", store=True
-    )
+    chick_units = fields.Float(compute="_compute_chick_units", store=True)
     liquidation_min = fields.Float(string="Min. to be Liquidated per Chicken")
     liquidation_max = fields.Float(string="Max. to be Liquidated per Chicken")
-    output_units = fields.Integer(
-        string="Output Units", compute="_compute_outputs_units", store=True
-    )
+    output_units = fields.Integer(compute="_compute_outputs_units", store=True)
     output_amount = fields.Float(
         string="Output Import", compute="_compute_outputs_units", store=True
     )
     output_amount_days = fields.Float(
         string="Output Import Days", compute="_compute_outputs_units", store=True
     )
-    average_age = fields.Float(
-        string="Average Age", compute="_compute_average_age", store=True
-    )
-    meat_kilos = fields.Integer(
-        string="Meat Kilos", compute="_compute_outputs_units", store=True
-    )
-    growth_speed = fields.Float(
-        string="Growth Speed", compute="_compute_growth_speed", store=True
-    )
+    average_age = fields.Float(compute="_compute_average_age", store=True)
+    meat_kilos = fields.Integer(compute="_compute_outputs_units", store=True)
+    growth_speed = fields.Float(compute="_compute_growth_speed", store=True)
     cancellation_percentage = fields.Float(
         string="Cancellation %", compute="_compute_cancellation_percentage", store=True
     )
@@ -55,7 +40,6 @@ class StockPickingBatch(models.Model):
         string="Consume Feep", compute="_compute_consume_feed"
     )
     conversion = fields.Float(
-        string="Conversion",
         compute="_compute_conversion",
         store=True,
         digits="Feep Decimal Precision",
@@ -67,9 +51,8 @@ class StockPickingBatch(models.Model):
         store=True,
         digits="Feep Decimal Precision",
     )
-    correction_factor = fields.Float(string="Correction Factor")
+    correction_factor = fields.Float()
     amount = fields.Float(
-        string="Amount",
         compute="_compute_amount",
         store=True,
         digits="Standard Cost Decimal Precision",
@@ -80,7 +63,7 @@ class StockPickingBatch(models.Model):
         store=True,
         digits="Feep Decimal Precision",
     )
-    result = fields.Float(string="Result", compute="_compute_result", store=True)
+    result = fields.Float(compute="_compute_result", store=True)
     difference = fields.Float(
         string="Difference Pay/Charge", compute="_compute_difference", store=True
     )
@@ -106,9 +89,7 @@ class StockPickingBatch(models.Model):
     cancellation_area = fields.Float(
         string="Cancellations/M2", compute="_compute_cancellation_area", store=True
     )
-    liquidation_amount = fields.Float(
-        string="Liquidation Amount", compute="_compute_liquidation_amount", store="True"
-    )
+    liquidation_amount = fields.Float(compute="_compute_liquidation_amount", store=True)
     account_id = fields.Many2one(
         string="Analytic Account", comodel_name="account.analytic.account"
     )
@@ -123,18 +104,15 @@ class StockPickingBatch(models.Model):
         compute="_compute_mother_id",
         store=True,
     )
-    liquidated = fields.Boolean(
-        string="Liquidated", compute="_compute_liquidated", store=True
-    )
-    billed = fields.Boolean(string="Billed", compute="_compute_billed", store=True)
-    closed = fields.Boolean(string="Closed", compute="_compute_closed", store=True)
+    liquidated = fields.Boolean(compute="_compute_liquidated", store=True)
+    billed = fields.Boolean(compute="_compute_billed", store=True)
+    closed = fields.Boolean(compute="_compute_closed", store=True)
     city = fields.Char(string="City", related="warehouse_id.city", store=True)
-    density = fields.Float(string="Density", compute="_compute_density", store=True)
+    density = fields.Float(compute="_compute_density", store=True)
     medicine_qty = fields.Float(
         string="Medicine", compute="_compute_medicine", store=True
     )
     average_weight = fields.Float(
-        string="Average Weight",
         compute="_compute_average_weight",
         store=True,
         digits="Feep Decimal Precision",
@@ -146,13 +124,11 @@ class StockPickingBatch(models.Model):
         digits="Feep Decimal Precision",
     )
     chick_liquidation = fields.Float(
-        string="Chick Liquidation",
         compute="_compute_chick_liquidation",
         store=True,
         digits="Standard Cost Decimal Precision",
     )
     liquidation_area = fields.Float(
-        string="Liquidation Area",
         compute="_compute_liquidation_area",
         store=True,
         digits="Standard Cost Decimal Precision",
@@ -166,34 +142,25 @@ class StockPickingBatch(models.Model):
     warehouse_area = fields.Float(
         string="Farm Area", related="warehouse_id.farm_area", store=True
     )
-    age_output = fields.Float(
-        string="Age Output", compute="_compute_age_output", store=True
-    )
-    output_feed_amount = fields.Float(
-        string="Output Feed Amount", compute="_compute_output_feed_amount", store=True
-    )
+    age_output = fields.Float(compute="_compute_age_output", store=True)
+    output_feed_amount = fields.Float(compute="_compute_output_feed_amount", store=True)
     output_medicine_amount = fields.Float(
-        string="Output Medicine Amount",
         compute="_compute_output_medicine_amount",
         store=True,
     )
     entry_chicken_amount = fields.Float(
-        string="Entry Chicken Amount",
         compute="_compute_entry_chicken_amount",
         store=True,
     )
     entry_chicken_download_unit = fields.Integer(
-        string="Entry Chicken Download Unit",
         compute="_compute_entry_chicken_amount",
         store=True,
     )
     output_chicken_download_unit = fields.Integer(
-        string="Output Chicken Download Unit",
         compute="_compute_output_chicken_download_unit",
         store=True,
     )
     clear_up_percentage = fields.Float(
-        string="Clear Up Percentage",
         compute="_compute_clear_up",
         store=True,
     )
@@ -218,16 +185,20 @@ class StockPickingBatch(models.Model):
                 move_type = False
             if batch.move_line_ids and move_type:
                 entry_lines = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == move_type
-                    and (c.state == "done")
-                    and c.location_dest_id == batch.location_id
-                    and c.picking_id
+                    lambda c, batch=batch, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_dest_id == batch.location_id
+                        and c.picking_id
+                    )
                 )
                 return_lines = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == move_type
-                    and (c.state == "done")
-                    and c.location_id == batch.location_id
-                    and c.picking_id
+                    lambda c, batch=batch, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_id == batch.location_id
+                        and c.picking_id
+                    )
                 )
                 output_medicine_amount = abs(
                     sum(entry_lines.mapped("amount"))
@@ -254,10 +225,12 @@ class StockPickingBatch(models.Model):
             if batch.move_line_ids and move_type:
                 output_feed_amount = sum(
                     batch.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (batch.location_id)
-                        and not c.picking_id
+                        lambda c, batch=batch, move_type=move_type: (
+                            c.move_type_id == move_type
+                            and c.state == "done"
+                            and c.location_id == batch.location_id
+                            and not c.picking_id
+                        )
                     ).mapped("amount")
                 )
             batch.output_feed_amount = output_feed_amount
@@ -316,7 +289,7 @@ class StockPickingBatch(models.Model):
         "move_line_ids.move_type_id",
         "move_line_ids.location_dest_id",
         "move_line_ids.location_id",
-        "move_line_ids.qty_done",
+        "move_line_ids.quantity",
         "location_id",
     )
     def _compute_medicine(self):
@@ -328,19 +301,23 @@ class StockPickingBatch(models.Model):
                 move_type = False
             if batch.move_line_ids and move_type:
                 entry_lines = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == move_type
-                    and (c.state == "done")
-                    and c.location_dest_id == batch.location_id
+                    lambda c, batch=batch, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_dest_id == batch.location_id
+                    )
                 )
                 return_lines = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == move_type
-                    and (c.state == "done")
-                    and c.location_id == batch.location_id
-                    and c.location_dest_id != batch.location_id
+                    lambda c, batch=batch, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_id == batch.location_id
+                        and c.location_dest_id != batch.location_id
+                    )
                 )
                 medicine_qty = abs(
-                    sum(entry_lines.mapped("qty_done"))
-                    - sum(return_lines.mapped("qty_done"))
+                    sum(entry_lines.mapped("quantity"))
+                    - sum(return_lines.mapped("quantity"))
                 )
             batch.medicine_qty = medicine_qty
 
@@ -405,11 +382,11 @@ class StockPickingBatch(models.Model):
         for batch in self:
             mother = False
             chick_entry_line = batch.move_line_ids.filtered(
-                lambda c: c.product_id.one_day_chicken
-                and (
-                    c.location_dest_id == batch.location_id
+                lambda c, batch=batch: (
+                    c.product_id.one_day_chicken
+                    and c.location_dest_id == batch.location_id
                     and c.lot_id
-                    and (c.lot_id.batch_id)
+                    and c.lot_id.batch_id
                 )
             )
             if chick_entry_line:
@@ -419,18 +396,16 @@ class StockPickingBatch(models.Model):
     @api.depends(
         "picking_ids",
         "picking_ids.move_line_ids",
-        "picking_ids.move_lines",
-        "picking_ids.move_lines.state",
-        "inventory_ids",
-        "inventory_ids.move_ids",
-        "inventory_ids.move_ids.move_line_ids",
+        "picking_ids.move_ids",
+        "picking_ids.move_ids.state",
     )
     def _compute_move_ids(self):
-        super()._compute_move_ids()
+        result = super()._compute_move_ids()
         for batch in self:
             batch.move_line_ids = self.env["stock.move.line"].search(
                 [("mother_id", "=", batch.id)]
             )
+        return result
 
     def _compute_account_move_count(self):
         for record in self:
@@ -493,9 +468,11 @@ class StockPickingBatch(models.Model):
                 move_type = False
             if line.move_line_ids and move_type:
                 move_lines = line.move_line_ids.filtered(
-                    lambda c: c.move_type_id == move_type
-                    and (c.state == "done")
-                    and (c.location_id == line.location_id)
+                    lambda c, line=line, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_id == line.location_id
+                    )
                 ).mapped("date")
                 if move_lines:
                     date = max(move_lines)
@@ -542,7 +519,7 @@ class StockPickingBatch(models.Model):
                 line.liquidation_contract_id.feed_rate_ids
             ):
                 feed_line = line.liquidation_contract_id.feed_rate_ids.filtered(
-                    lambda c: c.feed == line.feed
+                    lambda c, line=line: c.feed == line.feed
                 )
                 if feed_line and len(feed_line) == 1:
                     feed_price = feed_line.price
@@ -587,11 +564,13 @@ class StockPickingBatch(models.Model):
             if line.move_line_ids and move_type:
                 out_qty = sum(
                     line.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
-                        and not c.picking_id
-                    ).mapped("qty_done")
+                        lambda c, line=line, move_type=move_type: (
+                            c.move_type_id == move_type
+                            and c.state == "done"
+                            and c.location_id == line.location_id
+                            and not c.picking_id
+                        )
+                    ).mapped("quantity")
                 )
                 if out_qty:
                     consume_feed = out_qty
@@ -627,7 +606,7 @@ class StockPickingBatch(models.Model):
 
     @api.depends(
         "move_line_ids",
-        "move_line_ids.qty_done",
+        "move_line_ids.quantity",
         "move_line_ids.product_id",
         "move_line_ids.product_id.categ_id",
         "move_line_ids.product_id.categ_id.move_type_id",
@@ -647,38 +626,18 @@ class StockPickingBatch(models.Model):
             except Exception:
                 move_type = False
             if line.move_line_ids and move_type:
-                output_units = sum(
-                    line.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
+                outputs = line.move_line_ids.filtered(
+                    lambda c, line=line, move_type=move_type: (
+                        c.move_type_id == move_type
+                        and c.state == "done"
+                        and c.location_id == line.location_id
                         and c.picking_id
-                    ).mapped("download_unit")
+                    )
                 )
-                output_amount = sum(
-                    line.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
-                        and c.picking_id
-                    ).mapped("amount")
-                )
-                output_amount_days = sum(
-                    line.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
-                        and c.picking_id
-                    ).mapped("amount_days")
-                )
-                meat_kilos = sum(
-                    line.move_line_ids.filtered(
-                        lambda c: c.move_type_id == move_type
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
-                        and c.picking_id
-                    ).mapped("qty_done")
-                )
+                output_units = sum(outputs.mapped("download_unit"))
+                output_amount = sum(outputs.mapped("amount"))
+                output_amount_days = sum(outputs.mapped("amount_days"))
+                meat_kilos = sum(outputs.mapped("quantity"))
             line.output_units = output_units
             line.output_amount = output_amount
             line.output_amount_days = output_amount_days
@@ -686,7 +645,7 @@ class StockPickingBatch(models.Model):
 
     @api.depends(
         "move_line_ids",
-        "move_line_ids.qty_done",
+        "move_line_ids.quantity",
         "move_line_ids.product_id",
         "move_line_ids.product_id.one_day_chicken",
         "move_line_ids.state",
@@ -697,19 +656,23 @@ class StockPickingBatch(models.Model):
             if line.move_line_ids:
                 entries = sum(
                     line.move_line_ids.filtered(
-                        lambda c: c.product_id.one_day_chicken
-                        and (c.state == "done")
-                        and c.location_dest_id == line.location_id
-                        and (c.picking_id)
-                    ).mapped("qty_done")
+                        lambda c, line=line: (
+                            c.product_id.one_day_chicken
+                            and c.state == "done"
+                            and c.location_dest_id == line.location_id
+                            and c.picking_id
+                        )
+                    ).mapped("quantity")
                 )
                 outputs = sum(
                     line.move_line_ids.filtered(
-                        lambda c: c.product_id.one_day_chicken
-                        and (c.state == "done")
-                        and c.location_id == (line.location_id)
-                        and c.picking_id
-                    ).mapped("qty_done")
+                        lambda c, line=line: (
+                            c.product_id.one_day_chicken
+                            and c.state == "done"
+                            and c.location_id == line.location_id
+                            and c.picking_id
+                        )
+                    ).mapped("quantity")
                 )
                 chick_units = entries - outputs
             line.chick_units = chick_units
@@ -726,21 +689,27 @@ class StockPickingBatch(models.Model):
         "move_line_ids.download_unit",
     )
     def _compute_entry_chicken_amount(self):
-        chick_type = self.env.ref("stock_picking_batch_liquidation.move_type1")
+        chick_type = self.env.ref(
+            "stock_picking_batch_liquidation.move_type1", raise_if_not_found=False
+        )
         for batch in self:
             amount = download_unit = 0
-            if batch.move_line_ids:
+            if batch.move_line_ids and chick_type:
                 entry_line = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == chick_type
-                    and (c.location_dest_id == batch.location_id)
-                    and c.state == "done"
-                    and c.picking_id
+                    lambda c, batch=batch, chick_type=chick_type: (
+                        c.move_type_id == chick_type
+                        and c.location_dest_id == batch.location_id
+                        and c.state == "done"
+                        and c.picking_id
+                    )
                 )
                 dev_lines = batch.move_line_ids.filtered(
-                    lambda c: c.move_type_id == chick_type
-                    and (c.location_id == batch.location_id)
-                    and c.state == "done"
-                    and c.picking_id
+                    lambda c, batch=batch, chick_type=chick_type: (
+                        c.move_type_id == chick_type
+                        and c.location_id == batch.location_id
+                        and c.state == "done"
+                        and c.picking_id
+                    )
                 )
                 amount = sum(entry_line.mapped("amount")) - sum(
                     dev_lines.mapped("amount")
@@ -772,16 +741,20 @@ class StockPickingBatch(models.Model):
             product_ids = product_obj.search([("default_code", "in", ["9010", "9015"])])
             if product_ids and batch.move_line_ids:
                 output_line = batch.move_line_ids.filtered(
-                    lambda c: c.product_id in product_ids
-                    and (c.location_id == batch.location_id)
-                    and c.state == "done"
-                    and c.picking_id
+                    lambda c, batch=batch, product_ids=product_ids: (
+                        c.product_id in product_ids
+                        and c.location_id == batch.location_id
+                        and c.state == "done"
+                        and c.picking_id
+                    )
                 )
                 dev_lines = batch.move_line_ids.filtered(
-                    lambda c: c.product_id in product_ids
-                    and (c.location_dest_id == batch.location_id)
-                    and c.state == "done"
-                    and c.picking_id
+                    lambda c, batch=batch, product_ids=product_ids: (
+                        c.product_id in product_ids
+                        and c.location_dest_id == batch.location_id
+                        and c.state == "done"
+                        and c.picking_id
+                    )
                 )
                 output_chicken_download_unit = sum(
                     output_line.mapped("download_unit")
@@ -812,7 +785,7 @@ class StockPickingBatch(models.Model):
             self.correction_factor = self.liquidation_contract_id.correction_factor
 
     def action_view_picking(self):
-        result = super(StockPickingBatch, self).action_view_picking()
+        result = super().action_view_picking()
         if self.closed:
             result.update(
                 {
@@ -821,7 +794,7 @@ class StockPickingBatch(models.Model):
                             self.env.ref(
                                 "stock_picking_batch_liquidation.closed_picking_tree_view"
                             ).id,
-                            "tree",
+                            "list",
                         ],
                         [False, "form"],
                     ],
@@ -829,153 +802,152 @@ class StockPickingBatch(models.Model):
             )
         return result
 
-    def action_view_inventory_ids(self):
-        context = self.env.context.copy()
-        context.update({"default_batch_id": self.id})
-        if self.location_id:
-            context.update({"default_location_ids": [(4, self.location_id.id)]})
-        if self.location_change_id:
-            context.update(
-                {
-                    "default_location_ids": [
-                        (4, self.location_id.id),
-                        (4, self.location_change_id.id),
-                    ]
-                }
-            )
-        if self.closed:
-            return {
-                "name": _("Inventory adjustment"),
-                "view_mode": "tree,form",
-                "views": [
-                    [
-                        self.env.ref(
-                            "stock_picking_batch_liquidation.closed_inventory_tree_view"
-                        ).id,
-                        "tree",
-                    ],
-                    [False, "form"],
-                ],
-                "res_model": "stock.inventory",
-                "domain": [("id", "in", self.inventory_ids.ids)],
-                "type": "ir.actions.act_window",
-                "context": context,
-            }
-        else:
-            return {
-                "name": _("Inventory adjustment"),
-                "view_mode": "tree,form",
-                "res_model": "stock.inventory",
-                "domain": [("id", "in", self.inventory_ids.ids)],
-                "type": "ir.actions.act_window",
-                "context": context,
-            }
-
     def action_view_account_move(self):
         context = self.env.context.copy()
         return {
             "name": _("Account Move"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "account.move",
             "domain": [("id", "in", self.account_move_ids.ids)],
             "type": "ir.actions.act_window",
             "context": context,
         }
 
+    def _ensure_analytic_account(self):
+        if self.account_id:
+            return
+        plan = self.env["account.analytic.plan"].search([], limit=1)
+        if not plan:
+            plan = self.env["account.analytic.plan"].create({"name": "Default"})
+        self.account_id = (
+            self.env["account.analytic.account"]
+            .create(
+                {
+                    "name": self.name,
+                    "company_id": self.company_id.id,
+                    "plan_id": plan.id,
+                }
+            )
+            .id
+        )
+
+    def _get_liquidation_line_movelines(self, line):
+        movelines = self.move_line_ids.filtered(
+            lambda c, line=line: (
+                c.move_type_id == line.move_type_id
+                and c.state == "done"
+                and c.picking_id
+            )
+        )
+        entry_movelines = movelines.filtered(
+            lambda c: c.location_dest_id == self.location_id and c.picking_id
+        )
+        return_movelines = movelines.filtered(
+            lambda c: c.location_id == self.location_id and c.picking_id
+        )
+        return movelines, entry_movelines, return_movelines
+
+    def _get_liquidation_line_qty(self, line, entry_movelines, return_movelines):
+        unit = quantity = 0
+        if line.quantity_type == "unit":
+            unit = abs(
+                sum(entry_movelines.mapped("download_unit"))
+                - sum(return_movelines.mapped("download_unit"))
+            )
+        elif line.quantity_type == "kg":
+            quantity = abs(
+                sum(entry_movelines.mapped("quantity"))
+                - sum(return_movelines.mapped("quantity"))
+            )
+        elif line.quantity_type == "fixed":
+            quantity = 1
+        return unit, quantity
+
+    def _get_liquidation_line_price(
+        self, line, movelines, entry_movelines, return_movelines
+    ):
+        if line.price_type == "feed":
+            return self.feed_price
+        if line.price_type == "correction":
+            return abs(self.difference)
+        if line.price_type == "contract":
+            return line.price
+        if (
+            line.price_type == "average"
+            and entry_movelines
+            and sum(movelines.mapped("quantity")) != 0
+        ):
+            total_amount = abs(
+                sum(entry_movelines.mapped("amount"))
+                - sum(return_movelines.mapped("amount"))
+            )
+            total_qty_done = abs(
+                sum(entry_movelines.mapped("quantity"))
+                - sum(return_movelines.mapped("quantity"))
+            )
+            return total_amount / total_qty_done
+        return 0
+
+    def _get_liquidation_line_sign(self, line):
+        if line.type == "charge":
+            return -1
+        if line.type == "variable" and self.difference < 0:
+            return -1
+        return 1
+
     def action_do_liquidation(self):
         self.ensure_one()
         self.liquidation_line_ids.filtered("obligatory").unlink()
         self.onchange_warehouse_id()
-        if not (self.liquidation_contract_id) and not (
+        if not self.liquidation_contract_id and not (
             self.liquidation_contract_id.feed_rate_ids
         ):
             raise ValidationError(
                 _("The contract or the contract FEEP rates are missing.")
             )
-        if self.batch_type == "breeding":
-            if not self.account_id:
-                self.account_id = (
-                    self.env["account.analytic.account"]
-                    .create({"name": self.name, "company_id": self.company_id.id})
-                    .id
+        if self.batch_type != "breeding":
+            return
+        self._ensure_analytic_account()
+        obligatory_lines = self.liquidation_contract_id.contract_line_ids.filtered(
+            "obligatory"
+        )
+        for line in obligatory_lines:
+            movelines, entry_movelines, return_movelines = (
+                self._get_liquidation_line_movelines(line)
+            )
+            unit, quantity = (0, 0)
+            if movelines or line.quantity_type == "fixed":
+                unit, quantity = self._get_liquidation_line_qty(
+                    line, entry_movelines, return_movelines
                 )
-            for line in self.liquidation_contract_id.contract_line_ids.filtered(
-                "obligatory"
-            ):
-                price = unit = quantity = amount = 0
-                n = 1
-                movelines = self.move_line_ids.filtered(
-                    lambda c: c.move_type_id == line.move_type_id
-                    and (c.state == "done" and c.picking_id)
-                )
-                entry_movelines = movelines.filtered(
-                    lambda c: c.location_dest_id == self.location_id and c.picking_id
-                )
-                return_movelines = movelines.filtered(
-                    lambda c: c.location_id == self.location_id and c.picking_id
-                )
-                if line.quantity_type == "unit" and movelines:
-                    unit = abs(
-                        sum(entry_movelines.mapped("download_unit"))
-                        - sum(return_movelines.mapped("download_unit"))
-                    )
-                if line.quantity_type == "kg" and movelines:
-                    quantity = abs(
-                        sum(entry_movelines.mapped("qty_done"))
-                        - sum(return_movelines.mapped("qty_done"))
-                    )
-                if line.quantity_type == "fixed":
-                    quantity = 1
-                if line.price_type == "feed":
-                    price = self.feed_price
-                if line.price_type == "correction":
-                    price = abs(self.difference)
-                if line.price_type == "contract":
-                    price = line.price
-                if (
-                    line.price_type == "average"
-                    and entry_movelines
-                    and sum(movelines.mapped("qty_done")) != 0
-                ):
-                    total_amount = abs(
-                        sum(entry_movelines.mapped("amount"))
-                        - sum(return_movelines.mapped("amount"))
-                    )
-                    total_qty_done = abs(
-                        sum(entry_movelines.mapped("qty_done"))
-                        - sum(return_movelines.mapped("qty_done"))
-                    )
-                    price = total_amount / total_qty_done
-                if line.type == "charge":
-                    n = -1
-                if line.type == "variable":
-                    dif = self.difference
-                    if dif < 0:
-                        n = -1
-                if quantity != 0:
-                    amount = n * quantity * price
-                if unit != 0:
-                    amount = n * unit * price
-
-                liquidation_line = self.env["liquidation.line"].create(
-                    {
-                        "product_id": line.product_id.id,
-                        "type": line.type,
-                        "unit": unit,
-                        "quantity": quantity,
-                        "price": price,
-                        "amount": amount,
-                        "batch_id": self.id,
-                        "obligatory": True,
-                    }
-                )
-                liquidation_line.onchange_amount()
-            self.create_liquidation_analytic_lines()
-            liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
-            vals = {"stage_id": liquidated.id}
-            if not self.liquidation_date:
-                vals.update({"liquidation_date": fields.Date.today()})
-            self.write(vals)
+            price = self._get_liquidation_line_price(
+                line, movelines, entry_movelines, return_movelines
+            )
+            n = self._get_liquidation_line_sign(line)
+            amount = 0
+            if quantity != 0:
+                amount = n * quantity * price
+            if unit != 0:
+                amount = n * unit * price
+            liquidation_line = self.env["liquidation.line"].create(
+                {
+                    "product_id": line.product_id.id,
+                    "type": line.type,
+                    "unit": unit,
+                    "quantity": quantity,
+                    "price": price,
+                    "amount": amount,
+                    "batch_id": self.id,
+                    "obligatory": True,
+                }
+            )
+            liquidation_line.onchange_amount()
+        self.create_liquidation_analytic_lines()
+        liquidated = self.env.ref("stock_picking_batch_breeding.batch_stage5")
+        vals = {"stage_id": liquidated.id}
+        if not self.liquidation_date:
+            vals.update({"liquidation_date": fields.Date.today()})
+        self.write(vals)
 
     def create_liquidation_analytic_lines(self):
         self.ensure_one()
@@ -983,20 +955,16 @@ class StockPickingBatch(models.Model):
             meat_type = self.env.ref("stock_picking_batch_liquidation.move_type3")
             drug_type = self.env.ref("stock_picking_batch_liquidation.move_type4")
             feed_type = self.env.ref("stock_picking_batch_liquidation.move_type5")
-            breeding_tag = self.env.ref(
-                "stock_picking_batch_liquidation.account_analytic_tag_breeding"
-            )
         except Exception:
+            meat_type = False
             drug_type = False
             feed_type = False
-            breeding_tag = False
         if self.analytic_line_ids:
             self.analytic_line_ids.unlink()
         self.env["account.analytic.line"].create(
             {
                 "name": "Ventas",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": sum(
                     self.move_line_ids.filtered(
@@ -1012,13 +980,12 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Gtos. Generales",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1)
                 * sum(
                     self.move_line_ids.filtered(
                         lambda c: c.move_type_id == meat_type
-                    ).mapped("qty_done")
+                    ).mapped("quantity")
                 )
                 * self.liquidation_contract_id.overhead,
                 "unit_amount": 1,
@@ -1028,7 +995,6 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Carga Pollos",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1)
                 * sum(
@@ -1044,7 +1010,6 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Liquidación",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1) * self.liquidation_amount,
                 "unit_amount": 1,
@@ -1068,7 +1033,6 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Medicamento",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1) * net_medicine_amount,
                 "unit_amount": 1,
@@ -1084,22 +1048,28 @@ class StockPickingBatch(models.Model):
         amount = 0
         for line in lots:
             entry_lines = feed_movelines.filtered(
-                lambda c: c.location_dest_id == self.location_id and c.lot_id == line
+                lambda c, line=line: (
+                    c.location_dest_id == self.location_id and c.lot_id == line
+                )
             )
             dev_lines = feed_movelines.filtered(
-                lambda c: c.location_id == self.location_id
-                and c.lot_id == line
-                and c.picking_id
+                lambda c, line=line: (
+                    c.location_id == self.location_id
+                    and c.lot_id == line
+                    and c.picking_id
+                )
             )
             out_lines = feed_movelines.filtered(
-                lambda c: c.location_id == self.location_id
-                and c.lot_id == line
-                and not c.picking_id
+                lambda c, line=line: (
+                    c.location_id == self.location_id
+                    and c.lot_id == line
+                    and not c.picking_id
+                )
             )
-            entry_qty = sum(entry_lines.mapped("qty_done")) - sum(
-                dev_lines.mapped("qty_done")
+            entry_qty = sum(entry_lines.mapped("quantity")) - sum(
+                dev_lines.mapped("quantity")
             )
-            out_qty = sum(out_lines.mapped("qty_done"))
+            out_qty = sum(out_lines.mapped("quantity"))
             if entry_qty == out_qty:
                 amount += round(sum(entry_lines.mapped("amount")), 2) - round(
                     sum(dev_lines.mapped("amount")), 2
@@ -1114,7 +1084,6 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Pienso",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1) * amount,
                 "unit_amount": 1,
@@ -1124,7 +1093,6 @@ class StockPickingBatch(models.Model):
             {
                 "name": "Pollito",
                 "account_id": self.account_id.id,
-                "tag_ids": [(4, breeding_tag.id)],
                 "batch_id": self.id,
                 "amount": (-1) * self.entry_chicken_amount,
                 "unit_amount": 1,
@@ -1140,7 +1108,7 @@ class StockPickingBatch(models.Model):
             raise ValidationError(
                 _(
                     "The contract or the product to invoice of the "
-                    + "contract are missing."
+                    "contract are missing."
                 )
             )
         if not self.billing_date:
@@ -1153,12 +1121,13 @@ class StockPickingBatch(models.Model):
             and (self.tax_entity_id.property_account_position_id.tax_ids)
             and (self.liquidation_contract_id.invoice_product_id.supplier_taxes_id)
         ):
-            for (
-                sup_tax
-            ) in self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
+            supplier_taxes = (
+                self.liquidation_contract_id.invoice_product_id.supplier_taxes_id
+            )
+            for sup_tax in supplier_taxes:
                 taxes = (
                     self.tax_entity_id.property_account_position_id.tax_ids.filtered(
-                        lambda c: c.tax_src_id.id == sup_tax.id
+                        lambda c, sup_tax=sup_tax: c.tax_src_id.id == sup_tax.id
                     )
                 )
                 if taxes:
@@ -1166,17 +1135,14 @@ class StockPickingBatch(models.Model):
                         if line not in tax:
                             tax.append(line.tax_dest_id.id)
                 else:
-                    for (
-                        line
-                    ) in (
-                        self.liquidation_contract_id.invoice_product_id.supplier_taxes_id
-                    ):
+                    for line in supplier_taxes:
                         if line not in tax:
                             tax.append(line.id)
         else:
-            for (
-                line
-            ) in self.liquidation_contract_id.invoice_product_id.supplier_taxes_id:
+            supplier_taxes = (
+                self.liquidation_contract_id.invoice_product_id.supplier_taxes_id
+            )
+            for line in supplier_taxes:
                 if line not in tax:
                     tax.append(line.id)
         if self.batch_type == "breeding":
@@ -1187,7 +1153,7 @@ class StockPickingBatch(models.Model):
             if price < self.min:
                 price = self.min
             product = self.liquidation_contract_id.invoice_product_id
-            account_move = self.env["account.move"].create(
+            self.env["account.move"].create(
                 {
                     "partner_id": self.tax_entity_id.id,
                     "move_type": "in_invoice",
@@ -1214,6 +1180,5 @@ class StockPickingBatch(models.Model):
                     ],
                 }
             )
-            account_move.action_generate_partner_ref()
             invoiced = self.env.ref("stock_picking_batch_breeding.batch_stage6")
             self.write({"stage_id": invoiced.id})

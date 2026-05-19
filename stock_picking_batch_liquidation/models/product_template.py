@@ -10,7 +10,7 @@ class ProductTemplate(models.Model):
         string="Type",
         selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
     )
-    obligatory = fields.Boolean(string="Obligatory")
+    obligatory = fields.Boolean()
     price_type = fields.Selection(
         selection=[
             ("correction", "F. M. Correction"),

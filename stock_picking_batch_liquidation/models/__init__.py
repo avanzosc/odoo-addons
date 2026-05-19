@@ -6,8 +6,6 @@ from . import liquidation_contract_line
 from . import product_category
 from . import account_move
 from . import stock_picking_batch
-from . import stock_inventory
-from . import stock_inventory_line
 from . import account_move_line
 from . import feed_rate
 from . import stock_move

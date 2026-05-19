@@ -12,13 +12,12 @@ class LiquidationLine(models.Model):
         string="Product", comodel_name="product.product", required=True
     )
     unit = fields.Float(string="Units")
-    quantity = fields.Float(string="Quantity")
-    price = fields.Float(string="Price", digits="Standard Cost Decimal Precision")
-    amount = fields.Float(string="Amount")
-    amount_charge = fields.Float(string="Amount Charge")
-    amount_pay = fields.Float(string="Amount Pay")
+    quantity = fields.Float()
+    price = fields.Float(digits="Standard Cost Decimal Precision")
+    amount = fields.Float()
+    amount_charge = fields.Float()
+    amount_pay = fields.Float()
     type = fields.Selection(
-        string="Type",
         selection=[("charge", "Charge"), ("pay", "Pay"), ("variable", "Variable")],
     )
     obligatory = fields.Boolean(default=False)
@@ -79,8 +78,8 @@ class LiquidationLine(models.Model):
                     )
                 if contract_line.quantity_type == "kg" and movelines:
                     quantity = abs(
-                        sum(entry_movelines.mapped("qty_done"))
-                        - sum(return_movelines.mapped("qty_done"))
+                        sum(entry_movelines.mapped("quantity"))
+                        - sum(return_movelines.mapped("quantity"))
                     )
                 if contract_line.quantity_type == "fixed":
                     quantity = 1
@@ -93,15 +92,15 @@ class LiquidationLine(models.Model):
                 if (
                     contract_line.price_type == "average"
                     and entry_movelines
-                    and sum(movelines.mapped("qty_done")) != 0
+                    and sum(movelines.mapped("quantity")) != 0
                 ):
                     total_amount = abs(
                         sum(entry_movelines.mapped("amount"))
                         - sum(return_movelines.mapped("amount"))
                     )
                     total_qty_done = abs(
-                        sum(entry_movelines.mapped("qty_done"))
-                        - sum(return_movelines.mapped("qty_done"))
+                        sum(entry_movelines.mapped("quantity"))
+                        - sum(return_movelines.mapped("quantity"))
                     )
                     price = total_amount / total_qty_done
                 if contract_line.type == "charge":
