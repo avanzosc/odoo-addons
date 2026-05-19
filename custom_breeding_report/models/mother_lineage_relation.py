@@ -19,12 +19,8 @@ class MotherLineageRelation(models.Model):
         store=True,
     )
     city = fields.Char(string="City", related="breeding_id.city", store=True)
-    chick_entry_qty = fields.Float(
-        string="Chick Entry Qty", compute="_compute_chick_entry_qty", store=True
-    )
-    output_units = fields.Float(
-        string="Output Units", compute="_compute_output_units", store=True
-    )
+    chick_entry_qty = fields.Float(compute="_compute_chick_entry_qty", store=True)
+    output_units = fields.Float(compute="_compute_output_units", store=True)
     cancellation_percentage = fields.Float(
         string="Cancellation Percentage",
         related="breeding_id.cancellation_percentage",
@@ -35,12 +31,8 @@ class MotherLineageRelation(models.Model):
         string="Growth Speed", related="breeding_id.growth_speed", store=True
     )
     feed = fields.Integer(string="Feep", related="breeding_id.feed", store=True)
-    meat_kilos = fields.Float(
-        string="Meat Kilos", compute="_compute_meat_kilos", store=True
-    )
-    consume_feed = fields.Float(
-        string="Consume Feed", compute="_compute_consume_feed", store=True
-    )
+    meat_kilos = fields.Float(compute="_compute_meat_kilos", store=True)
+    consume_feed = fields.Float(compute="_compute_consume_feed", store=True)
     feed_family = fields.Many2one(
         string="Feed Family",
         comodel_name="breeding.feed",
@@ -62,9 +54,7 @@ class MotherLineageRelation(models.Model):
     dif_weight = fields.Float(
         string="Dif.", related="breeding_id.dif_weight", store=True
     )
-    liquidation_amount = fields.Float(
-        string="Liquidation Amount", compute="_compute_liquidation_amount", store=True
-    )
+    liquidation_amount = fields.Float(compute="_compute_liquidation_amount", store=True)
     chick_liquidation = fields.Float(
         string="Chick Liquidation", related="breeding_id.chick_liquidation", store=True
     )
@@ -79,21 +69,11 @@ class MotherLineageRelation(models.Model):
     )
     billed = fields.Boolean(string="Billed", related="breeding_id.billed", store=True)
     closed = fields.Boolean(string="Closed", related="breeding_id.closed", store=True)
-    output_amount_days = fields.Float(
-        string="Output Amount Days", compute="_compute_output_amount_days", store=True
-    )
-    output_feed_amount = fields.Float(
-        string="Output Feed Amount", compute="_compute_output_feed_amount", store=True
-    )
-    medicine_amount = fields.Float(
-        string="Medicine Amount", compute="_compute_medicine_amount", store=True
-    )
-    warehouse_area = fields.Float(
-        string="Warehouse Area", compute="_compute_warehouse_area", store=True
-    )
-    age_output = fields.Float(
-        string="Age Output", compute="_compute_age_output", store=True
-    )
+    output_amount_days = fields.Float(compute="_compute_output_amount_days", store=True)
+    output_feed_amount = fields.Float(compute="_compute_output_feed_amount", store=True)
+    medicine_amount = fields.Float(compute="_compute_medicine_amount", store=True)
+    warehouse_area = fields.Float(compute="_compute_warehouse_area", store=True)
+    age_output = fields.Float(compute="_compute_age_output", store=True)
 
     @api.depends("breeding_id", "breeding_id.age_output", "percentage")
     def _compute_age_output(self):
@@ -121,12 +101,12 @@ class MotherLineageRelation(models.Model):
                 qty = (line.breeding_id.output_feed_amount * line.percentage) / 100
             line.output_feed_amount = qty
 
-    @api.depends("breeding_id", "breeding_id.chick_entry_qty", "percentage")
+    @api.depends("breeding_id", "breeding_id.chick_units", "percentage")
     def _compute_chick_entry_qty(self):
         for line in self:
             qty = 0
             if line.breeding_id:
-                qty = line.breeding_id.chick_entry_qty * line.percentage / 100
+                qty = line.breeding_id.chick_units * line.percentage / 100
             line.chick_entry_qty = qty
 
     @api.depends("breeding_id", "breeding_id.output_units", "percentage")
@@ -183,7 +163,13 @@ class MotherLineageRelation(models.Model):
         self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
     ):
         result = super().read_group(
-            domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+            domain,
+            fields,
+            groupby,
+            offset=offset,
+            limit=limit,
+            orderby=orderby,
+            lazy=lazy,
         )
         for line in result:
             if "__domain" in line:
@@ -239,7 +225,4 @@ class MotherLineageRelation(models.Model):
                 line["chick_liquidation"] = total_chick_liq
                 line["liquidation_area"] = total_liq_area
                 line["cost_kilo"] = total_cost_kilo
-            else:
-                fields.remove("cancellation_percentage")
-                fields.remove("density")
         return result

@@ -4,21 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-09 09:59+0000\n"
-"PO-Revision-Date: 2025-09-09 09:59+0000\n"
+"POT-Creation-Date: 2026-06-05 08:04+0000\n"
+"PO-Revision-Date: 2026-06-05 08:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-
-#. module: custom_breeding_report
-#: model:ir.actions.report,print_report_name:custom_breeding_report.report_breeding_general_summary_xlsx
-msgid "'Breeding General Summary XLSX'"
-msgstr ""
 
 #. module: custom_breeding_report
 #: model:ir.actions.report,print_report_name:custom_breeding_report.report_lineage_percentage_xlsx
@@ -36,9 +31,8 @@ msgid "'Breeding Repor XLSX'"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Age Average"
 msgstr ""
 
@@ -49,35 +43,28 @@ msgid "Age Output"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Amount"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__average_age
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__average_age
-#, python-format
 msgid "Average Age"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__average_weight
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__average_weight
-#, python-format
 msgid "Average Weight"
 msgstr ""
 
@@ -90,15 +77,12 @@ msgid "Billed"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.lineage_percentage_view_search
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_search
-#, python-format
 msgid "Breeding"
 msgstr ""
 
@@ -113,9 +97,8 @@ msgid "Breeding General Summary XLSX"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Breeding Nº"
 msgstr ""
 
@@ -147,15 +130,11 @@ msgid "Breedings Report By Mother XLSX"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Cancellation %"
 msgstr ""
 
@@ -172,77 +151,64 @@ msgid "Chick Entry Qty"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Chick Input"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__chick_liquidation
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__chick_liquidation
-#, python-format
 msgid "Chick Liquidation"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Chicken Load"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Chicken Output"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Chicks"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__city
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__city
-#, python-format
 msgid "City"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__cleaned_date
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__cleaned_date
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.lineage_percentage_view_search
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_search
-#, python-format
 msgid "Cleaned Date"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Clear Up Percentage"
 msgstr ""
 
@@ -255,203 +221,150 @@ msgid "Closed"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Concept"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__consume_feed
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__consume_feed
-#, python-format
 msgid "Consume Feed"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Consumed Feed"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__conversion
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__conversion
-#, python-format
 msgid "Conversion"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__cost_kilo
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__cost_kilo
-#, python-format
 msgid "Cost Kilo"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Costs and Benefits"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__density
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__density
-#, python-format
 msgid "Density"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__dif_weight
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__dif_weight
-#, python-format
 msgid "Dif."
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Difference"
 msgstr ""
 
 #. module: custom_breeding_report
-#: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__display_name
-#: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__display_name
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_breeding_general_summary_xlsx__display_name
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_lineage_percentage_xlsx__display_name
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_mother_lineage_relation_xlsx__display_name
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_stock_picking_batch_xlsx__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__entry_date
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__entry_date
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.lineage_percentage_view_search
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_search
-#, python-format
 msgid "Entry Date"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Entry Qty"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "FEEP"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__warehouse_id
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__warehouse_id
-#, python-format
 msgid "Farm"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__farm_day
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__farm_day
-#, python-format
 msgid "Farm Day"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Feed"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Feed Amount"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__feed_family
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__feed_family
-#, python-format
 msgid "Feed Family"
 msgstr ""
 
@@ -468,69 +381,40 @@ msgid "Group By"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__growth_speed
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__growth_speed
-#, python-format
 msgid "Growth Speed"
 msgstr ""
 
 #. module: custom_breeding_report
-#: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__id
-#: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__id
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_breeding_general_summary_xlsx__id
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_lineage_percentage_xlsx__id
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_mother_lineage_relation_xlsx__id
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_stock_picking_batch_xlsx__id
-msgid "ID"
-msgstr ""
-
-#. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Kg"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Kg/m2"
 msgstr ""
 
 #. module: custom_breeding_report
-#: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage____last_update
-#: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation____last_update
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_breeding_general_summary_xlsx____last_update
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_lineage_percentage_xlsx____last_update
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_mother_lineage_relation_xlsx____last_update
-#: model:ir.model.fields,field_description:custom_breeding_report.field_report_stock_picking_batch_xlsx____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.lineage_percentage_view_search
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_search
-#, python-format
 msgid "Lineage"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
-#, python-format
 msgid "Lineage %"
 msgstr ""
 
@@ -553,103 +437,81 @@ msgid "Liquidated"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Liquidation"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Liquidation / M2"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__liquidation_amount
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__liquidation_amount
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.lineage_percentage_view_tree
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_tree
-#, python-format
 msgid "Liquidation Amount"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__liquidation_area
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__liquidation_area
-#, python-format
 msgid "Liquidation Area"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Loss/Benefits"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__meat_kilos
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__meat_kilos
-#, python-format
 msgid "Meat Kilos"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Medicine"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
 #: model:ir.model.fields,field_description:custom_breeding_report.field_lineage_percentage__medicine_amount
 #: model:ir.model.fields,field_description:custom_breeding_report.field_mother_lineage_relation__medicine_amount
-#, python-format
 msgid "Medicine Amount"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: model_terms:ir.ui.view,arch_db:custom_breeding_report.mother_lineage_relation_view_search
-#, python-format
 msgid "Mother"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#, python-format
 msgid "Mother %"
 msgstr ""
 
@@ -664,20 +526,16 @@ msgid "Mother/Lineage Relation Report"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Movement Summary"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Output Amount"
 msgstr ""
 
@@ -694,13 +552,10 @@ msgid "Output Feed Amount"
 msgstr ""
 
 #. module: custom_breeding_report
-#: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
+#. odoo-python
 #: code:addons/custom_breeding_report/report/lineage_percentage_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
-#: code:addons/custom_breeding_report/report/mother_lineage_relation_report_xlsx.py:0
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "Output Qty"
 msgstr ""
 
@@ -711,37 +566,32 @@ msgid "Output Units"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Overheads"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Per Chick"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Per Kilo"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Price"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Results"
 msgstr ""
 
@@ -763,16 +613,14 @@ msgid "Total Amount Feed"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Total Cancellations"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Total Costs"
 msgstr ""
 
@@ -789,9 +637,8 @@ msgid "Total Feed"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Total M2"
 msgstr ""
 
@@ -814,30 +661,26 @@ msgid "Total Output"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Total Sales"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Totals"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Units"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Value"
 msgstr ""
 
@@ -854,15 +697,13 @@ msgid "Warehouse Area"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#: code:addons/custom_breeding_report/report/breeding_general_summary_xlsx.py:0
-#, python-format
 msgid "Weight Average"
 msgstr ""
 
 #. module: custom_breeding_report
+#. odoo-python
 #: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#: code:addons/custom_breeding_report/report/stock_picking_batch_xlsx.py:0
-#, python-format
 msgid "m2"
 msgstr ""

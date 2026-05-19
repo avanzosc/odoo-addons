@@ -106,8 +106,8 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         n += 2
         m = 0
         worksheet.write(n, m, _("Movement Summary"), table_header)
-        for m in range(m + 1, 9):
-            worksheet.write(n, m, "", table_header)
+        for col in range(m + 1, 9):
+            worksheet.write(n, col, "", table_header)
         n += 1
         m = 0
         worksheet.write(n, m, _("Chick Input"))
@@ -231,8 +231,8 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         n += 2
         m = 0
         worksheet.write(n, m, _("Costs and Benefits"), table_header)
-        for m in range(m + 1, 9):
-            worksheet.write(n, m, "", table_header)
+        for col in range(m + 1, 9):
+            worksheet.write(n, col, "", table_header)
         n += 1
         m = 0
         chick_amount = 0
@@ -415,8 +415,8 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         n += 2
         m = 0
         worksheet.write(n, m, _("Results"), table_header)
-        for m in range(m + 1, 9):
-            worksheet.write(n, m, "", table_header)
+        for col in range(m + 1, 9):
+            worksheet.write(n, col, "", table_header)
         n += 1
         m = 0
         worksheet.write(n, m, _("Cancellation %"))
@@ -501,8 +501,8 @@ class ReportBreedingGeneralSummaryXlsx(models.AbstractModel):
         n += 2
         m = 0
         worksheet.write(n, m, _("Totals"), table_header)
-        for m in range(m + 1, 9):
-            worksheet.write(n, m, "", table_header)
+        for col in range(m + 1, 9):
+            worksheet.write(n, col, "", table_header)
         n += 1
         m = 0
         worksheet.write(n, m, _("Breeding Nº"))

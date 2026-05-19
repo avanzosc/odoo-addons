@@ -3,12 +3,14 @@
 
 {
     "name": "Custom Breeding Report",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "custom_breeding_apps",
+        "report_xlsx",
         "stock_picking_batch_breeding",
         "stock_picking_batch_liquidation",
     ],
