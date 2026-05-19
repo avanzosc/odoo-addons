@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_tracking_date
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-25 05:45+0000\n"
+"PO-Revision-Date: 2025-08-25 05:45+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__cargo_ready
+msgid "Cargo Ready Date"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__carrier_id
+#: model_terms:ir.ui.view,arch_db:purchase_order_tracking_date.view_purchase_order_carrier_form
+msgid "Carrier"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__name
+msgid "Carrier Name"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model,name:purchase_order_tracking_date.model_purchase_order_carrier
+msgid "Carrier for Purchase Orders"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.constraint,message:purchase_order_tracking_date.constraint_purchase_order_carrier_name_unique
+msgid "Carrier name must be unique!"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.actions.act_window,name:purchase_order_tracking_date.action_purchase_order_carrier_tree
+#: model:ir.ui.menu,name:purchase_order_tracking_date.menu_purchase_order_carriers
+msgid "Carriers"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__carrier_id
+msgid "Company responsible for the shipment."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__cut_off
+msgid "Cut-off Date"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_sent
+msgid "Date Sent"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_eta
+msgid "Date of arrival of the container at port."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_etd
+msgid "Date of departure from port of the container."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__date_sent
+msgid "Date the email is sent to the supplier."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__cargo_ready
+msgid "Date when the supplier confirms that the material will be finished."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__cut_off
+msgid "Deadline to deliver the material so it can be loaded onto that ship."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_eta
+msgid "Estimated Time of Arrival (ETA)"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__date_etd
+msgid "Estimated Time of Departure (ETD)"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__forwarder_id
+msgid "Forwarder"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__id
+msgid "ID"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order_carrier__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__pol_id
+msgid "Port from which the goods depart."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__pod_id
+msgid "Port of Destination (POD)"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,field_description:purchase_order_tracking_date.field_purchase_order__pol_id
+msgid "Port of Origin (POL)"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__pod_id
+msgid "Port of arrival of the goods."
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model,name:purchase_order_tracking_date.model_purchase_order
+msgid "Purchase Order"
+msgstr "Satınalma Siparişi"
+
+#. module: purchase_order_tracking_date
+#: model_terms:ir.ui.view,arch_db:purchase_order_tracking_date.view_purchase_order_form_tracking
+msgid "Purchase Tracking"
+msgstr ""
+
+#. module: purchase_order_tracking_date
+#: model:ir.model.fields,help:purchase_order_tracking_date.field_purchase_order__forwarder_id
+msgid "Transport service provider."
+msgstr ""
