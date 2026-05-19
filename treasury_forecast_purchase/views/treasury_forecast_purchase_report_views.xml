@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_report_search_inherit_purchase" model="ir.ui.view">
+    <field name="name">treasury.forecast.report.search.purchase</field>
+    <field name="model">treasury.forecast.report</field>
+    <field
+      name="inherit_id"
+      ref="treasury_forecast.view_treasury_forecast_report_search"
+    />
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='filter_real']" position="after">
+        <filter
+          string="Purchase"
+          name="filter_purchase"
+          domain="[('source','=','purchase')]"
+        />
+      </xpath>
+    </field>
+  </record>
+
+  <record
+    id="treasury_forecast.action_treasury_forecast_report_pivot"
+    model="ir.actions.act_window"
+  >
+    <field name="name">Treasury forecast + Real + Purchase</field>
+  </record>
+</odoo>
