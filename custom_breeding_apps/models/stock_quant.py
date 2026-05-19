@@ -12,5 +12,5 @@ class StockQuant(models.Model):
         related="lot_id.batch_id",
         store=True,
     )
-    broken = fields.Integer(string="Broken")
-    waste = fields.Integer(string="Waste")
+    broken = fields.Integer()
+    waste = fields.Integer()

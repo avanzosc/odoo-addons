@@ -36,7 +36,7 @@ class SaleOrder(models.Model):
                     picking.button_force_done_detailed_operations()
                     for moveline in picking.move_line_ids_without_package:
                         if moveline.product_id.live_chicken:
-                            lot = self.env["stock.production.lot"].search(
+                            lot = self.env["stock.lot"].search(
                                 [
                                     ("product_id", "=", moveline.product_id.id),
                                     ("name", "=", picking.batch_id.name),
@@ -45,7 +45,7 @@ class SaleOrder(models.Model):
                                 limit=1,
                             )
                             if not lot:
-                                lot = self.env["stock.production.lot"].create(
+                                lot = self.env["stock.lot"].create(
                                     {
                                         "name": picking.batch_id.name,
                                         "product_id": moveline.product_id.id,

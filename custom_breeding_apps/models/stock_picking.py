@@ -48,7 +48,7 @@ class StockPicking(models.Model):
         related="picking_type_id.incubator_hatcher",
         store=True,
     )
-    birth_estimate_date = fields.Date(string="Birth Estimate Date")
+    birth_estimate_date = fields.Date()
     date_done_week = fields.Integer(
         string="Date Done Weeks", compute="_compute_date_done_week", store=True
     )
@@ -60,11 +60,9 @@ class StockPicking(models.Model):
         comodel_name="distribution.line",
         inverse_name="picking_id",
     )
-    pending_qty = fields.Integer(
-        string="Pending Qty", compute="_compute_pending_qty", store=True
-    )
+    pending_qty = fields.Integer(compute="_compute_pending_qty", store=True)
     birth_estimate_qty = fields.Integer(
-        string="Birth Estimate Qty", compute="_compute_birth_estimate_qty", store=True
+        compute="_compute_birth_estimate_qty", store=True
     )
     distribution_count = fields.Integer(
         string="Distributions", compute="_compute_distribution_count", store=True
@@ -190,6 +188,19 @@ class StockPicking(models.Model):
             self.birth_estimate_date = self.custom_date_done.date() + relativedelta(
                 days=21
             )
+        if (
+            self.custom_date_done
+            and self.dest_category_type_id
+            and (self.dest_category_type_id.monthly_closing_date)
+            and self.custom_date_done.date()
+            <= (self.dest_category_type_id.monthly_closing_date)
+        ):
+            raise ValidationError(
+                _(
+                    "The date of the picking cannot be earlier "
+                    + "than the monthly closing date of the sections."
+                )
+            )
 
     @api.onchange("location_id")
     def _onchange_location_id(self):
@@ -212,7 +223,7 @@ class StockPicking(models.Model):
         context.update({"default_picking_id": self.id})
         return {
             "name": _("Distributions"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "res_model": "distribution.line",
             "domain": [("id", "in", self.distribution_ids.ids)],
             "type": "ir.actions.act_window",
@@ -233,7 +244,19 @@ class StockPicking(models.Model):
         for picking in self:
             for line in picking.move_line_ids_without_package:
                 if line.product_uom_id == unit:
-                    line.download_unit = line.qty_done
+                    line.download_unit = line.quantity
+        return result
+
+    def action_detailed_operations(self):
+        result = super().action_detailed_operations()
+        result["context"].update(
+            {
+                "egg_production": self.egg_production,
+                "burden_to_incubator": self.burden_to_incubator,
+                "is_incubator": self.is_incubator,
+                "is_reproductor": self.is_reproductor,
+            }
+        )
         return result
 
     def button_validate(self):

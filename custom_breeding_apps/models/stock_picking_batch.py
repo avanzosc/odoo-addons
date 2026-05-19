@@ -14,7 +14,7 @@ class StockPickingBatch(models.Model):
         )
         if not name:
             return result
-        my_name = "%{}%".format(name)
+        my_name = f"%{name}%"
         cond = [
             "|",
             ("location_id", operator, my_name),
@@ -45,15 +45,9 @@ class StockPickingBatch(models.Model):
     quant_ids = fields.One2many(
         string="Stock", comodel_name="stock.quant", compute="_compute_quant_ids"
     )
-    chick_entry_qty = fields.Integer(
-        string="Chick Entry Qty", compute="_compute_chick_entry_qty"
-    )
-    chick_outflow_qty = fields.Integer(
-        string="Chick Outflow Qty", compute="_compute_chick_outflow_qty"
-    )
-    chick_existence = fields.Float(
-        string="Chick Existence", compute="_compute_chick_existece"
-    )
+    chick_entry_qty = fields.Integer(compute="_compute_chick_entry_qty")
+    chick_outflow_qty = fields.Integer(compute="_compute_chick_outflow_qty")
+    chick_existence = fields.Float(compute="_compute_chick_existece")
     rvd_number = fields.Char(
         string="RVD No.",
         help="Responsible Veterinary Declaration (RVD) Number",
@@ -79,10 +73,10 @@ class StockPickingBatch(models.Model):
             if batch.move_line_ids and batch.batch_type == "breeding":
                 chick_entry_qty = sum(
                     batch.move_line_ids.filtered(
-                        lambda c: c.product_id.one_day_chicken is True
+                        lambda c, _batch=batch: c.product_id.one_day_chicken is True
                         and (c.state == "done")
-                        and c.location_dest_id == (batch.location_id)
-                    ).mapped("qty_done")
+                        and c.location_dest_id == (_batch.location_id)
+                    ).mapped("quantity")
                 )
             batch.chick_entry_qty = chick_entry_qty
 
@@ -92,14 +86,14 @@ class StockPickingBatch(models.Model):
             if batch.move_line_ids and batch.batch_type == "breeding":
                 chick_outflow_qty = sum(
                     batch.move_line_ids.filtered(
-                        lambda c: c.product_id.one_day_chicken is True
+                        lambda c, _batch=batch: c.product_id.one_day_chicken is True
                         and (c.state == "done")
-                        and c.location_id == (batch.location_id)
-                    ).mapped("qty_done")
+                        and c.location_id == (_batch.location_id)
+                    ).mapped("quantity")
                 ) + sum(
                     batch.move_line_ids.filtered(
                         lambda c: c.saca_line_id and (c.state == "done")
-                    ).mapped("qty_done")
+                    ).mapped("quantity")
                 )
             batch.chick_outflow_qty = chick_outflow_qty
 
@@ -121,10 +115,10 @@ class StockPickingBatch(models.Model):
     def action_view_eggs(self):
         context = self.env.context.copy()
         context.update({"default_batch_id": self.id})
-        domain = [("id", "in", self.egg_ids.ids), ("qty_done", "!=", 0)]
+        domain = [("id", "in", self.egg_ids.ids), ("quantity", "!=", 0)]
         return {
             "name": _("Eggs"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "res_model": "stock.move.line",
             "domain": domain,
             "type": "ir.actions.act_window",
@@ -140,7 +134,7 @@ class StockPickingBatch(models.Model):
             context.update({"search_default_productgroup": 1})
         return {
             "name": _("Stock"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "res_model": "stock.quant",
             "domain": [("id", "in", self.quant_ids.ids)],
             "type": "ir.actions.act_window",

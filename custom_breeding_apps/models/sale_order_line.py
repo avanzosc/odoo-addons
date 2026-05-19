@@ -19,7 +19,7 @@ class SaleOrderLine(models.Model):
         store=True,
     )
     packaging_name = fields.Char(
-        string="Packaging N.", related="product_packaging.name", store=True
+        string="Packaging N.", related="product_packaging_id.name", store=True
     )
     entire_chick_percentage = fields.Float(
         string="Entire Chicks", compute="_compute_entire_chick_percentage", store=True
@@ -32,9 +32,3 @@ class SaleOrderLine(models.Model):
             if line.product_id and line.product_id.entire_chick_percentage:
                 qty = line.product_uom_qty / (line.product_id.entire_chick_percentage)
             line.entire_chick_percentage = qty
-
-    def _check_package(self):
-        result = super()._check_package()
-        if "warning" in result:
-            result = {}
-        return result

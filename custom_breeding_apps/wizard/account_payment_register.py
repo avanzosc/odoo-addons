@@ -6,14 +6,10 @@ from odoo import api, models
 class AccountPaymentResigter(models.TransientModel):
     _inherit = "account.payment.register"
 
-    @api.depends("can_edit_wizard")
+    @api.depends("can_edit_wizard", "amount")
     def _compute_communication(self):
-        super()._compute_communication()
+        result = super()._compute_communication()
         for wizard in self:
-            if wizard.can_edit_wizard:
-                batches = wizard._get_batches()
-                wizard.communication = "{} - {}".format(
-                    wizard._get_batch_communication(batches[0]), self.env.user.name
-                )
-            else:
-                wizard.communication = False
+            if wizard.can_edit_wizard and wizard.communication:
+                wizard.communication = f"{wizard.communication} - {self.env.user.name}"
+        return result

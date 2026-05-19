@@ -26,9 +26,11 @@ class StockMoveLine(models.Model):
             result = product.id
         return result
 
-    source_document = fields.Char(
-        string="Source Document", compute="_compute_source_document", store=True
+    picking_type_id = fields.Many2one(
+        related="picking_id.picking_type_id",
+        store=True,
     )
+    source_document = fields.Char(compute="_compute_source_document", store=True)
     product_id = fields.Many2one(default=_default_get_product_id)
     batch_id = fields.Many2one(
         string="Batch",
@@ -43,8 +45,8 @@ class StockMoveLine(models.Model):
         ],
     )
     mother_id = fields.Many2one(string="Mother", comodel_name="stock.picking.batch")
-    broken = fields.Integer(string="Broken")
-    waste = fields.Integer(string="Waste")
+    broken = fields.Integer()
+    waste = fields.Integer()
     date_week = fields.Integer(
         string="Date Weeks",
         compute="_compute_date_week",
@@ -56,7 +58,6 @@ class StockMoveLine(models.Model):
         store=True,
     )
     stock = fields.Float(
-        string="Stock",
         compute="_compute_stock",
     )
     real_percentage = fields.Float(
@@ -69,11 +70,9 @@ class StockMoveLine(models.Model):
         compute="_compute_estimate_laying",
     )
     forecast = fields.Float(
-        string="Forecast",
         compute="_compute_estimate_laying",
     )
     difference = fields.Float(
-        string="Difference",
         compute="_compute_difference",
     )
     estimate_birth = fields.Float(string="Birth estimate %")
@@ -84,7 +83,6 @@ class StockMoveLine(models.Model):
     )
     standard_price = fields.Float(digits="Standard Cost Decimal Precision")
     rest = fields.Float(
-        string="Rest",
         compute="_compute_rest",
         store=True,
     )
@@ -193,7 +191,7 @@ class StockMoveLine(models.Model):
             )
             if product:
                 stock = line.batch_id.location_id.quant_ids.filtered(
-                    lambda x: x.product_id == product
+                    lambda x, _product=product: x.product_id == _product
                 )
                 stock = sum(stock.mapped("available_quantity"))
             line.stock = stock
@@ -232,12 +230,12 @@ class StockMoveLine(models.Model):
                 laying_week = line.weeks_between(start_date, end_date)
             line.laying_week = laying_week
 
-    @api.depends("stock", "qty_done")
+    @api.depends("stock", "quantity")
     def _compute_real_percentage(self):
         for line in self:
             real_percentage = 0
             if line.stock != 0:
-                real_percentage = line.qty_done * 100 / line.stock
+                real_percentage = line.quantity * 100 / line.stock
             line.real_percentage = real_percentage
 
     @api.depends(
@@ -252,7 +250,7 @@ class StockMoveLine(models.Model):
             forecast = 0
             if line.laying_week and line.batch_id.laying_rate_ids:
                 rate = line.batch_id.laying_rate_ids.filtered(
-                    lambda x: x.week == line.laying_week
+                    lambda x, _line=line: x.week == _line.laying_week
                 )
                 if rate and rate.percentage_laying and rate.estimate_laying:
                     estimate_laying = rate.percentage_laying
@@ -263,8 +261,8 @@ class StockMoveLine(models.Model):
     def _compute_difference(self):
         for line in self:
             difference = 0
-            if line.forecast and line.qty_done:
-                difference = line.forecast - line.qty_done
+            if line.forecast and line.quantity:
+                difference = line.forecast - line.quantity
             line.difference = difference
 
     @api.onchange("batch_id", "location_id", "product_id")
@@ -284,7 +282,7 @@ class StockMoveLine(models.Model):
                     lot.append(line.lot_id.id)
             domain = {"domain": {"lot_id": [("id", "in", lot)]}}
         else:
-            lot = self.env["stock.production.lot"].search(
+            lot = self.env["stock.lot"].search(
                 [
                     ("product_id", "=", self.product_id.id),
                     ("company_id", "=", self.env.company.id),
@@ -316,18 +314,18 @@ class StockMoveLine(models.Model):
             if weeks == 53:
                 weeks = 1
             if weeks <= 9:
-                weeks = "0{}".format(weeks)
+                weeks = f"0{weeks}"
             lot_name = "{}{}{}".format(
-                self.batch_id.name, weeks, "{}".format(date_done.year)[2:]
+                self.batch_id.name, weeks, f"{date_done.year}"[2:]
             )
-            exists = self.env["stock.production.lot"].search(
+            exists = self.env["stock.lot"].search(
                 [("name", "=", lot_name), ("product_id", "=", self.product_id.id)],
                 limit=1,
             )
             if exists:
                 lot = exists
             else:
-                lot = self.env["stock.production.lot"].create(
+                lot = self.env["stock.lot"].create(
                     {
                         "name": lot_name,
                         "product_id": self.product_id.id,
