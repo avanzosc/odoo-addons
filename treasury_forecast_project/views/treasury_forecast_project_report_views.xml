@@ -162,6 +162,11 @@
     <field name="view_mode">pivot</field>
     <field name="view_id" ref="view_treasury_forecast_project_report_pivot" />
     <field name="search_view_id" ref="view_treasury_forecast_project_report_search" />
+    <field name="domain">
+        ['|',
+         ('project_id', '!=', False),
+         ('analytic_account_id', '!=', False)]
+    </field>
   </record>
 
   <menuitem
