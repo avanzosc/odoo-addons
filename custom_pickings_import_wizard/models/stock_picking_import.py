@@ -540,7 +540,7 @@ class StockPickingImportLine(models.Model):
                 new_stage = self.env.ref("stock_warehouse_farm.batch_stage1")
                 breedings = self.env["stock.picking.batch"].create(
                     {
-                        "name": "TEMP-{}".format(location.name),
+                        "name": f"TEMP-{location.name}",
                         "location_id": location.id,
                         "batch_type": "breeding",
                         "stage_id": new_stage.id,
