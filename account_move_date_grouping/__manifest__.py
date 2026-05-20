@@ -1,6 +1,6 @@
 {
     "name": "Account Move Date Grouping ",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "summary": "Add Month, Year, and Quarter fields to invoices "
     "and related them to invoice lines for grouping.",
     "category": "Accounting",

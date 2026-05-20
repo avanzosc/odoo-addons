@@ -5,17 +5,14 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     invoice_month = fields.Char(
-        string="Invoice Month",
         compute="_compute_date_fields",
         store=True,
     )
     invoice_year = fields.Char(
-        string="Invoice Year",
         compute="_compute_date_fields",
         store=True,
     )
     invoice_quarter = fields.Char(
-        string="Invoice Quarter",
         compute="_compute_date_fields",
         store=True,
     )
