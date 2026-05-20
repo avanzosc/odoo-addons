@@ -64,7 +64,7 @@ class TreasuryFinancing(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="Categoría",
+        string="Category",
         required=True,
     )
     parent_category_id = fields.Many2one(
@@ -178,7 +178,7 @@ class TreasuryFinancing(models.Model):
         self.ensure_one()
 
         if not self.start_date:
-            raise ValidationError(_("Debe indicar la fecha inicio cuotas."))
+            raise ValidationError(_("You must specify the installment start date."))
 
         today = fields.Date.context_today(self)
         start_date = fields.Date.to_date(self.start_date)

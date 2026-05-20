@@ -65,3 +65,9 @@ class SaleOrderLine(models.Model):
         for line in lines.filtered(lambda z: z.make_id):
             line.order_id.update_division_in_sales()
         return lines
+
+    def _prepare_invoice_line(self, **optional_values):
+        values = super()._prepare_invoice_line(**optional_values)
+        if self.make_id:
+            values["make_id"] = self.make_id.id
+        return values
