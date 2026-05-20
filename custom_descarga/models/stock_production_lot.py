@@ -4,11 +4,11 @@ from odoo import models
 
 
 class StockproductionLot(models.Model):
-    _inherit = "stock.production.lot"
+    _inherit = "stock.lot"
     _order = "create_date desc, name, id"
 
     def action_create_lot(self, product, name, company):
-        lot = self.env["stock.production.lot"].create(
+        lot = self.env["stock.lot"].create(
             {"name": name, "product_id": product.id, "company_id": company.id}
         )
         return lot

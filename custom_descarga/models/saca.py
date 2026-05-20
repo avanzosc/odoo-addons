@@ -11,9 +11,7 @@ class Saca(models.Model):
         comodel_name="saca.line",
         compute="_compute_historic_line_ids",
     )
-    count_historic = fields.Integer(
-        string="Count Historic", compute="_compute_count_historic"
-    )
+    count_historic = fields.Integer(compute="_compute_count_historic")
 
     def _compute_count_historic(self):
         for line in self:
@@ -38,7 +36,7 @@ class Saca(models.Model):
         context = self.env.context.copy()
         return {
             "name": _("Historics"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "saca.line",
             "domain": [
                 ("id", "in", self.historic_line_ids.ids),

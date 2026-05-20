@@ -86,7 +86,7 @@ class SacaLine(models.Model):
     craw_percentage = fields.Float(
         compute="_compute_craw_percentage",
         store=True,
-        group_operator="avg",
+        aggregator="avg",
     )
     weight_uom_name = fields.Char(
         string="Weight UOM",
@@ -174,145 +174,145 @@ class SacaLine(models.Model):
     sampler_id = fields.Many2one(comodel_name="res.partner", copy=False)
     dock_temperature = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     dock_relative_humidity = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     asphyxiated_percentage = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     asphyxiated_wight = fields.Float(copy=False)
     seizured_percentage = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     seizured_wight = fields.Float(copy=False)
     stunning = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     second_percentage = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     dirty_feather_g1 = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     dirty_feather_g2 = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     dirty_feather = fields.Float(
         compute="_compute_dirty_feather",
-        group_operator="avg",
+        aggregator="avg",
     )
     living_stunned = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     living_stunned_estimated = fields.Float(
         compute="_compute_living_stunned_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     hard_breast = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     hard_breast_estimated = fields.Float(
         compute="_compute_hard_breast_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     wing_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     wing_injury_estimated = fields.Float(
         compute="_compute_wing_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     thingh_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     thingh_injury_estimated = fields.Float(
         compute="_compute_thingh_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     breast_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     breast_injury_estimated = fields.Float(
         compute="_compute_breast_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     back_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     back_injury_estimated = fields.Float(
         compute="_compute_back_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     hock_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     hock_injury_estimated = fields.Float(
         compute="_compute_hock_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     podpdermattis_g1 = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     podpdermattis_g2 = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     podpdermattis = fields.Float(
         compute="_compute_podpdermattis",
-        group_operator="avg",
+        aggregator="avg",
     )
     gizzard_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     gizzard_injury_estimated = fields.Float(
         compute="_compute_gizzard_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     liver_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     liver_injury_estimated = fields.Float(
         compute="_compute_liver_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     heart_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     heart_injury_estimated = fields.Float(
         compute="_compute_heart_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     bowel_injury = fields.Float(
         copy=False,
-        group_operator="avg",
+        aggregator="avg",
     )
     bowel_injury_estimated = fields.Float(
         compute="_compute_bowel_injury_estimated",
-        group_operator="avg",
+        aggregator="avg",
     )
     weighting = fields.Float(
         compute="_compute_weighting",
-        group_operator="avg",
+        aggregator="avg",
     )
     observations = fields.Text(copy=False)
 
@@ -325,7 +325,7 @@ class SacaLine(models.Model):
                     saca_lines, key=lambda c: c.unload_date, reverse=False
                 )
                 position = saca_lines.index(line)
-                line.descarga_order = "{}".format(position + 1)
+                line.descarga_order = f"{position + 1}"
 
     def _compute_count_historic(self):
         for line in self:
@@ -333,19 +333,27 @@ class SacaLine(models.Model):
 
     @api.depends("stage_id")
     def _compute_stage(self):
+        presaca = self.env.ref(
+            "custom_saca_purchase.stage_presaca", raise_if_not_found=False
+        )
+        saca = self.env.ref("custom_saca_purchase.stage_saca", raise_if_not_found=False)
+        descarga = self.env.ref(
+            "custom_descarga.stage_descarga", raise_if_not_found=False
+        )
+        matanza = self.env.ref(
+            "custom_descarga.stage_matanza", raise_if_not_found=False
+        )
+        clasificado = self.env.ref(
+            "custom_descarga.stage_clasificado", raise_if_not_found=False
+        )
         for line in self:
-            presaca = self.env.ref("custom_saca_purchase.stage_presaca")
-            saca = self.env.ref("custom_saca_purchase.stage_saca")
-            descarga = self.env.ref("custom_descarga.stage_descarga")
-            matanza = self.env.ref("custom_descarga.stage_matanza")
-            clasificado = self.env.ref("custom_descarga.stage_clasificado")
             line.update(
                 {
-                    "is_presaca": line.stage_id == presaca or False,
-                    "is_saca": line.stage_id == saca or False,
-                    "is_descarga": line.stage_id == descarga or False,
-                    "is_killing": line.stage_id == matanza or False,
-                    "is_classified": line.stage_id == clasificado or False,
+                    "is_presaca": bool(presaca and line.stage_id == presaca),
+                    "is_saca": bool(saca and line.stage_id == saca),
+                    "is_descarga": bool(descarga and line.stage_id == descarga),
+                    "is_killing": bool(matanza and line.stage_id == matanza),
+                    "is_classified": bool(clasificado and line.stage_id == clasificado),
                 }
             )
 
@@ -400,7 +408,7 @@ class SacaLine(models.Model):
         "sale_order_id",
         "sale_order_id.picking_ids",
         "sale_order_id.picking_ids.move_ids_without_package",
-        "sale_order_id.picking_ids.move_ids_without_package.quantity_done",
+        "sale_order_id.picking_ids.move_ids_without_package.quantity",
     )
     def _compute_origin_qty(self):
         for line in self:
@@ -412,14 +420,14 @@ class SacaLine(models.Model):
                 line.origin_qty = (
                     line.sale_order_id.picking_ids[0]
                     .move_ids_without_package[0]
-                    .quantity_done
+                    .quantity
                 )
 
     @api.depends(
         "purchase_order_id",
         "purchase_order_id.picking_ids",
         "purchase_order_id.picking_ids.move_ids_without_package",
-        "purchase_order_id.picking_ids.move_ids_without_package.quantity_done",
+        "purchase_order_id.picking_ids.move_ids_without_package.quantity",
     )
     def _compute_dest_qty(self):
         for line in self:
@@ -431,7 +439,7 @@ class SacaLine(models.Model):
                 line.dest_qty = (
                     line.purchase_order_id.picking_ids[0]
                     .move_ids_without_package[0]
-                    .quantity_done
+                    .quantity
                 )
 
     @api.depends(
@@ -574,8 +582,8 @@ class SacaLine(models.Model):
             for line in self.stock_move_ids:
                 line.product_uom_qty = self.net_origin
             for line in self.sudo().move_line_ids:
-                line.qty_done = self.net_origin
-                line.amount = line.qty_done * line.standard_price
+                line.quantity = self.net_origin
+                line.amount = line.quantity * line.standard_price
             for line in self.sudo().purchase_order_line_ids:
                 line.product_qty = self.net_origin
         return result
@@ -628,7 +636,8 @@ class SacaLine(models.Model):
     def action_assign_workers(self):
         for line in self:
             other_lines = line.saca_id.saca_line_ids.filtered(
-                lambda l: l.id != line.id and (l.is_descarga or l.is_saca)
+                lambda sl, _line=line: sl.id != _line.id
+                and (sl.is_descarga or sl.is_saca)
             )
             for target in other_lines:
                 target.slaughterer_ids = [(6, 0, line.slaughterer_ids.ids)]
@@ -649,7 +658,7 @@ class SacaLine(models.Model):
                     }
                 )
 
-    def action_next_stage(self):
+    def action_next_stage(self):  # noqa: C901
         self.ensure_one()
         stage_saca = self.env.ref("custom_saca_purchase.stage_saca")
         stage_descarga = self.env.ref("custom_descarga.stage_descarga")
@@ -669,24 +678,23 @@ class SacaLine(models.Model):
             for picking in self.sudo().sale_order_id.picking_ids:
                 for move in picking.move_ids_without_package:
                     if self.sudo().breeding_id:
-                        name = "{}".format(self.sudo().breeding_id.name)
+                        name = f"{self.sudo().breeding_id.name}"
                     else:
-                        name = "E{}".format(self.lot)
+                        name = f"E{self.lot}"
                     lot = (
-                        self.env["stock.production.lot"]
+                        self.env["stock.lot"]
                         .sudo()
                         .search(
                             [
                                 ("product_id", "=", move.product_id.id),
                                 ("name", "=", name),
-                                ("company_id", "=", picking.company_id.id),
                             ],
                             limit=1,
                         )
                     )
                     if not lot:
                         lot = (
-                            self.env["stock.production.lot"]
+                            self.env["stock.lot"]
                             .sudo()
                             .action_create_lot(
                                 move.product_id, name, picking.company_id
@@ -706,22 +714,23 @@ class SacaLine(models.Model):
                 picking.custom_date_done = self.date + timedelta(days=1)
                 picking.button_force_done_detailed_operations()
                 for line in picking.move_line_ids_without_package:
-                    if not line.qty_done:
-                        line.qty_done = line.move_id.product_uom_qty
+                    if not line.quantity:
+                        line.quantity = line.move_id.product_uom_qty
                     if picking.picking_type_code == "incoming":
-                        name = "{}{}".format(
-                            line.saca_line_id.lot, line.saca_line_id.seq
-                        )
-                        lot = self.env["stock.production.lot"].search(
-                            [
-                                ("product_id", "=", line.product_id.id),
-                                ("name", "=", name),
-                                ("company_id", "=", picking.company_id.id),
-                            ],
-                            limit=1,
+                        name = f"{line.saca_line_id.lot}{line.saca_line_id.seq}"
+                        lot = (
+                            self.env["stock.lot"]
+                            .sudo()
+                            .search(
+                                [
+                                    ("product_id", "=", line.product_id.id),
+                                    ("name", "=", name),
+                                ],
+                                limit=1,
+                            )
                         )
                         if not lot:
-                            lot = self.env["stock.production.lot"].action_create_lot(
+                            lot = self.env["stock.lot"].action_create_lot(
                                 line.product_id, name, picking.company_id
                             )
                         line.lot_id = lot.id
@@ -759,7 +768,7 @@ class SacaLine(models.Model):
                 date = now.date()
                 time = now.time()
                 time = time.strftime("%H:%M:%S")
-                fecha = "{} {}".format(date, time)
+                fecha = f"{date} {time}"
                 vals.update({"unload_date": fecha})
             self.sudo().write(vals)
 
@@ -812,7 +821,7 @@ class SacaLine(models.Model):
         context.update({"default_historic_id": self.id})
         return {
             "name": _("Historics"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "saca.line",
             "domain": [
                 ("id", "in", self.historic_line_ids.ids),

@@ -6,8 +6,14 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    standard_price = fields.Float(digits="Standard Cost Decimal Precision")
-    list_price = fields.Float(digits="Standard Cost Decimal Precision")
+    standard_price = fields.Float(
+        digits="Standard Cost Decimal Precision",
+        min_display_digits="Standard Cost Decimal Precision",
+    )
+    list_price = fields.Float(
+        digits="Standard Cost Decimal Precision",
+        min_display_digits="Standard Cost Decimal Precision",
+    )
 
     def action_view_stock_moves(self):
         self.ensure_one()
