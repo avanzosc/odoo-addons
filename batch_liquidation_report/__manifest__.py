@@ -3,7 +3,7 @@
 
 {
     "name": "Batch Liquidation Report",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -12,7 +12,7 @@
         "web",
         "purchase",
         "sale",
-        "purchase_order_line_lot",
+        "purchase_lot",
         "sale_order_lot_selection",
         "stock_picking_batch_liquidation",
         "report_qweb_element_page_visibility",

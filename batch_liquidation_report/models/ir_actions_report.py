@@ -7,12 +7,11 @@ from odoo import models
 class IrActionsReport(models.Model):
     _inherit = "ir.actions.report"
 
-    def _render_qweb_pdf(self, res_ids=None, data=None):
+    def _render_qweb_pdf(self, report_ref, res_ids=None, data=None):
+        report = self._get_report(report_ref)
         if (
-            self.model == "account.move"
-            or self.model == "sale.order"
-            or self.model == "purchase.order"
-            or self.model == "stock.picking"
+            report.model
+            in ("account.move", "sale.order", "purchase.order", "stock.picking")
             and res_ids
         ):
             if (
@@ -22,4 +21,4 @@ class IrActionsReport(models.Model):
             ):
                 data = data and dict(data) or {}
                 data.update({"display_name_in_footer": True})
-        return super()._render_qweb_pdf(res_ids=res_ids, data=data)
+        return super()._render_qweb_pdf(report_ref, res_ids=res_ids, data=data)

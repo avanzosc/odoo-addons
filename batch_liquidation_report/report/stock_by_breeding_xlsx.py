@@ -1,8 +1,6 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from datetime import datetime
-
 from odoo import _, fields, models
 
 
@@ -68,14 +66,14 @@ class StockByBreedingXlsx(models.AbstractModel):
         meat_cost = 0
         date = fields.Date.today()
         if "date" in data:
-            date = data["date"]
-            date = datetime.strptime(date, "%Y-%m-%d").date()
+            date = fields.Date.to_date(data["date"])
         if "meat_cost" in data:
             meat_cost = data["meat_cost"]
         batches = []
         if "objects" in data:
             batches = self.env["stock.picking.batch"].browse(data.get("objects"))
         for line in batches:
+            location = line.location_id
             n += 1
             worksheet.write(n, 0, line.name if line.name else "")
             if line.entry_date:
@@ -91,7 +89,7 @@ class StockByBreedingXlsx(models.AbstractModel):
                     n,
                     2,
                     fields.Date.from_string(line.cleaned_date).strftime("%d-%m-%Y")
-                    if line.entry_date
+                    if line.cleaned_date
                     else "",
                 )
             worksheet.write(n, 3, line.warehouse_id.name if line.warehouse_id else "")
@@ -101,10 +99,10 @@ class StockByBreedingXlsx(models.AbstractModel):
                 and (c.date.date() <= date)
             )
             entry_chick_lines = chick_lines.filtered(
-                lambda c: c.location_dest_id == line.location_id
+                lambda c, location=location: c.location_dest_id == location
             )
             dev_chick_lines = chick_lines.filtered(
-                lambda c: c.location_id == line.location_id
+                lambda c, location=location: c.location_id == location
             )
             chick_units = sum(entry_chick_lines.mapped("download_unit")) - sum(
                 dev_chick_lines.mapped("download_unit")
@@ -116,10 +114,10 @@ class StockByBreedingXlsx(models.AbstractModel):
                 and (c.date.date() <= date)
             )
             output_meat_lines = meat_lines.filtered(
-                lambda c: c.location_id == line.location_id
+                lambda c, location=location: c.location_id == location
             )
             dev_meat_lines = meat_lines.filtered(
-                lambda c: c.location_dest_id == line.location_id
+                lambda c, location=location: c.location_dest_id == location
             )
             meat_units = sum(output_meat_lines.mapped("download_unit")) - sum(
                 dev_meat_lines.mapped("download_unit")
@@ -132,7 +130,7 @@ class StockByBreedingXlsx(models.AbstractModel):
             worksheet.write(n, 7, chick_amount, two_decimal_format)
             stock_feed = self.env["stock.quant"].search(
                 [
-                    ("location_id", "=", line.location_id.id),
+                    ("location_id", "=", location.id),
                     ("move_type_id", "=", feed_type.id),
                 ]
             )
@@ -145,7 +143,9 @@ class StockByBreedingXlsx(models.AbstractModel):
             quant_amount = 0
             for lot in dif_lots:
                 quant_amount += sum(
-                    stock_feed.filtered(lambda c: c.lot_id == lot).mapped("value")
+                    stock_feed.filtered(lambda c, lot=lot: c.lot_id == lot).mapped(
+                        "value"
+                    )
                 )
             feed_lines = line.move_line_ids.filtered(
                 lambda c: c.move_type_id == feed_type
@@ -153,10 +153,10 @@ class StockByBreedingXlsx(models.AbstractModel):
                 and (c.date.date() <= date)
             )
             entry_feed_lines = feed_lines.filtered(
-                lambda c: c.location_dest_id == line.location_id
+                lambda c, location=location: c.location_dest_id == location
             )
             dev_feed_lines = feed_lines.filtered(
-                lambda c: c.location_id == line.location_id
+                lambda c, location=location: c.location_id == location
             )
             feed_amount = (
                 sum(entry_feed_lines.mapped("amount"))
@@ -170,10 +170,10 @@ class StockByBreedingXlsx(models.AbstractModel):
                 and c.date.date() <= date
             )
             entry_medicine_lines = medicine_lines.filtered(
-                lambda c: c.location_dest_id == line.location_id
+                lambda c, location=location: c.location_dest_id == location
             )
             dev_medicine_lines = medicine_lines.filtered(
-                lambda c: c.location_id == line.location_id
+                lambda c, location=location: c.location_id == location
             )
             medicine_amount = sum(entry_medicine_lines.mapped("amount")) - sum(
                 dev_medicine_lines.mapped("amount")
@@ -181,8 +181,15 @@ class StockByBreedingXlsx(models.AbstractModel):
             worksheet.write(n, 9, medicine_amount, two_decimal_format)
             cost_amount = chick_amount + feed_amount + medicine_amount
             worksheet.write(n, 10, cost_amount, two_decimal_format)
-            meat_qty_done = sum(output_meat_lines.mapped("qty_done")) - sum(
-                dev_meat_lines.mapped("qty_done")
+            qty_field = "quantity"
+            if qty_field not in line.move_line_ids._fields:
+                qty_field = (
+                    "quantity_done"
+                    if "quantity_done" in line.move_line_ids._fields
+                    else "qty_done"
+                )
+            meat_qty_done = sum(output_meat_lines.mapped(qty_field)) - sum(
+                dev_meat_lines.mapped(qty_field)
             )
             worksheet.write(n, 11, meat_qty_done, two_decimal_format)
             meat_amount = meat_qty_done * meat_cost

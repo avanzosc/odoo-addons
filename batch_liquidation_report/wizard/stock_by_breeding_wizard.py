@@ -8,13 +8,11 @@ class StockByBreedingWizard(models.TransientModel):
     _description = "Wizard to see the actual stock of breedings"
 
     meat_cost = fields.Float(
-        string="Meat Cost",
         required=True,
     )
     date = fields.Date(
-        string="Date",
         required=True,
-        default=fields.Date.today(),
+        default=fields.Date.today,
     )
 
     def button_create_report(self):
