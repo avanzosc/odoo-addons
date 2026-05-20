@@ -12,14 +12,14 @@
           name="standard_price"
           force_save="1"
           optional="show"
-          column_invisible="parent.picking_type_code not in ['internal', 'incoming']"
+          column_invisible="picking_code not in ['internal', 'incoming']"
         />
         <field
           name="amount"
           optional="show"
           force_save="1"
           sum="Total Amount"
-          column_invisible="parent.picking_type_code not in ['internal', 'incoming']"
+          column_invisible="picking_code not in ['internal', 'incoming']"
         />
       </xpath>
     </field>
