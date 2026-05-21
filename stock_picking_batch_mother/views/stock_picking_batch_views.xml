@@ -9,14 +9,14 @@
                 <page
           name="mother"
           string="Mother"
-          attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
+          invisible="batch_type != 'mother'"
         >
                     <group string='Mother Details' name="details">
                         <group>
                             <field name="operating_number" />
                             <field
                 name="lineage_id"
-                attrs="{'required': [('batch_type', '=', 'mother')]}"
+                required="batch_type == 'mother'"
               />
                         </group>
                         <group>
@@ -81,79 +81,79 @@
                 <page
           name='birth_rate'
           string='Birth Rate'
-          attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
+          invisible="batch_type != 'mother'"
         >
                     <field name="birth_rate_ids">
-                        <tree editable="bottom" limit="50">
+                        <list editable="bottom" limit="50">
                             <field name="week" />
                             <field name="birth_start_date" />
                             <field name="percentage_birth" />
                             <field name="estimate_birth" />
                             <field name="real_birth" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
                 <page
           name='laying_rate'
           string='Laying Rate'
-          attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
+          invisible="batch_type != 'mother'"
         >
                     <field name="laying_rate_ids">
-                        <tree editable="bottom" limit="50">
+                        <list editable="bottom" limit="50">
                             <field name="week" />
                             <field name="laying_start_date" />
                             <field name="percentage_laying" />
                             <field name="estimate_laying" />
                             <field name="real_laying" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
                 <page
           name="cancellations"
           string="Cancellations"
-          attrs="{'invisible': [('batch_type', '!=', 'mother')]}"
+          invisible="batch_type != 'mother'"
         >
                     <field name="cancellation_line_ids">
-                        <tree editable="bottom">
-                            <field name="batch_id" invisible="1" />
+                        <list editable="bottom">
+                            <field name="batch_id" column_invisible="True" />
                             <field
                 name="location_id"
-                attrs="{'readonly': [('picking_id', '!=', False)]}"
+                readonly="picking_id != False"
               />
                             <field
                 name="date"
-                attrs="{'readonly': [('picking_id', '!=', False)]}"
+                readonly="picking_id != False"
               />
                             <field name="week" />
                             <field name="hen_life_week" />
                             <field
                 name="product_id"
-                attrs="{'readonly': [('picking_id', '!=', False)]}"
+                readonly="picking_id != False"
               />
                             <field
                 name="lot_id"
-                attrs="{'readonly': [('picking_id', '!=', False)]}"
+                readonly="picking_id != False"
               />
                             <field
                 name="cancellation_qty"
-                attrs="{'readonly': [('picking_id', '!=', False)]}"
+                readonly="picking_id != False"
               />
-                            <field name="move_line_id" invisible="1" />
+                            <field name="move_line_id" column_invisible="True" />
                             <field name="qty_done" />
                             <field name="inventory_qty" readonly="1" />
                             <field
                 name="picking_id"
                 readonly="1"
-                attrs="{'invisible': [('picking_id', '=', False)]}"
+                invisible="picking_id == False"
               />
                             <button
                 string="Do Cancellation"
                 class="oe_highlight"
                 type="object"
                 name="button_do_cancellation"
-                attrs="{'invisible': [('picking_id', '!=', False)]}"
+                invisible="picking_id != False"
               />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -164,9 +164,9 @@
         <field name="name">stock.picking.batch.tree.view</field>
         <field name="model">stock.picking.batch</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" decoration-bf="1" string="Code" />
-                <field name="batch_type" invisible="1" />
+                <field name="batch_type" column_invisible="True" />
                 <field name="lineage_id" optional="hide" />
                 <field name="location_id" optional="show" />
                 <field name="location_change_id" optional="show" />
@@ -179,7 +179,7 @@
           widget="badge"
           decoration-info="1"
         />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -241,7 +241,7 @@
         <field name="name">Mother</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field
       name="view_id"
       ref="stock_picking_batch_mother.picking_batch_mother_tree_view"
@@ -250,7 +250,7 @@
         <field name="context">{
             "search_default_draft" : True,
             "search_default_in_progress" : True,
-            "default_company_id"": allowed_company_ids[0],
+            "default_company_id": allowed_company_ids[0],
             "default_batch_type": 'mother'
         }</field>
         <field name="help" type="html">

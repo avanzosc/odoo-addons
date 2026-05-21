@@ -13,15 +13,15 @@ class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
     name = fields.Char(string="Code")
-    operating_number = fields.Char(string="Operating Number")
+    operating_number = fields.Char()
     lineage_id = fields.Many2one(string="Lineage", comodel_name="lineage")
-    start_date = fields.Date(string="Start Date")
+    start_date = fields.Date()
     start_weeks = fields.Integer(
         string="Weeks", compute="_compute_start_weeks", store=True
     )
     start_laying_date = fields.Date(string="Start Laying")
     start_laying_weeks = fields.Integer(
-        string="Start Laying Weeks", compute="_compute_start_laying_weeks", store=True
+        compute="_compute_start_laying_weeks", store=True
     )
     start_birth_date = fields.Date(string="Start Birth")
     start_birth_weeks = fields.Integer(
@@ -29,7 +29,7 @@ class StockPickingBatch(models.Model):
     )
     change_house_date = fields.Date(string="Change House")
     change_house_weeks = fields.Integer(
-        string="Change House Weeks", compute="_compute_change_house_weeks", store=True
+        compute="_compute_change_house_weeks", store=True
     )
     end_rearing_date = fields.Date(string="Rearing End")
     end_rearing_weeks = fields.Integer(
@@ -37,7 +37,7 @@ class StockPickingBatch(models.Model):
     )
     end_laying_date = fields.Date(string="End Laying")
     end_laying_weeks = fields.Integer(
-        string="End Laying Weeks", compute="_compute_end_laying_weeks", store=True
+        compute="_compute_end_laying_weeks", store=True
     )
     end_birth_date = fields.Date(string="End Birth")
     end_birth_weeks = fields.Integer(
@@ -45,20 +45,18 @@ class StockPickingBatch(models.Model):
     )
     closing_date = fields.Date(string="Closing")
     closing_weeks = fields.Integer(
-        string="Closing Weeks", compute="_compute_closing_weeks", store=True
+        compute="_compute_closing_weeks", store=True
     )
     laying_correlation = fields.Float(string="% of Laying Correlation")
     birth_correlation = fields.Float(string="% of Birth Correlation")
-    consumed_feed = fields.Float(string="Consumed Feed")
+    consumed_feed = fields.Float()
     birth_rate_ids = fields.One2many(
         string="Birth Rate", comodel_name="birth.rate", inverse_name="mother_id"
     )
     laying_rate_ids = fields.One2many(
         string="Laying Rate", comodel_name="laying.rate", inverse_name="mother_id"
     )
-    batch_type = fields.Selection(
-        string="Batch Type", selection_add=[("mother", "Mother")]
-    )
+    batch_type = fields.Selection(selection_add=[("mother", "Mother")])
     location_change_id = fields.Many2one(
         string="Rearing House", comodel_name="stock.location", copy=False
     )
@@ -73,10 +71,28 @@ class StockPickingBatch(models.Model):
 
     @api.depends("picking_ids", "picking_ids.state")
     def _compute_state(self):
-        super()._compute_state()
+        result = super()._compute_state()
         for batch in self:
             if not batch.picking_ids:
                 batch.state = "draft"
+        return result
+
+    @api.depends("batch_type")
+    def _compute_allowed_picking_ids(self):
+        result = super()._compute_allowed_picking_ids()
+        allowed_states = ["draft", "waiting", "confirmed", "assigned", "done"]
+        for batch in self:
+            if batch.batch_type != "mother":
+                continue
+            batch.allowed_picking_ids = self.env["stock.picking"].search(
+                [
+                    ("company_id", "=", batch.company_id.id),
+                    ("state", "in", allowed_states),
+                ],
+                limit=1000,
+                order="date_done desc",
+            )
+        return result
 
     @api.constrains("name")
     def _check_name(self):
@@ -91,7 +107,7 @@ class StockPickingBatch(models.Model):
         "picking_ids",
         "picking_ids.state",
         "move_line_ids",
-        "move_line_ids.qty_done",
+        "move_line_ids.quantity",
         "move_line_ids.product_id",
         "move_line_ids.product_id.is_hen",
     )
@@ -99,19 +115,20 @@ class StockPickingBatch(models.Model):
         for batch in self:
             batch.hen_unit = 0
             if batch.move_line_ids and batch.batch_type == "mother":
+                location = batch.location_id
                 in_qty = sum(
                     batch.move_line_ids.filtered(
-                        lambda c: c.state == "done"
+                        lambda c, loc=location: c.state == "done"
                         and c.product_id.is_hen
-                        and (c.location_dest_id == batch.location_id)
-                    ).mapped("qty_done")
+                        and (c.location_dest_id == loc)
+                    ).mapped("quantity")
                 )
                 out_qty = sum(
                     batch.move_line_ids.filtered(
-                        lambda c: c.state == "done"
+                        lambda c, loc=location: c.state == "done"
                         and c.product_id.is_hen is (True)
-                        and c.location_id == batch.location_id
-                    ).mapped("qty_done")
+                        and c.location_id == loc
+                    ).mapped("quantity")
                 )
                 batch.hen_unit = in_qty - out_qty
 

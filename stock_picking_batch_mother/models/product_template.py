@@ -6,5 +6,5 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    requires_mother = fields.Boolean(string="Requires Mother", default=False)
+    requires_mother = fields.Boolean(default=False)
     is_hen = fields.Boolean(string="Hen", default=False)
