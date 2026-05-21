@@ -12,9 +12,7 @@ class BirthRate(models.Model):
     week = fields.Integer()
     percentage_birth = fields.Float(string="% of Birth Over Total")
     birth_start_date = fields.Date()
-    estimate_birth = fields.Integer(
-        compute="_compute_estimate_birth", store=True
-    )
+    estimate_birth = fields.Integer(compute="_compute_estimate_birth", store=True)
     real_birth = fields.Float()
 
     @api.depends("mother_id", "mother_id.hen_unit", "percentage_birth")
