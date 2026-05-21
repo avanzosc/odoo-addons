@@ -1,2 +1,3 @@
 from . import product_variant_attribute_report
 from . import product_variant_attribute_wizard
+from . import product_template
