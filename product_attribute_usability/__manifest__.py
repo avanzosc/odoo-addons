@@ -12,7 +12,8 @@
     "category": "Product Management",
     "website": "https://github.com/avanzosc/odoo-addons.git",
     "data": [
-        "views/product_attribute_variant_report_views.xml",
+        "views/product_variant_attribute_report_views.xml",
+        "views/product_variant_attribute_wizard_views.xml",
         "security/ir.model.access.csv",
     ],
     "installable": True,

@@ -6,15 +6,22 @@
 Product attribute usability
 ===========================
 
-This module adds a new report model to visualize product variant attributes and
-attribute values.
+This module adds tools to safely manage product variant attribute values.
 
-It allows users to:
+It includes:
 
-* View product variants and their attribute values.
-* Filter attribute information.
-* Group records by product, variant, attribute or value.
+* A report model to visualize product variants and their attribute values.
+* Filtering and grouping by product template, variant, attribute or value.
+* A mass replacement wizard to safely replace an attribute value in multiple
+  selected product variants.
 
+The replacement wizard:
+
+* Allows users to select multiple product variants from the attribute report.
+* Replaces one attribute value with another in a controlled way.
+* Automatically enables the new attribute value in the related product templates.
+* Avoids unintended product archiving or variant duplication caused by manual
+  attribute editing.
 
 
 Bug Tracker

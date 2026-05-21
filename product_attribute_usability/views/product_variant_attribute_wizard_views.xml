@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record id="view_product_variant_attribute_wizard_form" model="ir.ui.view">
+    <field name="name">product.variant.attribute.wizard.form</field>
+    <field name="model">product.variant.attribute.wizard</field>
+    <field name="arch" type="xml">
+        <form string="Replace Variant Attribute Value">
+            <group>
+                <field name="attribute_id"/>
+                <field name="old_value_id"
+                       domain="[('attribute_id', '=', attribute_id)]"/>
+                <field name="new_value_id"
+                       domain="[('attribute_id', '=', attribute_id)]"/>
+            </group>
+            <footer>
+                <button name="action_replace_value"
+                        string="Replace"
+                        type="object"
+                        class="btn-primary"/>
+                <button string="Cancel"
+                        class="btn-secondary"
+                        special="cancel"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="action_product_variant_attribute_wizard" model="ir.actions.act_window">
+    <field name="name">Replace Variant Attribute Value</field>
+    <field name="res_model">product.variant.attribute.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_product_variant_attribute_wizard_form"/>
+    <field name="target">new</field>
+</record>
+
+<record id="product_variant_attribute_wizard_server_action" model="ir.actions.server">
+    <field name="name">Replace Variant Attribute Value</field>
+    <field name="model_id" ref="model_product_variant_attribute_report"/>
+    <field name="binding_model_id" ref="model_product_variant_attribute_report"/>
+    <field name="binding_view_types">tree</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_open_replace_attribute_wizard()
+    </field>
+</record>
+</odoo>

@@ -1,1 +1,2 @@
-from . import product_attribute_variant_report
+from . import product_variant_attribute_report
+from . import product_variant_attribute_wizard

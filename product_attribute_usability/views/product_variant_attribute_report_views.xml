@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <record id="view_product_variant_attribute_report_tree" model="ir.ui.view">
-        <field name="name">product.variant.attribute.report.tree</field>
-        <field name="model">product_variant_attribute_report</field>
-        <field name="arch" type="xml">
-            <tree string="Product Variant Attribute Report">
-                <field name="product_tmpl_id"/>
-                <field name="product_id"/>
-                <field name="attribute_id"/>
-                <field name="value_id"/>
-            </tree>
-        </field>
-    </record>
+    <field name="name">product.variant.attribute.report.tree</field>
+    <field name="model">product_variant_attribute_report</field>
+    <field name="arch" type="xml">
+        <tree string="Product Variant Attribute Report">
+
+            <button name="action_open_product_template"
+                    type="object"
+                    icon="fa-external-link"/>
+
+            <field name="product_tmpl_id"/>
+
+            <button name="action_open_product_variant"
+                    type="object"
+                    icon="fa-external-link"/>
+
+            <field name="product_id"/>
+
+            <button name="action_open_attribute"
+                    type="object"
+                    icon="fa-external-link"/>
+
+            <field name="attribute_id"/>
+            <field name="value_id"/>
+
+        </tree>
+    </field>
+</record>
     <record id="view_product_variant_attribute_report_search" model="ir.ui.view">
     <field name="name">product.variant.attribute.report.search</field>
     <field name="model">product_variant_attribute_report</field>
@@ -62,18 +77,11 @@
 </record>
 
     <menuitem
-        id="menu_product_attribute_report_sale"
+        id="menu_product_attribute_report_stock"
         name="Attribute Report"
-        parent="sale.product_menu_catalog"
+        parent="stock.menu_product_in_config_stock"
         action="action_product_variant_attribute_report"
-        sequence="100"/>
-
-
-    <menuitem
-        id="menu_product_attribute_report_purchase"
-        name="Attribute Report"
-        parent="purchase.menu_procurement_management"
-        action="action_product_variant_attribute_report"
-        sequence="100"/>
+        groups="product.group_product_variant"
+        sequence="4"/>
 
 </odoo>

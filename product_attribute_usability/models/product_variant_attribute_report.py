@@ -64,3 +64,45 @@ class ProductVariantAttributeReport(models.Model):
 
     )
     """)
+        
+    def action_open_product_template(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "product.template",
+            "view_mode": "form",
+            "res_id": self.product_tmpl_id.id,
+            "target": "current",
+        }
+    
+    def action_open_product_variant(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "product.product",
+            "view_mode": "form",
+            "res_id": self.product_id.id,
+            "target": "current",
+        }
+    
+    def action_open_attribute(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "res_model": "product.attribute",
+            "view_mode": "form",
+            "res_id": self.attribute_id.id,
+            "target": "current",
+        }
+
+        
+    def action_open_replace_attribute_wizard(self):
+        action = self.env.ref(
+            "product_attribute_usability.action_product_variant_attribute_wizard"
+        ).read()[0]
+        action["context"] = dict(
+            self.env.context,
+            active_ids=self.ids,
+            active_model="product_variant_attribute_report",
+        )
+        return action
