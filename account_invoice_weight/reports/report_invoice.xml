@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="report_invoice_document_luxae"
+    inherit_id="account.report_invoice_document"
+  >
+    <th name="th_quantity" position="after">
+      <th t-if="o.total_weight_qty" name="th_weight" class="text-end">
+        <span>Weight</span>
+      </th>
+    </th>
+    <td name="td_quantity" position="after">
+      <td t-if="o.total_weight_qty" name="td_weight" class="text-end">
+        <span t-field="line.total_weight_qty" class="text-nowrap" />
+        <span t-field="line.weight_uom_name" class="text-nowrap" />
+      </td>
+    </td>
+    <xpath expr="//div[@id='total']" position="after">
+      <p t-if="o.total_weight_qty" name="total_weight_qty">
+        <strong>Total Weight: </strong>
+        <span t-field="o.total_weight_qty" />
+      </p>
+    </xpath>
+  </template>
+</odoo>
