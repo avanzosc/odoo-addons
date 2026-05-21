@@ -5,15 +5,14 @@
         <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
             <header position="inside">
+                <field name="picking_done" invisible="1" />
                 <button
-          name="button_confirm_pickings"
-          type="object"
-          string="Full Reception"
-          class="oe_highlight"
-          attrs="{'invisible': [('picking_done', '=', True)]}"
-        >
-                    <field name="picking_done" invisible="1" />
-                </button>
+                    name="button_confirm_pickings"
+                    type="object"
+                    string="Full Reception"
+                    class="btn-primary"
+                    invisible="picking_done"
+                />
             </header>
         </field>
     </record>

@@ -2,7 +2,8 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase Order Confirm Usability",
-    "version": "14.0.1.0.0",
+    "summary": "Button on purchase order to confirm and validate the picking",
+    "version": "18.0.1.0.0",
     "category": "Purchase Management",
     "license": "AGPL-3",
     "author": "AvanzOSC",
