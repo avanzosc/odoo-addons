@@ -10,10 +10,7 @@ class StockMoveLineReport(models.Model):
     _description = "Stock Move Line Report"
     _auto = False
 
-    date = fields.Datetime(
-        string="Date",
-        readonly=True,
-    )
+    date = fields.Datetime(readonly=True)
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
@@ -21,7 +18,7 @@ class StockMoveLineReport(models.Model):
     )
     lot_id = fields.Many2one(
         string="Lot/Serial Number",
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         readonly=True,
     )
     location_id = fields.Many2one(
@@ -130,10 +127,7 @@ class StockMoveLineReport(models.Model):
         comodel_name="mrp.production",
         readonly=True,
     )
-    egg = fields.Boolean(
-        string="Egg",
-        readonly=True,
-    )
+    egg = fields.Boolean(readonly=True)
     batch_location_id = fields.Many2one(
         string="Mother Location",
         comodel_name="stock.location",
@@ -144,11 +138,7 @@ class StockMoveLineReport(models.Model):
         comodel_name="category.type",
         readonly=True,
     )
-    usage = fields.Selection(
-        string="Usage",
-        selection="_get_usage_selection",
-        readonly=True,
-    )
+    usage = fields.Selection(selection="_get_usage_selection", readonly=True)
     partner_id = fields.Many2one(
         string="Partner",
         comodel_name="res.partner",
@@ -178,7 +168,7 @@ class StockMoveLineReport(models.Model):
             cron.sudo().method_direct_trigger()
         return {
             "name": _("Stock Move Report"),
-            "view_mode": "pivot,tree",
+            "view_mode": "pivot,list",
             "res_model": "stock.move.line.report",
             "type": "ir.actions.act_window",
             "context": context,
@@ -219,8 +209,39 @@ class StockMoveLineReport(models.Model):
     def init(self):
         self._create_materialized_view()
 
+    def _has_type_category_model(self):
+        model_class = self.env.registry.get("stock.picking.type.category")
+        return (
+            model_class
+            and getattr(model_class, "_original_module", None)
+            != "custom_move_line_report"
+        )
+
+    def _get_stock_move_line_column_sql(self, column_name):
+        if not self._has_type_category_model():
+            return "NULL::integer"
+        self.env.cr.execute(
+            """
+            SELECT column_name
+              FROM information_schema.columns
+             WHERE table_name = 'stock_move_line'
+               AND column_name = %s
+            """,
+            (column_name,),
+        )
+        if self.env.cr.fetchone():
+            return f"stock_move_line.{column_name}"
+        return "NULL::integer"
+
     def _select(self):
-        return """
+        type_category_id = self._get_stock_move_line_column_sql("type_category_id")
+        type_category_output = (
+            "2" if self._has_type_category_model() else "NULL::integer"
+        )
+        type_category_entry = (
+            "8" if self._has_type_category_model() else "NULL::integer"
+        )
+        return f"""
         SELECT
             row_number() OVER () AS id,
             line.move_line_id,
@@ -279,7 +300,7 @@ class StockMoveLineReport(models.Model):
                     location_origin_id.id AS location_origin_id,
                     location_origin_id.usage AS usage,
                     stock_move_line.move_type_id AS move_type_id,
-                    stock_move_line.type_category_id AS type_category_id,
+                    {type_category_id} AS type_category_id,
                     stock_move_line.batch_id AS batch_id,
                     stock_move_line.mother_id AS mother_id,
                     stock_move_line.batch_location_id AS batch_location_id,
@@ -289,9 +310,9 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.download_unit * (-1) AS download_unit,
                     0 AS entry_unit,
                     stock_move_line.download_unit * (-1) AS output_unit,
-                    stock_move_line.qty_done * (-1) AS qty_done,
+                    stock_move_line.quantity * (-1) AS qty_done,
                     0 AS entry_qty,
-                    stock_move_line.qty_done * (-1) AS output_qty,
+                    stock_move_line.quantity * (-1) AS output_qty,
                     stock_move_line.amount * (-1) AS amount,
                     0 AS entry_amount,
                     stock_move_line.amount * (-1) AS output_amount,
@@ -327,7 +348,7 @@ class StockMoveLineReport(models.Model):
                     location_origin_id.id AS location_origin_id,
                     location_origin_id.usage AS usage,
                     stock_move_line.move_type_id AS move_type_id,
-                    stock_move_line.type_category_id AS type_category_id,
+                    {type_category_id} AS type_category_id,
                     stock_move_line.batch_id AS batch_id,
                     stock_move_line.mother_id AS mother_id,
                     stock_move_line.batch_location_id AS batch_location_id,
@@ -337,8 +358,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.download_unit AS download_unit,
                     stock_move_line.download_unit AS entry_unit,
                     0 AS output_unit,
-                    stock_move_line.qty_done AS qty_done,
-                    stock_move_line.qty_done AS entry_qty,
+                    stock_move_line.quantity AS qty_done,
+                    stock_move_line.quantity AS entry_qty,
                     0 AS output_qty,
                     stock_move_line.amount AS amount,
                     stock_move_line.amount AS entry_amount,
@@ -375,7 +396,7 @@ class StockMoveLineReport(models.Model):
                     location_origin_id.id AS location_origin_id,
                     location_origin_id.usage AS usage,
                     stock_move_line.move_type_id AS move_type_id,
-                    '2' AS type_category_id,
+                    {type_category_output} AS type_category_id,
                     stock_move_line.batch_id AS batch_id,
                     stock_move_line.mother_id AS mother_id,
                     stock_move_line.batch_location_id AS batch_location_id,
@@ -384,9 +405,9 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.download_unit * (-1) AS download_unit,
                     0 AS entry_unit,
                     stock_move_line.download_unit * (-1) AS output_unit,
-                    stock_move_line.qty_done * (-1) AS qty_done,
+                    stock_move_line.quantity * (-1) AS qty_done,
                     0 AS entry_qty,
-                    stock_move_line.qty_done * (-1) AS output_qty,
+                    stock_move_line.quantity * (-1) AS output_qty,
                     stock_move_line.amount * (-1) AS amount,
                     0 AS entry_amount,
                     stock_move_line.amount * (-1) AS output_amount,
@@ -425,7 +446,7 @@ class StockMoveLineReport(models.Model):
                     location_origin_id.id AS location_origin_id,
                     location_origin_id.usage AS usage,
                     stock_move_line.move_type_id AS move_type_id,
-                    '8' AS type_category_id,
+                    {type_category_entry} AS type_category_id,
                     stock_move_line.batch_id AS batch_id,
                     stock_move_line.mother_id AS mother_id,
                     stock_move_line.batch_location_id AS batch_location_id,
@@ -434,8 +455,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.download_unit AS download_unit,
                     stock_move_line.download_unit AS entry_unit,
                     0 AS output_unit,
-                    stock_move_line.qty_done AS qty_done,
-                    stock_move_line.qty_done AS entry_qty,
+                    stock_move_line.quantity AS qty_done,
+                    stock_move_line.quantity AS entry_qty,
                     0 AS output_qty,
                     stock_move_line.amount AS amount,
                     stock_move_line.amount AS entry_amount,

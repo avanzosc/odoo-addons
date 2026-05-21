@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-29 15:38+0000\n"
-"PO-Revision-Date: 2025-07-29 15:38+0000\n"
+"POT-Creation-Date: 2026-06-05 07:22+0000\n"
+"PO-Revision-Date: 2026-06-05 07:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,9 +57,7 @@ msgid "Difference"
 msgstr ""
 
 #. module: custom_move_line_report
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__display_name
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_picking__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -111,9 +109,7 @@ msgid "Group By"
 msgstr ""
 
 #. module: custom_move_line_report
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line__id
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__id
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_picking__id
 msgid "ID"
 msgstr ""
 
@@ -125,13 +121,6 @@ msgstr ""
 #. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Inventory Loss"
-msgstr ""
-
-#. module: custom_move_line_report
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line____last_update
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report____last_update
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_picking____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: custom_move_line_report
@@ -295,8 +284,6 @@ msgstr ""
 
 #. module: custom_move_line_report
 #: model:ir.actions.server,name:custom_move_line_report.refresh_materialized_view_ir_actions_server
-#: model:ir.cron,cron_name:custom_move_line_report.refresh_materialized_view
-#: model:ir.cron,name:custom_move_line_report.refresh_materialized_view
 msgid "Refresh stock move line materialized view"
 msgstr ""
 
@@ -312,9 +299,8 @@ msgid "Stock Move Line Report"
 msgstr ""
 
 #. module: custom_move_line_report
+#. odoo-python
 #: code:addons/custom_move_line_report/reports/stock_move_line_report.py:0
-#: code:addons/custom_move_line_report/reports/stock_move_line_report.py:0
-#, python-format
 msgid "Stock Move Report"
 msgstr ""
 
@@ -336,12 +322,6 @@ msgstr ""
 #. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.view_stock_move_line_report_form
 msgid "Type"
-msgstr ""
-
-#. module: custom_move_line_report
-#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__type_category_id
-#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
-msgid "Type Category"
 msgstr ""
 
 #. module: custom_move_line_report
