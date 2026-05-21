@@ -15,21 +15,21 @@ class ResPartner(models.Model):
                 "pivot_measures": ["entry_qty", "output_qty", "qty_done"],
             }
         )
-        move_lines = self.env["stock.move.line.report"].search(
-            [
-                "|",
-                ("partner_id.commercial_partner_id", "in", self.ids),
-                ("partner_id", "in", self.ids),
-            ]
+        cron = self.env.ref(
+            "custom_move_line_report.refresh_materialized_view",
+            raise_if_not_found=False,
         )
-        cron = self.env.ref("custom_move_line_report.refresh_materialized_view")
         if cron:
             cron.sudo().method_direct_trigger()
         return {
             "name": _("Stock Move Lines Report"),
-            "view_mode": "pivot,tree",
+            "view_mode": "pivot,list",
             "res_model": "stock.move.line.report",
-            "domain": [("id", "in", move_lines.ids)],
+            "domain": [
+                "|",
+                ("partner_id.commercial_partner_id", "in", self.ids),
+                ("partner_id", "in", self.ids),
+            ],
             "type": "ir.actions.act_window",
             "context": context,
         }
