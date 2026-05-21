@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_product_variant_attribute_report_tree" model="ir.ui.view">
+        <field name="name">product.variant.attribute.report.tree</field>
+        <field name="model">product_variant_attribute_report</field>
+        <field name="arch" type="xml">
+            <tree string="Product Variant Attribute Report">
+                <field name="product_tmpl_id"/>
+                <field name="product_id"/>
+                <field name="attribute_id"/>
+                <field name="value_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_product_variant_attribute_report_search" model="ir.ui.view">
+    <field name="name">product.variant.attribute.report.search</field>
+    <field name="model">product_variant_attribute_report</field>
+    <field name="arch" type="xml">
+        <search string="Product Variant Attribute Report">
+
+            <field name="product_tmpl_id"/>
+            <field name="product_id"/>
+            <field name="attribute_id"/>
+            <field name="value_id"/>
+
+            <group expand="0" string="Group By">
+
+                <filter string="Product Template"
+                        name="group-product-template"
+                        domain="[]"
+                        context="{'group_by':'product_tmpl_id'}"/>
+
+                <filter string="Variant"
+                        name="group-product"
+                        domain="[]"
+                        context="{'group_by':'product_id'}"/>
+
+                <filter string="Attribute"
+                        name="group-attribute"
+                        domain="[]"
+                        context="{'group_by':'attribute_id'}"/>
+
+                <filter string="Value"
+                        name="group-value"
+                        domain="[]"
+                        context="{'group_by':'value_id'}"/>
+
+            </group>
+
+        </search>
+    </field>
+</record>
+
+    <record id="action_product_variant_attribute_report" model="ir.actions.act_window">
+    <field name="name">Variant Attribute Report</field>
+    <field name="res_model">product_variant_attribute_report</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_product_variant_attribute_report_tree"/>
+    <field name="search_view_id" ref="view_product_variant_attribute_report_search"/>
+</record>
+
+    <menuitem
+        id="menu_product_attribute_report_sale"
+        name="Attribute Report"
+        parent="sale.product_menu_catalog"
+        action="action_product_variant_attribute_report"
+        sequence="100"/>
+
+
+    <menuitem
+        id="menu_product_attribute_report_purchase"
+        name="Attribute Report"
+        parent="purchase.menu_procurement_management"
+        action="action_product_variant_attribute_report"
+        sequence="100"/>
+
+</odoo>
