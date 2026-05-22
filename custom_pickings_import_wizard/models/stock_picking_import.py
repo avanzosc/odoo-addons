@@ -1,14 +1,14 @@
 # Copyright 2022 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import pytz
-import xlrd
-
 from odoo import _, fields, models
-from odoo.models import expression
+from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str
+from odoo.addons.base_import_wizard.models.base_import import (
+    convert2date,
+    convert2str,
+)
 
 
 class StockPickingImport(models.Model):
@@ -36,15 +36,11 @@ class StockPickingImport(models.Model):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
         if row_values:
-            picking_custom_date_done = row_values.get("Fecha", "")
-            timezone = pytz.timezone(self._context.get("tz") or "UTC")
-            picking_custom_date_done = xlrd.xldate.xldate_as_datetime(
-                picking_custom_date_done, 0
+            picking_custom_date_done = convert2date(
+                row_values.get("Fecha", ""),
+                datemode or 0,
+                timezone_name=self._context.get("tz") or "UTC",
             )
-            picking_custom_date_done = timezone.localize(
-                picking_custom_date_done
-            ).astimezone(pytz.UTC)
-            picking_custom_date_done = picking_custom_date_done.replace(tzinfo=None)
             picking_origin = row_values.get("DocumentoOrigen", "")
             picking_location = row_values.get("UbicacionOrigen", "")
             picking_location_dest = row_values.get("UbicacionDestino", "")
@@ -58,7 +54,6 @@ class StockPickingImport(models.Model):
             picking_transporter = row_values.get("NombreTransportista", "")
             picking_license_plate = row_values.get("Matricula", "")
             picking_cost = row_values.get("CosteEnvio", "")
-            log_info = ""
             if not picking_location_dest:
                 return {}
             values.update(
@@ -67,17 +62,20 @@ class StockPickingImport(models.Model):
                     "picking_origin": convert2str(picking_origin),
                     "picking_location": convert2str(picking_location),
                     "picking_location_dest": convert2str(picking_location_dest),
-                    "picking_partner": picking_partner.title(),
+                    "picking_partner": picking_partner.title()
+                    if isinstance(picking_partner, str)
+                    else picking_partner,
                     "mother": convert2str(mother),
                     "picking_product_code": convert2str(picking_product_code),
                     "picking_description": picking_description,
                     "picking_lot": convert2str(picking_lot),
                     "picking_qty_done": picking_qty_done,
                     "picking_transporter_code": convert2str(picking_transporter_code),
-                    "picking_transporter": picking_transporter.title(),
+                    "picking_transporter": picking_transporter.title()
+                    if isinstance(picking_transporter, str)
+                    else picking_transporter,
                     "picking_license_plate": convert2str(picking_license_plate),
                     "picking_cost": picking_cost,
-                    "log_info": log_info,
                 }
             )
         return values
@@ -108,7 +106,6 @@ class StockPickingImportLine(models.Model):
         comodel_name="stock.picking.import",
     )
     action = fields.Selection(
-        string="Action",
         selection_add=[
             ("create", "Create"),
             ("update", "Update"),
@@ -118,305 +115,243 @@ class StockPickingImportLine(models.Model):
     picking_id = fields.Many2one(string="Picking", comodel_name="stock.picking")
     picking_custom_date_done = fields.Datetime(
         string="Date",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_origin = fields.Char(
         string="Origin Document",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_location = fields.Char(
         string="Location Src",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     picking_location_dest = fields.Char(
         string="Location Dest",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     picking_partner = fields.Char(
         string="Location Dest Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_product_code = fields.Char(
         string="Product Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_description = fields.Text(
         string="Product Description",
     )
     mother = fields.Char(
-        string="Mother",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     mother_id = fields.Many2one(
         string="Mother",
         comodel_name="stock.picking.batch",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_lot = fields.Char(
         string="Lot",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_qty_done = fields.Float(
         string="Quantity",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_transporter_code = fields.Char(
         string="Transporter Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_transporter = fields.Char(
         string="Transporter",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_license_plate = fields.Char(
         string="License Plate",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_cost = fields.Float(
         string="Shipping Cost",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
     )
     picking_location_dest_id = fields.Many2one(
         string="Location Dest",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_lot_id = fields.Many2one(
-        comodel_name="stock.production.lot",
+        comodel_name="stock.lot",
         string="Lot/Serial Number",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_carrier_id = fields.Many2one(
         comodel_name="delivery.carrier",
         string="Carrier",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_type_id = fields.Many2one(
         comodel_name="stock.picking.type",
         string="Picking Type",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     picking_batch_id = fields.Many2one(
         comodel_name="stock.picking.batch",
         string="Breeding",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
-    def action_validate(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
-            log_info = ""
-            origin = picking_type = batch = carrier = product = lot = mother = False
-            if line.picking_origin:
-                origin, log_info = line._check_origin()
-                if log_info:
-                    update_values = {
-                        "picking_origin": origin,
-                        "log_info": log_info,
-                        "state": "error",
-                        "action": "nothing",
-                    }
-            if not log_info:
-                location, log_info_location = line._check_location()
-                if log_info_location:
-                    log_info += log_info_location
-                location_dest, log_info_location_dest = line._check_location_dest()
-                if log_info_location_dest:
-                    log_info += log_info_location_dest
-                if not log_info_location and not log_info_location_dest:
-                    picking_type, log_info_picking_type = line._check_picking_type(
-                        location=location, location_dest=location_dest
-                    )
-                    if log_info_picking_type:
-                        log_info += log_info_picking_type
-                    if location and location.usage == "internal":
-                        batch, log_info_batch = line._check_batch(
-                            location=location_dest
-                        )
-                        if log_info_batch:
-                            log_info += log_info_batch
-                if line.picking_transporter_code:
-                    carrier, log_info_carrier = line._check_carrier()
-                    if log_info_carrier:
-                        log_info += log_info_carrier
-                if line.picking_product_code:
-                    product, log_info_product = line._check_product()
-                    if log_info_product:
-                        log_info += log_info_product
-                if not log_info_product and line.picking_lot:
-                    lot, log_info_lot = line._check_lot(product=product)
-                    if log_info_lot:
-                        log_info += log_info_lot
-                if line.mother:
-                    mother, log_info_mother = line._check_mother()
-                    if log_info_mother:
-                        log_info += log_info_mother
-                state = "error" if log_info else "pass"
-                action = "nothing"
-                if state != "error":
-                    action = "create"
-                update_values = {
-                    "picking_origin": origin,
-                    "picking_location_id": location and location.id,
-                    "picking_location_dest_id": (location_dest and location_dest.id),
-                    "picking_type_id": picking_type and picking_type.id,
-                    "picking_batch_id": batch and batch.id,
-                    "picking_carrier_id": carrier and carrier.id,
-                    "picking_product_id": product and product.id,
-                    "picking_lot_id": lot and lot.id,
-                    "mother_id": mother and mother.id,
-                    "log_info": log_info,
-                    "state": state,
-                    "action": action,
-                }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
-                )
-            )
-        return line_values
+    def _resolve_location_and_type(self):
+        log_info = ""
+        picking_type = batch = False
+        location, log_info_location = self._check_location()
+        if log_info_location:
+            log_info += log_info_location
+        location_dest, log_info_location_dest = self._check_location_dest()
+        if log_info_location_dest:
+            log_info += log_info_location_dest
+        if log_info_location or log_info_location_dest:
+            return location, location_dest, picking_type, batch, log_info
+        picking_type, log_info_picking_type = self._check_picking_type(
+            location=location, location_dest=location_dest
+        )
+        if log_info_picking_type:
+            log_info += log_info_picking_type
+        if location and location.usage == "internal":
+            batch, log_info_batch = self._check_batch(location=location_dest)
+            if log_info_batch:
+                log_info += log_info_batch
+        return location, location_dest, picking_type, batch, log_info
 
-    def action_process(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
-            if line.picking_origin:
-                origin, log_info = line._check_origin()
-                if log_info:
-                    state = "error"
-                    action = "nothing"
-                    lot = picking = False
-                    same_origin = line.import_id.import_line_ids.filtered(
-                        lambda c: c.picking_origin == line.picking_origin
-                        and (c.picking_id)
-                    )[:1]
-                    if (
-                        same_origin
-                        and line.picking_product_id == (same_origin.picking_product_id)
-                        and (same_origin.picking_type_id) == (line.picking_type_id)
-                        and (same_origin.picking_carrier_id)
-                        == (line.picking_carrier_id)
-                    ):
-                        log_info = ""
-                        picking = same_origin.picking_id
-                        lot, log_info = line._check_lot(product=line.picking_product_id)
-                        if not lot and line.import_id.lot_create:
-                            log_info = ""
-                            lot = self.env["stock.production.lot"].create(
-                                {
-                                    "product_id": line.picking_product_id.id,
-                                    "name": line.picking_lot,
-                                    "company_id": line.import_id.company_id.id,
-                                }
-                            )
-                        if lot:
-                            if line.mother_id:
-                                lot.batch_id = line.mother_id.id
-                            line.write(
-                                {"picking_lot_id": lot.id, "picking_id": picking.id}
-                            )
-                            self.env["stock.move.line"].create(
-                                {
-                                    "product_id": line.picking_product_id.id,
-                                    "lot_id": line.picking_lot_id.id,
-                                    "qty_done": line.picking_qty_done,
-                                    "product_uom_id": (
-                                        line.picking_product_id.uom_id.id
-                                    ),
-                                    "location_id": (
-                                        line.picking_type_id.default_location_src_id.id
-                                    ),
-                                    "location_dest_id": (
-                                        line.picking_type_id.default_location_dest_id.id
-                                    ),
-                                    "standard_price": (
-                                        line.picking_product_id.standard_price
-                                    ),
-                                    "amount": (line.picking_product_id.standard_price)
-                                    * (line.picking_qty_done),
-                                    "picking_id": picking.id,
-                                }
-                            )
-                            log_info = ""
-                            state = "done"
-                            action = "update"
-                    line.write(
-                        {
-                            "picking_origin": origin,
-                            "log_info": log_info,
-                            "state": state,
-                            "action": action,
-                        }
-                    )
-            if line.action == "create":
-                picking, log_info = line._create_picking()
-            else:
-                continue
-            state = "error" if log_info else "done"
-            line.write(
-                {
-                    "picking_id": picking and picking.id,
-                    "log_info": log_info,
-                    "state": state,
+    def _resolve_references(self):
+        log_info = ""
+        carrier = product = lot = mother = False
+        log_info_product = ""
+        if self.picking_transporter_code:
+            carrier, log_info_carrier = self._check_carrier()
+            if log_info_carrier:
+                log_info += log_info_carrier
+        if self.picking_product_code:
+            product, log_info_product = self._check_product()
+            if log_info_product:
+                log_info += log_info_product
+        if not log_info_product and self.picking_lot:
+            lot, log_info_lot = self._check_lot(product=product)
+            if log_info_lot:
+                log_info += log_info_lot
+        if self.mother:
+            mother, log_info_mother = self._check_mother()
+            if log_info_mother:
+                log_info += log_info_mother
+        return carrier, product, lot, mother, log_info
+
+    def _action_validate(self):
+        self.ensure_one()
+        if self.picking_origin:
+            log_info_origin = self._check_origin()
+            if log_info_origin:
+                return {
+                    "log_info": log_info_origin,
+                    "state": "error",
+                    "action": "nothing",
                 }
-            )
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    {
-                        "picking_id": picking and picking.id,
-                        "log_info": log_info,
-                        "state": state,
-                    },
-                )
-            )
-        return line_values
+        (
+            location,
+            location_dest,
+            picking_type,
+            batch,
+            log_info_locs,
+        ) = self._resolve_location_and_type()
+        carrier, product, lot, mother, log_info_refs = self._resolve_references()
+        log_info = log_info_locs + log_info_refs
+        state = "error" if log_info else "pass"
+        action = "create" if state == "pass" else "nothing"
+        return {
+            "picking_location_id": location and location.id,
+            "picking_location_dest_id": location_dest and location_dest.id,
+            "picking_type_id": picking_type and picking_type.id,
+            "picking_batch_id": batch and batch.id,
+            "picking_carrier_id": carrier and carrier.id,
+            "picking_product_id": product and product.id,
+            "picking_lot_id": lot and lot.id,
+            "mother_id": mother and mother.id,
+            "log_info": log_info,
+            "state": state,
+            "action": action,
+        }
+
+    def _action_process(self):
+        self.ensure_one()
+        if self.picking_origin:
+            log_info = self._check_origin()
+            if log_info:
+                same_origin = self.import_id.import_line_ids.filtered(
+                    lambda c: c.picking_origin == self.picking_origin and c.picking_id
+                )[:1]
+                if (
+                    same_origin
+                    and self.picking_product_id == same_origin.picking_product_id
+                    and same_origin.picking_type_id == self.picking_type_id
+                    and same_origin.picking_carrier_id == self.picking_carrier_id
+                ):
+                    picking = same_origin.picking_id
+                    lot, log_info = self._check_lot(product=self.picking_product_id)
+                    if not lot and self.import_id.lot_create:
+                        log_info = ""
+                        lot = self.env["stock.lot"].create(
+                            {
+                                "product_id": self.picking_product_id.id,
+                                "name": self.picking_lot,
+                                "company_id": self.import_id.company_id.id,
+                            }
+                        )
+                    if lot:
+                        if self.mother_id:
+                            lot.batch_id = self.mother_id.id
+                        self.write({"picking_lot_id": lot.id, "picking_id": picking.id})
+                        self._append_move_line_to_picking(picking)
+                        return {
+                            "picking_id": picking.id,
+                            "log_info": "",
+                            "state": "done",
+                        }
+                return {
+                    "log_info": log_info,
+                    "state": "error",
+                    "action": "nothing",
+                }
+        if self.action == "create":
+            picking, log_info = self._create_picking()
+        else:
+            return {}
+        state = "error" if log_info else "done"
+        if picking:
+            # Persist picking_id on this line right away so subsequent lines
+            # in the same wizard run can detect us via same_origin lookup.
+            self.picking_id = picking.id
+        return {
+            "picking_id": picking and picking.id,
+            "log_info": log_info,
+            "state": state,
+        }
 
     def _check_origin(self):
         self.ensure_one()
-        picking_obj = self.env["stock.picking"]
-        search_domain = [("origin", "=", self.picking_origin)]
-        log_info = ""
-        pickings = picking_obj.search(search_domain)
-        if pickings:
-            log_info = _("Error: Previously uploaded picking.")
-        return self.picking_origin, log_info
+        if not self.picking_origin:
+            return ""
+        if self.env["stock.picking"].search_count(
+            [("origin", "=", self.picking_origin)]
+        ):
+            return _("Error: Previously uploaded picking.")
+        return ""
 
     def _check_location(self):
         self.ensure_one()
@@ -487,8 +422,10 @@ class StockPickingImportLine(models.Model):
             picking_types = False
             log_info = _(
                 "Error: More than one picking type with location origin "
-                "{} and location destination {} found."
-            ).format(location.name, location_dest.name)
+                "%(src)s and location destination %(dst)s found.",
+                src=location.name,
+                dst=location_dest.name,
+            )
         return picking_types and picking_types[:1], log_info
 
     def _check_batch(self, location=False):
@@ -497,9 +434,15 @@ class StockPickingImportLine(models.Model):
         if self.picking_batch_id:
             return self.picking_batch_id, log_info
         batch_obj = self.env["stock.picking.batch"]
-        cancel_breeding = self.env.ref("stock_warehouse_farm.batch_stage3")
-        liquidated_breeding = self.env.ref("stock_picking_batch_breeding.batch_stage5")
-        billed_breeding = self.env.ref("stock_picking_batch_breeding.batch_stage6")
+        cancel_breeding = self.env.ref(
+            "stock_warehouse_farm.batch_stage3", raise_if_not_found=False
+        )
+        liquidated_breeding = self.env.ref(
+            "stock_picking_batch_breeding.batch_stage5", raise_if_not_found=False
+        )
+        billed_breeding = self.env.ref(
+            "stock_picking_batch_breeding.batch_stage6", raise_if_not_found=False
+        )
         search_domain = []
         breeding = False
         mother = False
@@ -524,14 +467,12 @@ class StockPickingImportLine(models.Model):
             search_domain = expression.AND(
                 [[("location_id", "=", location.id)], search_domain]
             )
-            if location.warehouse_id and (location.warehouse_id.activity) == (
-                "fattening"
-            ):
+            if location.warehouse_id and location.warehouse_id.activity == "fattening":
                 search_domain = expression.AND(
                     [[("batch_type", "=", "breeding")], search_domain]
                 )
                 breeding = True
-            elif location.warehouse_id and (location.warehouse_id.activity) in (
+            elif location.warehouse_id and location.warehouse_id.activity in (
                 "recry",
                 "reproduction",
             ):
@@ -545,7 +486,7 @@ class StockPickingImportLine(models.Model):
                 new_stage = self.env.ref("stock_warehouse_farm.batch_stage1")
                 breedings = self.env["stock.picking.batch"].create(
                     {
-                        "name": "TEMP-{}".format(location.name),
+                        "name": f"TEMP-{location.name}",
                         "location_id": location.id,
                         "batch_type": "breeding",
                         "stage_id": new_stage.id,
@@ -558,7 +499,7 @@ class StockPickingImportLine(models.Model):
             breedings = False
             log_info = _(
                 "Error: More than one active breeding/mother with location "
-                + "{} already exist."
+                "{} already exist."
             ).format(location.name)
         return breedings and breedings[:1], log_info
 
@@ -619,7 +560,7 @@ class StockPickingImportLine(models.Model):
         log_info = ""
         if self.picking_lot_id:
             return self.picking_lot_id, log_info
-        lot_obj = self.env["stock.production.lot"]
+        lot_obj = self.env["stock.lot"]
         search_domain = [("name", "=", self.picking_lot)]
         if product:
             search_domain = expression.AND(
@@ -636,6 +577,45 @@ class StockPickingImportLine(models.Model):
             log_info = _("Error: More than one lot found")
         return lots and lots[:1], log_info
 
+    def _append_move_line_to_picking(self, picking):
+        self.ensure_one()
+        src = self.picking_type_id.default_location_src_id
+        dest = self.picking_type_id.default_location_dest_id
+        move = picking.move_ids.filtered(
+            lambda m: (
+                m.product_id == self.picking_product_id
+                and m.location_id == src
+                and m.location_dest_id == dest
+            )
+        )[:1]
+        if not move:
+            move = self.env["stock.move"].create(
+                {
+                    "name": self.picking_product_id.display_name,
+                    "product_id": self.picking_product_id.id,
+                    "product_uom_qty": 0.0,
+                    "product_uom": self.picking_product_id.uom_id.id,
+                    "location_id": src.id,
+                    "location_dest_id": dest.id,
+                    "picking_id": picking.id,
+                }
+            )
+        move_line = self.env["stock.move.line"].create(
+            {
+                "move_id": move.id,
+                "product_id": self.picking_product_id.id,
+                "lot_id": self.picking_lot_id.id,
+                "quantity": self.picking_qty_done,
+                "product_uom_id": self.picking_product_id.uom_id.id,
+                "location_id": src.id,
+                "location_dest_id": dest.id,
+                "standard_price": self.picking_product_id.standard_price,
+                "picking_id": picking.id,
+            }
+        )
+        move.product_uom_qty = sum(move.move_line_ids.mapped("quantity"))
+        return move_line
+
     def _create_picking(self):
         self.ensure_one()
         picking = False
@@ -649,7 +629,7 @@ class StockPickingImportLine(models.Model):
                         lot, log_info = self._check_lot(product=product)
                         if not lot and self.import_id.lot_create:
                             log_info = ""
-                            lot = self.env["stock.production.lot"].create(
+                            lot = self.env["stock.lot"].create(
                                 {
                                     "product_id": self.picking_product_id.id,
                                     "name": self.picking_lot,
@@ -670,7 +650,7 @@ class StockPickingImportLine(models.Model):
         if self.picking_location_dest_id:
             location = self.picking_location_dest_id
         else:
-            location = self.picking_type_id.default_location_src_id
+            location = self.picking_type_id.default_location_dest_id
         vals = {
             "custom_date_done": self.picking_custom_date_done,
             "scheduled_date": self.picking_custom_date_done,
@@ -689,13 +669,11 @@ class StockPickingImportLine(models.Model):
                     {
                         "product_id": self.picking_product_id.id,
                         "lot_id": self.picking_lot_id.id,
-                        "qty_done": self.picking_qty_done,
+                        "quantity": self.picking_qty_done,
                         "product_uom_id": self.picking_product_id.uom_id.id,
                         "location_id": self.picking_type_id.default_location_src_id.id,
                         "location_dest_id": location.id,
                         "standard_price": self.picking_product_id.standard_price,
-                        "amount": (self.picking_product_id.standard_price)
-                        * (self.picking_qty_done),
                     },
                 )
             ],

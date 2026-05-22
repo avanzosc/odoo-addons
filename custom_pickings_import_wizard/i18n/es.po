@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-24 09:45+0000\n"
-"PO-Revision-Date: 2023-08-24 09:45+0000\n"
+"POT-Creation-Date: 2026-05-22 10:58+0000\n"
+"PO-Revision-Date: 2026-05-22 10:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,20 +18,20 @@ msgstr ""
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__picking_count
 msgid "# Pickings"
-msgstr "# Albaranes"
+msgstr "Nº Albaranes"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>Cantidad</code>: this will fill <b>Picking Product Quantity Done</b>"
-msgstr "<code>Cantidad</code>: esto rellenará la <b>cantidad hecha</b>"
+msgstr ""
+"<code>Cantidad</code>: rellenará la <b>Cantidad realizada del producto</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>CodigoProducto</code>: this will fill <b>Picking Product Code</b>"
-msgstr ""
-"<code>CodigoProducto</code>: esto rellenará el <b>Código de producto</b>"
+msgstr "<code>CodigoProducto</code>: rellenará el <b>Código del producto</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
@@ -39,79 +39,74 @@ msgid ""
 "<code>CodigoTransportista</code>: this will fill <b>Picking Transporter "
 "Code</b>"
 msgstr ""
-"<code>CodigoTransportista</code>:esto rellenará el <b>Código de "
+"<code>CodigoTransportista</code>: rellenará el <b>Código del "
 "transportista</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>CosteEnvio</code>: this will fill <b>Picking Shipping Cost</b>"
-msgstr "<code>CosteEnvio</code>: esto rellenará el <b>coste del envío</b>"
+msgstr "<code>CosteEnvio</code>: rellenará el <b>Coste de envío</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>DescripcionProducto</code>: this will fill <b>Picking Description</b>"
 msgstr ""
-"<code>DescripcionProducto</code>: esto rellenará la <b>descripción del "
+"<code>DescripcionProducto</code>: rellenará la <b>Descripción del "
 "producto</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>DocumentoOrigen</code>: this will fill <b>Picking Origin Document</b>"
-msgstr ""
-"<code>DocumentoOrigen</code>: esto rellenará el <b>documento origen del "
-"albarán</b>"
+msgstr "<code>DocumentoOrigen</code>: rellenará el <b>Documento de origen</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Fecha</code>: this will fill <b>Picking Date Done</b>"
-msgstr "<code>Fecha</code>: esto rellenará la <b>fecha realizada</b>"
+msgstr "<code>Fecha</code>: rellenará la <b>Fecha de realización</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Lote</code>: this will fill <b>Picking Product Lot</b>"
-msgstr "<code>Lote</code>: esto rellenará el <b>lote del producto</b>"
+msgstr "<code>Lote</code>: rellenará el <b>Lote del producto</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Matricula</code>: this will fill <b>License Plate</b>"
-msgstr "<code>Matricula</code>: esto rellenará la <b>Matrícula</b>"
+msgstr "<code>Matricula</code>: rellenará la <b>Matrícula</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "<code>Mother</code>: this will fill <b>Picking Product Lot Mother</b>"
-msgstr "<code>Mother</code>: esto rellenará la<b>Madre del lote</b>"
+msgstr "<code>Mother</code>: rellenará la <b>Madre del lote</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>NombreTransportista</code>: this will fill <b>Picking Transporter</b>"
-msgstr ""
-"<code>NombreTransportista</code>: esto rellenará el <b>transportista</b>"
+msgstr "<code>NombreTransportista</code>: rellenará el <b>Transportista</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>NombreUbicacionDestino</code>: this will fill <b>Picking Partner</b>"
 msgstr ""
-"<code>NombreUbicacionDestino</code>: esto rellenará el <b>nombre de la "
-"ubicación de destino</b>"
+"<code>NombreUbicacionDestino</code>: rellenará el <b>Nombre de la ubicación "
+"destino</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>UbicacionDestino</code>: this will fill <b>Picking Location "
 "Destination</b>"
-msgstr ""
-"<code>UbicacionDestino</code>: esto rellenará la <b>ubicación de destino</b>"
+msgstr "<code>UbicacionDestino</code>: rellenará la <b>Ubicación destino</b>"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid ""
 "<code>UbicacionOrigen</code>: this will fill <b>Picking Location Origin</b>"
-msgstr ""
-"<code>UbicacionOrigen</code>: esto rellenará la <b>ubicación de origen</b>"
+msgstr "<code>UbicacionOrigen</code>: rellenará la <b>Ubicación origen</b>"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__action
@@ -121,7 +116,7 @@ msgstr "Acción"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_needaction
 msgid "Action Needed"
-msgstr "Acción requerida"
+msgstr "Acción necesaria"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_ids
@@ -131,7 +126,7 @@ msgstr "Actividades"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Actividad decoración de excepción"
+msgstr "Decoración de excepción de actividad"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_state
@@ -141,24 +136,24 @@ msgstr "Estado de la actividad"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_type_icon
 msgid "Activity Type Icon"
-msgstr "Icono de tipo de actividad"
+msgstr "Icono del tipo de actividad"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_attachment_count
 msgid "Attachment Count"
-msgstr "Recuento de anexos"
+msgstr "Número de adjuntos"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_batch_id
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Breeding"
-msgstr "Crianza"
+msgstr "Cría"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_carrier_id
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Carrier"
-msgstr "Método de envío"
+msgstr "Transportista"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_delivery_carrier__code
@@ -198,7 +193,6 @@ msgid "Date"
 msgstr "Fecha"
 
 #. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_delivery_carrier__display_name
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__display_name
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__display_name
 msgid "Display Name"
@@ -212,7 +206,7 @@ msgstr "Hecho"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_search
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
@@ -220,135 +214,110 @@ msgid "Error Log"
 msgstr "Registro de errores"
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
-msgid "Error: More than one active breeding with location {} already exist."
-msgstr "Error: Se ha encontrado más de una crianza activa en la ubicación {}."
-
-#. module: custom_pickings_import_wizard
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid ""
 "Error: More than one active breeding/mother with location {} already exist."
-msgstr "Error: Más de una crianza/madre activa en la ubicación {}."
+msgstr "Error: Existe más de una cría/madre activa en la ubicación {}."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one destination location with name {} found."
-msgstr ""
-"Error: Se ha encontrado más de una ubicación de destino con nombre {}."
+msgstr "Error: Se encontró más de una ubicación destino con nombre {}."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one lot found"
-msgstr "Error: Más de un lote encontrado"
+msgstr "Error: Se encontró más de un lote"
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
-msgid "Error: More than one lot with name {} and product {} already exist."
-msgstr "Error: Más de un lote encontrado con nombre {} y producto {}."
-
-#. module: custom_pickings_import_wizard
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one mother found."
-msgstr "Error: Más de una madre encontrada."
+msgstr "Error: Se encontró más de una madre."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one origin location with name {} found."
-msgstr "Error: Se ha encontrado más de una ubicación de origen con nombre {}."
+msgstr "Error: Se encontró más de una ubicación origen con nombre {}."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid ""
-"Error: More than one picking type with location origin {} and location "
-"destination {} found."
+"Error: More than one picking type with location origin %(src)s and location "
+"destination %(dst)s found."
 msgstr ""
-"Error: Se ha encontrado más de un tipo de operación con origen {} y destino "
-"{}."
+"Error: Se encontró más de un tipo de albarán con ubicación origen %(src)s y "
+"ubicación destino %(dst)s."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one product with code {} already exist."
-msgstr "Error: Se ha encontrado más de un producto con código {}."
+msgstr "Error: Existe más de un producto con código {}."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: More than one shipping method with code {} already exist."
-msgstr "Error: Se ha encontrado más de un método de envío con el código {}."
+msgstr "Error: Existe más de un método de envío con código {}."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No destination location found."
-msgstr "Error: No se ha encontrado ninguna ubicación de destino."
+msgstr "Error: No se encontró la ubicación destino."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No lot found."
-msgstr "Error: Lote no encontrado."
+msgstr "Error: No se encontró el lote."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No mother found."
-msgstr "Error: Madre no encontrada."
+msgstr "Error: No se encontró la madre."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No origin location found."
-msgstr "Error: No se ha encontrado la ubicación de origen."
+msgstr "Error: No se encontró la ubicación origen."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No picking type found."
-msgstr "Error: Tipo de operación no encontrada."
+msgstr "Error: No se encontró el tipo de albarán."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No product found."
-msgstr "Error: Producto no encontrado."
+msgstr "Error: No se encontró el producto."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: No shipping method found."
-msgstr "Error: No se ha encontrado ningún método de envío"
+msgstr "Error: No se encontró el método de envío."
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "Error: Previously uploaded picking."
-msgstr "Error: Albarán previamente cargada."
+msgstr "Error: Albarán cargado previamente."
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
 msgid "Errored"
-msgstr "Error en"
+msgstr "Con error"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__data
@@ -366,25 +335,25 @@ msgid "Followers"
 msgstr "Seguidores"
 
 #. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr "Seguidores (canales)"
-
-#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Seguidores (contactos)"
+msgstr "Seguidores (Empresas)"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Icono de la fuente, por ejemplo, fa-tasks"
+msgstr "Icono Font Awesome ej. fa-tasks"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_search
 msgid "Group By"
 msgstr "Agrupar por"
+
+#. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
@@ -394,14 +363,13 @@ msgstr "Ayuda"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "Help with Excel column names"
-msgstr "Ayuda con los nombres de las columnas de Excel"
+msgstr "Ayuda con los nombres de columnas Excel"
 
 #. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_delivery_carrier__id
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__id
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_exception_icon
@@ -415,20 +383,14 @@ msgstr "Icono para indicar una actividad de excepción."
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_needaction
-#: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_unread
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcada, los nuevos mensajes requieren su atención."
+msgstr "Si está marcado, los mensajes nuevos requieren tu atención."
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_has_error
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si está marcada, algunos mensajes tienen un error de entrega."
-
-#. module: custom_pickings_import_wizard
-#: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
-msgid "Import"
-msgstr "Importar"
+msgstr "Si está marcado, algunos mensajes tienen un error de envío."
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__file_date
@@ -438,12 +400,12 @@ msgstr "Fecha de importación"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "Import Lines"
-msgstr "Líneas importadas"
+msgstr "Líneas a importar"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.actions.act_window,name:custom_pickings_import_wizard.stock_picking_import_line_action
 msgid "Import Picking Lines"
-msgstr "Líneas de albarán importadas"
+msgstr "Importar líneas de albarán"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.actions.act_window,name:custom_pickings_import_wizard.stock_picking_import_action
@@ -459,6 +421,11 @@ msgstr "Asistente de importación"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
+msgid "Importar"
+msgstr "Importar"
+
+#. module: custom_pickings_import_wizard
+#: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "Imported Lines"
 msgstr "Líneas importadas"
 
@@ -468,23 +435,16 @@ msgid "Is Follower"
 msgstr "Es seguidor"
 
 #. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_delivery_carrier____last_update
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import____last_update
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
-
-#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__write_uid
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__write_uid
 msgid "Last Updated by"
-msgstr "Actualizado por"
+msgstr "Última actualización por"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__write_date
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__write_date
 msgid "Last Updated on"
-msgstr "Actualizado el"
+msgstr "Última actualización el"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_license_plate
@@ -494,7 +454,7 @@ msgstr "Matrícula"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__import_line_ids
 msgid "Lines to Import"
-msgstr "Líneas para importar"
+msgstr "Líneas a importar"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_location_id
@@ -534,17 +494,12 @@ msgstr "Lote"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_lot_id
 msgid "Lot/Serial Number"
-msgstr "Lote"
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_main_attachment_id
-msgid "Main Attachment"
-msgstr "Adjunto principal"
+msgstr "Número de lote/serie"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_has_error
 msgid "Message Delivery error"
-msgstr "Error en la entrega del mensaje"
+msgstr "Error de envío de mensaje"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_ids
@@ -560,7 +515,7 @@ msgstr "Madre"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr "Mi plazo de actividad"
+msgstr "Fecha límite de mi actividad"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__name
@@ -568,9 +523,14 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Evento de calendario de la siguiente actividad"
+
+#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Plazo de la próxima actividad"
+msgstr "Fecha límite de la siguiente actividad"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_summary
@@ -580,18 +540,13 @@ msgstr "Resumen de la siguiente actividad"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_type_id
 msgid "Next Activity Type"
-msgstr "Siguiente tipo de actividad"
+msgstr "Tipo de la siguiente actividad"
 
 #. module: custom_pickings_import_wizard
+#. odoo-python
 #: code:addons/custom_pickings_import_wizard/models/stock_picking_import.py:0
-#, python-format
 msgid "No mothers in this location."
-msgstr "No hay madres en esta ubicación"
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields.selection,name:custom_pickings_import_wizard.selection__stock_picking_import_line__action__nothing
-msgid "Nothing"
-msgstr "Nada"
+msgstr "No hay madres en esta ubicación."
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_needaction_counter
@@ -605,23 +560,18 @@ msgstr "Número de errores"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Número de mensajes que requieren una acción"
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr "Número de mensajes con error de entrega"
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__message_unread_counter
-msgid "Number of unread messages"
-msgstr "Número de mensajes no leídos"
+msgstr "Número de mensajes con error de envío"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_origin
 msgid "Origin Document"
-msgstr "Documento origen"
+msgstr "Documento de origen"
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_search
@@ -642,7 +592,7 @@ msgstr "Tipo de albarán"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
-msgid "Process"
+msgid "Procesar"
 msgstr "Procesar"
 
 #. module: custom_pickings_import_wizard
@@ -659,7 +609,7 @@ msgstr "Código de producto"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_description
 msgid "Product Description"
-msgstr "Descripción de producto"
+msgstr "Descripción del producto"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_qty_done
@@ -667,14 +617,19 @@ msgid "Quantity"
 msgstr "Cantidad"
 
 #. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__rating_ids
+msgid "Ratings"
+msgstr "Valoraciones"
+
+#. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__activity_user_id
 msgid "Responsible User"
-msgstr "Usiario responsable"
+msgstr "Usuario responsable"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "Error de entrega de SMS"
+msgstr "Error de envío de SMS"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_cost
@@ -685,6 +640,11 @@ msgstr "Coste de envío"
 #: model:ir.model,name:custom_pickings_import_wizard.model_delivery_carrier
 msgid "Shipping Methods"
 msgstr "Métodos de envío"
+
+#. module: custom_pickings_import_wizard
+#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__split_size
+msgid "Split Size"
+msgstr "Tamaño del lote"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__state
@@ -702,10 +662,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Estado basado en actividades\n"
-"Atrasado: La fecha de vencimiento ya ha pasado\n"
+"Estado según actividades\n"
+"Vencido: La fecha límite ya ha pasado\n"
 "Hoy: La fecha de la actividad es hoy\n"
-"Planificado: Actividades futuras."
+"Planificada: Actividades futuras."
 
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_search
@@ -725,22 +685,12 @@ msgstr "Transportista"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import_line__picking_transporter_code
 msgid "Transporter Code"
-msgstr "Código transportista"
+msgstr "Código de transportista"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipo de la actividad de excepción registrada."
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_unread
-msgid "Unread Messages"
-msgstr "Mensajes no leídos"
-
-#. module: custom_pickings_import_wizard
-#: model:ir.model.fields,field_description:custom_pickings_import_wizard.field_stock_picking_import__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr "Contador de mensajes no leídos"
+msgstr "Tipo de la actividad de excepción en el registro."
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields.selection,name:custom_pickings_import_wizard.selection__stock_picking_import_line__action__update
@@ -750,7 +700,7 @@ msgstr "Actualizar"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
-msgid "Validate"
+msgid "Validar"
 msgstr "Validar"
 
 #. module: custom_pickings_import_wizard
@@ -761,7 +711,7 @@ msgstr "Mensajes del sitio web"
 #. module: custom_pickings_import_wizard
 #: model:ir.model.fields,help:custom_pickings_import_wizard.field_stock_picking_import__website_message_ids
 msgid "Website communication history"
-msgstr "Historia de la comunicación en la web"
+msgstr "Historial de comunicaciones del sitio web"
 
 #. module: custom_pickings_import_wizard
 #: model:ir.model,name:custom_pickings_import_wizard.model_stock_picking_import_line
@@ -776,4 +726,4 @@ msgstr "Asistente para la importación de albaranes"
 #. module: custom_pickings_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_pickings_import_wizard.stock_picking_import_view_form
 msgid "You must use this column names in order to fill the table:"
-msgstr "Debe utilizar estos nombres de columna para rellenar la tabla:"
+msgstr "Debes usar estos nombres de columnas para rellenar la tabla:"
