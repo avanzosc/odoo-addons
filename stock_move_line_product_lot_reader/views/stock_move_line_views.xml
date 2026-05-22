@@ -8,34 +8,12 @@
     />
         <field name="arch" type="xml">
             <field name="product_id" position="before">
-                <field name="picking_type_code" invisible="1" />
                 <field
           name="reader"
-          attrs="{
-             'invisible': [('picking_type_code','in',('incoming','outgoing'))],
-             'readonly': [('state', '=', 'done')]}"
+          readonly="state == 'done'"
           context="{'from_stock_picking':True}"
-          optional="show"
         />
             </field>
-        </field>
-    </record>
-    <record id="view_stock_move_line_operation_tree_inherit_reader" model="ir.ui.view">
-        <field name="name">stock.move.line.operation.tree.inherit.reader</field>
-        <field name="model">stock.move.line</field>
-        <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='location_id']" position="before">
-              <field name="picking_type_code" invisible="1" />
-              <field
-          name="reader"
-          attrs="{
-                'invisible': [('picking_type_code','in',('incoming','outgoing'))],
-                'readonly': [('state', '=', 'done')]}"
-          context="{'from_stock_picking':True}"
-          optional="show"
-        />
-            </xpath>
         </field>
     </record>
 </odoo>
