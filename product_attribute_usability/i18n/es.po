@@ -22,8 +22,7 @@ msgid "Attribute"
 msgstr "Atributo"
 
 #. module: product_attribute_usability
-#: model:ir.ui.menu,name:product_attribute_usability.menu_product_attribute_report_purchase
-#: model:ir.ui.menu,name:product_attribute_usability.menu_product_attribute_report_sale
+#: model:ir.ui.menu,name:product_attribute_usability.menu_product_attribute_report_stock
 msgid "Attribute Report"
 msgstr "Atributos de variantes"
 
@@ -76,6 +75,54 @@ msgstr "Variante"
 #: model:ir.actions.act_window,name:product_attribute_usability.action_product_variant_attribute_report
 msgid "Variant Attribute Report"
 msgstr "Atributos de variantes"
+
+#. module: product_attribute_usability
+#: model_terms:ir.ui.view,arch_db:product_attribute_usability.view_product_variant_attribute_wizard_form
+msgid "Replace"
+msgstr "Reemplazar"
+
+#. module: product_attribute_usability
+#: model:ir.actions.act_window,name:product_attribute_usability.action_product_variant_attribute_wizard
+#: model:ir.actions.server,name:product_attribute_usability.product_variant_attribute_wizard_server_action
+#: model:ir.model,name:product_attribute_usability.model_product_variant_attribute_wizard
+#: model_terms:ir.ui.view,arch_db:product_attribute_usability.view_product_variant_attribute_wizard_form
+msgid "Replace Variant Attribute Value"
+msgstr "Reemplazar valor del atributo de la variante"
+
+#. module: product_attribute_usability
+#: code:addons/product_attribute_usability/models/product_variant_attribute_wizard.py:37
+#, python-format
+msgid "Selected lines must belong to the same attribute."
+msgstr "Las líneas seleccionadas deben pertenecer al mismo atributo."
+
+#. module: product_attribute_usability
+#: model:ir.model.fields,field_description:product_attribute_usability.field_product_variant_attribute_wizard__new_value_id
+msgid "New Value"
+msgstr "Valor nuevo"
+
+#. module: product_attribute_usability
+#: code:addons/product_attribute_usability/models/product_variant_attribute_wizard.py:52
+#, python-format
+msgid "New value does not belong to selected attribute."
+msgstr "El valor nuevo no pertenece al atributo seleccionado."
+
+#. module: product_attribute_usability
+#: model:ir.model.fields,field_description:product_attribute_usability.field_product_variant_attribute_wizard__old_value_id
+msgid "Old Value"
+msgstr "Valor anterior"
+
+#. module: product_attribute_usability
+#: code:addons/product_attribute_usability/models/product_variant_attribute_wizard.py:55
+#, python-format
+msgid "Old value and new value must be different."
+msgstr "El valor antiguo y el nuevo deben de ser distintos."
+
+#. module: product_attribute_usability
+#: code:addons/product_attribute_usability/models/product_variant_attribute_wizard.py:49
+#, python-format
+msgid "Old value does not belong to selected attribute."
+msgstr "El valor antiguo no pertenece al atributo seleccionado."
+
 
 
 

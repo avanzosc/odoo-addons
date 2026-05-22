@@ -1,4 +1,4 @@
-from odoo import models, fields, _
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
 
@@ -20,6 +20,27 @@ class ProductVariantAttributeWizard(models.TransientModel):
         required=True,
         string="New Value",
     )
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+
+        active_ids = self.env.context.get("active_ids", [])
+
+        reports = self.env["product_variant_attribute_report"].browse(active_ids)
+        old_values = reports.mapped("value_id")
+
+        attributes = old_values.mapped("attribute_id")
+
+        if len(attributes) > 1:
+            raise UserError(
+                _("Selected lines must belong to the same attribute.")
+            )
+
+        res["attribute_id"] = attributes.id
+
+        return res
+
 
     def action_replace_value(self):
         self.ensure_one()
@@ -62,6 +83,18 @@ class ProductVariantAttributeWizard(models.TransientModel):
             product_ids,
             self.attribute_id.id,
             self.new_value_id.id,
+        ])
+
+        cr.execute("""
+            DELETE FROM product_attribute_value_product_template_attribute_line_rel rel
+            USING product_template_attribute_line ptal, product_product pp
+            WHERE rel.product_template_attribute_line_id = ptal.id
+              AND ptal.product_tmpl_id = pp.product_tmpl_id
+              AND pp.id = ANY(%s)
+              AND rel.product_attribute_value_id = %s
+        """, [
+            product_ids,
+            self.old_value_id.id,
         ])
 
         cr.execute("""
