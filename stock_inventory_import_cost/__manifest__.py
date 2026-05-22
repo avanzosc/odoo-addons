@@ -3,7 +3,7 @@
 
 {
     "name": "Stock Inventory Import Cost",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,7 +15,6 @@
     "data": [
         "views/stock_inventory_import_view.xml",
         "views/stock_inventory_import_line_view.xml",
-        "views/stock_inventory_line_view.xml",
     ],
     "external_dependencies": {"python": ["xlrd"]},
     "installable": True,

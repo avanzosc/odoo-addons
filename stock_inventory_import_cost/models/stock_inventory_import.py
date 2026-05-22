@@ -27,37 +27,48 @@ class StockInventoryImportLine(models.Model):
 
     inventory_product_cost = fields.Float(
         string="Cost",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     inventory_product_amount = fields.Float(
         string="Amount",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
     def _action_process(self):
         self.ensure_one()
         result = super()._action_process()
-        if self.inventory_product_cost and "inventory_line_id" in result:
-            inv_line = self.env["stock.inventory.line"].search(
-                [("id", "=", result["inventory_line_id"])], limit=1
-            )
-            inv_line.write(
-                {
-                    "cost": self.inventory_product_cost,
-                    "amount": self.inventory_product_amount
-                    or (self.inventory_product_cost * inv_line.product_qty),
-                }
-            )
+        if not self.inventory_product_cost:
+            return result
+        quant_id = result.get("quant_id") or self.quant_id.id
+        if not quant_id:
+            return result
+        quant = self.env["stock.quant"].browse(quant_id).exists()
+        if not quant:
+            return result
+        inventory_location = quant.product_id.with_company(
+            quant.company_id
+        ).property_stock_inventory
+        line = self.env["stock.move.line"].search(
+            [
+                ("is_inventory", "=", True),
+                ("state", "=", "done"),
+                ("product_id", "=", quant.product_id.id),
+                ("lot_id", "=", quant.lot_id.id),
+                ("owner_id", "=", quant.owner_id.id),
+                "|",
+                ("package_id", "=", quant.package_id.id),
+                ("result_package_id", "=", quant.package_id.id),
+                "|",
+                "&",
+                ("location_id", "=", quant.location_id.id),
+                ("location_dest_id", "=", inventory_location.id),
+                "&",
+                ("location_id", "=", inventory_location.id),
+                ("location_dest_id", "=", quant.location_id.id),
+            ],
+            order="id desc",
+            limit=1,
+        )
+        if line:
+            line.standard_price = self.inventory_product_cost
         return result
-
-    def create_quant(self):
-        super(StockInventoryImportLine, self).create_quant()
-        if self.move_line_id and self.inventory_product_cost:
-            self.move_line_id.write(
-                {
-                    "standard_price": self.inventory_product_cost,
-                    "amount": self.move_line_id.qty_done * self.inventory_product_cost,
-                }
-            )

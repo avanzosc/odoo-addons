@@ -7,7 +7,7 @@
       ref="stock_inventory_import_wizard.stock_inventory_import_view_form"
     />
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='help_page']/group/div/ul" position="inside">
+            <xpath expr="//page[@name='help_page']//ul[@name='tutorial']" position="inside">
                 <li><code>Precio</code>: this will fill <b
           >Inventory Product Cost</b></li>
                 <li><code>Importe</code>: this will fill <b
