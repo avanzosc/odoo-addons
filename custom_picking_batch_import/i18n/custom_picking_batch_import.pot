@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-01 07:10+0000\n"
-"PO-Revision-Date: 2023-08-01 07:10+0000\n"
+"POT-Creation-Date: 2026-05-22 08:55+0000\n"
+"PO-Revision-Date: 2026-05-22 08:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -227,7 +227,6 @@ msgstr ""
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__display_name
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import_line__display_name
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_import__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -252,50 +251,50 @@ msgid "Error Log"
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: More than location found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: More than one batch found"
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: More than one feed family found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: More than one lineage found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: No feed family found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: No lineage found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: No origin location found."
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
-#, python-format
 msgid "Error: There is other line with this batch."
 msgstr ""
 
@@ -342,11 +341,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -363,6 +357,11 @@ msgid "Group By"
 msgstr ""
 
 #. module: custom_picking_batch_import
+#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: custom_picking_batch_import
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
 msgid "Help"
 msgstr ""
@@ -375,7 +374,6 @@ msgstr ""
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__id
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import_line__id
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_import__id
 msgid "ID"
 msgstr ""
 
@@ -391,7 +389,6 @@ msgstr ""
 
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_needaction
-#: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -399,11 +396,6 @@ msgstr ""
 #: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_has_error
 #: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-
-#. module: custom_picking_batch_import
-#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
-msgid "Import"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -440,19 +432,22 @@ msgstr ""
 
 #. module: custom_picking_batch_import
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
+msgid "Importar"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
+msgid "Importar Albaranes"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
 msgid "Imported Lines"
 msgstr ""
 
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_is_follower
 msgid "Is Follower"
-msgstr ""
-
-#. module: custom_picking_batch_import
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import____last_update
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import_line____last_update
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_import____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -491,11 +486,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import_line__log_info
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_line_view_search
 msgid "Log Info"
-msgstr ""
-
-#. module: custom_picking_batch_import
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_main_attachment_id
-msgid "Main Attachment"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -540,6 +530,11 @@ msgid "Name"
 msgstr ""
 
 #. module: custom_picking_batch_import
+#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr ""
@@ -555,11 +550,6 @@ msgid "Next Activity Type"
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model:ir.model.fields.selection,name:custom_picking_batch_import.selection__stock_picking_batch_import_line__action__nothing
-msgid "Nothing"
-msgstr ""
-
-#. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
@@ -571,7 +561,7 @@ msgstr ""
 
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -580,26 +570,30 @@ msgid "Number of messages with delivery error"
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model:ir.model.fields,help:custom_picking_batch_import.field_stock_picking_batch_import__message_unread_counter
-msgid "Number of unread messages"
-msgstr ""
-
-#. module: custom_picking_batch_import
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_search
 msgid "Pending"
 msgstr ""
 
 #. module: custom_picking_batch_import
+#. odoo-python
 #: code:addons/custom_picking_batch_import/models/stock_picking_batch_import.py:0
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__pickings_import_id
-#, python-format
 msgid "Pickings Import"
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
+msgid "Procesar"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_line_view_form
 msgid "Process"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__rating_ids
+msgid "Ratings"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -610,6 +604,11 @@ msgstr ""
 #. module: custom_picking_batch_import
 #: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_has_sms_error
 msgid "SMS Delivery error"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__split_size
+msgid "Split Size"
 msgstr ""
 
 #. module: custom_picking_batch_import
@@ -650,23 +649,17 @@ msgid "Type of the exception activity on record."
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: custom_picking_batch_import
-#: model:ir.model.fields,field_description:custom_picking_batch_import.field_stock_picking_batch_import__message_unread_counter
-msgid "Unread Messages Counter"
-msgstr ""
-
-#. module: custom_picking_batch_import
 #: model:ir.model.fields.selection,name:custom_picking_batch_import.selection__stock_picking_batch_import_line__action__update
 msgid "Update"
 msgstr ""
 
 #. module: custom_picking_batch_import
-#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_view_form
+msgid "Validar"
+msgstr ""
+
+#. module: custom_picking_batch_import
+#: model_terms:ir.ui.view,arch_db:custom_picking_batch_import.stock_picking_batch_import_line_view_form
 msgid "Validate"
 msgstr ""
 
