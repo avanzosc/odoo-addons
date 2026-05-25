@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-14 15:38+0000\n"
-"PO-Revision-Date: 2023-03-14 15:38+0000\n"
+"POT-Creation-Date: 2026-05-25 10:27+0000\n"
+"PO-Revision-Date: 2026-05-25 10:27+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,18 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_quant_create_fix
+#: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_move_line__display_name
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_production_lot__display_name
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_quant__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: stock_quant_create_fix
+#: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_move_line__id
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_production_lot__id
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_quant__id
 msgid "ID"
 msgstr ""
 
 #. module: stock_quant_create_fix
+#: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_move_line____last_update
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_production_lot____last_update
 #: model:ir.model.fields,field_description:stock_quant_create_fix.field_stock_quant____last_update
 msgid "Last Modified on"
@@ -39,6 +42,11 @@ msgid "Lot/Serial"
 msgstr ""
 
 #. module: stock_quant_create_fix
+#: model:ir.model,name:stock_quant_create_fix.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: stock_quant_create_fix
 #: model:ir.model,name:stock_quant_create_fix.model_stock_quant
 msgid "Quants"
 msgstr ""
@@ -46,4 +54,11 @@ msgstr ""
 #. module: stock_quant_create_fix
 #: model:ir.actions.server,name:stock_quant_create_fix.action_repair_lot_location
 msgid "Repair Lot Location"
+msgstr ""
+
+#. module: stock_quant_create_fix
+#: code:addons/stock_quant_create_fix/models/stock_move_line.py:0
+#, python-format
+msgid ""
+"You must set a lot/serial number on line '%s' before changing the quantity."
 msgstr ""
