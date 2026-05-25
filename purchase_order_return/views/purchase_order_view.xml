@@ -1,42 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="purchase_order_form" model="ir.ui.view">
-        <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form" />
-        <field name="arch" type="xml">
-            <header position="inside">
-                <button
+  <record id="purchase_order_form" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <header position="inside">
+        <button
           name="button_validate_everything"
           type="object"
           string="Validate Everything"
           class="oe_highlight"
         />
-            </header>
-            <button name="button_confirm_pickings" position="attributes">
-                <attribute name="attrs">{'invisible': True}</attribute>
-            </button>
-            <xpath
-        expr="//field[@name='order_line']/tree/field[@name='product_qty']"
+      </header>
+      <xpath expr="//button[@name='button_confirm_pickings']" position="attributes">
+        <attribute name="invisible">True</attribute>
+      </xpath>
+      <xpath
+        expr="//field[@name='order_line']/list/field[@name='product_qty']"
         position="after"
       >
-                <field name="return_qty" />
-            </xpath>
-            <xpath
-        expr="//field[@name='order_line']/kanban/field[@name='product_qty']"
+        <field name="return_qty" />
+      </xpath>
+      <xpath
+        expr="//field[@name='order_line']/form//div[@class='o_row'][field[@name='product_qty']]"
         position="after"
       >
-                <field name="return_qty" />
-            </xpath>
-            <xpath
-        expr="//field[@name='order_line']/kanban//t[@t-esc='record.product_qty.value']/.."
+        <field name="return_qty" />
+      </xpath>
+      <xpath
+        expr="//field[@name='order_line']/kanban//div[span[field[@name='product_qty']]]"
         position="after"
       >
-                <span>
-                    Return Qty:
-                    <t t-esc="record.return_qty.value" />
-                    <t t-esc="record.product_uom.value" />
-                </span>
-            </xpath>
-        </field>
-    </record>
+        <div class="row" invisible="not return_qty">
+          <span class="col-8 text-muted">
+                        Return Qty:
+                        <field name="return_qty" />
+                    </span>
+        </div>
+      </xpath>
+    </field>
+  </record>
 </odoo>

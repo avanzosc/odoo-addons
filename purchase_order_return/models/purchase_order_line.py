@@ -11,23 +11,22 @@ class PurchaseOrderLine(models.Model):
     product_qty = fields.Float(
         required=False,
     )
-    return_qty = fields.Float(
-        string="Return Qty",
-    )
+    return_qty = fields.Float()
 
     @api.onchange("product_id", "company_id")
     def onchange_product_id(self):
-        result = super(PurchaseOrderLine, self).onchange_product_id()
+        result = super().onchange_product_id()
         if self.product_qty == 1 and not self.intercompany_sale_line_id:
             self.product_qty = 0
         return result
 
-    @api.model
-    def create(self, vals):
-        line = super().create(vals)
-        if line.order_id.state == "purchase":
-            line._apply_line_quantities()
-        return line
+    @api.model_create_multi
+    def create(self, vals_list):
+        lines = super().create(vals_list)
+        for line in lines:
+            if line.order_id.state == "purchase":
+                line._apply_line_quantities()
+        return lines
 
     def write(self, values):
         for line in self:
@@ -44,12 +43,12 @@ class PurchaseOrderLine(models.Model):
                         raise ValidationError(
                             _("Some qtys were already returned, qty can't be reduced.")
                         )
-        res = super(PurchaseOrderLine, self).write(values)
-        if (
-            ("return_qty" in values and values["return_qty"] > 0)
-            or ("product_qty" in values and values["product_qty"] > 0)
-        ) and line.order_id.state == "purchase":
-            self._apply_line_quantities()
+        res = super().write(values)
+        if ("return_qty" in values and values["return_qty"] > 0) or (
+            "product_qty" in values and values["product_qty"] > 0
+        ):
+            confirmed = self.filtered(lambda line: line.order_id.state == "purchase")
+            confirmed._apply_line_quantities()
         return res
 
     def _apply_line_quantities(self):
@@ -100,20 +99,19 @@ class PurchaseOrderLine(models.Model):
                 move.move_line_ids.unlink()
             move.product_uom_qty = qty
             return move
-        return self.env["stock.move"].create(
+        vals = self._prepare_stock_move_vals(
+            picking, self.price_unit, qty, self.product_uom
+        )
+        vals.update(
             {
-                "name": self.name,
-                "product_id": self.product_id.id,
-                "product_uom_qty": qty,
-                "product_uom": self.product_uom.id,
                 "picking_id": picking.id,
                 "picking_type_id": picking.picking_type_id.id,
                 "location_id": picking.location_id.id,
                 "location_dest_id": picking.location_dest_id.id,
-                "purchase_line_id": self.id,
                 "to_refund": is_return,
             }
         )
+        return self.env["stock.move"].create(vals)
 
     def _prepare_move_lines(self, move):
         if move.state == "draft":
@@ -128,13 +126,14 @@ class PurchaseOrderLine(models.Model):
         "move_ids.product_uom_qty",
         "move_ids.product_uom",
         "return_qty",
-        "move_ids.quantity_done",
+        "move_ids.quantity",
     )
     def _compute_qty_received(self):
-        super(PurchaseOrderLine, self)._compute_qty_received()
+        res = super()._compute_qty_received()
         for line in self:
             if line.return_qty and line.return_qty > 0:
                 line.product_qty = line.qty_received
+        return res
 
     def _create_or_update_picking(self):
         return True
