@@ -334,8 +334,8 @@
     <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
       <pivot string="Tresury forecast + Real">
-        <field name="credit" type="measure" operator="sum" />
         <field name="debit" type="measure" operator="sum" />
+        <field name="credit" type="measure" operator="sum" />
         <field name="balance" type="measure" operator="sum" />
         <field name="residual" type="measure" operator="sum" />
 
