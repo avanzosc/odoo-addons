@@ -143,8 +143,8 @@
     <field name="model">treasury.forecast.project.report</field>
     <field name="arch" type="xml">
       <pivot string="Cash flow forecast + Project">
-        <field name="credit" type="measure" operator="sum" />
         <field name="debit" type="measure" operator="sum" />
+        <field name="credit" type="measure" operator="sum" />
         <field name="balance" type="measure" operator="sum" />
         <field name="product_category_id" type="row" />
         <field name="source" type="row" />

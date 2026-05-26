@@ -30,7 +30,17 @@
         <field name="project_id" />
         <field name="analytic_account_id" />
       </field>
-      <filter name="filter_journals" position="after">
+      <filter name="filter_inactive" position="after">
+        <filter
+          string="Without a project or analytical account"
+          name="filter_without-proj-analy"
+          domain="[('project_id','=', False), ('analytic_account_id','=', False)]"
+        />
+        <filter
+          string="Project and/or analytical account"
+          name="filter_proj-or-analy"
+          domain="['|',('project_id','=', False), ('analytic_account_id','=', False)]"
+        />
         <filter
           string="Project"
           name="filter_project"
