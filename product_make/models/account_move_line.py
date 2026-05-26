@@ -117,8 +117,5 @@ class AccountMoveLine(models.Model):
             lambda x: not x.make_id and x.display_type == "product"
         ):
             line.put_makes_in_line()
-        for line in lines.filtered(
-            lambda x: not x.make_id and x.display_type == "product"
-        ):
             line.move_id.update_division_in_invoices()
         return lines
