@@ -8,13 +8,13 @@
     />
         <field name="arch" type="xml">
             <xpath
-        expr="//field[@name='line_ids']/tree/field[@name='qty_ordered']"
+        expr="//field[@name='line_ids']/list/field[@name='qty_ordered']"
         position="after"
       >
                 <field name="dif_qty" optional="show" />
             </xpath>
             <xpath
-        expr="//field[@name='line_ids']/tree/field[@name='price_unit']"
+        expr="//field[@name='line_ids']/list/field[@name='price_unit']"
         position="after"
       >
                 <field name="shipping_cost" optional="show" />
