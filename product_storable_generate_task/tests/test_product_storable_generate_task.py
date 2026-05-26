@@ -1,14 +1,14 @@
 # Copyright 2021 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
-from odoo.tests import common, tagged
+from odoo.tests import TransactionCase, tagged
 
 
 @tagged("post_install")
-class TestProductStorableGenerateTask(common.SavepointCase):
+class TestProductStorableGenerateTask(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.company = cls.env["res.company"]._company_default_get("sale.order")
+        cls.company = cls.env.company
         cls.uom_unit = cls.env.ref("uom.product_uom_unit")
         cls.partner = cls.env["res.partner"].create(
             {
@@ -22,7 +22,7 @@ class TestProductStorableGenerateTask(common.SavepointCase):
                 "default_code": "Pfspgt",
                 "uom_id": cls.uom_unit.id,
                 "uom_po_id": cls.uom_unit.id,
-                "type": "product",
+                "type": "consu",
                 "service_tracking": "task_in_project",
             }
         )

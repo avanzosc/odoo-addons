@@ -14,7 +14,7 @@ class SaleOrder(models.Model):
     def treatment_storable_product_generate_task(self):
         for order in self:
             lines = order.order_line.filtered(
-                lambda x: x.product_id.type == "product"
+                lambda x: x.product_id.type == "consu"
                 and x.product_id.service_tracking != "no"
                 and x.state == "sale"
                 and not x.is_expense
@@ -23,7 +23,6 @@ class SaleOrder(models.Model):
             if lines:
                 lines.write({"is_service": True})
                 for line in lines:
-                    line.sudo().with_context(
+                    line.sudo().with_company(order.company_id).with_context(
                         default_company_id=order.company_id.id,
-                        force_company=order.company_id.id,
                     )._timesheet_service_generation()
