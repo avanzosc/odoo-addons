@@ -39,13 +39,9 @@
         <filter
           string="Project and/or analytical account"
           name="filter_proj-or-analy"
-          domain="['|',('project_id','=', False), ('analytic_account_id','=', False)]"
+          domain="[ ('analytic_account_id','=', False)]"
         />
-        <filter
-          string="Project"
-          name="filter_project"
-          domain="[('project_id','!=',False)]"
-        />
+
         <filter
           string="Analytic Account"
           name="filter_analytic-account"
@@ -53,11 +49,6 @@
         />
       </filter>
       <filter name="group_journal" position="after">
-        <filter
-          string="Project"
-          name="group_project"
-          context="{'group_by':'project_id'}"
-        />
         <filter
           string="Analytic Account"
           name="group_analytic_account"

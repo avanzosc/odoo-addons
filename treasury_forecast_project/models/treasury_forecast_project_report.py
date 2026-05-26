@@ -10,12 +10,8 @@ class TreasuryForecastProjectReport(models.Model):
     _auto = False
 
     source = fields.Selection(
-        [("forecast", "Forecast"), ("project", "Project")],
+        [("project", "Project")],
         string="Origin",
-    )
-    project_id = fields.Many2one(
-        comodel_name="project.project",
-        string="Project",
     )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
@@ -49,7 +45,6 @@ class TreasuryForecastProjectReport(models.Model):
             "'forecast'::text AS source",
             """
             'forecast'::text AS source,
-            tf.project_id AS project_id,
             tf.analytic_account_id AS analytic_account_id
             """,
         )
@@ -61,23 +56,19 @@ class TreasuryForecastProjectReport(models.Model):
             al.date::date AS date,
             al.partner_id AS partner_id,
             al.product_id AS product_id,
-            aml.product_category_id AS product_category_id,
+            al.product_category_id AS product_category_id,
             al.name AS name,
             GREATEST(al.amount, 0) AS debit,
             GREATEST(-al.amount, 0) AS credit,
             al.amount AS balance,
             0 AS residual,
-            am.journal_id AS journal_id,
-            am.journal_id AS estimated_journal_id,
+            NULL AS journal_id,
+            NULL AS estimated_journal_id,
             al.currency_id AS currency_id,
             NULL AS financing_id,
             NULL AS category_id,
             NULL AS parent_category_id,
             'project'::text AS source,
-            CASE
-                WHEN proj_count.cnt = 1 THEN pp.id
-                ELSE NULL
-            END AS project_id,
             al.account_id AS analytic_account_id
         """
         additional_fields = self._select_additional_fields()
@@ -90,21 +81,6 @@ class TreasuryForecastProjectReport(models.Model):
     def _from_project(self):
         return """
             account_analytic_line al
-            LEFT JOIN account_move_line aml
-                ON al.move_line_id = aml.id
-
-            LEFT JOIN account_move am
-                ON aml.move_id = am.id
-            LEFT JOIN project_project pp
-                ON pp.account_id = al.account_id
-            LEFT JOIN (
-                SELECT
-                    account_id,
-                    COUNT(*) AS cnt
-                FROM project_project
-                GROUP BY account_id
-            ) proj_count
-                ON proj_count.account_id = al.account_id
         """
 
     def _where_project(self):

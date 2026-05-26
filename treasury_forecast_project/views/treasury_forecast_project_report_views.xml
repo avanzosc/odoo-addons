@@ -10,7 +10,6 @@
         <field name="product_id" />
         <field name="product_category_id" />
         <field name="journal_id" />
-        <field name="project_id" />
         <field name="analytic_account_id" />
         <field name="estimated_journal_id" />
         <field name="source" />
@@ -55,11 +54,6 @@
           domain="[('journal_id','!=',False)]"
         />
         <filter
-          string="Projects"
-          name="filter_projects"
-          domain="[('project_id','!=',False)]"
-        />
-        <filter
           string="Analytic Accounts"
           name="filter_analytic-account"
           domain="[('analytic_account_id','!=',False)]"
@@ -102,11 +96,6 @@
             string="Journal"
             name="group_journal"
             context="{'group_by': 'journal_id'}"
-          />
-          <filter
-            string="Project"
-            name="group_project"
-            context="{'group_by': 'project_id'}"
           />
           <filter
             string="Analytic Account"
@@ -162,11 +151,6 @@
     <field name="view_mode">pivot</field>
     <field name="view_id" ref="view_treasury_forecast_project_report_pivot" />
     <field name="search_view_id" ref="view_treasury_forecast_project_report_search" />
-    <field name="domain">
-        ['|',
-         ('project_id', '!=', False),
-         ('analytic_account_id', '!=', False)]
-    </field>
   </record>
 
   <menuitem
