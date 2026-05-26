@@ -3,7 +3,7 @@ from odoo import fields, models
 
 class TreasuryFinancingCategory(models.Model):
     _name = "treasury.financing.category"
-    _description = "Categoría de financiación"
+    _description = "Financing category"
     _order = "name"
 
     name = fields.Char(
