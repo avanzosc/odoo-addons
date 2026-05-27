@@ -8,33 +8,38 @@ class BatchHouseChangeWizard(models.TransientModel):
     _name = "batch.house.change.wizard"
     _description = "Wizard to change the house"
 
-    def default_date_done(self):
-        date = fields.Datetime.now()
-        return date
-
-    def _get_type_domain(self):
+    def _get_valid_type_ids(self):
         batch = self.env["stock.picking.batch"].browse(
             self.env.context.get("active_id")
         )
-        type = self.env.ref("stock_warehouse_farm.categ_type1")
+        categ_type = self.env.ref("stock_warehouse_farm.categ_type1")
         warehouses = self.env["stock.warehouse"].search(
-            [("activity", "=", "reproduction"), ("type_id", "=", type.id)]
+            [("activity", "=", "reproduction"), ("type_id", "=", categ_type.id)]
         )
         location_dest = self.env["stock.location"].search(
             [("warehouse_id", "in", warehouses.ids)]
         )
-        domain = [
-            ("default_location_src_id", "=", batch.location_id.id),
-            ("default_location_dest_id", "in", location_dest.ids),
-        ]
-        return domain
+        return self.env["stock.picking.type"].search(
+            [
+                ("default_location_src_id", "=", batch.location_id.id),
+                ("default_location_dest_id", "in", location_dest.ids),
+            ]
+        )
 
-    type_id = fields.Many2one(
-        string="Type", comodel_name="stock.picking.type", domain=_get_type_domain
+    valid_type_ids = fields.Many2many(
+        comodel_name="stock.picking.type",
+        default=_get_valid_type_ids,
     )
-    date_done = fields.Datetime(string="Date Done", default=default_date_done)
+    type_id = fields.Many2one(
+        string="Type",
+        comodel_name="stock.picking.type",
+        domain="[('id', 'in', valid_type_ids)]",
+    )
+    date_done = fields.Datetime(default=fields.Datetime.now)
 
     def button_change_house(self):
+        if not self.type_id:
+            raise ValidationError(_("You must select an operation type."))
         batch = self.env["stock.picking.batch"].browse(
             self.env.context.get("active_id")
         )
@@ -54,19 +59,24 @@ class BatchHouseChangeWizard(models.TransientModel):
                 }
             )
             for move in picking.move_ids_without_package:
-                new_move = move.copy()
-                new_move.write(
+                self.env["stock.move"].create(
                     {
+                        "name": move.name,
+                        "product_id": move.product_id.id,
+                        "product_uom": move.product_uom.id,
+                        "product_uom_qty": move.product_uom_qty,
                         "location_id": self.type_id.default_location_src_id.id,
                         "location_dest_id": self.type_id.default_location_dest_id.id,
-                        "picking_id": picking.id,
+                        "picking_id": new_picking.id,
+                        "picking_type_id": self.type_id.id,
                     }
                 )
-                new_picking.move_ids_without_package = [(4, new_move.id)]
+            new_picking.action_confirm()
             new_picking.button_force_done_detailed_operations()
             for line in new_picking.move_line_ids_without_package:
-                if not line.qty_done:
-                    line.qty_done = line.product_uom_qty
+                if not line.quantity:
+                    line.quantity = line.move_id.product_uom_qty
+                line.picked = True
             new_picking.button_validate()
         batch.write(
             {
