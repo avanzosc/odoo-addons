@@ -6,4 +6,4 @@ from odoo import fields, models
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    stamp = fields.Binary(string="Stamp")
+    stamp = fields.Binary()
