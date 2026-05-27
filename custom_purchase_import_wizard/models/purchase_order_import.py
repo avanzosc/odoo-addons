@@ -5,7 +5,7 @@ import pytz
 import xlrd
 
 from odoo import _, api, fields, models
-from odoo.models import expression
+from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.base_import_wizard.models.base_import import convert2str
@@ -104,118 +104,97 @@ class PurchaseOrderImportLine(models.Model):
             ("create", "Create"),
         ],
         ondelete={"create": "set default"},
-        states={"done": [("readonly", True)]},
     )
     purchase_order_id = fields.Many2one(
         string="Purchase Order", comodel_name="purchase.order"
     )
     purchase_supplier_code = fields.Char(
         string="Supplier Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_supplier_name = fields.Char(
         string="Supplier Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_date_planned = fields.Datetime(
         string="Date",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_origin = fields.Char(
         string="Origin",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_product_code = fields.Char(
         string="Product Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_product_name = fields.Char(
         string="Product Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_ordered_qty = fields.Char(
         string="Ordered Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_qty_done = fields.Char(
         string="Qty Done",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_license_plate = fields.Char(
         string="License Plate",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_warehouse = fields.Char(
         string="Warehouse",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_shipping_method = fields.Char(
         string="Shipping Method",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_supplier_id = fields.Many2one(
         string="Supplier",
         comodel_name="res.partner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_product_id = fields.Many2one(
         comodel_name="product.product",
         string="Product",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_warehouse_id = fields.Many2one(
         comodel_name="stock.warehouse",
         string="Warehouse",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_picking_type_id = fields.Many2one(
         comodel_name="stock.picking.type",
         string="Picking Type",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_requisition_id = fields.Many2one(
         string="Purchase Requisition",
         comodel_name="purchase.requisition",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_requisition_line_id = fields.Many2one(
         string="Purchase Requisition Line",
         comodel_name="purchase.requisition.line",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_product_cost = fields.Float(
         string="Product Cost",
-        states={"done": [("readonly", True)]},
         copy=False,
         digits="Standard Cost Decimal Precision",
     )
     purchase_product_shipping_cost = fields.Float(
         string="Shipping Cost",
-        states={"done": [("readonly", True)]},
         copy=False,
         digits="Standard Cost Decimal Precision",
     )
     purchase_shipping_method_id = fields.Many2one(
         string="Shipping Method",
         comodel_name="delivery.carrier",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -247,9 +226,9 @@ class PurchaseOrderImportLine(models.Model):
         line_values = []
         for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
-            origin = (
-                picking_type
-            ) = product = supplier = warehouse = shipping_method = False
+            origin = picking_type = product = supplier = warehouse = shipping_method = (
+                False
+            )
             if line.purchase_origin:
                 origin, log_info = line._check_origin()
                 if log_info:
@@ -328,8 +307,10 @@ class PurchaseOrderImportLine(models.Model):
                     line._create_purchase_order_line(purchase_order=purchase)
                 if line.purchase_origin and line.purchase_origin not in origins:
                     if self.filtered(
-                        lambda ln: ln.purchase_origin == line.purchase_origin
-                        and ln.state == "error"
+                        lambda ln, current_line=line: (
+                            ln.purchase_origin == current_line.purchase_origin
+                            and ln.state == "error"
+                        )
                     ):
                         log_info = _(
                             "Error: There is another line with the same"
@@ -341,7 +322,9 @@ class PurchaseOrderImportLine(models.Model):
                             origins.append(origin)
                             purchase = line._create_purchase_order()
                             same_origin = self.filtered(
-                                lambda ln: ln.purchase_origin == line.purchase_origin
+                                lambda ln, current_line=line: (
+                                    ln.purchase_origin == current_line.purchase_origin
+                                )
                             )
                             for record in same_origin:
                                 record._create_purchase_order_line(
@@ -365,18 +348,21 @@ class PurchaseOrderImportLine(models.Model):
                     pickings.button_validate()
                     for orderlines in purchase.order_line:
                         move = pickings.move_ids_without_package.filtered(
-                            lambda c: c.purchase_line_id == orderlines
+                            lambda c, current_orderline=orderlines: (
+                                c.purchase_line_id == current_orderline
+                            )
                         )
+                        move_qty = sum(move.mapped("quantity"))
                         move.write(
                             {
                                 "standard_price": orderlines.price_unit,
-                                "amount": (orderlines.price_unit * move.quantity_done),
+                                "amount": (orderlines.price_unit * move_qty),
                             }
                         )
                         ml = move.move_line_ids
                         ml.write(
                             {
-                                "qty_done": move.purchase_line_id.qty_done,
+                                "quantity": move.purchase_line_id.qty_done,
                                 "standard_price": orderlines.price_unit,
                                 "amount": (move.purchase_line_id.qty_done)
                                 * (orderlines.price_unit),
@@ -478,6 +464,8 @@ class PurchaseOrderImportLine(models.Model):
         log_info = ""
         if self.purchase_picking_type_id:
             return self.purchase_picking_type_id, log_info
+        if warehouse and warehouse.in_type_id:
+            return warehouse.in_type_id, log_info
         picking_type_obj = self.env["stock.picking.type"]
         search_domain = [("code", "=", "incoming")]
         if warehouse:

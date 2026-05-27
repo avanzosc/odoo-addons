@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-22 06:20+0000\n"
-"PO-Revision-Date: 2024-10-22 06:20+0000\n"
+"POT-Creation-Date: 2026-06-02 10:35+0000\n"
+"PO-Revision-Date: 2026-06-02 10:35+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -140,9 +140,6 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__display_name
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__display_name
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line__display_name
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition__display_name
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -162,93 +159,80 @@ msgid "Error Log"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: More than one picking type with warehouse {} found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: More than one product with the same name or code found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: More than one shipping method found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: More than one supplier found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: More than one warehouse with name {} found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: No picking type found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: No product found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: No shipping method found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: No supplier found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: No warehouse found."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: Previously uploaded order."
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid "Error: The contract has no line with that product"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#. odoo-python
 #: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#: code:addons/custom_purchase_import_wizard/models/purchase_order_import.py:0
-#, python-format
 msgid ""
 "Error: There is another line with the same origin document with some errors."
 msgstr ""
@@ -274,11 +258,6 @@ msgid "Followers"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_channel_ids
-msgid "Followers (Channels)"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
@@ -295,6 +274,11 @@ msgid "Group By"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: custom_purchase_import_wizard
 #: model_terms:ir.ui.view,arch_db:custom_purchase_import_wizard.purchase_order_import_view_form
 msgid "Help"
 msgstr ""
@@ -307,9 +291,6 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__id
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__id
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line__id
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition__id
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line__id
 msgid "ID"
 msgstr ""
 
@@ -325,7 +306,6 @@ msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__message_needaction
-#: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -378,15 +358,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import____last_update
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line____last_update
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_line____last_update
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition____last_update
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_requisition_line____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__write_uid
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import_line__write_uid
 msgid "Last Updated by"
@@ -415,11 +386,6 @@ msgid "Log Info"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_main_attachment_id
-msgid "Main Attachment"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_has_error
 msgid "Message Delivery error"
 msgstr ""
@@ -437,6 +403,11 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__name
 msgid "Name"
+msgstr ""
+
+#. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
@@ -466,17 +437,12 @@ msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
-#: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__message_unread_counter
-msgid "Number of unread messages"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
@@ -555,6 +521,11 @@ msgid "Qty Done"
 msgstr ""
 
 #. module: custom_purchase_import_wizard
+#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: custom_purchase_import_wizard
 #: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__activity_user_id
 msgid "Responsible User"
 msgstr ""
@@ -621,16 +592,6 @@ msgstr ""
 #. module: custom_purchase_import_wizard
 #: model:ir.model.fields,help:custom_purchase_import_wizard.field_purchase_order_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
-
-#. module: custom_purchase_import_wizard
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_unread
-msgid "Unread Messages"
-msgstr ""
-
-#. module: custom_purchase_import_wizard
-#: model:ir.model.fields,field_description:custom_purchase_import_wizard.field_purchase_order_import__message_unread_counter
-msgid "Unread Messages Counter"
 msgstr ""
 
 #. module: custom_purchase_import_wizard

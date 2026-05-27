@@ -7,4 +7,4 @@ from odoo import fields, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    qty_done = fields.Float(string="Qty Done")
+    qty_done = fields.Float()
