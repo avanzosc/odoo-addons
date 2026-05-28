@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 14:21+0000\n"
-"PO-Revision-Date: 2024-11-28 14:21+0000\n"
+"POT-Creation-Date: 2026-10-02 12:01+0000\n"
+"PO-Revision-Date: 2026-10-02 12:01+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #. module: analytic_cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:analytic_cleaning_database_operations.cleaning_database_form_view
-msgid "Analytic: Account Analytic Line."
+msgid "Analytic Operations"
 msgstr ""
 
 #. module: analytic_cleaning_database_operations
@@ -36,6 +36,19 @@ msgid "Cleaning Database Operations"
 msgstr ""
 
 #. module: analytic_cleaning_database_operations
+#. odoo-python
+#: code:addons/analytic_cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid "Cleaning Database record not found."
+msgstr ""
+
+#. module: analytic_cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:analytic_cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes Account Analytic Lines for the\n"
+"                        selected companies."
+msgstr ""
+
+#. module: analytic_cleaning_database_operations
 #: model:ir.model.fields,field_description:analytic_cleaning_database_operations.field_cleaning_database_warning_wizard__object_to_delete
 msgid "Object To Delete"
 msgstr ""
@@ -43,4 +56,15 @@ msgstr ""
 #. module: analytic_cleaning_database_operations
 #: model:ir.model,name:analytic_cleaning_database_operations.model_cleaning_database_warning_wizard
 msgid "Wizard for warning when cleaning database operations"
+msgstr ""
+
+#. module: analytic_cleaning_database_operations
+#. odoo-python
+#: code:addons/analytic_cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete analytic operations for the selected companies.\n"
+"\n"
+"Account Analytic Lines will be permanently deleted.\n"
+"\n"
+"This operation is irreversible."
 msgstr ""
