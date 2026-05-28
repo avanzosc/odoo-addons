@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 14:13+0000\n"
-"PO-Revision-Date: 2024-11-28 14:13+0000\n"
+"POT-Creation-Date: 2026-10-02 11:57+0000\n"
+"PO-Revision-Date: 2026-10-02 11:57+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgstr "Activo"
 
 #. module: account_asset_cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:account_asset_cleaning_database_operations.cleaning_database_form_view
-msgid "Assets: Account Asset Line and Account Asset."
-msgstr "Activo: Activo y línea de amortización de activo."
+msgid "Asset Operations"
+msgstr "Operaciones de activos"
 
 #. module: account_asset_cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:account_asset_cleaning_database_operations.cleaning_database_form_view
@@ -36,11 +36,41 @@ msgid "Cleaning Database Operations"
 msgstr "Limpieza de operaciones en base de datos"
 
 #. module: account_asset_cleaning_database_operations
+#. odoo-python
+#: code:addons/account_asset_cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid "Cleaning Database record not found."
+msgstr "No se ha encontrado el registro de la base de datos de limpieza."
+
+#. module: account_asset_cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:account_asset_cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes Asset Lines first and\n"
+"                        Assets afterwards."
+msgstr ""
+"Elimina primero las Asset Lines y\n"
+"                        después los Assets."
+#. module: account_asset_cleaning_database_operations
 #: model:ir.model.fields,field_description:account_asset_cleaning_database_operations.field_cleaning_database_warning_wizard__object_to_delete
 msgid "Object To Delete"
-msgstr "Estado"
+msgstr "Objeto para borrar"
 
 #. module: account_asset_cleaning_database_operations
 #: model:ir.model,name:account_asset_cleaning_database_operations.model_cleaning_database_warning_wizard
 msgid "Wizard for warning when cleaning database operations"
 msgstr "Asistente para alertar al limpiar las operaciones de la base de datos"
+
+#. module: account_asset_cleaning_database_operations
+#. odoo-python
+#: code:addons/account_asset_cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete asset operations for the selected companies.\n"
+"\n"
+"Asset Lines will be deleted first, followed by Assets.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar las operaciones de activos de las empresas seleccionadas.\n"
+"\n"
+"Primero se eliminarán las Asset Lines y, a continuación, los Assets.\n"
+"\n"
+"Esta operación es irreversible."
