@@ -1,7 +1,7 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ResPartner(models.Model):
@@ -11,8 +11,16 @@ class ResPartner(models.Model):
     risk_total_amount = fields.Float(
         string="Amount Risk", compute="_compute_risk_total_amount"
     )
-    credit_policy_amount = fields.Float(string="Credit Policy Amount")
+    credit_policy_amount = fields.Float()
 
+    @api.depends(
+        "risk_sale_order",
+        "risk_invoice_draft",
+        "risk_invoice_open",
+        "risk_invoice_unpaid",
+        "risk_account_amount",
+        "risk_account_amount_unpaid",
+    )
     def _compute_risk_sum(self):
         for partner in self:
             partner.risk_sum = (
@@ -24,6 +32,15 @@ class ResPartner(models.Model):
                 + partner.risk_account_amount_unpaid
             )
 
+    @api.depends(
+        "risk_sale_order",
+        "risk_invoice_draft",
+        "risk_invoice_open",
+        "risk_invoice_unpaid",
+        "risk_account_amount",
+        "risk_account_amount_unpaid",
+        "credit_policy_amount",
+    )
     def _compute_risk_total_amount(self):
         for partner in self:
             partner.risk_total_amount = (

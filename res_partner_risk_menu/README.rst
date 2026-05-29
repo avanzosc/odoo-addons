@@ -23,5 +23,6 @@ Contributors
 ------------
 * Ana Juaristi <ajuaristio@gmail.com>
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.

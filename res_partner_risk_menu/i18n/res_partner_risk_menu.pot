@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-01 10:22+0000\n"
-"PO-Revision-Date: 2024-08-01 10:22+0000\n"
+"POT-Creation-Date: 2026-05-29 06:22+0000\n"
+"PO-Revision-Date: 2026-05-29 06:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Amount"
 msgstr ""
 
@@ -29,9 +29,9 @@ msgid "Amount Risk"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Bank"
 msgstr ""
 
@@ -46,15 +46,25 @@ msgid "Contact Risk Report"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: model:ir.model,name:res_partner_risk_menu.model_report_contact_risk_xlsx_opt
+msgid "Contact Risk Report Optimized"
+msgstr ""
+
+#. module: res_partner_risk_menu
 #: model:ir.actions.report,name:res_partner_risk_menu.report_contact_risk_xlsx
 msgid "Contact Risk XLSX"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#: model:ir.actions.report,name:res_partner_risk_menu.report_contact_risk_xlsx_opt
+msgid "Contact Risk XLSX (Optimized)"
+msgstr ""
+
+#. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 #: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
-#, python-format
 msgid "Credit Policy"
 msgstr ""
 
@@ -65,93 +75,73 @@ msgid "Credit Policy Amount"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Date"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Delivery Pending Sales"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Description"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Discount Date"
 msgstr ""
 
 #. module: res_partner_risk_menu
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx__display_name
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 #: model_terms:ir.ui.view,arch_db:res_partner_risk_menu.res_partner_risk_tree_view
-#, python-format
 msgid "Draft Invoices"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Expiration Date"
 msgstr ""
 
 #. module: res_partner_risk_menu
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx__id
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner__id
-msgid "ID"
-msgstr ""
-
-#. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Invoice"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Invoices/Balance Open"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Invoicing Pending Sales"
 msgstr ""
 
 #. module: res_partner_risk_menu
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_report_contact_risk_xlsx____last_update
-#: model:ir.model.fields,field_description:res_partner_risk_menu.field_res_partner____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Number"
 msgstr ""
 
@@ -161,16 +151,16 @@ msgid "Open Invoice/Balance"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Order"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Other Open Account Balance"
 msgstr ""
 
@@ -180,9 +170,9 @@ msgid "Other Open Balance"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Other Unpaid Account Balance"
 msgstr ""
 
@@ -192,9 +182,9 @@ msgid "Other Unpaid Balance"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Payment Date"
 msgstr ""
 
@@ -205,9 +195,9 @@ msgid "Res Partner Risk"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Risk Sum"
 msgstr ""
 
@@ -223,16 +213,16 @@ msgid "Sum of Risk"
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "The report cant be taken from a single contact."
 msgstr ""
 
 #. module: res_partner_risk_menu
+#. odoo-python
 #: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx.py:0
-#, python-format
+#: code:addons/res_partner_risk_menu/report/contact_risk_xlsx_opt.py:0
 msgid "Total Risk"
 msgstr ""
 
