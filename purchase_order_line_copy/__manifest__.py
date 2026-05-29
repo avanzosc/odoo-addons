@@ -10,7 +10,7 @@
     "depends": [
         "purchase",
     ],
-    "data": ["views/purchase_order_view.xml"],
+    "data": [],
     "installable": True,
     "auto_install": False,
 }
