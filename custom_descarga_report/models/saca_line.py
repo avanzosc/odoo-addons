@@ -11,6 +11,6 @@ class SacaLine(models.Model):
         responsible_categ = self.env.ref("custom_saca.quality_responsible_category")
         if responsible_categ:
             responsible = self.env["res.partner"].search(
-                [("category_id", "=", responsible_categ.id)]
+                [("category_id", "in", [responsible_categ.id])], limit=1
             )
         return responsible
