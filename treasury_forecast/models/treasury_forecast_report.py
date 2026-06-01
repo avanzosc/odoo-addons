@@ -6,9 +6,14 @@ class TreasuryForecastReport(models.Model):
     _description = "Treasury Forecast Report"
     _auto = False
 
-    date = fields.Date(string="Fecha")
+    date = fields.Date()
     partner_id = fields.Many2one("res.partner", string="Partner")
     product_id = fields.Many2one("product.product", string="Product")
+    product_category_id = fields.Many2one(
+        comodel_name="product.category",
+        string="Product Category",
+        readonly=True,
+    )
     name = fields.Char(string="Description")
 
     journal_id = fields.Many2one("account.journal", string="Journal")
@@ -25,7 +30,7 @@ class TreasuryForecastReport(models.Model):
 
     source = fields.Selection(
         [("forecast", "Forecast"), ("move_line", "Move Line")],
-        string="Origen",
+        string="Origin",
     )
     financing_id = fields.Many2one("treasury.financing", string="Financing")
 

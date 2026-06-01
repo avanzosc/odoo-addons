@@ -50,11 +50,7 @@
       >
         <attribute name="required">customer_rank > 0 and type == 'contact'</attribute>
       </xpath>
-      <page name="sales_purchases" position="attributes">
-        <attribute
-          name="invisible"
-        >parent_id !=  False or (parent_id !=  False and type != 'delivery')</attribute>
-      </page>
+
       <field name="vat" position="attributes">
         <attribute name="required">customer_rank == 0 and is_company == True</attribute>
       </field>
