@@ -6,22 +6,30 @@ from odoo import api, fields, models
 class AccountAnalyticLine(models.Model):
     _inherit = "account.analytic.line"
 
-    pre_amount = fields.Float(string="Amount")
+    account_move_id = fields.Many2one(
+        string="Journal Entry",
+        comodel_name="account.move",
+        related="move_line_id.move_id",
+        store=True,
+        readonly=True,
+    )
+    pre_amount = fields.Float(string="Input Amount")
 
     @api.onchange("pre_amount")
     def onchange_pre_amount(self):
         self.amount = abs(self.pre_amount)
-        if self.move_id.debit != 0:
-            self.amount = (-1) * abs(self.pre_amount)
+        if self.move_line_id and self.move_line_id.debit != 0:
+            self.amount = -1 * abs(self.pre_amount)
 
-    @api.model
-    def create(self, values):
-        if "name" in values and values["name"] == "/ -- /" and "move_id" in values:
-            values["name"] = (
-                self.env["account.move.line"]
-                .browse(values.get("move_id"))
-                .account_id.display_name
-            )
-        if "amount" in values:
-            values["pre_amount"] = values["amount"]
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name") == "/ -- /" and vals.get("move_line_id"):
+                vals["name"] = (
+                    self.env["account.move.line"]
+                    .browse(vals.get("move_line_id"))
+                    .account_id.display_name
+                )
+            if "amount" in vals:
+                vals["pre_amount"] = abs(vals["amount"])
+        return super().create(vals_list)

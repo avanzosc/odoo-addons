@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-22 08:56+0000\n"
-"PO-Revision-Date: 2023-11-22 08:56+0000\n"
+"POT-Creation-Date: 2026-06-01 09:41+0000\n"
+"PO-Revision-Date: 2026-06-01 09:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,11 +21,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_search_view
 msgid "Account"
 msgstr "Cuenta"
-
-#. module: account_analytic_distribution
-#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_analytic_template_tree_view
-msgid "Account Analutic Template"
-msgstr "Distribución analítica"
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__account_analytic_id
@@ -46,11 +41,6 @@ msgid "Account Name"
 msgstr "Nombre de cuenta"
 
 #. module: account_analytic_distribution
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line__pre_amount
-msgid "Amount"
-msgstr "Importe"
-
-#. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_account__analytic_template_ids
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_move_line_distribution_form_view
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.view_account_form
@@ -65,17 +55,15 @@ msgstr "Línea analítica"
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_bank_statement_line__analytic_line_ids
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move__analytic_line_ids
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_payment__analytic_line_ids
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.view_move_form
 msgid "Analytic Lines"
 msgstr "Líneas analíticas"
 
 #. module: account_analytic_distribution
+#. odoo-python
 #: code:addons/account_analytic_distribution/models/account_move.py:0
-#: code:addons/account_analytic_distribution/models/account_move.py:0
-#, python-format
 msgid "Analytics"
-msgstr "Analítica"
+msgstr "Analíticas"
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__company_id
@@ -93,20 +81,15 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: account_analytic_distribution
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_account__display_name
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line__display_name
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__display_name
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move__display_name
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: account_analytic_distribution
+#. odoo-python
 #: code:addons/account_analytic_distribution/models/account_move_line.py:0
-#: code:addons/account_analytic_distribution/models/account_move_line.py:0
-#, python-format
 msgid "Distribution"
-msgstr "Distribución"
+msgstr ""
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__distribution_done
@@ -120,16 +103,18 @@ msgid "Group By"
 msgstr "Agrupar por"
 
 #. module: account_analytic_distribution
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_account__id
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line__id
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__id
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move__id
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__id
 msgid "ID"
 msgstr "Identificador"
 
 #. module: account_analytic_distribution
+#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line__pre_amount
+msgid "Input Amount"
+msgstr "Importe"
+
+#. module: account_analytic_distribution
 #: model:ir.model,name:account_analytic_distribution.model_account_move
+#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line__account_move_id
 msgid "Journal Entry"
 msgstr "Asiento contable"
 
@@ -137,15 +122,6 @@ msgstr "Asiento contable"
 #: model:ir.model,name:account_analytic_distribution.model_account_move_line
 msgid "Journal Item"
 msgstr "Apunte contable"
-
-#. module: account_analytic_distribution
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_account____last_update
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_line____last_update
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template____last_update
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move____last_update
-#: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_analytic_template__write_uid
@@ -164,8 +140,13 @@ msgstr "Sin distribuir"
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,field_description:account_analytic_distribution.field_account_move_line__payment_reference
-msgid "Paymente Reference"
+msgid "Payment Reference"
 msgstr "Referencia de pago"
+
+#. module: account_analytic_distribution
+#: model_terms:ir.ui.view,arch_db:account_analytic_distribution.view_move_form
+msgid "Show Analytic Distribution"
+msgstr "Mostrar distribución de analíticas"
 
 #. module: account_analytic_distribution
 #: model:ir.model.fields,help:account_analytic_distribution.field_account_move_line__payment_reference
@@ -173,15 +154,12 @@ msgid "The payment reference to set on journal items."
 msgstr "La referencia de pago a establecer en los asientos."
 
 #. module: account_analytic_distribution
+#. odoo-python
 #: code:addons/account_analytic_distribution/models/account_move_line.py:0
-#: code:addons/account_analytic_distribution/models/account_move_line.py:0
-#, python-format
 msgid ""
 "The total sum of amounts must be equal to the debit or credit amount of the "
 "financial movement."
 msgstr ""
-"La suma total de los importes debe ser igual al importe en el debe o en el "
-"haber del movimiento financiero."
 
 #. module: account_analytic_distribution
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_move_line_distribution_form_view
@@ -190,5 +168,5 @@ msgstr "Importe total"
 
 #. module: account_analytic_distribution
 #: model_terms:ir.ui.view,arch_db:account_analytic_distribution.account_move_line_distribution_form_view
-msgid "Total Pre Amoun"
-msgstr "Importe total"
+msgid "Total Pre Amount"
+msgstr "Importe total anticipado"

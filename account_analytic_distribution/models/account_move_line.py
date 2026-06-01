@@ -2,20 +2,20 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    payment_reference = fields.Char(
-        string="Paymente Reference", related="move_id.payment_reference"
-    )
-    distribution_done = fields.Boolean(
-        string="Distribution Done", compute="_compute_distribution_done", store=True
-    )
-    account_name = fields.Char(
-        string="Account Name", related="account_id.name", store=True
-    )
+    payment_reference = fields.Char(related="move_id.payment_reference")
+    distribution_done = fields.Boolean(compute="_compute_distribution_done", store=True)
+    account_name = fields.Char(compute="_compute_account_name")
+
+    @api.depends("account_id")
+    def _compute_account_name(self):
+        for line in self:
+            line.account_name = line.account_id.display_name or ""
 
     @api.depends(
         "credit",
@@ -27,23 +27,30 @@ class AccountMoveLine(models.Model):
     )
     def _compute_distribution_done(self):
         for line in self:
+            rounding = line.currency_id.rounding or line.company_currency_id.rounding
             line.distribution_done = True
             if not line.move_id.state == "draft" and (
-                line.account_id.analytic_template_ids or (line.analytic_account_id)
+                line.account_id.analytic_template_ids or line.analytic_distribution
             ):
                 line.distribution_done = False
-                amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
-                if amount != 0 and (
-                    line.credit == abs(amount) or (line.debit == abs(amount))
+                amount = sum(line.analytic_line_ids.mapped("amount"))
+                if not float_is_zero(amount, precision_rounding=rounding) and (
+                    float_compare(line.credit, abs(amount), precision_rounding=rounding)
+                    == 0
+                    or float_compare(
+                        line.debit, abs(amount), precision_rounding=rounding
+                    )
+                    == 0
                 ):
                     line.distribution_done = True
             if line.distribution_done and any(
-                [analitic.amount != 0 for (analitic) in line.analytic_line_ids]
+                not float_is_zero(analytic.amount, precision_rounding=rounding)
+                for analytic in line.analytic_line_ids
             ):
-                for analitic in line.analytic_line_ids.filtered(
+                for analytic in line.analytic_line_ids.filtered(
                     lambda c: c.amount == 0
                 ):
-                    analitic.unlink()
+                    analytic.unlink()
 
     def action_show_distribution(self):
         """Returns an action that will open a form view (in a popup) allowing
@@ -69,8 +76,16 @@ class AccountMoveLine(models.Model):
     def _check_line_distribution(self):
         for line in self:
             if line.analytic_line_ids:
-                amount = round(sum(line.analytic_line_ids.mapped("amount")), 2)
-                if -amount != line.debit and (amount != line.credit) or (amount == 0):
+                rounding = (
+                    line.currency_id.rounding or line.company_currency_id.rounding
+                )
+                amount = sum(line.analytic_line_ids.mapped("amount"))
+                invalid_distribution = (
+                    float_compare(-amount, line.debit, precision_rounding=rounding) != 0
+                    and float_compare(amount, line.credit, precision_rounding=rounding)
+                    != 0
+                ) or float_is_zero(amount, precision_rounding=rounding)
+                if invalid_distribution:
                     raise ValidationError(
                         _(
                             "The total sum of amounts must be equal to the "

@@ -15,35 +15,40 @@ class AccountMove(models.Model):
 
     def action_post(self):
         result = super().action_post()
-        for line in self.invoice_line_ids:
-            if line.account_id and line.account_id.analytic_template_ids:
-                for template in line.account_id.analytic_template_ids:
-                    analytic = self.env[("account.analytic.line")].create(
-                        {
-                            "name": line.account_id.name,
-                            "account_id": template.account_analytic_id.id,
-                            "move_id": line.id,
-                            "date": line.move_id.date,
-                        }
-                    )
-                    if template.percentage:
-                        if line.credit:
-                            analytic.amount = (template.percentage * line.credit) / 100
-                        if line.debit:
-                            analytic.amount = (
-                                (-1) * template.percentage * line.debit
-                            ) / 100
+        for move in self:
+            for line in move.invoice_line_ids:
+                if (
+                    line.account_id
+                    and line.account_id.analytic_template_ids
+                    and not line.analytic_distribution
+                ):
+                    for template in line.account_id.analytic_template_ids:
+                        amount = 0.0
+                        if template.percentage:
+                            if line.credit:
+                                amount = (template.percentage * line.credit) / 100
+                            elif line.debit:
+                                amount = (-1 * template.percentage * line.debit) / 100
+                        self.env["account.analytic.line"].create(
+                            {
+                                "name": line.account_id.name,
+                                "account_id": template.account_analytic_id.id,
+                                "move_line_id": line.id,
+                                "date": move.date,
+                                "amount": amount,
+                            }
+                        )
         return result
 
     def action_view_analytics(self):
         return {
             "name": _("Analytics"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "account.analytic.line",
             "domain": [("id", "in", self.analytic_line_ids.ids)],
             "type": "ir.actions.act_window",
             "views": [
-                [self.env.ref("analytic.view_account_analytic_line_tree").id, "tree"],
+                [self.env.ref("analytic.view_account_analytic_line_tree").id, "list"],
                 [False, "form"],
             ],
             "context": self.env.context,
