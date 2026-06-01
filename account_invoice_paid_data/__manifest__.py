@@ -3,13 +3,12 @@
 
 {
     "name": "Account invoice paid data",
-    "version": "14.0.1.1.0",
+    "version": "18.0.1.0.0",
     "category": "Hidden",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": ["account", "account_move_template"],
-    "excludes": [],
     "data": [
         "views/account_move_views.xml",
     ],

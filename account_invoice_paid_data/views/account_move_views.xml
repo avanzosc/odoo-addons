@@ -4,12 +4,12 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
-            <field name="payment_state" position="after">
+            <field name="status_in_payment" position="after">
                 <field name="paid_date" optional="show" />
                 <field
           name="payment_period"
           optional="show"
-          attrs="{'invisible': ['|', ('paid_date', '=', False), ('invoice_date', '=', False)]}"
+          invisible="not paid_date or not invoice_date"
         />
             </field>
         </field>
