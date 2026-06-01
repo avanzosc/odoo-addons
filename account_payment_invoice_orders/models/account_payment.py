@@ -53,19 +53,29 @@ class AccountPayment(models.Model):
     @staticmethod
     def _is_pending_order(order):
         return not order.invoice_ids or order.invoice_ids.filtered(
-            lambda c: c.state == "posted"
-            and c.payment_state in ("not_paid", "partial")
+            lambda c: c.state == "posted" and c.payment_state in ("not_paid", "partial")
         )
 
     @api.onchange("partner_id")
     def onchange_partner_id(self):
         if self.partner_id:
-            sales = self.env["sale.order"].search(
-                [("state", "=", "sale"), ("partner_id", "=", self.partner_id.id)]
-            ).filtered(self._is_pending_order)
-            purchases = self.env["purchase.order"].search(
-                [("state", "=", "purchase"), ("partner_id", "=", self.partner_id.id)]
-            ).filtered(self._is_pending_order)
+            sales = (
+                self.env["sale.order"]
+                .search(
+                    [("state", "=", "sale"), ("partner_id", "=", self.partner_id.id)]
+                )
+                .filtered(self._is_pending_order)
+            )
+            purchases = (
+                self.env["purchase.order"]
+                .search(
+                    [
+                        ("state", "=", "purchase"),
+                        ("partner_id", "=", self.partner_id.id),
+                    ]
+                )
+                .filtered(self._is_pending_order)
+            )
             invoices = self.env["account.move"].search(
                 [
                     ("payment_state", "in", ("not_paid", "in_payment", "partial")),
