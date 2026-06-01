@@ -3,12 +3,12 @@
 
 {
     "name": "Account Invoice Fiscal Position Text",
-    "version": "14.0.1.0.0",
-    "category": "Invoicing Management",
+    "version": "18.0.1.0.0",
+    "category": "Accounting/Accounting",
     "author": "AvanzOSC",
     "license": "AGPL-3",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["base", "account"],
+    "depends": ["account"],
     "data": [
         "views/account_invoice_fiscal_position_text_view.xml",
     ],

@@ -7,8 +7,6 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     invoice_text = fields.Text(
-        string="Invoice text",
-        comodel_name="account.fiscal.position",
         related="fiscal_position_id.invoice_text",
         store=True,
     )

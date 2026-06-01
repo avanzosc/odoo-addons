@@ -8,7 +8,7 @@ Invoice Fiscal Position Text
 
 * Adds new field "invoice text" into account.fiscal.position
   model.
-* Shows this text into account.invoice model and report.
+* Shows this text into account.move model and report.
 
 Credits
 =======
