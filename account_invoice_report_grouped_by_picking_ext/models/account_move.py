@@ -11,7 +11,9 @@ class AccountMove(models.Model):
         result = super().lines_grouped_by_picking()
         extra_lines = []
         without_picking_line_ids = {
-            line["line"].id for line in result if not line.get("picking") and line.get("line")
+            line["line"].id
+            for line in result
+            if not line.get("picking") and line.get("line")
         }
         so_dict = {x.sale_id: x for x in self.picking_ids if x.sale_id}
         for line in self.invoice_line_ids.filtered(
