@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//block[@name='product_setting_container']/setting[@id='manage_product_packaging']"
+        position="after"
+      >
+        <div class="row">
+          <setting
+            id="product_name_max_length_setting"
+            class="col-12 col-md-6"
+            title="Longitud máx. nombre producto"
+            help="Máximo de caracteres permitidos para el nombre del producto."
+          >
+            <div class="content-group">
+              <div class="row align-items-center">
+                <field name="product_name_max_length" class="col-4" />
+                <span class="col-auto">characters</span>
+              </div>
+              <div
+                class="text-muted mt8"
+              >Límite aplicado a todas las fichas de producto.</div>
+            </div>
+          </setting>
+          <setting
+            id="product_name_max_length_for_labels_setting"
+            class="col-12 col-md-6"
+            title="Longitud máx. nombre en etiquetas"
+            help="Máximo de caracteres permitidos al imprimir etiquetas."
+          >
+            <div class="content-group">
+              <div class="row align-items-center">
+                <field name="product_name_max_length_for_labels" class="col-4" />
+                <span class="col-auto">characters</span>
+              </div>
+              <div
+                class="text-muted mt8"
+              >Límite específico para el texto en etiquetas.</div>
+            </div>
+          </setting>
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>
