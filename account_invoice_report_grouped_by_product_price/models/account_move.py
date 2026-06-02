@@ -11,7 +11,7 @@ class AccountMove(models.Model):
     def lines_grouped_by_product_price(self):
         self.ensure_one()
         lines_dict = OrderedDict()
-        lines = self.invoice_line_ids.filtered(lambda x: not x.display_type)
+        lines = self.invoice_line_ids.filtered(lambda x: x.display_type == "product")
         lines = lines.sorted(
             lambda ln: (-ln.sequence, ln.date, ln.move_name, -ln.id), reverse=True
         )
