@@ -7,7 +7,9 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     product_ids = fields.One2many(
-        string="Products", comodel_name="product.supplierinfo", inverse_name="name"
+        string="Products",
+        comodel_name="product.supplierinfo",
+        inverse_name="partner_id",
     )
     limit_product = fields.Boolean(
         string="Limit the products it provides", default=False

@@ -10,7 +10,7 @@
             <field name="limit_product" />
           </group>
           <field name="product_ids">
-            <tree editable="bottom">
+            <list editable="bottom">
               <field name="product_tmpl_id" />
               <field name="min_qty" optional="show" />
               <field name="price" />
@@ -18,7 +18,7 @@
               <field name="date_start" optional="show" />
               <field name="date_end" optional="show" />
               <field name="company_id" optional="hide" />
-            </tree>
+            </list>
           </field>
         </page>
       </notebook>
