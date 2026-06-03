@@ -23,7 +23,6 @@ class ResPartnerPaymentImport(models.Model):
     import_type = fields.Selection(
         string="Sale/Purchase",
         selection=[("sale", "Sale"), ("purchase", "Purchase"), ("both", "Both")],
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
         default="both",
@@ -97,44 +96,36 @@ class ResPartnerPaymentImportLine(models.Model):
         comodel_name="res.partner",
     )
     contact_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     contact_code = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     contact_payment_mode = fields.Char(
         string="Payment Mode Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     contact_payment_term = fields.Char(
         string="Payment Term Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     contact_account_fiscal_position = fields.Char(
         string="Account Fiscal Position Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     payment_mode_id = fields.Many2one(
         string="Payment Mode",
         comodel_name="account.payment.mode",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     payment_term_id = fields.Many2one(
         string="Payment Term",
         comodel_name="account.payment.term",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     account_fiscal_position_id = fields.Many2one(
         string="Account Fiscal Position",
         comodel_name="account.fiscal.position",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
