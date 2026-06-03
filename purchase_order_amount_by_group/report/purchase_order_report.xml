@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="document_tax_totals" inherit_id="purchase.document_tax_totals">
-        <xpath expr="//t[@t-foreach=&quot;subtotal['tax_groups']&quot;]" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </xpath>
-        <xpath expr="//t[@t-foreach=&quot;subtotal['tax_groups']&quot;]" position="after">
-            <t t-foreach="o.amount_by_group" t-as="amount_by_group">
-                <tr class="o_taxes">
-                    <td name="td_amount_by_group_label">
-                        <span class="text-nowrap" t-out="amount_by_group[0]" />
-                    </td>
-                    <td name="td_amount_by_group" class="text-end o_price_total">
-                        <span
-                            class="text-nowrap"
-                            t-out="amount_by_group[1]"
-                            t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
-                        />
-                    </td>
-                </tr>
-            </t>
-        </xpath>
-    </template>
+  <template id="document_tax_totals" inherit_id="purchase.document_tax_totals">
+    <xpath
+      expr="//t[@t-foreach=&quot;subtotal['tax_groups']&quot;]"
+      position="attributes"
+    >
+      <attribute name="t-if">False</attribute>
+    </xpath>
+    <xpath expr="//t[@t-foreach=&quot;subtotal['tax_groups']&quot;]" position="after">
+      <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+        <tr class="o_taxes">
+          <td name="td_amount_by_group_label">
+            <span class="text-nowrap" t-out="amount_by_group[0]" />
+          </td>
+          <td name="td_amount_by_group" class="text-end o_price_total">
+            <span
+              class="text-nowrap"
+              t-out="amount_by_group[1]"
+              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+            />
+          </td>
+        </tr>
+      </t>
+    </xpath>
+  </template>
 </odoo>
