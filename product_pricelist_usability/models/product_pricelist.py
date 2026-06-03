@@ -11,13 +11,13 @@ class ProductPricelist(models.Model):
         context.update({"default_pricelist_id": self.id})
         return {
             "name": _("Items"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "views": [
                 [
                     self.env.ref(
                         "product.product_pricelist_item_tree_view_from_product"
                     ).id,
-                    "tree",
+                    "list",
                 ]
             ],
             "res_model": "product.pricelist.item",
