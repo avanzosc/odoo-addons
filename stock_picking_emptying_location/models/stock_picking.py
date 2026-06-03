@@ -31,7 +31,7 @@ class StockPicking(models.Model):
                             "location_dest_id": self.location_dest_id.id,
                             "owner_id": line.owner_id.id,
                             "lot_id": line.lot_id.id,
-                            "qty_done": line.available_quantity,
+                            "quantity": line.available_quantity,
                             "product_uom_id": line.product_uom_id.id,
                             "picking_id": self.id,
                         }

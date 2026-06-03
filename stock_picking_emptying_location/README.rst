@@ -6,7 +6,8 @@
 Stock Picking Emptying Location
 ===============================
 
-In pickings, button to empty the source location of the picking. This button will be visible if the operation type has checked "show emptying location".
+* In pickings, button to empty the source location of the picking. This button
+  will be visible if the operation type has checked "show emptying location".
 
 Bug Tracker
 ===========
