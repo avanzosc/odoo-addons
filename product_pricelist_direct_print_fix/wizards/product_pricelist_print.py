@@ -9,7 +9,7 @@ class ProductPricelistPrint(models.TransientModel):
     _inherit = "product.pricelist.print"
 
     def get_products_domain(self):
-        super(ProductPricelistPrint, self).get_products_domain()
+        super().get_products_domain()
         domain = [("sale_ok", "=", True)]
         if self.show_only_defined_products:
             aux_domain = []
