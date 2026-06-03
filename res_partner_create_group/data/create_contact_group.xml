@@ -7,11 +7,7 @@
 
     <record id="access_create_contact" model="ir.model.access">
         <field name="name">res_partner create_contact_group</field>
-        <field
-      name="model_id"
-      search="[('model','=','res.partner')]"
-      model="ir.model"
-    />
+        <field name="model_id" ref="base.model_res_partner" />
         <field name="group_id" ref="res_partner_create_group.group_create_contact" />
         <field name="perm_read">True</field>
         <field name="perm_write">True</field>
@@ -20,7 +16,10 @@
     </record>
 
     <data noupdate="1">
-        <function model="ir.model.access" name="init" />
+        <function
+            model="ir.model.access"
+            name="_restrict_contact_create_unlink_access"
+        />
     </data>
 
 </odoo>
