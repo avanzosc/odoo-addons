@@ -1,9 +1,7 @@
 # Copyright 2024 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from functools import partial
-
-from odoo import fields, models
-from odoo.tools.misc import formatLang
+from odoo import api, fields, models
+from odoo.tools import formatLang
 
 
 class PurchaseOrder(models.Model):
@@ -12,45 +10,37 @@ class PurchaseOrder(models.Model):
     amount_by_group = fields.Binary(
         string="Tax amount by group",
         compute="_compute_amount_by_group",
-        help="type: [(name, amount, base, formated amount, formated base)]",
+        help="type: [(name, amount, base, formatted amount, formatted base)]",
     )
 
+    @api.depends_context("lang")
+    @api.depends("tax_totals")
     def _compute_amount_by_group(self):
         for order in self:
             currency = order.currency_id or order.company_id.currency_id
-            fmt = partial(
-                formatLang,
-                self.with_context(lang=order.partner_id.lang).env,
-                currency_obj=currency,
-            )
-            res = {}
-            for line in order.order_line:
-                price_reduce = line.price_unit * (1.0 - line.discount / 100.0)
-                taxes = line.taxes_id.compute_all(
-                    price_reduce,
-                    quantity=line.product_uom_qty,
-                    product=line.product_id,
-                    partner=order.partner_id,
-                )["taxes"]
-                for tax in line.taxes_id:
-                    group = tax.tax_group_id
-                    res.setdefault(group, {"amount": 0.0, "base": 0.0})
-                    for t in taxes:
-                        if t["id"] == tax.id or t["id"] in tax.children_tax_ids.ids:
-                            res[group]["amount"] += t["amount"]
-                            res[group]["base"] += t["base"]
-            res = sorted(res.items(), key=lambda l: l[0].sequence)
-            for group_data in res:
-                group_data[1]["amount"] = currency.round(group_data[1]["amount"]) + 0.0
-                group_data[1]["base"] = currency.round(group_data[1]["base"]) + 0.0
+            lang_env = self.with_context(lang=order.partner_id.lang).env
+            tax_totals = order.tax_totals or {}
+            tax_groups = [
+                tax_group
+                for subtotal in tax_totals.get("subtotals", [])
+                for tax_group in subtotal.get("tax_groups", [])
+            ]
             order.amount_by_group = [
                 (
-                    ln[0].name,
-                    ln[1]["amount"],
-                    ln[1]["base"],
-                    fmt(ln[1]["amount"]),
-                    fmt(ln[1]["base"]),
-                    len(res),
+                    group["group_name"],
+                    group["tax_amount_currency"],
+                    group["base_amount_currency"],
+                    formatLang(
+                        lang_env,
+                        group["tax_amount_currency"],
+                        currency_obj=currency,
+                    ),
+                    formatLang(
+                        lang_env,
+                        group["base_amount_currency"],
+                        currency_obj=currency,
+                    ),
+                    len(tax_groups),
                 )
-                for ln in res
+                for group in tax_groups
             ]
