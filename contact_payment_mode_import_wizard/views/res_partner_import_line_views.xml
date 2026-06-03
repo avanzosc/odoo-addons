@@ -226,7 +226,10 @@
     <field name="view_id" ref="res_partner_payment_import_line_view_tree" />
   </record>
 
-  <record id="res_partner_payment_import_line_form_action" model="ir.actions.act_window">
+  <record
+    id="res_partner_payment_import_line_form_action"
+    model="ir.actions.act_window"
+  >
     <field name="name">Import Contact Payment Lines</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">res.partner.payment.import.line</field>
