@@ -5,37 +5,28 @@
         <field name="name">Model URL</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">ir.model.url</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- Views -->
     <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.website.portal.custom</field>
         <field name="model">res.config.settings</field>
-        <field name="priority" eval="0" />
+        <field name="priority" eval="50" />
         <field name="inherit_id" ref="website.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath
-        expr="//div[hasclass('settings')]//div[@id='website_settings']"
-        position="inside"
-      >
-                <div class="col-12 col-lg-12 o_setting_box" id="portal_entry_setting">
-                    <div class="o_setting_right_pane">
-                        <label for="portal_custom_entry_show" />
-                        <field
-              name='portal_custom_entry_show'
-              widget="many2many_tags"
-            />
-                        <div class="mt16">
-                            <button
-                name="%(action_open_model_url)d"
-                icon="fa-arrow-right"
-                type="action"
-                string="Model URLs"
-                class="btn-link"
-              />
-                        </div>
+            <xpath expr="//block[@id='website_info_settings']" position="inside">
+                <setting id="portal_entry_setting" string="Portal Entries"
+                    help="Configure which portal documents entries are shown to customers">
+                    <field name="portal_custom_entry_show" widget="many2many_tags" />
+                    <div class="mt16">
+                        <button name="%(action_open_model_url)d"
+                            icon="oi-arrow-right"
+                            type="action"
+                            string="Model URLs"
+                            class="btn-link" />
                     </div>
-                </div>
+                </setting>
             </xpath>
         </field>
     </record>

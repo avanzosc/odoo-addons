@@ -6,10 +6,13 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "website",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "depends": [
         "website",
         "portal",
+        "sale",
+        "purchase",
+        "account",
     ],
     "data": [
         "security/ir.model.access.csv",

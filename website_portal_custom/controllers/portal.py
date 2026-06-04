@@ -7,7 +7,6 @@ class CustomerPortal(CustomerPortal):
     @route()
     def home(self, **kw):
         res = super().home(**kw)
-        user_id = request.env["res.users"].browse(request.uid)
-        allowed_urls = user_id.company_id.portal_custom_entry_show
+        allowed_urls = request.env.user.company_id.portal_custom_entry_show
         res.qcontext.update({"allowed_urls": allowed_urls.mapped("url")})
         return res

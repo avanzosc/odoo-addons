@@ -10,7 +10,7 @@
             <th>Partner</th>
         </xpath>
         <xpath expr="//t[@t-foreach='quotations']/tr/td[1]" position="after">
-            <td class="text-right"><span t-field="quotation.partner_id.name" /></td>
+            <td class="text-end"><span t-field="quotation.partner_id.name" /></td>
         </xpath>
     </template>
     <template id="portal_my_orders" inherit_id="sale.portal_my_orders">
@@ -18,7 +18,7 @@
             <th>Partner</th>
         </xpath>
         <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="after">
-            <td class="text-left"><span t-field="order.partner_id.name" /></td>
+            <td class="text-start"><span t-field="order.partner_id.name" /></td>
         </xpath>
     </template>
     <template
@@ -28,8 +28,8 @@
         <xpath expr="//thead/tr/th[1]" position="after">
             <th>Partner</th>
         </xpath>
-        <xpath expr="//tbody/t/tr/td[1]" position="after">
-            <td class="text-left"><span t-field="order.partner_id.name" /></td>
+        <xpath expr="//t[@t-foreach='orders']/tr/td[1]" position="after">
+            <td class="text-start"><span t-field="order.partner_id.name" /></td>
         </xpath>
     </template>
     <template id="portal_my_invoices" inherit_id="account.portal_my_invoices">
@@ -37,7 +37,7 @@
             <th>Partner</th>
         </xpath>
         <xpath expr="//tbody/t/tr/td[1]" position="after">
-            <td class="text-left"><span t-field="invoice.partner_id.name" /></td>
+            <td class="text-start"><span t-field="invoice.partner_id.name" /></td>
         </xpath>
     </template>
 </odoo>
