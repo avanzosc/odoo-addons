@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="ir_model_url_tree_view" model="ir.ui.view">
-        <field name="name">ir_model_url_list</field>
-        <field name="model">ir.model.url</field>
-        <field name="arch" type="xml">
-            <list>
-                <field name="name" />
-                <field name="ir_model_id" />
-                <field name="url" />
-            </list>
-        </field>
-    </record>
-    <record id="ir_model_url_form_view" model="ir.ui.view">
-        <field name="name">ir_model_url_form</field>
-        <field name="model">ir.model.url</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name" />
-                        <field name="ir_model_id" />
-                        <field name="url" />
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+  <record id="ir_model_url_tree_view" model="ir.ui.view">
+    <field name="name">ir_model_url_list</field>
+    <field name="model">ir.model.url</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="ir_model_id" />
+        <field name="url" />
+      </list>
+    </field>
+  </record>
+  <record id="ir_model_url_form_view" model="ir.ui.view">
+    <field name="name">ir_model_url_form</field>
+    <field name="model">ir.model.url</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name" />
+            <field name="ir_model_id" />
+            <field name="url" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
 </odoo>
