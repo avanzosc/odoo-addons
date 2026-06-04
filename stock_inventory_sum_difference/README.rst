@@ -6,7 +6,9 @@
 Stock Inventory Sum Difference
 ==============================
 
-This module extends the `stock.inventory.line` model to allow proper aggregation of the `difference_qty` field in tree views when grouping records.
+This module extends the ``stock.quant`` model to allow proper aggregation of
+the ``inventory_diff_quantity`` field in inventory adjustment tree views when
+grouping records.
 
 Bug Tracker
 ===========
@@ -26,6 +28,5 @@ Contributors
 * Lucía Echeverría <luciaecheverria@avanzosc.es>
 
 Do not contact contributors directly about support or help with technical issues.
-
 
 
