@@ -1,12 +1,16 @@
 <odoo>
-    <record id="view_inventory_form" model="ir.ui.view">
-        <field name="model">stock.inventory</field>
-        <field name="inherit_id" ref="stock.view_inventory_form" />
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='location_ids']" position="after">
-                <field name="create_date_before" />
-                <field name="lot_contains" />
-            </xpath>
-        </field>
-    </record>
+  <record id="stock_inventory.view_inventory_group_form" model="ir.ui.view">
+    <field name="active" eval="True" />
+  </record>
+
+  <record id="view_inventory_form" model="ir.ui.view">
+    <field name="model">stock.inventory</field>
+    <field name="inherit_id" ref="stock_inventory.view_inventory_group_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='exclude_sublocation']" position="after">
+        <field name="create_date_before" readonly="state != 'draft'" />
+        <field name="lot_contains" readonly="state != 'draft'" />
+      </xpath>
+    </field>
+  </record>
 </odoo>

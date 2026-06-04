@@ -1,76 +1,53 @@
-from collections import OrderedDict
-
 from odoo import fields, models
+from odoo.osv import expression
 
 
 class StockInventory(models.Model):
     _inherit = "stock.inventory"
 
-    create_date_before = fields.Datetime(string="Create Date Before")
-    lot_contains = fields.Char(string="Lot Contains")
+    create_date_before = fields.Datetime()
+    lot_contains = fields.Char()
 
-    def _get_inventory_lines_values(self):
+    def _get_inventory_quant_filter_domain(self):
         self.ensure_one()
-        quants_groups = self._get_quantities()
-        vals = []
-        product_ids = OrderedDict()
-        StockQuant = self.env["stock.quant"]
-        StockLot = self.env["stock.production.lot"]
+        domain = [
+            ("quantity", "!=", 0),
+            *(
+                [("create_date", "<", self.create_date_before)]
+                if self.create_date_before
+                else []
+            ),
+            *(
+                [("lot_id.name", "ilike", self.lot_contains)]
+                if self.lot_contains
+                else []
+            ),
+        ]
+        return domain
 
-        for (
-            product_id,
-            location_id,
-            lot_id,
-            package_id,
-            owner_id,
-        ), quantity in quants_groups.items():
-            domain = [
-                ("product_id", "=", product_id),
-                ("location_id", "=", location_id),
-                ("lot_id", "=", lot_id),
-                ("package_id", "=", package_id),
-                ("owner_id", "=", owner_id),
-            ]
-            quant = StockQuant.search(domain, limit=1)
+    def _add_inventory_quant_filter_domain(self, domain):
+        self.ensure_one()
+        quant_filter_domain = self._get_inventory_quant_filter_domain()
+        if not quant_filter_domain:
+            return domain
+        return expression.AND([domain, quant_filter_domain])
 
-            if (
-                self.create_date_before
-                and quant.create_date
-                and quant.create_date >= self.create_date_before
-            ):
-                continue
+    def _get_domain_all_quants(self, base_domain):
+        domain = super()._get_domain_all_quants(base_domain)
+        return self._add_inventory_quant_filter_domain(domain)
 
-            if self.lot_contains and lot_id:
-                lot = StockLot.browse(lot_id)
-                if lot and self.lot_contains.lower() not in lot.name.lower():
-                    continue
+    def _get_domain_manual_quants(self, base_domain):
+        domain = super()._get_domain_manual_quants(base_domain)
+        return self._add_inventory_quant_filter_domain(domain)
 
-            line_values = {
-                "inventory_id": self.id,
-                "product_qty": 0
-                if self.prefill_counted_quantity == "zero"
-                else quantity,
-                "theoretical_qty": quantity,
-                "prod_lot_id": lot_id,
-                "partner_id": owner_id,
-                "product_id": product_id,
-                "location_id": location_id,
-                "package_id": package_id,
-            }
-            product_ids[product_id] = None
-            vals.append(line_values)
+    def _get_domain_one_quant(self, base_domain):
+        domain = super()._get_domain_one_quant(base_domain)
+        return self._add_inventory_quant_filter_domain(domain)
 
-        product_browse = self.env["product.product"].browse(list(product_ids.keys()))
-        for product in product_browse:
-            product_ids[product.id] = product
+    def _get_domain_lot_quants(self, base_domain):
+        domain = super()._get_domain_lot_quants(base_domain)
+        return self._add_inventory_quant_filter_domain(domain)
 
-        for val in vals:
-            product = product_ids[val["product_id"]]
-            val["product_uom_id"] = product.product_tmpl_id.uom_id.id
-
-        if self.exhausted:
-            vals += self._get_exhausted_inventory_lines_vals(
-                {(line["product_id"], line["location_id"]) for line in vals}
-            )
-
-        return vals
+    def _get_domain_category_quants(self, base_domain):
+        domain = super()._get_domain_category_quants(base_domain)
+        return self._add_inventory_quant_filter_domain(domain)
