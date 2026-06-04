@@ -3,8 +3,8 @@
 from odoo import fields, models
 
 
-class StockProductionLot(models.Model):
-    _inherit = "stock.production.lot"
+class StockLot(models.Model):
+    _inherit = "stock.lot"
 
     state = fields.Selection(
         [
@@ -13,7 +13,6 @@ class StockProductionLot(models.Model):
             ("inactive", "Inactive"),
             ("finished", "Finished"),
         ],
-        string="State",
         default="new",
         copy=False,
     )
