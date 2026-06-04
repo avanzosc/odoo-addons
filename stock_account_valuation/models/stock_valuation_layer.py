@@ -28,26 +28,18 @@ class StockValuationLayer(models.Model):
         string="Costing Method",
     )
 
-    @api.model
-    def create(self, values):
-        product_id = values.get("product_id")
-        company_id = values.get("company_id")
-        if not values.get("cost_method", False):
-            values.update(
-                {
-                    "cost_method": self.env["product.product"]
-                    .browse(product_id)
-                    .categ_id.with_company(company_id)
-                    .property_cost_method,
-                }
-            )
-        if not values.get("valuation", False):
-            values.update(
-                {
-                    "valuation": self.env["product.product"]
-                    .browse(product_id)
-                    .categ_id.with_company(company_id)
-                    .property_valuation,
-                }
-            )
-        return super().create(values)
+    @api.model_create_multi
+    def create(self, vals_list):
+        product_model = self.env["product.product"]
+        for vals in vals_list:
+            if vals.get("cost_method") and vals.get("valuation"):
+                continue
+            product = product_model.browse(vals.get("product_id"))
+            if not product:
+                continue
+            category = product.categ_id.with_company(vals.get("company_id"))
+            if not vals.get("cost_method"):
+                vals["cost_method"] = category.property_cost_method
+            if not vals.get("valuation"):
+                vals["valuation"] = category.property_valuation
+        return super().create(vals_list)

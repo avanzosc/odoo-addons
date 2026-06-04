@@ -7,18 +7,21 @@ from odoo import models
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    def _prepare_out_svl_vals(self, quantity, company):
+    def _prepare_out_svl_vals(self, quantity, company, lot=False):
         """Prepare the values for a stock valuation layer created by a delivery.
 
         :param quantity: the quantity to value, expressed in `self.uom_id`
         :return: values to use in a call to create
         :rtype: dict
         """
-        vals = super()._prepare_out_svl_vals(quantity, company)
+        product = self.with_company(company)
+        vals = super(ProductProduct, product)._prepare_out_svl_vals(
+            quantity, company, lot=lot
+        )
         vals.update(
             {
-                "valuation": self.valuation,
-                "cost_method": self.cost_method,
+                "valuation": product.valuation,
+                "cost_method": product.cost_method,
             }
         )
         return vals
