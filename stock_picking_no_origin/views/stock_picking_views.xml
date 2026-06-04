@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-
-    <record id="view_picking_internal_search" model="ir.ui.view">
-        <field name="model">stock.picking</field>
-        <field name="inherit_id" ref="stock.view_picking_internal_search" />
-        <field name="arch" type="xml">
-            <xpath expr="//filter[@name='starred']" position="after">
-                <filter
+  <record id="view_picking_internal_search" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search" />
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='starred']" position="after">
+        <filter
           name="filter_origin_missing"
           string="Missing Origin Pickings"
           domain="[('origin_not_exists', '=', True)]"
         />
-            </xpath>
-        </field>
-    </record>
-
+      </xpath>
+    </field>
+  </record>
 </odoo>

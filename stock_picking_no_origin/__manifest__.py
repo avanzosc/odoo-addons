@@ -3,7 +3,7 @@
 {
     "name": "Stock Picking No Origin",
     "summary": "Filter to display pickings whose origin order does not exist.",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
