@@ -6,7 +6,8 @@
 Stock Orderpoint Generation
 ===========================
 
-* This module adds a wizard to generate stock warehouse orderpoins from different ways.
+* This module adds a wizard to generate stock warehouse orderpoins from
+  different ways.
  
 
 Bug Tracker

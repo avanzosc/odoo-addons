@@ -23,7 +23,6 @@ class StockOrderpointGenerator(models.TransientModel):
         domain="[('usage','=', 'internal')]",
     )
     update = fields.Boolean(
-        string="Update",
         help="Check this if you want just update existing orderpoint rules.",
     )
 
@@ -40,7 +39,7 @@ class StockOrderpointGenerator(models.TransientModel):
         else:
             rule.copy(
                 {
-                    "warehouse_id": location.get_warehouse().id,
+                    "warehouse_id": location.warehouse_id.id,
                     "location_id": location.id,
                 }
             )
@@ -56,7 +55,7 @@ class StockOrderpointGenerator(models.TransientModel):
                 for location in self.location_to:
                     self._update_orderpoint_rule(rule, location)
         elif self.generation_type == "all_0":
-            products = product_obj.search([("type", "=", "product")])
+            products = product_obj.search([("type", "=", "consu")])
             for location in self.location_to:
                 for product in products:
                     rule_exist = orderpoin_obj.search(
@@ -68,7 +67,7 @@ class StockOrderpointGenerator(models.TransientModel):
                     if rule_exist:
                         continue
                     rule_data = {
-                        "warehouse_id": self.location_to.get_warehouse().id,
+                        "warehouse_id": self.location_to.warehouse_id.id,
                         "location_id": location.id,
                         "product_id": product.id,
                     }
