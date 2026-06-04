@@ -6,6 +6,6 @@ from odoo import SUPERUSER_ID, api
 @api.model
 def post_init_hook(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    stock_lot = env.ref("stock.access_stock_production_lot_user")
+    stock_lot = env.ref("stock.access_stock_lot_user")
     if stock_lot:
         stock_lot.write({"perm_create": False, "perm_unlink": False})
