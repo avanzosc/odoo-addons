@@ -16,7 +16,6 @@ class AccountMoveLine(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        res = super().create(vals_list)
-        if res.sale_line_ids:
-            res.compute_account_move_line_description()
-        return res
+        lines = super().create(vals_list)
+        lines.filtered("sale_line_ids").compute_account_move_line_description()
+        return lines

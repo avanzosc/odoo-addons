@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-19 10:29+0000\n"
-"PO-Revision-Date: 2023-01-19 10:29+0000\n"
+"POT-Creation-Date: 2026-06-04 10:26+0000\n"
+"PO-Revision-Date: 2026-06-04 10:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_move_line_description
-#: model_terms:ir.ui.view,arch_db:stock_move_line_description.report_delivery_document
-msgid "<strong>Description</strong>"
-msgstr "<strong>Descripción</strong>"
+#: model:ir.model,name:stock_move_line_description.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte contable"
+
+#. module: stock_move_line_description
+#: model:ir.model,name:stock_move_line_description.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"

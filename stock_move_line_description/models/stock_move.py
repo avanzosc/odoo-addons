@@ -10,9 +10,8 @@ class StockMove(models.Model):
             if record.sale_line_id:
                 record.name = record.sale_line_id.name
 
-    @api.model
-    def create(self, vals):
-        res = super().create(vals)
-        if res.sale_line_id:
-            res.compute_stock_move_description()
-        return res
+    @api.model_create_multi
+    def create(self, vals_list):
+        moves = super().create(vals_list)
+        moves.filtered("sale_line_id").compute_stock_move_description()
+        return moves
