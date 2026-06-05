@@ -17,7 +17,7 @@ class StockPicking(models.Model):
         context.update({"default_picking_id": self.id})
         return {
             "name": _("Account Payments"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "account.payment",
             "domain": [("id", "in", self.account_payment_ids.ids)],
             "type": "ir.actions.act_window",
