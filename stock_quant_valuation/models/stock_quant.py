@@ -11,28 +11,30 @@ class StockQuant(models.Model):
         string="Cost",
         related="product_id.standard_price",
         store=True,
-        digits="Product Price",
+        company_dependent=True,
+        min_display_digits="Product Price",
         groups="stock.group_stock_manager",
         help=("Standard price of the product."),
     )
     cost_value = fields.Float(
         compute="_compute_cost_value",
-        digits="Account",
+        min_display_digits="Product Price",
         groups="stock.group_stock_manager",
         store=True,
+        company_dependent=True,
         help=("Quant quantity multiplied by cost."),
     )
     lot_cost = fields.Float(
         compute="_compute_lot_cost",
         store=True,
-        digits="Product Price",
+        min_display_digits="Product Price",
         groups="stock.group_stock_manager",
         help=("Unit price of the lot if lot, otherwise purchase last price."),
     )
 
     lot_value = fields.Float(
         compute="_compute_lot_value",
-        digits="Account",
+        min_display_digits="Product Price",
         groups="stock.group_stock_manager",
         store=True,
         help=("Quant quantity multiplied by the lot cost."),
