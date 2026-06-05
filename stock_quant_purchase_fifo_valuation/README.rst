@@ -6,7 +6,9 @@
 Stock Quant Purchase FIFO Valuation
 ===================================
 
-This module adds an action on **Stock Quants** to export an XLSX report that matches **non‑traceable products** (no tracking) against their related **purchase order lines**, using a **FIFO with adjustment** allocation.
+* This module adds an action on **Stock Quants** to export an XLSX report that
+  matches **non‑traceable products** (no tracking) against their related
+  **purchase order lines**, using a **FIFO with adjustment** allocation.
 
 Bug Tracker
 ===========

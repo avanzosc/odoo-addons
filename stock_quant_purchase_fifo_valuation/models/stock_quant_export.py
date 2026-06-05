@@ -23,20 +23,9 @@ class StockQuant(models.Model):
             raise UserError(
                 _("The selected quants do not contain NON‑traceable products.")
             )
-
         company = self.env.company
         onhand_by_product = {}
-        products = self.env["product.product"]
-        for q in quants:
-            pid = q.product_id.id
-            onhand_by_product[pid] = onhand_by_product.get(pid, 0.0) + float(
-                q.quantity or 0.0
-            )
-            products |= q.product_id
-
-        if not products:
-            raise UserError(_("No products in the selection."))
-
+        products, onhand_by_product = self._get_products(quants, onhand_by_product)
         pol = self.env["purchase.order.line"].search(
             [
                 ("product_id", "in", products.ids),
@@ -44,8 +33,10 @@ class StockQuant(models.Model):
                 ("order_id.company_id", "=", company.id),
             ]
         )
-        pol = pol.sorted(key=lambda l: (l.order_id.date_order, l.id), reverse=True)
-
+        pol = pol.sorted(
+            key=lambda line: (line.order_id.date_order, line.id),
+            reverse=True,
+        )
         from collections import defaultdict
 
         lines_by_product = defaultdict(list)
@@ -54,7 +45,6 @@ class StockQuant(models.Model):
             lines_by_product[line.product_id.id].append(
                 {"line": line, "available": available}
             )
-
         report_rows = []
         for product in products:
             total_stock = float(onhand_by_product.get(product.id, 0.0))
@@ -63,65 +53,9 @@ class StockQuant(models.Model):
             remaining = total_stock
             rows_for_product = []
             plines = lines_by_product.get(product.id, [])
-            if not plines:
-                rows_for_product.append(
-                    {
-                        "po_name": "—",
-                        "vendor": "—",
-                        "date_order": None,
-                        "currency": product.currency_id or company.currency_id,
-                        "price_unit": 0.0,
-                        "assigned_qty": remaining,
-                        "shipping_unit_cost": 0.0,
-                    }
-                )
-                remaining = 0.0
-            else:
-                for item in plines:
-                    if remaining <= 0:
-                        break
-                    line = item["line"]
-                    available = float(item["available"])
-                    take = min(available, remaining)
-                    if take > 0:
-                        rows_for_product.append(
-                            {
-                                "po_name": line.order_id.name or "",
-                                "vendor": line.order_id.partner_id.display_name or "",
-                                "date_order": line.order_id.date_order,
-                                "currency": line.order_id.currency_id
-                                or company.currency_id,
-                                "price_unit": float(line.price_unit or 0.0),
-                                "assigned_qty": take,
-                                "shipping_unit_cost": float(
-                                    line.order_id.shipping_cost or 0.0
-                                ),
-                            }
-                        )
-                        remaining -= take
-                if remaining != 0:
-                    if rows_for_product:
-                        target = rows_for_product[0]
-                    else:
-                        first_line = plines[0]["line"]
-                        target = {
-                            "po_name": first_line.order_id.name or "",
-                            "vendor": first_line.order_id.partner_id.display_name or "",
-                            "date_order": first_line.order_id.date_order,
-                            "currency": first_line.order_id.currency_id
-                            or company.currency_id,
-                            "price_unit": float(first_line.price_unit or 0.0),
-                            "assigned_qty": 0.0,
-                            "shipping_unit_cost": float(
-                                first_line.order_id.shipping_cost or 0.0
-                            ),
-                        }
-                        rows_for_product.append(target)
-                    target["assigned_qty"] = float(
-                        target.get("assigned_qty", 0.0)
-                    ) + float(remaining)
-                    remaining = 0.0
-
+            rows_for_product, remaining = self._update_rows_for_product(
+                plines, rows_for_product, product, company, remaining
+            )
             uom = product.uom_id.name or ""
             default_code = product.default_code or ""
             pname = product.display_name or product.name
@@ -151,14 +85,11 @@ class StockQuant(models.Model):
                         "average_price": average_price,
                     }
                 )
-
         if not report_rows:
             raise UserError(_("No rows to export with the current selection."))
-
         output = io.BytesIO()
         wb = xlsxwriter.Workbook(output, {"in_memory": True})
         ws = wb.add_worksheet("Purchases_vs_Stock")
-
         fmt_hdr = wb.add_format(
             {"bold": True, "border": 1, "align": "center", "valign": "vcenter"}
         )
@@ -167,7 +98,6 @@ class StockQuant(models.Model):
         fmt_four = wb.add_format({"border": 1, "num_format": "#,##0.0000"})
         fmt_qty = wb.add_format({"border": 1, "num_format": "#,##0.00"})
         fmt_date = wb.add_format({"border": 1, "num_format": "yyyy-mm-dd hh:mm"})
-
         headers = [
             _("Product"),
             _("Reference"),
@@ -241,16 +171,19 @@ class StockQuant(models.Model):
         wb.close()
         output.seek(0)
 
-        filename = "%s_%s.xlsx" % (
-            _("purchases_vs_stock_non_traceable"),
-            datetime.now().strftime("%Y%m%d_%H%M%S"),
+        filename = (
+            f'{_("purchases_vs_stock_non_traceable")}_'
+            f'{datetime.now().strftime("%Y%m%d_%H%M%S")}.xlsx'
         )
         attachment = self.env["ir.attachment"].create(
             {
                 "name": filename,
                 "type": "binary",
                 "datas": base64.b64encode(output.read()),
-                "mimetype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                "mimetype": (
+                    "application/"
+                    "vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                ),
                 "res_model": "stock.quant",
                 "res_id": self.ids and self.ids[0] or False,
             }
@@ -258,6 +191,81 @@ class StockQuant(models.Model):
 
         return {
             "type": "ir.actions.act_url",
-            "url": "/web/content/%s?download=true" % attachment.id,
+            "url": f"/web/content/{attachment.id}?download=true",
             "target": "self",
         }
+
+    def _get_products(self, quants, onhand_by_product):
+        products = self.env["product.product"]
+        for q in quants:
+            pid = q.product_id.id
+            onhand_by_product[pid] = onhand_by_product.get(pid, 0.0) + float(
+                q.quantity or 0.0
+            )
+            products |= q.product_id
+        if not products:
+            raise UserError(_("No products in the selection."))
+        return products, onhand_by_product
+
+    def _update_rows_for_product(
+        self, plines, rows_for_product, product, company, remaining
+    ):
+        if not plines:
+            rows_for_product.append(
+                {
+                    "po_name": "—",
+                    "vendor": "—",
+                    "date_order": None,
+                    "currency": product.currency_id or company.currency_id,
+                    "price_unit": 0.0,
+                    "assigned_qty": remaining,
+                    "shipping_unit_cost": 0.0,
+                }
+            )
+            remaining = 0.0
+        else:
+            for item in plines:
+                if remaining <= 0:
+                    break
+                line = item["line"]
+                available = float(item["available"])
+                take = min(available, remaining)
+                if take > 0:
+                    rows_for_product.append(
+                        {
+                            "po_name": line.order_id.name or "",
+                            "vendor": line.order_id.partner_id.display_name or "",
+                            "date_order": line.order_id.date_order,
+                            "currency": line.order_id.currency_id
+                            or company.currency_id,
+                            "price_unit": float(line.price_unit or 0.0),
+                            "assigned_qty": take,
+                            "shipping_unit_cost": float(
+                                line.order_id.shipping_cost or 0.0
+                            ),
+                        }
+                    )
+                    remaining -= take
+            if remaining != 0:
+                if rows_for_product:
+                    target = rows_for_product[0]
+                else:
+                    first_line = plines[0]["line"]
+                    target = {
+                        "po_name": first_line.order_id.name or "",
+                        "vendor": first_line.order_id.partner_id.display_name or "",
+                        "date_order": first_line.order_id.date_order,
+                        "currency": first_line.order_id.currency_id
+                        or company.currency_id,
+                        "price_unit": float(first_line.price_unit or 0.0),
+                        "assigned_qty": 0.0,
+                        "shipping_unit_cost": float(
+                            first_line.order_id.shipping_cost or 0.0
+                        ),
+                    }
+                    rows_for_product.append(target)
+                target["assigned_qty"] = float(target.get("assigned_qty", 0.0)) + float(
+                    remaining
+                )
+                remaining = 0.0
+        return rows_for_product, remaining
