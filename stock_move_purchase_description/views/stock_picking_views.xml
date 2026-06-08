@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_picking_form" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='move_ids_without_package']/list/field[@name='name']"
+        position="attributes"
+      >
+        <attribute name="string">Purchase Description</attribute>
+        <attribute name="optional">show</attribute>
+        <attribute
+          name="column_invisible"
+        >parent.picking_type_code != 'incoming'</attribute>
+      </xpath>
+      <xpath
+        expr="//field[@name='move_ids_without_package']/list/field[@name='description_picking']"
+        position="attributes"
+      >
+        <attribute name="string">Picking Description</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>
