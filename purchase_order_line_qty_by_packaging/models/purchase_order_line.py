@@ -16,17 +16,17 @@ class PurchaseOrderLine(models.Model):
     def _onchange_product_packaging_id(self):
         if self.product_packaging_id:
             self.product_packaging_qty = 1
-            self.product_uom_qty = self.product_packaging_id.qty
+            self.product_qty = self.product_packaging_id.qty
         else:
             self.product_packaging_qty = 0
-            self.product_uom_qty = 1
+            self.product_qty = 1
 
     @api.onchange("product_qty")
     def _onchange_product_qty(self):
-        if self.product_packaging_id and self.product_uom_qty:
+        if self.product_packaging_id and self.product_qty:
             packaging_uom = self.product_packaging_id.product_uom_id
             packaging_uom_qty = self.product_uom._compute_quantity(
-                self.product_uom_qty, packaging_uom
+                self.product_qty, packaging_uom
             )
             self.product_packaging_qty = float_round(
                 packaging_uom_qty / self.product_packaging_id.qty,
@@ -43,10 +43,10 @@ class PurchaseOrderLine(models.Model):
         return res
 
     def _prepare_stock_move_vals(
-        self, picking, price_unit, product_uom_qty, product_uom
+        self, picking, price_unit, product_qty, product_uom
     ):
         res = super()._prepare_stock_move_vals(
-            picking, price_unit, product_uom_qty, product_uom
+            picking, price_unit, product_qty, product_uom
         )
         if self.product_packaging_id:
             res.update(
