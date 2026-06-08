@@ -88,9 +88,11 @@ class IrModuleImport(models.Model):
                 _("Install Module"), row_values.get("Install Module", True)
             )
             log_info = ""
+            migration_category = self._get_migration_category(module_technical_name)
             values.update(
                 {
-                    "module_technical_name": convert2str(module_technical_name),
+                    "migration_category_id": migration_category.id,
+                    "module_technical_name": module_technical_name,
                     "module_last_version": convert2str(module_last_version),
                     "module_website": convert2str(module_website),
                     "module_author": convert2str(module_author),
@@ -103,6 +105,18 @@ class IrModuleImport(models.Model):
                 }
             )
         return values
+
+    def _get_migration_category(self, module_technical_name):
+        migration_category_obj = self.env["migration.category"]
+        module_technical_name = convert2str(module_technical_name)
+        migration_category_name = module_technical_name.split("_")[0]
+        cond = [("name", "=", migration_category_name)]
+        migration_category = migration_category_obj.search(cond)
+        if not migration_category:
+            migration_category = migration_category_obj.sudo().create(
+                {"name": migration_category_name}
+            )
+        return migration_category
 
     def _compute_module_count(self):
         for record in self:
@@ -162,6 +176,10 @@ class IrModuleImportLine(models.Model):
         string="Found Module",
         comodel_name="ir.module.module",
     )
+    migration_category_id = fields.Many2one(
+        string="Migration Category", comodel_name="migration.category"
+    )
+    migration_hours = fields.Float(default=10.0)
     import_module_state = fields.Selection(
         string="Database State",
         related="import_module_id.state",
@@ -216,11 +234,11 @@ class IrModuleImportLine(models.Model):
 
     def decode_generic_author(self, module_author):
         module_author_generic = False
-        if "Odoo Community Association (OCA)" in module_author:
+        if "Odoo Community Association (OCA)".lower() in module_author:
             module_author_generic = "Odoo Community Association (OCA)"
-        elif "Odoo S.A." in module_author:
+        elif "Odoo S.A.".lower() in module_author:
             module_author_generic = "Odoo S.A."
-        elif "AvanzOSC" in module_author:
+        elif "AvanzOSC".lower() in module_author:
             module_author_generic = "AvanzOSC"
         return module_author_generic
 
@@ -228,11 +246,18 @@ class IrModuleImportLine(models.Model):
     def _onchange_import_module(self):
         for record in self:
             module_author = record.import_module_id.author
-            record.module_author_generic = record.decode_generic_author(module_author)
+            record.module_author_generic = record.decode_generic_author(
+                module_author.lower()
+            )
 
     def _action_validate(self):
         self.ensure_one()
         update_values = super()._action_validate()
+        if not self.migration_category_id:
+            migration_category = self.import_id._get_migration_category(
+                self.module_technical_name
+            )
+            update_values["migration_category_id"] = migration_category.id
         log_infos = []
         module, log_info_module = self._check_module()
         if log_info_module:
@@ -256,7 +281,9 @@ class IrModuleImportLine(models.Model):
             {
                 "import_module_id": module and module.id,
                 "module_author": module_author,
-                "module_author_generic": self.decode_generic_author(module_author)
+                "module_author_generic": self.decode_generic_author(
+                    module_author.lower()
+                )
                 or self.module_author_generic,
                 "migrate_module": (
                     False if module and state != "error" else self.migrate_module
