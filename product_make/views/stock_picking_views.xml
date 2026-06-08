@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_picking_form" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form" />
+    <field name="arch" type="xml">
+      <field name="state" position="before">
+        <button
+          name="action_makes_in_lines"
+          type="object"
+          string="Reload customer parent information"
+          invisible="picking_type_code != 'outgoing' or state not in ('confirmed','waiting','assigned','done')"
+        />
+      </field>
+      <xpath
+        expr="//field[@name='move_ids_without_package']//field[@name='product_id']"
+        position="after"
+      >
+        <field name="allowed_make_ids" widget="many2many_tags" column_invisible="1" />
+        <field name="make_id" required="1" />
+      </xpath>
+
+      <field name="picking_type_id" position="after">
+        <field name="makes_in_lines" invisible="1" />
+        <field name="allowed_commercial_make_ids" invisible="1" />
+        <field name="num_allowed_commercial_make" invisible="1" />
+
+        <field
+          name="commercial_make_id"
+          domain="[('id','in',allowed_commercial_make_ids)]"
+          invisible="picking_type_code != 'outgoing' or num_allowed_commercial_make == 1"
+          required="picking_type_code == 'outgoing' and num_allowed_commercial_make != 1"
+        />
+        <field
+          name="team_id"
+          string="Division"
+          invisible="picking_type_code != 'outgoing'"
+        />
+      </field>
+      <field name="move_ids_without_package" position="attributes">
+        <attribute
+          name="context"
+        >{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_picking_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'commercial_make_id': commercial_make_id}</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="vpicktree" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.vpicktree" />
+    <field name="arch" type="xml">
+      <field name="origin" position="after">
+        <field name="makes_in_lines" invisible="1" />
+      </field>
+      <field name="user_id" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+      <field name="company_id" position="before">
+        <field name="market_id" string="Sale channel" optional="hide" />
+        <field name="market_sector_id" string="Market niche" optional="hide" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_picking_internal_search" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search" />
+    <field name="arch" type="xml">
+      <field name="picking_type_id" position="before">
+        <field name="user_id" />
+        <field name="makes_in_lines" />
+      </field>
+      <field name="picking_type_id" position="after">
+        <field name="market_id" string="Sale channel" />
+        <field name="market_sector_id" string="Market niche" />
+      </field>
+      <filter name="picking_type" position="after">
+        <filter
+          string="Salesperson"
+          name="user-id"
+          domain="[]"
+          context="{'group_by':'user_id'}"
+        />
+        <filter
+          string="Sale channel"
+          name="market-id"
+          domain="[]"
+          context="{'group_by':'market_id'}"
+        />
+        <filter
+          string="Market niche"
+          name="market-sector-id"
+          domain="[]"
+          context="{'group_by':'market_sector_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
