@@ -71,6 +71,18 @@ class StockWarehouseOrderpoint(models.Model):
     def _compute_location_quantities(self):
         replenishment_report = self.env["stock.forecasted_product_product"]
         for record in self:
+            if not record.product_id:
+                record.update(
+                    {
+                        "virtual_available": 0.0,
+                        "incoming_qty": 0.0,
+                        "outgoing_qty": 0.0,
+                        "incoming_draft_qty": 0.0,
+                        "outgoing_draft_qty": 0.0,
+                        "virtual_draft_available": 0.0,
+                    }
+                )
+                continue
             location_product = record.product_id.with_context(
                 location=record.location_id.id
             )
