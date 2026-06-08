@@ -32,19 +32,19 @@
     <field name="name">treasury.financing.category.search</field>
     <field name="model">treasury.financing.category</field>
     <field name="arch" type="xml">
-      <search string="Categorías de financiación">
+      <search string="Financing category">
         <field name="name" />
         <field name="parent_id" />
         <field name="category_type" />
 
         <separator />
         <filter
-          string="Ingreso"
+          string="Income"
           name="filter_income"
           domain="[('category_type','=','income')]"
         />
         <filter
-          string="Gasto"
+          string="Expense"
           name="filter_expense"
           domain="[('category_type','=','expense')]"
         />
@@ -52,12 +52,12 @@
         <separator />
         <group expand="0" string="Group By">
           <filter
-            string="Categoría padre"
+            string="Parent category"
             name="group_parent"
             context="{'group_by':'parent_id'}"
           />
           <filter
-            string="Tipo"
+            string="Category type"
             name="group_type"
             context="{'group_by':'category_type'}"
           />
@@ -67,7 +67,7 @@
   </record>
 
   <record id="action_treasury_financing_category" model="ir.actions.act_window">
-    <field name="name">Categorías de financiación</field>
+    <field name="name">Financing category</field>
     <field name="res_model">treasury.financing.category</field>
     <field name="view_mode">list,form</field>
     <field name="search_view_id" ref="view_treasury_financing_category_search" />
@@ -75,7 +75,7 @@
 
   <menuitem
     id="menu_treasury_financing_category"
-    name="Categorías de financiación"
+    name="Financing category"
     parent="menu_treasury_forecast_root"
     action="action_treasury_financing_category"
     sequence="4"
