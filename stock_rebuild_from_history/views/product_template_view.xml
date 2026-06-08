@@ -1,0 +1,31 @@
+<odoo>
+  <record id="action_convert_consumable_to_stockable" model="ir.actions.server">
+    <field name="name">Convert Stockable and Rebuild Stock</field>
+    <field name="model_id" ref="product.model_product_template" />
+    <field name="state">code</field>
+    <field name="code">
+            for record in records:
+                if record.type == 'consu' and not record.is_storable:
+                    env.cr.execute(
+                        "UPDATE product_template SET is_storable = True WHERE id = %s",
+                        (record.id,),
+                    )
+                    record.invalidate_recordset(['is_storable'])
+                    record.sudo().action_rebuild_stock()
+        </field>
+    <field name="binding_model_id" ref="product.model_product_template" />
+    <field name="binding_type">action</field>
+  </record>
+
+  <record id="ir_cron_convert_all_consumables_rebuild_stock" model="ir.cron">
+    <field name="name">Rebuild Stock All Products</field>
+    <field name="model_id" ref="product.model_product_template" />
+    <field name="state">code</field>
+    <field name="code">
+model.cron_convert_all_consumables_and_rebuild_stock()
+        </field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">days</field>
+    <field name="active">False</field>
+  </record>
+</odoo>
