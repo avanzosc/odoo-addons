@@ -11,7 +11,6 @@
         <field
           name="palet_id"
           invisible="not product_packaging_id"
-          context="{'default_product_id': product_id, 'tree_view_ref':'product.product_packaging_tree_view', 'form_view_ref':'product.product_packaging_form_view'}"
           groups="product.group_stock_packaging"
           optional="show"
         />
