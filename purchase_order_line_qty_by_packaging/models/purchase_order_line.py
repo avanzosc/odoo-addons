@@ -42,9 +42,7 @@ class PurchaseOrderLine(models.Model):
                 self.product_packaging_id = packagings[0].id
         return res
 
-    def _prepare_stock_move_vals(
-        self, picking, price_unit, product_qty, product_uom
-    ):
+    def _prepare_stock_move_vals(self, picking, price_unit, product_qty, product_uom):
         res = super()._prepare_stock_move_vals(
             picking, price_unit, product_qty, product_uom
         )
