@@ -24,9 +24,12 @@ class AccountMove(models.Model):
         return result
 
     def copy_data(self, default=None):
-        default = dict(default or {})
-        if self.move_type in ("in_invoice", "in_refund"):
-            default.setdefault("date", self.date or self.invoice_date)
-            default.setdefault("invoice_date", self.invoice_date)
+        vals_list = super().copy_data(default)
+        default = default or {}
 
-        return super().copy_data(default)
+        for move, vals in zip(self, vals_list, strict=False):
+            if move.move_type in ("in_invoice", "in_refund"):
+                vals.setdefault("date", move.date or move.invoice_date)
+                vals.setdefault("invoice_date", move.invoice_date)
+
+        return vals_list
