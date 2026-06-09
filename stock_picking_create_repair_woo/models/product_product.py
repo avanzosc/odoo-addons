@@ -9,41 +9,9 @@ class ProductProduct(models.Model):
 
     generic_repair_product = fields.Boolean(
         string="Generic Repair Product",
-        default=False,
-        copy=False,
-        help="It's a generic repair product?",
+        related="product_tmpl_id.generic_repair_product",
+        store=True,
     )
-
-    @api.model
-    def create(self, vals):
-        if "product_tmpl_id" in vals and vals.get("product_tmpl_id", False):
-            template = self.env["product.template"].browse(vals.get("product_tmpl_id"))
-            if template.product_variant_count == 0:
-                vals.update(
-                    {"generic_repair_product": (template.generic_repair_product)}
-                )
-        product = super().create(vals)
-        if "product_tmpl_id" not in vals:
-            if product.product_tmpl_id.product_variant_count == 1:
-                product.product_tmpl_id.write(
-                    {"generic_repair_product": (product.generic_repair_product)}
-                )
-        return product
-
-    def write(self, vals):
-        result = super().write(vals)
-        if (
-            "no_update_template" not in self.env.context
-            and "generic_repair_product" in vals
-        ):
-            for product in self:
-                if product.product_tmpl_id.product_variant_count == 1:
-                    template = product.product_tmpl_id
-                    template_vals = {
-                        "generic_repair_product": (product.generic_repair_product)
-                    }
-                    template.with_context(no_update_product=True).write(template_vals)
-        return result
 
     @api.constrains("generic_repair_product")
     def _check_generic_repair_product(self):
