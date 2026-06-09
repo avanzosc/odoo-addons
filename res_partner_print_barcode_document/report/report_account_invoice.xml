@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+        <t t-set="display_discount" position="after">
+            <t
+        t-set="has_barcode"
+        t-value="bool(o.invoice_line_ids.filtered(lambda l: l.product_id.sudo().barcode))"
+      />
+        </t>
+        <t t-set="current_subtotal" position="after">
+            <t t-set="product_barcode" t-value="0" />
+        </t>
+        <th name="th_subtotal" position="before">
+            <th
+        name="th_barcode"
+        class="text-center"
+        t-if="has_barcode and o.partner_id.print_barcode"
+        style="border-top: 1px solid black; border-bottom: 1px solid black !important;"
+      >
+                <strong>Product Barcode</strong>
+            </th>
+        </th>
+        <td class="text-right o_price_total" position="before">
+            <td class="text-center" t-if="has_barcode and o.partner_id.print_barcode">
+                <t t-if="product_barcode != line.product_id.barcode">
+                    <span t-if="line.product_id and line.product_id.barcode">
+                        <img
+              t-if="len(line.product_id.barcode) == 13"
+              t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;quiet=%s' % ('EAN13', line.product_id.barcode, 400, 100, 0)"
+              style="height:35px"
+              alt="Barcode"
+            />
+                        <img
+              t-elif="len(line.product_id.barcode) == 8"
+              t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;quiet=%s' % ('EAN8', line.product_id.barcode, 400, 100, 0)"
+              style="height:35px"
+              alt="Barcode"
+            />
+                        <img
+              t-else=""
+              t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;quiet=%s' % ('Code128', line.product_id.barcode, 400, 100, 0)"
+              style="height:35px"
+              alt="Barcode"
+            />
+                        <br />
+                        <span t-field="line.product_id.barcode" />
+                    </span>
+                    <t t-set="product_barcode" t-value="line.product_id.barcode" />
+                </t>
+            </td>
+        </td>
+    </template>
+</odoo>
