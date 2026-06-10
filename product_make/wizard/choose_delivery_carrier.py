@@ -8,7 +8,7 @@ class ChooseDeliveryCarrier(models.TransientModel):
 
     make_id = fields.Many2one(string="Make", comodel_name="product.make")
 
-    @api.depends("partner_id")
+    @api.depends("partner_id", "make_id")
     def _compute_available_carrier(self):
         result = super()._compute_available_carrier()
         for rec in self:
