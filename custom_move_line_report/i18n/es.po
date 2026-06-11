@@ -37,6 +37,18 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__commercial_partner_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Commercial Partner"
+msgstr "Entidad del cliente"
+
+#. module: custom_move_line_report
+#: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__contact_sale_type_id
+#: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
+msgid "Contact Sale Type"
+msgstr "Tipo de venta del contacto"
+
+#. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
 msgid "Customer Location"
 msgstr "Ubicación de cliente"
@@ -59,7 +71,7 @@ msgstr "Diferencia"
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line_report__display_name
 msgid "Display Name"
-msgstr "Mostrar nombre"
+msgstr "Nombre mostrado"
 
 #. module: custom_move_line_report
 #: model:ir.model.fields,field_description:custom_move_line_report.field_stock_move_line__egg
@@ -302,7 +314,7 @@ msgstr "Infome de movimientos de producto"
 #. odoo-python
 #: code:addons/custom_move_line_report/reports/stock_move_line_report.py:0
 msgid "Stock Move Report"
-msgstr ""
+msgstr "Informe de movimientos de stock"
 
 #. module: custom_move_line_report
 #: model_terms:ir.ui.view,arch_db:custom_move_line_report.stock_move_line_report_view_search
