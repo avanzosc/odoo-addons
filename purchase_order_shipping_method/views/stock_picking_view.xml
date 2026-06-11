@@ -40,6 +40,7 @@
     <field name="inherit_id" ref="stock.vpicktree" />
     <field name="arch" type="xml">
       <field name="picking_type_id" position="before">
+        <field name="carrier_id" optional="show" />
         <field name="transporter_id" optional="show" />
         <field name="currency_id" optional="hide" />
         <field name="shipping_cost" optional="hide" />
