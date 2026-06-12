@@ -36,8 +36,7 @@ class SacaLine(models.Model):
 
     def _get_report_base_filename(self):
         self.ensure_one()
-        fname = "Saca Form-%s" % self.name
-        return fname
+        return f"Saca Form-{self.name}"
 
     def has_to_be_signed(self, sign_by=None):
         if sign_by == "farm":

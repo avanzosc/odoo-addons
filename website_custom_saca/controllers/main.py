@@ -37,7 +37,10 @@ class CustomerPortal(CustomerPortal):
         return values
 
     @http.route(
-        ["/my/saca/lines", "/my/saca/lines/all"], type="http", auth="user", website=True
+        ["/my/saca/lines", "/my/saca/lines/all"],
+        type="http",
+        auth="user",
+        website=True,
     )
     def saca_lines(self, today=False, show_all=False, **post):
         values = {}
@@ -68,10 +71,13 @@ class CustomerPortal(CustomerPortal):
                 "show_all": show_all,
             }
         )
-        return http.request.render("website_custom_saca.portal_my_saca_lines", values)
+        return request.render("website_custom_saca.portal_my_saca_lines", values)
 
     @http.route(
-        ["/my/saca/line/<int:saca_line_id>"], type="http", auth="user", website=True
+        ["/my/saca/line/<int:saca_line_id>"],
+        type="http",
+        auth="user",
+        website=True,
     )
     def saca_line(
         self,
@@ -79,7 +85,7 @@ class CustomerPortal(CustomerPortal):
         access_token=None,
         download=None,
         show_all=False,
-        **post
+        **post,
     ):
         values = {}
         partner = request.env.user.partner_id
@@ -94,7 +100,7 @@ class CustomerPortal(CustomerPortal):
             )
         domain = [("saca_id", "=", saca_line.saca_id.id)]
         if not show_all:
-            domain += [(("driver_id", "=", partner.id))]
+            domain += [("driver_id", "=", partner.id)]
         saca_lines = request.env["saca.line"].sudo().search(domain, order="seq")
         saca_line_ids = saca_lines.ids or False
         value_index = saca_line_ids.index(saca_line.id) if saca_line_ids else False
@@ -143,7 +149,7 @@ class CustomerPortal(CustomerPortal):
                 "show_all": show_all,
             }
         )
-        return http.request.render("website_custom_saca.portal_saca_line", values)
+        return request.render("website_custom_saca.portal_saca_line", values)
 
     @http.route(
         "/saca/line/print/<int:saca_id>",
@@ -154,7 +160,7 @@ class CustomerPortal(CustomerPortal):
     )
     def saca_line_print(self, saca_id, review=False, answer_token=None, **post):
         saca_line = request.env["saca.line"].sudo().browse(saca_id)
-        return CustomerPortal()._show_report(
+        return self._show_report(
             model=saca_line,
             report_type="pdf",
             report_ref="website_custom_saca.action_report_driver_saca",
@@ -226,7 +232,7 @@ class CustomerPortal(CustomerPortal):
         kwargs.get("access_token")
         kwargs.get("res_id")
         signature = kwargs.get("signature")
-        request.env["res.users"].browse(request.session.get("uid"))
+        request.env["res.users"].browse(request.session.uid)
         saca_line = request.env["saca.line"].sudo().browse(saca_line_id)
         if not signature:
             return {"error": _("Signature is missing.")}
@@ -275,7 +281,6 @@ class CustomerPortal(CustomerPortal):
             Attachments = request.env["ir.attachment"]
             name = post.get("image_file").filename.replace(" ", "_")
             attachment = file.read()
-            # DEPRECATED: file_base64 = base64.encodestring(attachment)
             file_base64 = base64.encodebytes(attachment)
             attachment_id = Attachments.sudo().create(
                 {
@@ -290,4 +295,3 @@ class CustomerPortal(CustomerPortal):
 
             saca_line.update({image_field: attachment_id.id})
         return request.redirect("/my/saca/line/%d" % saca_line_id)
-        # return json.dumps({'success': True, 'message': "File uploaded!"})

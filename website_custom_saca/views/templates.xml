@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <template id="assets_frontend" inherit_id="website.assets_frontend">
-        <xpath expr=".">
-            <script
-        type="text/javascript"
-        src="/website_custom_saca/static/src/js/script.js"
-      />
-            <link
-        rel='stylesheet'
-        href='/website_custom_saca/static/src/css/style.css'
-      />
-        </xpath>
-    </template>
-    <template id="report_assets_common" inherit_id="web.report_assets_common">
-        <xpath expr=".">
-            <link
-        rel='stylesheet'
-        href='/website_custom_saca/static/src/css/style.css'
-      />
-        </xpath>
-    </template>
     <template id="portal_my_saca_lines_home" inherit_id="portal.portal_my_home">
         <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
             <t t-call="portal.portal_docs_entry">
@@ -104,7 +84,7 @@
                     class="card mb-3 bg-light"
                   >
                                         <div class="card-body p-3">
-                                            <div class="float-right mr-n2">
+                                            <div class="float-end me-n2">
                                                 <a
                           t-att-href="'/my/saca/line/%s?show_all=%s' % (saca_line.id, show_all)"
                           class="btn btn-outline-primary btn-sm"
@@ -187,7 +167,7 @@
                   t-att-value="saca_line.id"
                 />
                                 <div class="card-header">
-                                    <div class="card-actions float-right">
+                                    <div class="card-actions float-end">
                                         <a
                       t-if="prev_saca_line_id"
                       t-att-href="'/my/saca/line/%s' % prev_saca_line_id"
@@ -217,16 +197,16 @@
                       role="button"
                       href="#"
                       class="button btn btn-secondary"
-                      data-toggle="modal"
-                      data-target="#modalaccept_farmer"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalaccept_farmer"
                     >Sign Farmer<i class="fa fa-sign" /></a>
                                         <a
                       t-if="saca_line.has_to_be_signed(sign_by='driver')"
                       role="button"
                       href="#"
                       class="button btn btn-secondary"
-                      data-toggle="modal"
-                      data-target="#modalaccept_driver"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalaccept_driver"
                     >Sign Driver<i class="fa fa-sign" /></a>
                                     </div>
                                     <h5 class="card-title">SACA LINE <t
@@ -247,12 +227,12 @@
                                                     <button
                             type="button"
                             id="btn_saca_edit"
-                            class="btn btn-secondary float-right"
+                            class="btn btn-secondary float-end"
                           ><i class="fa fa-edit" /></button>
                                                     <button
                             style="display:none;"
                             id="btn_saca_save"
-                            class="btn btn-secondary float-right"
+                            class="btn btn-secondary float-end"
                           ><i class="fa fa-save" /></button>
                                                 </div>
                                                 <div
@@ -695,8 +675,8 @@
                               role="button"
                               href="#"
                               class="button btn btn-secondary"
-                              data-toggle="modal"
-                              data-target="#modalaccept_farmer"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalaccept_farmer"
                             >
                                                             <i
                                 class="fa fa-pencil-square-o"
@@ -719,8 +699,8 @@
                               role="button"
                               href="#"
                               class="button btn btn-secondary"
-                              data-toggle="modal"
-                              data-target="#modalaccept_driver"
+                              data-bs-toggle="modal"
+                              data-bs-target="#modalaccept_driver"
                             >
                                                             <i
                                 class="fa fa-pencil-square-o"
@@ -882,7 +862,6 @@
     <template id="sign_saca_dialog" name="Sign Saca Dialog">
         <div id="quote_content" class="col-12 col-lg justify-content-end">
             <div role="dialog" class="modal fade" t-att-id="modal_id">
-                A <t t-esc="str(saca_line.has_to_be_signed(sign_by=sign_by))" /> B
                 <div
           id="saca_modal_dialog"
           class="modal-dialog"
@@ -894,15 +873,14 @@
             t-att-data-order-id="saca_line.id"
             class="js_accept_json modal-content js_website_submit_form"
           >
-    <!--                      <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
                         <header class="modal-header" style="background-color: white;">
                             <h4 class="modal-title">Validate Saca</h4>
                             <button
                 type="button"
-                class="close"
-                data-dismiss="modal"
+                class="btn-close"
+                data-bs-dismiss="modal"
                 aria-label="Close"
-              >×</button>
+              />
                         </header>
                         <main
               class="modal-body"
@@ -937,10 +915,10 @@
       >
                 <button
           type="button"
-          class="close"
-          data-dismiss="alert"
+          class="btn-close"
+          data-bs-dismiss="alert"
           aria-label="Close"
-        >×</button>
+        />
                 <strong>Thank You!</strong><br />
                 <t
           t-if="message == 'sign_ok' and sale_order.state in ['sale', 'done']"

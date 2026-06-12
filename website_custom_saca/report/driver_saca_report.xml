@@ -102,7 +102,7 @@
                                             <strong>Kms: </strong>
                                             <strong>&#160;</strong>
                                             <span
-                        if="doc.distance"
+                        t-if="doc.distance"
                         t-esc="doc.distance"
                       />
                                         </td>

@@ -27,7 +27,7 @@
                 name="clear_signature_driver"
                 type="object"
                 string="Clear"
-                attrs="{'invisible': [('signature_driver','!=',False)]}"
+                invisible="not signature_driver"
               />
                             <field name="date_signature_driver" readonly="1" />
                             <field
@@ -41,7 +41,7 @@
                 name="clear_signature_farm"
                 type="object"
                 string="Clear"
-                attrs="{'invisible': [('signature_driver','!=',False)]}"
+                invisible="not signature_driver"
               />
                             <field name="date_signature_farm" readonly="1" />
                             <field name="signature_farm" widget="image" readonly="1" />

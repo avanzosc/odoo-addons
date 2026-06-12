@@ -3,7 +3,7 @@
 
 {
     "name": "Website Custom Saca",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -23,5 +23,14 @@
         "views/views.xml",
         "data/email_templates.xml",
     ],
+    "assets": {
+        "web.assets_frontend": [
+            "website_custom_saca/static/src/js/script.esm.js",
+            "website_custom_saca/static/src/css/style.css",
+        ],
+        "web.report_assets_common": [
+            "website_custom_saca/static/src/css/style.css",
+        ],
+    },
     "installable": True,
 }

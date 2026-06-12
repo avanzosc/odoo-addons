@@ -15,7 +15,7 @@
                     />
                   </td>
                   <td class="right">
-                    <span class="date_today" t-esc="time.strftime('%%d %%B %%Y')" />
+                    <span class="date_today" t-out="time.strftime('%%d %%B %%Y')" />
                   </td>
                 </tr>
               </tbody>
