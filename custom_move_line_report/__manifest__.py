@@ -14,7 +14,6 @@
         "stock_picking_batch_liquidation",
         "custom_breeding_apps",
         "sale_picking_return_containers",
-        "sale_order_type",
     ],
     "data": [
         "security/ir.model.access.csv",

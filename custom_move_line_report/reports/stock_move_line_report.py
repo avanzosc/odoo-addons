@@ -167,15 +167,6 @@ class StockMoveLineReport(models.Model):
         comodel_name="product.category",
         readonly=True,
     )
-    commercial_partner_id = fields.Many2one(
-        comodel_name="res.partner",
-        readonly=True,
-    )
-    contact_sale_type_id = fields.Many2one(
-        string="Contact Sale Type",
-        comodel_name="sale.order.type",
-        readonly=True,
-    )
 
     def action_view_move_report(self):
         context = self.env.context.copy()
@@ -230,18 +221,6 @@ class StockMoveLineReport(models.Model):
 
     def _select(self):
         return """
-        WITH partner_sale_type AS (
-            SELECT
-                res_id,
-                split_part(value_reference, ',', 2)::int AS sale_type_id
-            FROM ir_property
-            WHERE fields_id = (
-                SELECT id FROM ir_model_fields
-                WHERE model = 'res.partner'
-                AND name = 'sale_type'
-                LIMIT 1
-            )
-        )
         SELECT
             row_number() OVER () AS id,
             line.move_line_id,
@@ -251,8 +230,6 @@ class StockMoveLineReport(models.Model):
             line.ref,
             line.production_id,
             line.partner_id,
-            line.contact_sale_type_id,
-            line.commercial_partner_id,
             line.product_id,
             line.product_category_type_id,
             line.product_category_id,
@@ -287,8 +264,6 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
-                    pst.sale_type_id AS contact_sale_type_id,
-                    partner.commercial_partner_id AS commercial_partner_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -323,15 +298,13 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.state AS state,
                     stock_move_line.show_in_report AS show_in_report,
                     stock_move_line.company_id AS company_id
-                FROM stock_move_line
+                FROM
+                stock_move_line
                 JOIN stock_location AS location_origin_id ON
-                    stock_move_line.location_id = location_origin_id.id
-                JOIN stock_location AS location_id ON
-                    stock_move_line.location_dest_id = location_id.id
-                LEFT JOIN res_partner partner ON
-                    stock_move_line.picking_partner_id = partner.id
-                LEFT JOIN partner_sale_type pst
-                    ON pst.res_id = CONCAT('res.partner,', partner.id)
+                        stock_move_line.location_id = location_origin_id.id
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.location_id = location_id.id
                 UNION
                 SELECT
                     stock_move_line.id AS move_line_id,
@@ -339,8 +312,6 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
-                    pst.sale_type_id AS contact_sale_type_id,
-                    partner.commercial_partner_id AS commercial_partner_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -375,15 +346,13 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.state AS state,
                     stock_move_line.show_in_report AS show_in_report,
                     stock_move_line.company_id AS company_id
-                FROM stock_move_line
+                FROM
+                stock_move_line
                 JOIN stock_location AS location_origin_id ON
-                    stock_move_line.location_id = location_origin_id.id
-                JOIN stock_location AS location_id ON
-                    stock_move_line.location_dest_id = location_id.id
-                LEFT JOIN res_partner partner ON
-                    stock_move_line.picking_partner_id = partner.id
-                LEFT JOIN partner_sale_type pst
-                    ON pst.res_id = CONCAT('res.partner,', partner.id)
+                        stock_move_line.location_id = location_origin_id.id
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.location_dest_id = location_id.id
                 UNION
                 SELECT
                     stock_move_line.id AS move_line_id,
@@ -391,8 +360,6 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
-                    pst.sale_type_id AS contact_sale_type_id,
-                    partner.commercial_partner_id AS commercial_partner_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -426,15 +393,13 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.state AS state,
                     stock_move_line.show_in_report AS show_in_report,
                     stock_move_line.company_id AS company_id
-                FROM stock_move_line
-                JOIN stock_location AS location_id ON
-                    stock_move_line.batch_location_id = location_id.id
+                FROM
+                stock_move_line
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.batch_location_id = location_id.id
                 JOIN stock_location AS location_origin_id ON
-                    stock_move_line.location_id = location_origin_id.id
-                LEFT JOIN res_partner partner ON
-                    stock_move_line.picking_partner_id = partner.id
-                LEFT JOIN partner_sale_type pst
-                    ON pst.res_id = CONCAT('res.partner,', partner.id)
+                        stock_move_line.location_id = location_origin_id.id
                 WHERE
                     location_origin_id.usage = 'production' AND
                     stock_move_line.batch_id IS NOT NULL
@@ -446,12 +411,10 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.picking_partner_id AS partner_id,
-                    pst.sale_type_id AS contact_sale_type_id,
-                    partner.commercial_partner_id AS commercial_partner_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
-                    stock_move_line.product_category_id AS product_category_id,
+                    stock_move_line.product_category_id AS product_category__id,
                     stock_move_line.reference AS ref,
                     stock_move_line.egg AS egg,
                     stock_move_line.date AS date,
@@ -480,15 +443,13 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.state AS state,
                     stock_move_line.show_in_report AS show_in_report,
                     stock_move_line.company_id AS company_id
-                FROM stock_move_line
-                JOIN stock_location AS location_id ON
-                    stock_move_line.batch_location_id = location_id.id
+                FROM
+                stock_move_line
+                JOIN
+                    stock_location AS location_id ON
+                       stock_move_line.batch_location_id = location_id.id
                 JOIN stock_location AS location_origin_id ON
-                    stock_move_line.location_id = location_origin_id.id
-                LEFT JOIN res_partner partner ON
-                    stock_move_line.picking_partner_id = partner.id
-                LEFT JOIN partner_sale_type pst
-                    ON pst.res_id = CONCAT('res.partner,', partner.id)
+                        stock_move_line.location_id = location_origin_id.id
                 WHERE
                     location_origin_id.usage = 'production' AND
                     stock_move_line.batch_id IS NOT NULL

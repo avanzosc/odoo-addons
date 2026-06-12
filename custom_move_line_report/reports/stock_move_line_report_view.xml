@@ -10,8 +10,6 @@
                 <field name="ref" />
                 <field name="picking_id" />
                 <field name="partner_id" />
-                <field name="commercial_partner_id" />
-                <field name="contact_sale_type_id" />
                 <field name="production_id" />
                 <field name="picking_type_id" />
                 <field name="location_id" />
@@ -61,7 +59,6 @@
                             <field name="product_category_type_id" />
                             <field name="move_type_id" />
                             <field name="type_category_id" />
-                            <field name="contact_sale_type_id" />
                         </group>
                         <group string="Detail">
                             <field name="product_id" />
@@ -72,7 +69,6 @@
                             <field name="production_id" />
                             <field name="picking_id" />
                             <field name="partner_id" />
-                            <field name="commercial_partner_id" />
                             <field name="move_line_id" />
                             <field name="move_id" />
                         </group>
@@ -152,8 +148,6 @@
                 <field name="mother_id" />
                 <field name="production_id" />
                 <field name="partner_id" />
-                <field name="commercial_partner_id" />
-                <field name="contact_sale_type_id" />
                 <field name="product_category_id" />
                 <filter
           string="Internal Location"
@@ -264,16 +258,7 @@
             string="Partner"
             context="{'group_by':'partner_id'}"
           />
-                    <filter
-            name="groupby_commercial_partner"
-            string="Commercial Partner"
-            context="{'group_by':'commercial_partner_id'}"
-          />
-                    <filter
-            name="groupby_contact_sale_type"
-            string="Contact Sale Type"
-            context="{'group_by':'contact_sale_type_id'}"
-          />                     <filter
+                     <filter
             name="groupby_product_category"
             string="Product Category"
             context="{'group_by':'product_category_id'}"
