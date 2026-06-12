@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_pricelist_view" model="ir.ui.view">
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//sheet/div[hasclass('oe_title')]" position="before">
+        <div class="oe_button_box" name="button_box">
+          <button
+            class="oe_stat_button"
+            string="Items"
+            icon="fa-list"
+            type="object"
+            name="action_view_items"
+            invisible="not item_ids"
+          />
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>
