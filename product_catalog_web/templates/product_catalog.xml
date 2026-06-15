@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="product_catalog" name="Product Catalogs">
+    <t t-call="website.layout">
+      <t t-set="additional_title">Product Catalogs</t>
+      <div id="wrap" class="container py-4">
+        <h1 class="mb-4">Product Catalogs</h1>
+        <form action="/shop/catalog" method="get" class="mb-4">
+          <div class="input-group" style="max-width: 400px;">
+            <input
+              type="text"
+              name="search"
+              class="form-control"
+              placeholder="Search catalog..."
+              t-att-value="search"
+            />
+            <button class="btn btn-primary" type="submit">
+              <i class="fa fa-search" />
+            </button>
+          </div>
+        </form>
+        <t t-if="catalogs">
+          <div class="row row-cols-2 row-cols-md-4 g-4">
+            <t t-foreach="catalogs" t-as="catalog">
+              <div class="col">
+                <div class="card h-100 text-center shadow-sm">
+                  <t t-if="catalog.logo">
+                    <img
+                      t-attf-src="/web/image/product.catalog.web/#{catalog.id}/logo"
+                      class="card-img-top p-3"
+                      style="object-fit: contain; height: 160px;"
+                      t-att-alt="catalog.name"
+                    />
+                  </t>
+                  <t t-else="">
+                    <div
+                      class="d-flex align-items-center justify-content-center bg-light"
+                      style="height: 160px;"
+                    >
+                      <i class="fa fa-book fa-4x text-muted" />
+                    </div>
+                  </t>
+                  <div class="card-body">
+                    <h5 class="card-title mb-0">
+                      <t t-esc="catalog.name" />
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </t>
+          </div>
+        </t>
+        <t t-else="">
+          <p class="text-muted">No catalogs found.</p>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>

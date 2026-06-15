@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_catalog_web_view_form" model="ir.ui.view">
+    <field name="name">product.catalog.web.view.form</field>
+    <field name="model">product.catalog.web</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="%(product_catalog_web.import_catalog_web_action)d"
+            string="Import products"
+            type="action"
+            class="btn-primary"
+          />
+          <button name="action_export" string="Export products" type="object" />
+        </header>
+        <sheet>
+          <field name="logo" widget="image" class="oe_avatar" />
+          <div class="oe_title">
+            <h1>
+              <field name="name" placeholder="e.g. SPRING SUMMER 2025" />
+            </h1>
+          </div>
+          <group>
+            <group>
+              <field name="inventory_availability" />
+              <field name="active" />
+              <field name="visible_slider" />
+            </group>
+            <group>
+              <field name="company_id" groups="base.group_multi_company" />
+              <field name="warehouse_id" />
+            </group>
+          </group>
+          <field name="description" />
+          <notebook>
+            <page string="Products" name="products">
+              <field name="product_ids">
+                <list>
+                  <field name="default_code" string="Internal Reference" />
+                  <field name="barcode" string="Barcode" />
+                  <field name="name" string="Name" />
+                  <field name="list_price" string="Price" />
+                  <field name="categ_id" string="Category" />
+                  <field name="qty_available" string="Quantity" />
+                  <field name="catalog_ids" widget="many2many_tags" />
+                </list>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_catalog_web_view_list" model="ir.ui.view">
+    <field name="name">product.catalog.web.view.list</field>
+    <field name="model">product.catalog.web</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="inventory_availability" />
+        <field name="visible_slider" />
+        <field name="warehouse_id" />
+        <field name="company_id" groups="base.group_multi_company" />
+        <field name="active" column_invisible="True" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_catalog_web_action" model="ir.actions.act_window">
+    <field name="name">Web Catalogs</field>
+    <field name="res_model">product.catalog.web</field>
+    <field name="view_mode">list,form</field>
+    <field name="context">{"search_default_active": 1}</field>
+  </record>
+</odoo>
