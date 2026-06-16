@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Custom Move Line Report",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "author": "AvanzOSC",
     "category": "Inventory",
     "website": "https://github.com/avanzosc/odoo-addons",
@@ -14,7 +14,6 @@
         "stock_picking_batch_liquidation",
         "custom_breeding_apps",
         "sale_picking_return_containers",
-        "sale_order_type",
     ],
     "data": [
         "security/ir.model.access.csv",

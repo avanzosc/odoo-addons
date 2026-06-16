@@ -1,6 +1,6 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockMoveLine(models.Model):
@@ -28,3 +28,22 @@ class StockMoveLine(models.Model):
     show_in_report = fields.Boolean(
         string="Show in Report", related="picking_id.show_in_report", store=True
     )
+    commercial_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        related="picking_partner_id.commercial_partner_id",
+        store=True,
+    )
+    contact_sale_type_id = fields.Many2one(
+        comodel_name="sale.order.type",
+        compute="_compute_contact_sale_type_id",
+        store=True,
+    )
+
+    @api.depends("company_id", "picking_partner_id")
+    def _compute_contact_sale_type_id(self):
+        for line in self:
+            partner = line.picking_partner_id
+            if partner:
+                sale_type = partner.with_company(line.company_id).sale_type
+                if sale_type:
+                    line.contact_sale_type_id = sale_type.id
