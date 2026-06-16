@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_treasury_forecast_user,access_treasury_forecast_user,model_treasury_forecast,base.group_user,1,1,1,1
 access_treasury_forecast_generate_lines_user,access_treasury_forecast_generate_lines_user,model_treasury_forecast_generate_lines,base.group_user,1,1,1,1
+access_treasury_forecast_report_user,access_treasury_forecast_report_user,model_treasury_forecast_report,base.group_user,1,0,0,0
+access_treasury_financing_category_user,treasury.financing.category.user,model_treasury_financing_category,base.group_user,1,1,1,1
+access_treasury_financing_user,treasury.financing.user,model_treasury_financing,base.group_user,1,1,1,1
