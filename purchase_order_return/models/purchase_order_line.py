@@ -3,6 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.tools.float_utils import float_compare
 
 
 class PurchaseOrderLine(models.Model):
@@ -62,7 +63,12 @@ class PurchaseOrderLine(models.Model):
     def _apply_receipt_quantity(self):
         self.ensure_one()
         qty_to_receive = self.product_qty - self.qty_received
-        if qty_to_receive <= 0:
+        if (
+            float_compare(
+                qty_to_receive, 0, precision_rounding=self.product_uom.rounding
+            )
+            <= 0
+        ):
             return
         picking = self._find_pending_picking("incoming")
         if not picking:
@@ -74,7 +80,12 @@ class PurchaseOrderLine(models.Model):
     def _apply_return_quantity(self):
         self.ensure_one()
         qty_to_return = abs(self.return_qty) - abs(self.qty_received)
-        if qty_to_return <= 0:
+        if (
+            float_compare(
+                qty_to_return, 0, precision_rounding=self.product_uom.rounding
+            )
+            <= 0
+        ):
             return
         picking = self._find_pending_picking("outgoing")
         if not picking:
