@@ -8,6 +8,11 @@
                <field name="sale_lines_count"  />
                <field name="purchase_lines_count"  />
                <field name="invoice_lines_count"  />
+               <field name="stock_moves_count"  />
+               <field name="stock_move_lines_count"  />
+               <field name="stock_quants_count"  />
+               <field name="inventory_lines_count"  />
+               <field name="attributes_combination"  />
            </field>
         </field>
     </record>
@@ -16,16 +21,27 @@
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_search_form_view"/>
         <field name="arch" type="xml">
-           <field name="product_tmpl_id" position="after">    
+           <field name="product_tmpl_id" position="after">
+               <field name="attributes_combination"/>   
                <separator/>
                <filter string="Without Sale Lines" name="without-sale-lines"
                         domain="[('sale_lines_count','=',0)]" /> 
                <filter string="Without Purchase Lines" name="without-purchase-lines"
                         domain="[('purchase_lines_count','=',0)]"/>
                <filter string="Without Invoice Lines" name="without-invoice-lines"
-                        domain="[('invoice_lines_count','=',0)]" />
-               <filter string="Without Sale/Purchase/Invoice Lines" name="without-lines"
-                        domain="[('sale_lines_count','=',0), ('purchase_lines_count','=',0), ('invoice_lines_count','=',0)]" />
+                        domain="[('invoice_lines_count','=',0)]" />             
+               <filter string="Without Stock Moves" name="without-stock_moves"
+                        domain="[('stock_moves_count','=',0)]" />
+               <filter string="Without Stock Move Lines" name="without-stock_move_lines"
+                        domain="[('stock_move_lines_count','=',0)]" />                   
+               <filter string="Without Stock Quants" name="without-stock_quants"
+                        domain="[('stock_quants_count','=',0)]" />
+               <filter string="Without Inventory Lines" name="without-inventory_lines"
+                        domain="[('inventory_lines_count','=',0)]" />
+               <filter string="Active Without Lines" name="without-lines"
+                        domain="[('active','=',True), ('sale_lines_count','=',0), ('purchase_lines_count','=',0), ('invoice_lines_count','=',0), ('stock_moves_count','=',0), ('stock_move_lines_count','=',0), ('stock_quants_count','=',0), ('inventory_lines_count','=',0)]" />
+               <filter string="Inactive Without Lines" name="without-lines"
+                        domain="[('active','=',False), ('sale_lines_count','=',0), ('purchase_lines_count','=',0), ('invoice_lines_count','=',0), ('stock_moves_count','=',0), ('stock_move_lines_count','=',0), ('stock_quants_count','=',0), ('inventory_lines_count','=',0)]" />
            </field>
         </field>
     </record>

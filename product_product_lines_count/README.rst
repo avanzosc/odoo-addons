@@ -7,7 +7,8 @@ Product product lines count
 ===========================
 
 * In product variants new fields : "# Sale Lines", "# Purchase Lines", and
-  "# Invoice Lines".
+  "# Invoice Lines", "# Stock Moves", "# Stock Moves Lines",
+  "# Stock Quants", "# Inventory Lines", and "Attribute Combination".
 * In product variant search view new filters for these new fields.
 
 Bug Tracker
