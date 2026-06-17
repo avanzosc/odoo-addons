@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="priority">100</field>
+    <field name="arch" type="xml">
+      <field name="street" position="before">
+        <field name="customer_rank" invisible="1" />
+        <field name="parent_customer_rank" invisible="1" />
+      </field>
+      <field name="street" position="attributes">
+        <attribute name="required">customer_rank > 0</attribute>
+      </field>
+      <field name="city" position="attributes">
+        <attribute
+          name="required"
+        >customer_rank > 0 and type != 'contact' and parent_id == False</attribute>
+        <attribute name="readonly">type == 'contact' and parent_id != False</attribute>
+      </field>
+      <field name="state_id" position="attributes">
+        <attribute name="required">customer_rank > 0</attribute>
+      </field>
+      <field name="zip" position="attributes">
+        <attribute name="required">customer_rank > 0</attribute>
+      </field>
+      <field name="country_id" position="attributes">
+        <attribute name="required">customer_rank > 0</attribute>
+      </field>
+      <field name="phone" position="attributes">
+        <attribute name="required">customer_rank > 0</attribute>
+      </field>
+      <xpath expr="//group[@name='sale']/field[@name='user_id']" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </xpath>
+      <field name="mobile" position="attributes">
+        <attribute
+          name="required"
+        >parent_customer_rank > 0 and type == 'contact'</attribute>
+      </field>
+      <xpath
+        expr="//field[@name='child_ids']/form//field[@name='function']"
+        position="before"
+      >
+        <field name="customer_rank" invisible="1" />
+      </xpath>
+      <xpath
+        expr="//field[@name='child_ids']/form//field[@name='email']"
+        position="attributes"
+      >
+        <attribute name="required">customer_rank > 0 and type == 'contact'</attribute>
+      </xpath>
+
+      <field name="vat" position="attributes">
+        <attribute name="required">customer_rank == 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_form_purchase_group" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field
+      name="inherit_id"
+      ref="partner_group_purchase.view_partner_form_purchase_group"
+    />
+    <field name="priority">101</field>
+    <field name="arch" type="xml">
+      <field name="purchase_group_id" position="attributes">
+        <attribute name="invisible">is_company ==  False</attribute>
+        <attribute name="required">customer_rank > 0 and is_company != False</attribute>
+      </field>
+      <field name="purchase_group2_id" position="attributes">
+        <attribute name="invisible">is_company == False</attribute>
+        <attribute name="required">customer_rank > 0 and is_company != False</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_property_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="account.view_partner_property_form" />
+    <field name="priority">102</field>
+    <field name="arch" type="xml">
+      <field name="property_account_position_id" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+      <field name="property_payment_term_id" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_form_agent" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="commission_oca.view_partner_form_agent" />
+    <field name="priority">103</field>
+    <field name="arch" type="xml">
+      <field name="agent_ids" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_property_form2" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="delivery.view_partner_property_form" />
+    <field name="priority">104</field>
+    <field name="arch" type="xml">
+      <field name="property_delivery_carrier_id" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_property_form3" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="account_payment_partner.view_partner_property_form" />
+    <field name="priority">105</field>
+    <field name="arch" type="xml">
+      <field name="customer_payment_mode_id" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_property_form4" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="product.view_partner_property_form" />
+    <field name="priority">106</field>
+    <field name="arch" type="xml">
+      <field name="property_product_pricelist" position="attributes">
+        <attribute name="required">customer_rank > 0 and is_company == True</attribute>
+      </field>
+    </field>
+  </record>
+</odoo>
