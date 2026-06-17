@@ -107,11 +107,7 @@ class ProductProduct(models.Model):
         for product in self:
             product.inventory_lines_count = len(product.inventory_lines_ids)
 
-    @api.depends("attribute_value_ids")
+    @api.depends("product_template_attribute_value_ids", "attribute_value_ids")
     def _compute_attribute_combination(self):
         for product in self:
-            attributes = product.attribute_value_ids.sorted(key=lambda r: r.id)
-            if not attributes:
-                product.attributes_combination = ""
-            else:
-                product.attributes_combination =  f"({', '.join(map(str, attributes.ids))})"
+            product.attributes_combination = product.product_template_attribute_value_ids._ids2str()
