@@ -1,43 +1,69 @@
 import base64
-import json
 from datetime import date, timedelta
 
-from odoo import _, http
+from odoo import _, _lt, http
 from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
 
-FLOOR_OPTIONS = {"single": _("Single"), "top": _("Top"), "below": _("Below")}
+FLOOR_OPTIONS = {"single": _lt("Single"), "top": _lt("Top"), "below": _lt("Below")}
 
 
 class CustomerPortal(CustomerPortal):
+    def _prepare_home_portal_values(self, counters):
+        values = super()._prepare_home_portal_values(counters)
+        partner = request.env.user.partner_id
+        SacaLine = request.env["saca.line"]
+        saca_type_ids = self.get_saca_types()
+        today = date.today()
+        yesterday = today - timedelta(days=1)
+        base_domain = [("stage_id", "in", saca_type_ids), ("is_historic", "=", False)]
+        if "saca_lines_count" in counters or "saca_lines_count_today" in counters:
+            my_lines = SacaLine.sudo().search(
+                base_domain + [("driver_id", "=", partner.id)]
+            )
+            if "saca_lines_count" in counters:
+                values["saca_lines_count"] = len(my_lines)
+            if "saca_lines_count_today" in counters:
+                values["saca_lines_count_today"] = len(
+                    my_lines.filtered(
+                        lambda ln: ln.date and ln.date <= today and ln.date >= yesterday
+                    )
+                )
+        if (
+            "saca_all_lines_count" in counters
+            or "saca_all_lines_count_today" in counters
+        ):
+            all_lines = SacaLine.sudo().search(base_domain)
+            if "saca_all_lines_count" in counters:
+                values["saca_all_lines_count"] = len(all_lines)
+            if "saca_all_lines_count_today" in counters:
+                values["saca_all_lines_count_today"] = len(
+                    all_lines.filtered(
+                        lambda ln: ln.date and ln.date <= today and ln.date >= yesterday
+                    )
+                )
+        return values
+
     def _prepare_portal_layout_values(self):
         values = super()._prepare_portal_layout_values()
-        partner = request.env.user.partner_id
-        today = date.today()
-        yesterday = date.today() - timedelta(days=1)
-        saca_lines = (
-            request.env["saca.line"]
-            .sudo()
-            .search(
+        values.update(
+            self._prepare_home_portal_values(
                 [
-                    ("driver_id", "=", partner.id),
+                    "saca_lines_count",
+                    "saca_lines_count_today",
+                    "saca_all_lines_count",
+                    "saca_all_lines_count_today",
                 ]
             )
-        )
-        saca_lines_count_today = saca_lines.filtered(
-            lambda ln: ln.date and ln.date <= today and ln.date >= yesterday
-        )
-        values.update(
-            {
-                "saca_lines_count": len(saca_lines),
-                "saca_lines_count_today": len(saca_lines_count_today),
-            }
         )
         return values
 
     @http.route(
-        ["/my/saca/lines", "/my/saca/lines/all"], type="http", auth="user", website=True
+        ["/my/saca/lines", "/my/saca/lines/all"],
+        type="http",
+        auth="user",
+        website=True,
     )
     def saca_lines(self, today=False, show_all=False, **post):
         values = {}
@@ -68,19 +94,24 @@ class CustomerPortal(CustomerPortal):
                 "show_all": show_all,
             }
         )
-        return http.request.render("website_custom_saca.portal_my_saca_lines", values)
+        return request.render("website_custom_saca.portal_my_saca_lines", values)
 
     @http.route(
-        ["/my/saca/line/<int:saca_line_id>"], type="http", auth="user", website=True
+        ["/my/saca/line/<int:saca_line_id>"],
+        type="http",
+        auth="user",
+        website=True,
     )
     def saca_line(
         self,
         saca_line_id=None,
-        access_token=None,
         download=None,
         show_all=False,
-        **post
+        today=False,
+        **post,
     ):
+        show_all = show_all and show_all not in ("False", "false", "0")
+        today = today and today not in ("False", "false", "0")
         values = {}
         partner = request.env.user.partner_id
         saca_line = request.env["saca.line"].sudo().browse(saca_line_id)
@@ -92,26 +123,27 @@ class CustomerPortal(CustomerPortal):
             self.update_saca_line_fields(
                 line=saca_line, update_vals=values_update, files=files
             )
-        domain = [("saca_id", "=", saca_line.saca_id.id)]
+        saca_type_ids = self.get_saca_types()
+        nav_domain = [
+            ("saca_id", "=", saca_line.saca_id.id),
+            ("stage_id", "in", saca_type_ids),
+            ("is_historic", "=", False),
+        ]
         if not show_all:
-            domain += [(("driver_id", "=", partner.id))]
-        saca_lines = request.env["saca.line"].sudo().search(domain, order="seq")
-        saca_line_ids = saca_lines.ids or False
-        value_index = saca_line_ids.index(saca_line.id) if saca_line_ids else False
+            nav_domain += [("driver_id", "=", partner.id)]
+        nav_lines = request.env["saca.line"].sudo().search(nav_domain, order="seq")
+        nav_line_ids = nav_lines.ids
         next_saca_line_id = None
         prev_saca_line_id = None
-        if value_index:
-            try:
-                next_saca_line_id = saca_line_ids[value_index + 1]
-            except IndexError:
-                next_saca_line_id = None
-
-            try:
-                prev_saca_line_id = (
-                    saca_line_ids[value_index - 1] if value_index else None
-                )
-            except IndexError:
-                prev_saca_line_id = None
+        if saca_line.id in nav_line_ids:
+            value_index = nav_line_ids.index(saca_line.id)
+            if value_index + 1 < len(nav_line_ids):
+                next_saca_line_id = nav_line_ids[value_index + 1]
+            if value_index > 0:
+                prev_saca_line_id = nav_line_ids[value_index - 1]
+        torista_category = request.env.ref(
+            "custom_descarga.torista_category", raise_if_not_found=False
+        )
         toristas = (
             request.env["res.partner"]
             .sudo()
@@ -120,14 +152,17 @@ class CustomerPortal(CustomerPortal):
                     (
                         "category_id",
                         "=",
-                        (request.env.ref("custom_descarga.torista_category").id),
+                        torista_category.id if torista_category else False,
                     )
                 ]
             )
         )
-        timesheet_ids = saca_line.timesheet_ids.filtered(
-            lambda t: t.task_id.name in ["Chofer", "Carga"]
-        )
+        if "timesheet_ids" in saca_line._fields:
+            timesheet_ids = saca_line.timesheet_ids.filtered(
+                lambda t: t.task_id.name in ["Chofer", "Carga"]
+            )
+        else:
+            timesheet_ids = []
         values.update(
             {
                 "page_name": "saca_line",
@@ -135,15 +170,14 @@ class CustomerPortal(CustomerPortal):
                 "logged_user": request.env.user,
                 "next_saca_line_id": next_saca_line_id,
                 "prev_saca_line_id": prev_saca_line_id,
-                "access_token": access_token,
-                "date_today": date.today(),
                 "toristas": toristas,
                 "floor_options": FLOOR_OPTIONS,
                 "timesheet_ids": timesheet_ids,
                 "show_all": show_all,
+                "today": today,
             }
         )
-        return http.request.render("website_custom_saca.portal_saca_line", values)
+        return request.render("website_custom_saca.portal_saca_line", values)
 
     @http.route(
         "/saca/line/print/<int:saca_id>",
@@ -152,9 +186,9 @@ class CustomerPortal(CustomerPortal):
         website=True,
         sitemap=False,
     )
-    def saca_line_print(self, saca_id, review=False, answer_token=None, **post):
+    def saca_line_print(self, saca_id, **post):
         saca_line = request.env["saca.line"].sudo().browse(saca_id)
-        return CustomerPortal()._show_report(
+        return self._show_report(
             model=saca_line,
             report_type="pdf",
             report_ref="website_custom_saca.action_report_driver_saca",
@@ -163,8 +197,8 @@ class CustomerPortal(CustomerPortal):
 
     @http.route(
         "/saca/line/send/<int:saca_line_id>",
-        type="http",
-        auth="public",
+        type="json",
+        auth="user",
         methods=["POST"],
         website=True,
         csrf=False,
@@ -172,7 +206,7 @@ class CustomerPortal(CustomerPortal):
     def saca_line_send(self, saca_line_id, **post):
         saca_line = request.env["saca.line"].sudo().browse(saca_line_id)
         saca_line.action_send_saca_mail()
-        return json.dumps({"success": True, "message": "Message sent!"})
+        return {"success": True, "message": "Message sent!"}
 
     def update_saca_line_fields(self, line, update_vals, files=None):
         for value in update_vals:
@@ -180,6 +214,8 @@ class CustomerPortal(CustomerPortal):
             if value in ["btn_start", "btn_finish"]:
                 line.set_timesheet_start_stop(value, int(update_vals.get(value)))
                 break
+            if value not in line.sudo()._fields:
+                continue
             ttype = line.sudo()._fields[value]
             if ttype.type == "float":
                 try:
@@ -209,7 +245,7 @@ class CustomerPortal(CustomerPortal):
                 new_val = update_vals.get(value)
                 new_val = 1 if new_val == "on" else 0
             if new_val and getattr(line, value) != new_val:
-                line.update({value: new_val})
+                line.write({value: new_val})
 
         if not update_vals.get("forklift", None):
             line.forklift = False
@@ -223,10 +259,8 @@ class CustomerPortal(CustomerPortal):
     def portal_saca_line_accept(
         self, saca_line_id=None, signer_id=None, *args, **kwargs
     ):
-        kwargs.get("access_token")
-        kwargs.get("res_id")
         signature = kwargs.get("signature")
-        request.env["res.users"].browse(request.session.get("uid"))
+        request.env["res.users"].browse(request.session.uid)
         saca_line = request.env["saca.line"].sudo().browse(saca_line_id)
         if not signature:
             return {"error": _("Signature is missing.")}
@@ -256,7 +290,32 @@ class CustomerPortal(CustomerPortal):
         stage_descarga = request.env.ref(
             "custom_descarga.stage_descarga", raise_if_not_found=False
         )
-        return [stage_saca.id, stage_descarga.id]
+        return [s.id for s in [stage_saca, stage_descarga] if s]
+
+    @http.route(
+        "/saca/line/<int:saca_line_id>/clear/<string:field_name>",
+        type="http",
+        auth="user",
+        methods=["GET", "POST"],
+        website=True,
+        csrf=False,
+    )
+    def saca_line_clear_field(self, saca_line_id, field_name, **post):
+        clearable = {
+            "signature_farm",
+            "signature_driver",
+            "ticket_farm_attachment_id",
+            "ticket_slaughterhouse_attachment_id",
+        }
+        if field_name in clearable:
+            saca_line = request.env["saca.line"].sudo().browse(saca_line_id)
+            vals = {field_name: False}
+            if field_name == "signature_farm":
+                vals["date_signature_farm"] = False
+            elif field_name == "signature_driver":
+                vals["date_signature_driver"] = False
+            saca_line.write(vals)
+        return request.redirect("/my/saca/line/%d" % saca_line_id)
 
     @http.route(
         ["/my/saca/line/<int:saca_line_id>/binary"],
@@ -275,7 +334,6 @@ class CustomerPortal(CustomerPortal):
             Attachments = request.env["ir.attachment"]
             name = post.get("image_file").filename.replace(" ", "_")
             attachment = file.read()
-            # DEPRECATED: file_base64 = base64.encodestring(attachment)
             file_base64 = base64.encodebytes(attachment)
             attachment_id = Attachments.sudo().create(
                 {
@@ -288,6 +346,5 @@ class CustomerPortal(CustomerPortal):
                 }
             )
 
-            saca_line.update({image_field: attachment_id.id})
+            saca_line.write({image_field: attachment_id.id})
         return request.redirect("/my/saca/line/%d" % saca_line_id)
-        # return json.dumps({'success': True, 'message': "File uploaded!"})

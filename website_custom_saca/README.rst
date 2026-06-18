@@ -26,4 +26,5 @@ Contributors
 ------------
 
 * Leire Martinez de Santos <leiremartinez@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>

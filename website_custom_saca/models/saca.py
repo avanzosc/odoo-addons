@@ -1,6 +1,6 @@
 import pytz
 
-from odoo import fields, models
+from odoo import _, fields, models
 
 
 class SacaLine(models.Model):
@@ -16,7 +16,7 @@ class SacaLine(models.Model):
     )
     date_signature_driver = fields.Date("Date signature driver")
     signature_farm = fields.Image(
-        string="Farm's Signature Farm",
+        string="Farm Signature",
         help="Signature received through the portal.",
         copy=False,
         attachment=True,
@@ -36,8 +36,7 @@ class SacaLine(models.Model):
 
     def _get_report_base_filename(self):
         self.ensure_one()
-        fname = "Saca Form-%s" % self.name
-        return fname
+        return _("Saca Form") + f"-{self.name}"
 
     def has_to_be_signed(self, sign_by=None):
         if sign_by == "farm":
