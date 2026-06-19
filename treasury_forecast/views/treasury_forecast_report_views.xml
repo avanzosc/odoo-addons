@@ -14,6 +14,7 @@
         <field name="source" />
         <field name="name" />
         <field name="financing_id" />
+        <field name="company_id" />
         <separator />
 
         <filter string="Income" name="filter_income" domain="[('debit','&gt;',0)]" />
@@ -109,6 +110,11 @@
             name="group_parent_category"
             context="{'group_by': 'parent_category_id'}"
           />
+          <filter
+            string="Company"
+            name="group_company"
+            context="{'group_by': 'company_id'}"
+          />
         </group>
       </search>
     </field>
@@ -125,6 +131,7 @@
         <field name="residual" type="measure" operator="sum" />
         <field name="journal_id" type="row" />
         <field name="source" type="row" />
+        <field name="company_id" type="row" />
         <field name="date" type="column" interval="month" />
       </pivot>
     </field>
