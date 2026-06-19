@@ -1,0 +1,4 @@
+- Support for vendor bills (purchases) in addition to sales.
+- Per-company configuration to enable/disable debt control.
+- Configurable maximum debt threshold.
+- Automated unit tests.
