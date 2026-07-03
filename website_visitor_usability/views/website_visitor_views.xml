@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="website_visitor_view_search" model="ir.ui.view">
+        <field name="model">website.visitor</field>
+        <field name="inherit_id" ref="website.website_visitor_view_search" />
+        <field name="arch" type="xml">
+            <filter name="filter_last_7_days" position="after">
+                <separator />
+                <filter
+          name="filter_last_connection_datetime"
+          string="Last Connection"
+          date="last_connection_datetime"
+        />
+                <filter
+          name="filter_create_date"
+          string="First Connection"
+          date="create_date"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
