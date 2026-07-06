@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+  <record id="product_supplierinfo_import_rule" model="ir.rule">
+    <field name="name">Supplier Pricelist Import Wizard Company Rule</field>
+    <field name="model_id" ref="model_product_supplierinfo_import" />
+    <field
+      name="domain_force"
+    >['|',('company_id','=',False),('company_id','child_of',[user.company_id.id])]</field>
+  </record>
+</odoo>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_supplierinfo_import_view_tree" model="ir.ui.view">
+    <field name="model">product.supplierinfo.import</field>
+    <field name="arch" type="xml">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+        <field name="name" />
+        <field name="file_date" />
+        <field name="state" />
+        <field name="company_id" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_supplierinfo_import_view_form" model="ir.ui.view">
+    <field name="model">product.supplierinfo.import</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            invisible="state == 'done'"
+          />
+          <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            invisible="state not in ('2validate', 'error')"
+          />
+          <button
+            name="action_process"
+            string="Process"
+            type="object"
+            invisible="state not in ('pass', 'error')"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              invisible="not import_line_ids"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+            <button
+              type="object"
+              name="button_open_supplierinfo"
+              invisible="not supplierinfo_count"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+              <field name="supplierinfo_count" widget="statinfo" />
+            </button>
+          </div>
+          <group>
+            <field name="filename" invisible="1" readonly="state == 'done'" />
+            <field name="data" filename="filename" readonly="state == 'done'" />
+            <field name="file_date" readonly="state == 'done'" />
+            <field name="company_id" readonly="state == 'done'" />
+          </group>
+          <notebook>
+            <page string="Imported Lines">
+              <field
+                name="import_line_ids"
+                context="{'list_view_ref': 'product_supplierinfo_import_wizard.product_supplierinfo_import_line_base_view_tree'}"
+                readonly="state == 'done'"
+              />
+            </page>
+            <page string="Error Log" name="log_page" invisible="not log_info">
+              <field name="log_info" />
+            </page>
+            <page string="Help" name="help_page" invisible="state == 'done'">
+              <group>
+                <div name="help" style="margin-top: 4px;">
+                  <h3>Help with Excel column names</h3>
+                  <p>You must use this column names in order to fill the table:</p>
+                  <ul>
+                    <li><code>Proveedor</code>: this will fill <b
+                    >Supplier Name.</b></li>
+                    <li><code>Código de producto</code>: this will fill <b
+                    >Product Code.</b></li>
+                    <li><code>Producto</code>: this will fill <b>Product.</b></li>
+                    <li><code>Secuencia</code>: this will fill <b>Sequence.</b></li>
+                    <li><code>Moneda</code>: this will fill <b>Currency.</b></li>
+                    <li><code>Cantidad mínima</code>: this will fill <b
+                    >Minimal Quantity.</b></li>
+                    <li><code>Precio</code>: this will fill <b>Price.</b></li>
+                    <li><code>Tiempo inicial entrega</code>: this will fill <b
+                    >Delivery Lead Time.</b></li>
+                    <li><code>Fecha de inicio</code>: this will fill <b
+                    >Start Date.</b></li>
+                    <li><code>Fecha finalización</code>: this will fill <b
+                    >End Date.</b></li>
+                    <li><code>Código de producto del proveedor</code>: this will fill <b
+                    >Vendor Product Code.</b></li>
+                    <li><code
+                    >Nombre del producto del proveedor</code>: this will fill <b
+                    >Vendor Product Name.</b></li>
+                  </ul>
+                </div>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+        <chatter />
+      </form>
+    </field>
+  </record>
+
+  <record id="product_supplierinfo_import_view_search" model="ir.ui.view">
+    <field name="model">product.supplierinfo.import</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <group expand="0" string="Group By">
+          <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_supplierinfo_import_action" model="ir.actions.act_window">
+    <field name="name">Import Supplier Pricelists</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.supplierinfo.import</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="product_supplierinfo_import_view_tree" />
+  </record>
+
+  <menuitem
+    id="supplierinfo_import_menu"
+    name="Supplier Pricelists"
+    parent="base_import_wizard.base_import_menu"
+    sequence="100"
+  />
+
+  <menuitem
+    id="product_supplierinfo_import_menu"
+    action="product_supplierinfo_import_action"
+    parent="supplierinfo_import_menu"
+    sequence="10"
+  />
+</odoo>
