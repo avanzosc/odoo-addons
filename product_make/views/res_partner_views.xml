@@ -41,9 +41,10 @@
             context="{'default_partner_id': id,'default_salesperson_id': user_id}"
           >
             <list editable="bottom">
-              <field name="partner_id" invisible="1" />
+              <field name="partner_id" column_invisible="True" />
               <field name="make_id" required="1" />
               <field name="salesperson_id" required="1" />
+              <field name="commission_id" />
             </list>
           </field>
           <field name="make_amount_ids" invisible="1" />

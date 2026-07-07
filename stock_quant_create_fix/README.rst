@@ -9,6 +9,11 @@ Stock Quant Create Fix
 When setting package or owner on outgoing stock move line odoo core creates always a new quant with negative quantities, but if there is an existing quant without owner or package, the new quant shouldn't be created only the quantities on existing quant should be created.
 Core is working with lot but no with package and owners so, this is a fix.
 
+Additionally, this module fixes a problem in validated transfers (done state): when a user removes the lot/serial number from a traceable product's move line, the quantity remains positive and Odoo recreates a quant with an empty lot. To prevent this:
+
+- If the lot is cleared on a done picking's move line, the done quantity is automatically set to zero.
+- If the user tries to set a positive quantity without a lot/serial number on a done picking's move line, a validation error is raised asking them to assign a lot first.
+
 Bug Tracker
 ===========
 
@@ -26,4 +31,5 @@ Contributors
 ------------
 
 * Berezi Amubieta <bereziamubieta@avanzosc.es>
+* Lucía Echeverría <luciaecheverria@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
