@@ -357,7 +357,8 @@ class StockPickingBatchImportLine(models.Model):
         for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
             if line.action == "create":
                 batch, log_info = line._create_batch()
-                batch.action_copy_lineage_rates()
+                if batch:
+                    batch.action_copy_lineage_rates()
             elif line.action == "update":
                 batch, log_info = line._update_batch()
             else:
