@@ -3,12 +3,12 @@
     <record id="stock_picking_batch_import_view_tree" model="ir.ui.view">
         <field name="model">stock.picking.batch.import</field>
         <field name="arch" type="xml">
-            <tree decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+            <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
                 <field name="name" />
                 <field name="file_date" />
                 <field name="company_id" groups="base.group_multi_company" />
                 <field name="state" />
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -22,28 +22,28 @@
             string="Import"
             type="object"
             class="oe_read_only"
-            states="draft,2validate,pass,error"
+            invisible="state not in ('draft', '2validate', 'pass', 'error')"
           />
                     <button
             name="action_validate"
             string="Validate"
             type="object"
             class="oe_read_only"
-            states="2validate,pass,error"
+            invisible="state not in ('2validate', 'pass', 'error')"
           />
                     <button
             name="action_process"
             string="Process"
             type="object"
             class="oe_read_only"
-            states="pass,error"
+            invisible="state not in ('pass', 'error')"
           />
                     <button
             name="action_import_pickings"
             string="Import Pickings"
             type="object"
             class="oe_read_only"
-            states="done,error"
+            invisible="state not in ('done', 'error')"
           />
                     <field name="state" widget="statusbar" />
                 </header>
@@ -53,14 +53,14 @@
               string="Import Lines"
               type="object"
               name="button_open_import_line"
-              attrs="{'invisible':[('import_line_ids', '=', [])]}"
+              invisible="not import_line_ids"
               class="oe_stat_button"
               icon="fa-bars"
             />
                         <button
               type="object"
               name="button_open_batch"
-              attrs="{'invisible':[('batch_count', '=', 0)]}"
+              invisible="batch_count == 0"
               class="oe_stat_button"
               icon="fa-folder-open"
             >
@@ -69,7 +69,7 @@
                         <button
               type="object"
               name="action_view_pickings_import"
-              attrs="{'invisible':[('pickings_import_id', '=', False)]}"
+              invisible="not pickings_import_id"
               class="oe_stat_button"
               string="Import Pickings"
               icon="fa-folder-open"
@@ -95,16 +95,13 @@
                         <page string="Imported Lines">
                             <field name="import_line_ids" />
                         </page>
-                        <page
-              string="Error Log"
-              attrs="{'invisible':[('log_info','=','')]}"
-            >
+                        <page string="Error Log" invisible="not log_info">
                             <field name="log_info" />
                         </page>
                         <page
               string="Help"
               name="help_page"
-              attrs="{'invisible': [('state', '=', 'done')]}"
+              invisible="state == 'done'"
             >
                             <group>
                                 <div style="margin-top: 4px;">
@@ -163,11 +160,11 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" widget="mail_followers" />
-                    <field name="activity_ids" widget="mail_activity" />
-                    <field name="message_ids" widget="mail_thread" />
-                </div>
+                <chatter>
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </chatter>
             </form>
         </field>
     </record>
@@ -208,7 +205,7 @@
         <field name="name">Import Batches</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.picking.batch.import</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="stock_picking_batch_import_view_tree" />
     </record>
 

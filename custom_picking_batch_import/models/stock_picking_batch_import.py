@@ -97,13 +97,13 @@ class StockPickingBatchImport(models.Model):
     def button_open_batch(self):
         self.ensure_one()
         batches = self.mapped("import_line_ids.batch_id")
-        action = self.env.ref("stock_picking_batch.stock_picking_batch_action")
-        action_dict = action.read()[0] if action else {}
-        domain = expression.AND(
-            [[("id", "in", batches.ids)], safe_eval(action.domain or "[]")]
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock_picking_batch.stock_picking_batch_action"
         )
-        action_dict.update({"domain": domain})
-        return action_dict
+        action["domain"] = expression.AND(
+            [[("id", "in", batches.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        return action
 
     def action_import_pickings(self):
         self.ensure_one()
@@ -124,7 +124,7 @@ class StockPickingBatchImport(models.Model):
             ]
         ):
             pickings_import.import_line_ids.unlink()
-            for line in self.import_line_ids.filtered(lambda l: l.state == "done"):
+            for line in self.import_line_ids.filtered(lambda ln: ln.state == "done"):
                 customer_location = self.env["stock.location"].search(
                     [("usage", "=", "customer")], limit=1
                 )
@@ -197,7 +197,7 @@ class StockPickingBatchImport(models.Model):
         context = self.env.context.copy()
         return {
             "name": _("Pickings Import"),
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "res_model": "stock.picking.import",
             "domain": [("id", "=", self.pickings_import_id.ids)],
             "type": "ir.actions.act_window",
@@ -220,129 +220,90 @@ class StockPickingBatchImportLine(models.Model):
         comodel_name="stock.picking.batch.import",
     )
     action = fields.Selection(
-        string="Action",
         selection_add=[
             ("create", "Create"),
             ("update", "Update"),
         ],
-        states={"done": [("readonly", True)]},
         ondelete={"update": "set default", "create": "set default"},
     )
     batch_id = fields.Many2one(string="Batch", comodel_name="stock.picking.batch")
     batch_entry_date = fields.Date(
         string="Entry Date",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     batch_name = fields.Char(
         string="Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     batch_location = fields.Char(
         string="Location",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     batch_lineage = fields.Char(
         string="Lineage",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     batch_type = fields.Selection(
         selection="_get_selection_batch_type",
         string="Type",
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     mother = fields.Char(
-        string="Mother",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     batch_location_id = fields.Many2one(
         string="Location",
         comodel_name="stock.location",
-        states={"done": [("readonly", True)]},
     )
     batch_lineage_id = fields.Many2one(
         string="Lineage",
         comodel_name="lineage",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chick_code = fields.Char(
-        string="Chick Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chick_location = fields.Char(
-        string="Chick Location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chick_qty = fields.Float(
-        string="Chick Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chick_lot = fields.Char(
-        string="Chick Lot",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chicken_code = fields.Char(
-        string="Chicken Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     chicken_qty = fields.Float(
-        string="Chicken Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
     chicken_lot = fields.Char(
-        string="Chicken Lot",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     medicine_code = fields.Char(
-        string="Medicine Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     medicine_location = fields.Char(
-        string="Medicine Location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     medicine_qty = fields.Float(
-        string="Medicine Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     feed_code = fields.Char(
-        string="Feed Code",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     feed_location = fields.Char(
-        string="Feed Location",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     feed_qty = fields.Float(
-        string="Feed Qty",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     feed_family = fields.Char(
-        string="Feed Family",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     feed_family_id = fields.Many2one(string="Feed Family", comodel_name="breeding.feed")
@@ -350,7 +311,7 @@ class StockPickingBatchImportLine(models.Model):
     def action_validate(self):
         super().action_validate()
         line_values = []
-        for line in self.filtered(lambda l: l.state != "done"):
+        for line in self.filtered(lambda ln: ln.state != "done"):
             log_info = ""
             batch = location = lineage = feed_family = False
             batch, log_info_batch = line._check_batch()
@@ -393,7 +354,7 @@ class StockPickingBatchImportLine(models.Model):
     def action_process(self):
         super().action_validate()
         line_values = []
-        for line in self.filtered(lambda l: l.state not in ("error", "done")):
+        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
             if line.action == "create":
                 batch, log_info = line._create_batch()
                 batch.action_copy_lineage_rates()

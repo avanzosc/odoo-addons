@@ -3,7 +3,7 @@
 
 {
     "name": "Custom Pickings Batch Import",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -16,7 +16,6 @@
         "stock_picking_batch_mother",
         "stock_picking_batch_breeding",
         "stock_picking_date_done",
-        "stock_warehouse_farm",
         "stock_move_line_cost",
         "custom_pickings_import_wizard",
     ],
