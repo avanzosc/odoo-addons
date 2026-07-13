@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_order_line_tree" model="ir.ui.view">
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase_order_line_menu.purchase_order_line_tree" />
+    <field name="priority">100</field>
+    <field name="arch" type="xml">
+      <field name="qty_invoiced" position="before">
+        <field name="qty_to_receive" position="move" />
+        <field name="qty_received" position="move" />
+      </field>
+      <field name="qty_invoiced" position="before">
+        <field name="qty_received_manual" position="move" />
+      </field>
+      <field name="qty_invoiced" position="before">
+        <field name="qty_to_invoice" position="move" />
+      </field>
+      <field name="qty_to_receive" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+      <field name="qty_invoiced" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+      <field name="qty_to_invoice" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+      <field name="qty_received" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+      <field name="qty_received_manual" position="attributes">
+        <attribute name="optional">show</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_line_tree2" model="ir.ui.view">
+    <field name="model">purchase.order.line</field>
+    <field name="inherit_id" ref="purchase.purchase_order_line_tree" />
+    <field name="arch" type="xml">
+      <field name="price_subtotal" position="before">
+        <field
+          name="untaxed_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Receive"
+        />
+        <field
+          name="total_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Receive"
+        />
+        <field
+          name="untaxed_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received"
+        />
+        <field
+          name="total_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received"
+        />
+        <field
+          name="untaxed_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received Manually"
+        />
+        <field
+          name="total_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received manually"
+        />
+        <field
+          name="untaxed_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Invoice"
+        />
+        <field
+          name="total_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Invoice"
+        />
+        <field
+          name="untaxed_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Invoiced"
+        />
+        <field
+          name="total_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Invoiced"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>
