@@ -7,7 +7,7 @@
         <p name="payment_communication" position="attributes">
             <attribute
         name="t-if"
-      >o.payment_mode_id and o.print_payment_reference_in_invoices and o.move_type in ('out_invoice', 'in_refund') and o.payment_reference</attribute>
+      >o.print_payment_reference_in_invoices and o.move_type in ('out_invoice', 'in_refund') and o.payment_reference</attribute>
         </p>
     </template>
 </odoo>

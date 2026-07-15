@@ -7,5 +7,7 @@ class AccountPaymentMode(models.Model):
     _inherit = "account.payment.mode"
 
     print_payment_reference_in_invoices = fields.Boolean(
-        string="Print payment reference in invoices", default=False
+        string="Print payment reference in invoices",
+        default=True,
+        copy=False,
     )
