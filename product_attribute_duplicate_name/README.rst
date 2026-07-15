@@ -8,7 +8,8 @@ Product Attribute Duplicate Name
 
 This module allows product attributes to have the same name. It overrides the
 name uniqueness constraint added by ``product_variant_default_code``, so product
-attributes can be duplicated using the standard Odoo action.
+attributes can be duplicated using the standard Odoo action. The duplicated
+attribute name receives the ``(copy)`` suffix.
 
 Bug Tracker
 ===========
@@ -31,4 +32,3 @@ Contributors
 
 * Ane Gurruchaga <aneavanzosc@gmail.com>
 * Ana Juaristi <anajuaristi@avanzosc.es>
-
