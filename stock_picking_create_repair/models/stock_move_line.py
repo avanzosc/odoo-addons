@@ -48,7 +48,7 @@ class StockMoveLine(models.Model):
             sale = self.picking_id.sale_order_id
             vals.update(
                 {
-                    "sale_order_id": sale.id,
+                    "sale_id": sale.id,
                     "partner_invoice_id": (
                         sale.partner_invoice_id.id
                         if sale.partner_invoice_id

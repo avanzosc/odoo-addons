@@ -103,9 +103,7 @@ class SaleOrderLine(models.Model):
         self.ensure_one()
         values = super()._prepare_invoice_line(**optional_values)
         repairs = self.repair_order_ids.filtered(
-            lambda x: not x.invoice_id
-            and x.state in ("done", "2binvoiced")
-            and x.invoice_method != "none"
+            lambda x: not x.invoice_id and x.state == "done"
         )
         if repairs:
             qty = sum(repairs.mapped("product_qty"))
@@ -177,111 +175,6 @@ class SaleOrderLine(models.Model):
                     if move_lines:
                         amount_pending_delivery += repair.amount_untaxed
         return amount_pending_delivery
-
-    @api.depends(
-        "qty_delivered",
-        "qty_invoiced",
-        "discount",
-        "price_unit",
-        "repair_order_ids",
-        "repair_order_ids.state",
-        "repair_order_ids.sale_order_id.invoice_ids.amount_untaxed",
-        "repair_order_ids.from_repair_picking_out_id",
-        "repair_order_ids.sale_order_id.invoice_ids",
-        "repair_picking_move_line_ids",
-        "repair_picking_move_line_ids.state",
-        "repair_picking_move_line_ids.lot_id",
-    )
-    def _compute_qty_shipped_pending_invoicing(self):
-        result = True
-        for line in self:
-            if (
-                line.is_service
-                and line.is_repair
-                and line.product_to_repair_id
-                and line.order_id.is_repair
-            ):
-                amount = 0
-                qty = 0
-                if line.repair_order_ids:
-                    amount, qty = line._get_info_shipped_pending_invoicing()
-                line.amount_shipped_pending_invoicing = amount
-                line.qty_shipped_pending_invoicing = qty
-            else:
-                result = super(
-                    SaleOrderLine, line
-                )._compute_qty_amount_pending_delivery()
-        return result
-
-    def _get_info_shipped_pending_invoicing(self):
-        amount = 0
-        qty = 0
-        for repair in self.repair_order_ids.filtered(
-            lambda x: x.state != "cancel"
-            and x.from_repair_picking_out_id
-            and x.invoice_method != "none"
-            and not x.invoice_id
-        ):
-            picking_id = repair.from_repair_picking_out_id
-            sale_line_id = repair.sale_line_id
-            lot_id = repair.lot_id
-            move_lines = self.repair_picking_move_line_ids.filtered(
-                lambda z,
-                picking_id=picking_id,
-                sale_line_id=sale_line_id,
-                lot_id=lot_id: (
-                    z.picking_id == picking_id
-                    and z.sale_line_id == sale_line_id
-                    and z.lot_id == lot_id
-                    and z.state == "done"
-                )
-            )
-            if move_lines:
-                amount += repair.amount_untaxed
-                qty += repair.product_qty
-        return amount, qty
-
-    @api.depends(
-        "product_uom_qty",
-        "qty_invoiced",
-        "discount",
-        "price_unit",
-        "repair_order_ids",
-        "repair_order_ids.sale_order_id.invoice_ids.amount_untaxed",
-        "repair_order_ids.state",
-        "repair_order_ids.sale_order_id.invoice_ids",
-        "repair_order_ids.sale_order_id.invoice_ids.state",
-        "repair_order_ids.sale_order_id.invoice_ids.amount_residual",
-    )
-    def _compute_qty_amount_pending_invoicing(self):
-        result = True
-        for line in self:
-            if (
-                line.is_service
-                and line.is_repair
-                and line.product_to_repair_id
-                and line.order_id.is_repair
-            ):
-                line.qty_pending_invoicing = line.product_uom_qty - line.qty_invoiced
-                if not line.repair_order_ids:
-                    amount = line.qty_pending_invoicing * line.price_unit
-                else:
-                    amount = line._get_amount_pending_invoicing()
-                line.amount_pending_invoicing = amount
-            else:
-                result = super(
-                    SaleOrderLine, line
-                )._compute_qty_amount_pending_invoicing()
-        return result
-
-    def _get_amount_pending_invoicing(self):
-        amount = 0
-        repairs_without_invoice = self.repair_order_ids.filtered(
-            lambda x: not x.invoice_ids and x.state != "cancel"
-        )
-        if repairs_without_invoice:
-            amount += sum(repairs_without_invoice.mapped("amount_untaxed"))
-        return amount
 
     @api.depends(
         "move_ids.state",
