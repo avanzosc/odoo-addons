@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_stock.report_purchaseorder_document" model="ir.ui.view">
+    <field name="active" eval="False" />
+  </record>
+
+  <record id="purchase_stock.report_purchasequotation_document" model="ir.ui.view">
+    <field name="active" eval="False" />
+  </record>
+
+  <template
+    id="report_purchaseorder_document2"
+    inherit_id="purchase.report_purchaseorder_document"
+    priority="100"
+  >
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="replace" />
+    <xpath expr="//t[@t-set='address']" position="replace">
+      <t t-set="address">
+        <div class="row">
+          <div class="col-6" name="div_shipping_address">
+            <t
+              t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)"
+            >
+              <strong>Shipping address:</strong>
+              <t
+                t-set="shipping_address"
+                t-value="o.dest_address_id or o.picking_type_id.warehouse_id.partner_id"
+              />
+              <div
+                t-esc="shipping_address"
+                name="purchase_shipping_address"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+              />
+            </t>
+          </div>
+          <div class="col-5 offset-1" name="div_address">
+            <div
+              t-field="o.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+            />
+            <p t-if="o.partner_id.vat">
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                            <span t-field="o.partner_id.vat" />
+                        </p>
+          </div>
+        </div>
+      </t>
+    </xpath>
+    <xpath expr="//div[@t-if='o.date_planned']" position="after">
+      <div t-if="o.incoterm_id" class="col-2 bm-2">
+        <strong>Incoterm:</strong>
+        <p t-if="o.incoterm_location">
+          <span t-field="o.incoterm_id.code" />
+          <br />
+          <span t-field="o.incoterm_location" />
+        </p>
+        <p t-else="" t-field="o.incoterm_id.code" class="m-0" />
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="report_purchasequotation_document2"
+    inherit_id="purchase.report_purchasequotation_document"
+    priority="100"
+  >
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="replace" />
+    <xpath expr="//t[@t-set='address']" position="replace">
+      <t t-set="address">
+        <div class="row">
+          <div class="col-6" name="div_shipping_address">
+            <t
+              t-if="o.dest_address_id or (o.picking_type_id and o.picking_type_id.warehouse_id)"
+            >
+              <strong>Shipping address:</strong>
+              <t
+                t-set="shipping_address"
+                t-value="o.dest_address_id or o.picking_type_id.warehouse_id.partner_id"
+              />
+              <div
+                t-esc="shipping_address"
+                name="purchase_shipping_address"
+                t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+              />
+            </t>
+          </div>
+          <div class="col-5 offset-1" name="div_address">
+            <div
+              t-field="o.partner_id"
+              t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'
+            />
+            <p t-if="o.partner_id.vat">
+                            <t t-esc="o.company_id.country_id.vat_label or 'Tax ID'" />:
+                            <span t-field="o.partner_id.vat" />
+                        </p>
+          </div>
+        </div>
+      </t>
+    </xpath>
+    <xpath expr="//span[@t-field='o.name']/.." position="after">
+      <div id="informations" class="row mt16 mb16">
+        <div t-if="o.incoterm_id" class="col-3 bm-2">
+          <strong>Incoterm:</strong>
+          <p t-if="o.incoterm_location">
+            <span t-field="o.incoterm_id.code" />
+            <br />
+            <span t-field="o.incoterm_location" />
+          </p>
+          <p t-else="" t-field="o.incoterm_id.code" class="m-0" />
+        </div>
+      </div>
+    </xpath>
+  </template>
+</odoo>
