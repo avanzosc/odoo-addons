@@ -10,6 +10,7 @@
     "depends": [
         "account",
         "account_payment_mode",
+        "account_payment_partner",
     ],
     "data": [
         "report/account_move_report.xml",

@@ -8,16 +8,16 @@ class AccountMove(models.Model):
 
     print_payment_reference_in_invoices = fields.Boolean(
         string="Print payment reference in invoices",
-        computed="_compute_print_reference",
+        compute="_compute_print_reference",
     )
 
     @api.depends(
-        "payment_mode_id" "payment_mode_id.print_payment_reference_in_invoices"
+        "payment_mode_id", "payment_mode_id.print_payment_reference_in_invoices"
     )
     def _compute_print_reference(self):
         for record in self:
             record.print_payment_reference_in_invoices = (
                 record.payment_mode_id.print_payment_reference_in_invoices
                 if record.payment_mode_id
-                else True
+                else False
             )
