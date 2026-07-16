@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_rebuild_from_history
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-01 07:23+0000\n"
+"PO-Revision-Date: 2026-04-01 07:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_rebuild_from_history
+#: model:ir.actions.server,name:stock_rebuild_from_history.action_convert_consumable_to_stockable
+msgid "Convert Stockable and Rebuild Stock"
+msgstr "Converter estocável e reconstruir estoque"
+
+#. module: stock_rebuild_from_history
+#: model:ir.model,name:stock_rebuild_from_history.model_product_template
+msgid "Product"
+msgstr "Artigo"
+
+#. module: stock_rebuild_from_history
+#: model:ir.actions.server,name:stock_rebuild_from_history.ir_cron_convert_all_consumables_rebuild_stock_ir_actions_server
+msgid "Rebuild Stock All Products"
+msgstr "Reconstruir o estoque de todos os produtos"
+
+#. module: stock_rebuild_from_history
+#. odoo-python
+#: code:addons/stock_rebuild_from_history/models/product_template.py:0
+msgid "There are not variants for this product."
+msgstr "Não há variantes para este produto."
