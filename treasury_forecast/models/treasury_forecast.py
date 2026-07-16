@@ -15,6 +15,12 @@ class TreasuryForecast(models.Model):
     active = fields.Boolean(default=True)
     partner_id = fields.Many2one(comodel_name="res.partner", string="Partner")
     product_id = fields.Many2one(comodel_name="product.product", required=True)
+    product_category_id = fields.Many2one(
+        comodel_name="product.category",
+        related="product_id.categ_id",
+        store=True,
+        readonly=True,
+    )
     journal_id = fields.Many2one(
         comodel_name="account.journal", domain="[('type', 'in', ('bank', 'cash'))]"
     )
@@ -34,14 +40,14 @@ class TreasuryForecast(models.Model):
         required=True,
         default=lambda self: self.env.company.currency_id,
     )
-    expense = fields.Monetary(currency_field="currency_id", group_operator="sum")
-    income = fields.Monetary(currency_field="currency_id", group_operator="sum")
+    expense = fields.Monetary(currency_field="currency_id", aggregator="sum")
+    income = fields.Monetary(currency_field="currency_id", aggregator="sum")
     balance = fields.Monetary(
         string="Line Balance",
         compute="_compute_balance",
         store=True,
         currency_field="currency_id",
-        group_operator="sum",
+        aggregator="sum",
     )
     recurrence_months = fields.Integer(string="Recurrence (Months)", default=1)
 
@@ -52,7 +58,7 @@ class TreasuryForecast(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="Categoría",
+        string="Category",
     )
 
     parent_category_id = fields.Many2one(
@@ -65,7 +71,7 @@ class TreasuryForecast(models.Model):
 
     account_id = fields.Many2one(
         "account.account",
-        string="Cuenta contable",
+        string="Account",
     )
 
     account_type_filter = fields.Char(
@@ -135,7 +141,7 @@ class TreasuryForecast(models.Model):
     def action_open_form(self):
         self.ensure_one()
         return {
-            "name": "Previsión de Tesorería",
+            "name": "Treasury forecast",
             "type": "ir.actions.act_window",
             "res_model": "treasury.forecast",
             "res_id": self.id,
