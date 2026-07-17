@@ -31,7 +31,7 @@ class RepairOrder(models.Model):
     purchase_order_id = fields.Many2one(
         string="Purchase order", comodel_name="purchase.order", copy=False
     )
-    sale_order_id = fields.Many2one(
+    sale_id = fields.Many2one(
         string="Sale order", comodel_name="sale.order", copy=False
     )
     sale_line_id = fields.Many2one(
@@ -53,46 +53,39 @@ class RepairOrder(models.Model):
     is_repair = fields.Boolean(
         string="Is repair", compute="_compute_is_repair", store=True, copy=False
     )
-    amount_untaxed = fields.Float(
-        string="Untaxed Amount",
-        digits="Account",
+    invoice_id = fields.Many2one(
+        string="Invoice",
+        comodel_name="account.move",
+    )
+    currency_id = fields.Many2one(
+        string="Currency",
+        comodel_name="res.currency",
         copy=False,
         store=True,
-        compute="_compute_amount_untaxed",
+        related="invoice_id.currency_id",
     )
-    invoice_ids = fields.Many2many(
-        string="Invoices",
-        comodel_name="account.move",
-        related="sale_order_id.invoice_ids",
+    amount_untaxed = fields.Monetary(
+        string="Untaxed Amount",
+        copy=False,
+        store=True,
+        currency_field="currency_id",
+        related="invoice_id.amount_untaxed",
     )
 
-    @api.depends(
-        "sale_order_id",
-        "sale_order_id.invoice_ids",
-        "sale_order_id.invoice_ids.amount_untaxed",
-    )
-    def _compute_amount_untaxed(self):
-        for repair in self:
-            repair.amount_untaxed = sum(
-                repair.mapped("sale_order_id.invoice_ids.amount_untaxed")
-            )
-
-    @api.depends("sale_order_id", "sale_order_id.is_repair")
+    @api.depends("sale_id", "sale_id.is_repair")
     def _compute_is_repair(self):
         for repair in self:
-            repair.is_repair = (
-                repair.sale_order_id.is_repair if repair.sale_order_id else False
-            )
+            repair.is_repair = repair.sale_id.is_repair if repair.sale_id else False
 
     def action_repair_end(self):
         result = super().action_repair_end()
-        for repair in self.filtered(lambda r: r.sale_order_id):
+        for repair in self.filtered(lambda r: r.sale_id):
             repair.create_out_picking_repair()
         return result
 
     def create_out_picking_repair(self):
         cond = [
-            ("sale_order_id", "=", self.sale_order_id.id),
+            ("sale_id", "=", self.sale_id.id),
             ("from_repair_picking_out_id", "!=", False),
             (
                 "from_repair_picking_out_id.state",
@@ -106,23 +99,22 @@ class RepairOrder(models.Model):
         else:
             vals = self._catch_data_for_create_out_picking_repair()
             picking = self.env["stock.picking"].create(vals)
-        lots = self.sale_order_id.mapped("repair_ids.move_id.lot_ids")
+        lots = self.sale_id.mapped("repair_ids.move_id.lot_ids")
         if self.move_id:
             new_move = self.move_id.find_or_create_from_repair(picking)
             new_move.with_context(force_lots=lots)._action_assign()
         self.from_repair_picking_out_id = picking.id
 
     def _catch_data_for_create_out_picking_repair(self):
-        picking_type = self.sale_order_id.type_id.picking_type_repair_out_id
+        picking_type = self.sale_id.type_id.picking_type_repair_out_id
         vals = {
             "picking_type_id": picking_type.id,
             "location_id": picking_type.default_location_src_id.id,
             "location_dest_id": picking_type.default_location_dest_id.id,
-            "partner_id": self.address_id.id
-            or self.sale_order_id.partner_shipping_id.id,
-            "origin": self.sale_order_id.name,
-            "sale_order_id": self.sale_order_id.id,
-            "company_id": self.sale_order_id.company_id.id,
+            "partner_id": self.address_id.id or self.sale_id.partner_shipping_id.id,
+            "origin": self.sale_id.name,
+            "sale_order_id": self.sale_id.id,
+            "company_id": self.sale_id.company_id.id,
             "is_repair": True,
         }
         return vals
@@ -135,15 +127,16 @@ class RepairOrder(models.Model):
 
     def _put_price_bugdet_in_sale_order_line(self):
         for repair in self.filtered(
-            lambda x: x.sale_order_id
+            lambda x: x.sale_id
             and x.created_from_picking_id
             and x.created_from_move_line_id
         ):
             cond = [
-                ("sale_order_id", "=", repair.sale_order_id.id),
+                ("sale_id", "=", repair.sale_id.id),
                 ("created_from_picking_id", "=", repair.created_from_picking_id.id),
                 ("product_id", "=", repair.product_id.id),
-                ("invoice_method", "!=", "none"),
+                # ("product_id", "=", repair.product_id.id),
+                # ("invoice_method", "!=", "none"),
             ]
             for_product_repairs = self.env["repair.order"].search(cond)
             if for_product_repairs:

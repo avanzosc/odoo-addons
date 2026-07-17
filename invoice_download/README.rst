@@ -2,9 +2,9 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-========================
-Account invoice download
-========================
+================
+invoice download
+================
 
 * When downloading invoices from the list view, do not download them as proforma
   invoices.
