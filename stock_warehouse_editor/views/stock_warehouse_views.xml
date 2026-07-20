@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_warehouse" model="ir.ui.view">
+    <field name="model">stock.warehouse</field>
+    <field name="inherit_id" ref="stock.view_warehouse" />
+    <field name="arch" type="xml">
+      <field name="view_location_id" position="before">
+        <field name="readonly_technical_info" invisible="1" />
+      </field>
+      <field name="view_location_id" position="attributes">
+        <attribute name="required">0</attribute>
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="lot_stock_id" position="attributes">
+        <attribute name="required">0</attribute>
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="wh_input_stock_loc_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="wh_qc_stock_loc_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="wh_pack_stock_loc_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="wh_output_stock_loc_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="int_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="in_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="qc_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="store_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="pick_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="pack_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="out_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+      <field name="xdock_type_id" position="attributes">
+        <attribute name="readonly">readonly_technical_info</attribute>
+      </field>
+    </field>
+  </record>
+</odoo>
