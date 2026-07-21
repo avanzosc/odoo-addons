@@ -261,16 +261,16 @@ class ResPartnerImportLine(models.Model):
         parent = False
         contact, log_info_contact = self._check_partner()
         if log_info_contact:
-            log_infos.append(log_info_contact)
+            log_infos.extend(log_info_contact)
         if self.partner_parent_name:
             parent, log_info_parent = self._check_partner_parent()
             if log_info_parent:
-                log_infos.append(log_info_parent)
+                log_infos.extend(log_info_parent)
         country, country_state, city, zip_info, location_log_infos = (
             self._get_location_info()
         )
         if location_log_infos:
-            log_infos.append(location_log_infos)
+            log_infos.extend(location_log_infos)
         state = "error" if log_infos else "pass"
         action = "nothing"
         if contact and state != "error":
