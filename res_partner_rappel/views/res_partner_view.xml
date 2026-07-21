@@ -20,13 +20,13 @@
                         <field name="invoice_rappel_product" />
                     </group>
                     <field name="partner_rappel_ids">
-                        <tree editable="bottom">
-                            <field name="partner_id" invisible="1" />
+                        <list editable="bottom">
+                            <field name="partner_id" column_invisible="True" />
                             <field name="product_id" />
                             <field name="percentage" />
                             <field name="period" />
                             <field name="company_id" />
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </notebook>

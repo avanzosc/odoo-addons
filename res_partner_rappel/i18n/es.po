@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-11 11:11+0000\n"
-"PO-Revision-Date: 2025-03-11 11:11+0000\n"
+"POT-Creation-Date: 2026-07-21 07:03+0000\n"
+"PO-Revision-Date: 2026-07-21 07:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -46,8 +46,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: res_partner_rappel
-#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line__display_name
-#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner__display_name
 #: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__display_name
 msgid "Display Name"
 msgstr "Mostrar nombre"
@@ -58,8 +56,6 @@ msgid "Group By"
 msgstr "Agrupado por"
 
 #. module: res_partner_rappel
-#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line__id
-#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner__id
 #: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__id
 msgid "ID"
 msgstr "Identificador"
@@ -85,13 +81,6 @@ msgstr "Producto para facturar en rappel"
 #: model:ir.model,name:res_partner_rappel.model_account_move_line
 msgid "Journal Item"
 msgstr "Apunte contable"
-
-#. module: res_partner_rappel
-#: model:ir.model.fields,field_description:res_partner_rappel.field_account_move_line____last_update
-#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner____last_update
-#: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: res_partner_rappel
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
@@ -124,11 +113,10 @@ msgid "Monthly"
 msgstr "Mensual"
 
 #. module: res_partner_rappel
+#. odoo-python
 #: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
-#: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
-#, python-format
 msgid "One rappel line without product per customer."
-msgstr "Una única línea de rappel sin producto por cliente"
+msgstr ""
 
 #. module: res_partner_rappel
 #: model:ir.model.fields,field_description:res_partner_rappel.field_res_partner_rappel__partner_id
@@ -184,10 +172,9 @@ msgid "Rappel Move"
 msgstr "Moviemiento rappel"
 
 #. module: res_partner_rappel
-#: code:addons/res_partner_rappel/models/res_partner.py:0
+#. odoo-python
 #: code:addons/res_partner_rappel/models/res_partner.py:0
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.view_partner_form
-#, python-format
 msgid "Rappels"
 msgstr "Rappel"
 
@@ -197,18 +184,17 @@ msgid "Recalculate Rappel"
 msgstr "Recalcular rappel"
 
 #. module: res_partner_rappel
+#. odoo-python
 #: code:addons/res_partner_rappel/models/account_move_line.py:0
-#, python-format
 msgid "The company, %s, hasn't got the rappel product."
-msgstr "La  empresa, %s, no tiene producto rappel para facturar."
+msgstr ""
 
 #. module: res_partner_rappel
+#. odoo-python
 #: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
-#: code:addons/res_partner_rappel/models/res_partner_rappel.py:0
-#, python-format
 msgid ""
 "There cannot be rappels with product and without product at the same time."
-msgstr "No puede haber rappels con y sin producto al mismo tiempo."
+msgstr ""
 
 #. module: res_partner_rappel
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
@@ -222,5 +208,5 @@ msgstr "Con porcentajes"
 
 #. module: res_partner_rappel
 #: model_terms:ir.ui.view,arch_db:res_partner_rappel.rappel_view_search
-msgid "Wthout Percentage"
-msgstr "Sin porcentajes"
+msgid "Without Percentage"
+msgstr ""

@@ -1,6 +1,6 @@
 # Copyright 2023 Berezi Amubieta - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -43,15 +43,14 @@ class AccountMoveLine(models.Model):
                 and (line.sale_line_ids)
                 and (line.partner_id.partner_rappel_ids)
             ):
-                rappel = line.partner_id.partner_rappel_ids.filtered(
-                    lambda c: c.product_id == line.product_id
-                )
+                partner_rappels = line.partner_id.partner_rappel_ids
+                rappel = partner_rappels.filtered_domain(
+                    [("product_id", "=", line.product_id.id)]
+                )[:1]
                 if not rappel:
-                    rappel = line.partner_id.partner_rappel_ids.filtered(
-                        lambda c: not c.product_id
-                    )
-                if rappel:
-                    rappel = rappel.id
+                    rappel = partner_rappels.filtered_domain(
+                        [("product_id", "=", False)]
+                    )[:1]
             line.partner_rappel_id = rappel
 
     @api.depends("partner_rappel_id")
@@ -71,57 +70,38 @@ class AccountMoveLine(models.Model):
             line._compute_rappel_percentage()
 
     def action_invoice_rappel_lines(self):
-        ids = []
-        for line in self:
-            if line.partner_id and not line.partner_id.invoice_rappel_product:
+        lines = self.filtered(lambda line: not line.rappel_move_id)
+        for partner, partner_lines in lines.grouped("partner_id").items():
+            if partner and not partner.invoice_rappel_product:
                 raise UserError(
                     _(
                         "The company, %s, hasn't got the rappel product.",
-                        line.partner_id.name,
+                        partner.name,
                     )
                 )
-            elif not line.rappel_move_id:
-                if line.partner_id.id not in ids:
-                    ids.append(line.partner_id.id)
-                    account_move = self.env["account.move"].new(
+
+            invoice_lines = []
+            for percentage, percentage_lines in partner_lines.grouped(
+                "rappel_percentage"
+            ).items():
+                invoice_lines.append(
+                    Command.create(
                         {
-                            "move_type": "out_refund",
-                            "partner_id": line.partner_id.id,
-                            "sale_type_id": line.partner_id.sale_type.id,
+                            "product_id": partner.invoice_rappel_product.id,
+                            "quantity": sum(percentage_lines.mapped("quantity")),
+                            "price_unit": percentage,
                         }
                     )
-                    for onchange in account_move._onchange_methods[
-                        "move_type", "partner_id"
-                    ]:
-                        onchange(account_move)
-                    vals = account_move._convert_to_write(account_move._cache)
-                    account_move = self.env["account.move"].create(vals)
-                    if not any(
-                        [
-                            line.rappel_percentage == move_line.price_unit
-                            for move_line in account_move.invoice_line_ids
-                        ]
-                    ):
-                        same_lines = self.filtered(
-                            lambda c: c.partner_id == line.partner_id
-                            and c.rappel_percentage == line.rappel_percentage
-                        )
-                        account_move_line = self.env["account.move.line"].new(
-                            {
-                                "product_id": line.rappel_product_id.id,
-                                "quantity": sum(same_lines.mapped("quantity")),
-                                "price_unit": line.rappel_percentage,
-                                "move_id": account_move.id,
-                            }
-                        )
-                        for onchange in account_move_line._onchange_methods[
-                            "product_id"
-                        ]:
-                            onchange(account_move_line)
-                        vals = account_move_line._convert_to_write(
-                            account_move_line._cache
-                        )
-                        vals["price_unit"] = line.rappel_percentage
-                        account_move.invoice_line_ids = [(0, 0, vals)]
-                        for lin in same_lines:
-                            lin.rappel_move_id = account_move.id
+                )
+            if not invoice_lines:
+                continue
+
+            account_move = self.env["account.move"].create(
+                {
+                    "move_type": "out_refund",
+                    "partner_id": partner.id,
+                    "sale_type_id": partner.sale_type.id,
+                    "invoice_line_ids": invoice_lines,
+                }
+            )
+            partner_lines.rappel_move_id = account_move.id

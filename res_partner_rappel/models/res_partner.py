@@ -14,15 +14,18 @@ class ResPartner(models.Model):
     invoice_rappel_product = fields.Many2one(comodel_name="product.product")
 
     def action_view_rappel(self):
+        self.ensure_one()
         return {
             "name": _("Rappels"),
-            "view_mode": "tree",
+            "view_mode": "list",
             "res_model": "account.move.line",
             "domain": [
                 ("partner_rappel_id", "!=", False),
                 ("partner_id", "=", self.id),
             ],
             "type": "ir.actions.act_window",
-            "views": [[self.env.ref("res_partner_rappel.rappel_view_tree").id, "tree"]],
+            "views": [
+                [self.env.ref("res_partner_rappel.rappel_view_tree").id, "list"]
+            ],
             "context": self.env.context,
         }
