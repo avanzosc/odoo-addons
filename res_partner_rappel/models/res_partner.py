@@ -24,8 +24,6 @@ class ResPartner(models.Model):
                 ("partner_id", "=", self.id),
             ],
             "type": "ir.actions.act_window",
-            "views": [
-                [self.env.ref("res_partner_rappel.rappel_view_tree").id, "list"]
-            ],
+            "views": [[self.env.ref("res_partner_rappel.rappel_view_tree").id, "list"]],
             "context": self.env.context,
         }
