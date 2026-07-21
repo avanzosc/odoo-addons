@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_move_form" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+      <h1 position="after">
+        <h2 invisible="not personal_name">
+          <label for="personal_name" class="d-inline me-1" />
+          <field name="personal_name" class="d-inline" />
+        </h2>
+      </h1>
+    </field>
+  </record>
+
+  <record id="view_out_invoice_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_out_invoice_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_in_invoice_bill_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_in_invoice_bill_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_out_credit_note_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_out_credit_note_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_in_invoice_refund_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_in_invoice_refund_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_move_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_account_move_filter" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_move_filter" />
+    <field name="arch" type="xml">
+      <field name="ref" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_account_invoice_filter" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter" />
+    <field name="arch" type="xml">
+      <field name="ref" position="after">
+        <field name="personal_name" />
+      </field>
+    </field>
+  </record>
+</odoo>

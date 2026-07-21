@@ -2,12 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Purchase Open Qty Totals",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Purchases",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["purchase_open_qty"],
-    "data": ["views/purchase_order_view.xml"],
+    "depends": ["purchase_open_qty", "purchase_order_line_menu"],
+    "data": ["views/purchase_order_view.xml", "views/purchase_order_line_view.xml"],
     "installable": True,
 }
