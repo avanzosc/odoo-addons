@@ -39,11 +39,7 @@
             </page>
           </notebook>
         </sheet>
-        <chatter>
-          <field name="message_follower_ids" />
-          <field name="activity_ids" />
-          <field name="message_ids" />
-        </chatter>
+        <chatter />
       </form>
     </field>
   </record>
@@ -94,6 +90,13 @@
     <field name="res_model">saca</field>
     <field name="view_mode">list,form</field>
   </record>
+
+  <menuitem
+    action="action_saca_view"
+    id="menu_view_saca"
+    parent="stock.menu_stock_warehouse_mgmt"
+    sequence="15"
+  />
 
   <menuitem
     name="Saca"
