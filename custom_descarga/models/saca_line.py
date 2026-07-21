@@ -5,8 +5,6 @@ from datetime import datetime, timedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-ESTIMATED_PERCENT = 2.36
-
 
 class SacaLine(models.Model):
     _inherit = "saca.line"
@@ -83,11 +81,6 @@ class SacaLine(models.Model):
         ],
     )
     craw = fields.Float(copy=False)
-    craw_percentage = fields.Float(
-        compute="_compute_craw_percentage",
-        store=True,
-        group_operator="avg",
-    )
     weight_uom_name = fields.Char(
         string="Weight UOM",
         default=_get_default_weight_uom,
@@ -171,150 +164,6 @@ class SacaLine(models.Model):
     floor = fields.Selection(
         [("single", "Single"), ("top", "Top"), ("below", "Below")], copy=False
     )
-    sampler_id = fields.Many2one(comodel_name="res.partner", copy=False)
-    dock_temperature = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    dock_relative_humidity = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    asphyxiated_percentage = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    asphyxiated_wight = fields.Float(copy=False)
-    seizured_percentage = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    seizured_wight = fields.Float(copy=False)
-    stunning = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    second_percentage = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    dirty_feather_g1 = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    dirty_feather_g2 = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    dirty_feather = fields.Float(
-        compute="_compute_dirty_feather",
-        group_operator="avg",
-    )
-    living_stunned = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    living_stunned_estimated = fields.Float(
-        compute="_compute_living_stunned_estimated",
-        group_operator="avg",
-    )
-    hard_breast = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    hard_breast_estimated = fields.Float(
-        compute="_compute_hard_breast_estimated",
-        group_operator="avg",
-    )
-    wing_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    wing_injury_estimated = fields.Float(
-        compute="_compute_wing_injury_estimated",
-        group_operator="avg",
-    )
-    thingh_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    thingh_injury_estimated = fields.Float(
-        compute="_compute_thingh_injury_estimated",
-        group_operator="avg",
-    )
-    breast_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    breast_injury_estimated = fields.Float(
-        compute="_compute_breast_injury_estimated",
-        group_operator="avg",
-    )
-    back_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    back_injury_estimated = fields.Float(
-        compute="_compute_back_injury_estimated",
-        group_operator="avg",
-    )
-    hock_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    hock_injury_estimated = fields.Float(
-        compute="_compute_hock_injury_estimated",
-        group_operator="avg",
-    )
-    podpdermattis_g1 = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    podpdermattis_g2 = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    podpdermattis = fields.Float(
-        compute="_compute_podpdermattis",
-        group_operator="avg",
-    )
-    gizzard_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    gizzard_injury_estimated = fields.Float(
-        compute="_compute_gizzard_injury_estimated",
-        group_operator="avg",
-    )
-    liver_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    liver_injury_estimated = fields.Float(
-        compute="_compute_liver_injury_estimated",
-        group_operator="avg",
-    )
-    heart_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    heart_injury_estimated = fields.Float(
-        compute="_compute_heart_injury_estimated",
-        group_operator="avg",
-    )
-    bowel_injury = fields.Float(
-        copy=False,
-        group_operator="avg",
-    )
-    bowel_injury_estimated = fields.Float(
-        compute="_compute_bowel_injury_estimated",
-        group_operator="avg",
-    )
-    weighting = fields.Float(
-        compute="_compute_weighting",
-        group_operator="avg",
-    )
-    observations = fields.Text(copy=False)
 
     def _compute_descarga_order(self):
         for line in self:
@@ -339,15 +188,41 @@ class SacaLine(models.Model):
             descarga = self.env.ref("custom_descarga.stage_descarga")
             matanza = self.env.ref("custom_descarga.stage_matanza")
             clasificado = self.env.ref("custom_descarga.stage_clasificado")
-            line.update(
-                {
-                    "is_presaca": line.stage_id == presaca or False,
-                    "is_saca": line.stage_id == saca or False,
-                    "is_descarga": line.stage_id == descarga or False,
-                    "is_killing": line.stage_id == matanza or False,
-                    "is_classified": line.stage_id == clasificado or False,
-                }
-            )
+            line.is_presaca = False
+            line.is_saca = False
+            line.is_descarga = False
+            line.is_killing = False
+            line.is_classified = False
+            if line.stage_id == presaca:
+                line.is_presaca = True
+                line.is_saca = False
+                line.is_descarga = False
+                line.is_killing = False
+                line.is_classified = False
+            if line.stage_id == saca:
+                line.is_presaca = False
+                line.is_saca = True
+                line.is_descarga = False
+                line.is_killing = False
+                line.is_classified = False
+            if line.stage_id == descarga:
+                line.is_presaca = False
+                line.is_saca = False
+                line.is_descarga = True
+                line.is_killing = False
+                line.is_classified = False
+            if line.stage_id == matanza:
+                line.is_presaca = False
+                line.is_saca = False
+                line.is_descarga = False
+                line.is_killing = True
+                line.is_classified = False
+            if line.stage_id == clasificado:
+                line.is_presaca = False
+                line.is_saca = False
+                line.is_descarga = False
+                line.is_killing = False
+                line.is_classified = True
 
     @api.depends("download_unit", "net_dest")
     def _compute_average_weight_dest(self):
@@ -455,109 +330,6 @@ class SacaLine(models.Model):
             if line.purchase_order_id:
                 line.purchase_price = line.purchase_order_id.amount_untaxed
 
-    @api.depends("dirty_feather_g1", "dirty_feather_g2")
-    def _compute_dirty_feather(self):
-        for line in self:
-            line.dirty_feather = (
-                line.dirty_feather_g1 + (line.dirty_feather_g2 * 2)
-            ) / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("podpdermattis_g1", "podpdermattis_g2")
-    def _compute_podpdermattis(self):
-        for line in self:
-            line.podpdermattis = (
-                (line.podpdermattis_g1 * 0.5) + (line.podpdermattis_g2 * 2)
-            ) / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("living_stunned")
-    def _compute_living_stunned_estimated(self):
-        for line in self:
-            line.living_stunned_estimated = line.living_stunned / (
-                ESTIMATED_PERCENT or 1.0
-            )
-
-    @api.depends("hard_breast")
-    def _compute_hard_breast_estimated(self):
-        for line in self:
-            line.hard_breast_estimated = line.hard_breast / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("wing_injury")
-    def _compute_wing_injury_estimated(self):
-        for line in self:
-            line.wing_injury_estimated = line.wing_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("thingh_injury")
-    def _compute_thingh_injury_estimated(self):
-        for line in self:
-            line.thingh_injury_estimated = line.thingh_injury / (
-                ESTIMATED_PERCENT or 1.0
-            )
-
-    @api.depends("breast_injury")
-    def _compute_breast_injury_estimated(self):
-        for line in self:
-            line.breast_injury_estimated = line.breast_injury / (
-                ESTIMATED_PERCENT or 1.0
-            )
-
-    @api.depends("back_injury")
-    def _compute_back_injury_estimated(self):
-        for line in self:
-            line.back_injury_estimated = line.back_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("hock_injury")
-    def _compute_hock_injury_estimated(self):
-        for line in self:
-            line.hock_injury_estimated = line.hock_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("gizzard_injury")
-    def _compute_gizzard_injury_estimated(self):
-        for line in self:
-            line.gizzard_injury_estimated = line.gizzard_injury / (
-                ESTIMATED_PERCENT or 1.0
-            )
-
-    @api.depends("liver_injury")
-    def _compute_liver_injury_estimated(self):
-        for line in self:
-            line.liver_injury_estimated = line.liver_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("heart_injury")
-    def _compute_heart_injury_estimated(self):
-        for line in self:
-            line.heart_injury_estimated = line.heart_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("bowel_injury")
-    def _compute_bowel_injury_estimated(self):
-        for line in self:
-            line.bowel_injury_estimated = line.bowel_injury / (ESTIMATED_PERCENT or 1.0)
-
-    @api.depends("craw", "net_origin")
-    def _compute_craw_percentage(self):
-        for line in self:
-            line.craw_percentage = (
-                (line.craw / line.net_origin) * 100.0 if line.net_origin else 0.0
-            )
-
-    @api.depends(
-        "wing_injury",
-        "hard_breast",
-        "podpdermattis_g1",
-        "podpdermattis_g2",
-        "dirty_feather_g1",
-        "dirty_feather_g2",
-        "second_percentage",
-    )
-    def _compute_weighting(self):
-        for line in self:
-            line.weighting = (
-                (0.55 * line.wing_injury_estimated)
-                + (0.15 * line.hard_breast_estimated)
-                + (0.05 * line.podpdermattis)
-                + (0.05 * line.dirty_feather)
-                + (0.2 * line.second_percentage)
-            )
-
     def write(self, values):
         result = super().write(values)
         if "download_unit" in values:
@@ -624,16 +396,6 @@ class SacaLine(models.Model):
                     line.forklift_operator_ids = [
                         (6, 0, self.forklift_operator_ids.ids)
                     ]
-
-    def action_assign_workers(self):
-        for line in self:
-            other_lines = line.saca_id.saca_line_ids.filtered(
-                lambda l: l.id != line.id and (l.is_descarga or l.is_saca)
-            )
-            for target in other_lines:
-                target.slaughterer_ids = [(6, 0, line.slaughterer_ids.ids)]
-                target.hanger_ids = [(6, 0, line.hanger_ids.ids)]
-                target.forklift_operator_ids = [(6, 0, line.forklift_operator_ids.ids)]
 
     @api.onchange("gross_origin", "tara_origin", "download_unit")
     def onchange_origin(self):
@@ -755,9 +517,8 @@ class SacaLine(models.Model):
                     line.sudo().download_unit = self.download_unit
             vals = {"stage_id": stage_descarga.id}
             if not self.unload_date:
-                now = datetime.now()
-                date = now.date()
-                time = now.time()
+                date = self.date
+                time = datetime.now().time()
                 time = time.strftime("%H:%M:%S")
                 fecha = "{} {}".format(date, time)
                 vals.update({"unload_date": fecha})
