@@ -7,12 +7,9 @@ class TreasuryForecastReport(models.Model):
     _inherit = "treasury.forecast.report"
 
     source = fields.Selection(
-        [("purchase", "Purchase")],
-        string="Origin",
+        selection_add=[("committed", "Committed")],
+        ondelete={"committed": "set null"},
     )
-
-    def _with(self):
-        return ""
 
     def _query_parts(self):
         res = super()._query_parts()
@@ -45,8 +42,8 @@ class TreasuryForecastReport(models.Model):
                ELSE 0
             END AS credit,
 
-            pol.price_subtotal AS balance,
-            pol.price_subtotal AS residual,
+            -pol.price_subtotal AS balance,
+            -pol.price_subtotal AS residual,
 
             NULL AS journal_id,
             NULL AS estimated_journal_id,
@@ -56,7 +53,7 @@ class TreasuryForecastReport(models.Model):
             NULL AS category_id,
             NULL AS parent_category_id,
 
-            'purchase'::text AS source
+            'committed'::text AS source
         """
 
     def _from_purchase(self):
@@ -67,30 +64,5 @@ class TreasuryForecastReport(models.Model):
 
     def _where_purchase(self):
         return """
-           pol.order_id IS NOT NULL
+           po.state IN ('purchase', 'done')
         """
-
-    def _query(self):
-        with_clause = self._with()
-        unions = []
-        for select_, from_, where_ in self._query_parts():
-            unions.append(
-                f"""
-                (
-                    SELECT
-                        {select_}
-                    FROM
-                        {from_}
-                    WHERE
-                        {where_}
-                )
-                """
-            )
-        return f"""
-            {"WITH " + with_clause if with_clause else ""}
-            {" UNION ALL ".join(unions)}
-        """
-
-    @property
-    def _table_query(self):
-        return self._query()

@@ -16,19 +16,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: treasury_forecast_purchase
-#: model:ir.model.fields,field_description:treasury_forecast_purchase.field_treasury_forecast_report__source
-msgid "Origin"
+#: model:ir.model.fields.selection,name:treasury_forecast_purchase.selection__treasury_forecast_report__source__committed
+msgid "Committed"
 msgstr ""
 
 #. module: treasury_forecast_purchase
 #: model:ir.model.fields,field_description:treasury_forecast_purchase.field_purchase_order_line__product_category_id
 msgid "Product Category"
-msgstr ""
-
-#. module: treasury_forecast_purchase
-#: model:ir.model.fields.selection,name:treasury_forecast_purchase.selection__treasury_forecast_report__source__purchase
-#: model_terms:ir.ui.view,arch_db:treasury_forecast_purchase.view_treasury_forecast_report_search_inherit_purchase
-msgid "Purchase"
 msgstr ""
 
 #. module: treasury_forecast_purchase
@@ -43,5 +37,5 @@ msgstr ""
 
 #. module: treasury_forecast_purchase
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_report_pivot
-msgid "Treasury forecast + Real + Purchase"
+msgid "Treasury forecast + Real"
 msgstr ""
