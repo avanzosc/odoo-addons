@@ -7,12 +7,9 @@ class TreasuryForecastReport(models.Model):
     _inherit = "treasury.forecast.report"
 
     source = fields.Selection(
-        [("sale", "Sale")],
-        string="Origin",
+        selection_add=[("committed", "Committed")],
+        ondelete={"committed": "set null"},
     )
-
-    def _with(self):
-        return ""
 
     def _query_parts(self):
         res = super()._query_parts()
@@ -27,10 +24,10 @@ class TreasuryForecastReport(models.Model):
 
     def _select_sale(self):
         return """
-           row_number() OVER() + 2000000 AS id,
+           row_number() OVER() + 3000000 AS id,
 
            so.date_order::date AS date,
-           sol.partner_id AS partner_id,
+           sol.order_partner_id AS partner_id,
            sol.product_id AS product_id,
            sol.product_category_id AS product_category_id,
 
@@ -56,7 +53,7 @@ class TreasuryForecastReport(models.Model):
             NULL AS category_id,
             NULL AS parent_category_id,
 
-            'sale'::text AS source
+            'committed'::text AS source
         """
 
     def _from_sale(self):
@@ -67,30 +64,5 @@ class TreasuryForecastReport(models.Model):
 
     def _where_sale(self):
         return """
-           sol.order_id IS NOT NULL
+           so.state IN ('sale', 'done')
         """
-
-    def _query(self):
-        with_clause = self._with()
-        unions = []
-        for select_, from_, where_ in self._query_parts():
-            unions.append(
-                f"""
-                (
-                    SELECT
-                        {select_}
-                    FROM
-                        {from_}
-                    WHERE
-                        {where_}
-                )
-                """
-            )
-        return f"""
-            {"WITH " + with_clause if with_clause else ""}
-            {" UNION ALL ".join(unions)}
-        """
-
-    @property
-    def _table_query(self):
-        return self._query()

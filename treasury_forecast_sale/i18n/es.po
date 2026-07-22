@@ -16,20 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: treasury_forecast_sale
-#: model:ir.model.fields,field_description:treasury_forecast_sale.field_treasury_forecast_report__source
-msgid "Origin"
-msgstr "Origen"
+#: model:ir.model.fields.selection,name:treasury_forecast_sale.selection__treasury_forecast_report__source__committed
+msgid "Committed"
+msgstr "Comprometido"
 
 #. module: treasury_forecast_sale
 #: model:ir.model.fields,field_description:treasury_forecast_sale.field_sale_order_line__product_category_id
 msgid "Product Category"
 msgstr "Categoría de Producto"
-
-#. module: treasury_forecast_sale
-#: model:ir.model.fields.selection,name:treasury_forecast_sale.selection__treasury_forecast_report__source__sale
-#: model_terms:ir.ui.view,arch_db:treasury_forecast_sale.view_treasury_forecast_report_search_inherit_sale
-msgid "Sale"
-msgstr "Venta"
 
 #. module: treasury_forecast_sale
 #: model:ir.model,name:treasury_forecast_sale.model_sale_order_line
@@ -43,5 +37,5 @@ msgstr "Treasury forecast report"
 
 #. module: treasury_forecast_sale
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_report_pivot
-msgid "Treasury forecast + Real + Sale"
-msgstr "Previsión de Tesorería + Real + Venta"
+msgid "Treasury forecast + Real"
+msgstr "Previsión de tesorería + Real"
