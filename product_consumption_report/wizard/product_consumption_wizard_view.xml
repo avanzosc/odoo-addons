@@ -10,18 +10,18 @@
                         <group>
                             <field name="location_id" required="True" />
                         </group>
-                        <gourp>
+                        <group>
                             <field name="date_start" required="True" />
                             <field name="date_end" required="True" />
-                        </gourp>
+                        </group>
                     </group>
                     <footer>
                         <button
-              name="button_generate_report"
-              string="Accept"
-              type="object"
-              class="oe_highlight"
-            />
+                            name="button_generate_report"
+                            string="Accept"
+                            type="object"
+                            class="oe_highlight"
+                        />
                         or
                         <button special="cancel" string="Cancel" class="oe_link" />
                     </footer>

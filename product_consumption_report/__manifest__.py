@@ -2,13 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Product Consumption Report",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "depends": [
         "stock",
         "purchase_last_price_info",
+        "report_xlsx",
     ],
     "data": [
         "security/ir.model.access.csv",

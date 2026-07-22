@@ -43,8 +43,12 @@ class ProductConsumptionXlsx(models.AbstractModel):
             worksheet.set_column(0, i, 25)
         location = self.env["stock.location"].browse(data.get("location"))
         worksheet.write(n, 0, location.name, table_header)
-        worksheet.write(n, 1, data["date_start"], table_header)
-        worksheet.write(n, 3, data["date_end"], table_header)
+        worksheet.write(
+            n, 1, data.get("date_start_display", data["date_start"]), table_header
+        )
+        worksheet.write(
+            n, 3, data.get("date_end_display", data["date_end"]), table_header
+        )
         n += 1
         worksheet.write(n, 0, _("Product"), table_header)
         worksheet.write(n, 1, _("Initial Inventory"), table_header)
@@ -72,9 +76,10 @@ class ProductConsumptionXlsx(models.AbstractModel):
                     ("picking_code", "=", "incoming"),
                     ("date", ">=", data["date_start"]),
                     ("date", "<=", data["date_end"]),
+                    ("state", "=", "done"),
                 ]
             )
-            entry_qty = sum(entry_lines.mapped("qty_done"))
+            entry_qty = sum(entry_lines.mapped("quantity"))
             consumption = qty_date_start + entry_qty - qty_date_end
             worksheet.write(n, 0, product.display_name, table)
             worksheet.write(n, 1, qty_date_start, table)
