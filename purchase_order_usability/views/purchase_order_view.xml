@@ -10,6 +10,19 @@
       <field name="partner_id" position="after">
         <field name="warehouse_id" optional="show" />
       </field>
+      <field name="date_order" position="attributes">
+        <attribute name="widget">date</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_form" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <field name="date_order" position="attributes">
+        <attribute name="invisible">False</attribute>
+      </field>
     </field>
   </record>
 </odoo>
