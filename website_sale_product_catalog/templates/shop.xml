@@ -218,7 +218,6 @@
     <xpath expr="//t[@t-call='website_sale.filmstrip_categories']" position="before">
       <t t-if="shop_catalogs">
         <t t-set="_cur" t-value="selected_catalog_ids or []" />
-        <t t-set="_selected_catalog_id" t-value="_cur and _cur[0] or False" />
         <div
           class="o_wsale_filmstip_container d-flex align-items-stretch mb-2 overflow-hidden"
         >
@@ -229,7 +228,7 @@
               <t t-foreach="shop_catalogs" t-as="catalog">
                 <t
                   t-set="_catalog_value"
-                  t-value="'' if catalog.id == _selected_catalog_id else str(catalog.id)"
+                  t-value="catalog_selection_values.get(catalog.id, '')"
                 />
                 <li t-attf-class="d-flex {{'pe-3' if not catalog_last else ''}}">
                   <a
@@ -237,7 +236,7 @@
                     class="text-decoration-none"
                   >
                     <div
-                      t-attf-class="d-flex align-items-center h-100 btn px-4 #{catalog.id == _selected_catalog_id and 'btn-primary' or 'btn-' + navClass}"
+                      t-attf-class="d-flex align-items-center h-100 btn px-4 #{catalog.id in _cur and 'btn-primary' or 'btn-' + navClass}"
                     >
                       <t t-esc="catalog.name" />
                     </div>
@@ -265,7 +264,6 @@
     <xpath expr="//t[@t-set='is_sidebar_collapsible']" position="after">
       <t t-if="shop_catalogs">
         <t t-set="_cur" t-value="selected_catalog_ids or []" />
-        <t t-set="_selected_catalog_id" t-value="_cur and _cur[0] or False" />
         <div class="mb-3">
           <h6 class="small text-muted fw-bold mb-2">Catalog</h6>
           <select
@@ -277,8 +275,8 @@
             <option
               t-foreach="shop_catalogs"
               t-as="catalog"
-              t-att-value="keep('/shop', catalog_ids=str(catalog.id))"
-              t-att-selected="'selected' if catalog.id == _selected_catalog_id else False"
+              t-att-value="keep('/shop', catalog_ids=catalog_selection_values.get(catalog.id, ''))"
+              t-att-selected="'selected' if catalog.id in _cur else False"
               t-esc="catalog.name"
             />
           </select>

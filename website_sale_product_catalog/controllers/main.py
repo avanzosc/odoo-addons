@@ -491,10 +491,32 @@ class WebsiteSaleCatalog(WebsiteSale):
         catalogs = (
             request.env["product.catalog"].sudo().search(_website_catalog_domain())
         )
+        selected_catalog_ids = _parse_catalog_ids(request.params)
+        selected_catalogs = catalogs.filtered(
+            lambda catalog: catalog.id in selected_catalog_ids
+        )
+        catalog_selection_values = {}
+        for catalog in catalogs:
+            if catalog in selected_catalogs:
+                new_selection = selected_catalogs - catalog
+            else:
+                incompatible = any(
+                    selected.catalog_type_id
+                    in catalog.catalog_type_id.incompatible_type_ids
+                    or catalog.catalog_type_id
+                    in selected.catalog_type_id.incompatible_type_ids
+                    for selected in selected_catalogs
+                    if catalog.catalog_type_id and selected.catalog_type_id
+                )
+                new_selection = catalog if incompatible else selected_catalogs | catalog
+            catalog_selection_values[catalog.id] = ",".join(
+                str(catalog_id) for catalog_id in new_selection.ids
+            )
         res.update(
             {
                 "shop_catalogs": catalogs,
-                "selected_catalog_ids": _parse_catalog_ids(request.params),
+                "selected_catalog_ids": selected_catalogs.ids,
+                "catalog_selection_values": catalog_selection_values,
             }
         )
         return res
