@@ -87,7 +87,7 @@
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_invoice_tree" />
     <field name="arch" type="xml">
-      <field name="ref" position="after">
+      <field name="name" position="after">
         <field name="personal_name" />
       </field>
     </field>
