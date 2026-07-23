@@ -9,84 +9,86 @@
         <section class="py-5">
           <div class="container">
             <h1 class="mb-4">Catalogs</h1>
-            <t
-              t-set="show_catalogs_search"
-              t-value="is_view_active('website_sale_product_catalog.catalogs_search')"
-            />
-            <t
-              t-set="show_catalogs_layout"
-              t-value="is_view_active('website_sale_product_catalog.catalogs_layout_toggle')"
-            />
-            <div
-              t-if="show_catalogs_search or show_catalogs_layout"
-              class="d-flex flex-column flex-md-row gap-2 mb-4"
-            >
-              <form
-                t-if="show_catalogs_search"
-                method="get"
-                action="/catalogs"
-                class="flex-grow-1"
-              >
-                <div id="catalogs_search_wrap" />
-              </form>
-              <div
-                id="catalogs_layout_wrap"
-                t-if="show_catalogs_layout"
-                class="ms-md-auto"
+            <t t-if="show_catalogs">
+              <t
+                t-set="show_catalogs_search"
+                t-value="is_view_active('website_sale_product_catalog.catalogs_search')"
               />
-            </div>
-            <div t-if="search" class="mb-3">
-              <a href="/catalogs" class="btn btn-sm btn-outline-secondary">
+              <t
+                t-set="show_catalogs_layout"
+                t-value="is_view_active('website_sale_product_catalog.catalogs_layout_toggle')"
+              />
+              <div
+                t-if="show_catalogs_search or show_catalogs_layout"
+                class="d-flex flex-column flex-md-row gap-2 mb-4"
+              >
+                <form
+                  t-if="show_catalogs_search"
+                  method="get"
+                  action="/catalogs"
+                  class="flex-grow-1"
+                >
+                  <div id="catalogs_search_wrap" />
+                </form>
+                <div
+                  id="catalogs_layout_wrap"
+                  t-if="show_catalogs_layout"
+                  class="ms-md-auto"
+                />
+              </div>
+              <div t-if="search" class="mb-3">
+                <a href="/catalogs" class="btn btn-sm btn-outline-secondary">
                 <i class="fa fa-times me-1" />Clear Search
               </a>
-            </div>
-            <t t-if="catalogs">
-              <div class="text-muted small mb-3">
-                <t t-esc="len(catalogs)" />
-                <t t-if="len(catalogs) == 1"> catalog</t>
-                <t t-else=""> catalogs</t>
               </div>
-              <div
-                id="catalogs_grid"
-                t-attf-class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 #{layout_mode == 'list' and 'o_catalog_layout_list' or ''}"
-              >
-                <t t-foreach="catalogs" t-as="catalog">
-                  <div class="col o_catalog_card_item">
-                    <a
-                      t-attf-href="/catalog/#{catalog.id}"
-                      class="o_catalog_card_link text-decoration-none"
-                    >
-                      <div class="card h-100 text-center p-3">
-                        <t t-if="catalog.logo">
-                          <img
-                            t-attf-src="/web/image/product.catalog/#{catalog.id}/logo"
-                            class="o_catalog_card_image img-fluid mb-3"
-                            t-att-alt="catalog.name"
-                          />
-                        </t>
-                        <t t-else="">
-                          <div
-                            class="o_catalog_card_image o_catalog_card_image_placeholder mb-3"
-                          >
-                            <i class="fa fa-book" />
+              <t t-if="catalogs">
+                <div class="text-muted small mb-3">
+                  <t t-esc="len(catalogs)" />
+                  <t t-if="len(catalogs) == 1"> catalog</t>
+                  <t t-else=""> catalogs</t>
+                </div>
+                <div
+                  id="catalogs_grid"
+                  t-attf-class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 #{layout_mode == 'list' and 'o_catalog_layout_list' or ''}"
+                >
+                  <t t-foreach="catalogs" t-as="catalog">
+                    <div class="col o_catalog_card_item">
+                      <a
+                        t-attf-href="/shop?catalog_ids=#{catalog.id}"
+                        class="o_catalog_card_link text-decoration-none"
+                      >
+                        <div class="card h-100 text-center p-3">
+                          <t t-if="catalog.logo">
+                            <img
+                              t-attf-src="/web/image/product.catalog/#{catalog.id}/logo"
+                              class="o_catalog_card_image img-fluid mb-3"
+                              t-att-alt="catalog.name"
+                            />
+                          </t>
+                          <t t-else="">
+                            <div
+                              class="o_catalog_card_image o_catalog_card_image_placeholder mb-3"
+                            >
+                              <i class="fa fa-book" />
+                            </div>
+                          </t>
+                          <div class="card-body p-0">
+                            <h5 class="card-title" t-esc="catalog.name" />
+                            <div
+                              t-if="catalog.description"
+                              class="o_catalog_card_description text-muted small"
+                              t-field="catalog.description"
+                            />
                           </div>
-                        </t>
-                        <div class="card-body p-0">
-                          <h5 class="card-title" t-esc="catalog.name" />
-                          <div
-                            t-if="catalog.description"
-                            class="o_catalog_card_description text-muted small"
-                            t-field="catalog.description"
-                          />
                         </div>
-                      </div>
-                    </a>
-                  </div>
-                </t>
-              </div>
-            </t>
-            <t t-else="">
-              <p class="text-muted">No catalogs found.</p>
+                      </a>
+                    </div>
+                  </t>
+                </div>
+              </t>
+              <t t-else="">
+                <p class="text-muted">No catalogs found.</p>
+              </t>
             </t>
           </div>
         </section>

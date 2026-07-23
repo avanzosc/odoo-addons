@@ -158,12 +158,18 @@ class WebsiteCatalog(http.Controller):
                     ),
                 ]
             )
-        catalogs = request.env["product.catalog"].sudo().search(domain)
+        show_catalogs = not request.env.user._is_public()
+        catalogs = (
+            request.env["product.catalog"].sudo().search(domain)
+            if show_catalogs
+            else request.env["product.catalog"]
+        )
         layout_mode = _get_catalog_layout_mode(CATALOGS_LAYOUT_SESSION_KEY)
         return request.render(
             "website_sale_product_catalog.catalogs",
             {
                 "catalogs": catalogs,
+                "show_catalogs": show_catalogs,
                 "search": search,
                 "layout_mode": layout_mode,
             },
