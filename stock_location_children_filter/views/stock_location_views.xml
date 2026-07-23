@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_location_tree2" model="ir.ui.view">
+    <field name="model">stock.location</field>
+    <field name="inherit_id" ref="stock.view_location_tree2" />
+    <field name="arch" type="xml">
+      <field name="is_empty" position="before">
+        <field name="has_children" optional="show" />
+        <field name="num_children" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_location_form" model="ir.ui.view">
+    <field name="model">stock.location</field>
+    <field name="inherit_id" ref="stock.view_location_form" />
+    <field name="arch" type="xml">
+      <div class="oe_button_box" position="inside">
+        <button
+          name="action_view_location_children"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-tasks"
+          invisible="num_children == 0"
+        >
+          <field name="num_children" widget="statinfo" string="Num. Children" />
+        </button>
+      </div>
+    </field>
+  </record>
+
+  <record id="view_location_search" model="ir.ui.view">
+    <field name="model">stock.location</field>
+    <field name="inherit_id" ref="stock.view_location_search" />
+    <field name="arch" type="xml">
+      <filter name="supplier" position="after">
+        <separator />
+        <filter
+          name="without_children"
+          string="Without Children"
+          domain="[('has_children', '=', False)]"
+        />
+        <filter
+          name="with_children"
+          string="With Children"
+          domain="[('has_children', '=', True)]"
+        />
+      </filter>
+      <filter name="usage" position="after">
+        <filter
+          string="Has Children"
+          name="group-has_children"
+          domain="[]"
+          context="{'group_by': 'has_children'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
