@@ -210,6 +210,29 @@
   </template>
 
   <template
+    id="shop_catalog_cart_notice"
+    inherit_id="website_sale.products"
+    name="Catalog Cart Notice"
+  >
+    <xpath expr="//t[@t-call='website_sale.filmstrip_categories']" position="before">
+      <div
+        t-if="catalog_cart_cleared"
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert"
+      >
+        The cart was emptied because the selected catalog is not compatible
+        with the products it contained.
+        <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      />
+      </div>
+    </xpath>
+  </template>
+
+  <template
     id="shop_catalog_pills_top"
     inherit_id="website_sale.products"
     active="False"
@@ -232,7 +255,7 @@
                 />
                 <li t-attf-class="d-flex {{'pe-3' if not catalog_last else ''}}">
                   <a
-                    t-att-href="keep('/shop', catalog_ids=_catalog_value)"
+                    t-att-href="keep('/shop', catalog_ids=_catalog_value, catalog_clear_cart='1' if catalog_selection_clears_cart.get(catalog.id) else '')"
                     class="text-decoration-none"
                   >
                     <div
@@ -275,7 +298,7 @@
             <option
               t-foreach="shop_catalogs"
               t-as="catalog"
-              t-att-value="keep('/shop', catalog_ids=catalog_selection_values.get(catalog.id, ''))"
+              t-att-value="keep('/shop', catalog_ids=catalog_selection_values.get(catalog.id, ''), catalog_clear_cart='1' if catalog_selection_clears_cart.get(catalog.id) else '')"
               t-att-selected="'selected' if catalog.id in _cur else False"
               t-esc="catalog.name"
             />
