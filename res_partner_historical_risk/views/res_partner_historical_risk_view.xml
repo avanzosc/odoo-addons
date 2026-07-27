@@ -4,12 +4,12 @@
         <field name="name">res.partner.historical.risk.tree.view</field>
         <field name="model">res.partner.historical.risk</field>
         <field name="arch" type="xml">
-            <tree create="false">
-                <field name="partner_id" />
-                <field name="commercial_partner_id" />
-                <field name="sale_type" />
-                <field name="date" />
-                <field name="credit_policy_amount" />
+            <tree editable="top" create="false" delete="false">
+                <field name="partner_id" readonly="1" />
+                <field name="commercial_partner_id" readonly="1" />
+                <field name="sale_type" readonly="1" />
+                <field name="date" readonly="1" />
+                <field name="credit_policy_amount" readonly="1" />
                 <field name="risk_total_amount" />
             </tree>
         </field>
@@ -39,7 +39,11 @@
             name="commercial_partner"
             context="{'group_by':'commercial_partner_id'}"
           />
-      <filter string="Sale Type" name="sale_type" context="{'group_by':'sale_type'}" />
+                    <filter
+            string="Sale Type"
+            name="sale_type"
+            context="{'group_by':'sale_type'}"
+          />
                     <filter string="Date" name="date" context="{'group_by':'date'}" />
                 </group>
             </search>
