@@ -24,6 +24,9 @@
         />
         <field name="product_id" optional="show" />
         <field name="name" optional="show" />
+        <field name="quantity" optional="show" />
+        <field name="income_price" optional="show" />
+        <field name="expense_price" optional="show" />
         <field
           name="income"
           sum="Total Income"
@@ -77,6 +80,9 @@
             <field name="currency_id" />
           </group>
           <group>
+            <field name="quantity" />
+            <field name="income_price" />
+            <field name="expense_price" />
             <field name="income" />
             <field name="expense" />
             <field name="balance" readonly="1" />

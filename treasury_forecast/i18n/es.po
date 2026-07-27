@@ -447,6 +447,21 @@ msgid "Treasury Analysis"
 msgstr ""
 
 #. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__expense_price
+msgid "Expense Price"
+msgstr "Precio Gasto"
+
+#. module: treasury_forecast
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__income_price
+msgid "Income Price"
+msgstr "Precio Ingreso"
+
+#. module: treasury_forecast
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast
 #: model:ir.model,name:treasury_forecast.model_treasury_forecast
 msgid "Treasury Forecast"
@@ -484,7 +499,8 @@ msgstr "Previsión Tesorería + Real"
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__category_type
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing_category__category_type
 msgid "Type"
-msgstr "tipo"
+msgstr "Tipo"
+
 
 #. module: treasury_forecast
 #. odoo-python

@@ -14,14 +14,15 @@ page.
 Key features
 ============
 
-* **Visible on Website** flag per catalog — only flagged catalogs appear on the
-  website.
+* **Visible on Website** flag per catalog — only flagged catalogs belonging to
+  the current company appear on the website.
 * Translatable catalog names and descriptions for multilingual websites.
 * **Catalogs page** (``/catalogs``) — searchable catalog cards (logo + name)
   accessible from the main navigation menu, with customer-facing grid/list
   layout buttons.
-* **Catalog detail page** (``/catalog/<id>``) — shows all products belonging to
-  a catalog with variant names, prices, public-category and attribute filters.
+* **Catalog detail page** (``/catalog/<id>``) — shows the catalog products that
+  have a currently valid item in the customer's pricelist, with variant names,
+  prices, public-category and attribute filters.
 * **Catalog detail toolbar** with optional product search, sorting, and
   customer-facing grid/list layout buttons. The selected layout is stored in
   the visitor session.

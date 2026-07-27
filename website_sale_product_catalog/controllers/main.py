@@ -4,7 +4,7 @@ import logging
 
 import werkzeug.exceptions
 
-from odoo import _, http
+from odoo import _, fields, http
 from odoo.http import request
 from odoo.osv import expression
 
@@ -15,6 +15,14 @@ _logger = logging.getLogger(__name__)
 CATALOG_ITEMS_PER_PAGE = 48
 CATALOG_PRODUCTS_LAYOUT_SESSION_KEY = "website_sale_product_catalog_products_layout"
 CATALOGS_LAYOUT_SESSION_KEY = "website_sale_product_catalog_catalogs_layout"
+
+
+def _website_catalog_domain():
+    return [
+        ("active", "=", True),
+        ("visible_slider", "=", True),
+        ("company_id", "=", request.env.company.id),
+    ]
 
 
 def _parse_catalog_ids(params):
@@ -69,6 +77,31 @@ def _get_catalog_attributes(attrib_map):
     ]
 
 
+def _get_customer_catalog_items(catalog):
+    """Return current customer-pricelist items for the catalog products."""
+    product_ids = catalog.pricelist_item_ids.mapped("product_id").ids
+    if not product_ids:
+        return request.env["product.pricelist.item"]
+
+    now = fields.Datetime.now()
+    return (
+        request.env["product.pricelist.item"]
+        .sudo()
+        .search(
+            [
+                ("pricelist_id", "=", request.website.pricelist_id.id),
+                ("product_id", "in", product_ids),
+                "|",
+                ("date_start", "=", False),
+                ("date_start", "<=", now),
+                "|",
+                ("date_end", "=", False),
+                ("date_end", ">=", now),
+            ]
+        )
+    )
+
+
 def _item_matches(
     item,
     search,
@@ -112,7 +145,7 @@ class WebsiteCatalog(http.Controller):
     @http.route("/catalogs", type="http", auth="public", website=True)
     def catalogs(self, search=None, **post):
         search = (search or "").strip()
-        domain = [("active", "=", True), ("visible_slider", "=", True)]
+        domain = _website_catalog_domain()
         if search:
             domain = expression.AND(
                 [
@@ -125,12 +158,18 @@ class WebsiteCatalog(http.Controller):
                     ),
                 ]
             )
-        catalogs = request.env["product.catalog"].sudo().search(domain)
+        show_catalogs = not request.env.user._is_public()
+        catalogs = (
+            request.env["product.catalog"].sudo().search(domain)
+            if show_catalogs
+            else request.env["product.catalog"]
+        )
         layout_mode = _get_catalog_layout_mode(CATALOGS_LAYOUT_SESSION_KEY)
         return request.render(
             "website_sale_product_catalog.catalogs",
             {
                 "catalogs": catalogs,
+                "show_catalogs": show_catalogs,
                 "search": search,
                 "layout_mode": layout_mode,
             },
@@ -166,8 +205,15 @@ class WebsiteCatalog(http.Controller):
         order=None,
         **post,
     ):
-        catalog = request.env["product.catalog"].sudo().browse(catalog_id)
-        if not catalog.exists() or not catalog.active:
+        catalog = (
+            request.env["product.catalog"]
+            .sudo()
+            .search(
+                _website_catalog_domain() + [("id", "=", catalog_id)],
+                limit=1,
+            )
+        )
+        if not catalog:
             raise werkzeug.exceptions.NotFound()
 
         args = request.httprequest.args
@@ -179,7 +225,7 @@ class WebsiteCatalog(http.Controller):
         order = order if order in available_orders else ""
         layout_mode = _get_catalog_layout_mode(CATALOG_PRODUCTS_LAYOUT_SESSION_KEY)
 
-        all_items = catalog.pricelist_item_ids.filtered(
+        all_items = _get_customer_catalog_items(catalog).filtered(
             lambda i: (
                 i.product_id
                 and i.product_id.active
@@ -366,8 +412,15 @@ class WebsiteSaleCatalog(WebsiteSale):
         catalog_id = request.params.get("catalog_id")
         if catalog_id:
             try:
-                catalog = request.env["product.catalog"].sudo().browse(int(catalog_id))
-                if catalog.exists() and catalog.active:
+                catalog = (
+                    request.env["product.catalog"]
+                    .sudo()
+                    .search(
+                        _website_catalog_domain() + [("id", "=", int(catalog_id))],
+                        limit=1,
+                    )
+                )
+                if catalog:
                     values["catalog"] = catalog
             except (ValueError, TypeError):
                 _logger.debug(
@@ -384,7 +437,9 @@ class WebsiteSaleCatalog(WebsiteSale):
         catalog_ids = _parse_catalog_ids(request.params)
         if catalog_ids:
             catalogs = (
-                request.env["product.catalog"].sudo().browse(catalog_ids).exists()
+                request.env["product.catalog"]
+                .sudo()
+                .search(_website_catalog_domain() + [("id", "in", catalog_ids)])
             )
             tmpl_ids = catalogs._get_product_tmpl_ids()
             domain = expression.AND([domain, [("id", "in", tmpl_ids)]])
@@ -397,7 +452,9 @@ class WebsiteSaleCatalog(WebsiteSale):
         catalog_ids = _parse_catalog_ids(request.params)
         if catalog_ids:
             catalogs = (
-                request.env["product.catalog"].sudo().browse(catalog_ids).exists()
+                request.env["product.catalog"]
+                .sudo()
+                .search(_website_catalog_domain() + [("id", "in", catalog_ids)])
             )
             catalog_tmpl_ids = set(catalogs._get_product_tmpl_ids())
             search_result = search_result.filtered(lambda p: p.id in catalog_tmpl_ids)
@@ -432,9 +489,7 @@ class WebsiteSaleCatalog(WebsiteSale):
     def _get_additional_extra_shop_values(self, values, **post):
         res = super()._get_additional_extra_shop_values(values, **post)
         catalogs = (
-            request.env["product.catalog"]
-            .sudo()
-            .search([("active", "=", True), ("visible_slider", "=", True)])
+            request.env["product.catalog"].sudo().search(_website_catalog_domain())
         )
         res.update(
             {

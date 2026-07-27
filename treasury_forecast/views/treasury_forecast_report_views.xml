@@ -94,11 +94,7 @@
             name="group_estimated_journal"
             context="{'group_by': 'estimated_journal_id'}"
           />
-          <filter
-            string="Origin"
-            name="group_source"
-            context="{'group_by': 'source'}"
-          />
+          <filter string="Type" name="group_source" context="{'group_by': 'source'}" />
           <filter
             string="Category"
             name="group_category"
@@ -118,7 +114,7 @@
     <field name="name">treasury.forecast.report.pivot</field>
     <field name="model">treasury.forecast.report</field>
     <field name="arch" type="xml">
-      <pivot string="Tresury forecast + Real">
+      <pivot string="Treasury forecast + Real">
         <field name="debit" type="measure" operator="sum" />
         <field name="credit" type="measure" operator="sum" />
         <field name="balance" type="measure" operator="sum" />
