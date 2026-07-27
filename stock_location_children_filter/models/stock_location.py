@@ -12,17 +12,26 @@ class StockLocation(models.Model):
     num_children = fields.Integer(
         string="Num. Children", compute="_compute_has_children", store=True
     )
+    num_descendants = fields.Integer(
+        string="Num. Descendants", compute="_compute_num_descendants", store=True
+    )
 
     @api.depends("child_ids")
     def _compute_has_children(self):
         for location in self:
-            children = location.child_internal_location_ids - location
-            location.has_children = bool(children)
-            location.num_children = len(children)
+            location.has_children = bool(location.child_ids)
+            location.num_children = len(location.child_ids)
+
+    @api.depends("child_ids", "child_ids.num_descendants")
+    def _compute_num_descendants(self):
+        for location in self:
+            location.num_descendants = len(location.child_ids) + sum(
+                location.child_ids.mapped("num_descendants")
+            )
 
     def action_view_location_children(self):
         self.ensure_one()
-        children = self.child_internal_location_ids - self
+        children = self.child_ids
         action = self.env["ir.actions.actions"]._for_xml_id(
             "stock.action_location_form"
         )
