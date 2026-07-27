@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_bank_statement_line_kanban_legacy" model="ir.ui.view">
+    <field name="name">
+            account.bank.statement.line.kanban.legacy
+    </field>
+    <field name="model">account.bank.statement.line</field>
+
+    <field
+      name="inherit_id"
+      ref="account_accountant.view_bank_statement_line_kanban_bank_rec_widget"
+    />
+
+    <field name="mode">primary</field>
+
+    <field name="arch" type="xml">
+      <xpath expr="//kanban" position="attributes">
+        <attribute name="js_class">legacy_bank_rec_widget_kanban</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <!--
+        Acción de ventana, no acción cliente.
+    -->
+  <record id="action_bank_reconcile_legacy" model="ir.actions.act_window">
+    <field name="name">Conciliación bancaria clásica</field>
+    <field name="res_model">account.bank.statement.line</field>
+    <field name="view_mode">kanban</field>
+    <field name="view_id" ref="view_bank_statement_line_kanban_legacy" />
+    <field name="target">current</field>
+  </record>
+
+  <!-- Botón en el dashboard contable. -->
+  <record id="account_journal_dashboard_kanban_view_legacy" model="ir.ui.view">
+    <field name="name">
+            account.journal.dashboard.kanban.legacy.reconciliation
+    </field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//button[@id='all_transactions_btn']" position="after">
+        <button
+          t-if="(journal_type == 'bank' or journal_type == 'credit')
+              and dashboard.number_to_reconcile"
+          name="action_open_legacy_reconcile"
+          type="object"
+          class="btn btn-secondary"
+        >
+        Conciliación clásica
+        </button>
+      </xpath>
+    </field>
+  </record>
+</odoo>

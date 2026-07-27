@@ -1,0 +1,438 @@
+.o_legacy_manual_reconcile_view {
+  --legacy-manual-accent: #00a09d;
+  --legacy-manual-border: #d6dce1;
+  --legacy-manual-muted: #9aa4af;
+  --legacy-manual-ink: #24384d;
+
+  min-height: calc(100vh - 46px);
+  overflow-y: auto;
+  background: #f7f7f7;
+  color: var(--legacy-manual-ink);
+
+  // La navegación estándar añade mucho ruido en esta vista.
+  .o_control_panel {
+    display: none !important;
+  }
+
+  .o_legacy_manual_reconcile_header,
+  .o_list_renderer {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+    max-width: 1140px;
+    margin-right: auto;
+    margin-left: auto;
+    background: #fff;
+  }
+
+  .o_legacy_manual_reconcile_header {
+    display: grid !important;
+    grid-template-columns: minmax(280px, 1fr) minmax(260px, 48%);
+    align-items: center;
+    gap: 40px;
+    margin-top: 12px;
+    padding: 24px 18px 22px;
+    border: 1px solid var(--legacy-manual-border);
+    border-bottom: 0;
+
+    h1 {
+      margin: 0;
+      color: #111827;
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+  }
+
+  .o_legacy_manual_progress {
+    height: 13px;
+    background: #e9edf1;
+    color: #667085;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+  }
+
+  .o_list_renderer {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    flex: 0 0 auto !important;
+    align-self: stretch;
+    margin-bottom: 40px;
+    padding: 0 18px 44px;
+    overflow: visible !important;
+    border: 1px solid var(--legacy-manual-border);
+    border-top: 0;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+
+  .o_list_table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: collapse;
+    color: #5b6673;
+    font-size: 13px;
+
+    thead,
+    tfoot {
+      display: none;
+    }
+
+    td {
+      padding-top: 4px;
+      padding-bottom: 4px;
+      vertical-align: middle;
+    }
+
+    // En las filas legacy ocultamos las celdas estándar
+    // y mostramos una única celda con el grid propio.
+    .o_legacy_manual_proposal_row,
+    .o_legacy_manual_candidate_row {
+      > td {
+        display: none !important;
+      }
+
+      > .o_legacy_manual_compact_cell {
+        display: table-cell !important;
+        width: 100%;
+        padding: 0;
+        border: 0;
+      }
+    }
+
+    .o_legacy_manual_compact_line {
+      display: grid;
+      grid-template-columns: 28px 95px minmax(0, 1fr) 110px 110px;
+      align-items: center;
+      column-gap: 8px;
+      width: 100%;
+      min-height: 28px;
+      padding: 2px 8px;
+      box-sizing: border-box;
+      cursor: pointer;
+      user-select: none;
+
+      > * {
+        min-width: 0;
+      }
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      &:focus {
+        outline: 1px solid var(--legacy-manual-accent);
+        outline-offset: -1px;
+      }
+    }
+
+    .o_legacy_manual_line_selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 24px;
+      margin: 0;
+      padding: 0;
+      color: #24476b;
+      pointer-events: none;
+
+      .fa {
+        width: 16px;
+        text-align: center;
+      }
+    }
+
+    .o_legacy_manual_line_date,
+    .o_legacy_manual_line_amount {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .o_legacy_manual_line_amount {
+      text-align: right;
+    }
+
+    .o_legacy_manual_aml_description {
+      display: block;
+      min-width: 0;
+      overflow: hidden;
+      color: #5b6673;
+      line-height: 22px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // Cabecera de cada cuenta.
+  .o_group_header {
+    > .o_legacy_manual_group_cell {
+      padding: 0 !important;
+      border-top: 12px solid #fff !important;
+      border-bottom: 1px solid #aeb6bf;
+      background: #fff !important;
+    }
+
+    .o_legacy_manual_group_grid {
+      display: grid;
+      grid-template-columns: 28px 95px minmax(0, 1fr) 110px 110px;
+      align-items: center;
+      column-gap: 8px;
+      width: 100%;
+      min-width: 0;
+      padding: 7px 8px;
+      box-sizing: border-box;
+    }
+
+    .o_legacy_manual_group_heading {
+      display: grid;
+      grid-column: 1 / 4;
+      grid-template-columns: minmax(0, 1fr) auto minmax(120px, auto);
+      align-items: center;
+      column-gap: 10px;
+      min-width: 0;
+    }
+
+    .o_legacy_manual_group_title {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .o_legacy_manual_group_label {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--legacy-manual-ink);
+      font-size: 13px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &.o_group_open {
+      .o_legacy_manual_group_label {
+        color: var(--legacy-manual-accent);
+      }
+    }
+
+    .o_group_caret {
+      flex: 0 0 auto;
+      color: #24476b;
+    }
+
+    .o_legacy_manual_group_amount {
+      min-width: 0;
+      overflow: hidden;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .o_legacy_manual_group_debit {
+      grid-column: 4;
+    }
+
+    .o_legacy_manual_group_credit {
+      grid-column: 5;
+    }
+
+    .o_legacy_manual_group_pager {
+      display: flex;
+      justify-content: flex-end;
+      min-width: 120px;
+      white-space: nowrap;
+
+      .o_pager {
+        flex-wrap: nowrap;
+      }
+    }
+  }
+
+  // Pareja seleccionada o propuesta.
+  .o_legacy_manual_proposal_row {
+    background-color: #f0f0f0 !important;
+
+    > .o_legacy_manual_compact_cell {
+      border-bottom: 1px solid #e1e5e8 !important;
+      background-color: #f0f0f0 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // Pareja propuesta visible en una cuenta cerrada.
+  .o_legacy_manual_folded_pair_row {
+    background-color: #f0f0f0;
+
+    > .o_legacy_manual_compact_cell {
+      display: table-cell !important;
+      width: 100%;
+      padding: 0;
+      border-bottom: 1px solid #e1e5e8;
+      background-color: #f0f0f0;
+    }
+
+    .o_legacy_manual_compact_line {
+      cursor: default;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .o_legacy_manual_line_selector {
+      pointer-events: none;
+    }
+  }
+
+  .o_legacy_manual_no_proposal {
+    td {
+      padding: 8px 14px;
+      color: var(--legacy-manual-muted);
+      font-style: italic;
+    }
+  }
+
+  // Panel de posibles contrapartidas.
+  .o_legacy_manual_candidate_filter {
+    td {
+      padding: 12px 14px 7px;
+      border: 1px solid var(--legacy-manual-border);
+      border-bottom: 0;
+      border-radius: 3px 3px 0 0;
+      background: #fff;
+    }
+  }
+
+  .o_legacy_manual_candidate_search {
+    display: grid;
+    grid-template-columns: minmax(180px, 260px) 24px;
+    align-items: center;
+
+    input {
+      width: 100%;
+      min-width: 0;
+      padding: 3px 4px;
+      border: 0;
+      border-bottom: 1px solid #c7cdd3;
+      outline: 0;
+      background: transparent;
+      color: #5b6673;
+
+      &::placeholder {
+        color: #b9c0c7;
+      }
+
+      &:focus {
+        border-bottom-color: var(--legacy-manual-accent);
+      }
+    }
+
+    .fa {
+      color: var(--legacy-manual-accent);
+      text-align: center;
+    }
+  }
+
+  .o_legacy_manual_candidate_row {
+    background-color: #fff;
+
+    > .o_legacy_manual_compact_cell {
+      border-right: 1px solid var(--legacy-manual-border) !important;
+      border-bottom: 1px solid #edf0f2 !important;
+      border-left: 1px solid var(--legacy-manual-border) !important;
+      background-color: transparent !important;
+    }
+
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
+
+  // La última AML no dibuja su borde inferior,
+  // porque lo dibujará la fila de cierre.
+  .o_legacy_manual_candidate_row:has(+ .o_legacy_manual_candidate_footer) {
+    > .o_legacy_manual_compact_cell {
+      border-bottom: 0 !important;
+    }
+  }
+
+  // Fila sin altura que dibuja únicamente
+  // el borde horizontal de cierre.
+  .o_legacy_manual_candidate_footer {
+    display: table-row;
+    height: 0 !important;
+    font-size: 0;
+    line-height: 0;
+
+    td {
+      height: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-top: 1px solid var(--legacy-manual-border) !important;
+      background: transparent;
+      font-size: 0;
+      line-height: 0;
+    }
+  }
+
+  .o_legacy_manual_no_candidates {
+    td {
+      padding: 16px 14px;
+      border: 1px solid var(--legacy-manual-border);
+      border-top: 0;
+      background: #fff;
+      color: var(--legacy-manual-muted);
+      font-style: italic;
+      text-align: center;
+    }
+  }
+
+  .o_legacy_manual_reconcile_button {
+    min-width: 86px;
+    margin-left: 0;
+    white-space: nowrap;
+    border-color: var(--legacy-manual-accent);
+    background: var(--legacy-manual-accent);
+    text-transform: uppercase;
+
+    &:disabled {
+      border-color: #d7dce1;
+      background: #d7dce1;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .o_legacy_manual_reconcile_view {
+    .o_legacy_manual_reconcile_header {
+      grid-template-columns: 1fr;
+      gap: 18px;
+      padding: 20px 12px;
+    }
+
+    .o_legacy_manual_reconcile_header,
+    .o_list_renderer {
+      width: calc(100% - 16px);
+    }
+
+    .o_list_renderer {
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+
+    .o_list_table {
+      .o_legacy_manual_compact_line,
+      .o_legacy_manual_group_grid {
+        grid-template-columns: 24px 82px minmax(0, 1fr) 90px 90px;
+        column-gap: 5px;
+      }
+    }
+  }
+}
