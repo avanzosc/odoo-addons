@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_picking" inherit_id="stock.report_picking" priority="100">
+        <th name="th_serial_number" position="after">
+            <th
+        class="text-right"
+        name="th_unit_price"
+        t-if="picking_operation_valued"
+      ><strong>Unit Price</strong></th>
+            <th
+        class="text-right"
+        name="th_discount"
+        groups="product.group_discount_per_so_line"
+        t-if="picking_operation_valued"
+      >
+                <strong>Discount</strong>
+            </th>
+            <th
+        class="text-right"
+        name="th_taxes"
+        t-if="picking_operation_valued"
+      ><strong>Taxes</strong></th>
+            <th
+        class="text-right"
+        name="th_subtotal"
+        t-if="picking_operation_valued"
+        groups="account.group_show_line_subtotals_tax_excluded"
+      >
+                <strong>Subtotal</strong></th>
+            <th
+        class="text-right"
+        name="th_total"
+        t-if="picking_operation_valued"
+        groups="account.group_show_line_subtotals_tax_included"
+      >
+                <strong>Total</strong>
+            </th>
+        </th>
+        <td t-if="has_serial_number" position="after">
+            <td
+        class="text-right"
+        name="td_price_unit"
+        t-if="picking_operation_valued and o.sale_id"
+      >
+                <span t-field="ml.sale_price_unit" />
+            </td>
+            <td
+        class="text-right"
+        name="td_discount"
+        groups="product.group_discount_per_so_line"
+        t-if="picking_operation_valued and o.sale_id"
+      >
+                <span t-field="ml.sale_discount" />
+            </td>
+            <td
+        class="text-right"
+        name="td_taxes"
+        t-if="picking_operation_valued and o.sale_id"
+      >
+                <span t-field="ml.sale_price_tax" />
+            </td>
+            <td
+        class="text-right"
+        name="td_subtotal"
+        t-if="picking_operation_valued and o.sale_id"
+        groups="account.group_show_line_subtotals_tax_excluded"
+      >
+                <span t-field="ml.sale_price_subtotal" />
+            </td>
+            <td
+        class="text-right"
+        name="td_total"
+        t-if="picking_operation_valued and o.sale_id"
+        groups="account.group_show_line_subtotals_tax_included"
+      >
+                <span t-field="ml.sale_price_total" />
+            </td>
+        </td>
+        <table t-if="o.move_line_ids and o.move_ids_without_package" position="after">
+            <t t-if="picking_operation_valued and o.sale_id">
+                <table class="table table-sm mt32">
+                    <thead>
+                        <tr>
+                            <th
+                class="text-right"
+                name="th_total_amount_untaxed"
+              ><strong>Untaxed Amount</strong></th>
+                            <th class="text-right" name="th_total_taxes"><strong
+                >Taxes</strong></th>
+                            <th class="text-right" name="th_total_amount_total"><strong
+                >Total</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-right" name="td_total_amount_untaxed">
+                                <span t-field="o.amount_untaxed" />
+                            </td>
+                            <td class="text-right" name="td_total_taxes">
+                                <span t-field="o.amount_tax" />
+                            </td>
+                            <td class="text-right" name="td_total_amount_total">
+                                <span t-field="o.amount_total" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </t>
+        </table>
+    </template>
+
+
+    <template id="report_picking_not_valued">
+        <t t-set="picking_operation_valued" t-value="False" />
+        <t t-call="stock.report_picking" />
+    </template>
+
+    <template id="report_picking_valued">
+        <t t-set="picking_operation_valued" t-value="True" />
+        <t t-call="stock.report_picking" />
+    </template>
+
+    <record id="stock.action_report_picking" model="ir.actions.report">
+        <field name="name">Picking Operations</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_operation_report_valued.report_picking_not_valued</field>
+        <field name="report_file">stock.report_picking_operations</field>
+        <field
+      name="print_report_name"
+    >'Picking Operations - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_report_picking_operation_valued" model="ir.actions.report">
+        <field name="name">Picking Operations Valued</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_operation_report_valued.report_picking_valued</field>
+        <field name="report_file">stock.report_picking_operations</field>
+        <field
+      name="print_report_name"
+    >'Picking Operations Valued - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

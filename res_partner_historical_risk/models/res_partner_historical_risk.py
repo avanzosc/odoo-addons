@@ -23,5 +23,5 @@ class ResPartnerHistoricalRisk(models.Model):
         comodel_name="res.company", related="partner_id.company_id", store=True
     )
     date = fields.Date(readonly=True)
-    risk_total_amount = fields.Float(string="Amount Risk", readonly=True)
+    risk_total_amount = fields.Float(string="Amount Risk")
     credit_policy_amount = fields.Float(readonly=True)
