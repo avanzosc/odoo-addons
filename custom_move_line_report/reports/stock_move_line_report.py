@@ -167,6 +167,14 @@ class StockMoveLineReport(models.Model):
         comodel_name="product.category",
         readonly=True,
     )
+    commercial_partner_id = fields.Many2one(
+        comodel_name="res.partner",
+        readonly=True,
+    )
+    contact_sale_type_id = fields.Many2one(
+        comodel_name="sale.order.type",
+        readonly=True,
+    )
 
     def action_view_move_report(self):
         context = self.env.context.copy()
@@ -230,6 +238,8 @@ class StockMoveLineReport(models.Model):
             line.ref,
             line.production_id,
             line.partner_id,
+            line.commercial_partner_id,
+            line.contact_sale_type_id,
             line.product_id,
             line.product_category_type_id,
             line.product_category_id,
@@ -264,6 +274,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.commercial_partner_id AS commercial_partner_id,
+                    stock_move_line.contact_sale_type_id AS contact_sale_type_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -312,6 +324,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.commercial_partner_id AS commercial_partner_id,
+                    stock_move_line.contact_sale_type_id AS contact_sale_type_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -360,6 +374,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_id AS picking_id,
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.commercial_partner_id AS commercial_partner_id,
+                    stock_move_line.contact_sale_type_id AS contact_sale_type_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
@@ -411,6 +427,8 @@ class StockMoveLineReport(models.Model):
                     stock_move_line.picking_type_id AS picking_type_id,
                     stock_move_line.production_id AS production_id,
                     stock_move_line.picking_partner_id AS partner_id,
+                    stock_move_line.commercial_partner_id AS commercial_partner_id,
+                    stock_move_line.contact_sale_type_id AS contact_sale_type_id,
                     stock_move_line.product_id AS product_id,
                     stock_move_line.product_category_type_id
                         AS product_category_type_id,
