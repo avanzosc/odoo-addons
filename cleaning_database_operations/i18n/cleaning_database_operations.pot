@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 09:59+0000\n"
-"PO-Revision-Date: 2024-05-16 09:59+0000\n"
+"POT-Creation-Date: 2026-07-29 08:34+0000\n"
+"PO-Revision-Date: 2026-07-29 08:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,32 +17,204 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid ""
-"Account Analytic Line, Account Partial Reconcile, Account Move Line, Account"
-" Move, Account Payment Order."
+msgid "Account"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Accounting:"
+msgid "Account Analytic Line"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Accounting Operations"
+msgid "Account Asset"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Assets Lines"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Move"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Move Line"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__account_move_lines_2delete
+msgid "Account Move Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__account_moves_2delete
+msgid "Account Moves 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Partial Reconcile"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Payment Order"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Account Payment Order Lines"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__analytic_lines_2delete
+msgid "Analytic Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__asset_lines_2delete
+msgid "Asset Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__assets_2delete
+msgid "Assets 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Bank Statement"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Bank Statement Lines"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__bank_statement_lines_2delete
+msgid "Bank Statement Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__bank_statements_2delete
+msgid "Bank Statements 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_res_config_settings__cleaning_base_batch_size
+msgid "Base Batch Size"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__campaign_id
+msgid "Campaign"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Check Deposit"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__check_deposits_2delete
+msgid "Check Deposits 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Clean Point of Sale Quotations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Clean Purchase Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Clean Valuation Layers"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Analytic Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Assets"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Bank Statements"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Check Deposits"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.actions.act_window,name:cleaning_database_operations.action_cleaning_database_view
+#: model:ir.actions.server,name:cleaning_database_operations.ir_cron_cleaning_database_ir_actions_server
+#: model:ir.cron,cron_name:cleaning_database_operations.ir_cron_cleaning_database
+#: model:ir.cron,name:cleaning_database_operations.ir_cron_cleaning_database
 #: model:ir.ui.menu,name:cleaning_database_operations.cleaning_database
 #: model:ir.ui.menu,name:cleaning_database_operations.menu_view_cleaning_database
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.res_config_settings_view_form
 msgid "Cleaning Database"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model,name:cleaning_database_operations.model_cleaning_database
 msgid "Cleaning Database Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Inventory Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Journal Entries"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -57,17 +229,22 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Purchase Operations"
+msgid "Cleaning Payment Orders"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Sale Operations"
+msgid "Cleaning PoS Operations"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Sequences"
+msgid "Cleaning PoS Sessions"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Quants"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -81,14 +258,25 @@ msgid "Cleaning Transport Operations"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Cleaning Valuation Layers"
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "Cleaning has been completed"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "Cleaning has been scheduled"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__company_ids
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Companies"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model,name:cleaning_database_operations.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -109,27 +297,238 @@ msgid "Creation date: {}"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__date_limit
+msgid "Date Limit"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.res_config_settings_view_form
+msgid "Default Batch Size:"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_res_config_settings__cleaning_base_batch_size
+msgid "Default batch size for database cleaning operations."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_account_move_operations
+msgid "Delete Account Move Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_accounting
+msgid "Delete Accounting"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_analytic_operations
+msgid "Delete Analytic Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_asset_operations
+msgid "Delete Asset Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_bank_statement_operations
+msgid "Delete Bank Statement Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_check_deposit_operations
+msgid "Delete Check Deposit Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_inventory_operations
+msgid "Delete Inventory Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_manufacturing
+msgid "Delete Manufacturing"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_payment_operations
+msgid "Delete Payment Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Delete Payment Orders"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_point_of_sale
+msgid "Delete Point Of Sale"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_pos_orders
+msgid "Delete Pos Orders"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_pos_quotations
+msgid "Delete Pos Quotations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_pos_sessions
+msgid "Delete Pos Sessions"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_purchase
+msgid "Delete Purchase"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_quant
+msgid "Delete Quant"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_sale
+msgid "Delete Sale"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Delete Sale Orders"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_stock
+msgid "Delete Stock"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_stock_operations
+msgid "Delete Stock Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_stock_production_lot
+msgid "Delete Stock Production Lot"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_stock_valuation_operations
+msgid "Delete Stock Valuation Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__delete_transport_operations
+msgid "Delete Transport Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__name
 msgid "Description"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__display_name
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database__state__done
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_search_view
+msgid "Done"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database__state__draft
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_search_view
+msgid "Draft"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_search_view
+msgid "Group By"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__id
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_res_config_settings__id
 msgid "ID"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_needaction
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Inventory:"
+msgid "Inventory"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Inventory Stock Move"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Inventory Stock Move Line"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__is_clean
+msgid "Is Clean"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_is_follower
+msgid "Is Follower"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database____last_update
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr ""
 
@@ -145,12 +544,92 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "MRP Workorder, MRP Production"
+msgid "MRP Production"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Manufacturing:"
+msgid "MRP Workorder"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Manufacturing"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__medium_id
+msgid "Medium"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__mrp_productions_2delete
+msgid "Mrp Productions 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__mrp_workorders_2delete
+msgid "Mrp Workorders 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__message_unread_counter
+msgid "Number of unread messages"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -159,13 +638,113 @@ msgid "Others"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Purchase Order Line, Purchase Order."
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__partial_reconciles_2delete
+msgid "Partial Reconciles 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__payment_lines_2delete
+msgid "Payment Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__payment_orders_2delete
+msgid "Payment Orders 2Delete"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Purchases:"
+msgid "Pending"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "PoS Payment"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Point of Sale"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Point of Sale Quotation Lines"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Point of Sale Quotations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Pos Order"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Pos Order Line"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_order_lines_2delete
+msgid "Pos Order Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_orders_2delete
+msgid "Pos Orders 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_payments_2delete
+msgid "Pos Payments 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_quotation_lines_2delete
+msgid "Pos Quotation Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_quotations_2delete
+msgid "Pos Quotations 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Pos Session"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__pos_sessions_2delete
+msgid "Pos Sessions 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Purchase"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__purchase_lines_2delete
+msgid "Purchase Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Purchase Order"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Purchase Order Line"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__purchase_orders_2delete
+msgid "Purchase Orders 2Delete"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -174,25 +753,212 @@ msgid "Reset sequences"
 msgstr ""
 
 #. module: cleaning_database_operations
-#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Sale Order Line, Sale Order."
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__activity_user_id
+msgid "Responsible User"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Sales:"
+msgid "Restart Sequences"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
-msgid "Squence"
+msgid "Sale"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__sale_lines_2delete
+msgid "Sale Lines 2Delete"
 msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Sale Order Line:"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__sale_orders_2delete
+msgid "Sale Orders 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Sale Orders:"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Schedule"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database__state__scheduled
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_search_view
+msgid "Scheduled"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Sequences"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.res_config_settings_view_form
+msgid "Set a default batch size for database cleaning operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__source_id
+msgid "Source"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_search_view
+msgid "State"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__state
+msgid "Status"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__activity_state
 msgid ""
-"Stock Move Line, Stock Move, Stock Picking, Stock Quant, Stock Valuation "
-"Layer, Stock Inventory, Stock Production Lot."
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 1: Accounting"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 2: Manufacturing"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 3: Stock"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 4: Sales"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 5: Purchases"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Step 6: Point of Sale"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_inventories_2delete
+msgid "Stock Inventories 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Inventory"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_inventory_move_lines_2delete
+msgid "Stock Inventory Move Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_inventory_moves_2delete
+msgid "Stock Inventory Moves 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_lots_2delete
+msgid "Stock Lots 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Move"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Move Line"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_move_lines_2delete
+msgid "Stock Move Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_moves_2delete
+msgid "Stock Moves 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Picking"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_pickings_2delete
+msgid "Stock Pickings 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Production Lot"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Quant"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_quants_2delete
+msgid "Stock Quants 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Valuation Layer"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__stock_valuation_layers_2delete
+msgid "Stock Valuation Layers 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__campaign_id
+msgid ""
+"This is a name that helps you keep track of your different campaign efforts,"
+" e.g. Fall_Drive, Christmas_Special"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__medium_id
+msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__source_id
+msgid ""
+"This is the source of the link, e.g. Search Engine, another domain, or name "
+"of email list"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -201,6 +967,26 @@ msgid "This will delete the following objects"
 msgstr ""
 
 #. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__transport_carrier_lines_2delete
+msgid "Transport Carrier Lines 2Delete"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Transport Carrier Lines To Invoice"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,help:cleaning_database_operations.field_cleaning_database__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__message_unread_counter
+msgid "Unread Messages Counter"
 msgstr ""
