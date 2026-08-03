@@ -4,6 +4,7 @@
     <field name="name">account.move.form.recalculate.invoice.lines</field>
     <field name="model">account.move</field>
     <field name="inherit_id" ref="account.view_move_form" />
+    <field name="active" eval="True" />
     <field name="arch" type="xml">
       <xpath
         expr="//field[@name='invoice_line_ids']/list/field[@name='currency_id']"

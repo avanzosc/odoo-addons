@@ -4,6 +4,7 @@
     <field name="name">product.category.discount.exclude.form</field>
     <field name="model">product.category</field>
     <field name="inherit_id" ref="product.product_category_form_view" />
+    <field name="active" eval="True" />
     <field name="arch" type="xml">
       <xpath expr="//field[@name='parent_id']" position="after">
         <field name="discounts_exclude" />
