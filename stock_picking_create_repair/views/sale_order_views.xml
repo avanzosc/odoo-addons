@@ -49,7 +49,7 @@
       <xpath expr="//header/button[3]" position="attributes">
         <attribute
           name="invisible"
-        >is_repair or invoice_status != 'to_invoice'</attribute>
+        >is_repair or invoice_status != 'to invoice'</attribute>
       </xpath>
       <xpath expr="//header/button[4]" position="attributes">
         <attribute
@@ -119,11 +119,12 @@
         expr="//field[@name='order_line']/list/field[@name='name']"
         position="after"
       >
-        <field name="is_repair" invisible="1" />
+        <field name="is_repair" column_invisible="1" />
         <field
           name="product_to_repair_id"
           optional="show"
           required="is_repair"
+          column_invisible="not parent.is_repair"
           domain="[('type','=','consu')]"
         />
       </xpath>
@@ -194,7 +195,7 @@
     <field name="name">Sale order repair</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">sale.order</field>
-    <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+    <field name="view_mode">list,kanban,form,calendar,pivot,graph,activity</field>
     <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale" />
     <field name="context">{'sale_order_from_repair': True}</field>
     <field name="domain">[('is_repair', '=', True)]</field>

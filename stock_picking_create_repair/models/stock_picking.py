@@ -71,6 +71,11 @@ class StockPicking(models.Model):
                 lambda x: x.quantity > 0 and not x.created_repair_id
             ):
                 vals = line.catch_values_from_create_repair_from_picking()
+                if "sale_id" not in vals:
+                    cond = [("code", "=", "repair_operation")]
+                    repair_type = self.env["stock.picking.type"].search(cond, limit=1)
+                    if repair_type:
+                        vals["picking_type_id"] = repair_type.id
                 repair = self.env["repair.order"].create(vals)
                 line.created_repair_id = repair.id
 

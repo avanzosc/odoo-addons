@@ -6,7 +6,16 @@
 Purchase Order Qty Totals
 =========================
 
-Total quantities of the purchase order lines. Be careful, because it sums quantities even if the uom of the lines are different.
+* In purchase order lines, amounts with and without taxes for the fields
+  "Qty Invoiced", "Qty To Invoice", "Qty To Receive", "Qty Received" and
+  "Qty Received Manual".
+
+* In purchase orders, new fields include "Ordered Qty", "Qty Invoiced",
+  "Qty To Invoice", "Qty To Receive", "Qty Received", "Qty Received Manual",
+  and also their corresponding amounts with and without taxes.
+
+* Total quantities of the purchase order lines. Be careful, because it sums
+  quantities even if the uom of the lines are different.
 
 Bug Tracker
 ===========
