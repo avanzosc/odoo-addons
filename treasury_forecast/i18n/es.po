@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-13 05:42+0000\n"
-"PO-Revision-Date: 2026-05-13 05:42+0000\n"
+"POT-Creation-Date: 2026-06-19 08:40+0000\n"
+"PO-Revision-Date: 2026-06-19 08:40+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Cuenta contable"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__account_type_filter
 msgid "Account Type Filter"
-msgstr ""
+msgstr "Filtro de tipo de cuenta"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__active
@@ -37,7 +37,7 @@ msgstr "Activo"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__balance
 msgid "Balance"
-msgstr "Balance"
+msgstr "Saldo"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
@@ -63,11 +63,15 @@ msgstr "Tipo de categoría"
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__code
 msgid "Code"
-msgstr ""
+msgstr "Código"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__company_id
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__company_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__company_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
 msgid "Company"
 msgstr "Compañía"
 
@@ -232,7 +236,7 @@ msgstr "Agrupar por"
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_generate_lines__id
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
@@ -252,7 +256,7 @@ msgstr "Ingreso"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_form
 msgid "Installment Details"
-msgstr ""
+msgstr "Detalles de la cuota"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__end_date
@@ -419,7 +423,7 @@ msgstr "La recurrencia debe ser de al menos 1 mes."
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__residual
 msgid "Residual"
-msgstr "Residual"
+msgstr "Pendiente"
 
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_search
@@ -444,7 +448,7 @@ msgstr "Ingreso total"
 #. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
 msgid "Treasury Analysis"
-msgstr ""
+msgstr "Análisis de tesorería"
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__quantity
@@ -470,7 +474,7 @@ msgstr "Previsión de tesorería"
 #. module: treasury_forecast
 #: model:ir.model,name:treasury_forecast.model_treasury_forecast_report
 msgid "Treasury Forecast Report"
-msgstr "Treasury forecast report"
+msgstr "Informe de previsión de tesorería"
 
 #. module: treasury_forecast
 #: model:ir.ui.menu,name:treasury_forecast.menu_treasury_forecast
@@ -512,7 +516,7 @@ msgstr "Los valores de gasto e ingreso deben ser positivos."
 #. odoo-python
 #: code:addons/treasury_forecast/models/treasury_financing.py:0
 msgid "You must specify the installment start date."
-msgstr "Debe indicar la fecha inicio cuotas"
+msgstr "Debe indicar la fecha de inicio de las cuotas."
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__installment_amount
