@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_area_view_tree" model="ir.ui.view">
+        <field name="name">res.area.tree.view</field>
+        <field name="model">res.area</field>
+        <field name="arch" type="xml">
+            <tree string="Area">
+                <field name="code" />
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_area_view_form" model="ir.ui.view">
+        <field name="name">res.area.form</field>
+        <field name="model">res.area</field>
+        <field name="arch" type="xml">
+            <form string="Area">
+                <sheet>
+                    <label for="code" class="oe_edit_only" />
+                    <field name="code" />
+                    <h1>
+                        <label for="name" class="oe_edit_only" />
+                        <field name="name" />
+                    </h1>
+                    <label for="description" class="oe_edit_only" />
+                    <field name="description" />
+                    <label for="type_ids" />
+                    <field name="type_ids" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_area_view_search" model="ir.ui.view">
+        <field name="name">res.area.search</field>
+        <field name="model">res.area</field>
+        <field name="arch" type="xml">
+            <search string="Search area">
+                <field name="name" />
+                <field name="description" />
+            </search>
+        </field>
+    </record>
+    
+    <record id="res_area_action" model="ir.actions.act_window">
+        <field name="name">Area</field>
+        <field name="res_model">res.area</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{
+        }</field>
+    </record>
+
+</odoo>
