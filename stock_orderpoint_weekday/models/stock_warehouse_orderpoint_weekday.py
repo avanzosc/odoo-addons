@@ -54,6 +54,12 @@ class StockWarehouseOrderpointWeekday(models.Model):
         store=True,
         related="orderpoint_id.location_id",
     )
+    warehouse_id = fields.Many2one(
+        string="Warehouse",
+        comodel_name="stock.warehouse",
+        store=True,
+        related="orderpoint_id.warehouse_id",
+    )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",

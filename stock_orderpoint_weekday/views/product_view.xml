@@ -9,7 +9,6 @@
                 <button
           name="action_view_weekday_orderpoints"
           type="object"
-          attrs="{'invisible':[('nbr_reordering_weekday_rules', '==', 1)]}"
           class="oe_stat_button"
           icon="fa-refresh"
         >
@@ -35,7 +34,6 @@
                 <button
           name="action_view_weekday_orderpoints"
           type="object"
-          attrs="{'invisible':[('nbr_reordering_weekday_rules', '==', 0)]}"
           class="oe_stat_button"
           icon="fa-refresh"
         >
