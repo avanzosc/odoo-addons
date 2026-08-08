@@ -12,11 +12,21 @@ class ProductPricelistItem(models.Model):
         action['res_id'] = self.id
         return action
 
-    def apply_discount(self, discount, positive=None):
+    def _get_discounted_price(self, price, discount, positive=None):
+        if positive:
+            return price / ((100 - discount) / 100)
+        return price * ((100 - discount) / 100)
+
+    def apply_discount(self, discount, positive=None, price_fields=None):
         if discount and discount <= 0.0:
             raise ValidationError(_('Discount must be greater than 0.0'))
         for record in self:
-            if positive:
-                record.fixed_price = record.fixed_price / ((100-discount)/100)
-            else:
-                record.fixed_price = record.fixed_price * ((100-discount)/100)
+            values = {}
+            for price_field in price_fields:
+                try:
+                    values[price_field] = record._get_discounted_price(
+                        record[price_field], discount, positive=positive)
+                except KeyError:
+                    continue
+            if values:
+                record.write(values)
