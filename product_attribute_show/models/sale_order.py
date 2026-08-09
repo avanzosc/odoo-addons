@@ -5,9 +5,9 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    def recalc_line_description(self):
+    def recalc_line_description(self, model=None):
         for line in self.mapped('order_line'):
-            line.name = line.get_sale_order_line_multiline_description_sale(line.product_id)
+            line.name = line.get_sale_order_line_multiline_description_sale(line.product_id, model=model)
 
 
 class SaleOrderLine(models.Model):
@@ -54,3 +54,6 @@ class SaleOrderLine(models.Model):
             if i < len(attribute_values):
                 origin_str += separator
         return origin_str
+
+    def get_sale_order_line_multiline_description_sale(self, product, model=None, order_id=None):
+        return product.get_product_multiline_description_sale(model=model, order_id=order_id) + self._get_sale_order_line_multiline_description_variants()
