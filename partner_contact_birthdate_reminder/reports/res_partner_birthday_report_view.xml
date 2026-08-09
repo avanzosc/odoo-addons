@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_partner_birthday_report_view_tree" model="ir.ui.view">
+        <field name="model">res.partner.birthday.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="birthdate" />
+                <field name="birthdate_day" invisible="True"/>
+                <field name="birthdate_month" invisible="True"/>
+                <field name="birthdate_year" invisible="True"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="res_partner_birthday_report_view_search" model="ir.ui.view">
+        <field name="model">res.partner.birthday.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="birthdate" />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_res_partner_birthday_report" model="ir.actions.act_window">
+        <field name="name">Contact's Birthdays</field>
+        <field name="res_model">res.partner.birthday.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id"
+               ref="res_partner_birthday_report_view_search"/>
+    </record>
+
+    <menuitem id="action_res_partner_birthday_report_menuitem"
+              parent="contacts.res_partner_menu_config"
+              action="action_res_partner_birthday_report"
+              sequence="101" />
+</odoo>
