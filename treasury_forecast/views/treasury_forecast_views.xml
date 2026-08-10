@@ -15,13 +15,14 @@
         <field name="partner_id" optional="show" />
         <field name="company_id" optional="hide" />
         <field name="financing_id" optional="show" />
-        <field name="category_id" optional="show" />
-        <field name="parent_category_id" optional="show" />
+        <field name="parent_category_id" optional="hide" />
+        <field name="category_id" optional="hide" />
         <field
           name="account_id"
           domain="[('account_type', '=', account_type_filter)]"
           optional="show"
         />
+        <field name="product_category_id" optional="show" />
         <field name="product_id" optional="show" />
         <field name="name" optional="show" />
         <field name="quantity" optional="show" />
@@ -61,31 +62,57 @@
       <form>
         <sheet>
           <group>
-            <field name="date" />
-            <field name="partner_id" />
-            <field name="company_id" />
-            <field name="financing_id" optional="show" />
-            <field name="category_id" optional="show" />
-            <field name="parent_category_id" optional="show" />
-            <field
-              name="account_id"
-              domain="[('account_type', '=', account_type_filter)]"
-              optional="show"
-            />
-            <field name="product_id" />
-            <field name="name" />
-            <field name="journal_id" />
-            <field name="recurrence_months" />
-            <field name="active" string="Active" />
-            <field name="currency_id" />
+            <group name="general_info">
+              <separator string="General Information" />
+              <field name="name" />
+              <field name="date" />
+              <field name="company_id" />
+              <field name="currency_id" />
+              <field name="active" string="Active" />
+            </group>
+            <group name="relations">
+              <separator string="Relations" />
+              <field name="partner_id" />
+              <field name="product_category_id" />
+              <field name="product_id" />
+            </group>
           </group>
           <group>
-            <field name="quantity" />
-            <field name="income_price" />
-            <field name="expense_price" />
-            <field name="income" />
-            <field name="expense" />
-            <field name="balance" readonly="1" />
+            <group name="classification">
+              <separator string="Classification" />
+              <field name="parent_category_id" />
+              <field name="category_id" />
+              <field name="financing_id" />
+            </group>
+
+            <group name="accounting">
+              <separator string="Accounting" />
+              <field
+                name="account_id"
+                domain="[('account_type', '=', account_type_filter)]"
+                optional="show"
+              />
+              <field name="journal_id" />
+            </group>
+          </group>
+          <group name="recurrence">
+            <separator string="Recurrence" />
+            <field name="recurrence_months" />
+          </group>
+          <group name="amounts" col="6">
+            <separator string="Amounts" />
+            <group>
+              <field name="quantity" />
+            </group>
+            <group>
+              <field name="income_price" />
+              <field name="expense_price" />
+            </group>
+            <group>
+              <field name="income" />
+              <field name="expense" />
+              <field name="balance" readonly="1" />
+            </group>
           </group>
         </sheet>
       </form>
