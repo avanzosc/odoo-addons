@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_analytic_account_search" model="ir.ui.view">
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_search" />
+        <field name="arch" type="xml">
+            <filter name="inactive" position="before">
+                <filter
+          string="Today"
+          name="today"
+          context="{
+                        'from_date': context_today(),
+                        'to_date': context_today()
+                    }"
+        />
+                <filter
+          string="Yesterday"
+          name="yesterday"
+          context="{
+                        'from_date': context_today() - relativedelta(days=1),
+                        'to_date': context_today() - relativedelta(days=1)
+                    }"
+        />
+                <filter
+          string="Last 7 days"
+          name="last_7_days"
+          context="{
+                        'from_date': context_today() - relativedelta(days=6),
+                        'to_date': context_today()
+                    }"
+        />
+                <filter
+          string="Last 30 days"
+          name="last_30_days"
+          context="{
+                        'from_date': context_today() - relativedelta(days=29),
+                        'to_date': context_today()
+                    }"
+        />
+                <filter
+          string="Last 90 days"
+          name="last_90_days"
+          context="{
+                        'from_date': context_today() - relativedelta(days=89),
+                        'to_date': context_today()
+                    }"
+        />
+                <separator />
+                <filter
+          string="Current month"
+          name="current_month"
+          context="{
+                        'from_date': context_today().strftime('%Y-%m-01'),
+                        'to_date': context_today().strftime('%Y-%m-%d')
+                    }"
+        />
+                <filter
+          string="Previous month"
+          name="previous_month"
+          context="{
+                        'from_date': (context_today() - relativedelta(months=1)).strftime('%%Y-%%m-01'),
+                        'to_date': (context_today() - relativedelta(days=context_today().day)).strftime('%%Y-%%m-%%d')
+                    }"
+        />
+                <filter
+          string="Last 3 months"
+          name="last_3_months"
+          context="{
+                        'from_date': context_today() - relativedelta(months=3),
+                        'to_date': context_today()
+                    }"
+        />
+                <filter
+          string="Last 6 months"
+          name="last_6_months"
+          context="{
+                        'from_date': context_today() - relativedelta(months=6),
+                        'to_date': context_today()
+                    }"
+        />
+                <filter
+          string="Last 12 months"
+          name="last_12_months"
+          context="{
+                        'from_date': context_today() - relativedelta(months=12),
+                        'to_date': context_today()
+                    }"
+        />
+                <separator />
+                <filter
+          string="Current quarter"
+          name="current_quarter"
+          context="{
+                        'from_date': (
+                            context_today() - relativedelta(
+                                months=(context_today().month - 1) % 3
+                            )
+                        ).strftime('%%Y-%%m-01'),
+                        'to_date': context_today().strftime('%%Y-%%m-%%d')
+                    }"
+        />
+                <filter
+          string="Previous Quarter"
+          name="previous_quarter"
+          context="{
+                        'from_date': (
+                            context_today()
+                            - relativedelta(
+                                months=((context_today().month - 1) % 3) + 3
+                            )
+                        ).strftime('%%Y-%%m-01'),
+                        'to_date': (
+                            context_today()
+                            - relativedelta(
+                                months=(context_today().month - 1) % 3,
+                                days=context_today().day
+                            )
+                        ).strftime('%%Y-%%m-%%d')
+                    }"
+        />
+                <separator />
+                <filter
+          string="Current year"
+          name="current_year"
+          context="{
+                        'from_date': context_today().strftime('%%Y-01-01'),
+                        'to_date': context_today().strftime('%%Y-%%m-%%d')
+                    }"
+        />
+                <filter
+          string="Previous year"
+          name="previous_year"
+          context="{
+                        'from_date': (context_today() - relativedelta(years=1)).strftime('%%Y-01-01'),
+                        'to_date': (context_today() - relativedelta(years=1)).strftime('%%Y-12-31')
+                    }"
+        />
+                <separator />
+                <filter
+          string="Since the beginning of the year"
+          name="ytd"
+          context="{
+                        'from_date': context_today().strftime('%%Y-01-01'),
+                        'to_date': context_today().strftime('%%Y-%%m-%%d')
+                    }"
+        />
+
+                <filter
+          string="Since the beginning of the month"
+          name="mtd"
+          context="{
+                        'from_date': context_today().strftime('%%Y-%%m-01'),
+                        'to_date': context_today().strftime('%%Y-%%m-%%d')
+                    }"
+        />
+
+                <filter
+          string="Since the beginning of the quarter"
+          name="qtd"
+          context="{
+                        'from_date': (
+                            context_today() - relativedelta(
+                                months=(context_today().month - 1) % 3
+                            )
+                        ).strftime('%%Y-%%m-01'),
+                        'to_date': context_today().strftime('%%Y-%%m-%%d')
+                    }"
+        />
+                <separator />
+            </filter>
+        </field>
+    </record>
+</odoo>
