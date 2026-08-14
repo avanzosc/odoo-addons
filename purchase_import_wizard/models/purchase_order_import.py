@@ -2,16 +2,12 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import unicodedata
-from datetime import datetime
-
-import pytz
-import xlrd
 
 from odoo import _, fields, models
 from odoo.models import expression
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.base_import_wizard.models.base_import import convert2str
+from odoo.addons.base_import_wizard.models.base_import import convert2date, convert2str
 
 
 class PurchaseOrderImport(models.Model):
@@ -27,54 +23,51 @@ class PurchaseOrderImport(models.Model):
         compute="_compute_purchase_order_count",
     )
     company_id = fields.Many2one(
-        comodel_name="res.company",
         string="Company",
-        index=True,
+        comodel_name="res.company",
+        required=True,
+        default=lambda self: self.env.company.id,
+        states={"done": [("readonly", True)]},
+        copy=False,
     )
-    warehouse_id = fields.Many2one(string="Warehouse", comodel_name="stock.warehouse")
+    warehouse_id = fields.Many2one(
+        string="Warehouse",
+        comodel_name="stock.warehouse",
+        states={"done": [("readonly", True)]},
+        copy=False,
+    )
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
         values = super()._get_line_values(row_values, datemode=datemode)
-        timezone = pytz.timezone(self._context.get("tz") or "UTC")
+        timezone = self._context.get("tz") or "UTC"
         if row_values:
-            purchase_supplier_code = row_values.get("codigoproveedor", "")
-            purchase_supplier_name = row_values.get("nombreproveedor", "")
-            purchase_create_date = row_values.get("fechacreada", "")
-            if purchase_create_date:
-                purchase_create_date = purchase_create_date[0:19]
-                purchase_create_date = datetime.strptime(
-                    purchase_create_date, "%Y-%m-%d %H:%M:%S"
-                )
-            if not purchase_create_date:
-                purchase_create_date = False
-            purchase_date_confirm = row_values.get("fechaconfirmada", "")
-            if purchase_date_confirm:
-                purchase_date_confirm = xlrd.xldate.xldate_as_datetime(
-                    purchase_date_confirm, 0
-                )
-                purchase_date_confirm = timezone.localize(
-                    purchase_date_confirm
-                ).astimezone(pytz.UTC)
-                purchase_date_confirm = purchase_date_confirm.replace(tzinfo=None)
-            if not purchase_date_confirm:
-                purchase_date_confirm = False
-            purchase_origin = row_values.get("entrada", "")
-            purchase_product_code = row_values.get("codigoproducto", "")
-            purchase_product_name = row_values.get("nombreproducto", "")
-            purchase_ordered_qty = row_values.get("kgproveedor", "")
-            purchase_qty_done = row_values.get("kgneto", "")
-            purchase_price_unit = row_values.get("preciounitario", "")
-            purchase_discount = row_values.get("descuento", "")
-            purchase_state = row_values.get("estado", "")
-            purchase_warehouse = row_values.get("codigoalmacen", "")
+            purchase_origin = row_values.get("Entrada", "")
+            if not purchase_origin:
+                return {}
+            purchase_supplier_code = row_values.get("CodigoProveedor", "")
+            purchase_supplier_name = row_values.get("NombreProveedor", "")
+            purchase_create_date = row_values.get("Fecha", "")
+            purchase_date_confirm = row_values.get("FechaConfirmada", "")
+            purchase_product_code = row_values.get("CodigoProducto", "")
+            purchase_product_name = row_values.get("NombreProducto", "")
+            purchase_ordered_qty = row_values.get("KgProveedor", "")
+            purchase_qty_done = row_values.get("KgNeto", "")
+            purchase_price_unit = row_values.get("PrecioUnitario", "")
+            purchase_discount = row_values.get("Descuento", "")
+            purchase_state = row_values.get("Estado", "")
+            purchase_warehouse = row_values.get("CodigoAlmacen", "")
             log_info = ""
             values.update(
                 {
                     "purchase_supplier_code": convert2str(purchase_supplier_code),
                     "purchase_supplier_name": purchase_supplier_name.title(),
-                    "purchase_create_date": purchase_create_date,
-                    "purchase_date_confirm": purchase_date_confirm,
+                    "purchase_create_date": convert2date(
+                        purchase_create_date, datemode=datemode, timezone_name=timezone
+                    ),
+                    "purchase_date_confirm": convert2date(
+                        purchase_date_confirm, datemode=datemode, timezone_name=timezone
+                    ),
                     "purchase_origin": convert2str(purchase_origin),
                     "purchase_product_code": convert2str(purchase_product_code),
                     "purchase_product_name": convert2str(purchase_product_name),
@@ -122,7 +115,8 @@ class PurchaseOrderImportLine(models.Model):
         ondelete={"create": "set default"},
     )
     purchase_order_id = fields.Many2one(
-        string="Purchase Order", comodel_name="purchase.order"
+        string="Purchase Order",
+        comodel_name="purchase.order",
     )
     purchase_supplier_code = fields.Char(
         string="Supplier Code",
@@ -145,7 +139,7 @@ class PurchaseOrderImportLine(models.Model):
         copy=False,
     )
     purchase_origin = fields.Char(
-        string="Origin",
+        string="Partner Ref",
         states={"done": [("readonly", True)]},
         copy=False,
     )
@@ -214,132 +208,68 @@ class PurchaseOrderImportLine(models.Model):
         copy=False,
     )
 
-    def action_validate(self):
-        super().action_validate()
-        line_values = []
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            log_info = ""
-            origin = picking_type = product = supplier = warehouse = False
-            if line.purchase_origin:
-                origin, log_info = line._check_origin()
-                if log_info:
-                    update_values = {
-                        "purchase_origin": origin,
+    def _action_validate(self):
+        update_values = super()._action_validate()
+        log_infos = []
+        picking_type = False
+        if self.purchase_origin:
+            origin, log_info = self._check_origin()
+            if log_info:
+                update_values.update(
+                    {
                         "log_info": log_info,
                         "state": "error",
                         "action": "nothing",
                     }
-            if not log_info:
-                supplier, log_info_supplier = line._check_supplier()
-                if log_info_supplier:
-                    log_info += log_info_supplier
-                product, log_info_product = line._check_product()
-                if log_info_product:
-                    log_info += log_info_product
-                warehouse, log_info_warehouse = line._check_warehouse()
-                if log_info_warehouse:
-                    log_info += log_info_warehouse
-                if not log_info_warehouse and warehouse:
-                    picking_type, log_info_picking_type = line._check_picking_type(
-                        warehouse=warehouse
-                    )
-                    if log_info_picking_type:
-                        log_info += log_info_picking_type
-                state = "error" if log_info else "pass"
-                action = "nothing"
-                if state != "error":
-                    action = "create"
-                update_values = {
-                    "purchase_origin": origin,
-                    "purchase_supplier_id": supplier and supplier.id,
-                    "purchase_product_id": product and product.id,
-                    "purchase_warehouse_id": warehouse and warehouse.id,
-                    "purchase_picking_type_id": (picking_type and picking_type.id),
-                    "log_info": log_info,
-                    "state": state,
-                    "action": action,
-                }
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    update_values,
                 )
+                return update_values
+        supplier, log_info_supplier = self._check_supplier()
+        if log_info_supplier:
+            log_infos.append(log_info_supplier)
+        product, log_info_product = self._check_product()
+        if log_info_product:
+            log_infos.append(log_info_product)
+        warehouse, log_info_warehouse = self._check_warehouse()
+        if log_info_warehouse:
+            log_infos.append(log_info_warehouse)
+        if warehouse:
+            picking_type, log_info_picking_type = self._check_picking_type(
+                warehouse=warehouse
             )
-        return line_values
+            if log_info_picking_type:
+                log_infos.append(log_info_picking_type)
+        state = "error" if log_infos else "pass"
+        action = "create" if state != "error" else "nothing"
+        update_values.update(
+            {
+                "purchase_supplier_id": supplier and supplier.id,
+                "purchase_product_id": product and product.id,
+                "purchase_warehouse_id": warehouse and warehouse.id,
+                "purchase_picking_type_id": (picking_type and picking_type.id),
+                "log_info": "\n".join(log_infos),
+                "state": state,
+                "action": action,
+            }
+        )
+        return update_values
 
-    def action_process(self):
-        line_values = super().action_validate()
-        origins = []
-        for line in self.filtered(lambda ln: ln.state not in ("error", "done")):
-            if line.action == "create":
-                if not line.purchase_origin:
-                    log_info = ""
-                    purchase = line._create_purchase_order()
-                    line._create_purchase_order_line(purchase_order=purchase)
-                if line.purchase_origin and line.purchase_origin not in origins:
-                    if self.filtered(
-                        lambda ln: ln.purchase_origin == line.purchase_origin
-                        and (ln.state == "error")
-                    ):
-                        log_info = _(
-                            "Error: There is another line with the same"
-                            + " origin document with some errors."
-                        )
-                    else:
-                        origin, log_info = line._check_origin()
-                        if not log_info:
-                            origins.append(origin)
-                            purchase = line._create_purchase_order()
-                            same_origin = self.filtered(
-                                lambda ln: ln.purchase_origin == line.purchase_origin
-                            )
-                            for record in same_origin:
-                                record._create_purchase_order_line(
-                                    purchase_order=purchase
-                                )
-                if purchase:
-                    purchase.button_confirm()
-                    purchase.date_approve = line.purchase_date_confirm
-                    # pickings = self.env["stock.picking"].search(
-                    #     [("purchase_id", "=", purchase.id)])
-                    # pickings.write({
-                    #     "scheduled_date": line.purchase_date_confirm,
-                    #     "origin": line.purchase_origin})
-                    # pickings.button_force_done_detailed_operations()
-                    # pickings.button_validate()
-                    # for orderlines in purchase.order_line:
-                    #     move = pickings.move_ids_without_package.filtered(
-                    #         lambda c: c.purchase_line_id == orderlines)
-                    #     move.write({
-                    #         "standard_price": orderlines.price_unit,
-                    #         "amount": (
-                    #             orderlines.price_unit * move.quantity_done)})
-                    #     ml = move.move_line_ids
-                    #     ml.write({
-                    #         "qty_done": move.purchase_line_id.qty_done,
-                    #         "standard_price":orderlines.price_unit,
-                    #         "amount": (
-                    #             move.purchase_line_id.qty_done) * (
-                    #                 orderlines.price_unit)})
-            else:
-                continue
-            state = "error" if log_info else "done"
-            line.write(
-                {"purchase_order_id": purchase.id, "log_info": log_info, "state": state}
-            )
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    {
-                        "purchase_order_id": purchase.id,
-                        "log_info": log_info,
-                        "state": state,
-                    },
-                )
-            )
-        return line_values
+    def _action_process(self):
+        update_values = super()._action_process()
+        if self.action != "nothing":
+            log_infos = []
+            if self.action == "create":
+                if not self.purchase_origin:
+                    purchase = self._create_purchase_order()
+                    self._create_purchase_order_line(purchase)
+        state = "error" if log_infos else "done"
+        update_values.append(
+            {
+                "purchase_order_id": purchase.id,
+                "log_info": "\n".join(log_infos),
+                "state": state,
+            }
+        )
+        return update_values
 
     def _check_origin(self):
         self.ensure_one()
@@ -440,35 +370,32 @@ class PurchaseOrderImportLine(models.Model):
         ]
         warehouses = warehouse_obj.search(search_domain)
         if not warehouses:
-            warehouses = False
-            log_info = _("Error: No warehouse found.")
+            log_info = _("No warehouse found.")
         elif len(warehouses) > 1:
             warehouses = False
-            log_info = _("Error: More than one warehouse with name {} found.").format(
+            log_info = _("More than one warehouse with name {} found.").format(
                 self.purchase_warehouse
             )
         return warehouses and warehouses[:1], log_info
 
-    def _check_picking_type(self, warehouse=False):
+    def _check_picking_type(self, warehouse):
         self.ensure_one()
         log_info = ""
         if self.purchase_picking_type_id:
             return self.purchase_picking_type_id, log_info
         picking_type_obj = self.env["stock.picking.type"]
-        search_domain = [("code", "=", "incoming")]
-        if warehouse:
-            search_domain = expression.AND(
-                [[("warehouse_id", "=", warehouse.id)], search_domain]
-            )
+        search_domain = [
+            ("code", "=", "incoming"),
+            ("warehouse_id", "=", warehouse.id),
+        ]
         picking_types = picking_type_obj.search(search_domain)
         if not picking_types:
-            picking_types = False
-            log_info = _("Error: No picking type found.")
+            log_info = _("No picking type found.")
         elif len(picking_types) > 1:
             picking_types = False
-            log_info = _(
-                "Error: More than one picking type with warehouse {} found."
-            ).format(warehouse)
+            log_info = _("More than one picking type with warehouse {} found.").format(
+                warehouse
+            )
         return picking_types and picking_types[:1], log_info
 
     def _create_purchase_order(self):
@@ -477,31 +404,37 @@ class PurchaseOrderImportLine(models.Model):
         purchase = purchase_order_obj.create(values)
         return purchase
 
-    def _create_purchase_order_line(self, purchase_order=False):
-        if purchase_order:
-            if not self.purchase_ordered_qty and self.purchase_qty_done:
-                self.purchase_ordered_qty = self.purchase_qty_done
-            purchase_order.order_line = [
-                (
-                    0,
-                    0,
-                    {
-                        "product_id": self.purchase_product_id.id,
-                        "product_qty": self.purchase_ordered_qty,
-                        "qty_received": self.purchase_qty_done,
-                        "product_uom": self.purchase_product_id.uom_id.id,
-                        "name": self.purchase_product_id.display_name,
-                        "order_id": purchase_order,
-                        "price_unit": self.purchase_price_unit,
-                        "discount": self.purchase_discount,
-                    },
-                )
-            ]
+    def _create_purchase_order_line(self, purchase_order):
+        purchase_order.order_line = [
+            (
+                0,
+                0,
+                {
+                    "product_id": self.purchase_product_id.id,
+                    "product_qty": self.purchase_ordered_qty or self.purchase_qty_done,
+                    "qty_received": self.purchase_qty_done,
+                    "product_uom": self.purchase_product_id.uom_id.id,
+                    "name": self.purchase_product_id.display_name,
+                    "order_id": purchase_order,
+                    "price_unit": self.purchase_price_unit,
+                    "discount": self.purchase_discount,
+                },
+            )
+        ]
 
     def _purchase_order_values(self):
-        return {
-            "partner_id": self.purchase_supplier_id.id,
-            "picking_type_id": self.purchase_picking_type_id.id,
-            "partner_ref": self.purchase_origin,
-            "date_order": self.purchase_create_date,
-        }
+        self.ensure_one()
+        new_po = self.env["purchase.order"].new(
+            {
+                "partner_id": self.purchase_supplier_id.id,
+                "picking_type_id": self.purchase_picking_type_id.id,
+                "partner_ref": self.purchase_origin,
+                "date_order": self.purchase_create_date,
+            }
+        )
+        for partner_onchange_method in new_po._onchange_methods["partner_id"]:
+            partner_onchange_method(new_po)
+        for pick_type_onchange_method in new_po._onchange_methods["picking_type_id"]:
+            pick_type_onchange_method(new_po)
+        order_vals = new_po._convert_to_write(new_po._cache)
+        return order_vals
