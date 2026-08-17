@@ -1,0 +1,33 @@
+.o_global_origin_pivot {
+  table tbody th.o_pivot_header_cell_closed span,
+  table tbody th.o_pivot_header_cell_opened span {
+    display: inline-block;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+
+  table tbody tr.o_go_state_done > th,
+  table tbody tr.o_go_state_done > td.o_pivot_cell_value {
+    background-color: rgba(40, 167, 69, 0.35) !important;
+  }
+  table tbody tr.o_go_state_pending > th,
+  table tbody tr.o_go_state_pending > td.o_pivot_cell_value {
+    background-color: rgba(255, 193, 7, 0.4) !important;
+  }
+  table tbody tr.o_go_state_cancel > th,
+  table tbody tr.o_go_state_cancel > td.o_pivot_cell_value {
+    background-color: rgba(220, 53, 69, 0.35) !important;
+  }
+  table tbody tr.o_go_state_done > th {
+    border-left: 3px solid #28a745 !important;
+  }
+  table tbody tr.o_go_state_pending > th {
+    border-left: 3px solid #ffc107 !important;
+  }
+  table tbody tr.o_go_state_cancel > th {
+    border-left: 3px solid #dc3545 !important;
+  }
+}
