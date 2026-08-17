@@ -1,0 +1,151 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_move_global_origin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-03 06:40+0000\n"
+"PO-Revision-Date: 2026-09-03 06:40+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_move_global_origin
+#: model:res.groups,comment:stock_move_global_origin.group_global_origin_viewer
+msgid ""
+"\n"
+"            Read-only access to the moves that are part of a tracked\n"
+"            Global Origin cycle, without any of the regular Inventory\n"
+"            app access groups. Meant for users who need to check the\n"
+"            Global Origin Cycle report but have no other reason to\n"
+"            access Inventory.\n"
+"        "
+msgstr ""
+"\n"
+"            Acesso só de leitura aos movimentos que fazem parte de um\n"
+"            ciclo de Origem Global rastreado, sem nenhum dos grupos de\n"
+"            acesso habituais da app de Inventário. Destinado a\n"
+"            utilizadores que precisam de consultar o relatório de Ciclo\n"
+"            de Origem Global mas não têm outro motivo para aceder ao\n"
+"            Inventário.\n"
+"        "
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__picking_type_sequence_code
+msgid "Code"
+msgstr "Código"
+
+#. module: stock_move_global_origin
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
+msgid "Company"
+msgstr "Empresa"
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__display_name
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order__display_name
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__display_name
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__display_name
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line__display_name
+msgid "Display Name"
+msgstr "Nome"
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order__global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line__global_origin
+#: model:ir.ui.menu,name:stock_move_global_origin.menu_global_origin_root
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.stock_move_line_view_search
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
+msgid "Global Origin"
+msgstr "Origem global"
+
+#. module: stock_move_global_origin
+#: model:res.groups,name:stock_move_global_origin.group_global_origin_viewer
+msgid "Global Origin Viewer"
+msgstr "Visualizador de Origem Global"
+
+#. module: stock_move_global_origin
+#: model:ir.actions.act_window,name:stock_move_global_origin.action_stock_move_global_origin_pivot
+#: model:ir.ui.menu,name:stock_move_global_origin.menu_stock_move_global_origin_pivot
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_pivot_global_origin
+msgid "Global Report"
+msgstr "Relatório global"
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__id
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order__id
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__id
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__id
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line__id
+msgid "ID"
+msgstr "Id."
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__global_origin_initial
+msgid "Initial"
+msgstr "Inicial"
+
+#. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production____last_update
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order____last_update
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order____last_update
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move____last_update
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line____last_update
+msgid "Last Modified on"
+msgstr "Última Modificação em"
+
+#. module: stock_move_global_origin
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
+msgid "Not Cancelled"
+msgstr "Não cancelado"
+
+#. module: stock_move_global_origin
+#: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
+msgid "Operation Type"
+msgstr "Tipo de operação"
+
+#. module: stock_move_global_origin
+#: model:ir.model,name:stock_move_global_origin.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimentos do artigo (movimentos de stock)"
+
+#. module: stock_move_global_origin
+#: model:ir.model,name:stock_move_global_origin.model_mrp_production
+msgid "Production Order"
+msgstr "Ordem de Produção"
+
+#. module: stock_move_global_origin
+#: model:ir.model,name:stock_move_global_origin.model_purchase_order
+msgid "Purchase Order"
+msgstr "Ordem de Compra"
+
+#. module: stock_move_global_origin
+#: model:ir.model,name:stock_move_global_origin.model_sale_order
+msgid "Sales Order"
+msgstr "Ordem de Vendas"
+
+#. module: stock_move_global_origin
+#: model:ir.model,name:stock_move_global_origin.model_stock_move
+msgid "Stock Move"
+msgstr "Movimento do Stock"
+
+#. module: stock_move_global_origin
+#. openerp-web
+#: code:addons/stock_move_global_origin/static/src/xml/global_origin_pivot.xml:0
+#, python-format
+msgid "isXAxis ? undefined : cell.indent"
+msgstr ""
+
+#. module: stock_move_global_origin
+#. openerp-web
+#: code:addons/stock_move_global_origin/static/src/xml/global_origin_pivot.xml:0
+#, python-format
+msgid "isXAxis ? undefined : cell.title"
+msgstr ""

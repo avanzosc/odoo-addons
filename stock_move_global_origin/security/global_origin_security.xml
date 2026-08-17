@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="group_global_origin_viewer" model="res.groups">
+        <field name="name">Global Origin Viewer</field>
+        <field name="comment">
+            Read-only access to the moves that are part of a tracked
+            Global Origin cycle, without any of the regular Inventory
+            app access groups. Meant for users who need to check the
+            Global Origin Cycle report but have no other reason to
+            access Inventory.
+        </field>
+    </record>
+
+    <record id="stock_move_rule_global_origin_viewer" model="ir.rule">
+        <field name="name">Global Origin Viewer: only tracked moves</field>
+        <field name="model_id" ref="stock.model_stock_move" />
+        <field name="domain_force">[('global_origin', '!=', False)]</field>
+        <field name="groups" eval="[(4, ref('group_global_origin_viewer'))]" />
+        <field name="perm_read">1</field>
+        <field name="perm_write">0</field>
+        <field name="perm_create">0</field>
+        <field name="perm_unlink">0</field>
+    </record>
+</odoo>
