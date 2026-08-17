@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="assets_backend"
+    name="Stock Move Global Origin assets"
+    inherit_id="web.assets_backend"
+  >
+        <xpath expr="." position="inside">
+            <script
+        type="text/javascript"
+        src="/stock_move_global_origin/static/src/js/global_origin_pivot.js"
+        defer="defer"
+      />
+            <link
+        rel="stylesheet"
+        type="text/scss"
+        href="/stock_move_global_origin/static/src/scss/global_origin_pivot.scss"
+      />
+        </xpath>
+    </template>
+</odoo>
