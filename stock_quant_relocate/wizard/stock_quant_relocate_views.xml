@@ -38,7 +38,7 @@
           class="alert alert-danger mb8"
           role="alert"
           groups="stock.group_tracking_lot"
-          invisible="not is_multi_location"
+          attrs="{'invisible': [('is_multi_location', '=', False)]}"
         >
                     The quantities selected do not all belong to the same location.
                     You may not assign them a package without moving them to a common location.
