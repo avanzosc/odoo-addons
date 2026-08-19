@@ -1,0 +1,106 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_sale_generation_isolation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-19 08:32+0000\n"
+"PO-Revision-Date: 2026-08-19 08:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,help:contract_sale_generation_isolation.field_contract_contract__sale_generation_exception
+msgid ""
+"Automatically set when the recurring sale order generation for this contract"
+" fails. While set, the contract is skipped by the daily cron."
+msgstr ""
+"Se marca automáticamente cuando falla la generación recurrente del pedido "
+"de venta de este contrato. Mientras esté marcado, el contrato se omite en "
+"el cron diario."
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model,name:contract_sale_generation_isolation.model_res_config_settings
+msgid "Config Settings"
+msgstr "Ajustes de Configuración"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model,name:contract_sale_generation_isolation.model_contract_contract
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,field_description:contract_sale_generation_isolation.field_contract_contract__sale_generation_exception_date
+msgid "Error Date"
+msgstr "Fecha del error"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,field_description:contract_sale_generation_isolation.field_contract_contract__sale_generation_exception_message
+msgid "Error Detail"
+msgstr "Detalle del error"
+
+#. module: contract_sale_generation_isolation
+#. odoo-python
+#: code:addons/contract_sale_generation_isolation/models/contract_contract.py:0
+#, python-format
+msgid "Error generating the recurring sale order"
+msgstr "Error al generar el pedido de venta recurrente"
+
+#. module: contract_sale_generation_isolation
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.res_config_settings_view_form
+msgid "Exception Responsible"
+msgstr "Responsable de la incidencia"
+
+#. module: contract_sale_generation_isolation
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.contract_contract_form_view
+msgid "Generation Error"
+msgstr "Error de generación"
+
+#. module: contract_sale_generation_isolation
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.contract_contract_search_view
+msgid "In Generation Error"
+msgstr "En error de generación"
+
+#. module: contract_sale_generation_isolation
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.contract_contract_form_view
+msgid "Mark as Resolved"
+msgstr "Marcar como resuelto"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,field_description:contract_sale_generation_isolation.field_contract_contract__sale_generation_exception
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.contract_contract_form_view
+msgid "Sale Generation Error"
+msgstr "Error en la generación de venta"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,field_description:contract_sale_generation_isolation.field_res_config_settings__contract_sale_generation_exception_responsible_id
+msgid "Sale Generation Exception Responsible"
+msgstr "Responsable de incidencias de generación de venta"
+
+#. module: contract_sale_generation_isolation
+#: model:ir.model.fields,help:contract_sale_generation_isolation.field_res_config_settings__contract_sale_generation_exception_responsible_id
+msgid ""
+"User assigned an activity when the recurring sale order generation for a "
+"contract fails. If not set, the contract's own responsible user is used "
+"instead."
+msgstr ""
+"Usuario al que se le asigna una actividad cuando falla la generación "
+"recurrente del pedido de venta de un contrato. Si no se indica, se usa el "
+"responsable del propio contrato."
+
+#. module: contract_sale_generation_isolation
+#: model_terms:ir.ui.view,arch_db:contract_sale_generation_isolation.res_config_settings_view_form
+msgid ""
+"User notified when the automatic recurring sale order\n"
+"                            generation for a contract fails. If left empty, the\n"
+"                            contract's own responsible user is notified instead."
+msgstr ""
+"Usuario al que se avisa cuando falla la generación automática del pedido "
+"de venta recurrente de un contrato. Si se deja vacío, se avisa al "
+"responsable del propio contrato."

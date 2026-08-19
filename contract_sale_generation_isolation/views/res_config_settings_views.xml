@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="contract.res_config_settings_form_view" />
+        <field name="arch" type="xml">
+            <xpath
+        expr="//div[@class='col-12 col-lg-6 o_setting_box'][.//field[@name='create_new_line_at_contract_line_renew']]"
+        position="after"
+      >
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label
+              for="contract_sale_generation_exception_responsible_id"
+              string="Exception Responsible"
+            />
+                        <div class="text-muted">
+                            User notified when the automatic recurring sale order
+                            generation for a contract fails. If left empty, the
+                            contract's own responsible user is notified instead.
+                        </div>
+                        <field
+              name="contract_sale_generation_exception_responsible_id"
+            />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
