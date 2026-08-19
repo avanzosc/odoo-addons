@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_catalog_view_form_inherit_website" model="ir.ui.view">
+    <field name="name">product.catalog.view.form.inherit.website</field>
+    <field name="model">product.catalog</field>
+    <field name="inherit_id" ref="sale_product_catalog.product_catalog_view_form" />
+    <field name="arch" type="xml">
+      <field name="active" position="after">
+        <field name="visible_slider" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_catalog_view_list_inherit_website" model="ir.ui.view">
+    <field name="name">product.catalog.view.list.inherit.website</field>
+    <field name="model">product.catalog</field>
+    <field name="inherit_id" ref="sale_product_catalog.product_catalog_view_list" />
+    <field name="arch" type="xml">
+      <field name="inventory_availability" position="after">
+        <field name="visible_slider" />
+      </field>
+    </field>
+  </record>
+</odoo>
