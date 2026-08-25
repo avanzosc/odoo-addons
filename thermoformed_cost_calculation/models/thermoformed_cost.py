@@ -449,19 +449,17 @@ class ThermoformedCost(models.Model):
             )
 
     @api.depends(
-        "figure",
         "serie",
-        "plate_cost",
+        "serie_weight",
+        "material_cost",
         "packaging_cost_unit",
         "transport_cost_unit",
-        "adjustment_plates",
-        "waste_percentage",
         "annual_amount",
     )
     def _compute_purchase_cost(self):
         for record in self:
             purchase_cost_unit = (
-                (record.plate_cost / record.figure)
+                (record.serie_weight * record.material_cost / record.serie)
                 + record.packaging_cost_unit
                 + record.transport_cost_unit
             )
