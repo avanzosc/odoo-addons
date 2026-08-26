@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="ir_module_module_form_migration_info" model="ir.ui.view">
+    <field name="name">ir.module.module.form.migration.info</field>
+    <field name="model">ir.module.module</field>
+    <field name="inherit_id" ref="base.module_form" />
+    <field name="arch" type="xml">
+      <!--
+        The base notebook is restricted to ``base.group_no_one`` (developer
+        mode), so adding our page inside would hide it for regular users.
+        We inject a sibling notebook instead.
+      -->
+      <xpath expr="//sheet/notebook" position="after">
+        <notebook>
+          <page string="Migration info" name="migration_info">
+            <!--
+              These fields are not filled in by hand module by module (there
+              are thousands): they are populated in bulk from the "Compare
+              Module" import wizard. Here they are shown read-only.
+            -->
+            <group>
+              <group>
+                <field
+                  name="available_version_ids"
+                  widget="many2many_tags"
+                  readonly="1"
+                />
+                <field name="included_in_core" readonly="1" />
+                <field
+                  name="core_version_ids"
+                  widget="many2many_tags"
+                  invisible="not included_in_core"
+                  readonly="1"
+                />
+              </group>
+            </group>
+            <group string="Technical Description">
+              <field name="technical_description" nolabel="1" readonly="1" />
+            </group>
+          </page>
+        </notebook>
+      </xpath>
+    </field>
+  </record>
+</odoo>

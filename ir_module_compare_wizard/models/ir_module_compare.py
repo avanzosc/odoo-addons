@@ -1,6 +1,8 @@
 # Copyright 2024 Unai Beristan, Ana Juaristi - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import re
+
 import odoo.release
 from odoo import _, api, fields, models
 from odoo.models import expression
@@ -104,7 +106,79 @@ class IrModuleImport(models.Model):
                     "log_info": log_info,
                 }
             )
+            values.update(self._get_migration_line_values(row_values))
         return values
+
+    def _row_has(self, row_values, label):
+        """Whether a column (translated or not) is present in the imported row."""
+        return _(label) in row_values or label in row_values
+
+    def _row_get(self, row_values, label, default=""):
+        """Read a column value, accepting both the translated and English header."""
+        return row_values.get(_(label), row_values.get(label, default))
+
+    def _get_or_create_versions(self, value):
+        """Parse a free-text list of versions (``"18.0, 19.5; 20.0"``) into
+        ``odoo.version`` records, creating the missing ones and de-duplicating.
+        """
+        versions = self.env["odoo.version"]
+        if not value:
+            return versions
+        text = value if isinstance(value, str) else str(value)
+        names = [name for name in re.split(r"[,;\s]+", text.strip()) if name]
+        seen = set()
+        for name in names:
+            if name in seen:
+                continue
+            seen.add(name)
+            version = versions.search([("name", "=", name)], limit=1)
+            if not version:
+                version = versions.sudo().create({"name": name})
+            versions |= version
+        return versions
+
+    def _get_migration_line_values(self, row_values):
+        """Build the migration-info values for a wizard line.
+
+        Each key carries a ``*_provided`` flag telling whether the column was
+        actually present in the imported file, so that re-importing a partial
+        file never wipes data that was not part of that file.
+        """
+        available_provided = self._row_has(row_values, "Available Versions")
+        core_provided = self._row_has(row_values, "Core Versions")
+        included_provided = self._row_has(row_values, "Included In Core")
+        tech_provided = self._row_has(row_values, "Technical Description")
+        available_versions = (
+            self._get_or_create_versions(
+                self._row_get(row_values, "Available Versions")
+            )
+            if available_provided
+            else self.env["odoo.version"]
+        )
+        core_versions = (
+            self._get_or_create_versions(self._row_get(row_values, "Core Versions"))
+            if core_provided
+            else self.env["odoo.version"]
+        )
+        return {
+            "available_version_ids": [(6, 0, available_versions.ids)],
+            "available_versions_provided": available_provided,
+            "core_version_ids": [(6, 0, core_versions.ids)],
+            "core_versions_provided": core_provided,
+            "included_in_core": (
+                bool(self._row_get(row_values, "Included In Core", False))
+                if included_provided
+                else False
+            ),
+            "included_in_core_provided": included_provided,
+            "technical_description": (
+                convert2str(self._row_get(row_values, "Technical Description"))
+                if tech_provided
+                else ""
+            ),
+            "technical_description_provided": tech_provided,
+            "replaced_by": convert2str(self._row_get(row_values, "Replaced By")),
+        }
 
     def _get_migration_category(self, module_technical_name):
         migration_category_obj = self.env["migration.category"]
@@ -231,6 +305,64 @@ class IrModuleImportLine(models.Model):
         default=False,
     )
     priority = fields.Integer()
+    available_version_ids = fields.Many2many(
+        comodel_name="odoo.version",
+        relation="import_line_available_version_rel",
+        column1="line_id",
+        column2="version_id",
+        string="Available Versions",
+    )
+    available_versions_provided = fields.Boolean(copy=False)
+    core_version_ids = fields.Many2many(
+        comodel_name="odoo.version",
+        relation="import_line_core_version_rel",
+        column1="line_id",
+        column2="version_id",
+        string="Core Versions",
+    )
+    core_versions_provided = fields.Boolean(copy=False)
+    included_in_core = fields.Boolean()
+    included_in_core_provided = fields.Boolean(copy=False)
+    technical_description = fields.Text()
+    technical_description_provided = fields.Boolean(copy=False)
+    replaced_by = fields.Char()
+
+    @api.onchange("available_version_ids")
+    def _onchange_available_version_ids(self):
+        for record in self:
+            record.available_versions_provided = True
+
+    @api.onchange("core_version_ids")
+    def _onchange_core_version_ids(self):
+        for record in self:
+            record.core_versions_provided = True
+
+    @api.onchange("included_in_core")
+    def _onchange_included_in_core(self):
+        for record in self:
+            record.included_in_core_provided = True
+
+    @api.onchange("technical_description")
+    def _onchange_technical_description(self):
+        for record in self:
+            record.technical_description_provided = True
+
+    def _get_module_migration_values(self):
+        """Values to push onto the matched ``ir.module.module``, restricted to
+        the keys whose column was provided (or manually edited on the line)."""
+        self.ensure_one()
+        module_vals = {}
+        if self.available_versions_provided:
+            module_vals["available_version_ids"] = [
+                (6, 0, self.available_version_ids.ids)
+            ]
+        if self.core_versions_provided:
+            module_vals["core_version_ids"] = [(6, 0, self.core_version_ids.ids)]
+        if self.included_in_core_provided:
+            module_vals["included_in_core"] = self.included_in_core
+        if self.technical_description_provided:
+            module_vals["technical_description"] = self.technical_description
+        return module_vals
 
     def decode_generic_author(self, module_author):
         module_author_generic = False
@@ -294,6 +426,10 @@ class IrModuleImportLine(models.Model):
                 "action": action,
             }
         )
+        if module and state != "error":
+            module_vals = self._get_module_migration_values()
+            if module_vals:
+                module.sudo().write(module_vals)
         return update_values
 
     def _check_module(self):
