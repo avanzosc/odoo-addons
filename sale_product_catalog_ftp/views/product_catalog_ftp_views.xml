@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_catalog_ftp_view_search" model="ir.ui.view">
+    <field name="model">product.catalog.ftp</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="partner_id" />
+        <field name="catalog_id" />
+        <filter
+          string="FTP defined"
+          name="ftp2upload"
+          domain="['|', '|', ('ftp_server', '!=', ''), ('ftp_user', '!=', ''), ('ftp_password', '!=', '')]"
+        />
+        <separator />
+        <filter string="Active" name="active" domain="[('active', '=', True)]" />
+        <filter string="Archived" name="inactive" domain="[('active', '=', False)]" />
+        <separator />
+        <filter string="Errored" name="errored" domain="[('ftp_error', '!=', '')]" />
+        <group expand="0" name="group_by" string="Group By">
+          <filter
+            name="group_partner"
+            string="Customer"
+            context="{'group_by': 'partner_id'}"
+          />
+          <filter
+            name="group_catalog"
+            string="Catalog"
+            context="{'group_by': 'catalog_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_catalog_ftp_view_list" model="ir.ui.view">
+    <field name="model">product.catalog.ftp</field>
+    <field name="arch" type="xml">
+      <list
+        editable="top"
+        decoration-muted="not active"
+        decoration-danger="ftp_error not in ['', False]"
+      >
+        <field name="active" widget="boolean_toggle" />
+        <field
+          name="partner_id"
+          domain="[('customer_rank', '&gt;', 0), ('parent_id', '=', False)]"
+          options="{'no_open': True, 'no_create': True}"
+        />
+        <field name="catalog_id" options="{'no_open': True, 'no_create': True}" />
+        <field name="ftp_server" />
+        <field name="ftp_user" />
+        <field name="ftp_password" password="True" />
+        <field name="ftp_folder" />
+        <field name="ftp_error" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_catalog_ftp_action" model="ir.actions.act_window">
+    <field name="name">Upload Catalog to FTP</field>
+    <field name="res_model">product.catalog.ftp</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="product_catalog_ftp_view_list" />
+    <field name="context">{'active_test': False}</field>
+  </record>
+
+  <menuitem
+    id="product_catalog_ftp_menu"
+    action="product_catalog_ftp_action"
+    parent="sale.product_menu_catalog"
+    sequence="100"
+  />
+</odoo>

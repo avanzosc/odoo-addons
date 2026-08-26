@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_catalog_xlsx_report" model="ir.actions.report">
+    <field name="name">Product Catalog FTP export</field>
+    <field name="model">product.catalog</field>
+    <field name="report_type">xlsx</field>
+    <field
+      name="report_name"
+    >sale_product_catalog_ftp.product_catalog_xlsx_report</field>
+    <field
+      name="report_file"
+    >sale_product_catalog_ftp.product_catalog_xlsx_report</field>
+  </record>
+</odoo>
