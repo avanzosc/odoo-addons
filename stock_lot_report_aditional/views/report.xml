@@ -1,0 +1,11 @@
+<odoo>
+  <report
+    id="report_lot_label_aditional_action"
+    model="stock.lot"
+    string="Lot/Serial Number (PDF)"
+    report_type="qweb-pdf"
+    name="stock_lot_report_aditional.report_lot_label_aditional"
+    print_report_name="'Lot Label - %s' % (object.name)"
+    paperformat="product.paperformat_label_sheet"
+  />
+</odoo>

@@ -1,0 +1,52 @@
+<odoo>
+  <template
+    id="stock_lot_report_aditional.report_lot_label_aditional"
+    name="Lot/Serial Number (Aditional)"
+  >
+    <t t-call="web.basic_layout">
+      <t t-set="nRows" t-value="12" />
+      <t t-set="nCols" t-value="4" />
+      <div
+        t-foreach="[docs[x:x + nRows * nCols] for x in range(0, len(docs), nRows * nCols)]"
+        t-as="page_docs"
+        class="o_label_sheet"
+        t-att-style="'padding: 20mm 8mm'"
+      >
+        <table class="my-0 table table-sm table-borderless">
+          <t t-foreach="range(nRows)" t-as="row">
+            <tr>
+              <t t-foreach="range(nCols)" t-as="col">
+                <t t-set="barcode_index" t-value="(row * nCols + col)" />
+                <t t-if="barcode_index &lt; len(page_docs)">
+                  <t t-set="o" t-value="page_docs[barcode_index]" />
+                  <td>
+                    <table
+                      style="width:43mm; height:19mm; border:1px solid black; table-layout:fixed;"
+                    >
+                      <tr>
+                        <td style="width:17mm; padding:1mm;">
+                          <div
+                            t-field="o.name"
+                            t-options="{'widget': 'barcode', 'symbology': 'QR', 'img_style': 'width:17mm; height:17mm; display:block;'}"
+                          />
+                        </td>
+                        <td
+                          style="text-align:center; vertical-align:middle; font-size:18px; font-weight:bold;"
+                        >
+                          <t t-out="o.name[-5:] if o.name else ''" />
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </t>
+                <t t-else="">
+                  <td style="visibility:hidden;" />
+                </t>
+              </t>
+            </tr>
+          </t>
+        </table>
+      </div>
+    </t>
+  </template>
+</odoo>
