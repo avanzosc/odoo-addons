@@ -98,14 +98,17 @@
         <field name="arch" type="xml">
             <tree
         decoration-danger="state == 'error'"
+        decoration-primary="technical_name_mismatch"
         decoration-muted="state == 'done'"
         decoration-info="import_module_state == 'installed'"
         decoration-success="import_module_id"
         decoration-bf="import_module_id"
         decoration-it="log_info"
         editable="top"
+        multi_edit="1"
       >
                 <field name="import_id" invisible="1" />
+                <field name="technical_name_mismatch" invisible="1" />
                 <field
           name="action"
           decoration-muted="action == 'nothing'"

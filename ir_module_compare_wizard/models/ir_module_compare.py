@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 import odoo.release
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.models import expression
 from odoo.modules.module import get_module_path
 from odoo.tools.safe_eval import safe_eval
@@ -204,6 +204,26 @@ class IrModuleImportLine(models.Model):
     priority = fields.Integer(
         states={"done": [("readonly", True)]},
     )
+
+    technical_name_mismatch = fields.Boolean(
+        string="Technical name mismatch",
+        compute="_compute_technical_name_mismatch",
+        store=True,
+    )
+
+    @api.depends("module_technical_name", "import_module_id", "import_module_id.name")
+    def _compute_technical_name_mismatch(self):
+        for record in self:
+            record.technical_name_mismatch = (
+                record.import_module_id
+                and record.module_technical_name != record.import_module_id.name
+            )
+
+    @api.onchange("import_module_id", "module_technical_name")
+    def _onchange_import_module_fields(self):
+        for rec in self:
+            if rec.import_module_id:
+                rec.state = "pass"
 
     def _action_validate(self):
         self.ensure_one()
