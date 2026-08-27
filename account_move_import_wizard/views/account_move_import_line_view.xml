@@ -86,6 +86,7 @@
                             <field name="account_description" />
                             <field name="partner_ref" />
                             <field name="partner_name" />
+                            <field name="distribution" />
                             <field name="debit" />
                             <field name="credit" />
                         </group>
@@ -96,6 +97,10 @@
               />
                             <field
                 name="partner_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              				<field
+                name="analytic_distribution"
                 options="{'no_create': True, 'no_open': True}"
               />
                             <field
@@ -136,6 +141,12 @@
                 <field name="partner_ref" />
                 <field name="partner_name" />
                 <field name="partner_id" optional="hide" />
+				<field name="distribution" />
+                <field
+          name="analytic_distribution"
+          optional="hide"
+          widget="analytic_distribution"
+        />
                 <field name="debit" />
                 <field name="credit" />
                 <field name="account_move_line_id" optional="hide" readonly="1" />
