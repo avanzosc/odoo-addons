@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mail_mass_mailing_form" model="ir.ui.view">
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="mass_mailing.mailing_mailing_view_form_full_width"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='body_arch']" position="before">
+                <group string="Featured Posts">
+                    <field name="featured_post_ids" nolabel="1" colspan="2">
+                        <tree noupdate="1">
+                            <field name="area_ids" widget="many2many_tags"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </group>
+                <group string="Posts">
+                    <group class="mb32">
+                        <field name="post_state" invisible="1"/>
+                        <button class="oe_highlight" name="action_post_state_draft" string="Add posts mode"
+                                type="object" attrs="{'invisible': [('post_state', '=', 'draft')]}" colspan="2"/>
+                        <button class="oe_highlight" name="action_post_state_done" string="Order mode" type="object"
+                                attrs="{'invisible': [('post_state', '=', 'done')]}" colspan="2"/>
+                    </group>
+                    <field name="post_ids" nolabel="1" attrs="{'invisible': [('post_state', '=', 'done')]}"
+                           context="{'search_default_not_mailing_included': 1}">
+                        <tree noupdate="1">
+                            <field name="area_ids" widget="many2many_tags"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                    <field name="post_line_ids" nolabel="1" attrs="{'invisible': [('post_state', '=', 'draft')]}">
+                        <tree noupdate="1" create="false" edit="false" delete="false">
+                            <field name="sequence" widget="handle"/>
+                            <field name="area_ids" widget="many2many_tags"/>
+                            <field name="post_id"/>
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

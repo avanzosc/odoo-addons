@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_partner_area_form_view" model="ir.ui.view">
+        <field name="inherit_id" ref="base_characterization.res_partner_area_form_view"/>
+        <field name="model">res.partner.area</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <group>
+                    <field name="fixed"/>
+                </group>
+            </field>
+        </field>
+    </record>
+    <record id="res_partner_area_tree_view" model="ir.ui.view">
+        <field name="inherit_id" ref="base_characterization.res_partner_area_tree_view"/>
+        <field name="model">res.partner.area</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="fixed"/>
+            </field>
+        </field>
+    </record>
+    <record id="res_partner_area_search_view" model="ir.ui.view">
+        <field name="inherit_id" ref="base_characterization.res_partner_area_search_view"/>
+        <field name="model">res.partner.area</field>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="fixed"/>
+            </field>
+        </field>
+    </record>
+</odoo>
