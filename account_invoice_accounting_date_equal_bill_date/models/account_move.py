@@ -17,8 +17,12 @@ class AccountMove(models.Model):
             lambda x: x.move_type in ("in_invoice", "in_refund")
         )
         other_moves = self - supplier_moves
-        if other_moves:
-            result = super(AccountMove, other_moves)._compute_date()
-        for move in supplier_moves:
+        supplier_moves_with_date = supplier_moves.filtered("invoice_date")
+        supplier_moves_without_date = supplier_moves - supplier_moves_with_date
+        if other_moves or supplier_moves_without_date:
+            result = super(
+                AccountMove, other_moves | supplier_moves_without_date
+            )._compute_date()
+        for move in supplier_moves_with_date:
             move.date = move.invoice_date
         return result
