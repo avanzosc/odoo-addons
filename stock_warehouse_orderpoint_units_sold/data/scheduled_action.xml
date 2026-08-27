@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="ir_cron_update_forecast_info" model="ir.cron">
+        <field name="name">Update Forecast In Replenishment</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="model_id" ref="model_stock_warehouse_orderpoint" />
+        <field name="code">model.ir_cron_update_forecast_info()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>
