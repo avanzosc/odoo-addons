@@ -1,6 +1,6 @@
 # Copyright 2024 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import api, models
 from odoo.tools.float_utils import float_is_zero
 
 
@@ -38,10 +38,21 @@ class StockPicking(models.Model):
                 no_quantities_done_ids, separate_pickings
             )
             for line in lines_to_check:
-                if not line.lot_name and not line.lot_id:
+                if not line.lot_id:
                     vals = line._get_value_production_lot()
+                    if line.lot_name:
+                        vals["ref"] = line.lot_name
                     vals["name"] = self.env.ref(
                         "stock.sequence_production_lots"
                     ).next_by_id()
                     line.lot_id = self.env["stock.lot"].create(vals).id
         return super()._sanity_check(separate_pickings=separate_pickings)
+
+
+class StockLot(models.Model):
+    _inherit = "stock.lot"
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        result = super().create(vals_list)
+        return result
