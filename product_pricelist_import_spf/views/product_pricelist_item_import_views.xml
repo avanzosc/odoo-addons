@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_pricelist_item_import_view_tree" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.list</field>
+    <field name="model">product.pricelist.item.import</field>
+    <field name="arch" type="xml">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+        <field name="name" />
+        <field name="file_date" />
+        <field name="state" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_view_form" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.form</field>
+    <field name="model">product.pricelist.item.import</field>
+    <field name="arch" type="xml">
+      <form string="Import Pricelist Items">
+        <header>
+          <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_highlight"
+          />
+          <button name="action_validate" string="Validate" type="object" />
+          <button name="action_process" string="Process" type="object" />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              modifiers="{'invisible':[('import_line_ids', '=', [])]}"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+          </div>
+          <group>
+            <group string="Import Data">
+              <field name="filename" string="Filename" />
+              <field name="data" string="File" widget="binary" filename="filename" />
+              <field name="file_date" string="Import Date" />
+              <field name="catalog_ids" widget="many2many_tags" />
+            </group>
+          </group>
+          <notebook>
+            <page string="Imported Lines">
+              <field name="import_line_ids" />
+            </page>
+            <page string="Error Log" modifiers="{'invisible':[('log_info','=','')]}">
+              <field name="log_info" />
+            </page>
+            <page string="Help" modifiers="{'invisible': [('state', '=', 'done')]}">
+              <group>
+                <div name="help" style="margin-top: 4px;">
+                  <h3>Help with Excel column names</h3>
+                  <p>The Shopify file must include these columns:</p>
+                  <ul>
+                    <li><code
+                    >Variant SKU</code>: used to search products by internal reference.</li>
+                    <li><code
+                    >Variant Barcode</code>: used to search products by barcode.</li>
+                    <li><code
+                    >Included / Market</code>: optional column to decide if the product is imported for that market.</li>
+                    <li><code
+                    >Price / Market</code>: imported as distribution price.</li>
+                    <li><code
+                    >Compare At Price / Market</code>: optional column imported as fixed price when filled.</li>
+                  </ul>
+                </div>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_view_search" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.search</field>
+    <field name="model">product.pricelist.item.import</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <field name="file_date" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <group expand="0" string="Group By">
+          <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_line_view_tree" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.line.list</field>
+    <field name="model">product.pricelist.item.import.line</field>
+    <field name="arch" type="xml">
+      <list decoration-danger="state == 'error'" decoration-success="state == 'done'">
+        <field name="pricelist_id" optional="show" />
+        <field name="market_id" optional="show" />
+        <field name="catalog_ids" widget="many2many_tags" optional="show" />
+        <field name="variant_sku" optional="show" />
+        <field name="variant_barcode" optional="show" />
+        <field name="product_id" optional="show" />
+        <field name="price" optional="show" />
+        <field name="compare_price" optional="show" />
+        <field name="fixed_price" optional="show" />
+        <field name="distribution_price" optional="show" />
+        <field name="action" optional="show" />
+        <field name="state" optional="show" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_line_view_form" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.line.form</field>
+    <field name="model">product.pricelist.item.import.line</field>
+    <field name="arch" type="xml">
+      <form string="Pricelist Item Import Line">
+        <header>
+          <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            modifiers="2validate,error,pass"
+          />
+          <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            modifiers="pass,error"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="import_id" />
+              <field name="row_number" />
+              <field name="pricelist_id" />
+              <field name="market_id" />
+              <field name="catalog_ids" widget="many2many_tags" />
+              <field name="action" />
+            </group>
+            <group>
+              <field name="variant_sku" />
+              <field name="variant_barcode" />
+              <field name="product_id" />
+              <field name="pricelist_item_ids" widget="many2many_tags" />
+            </group>
+          </group>
+          <group string="Prices">
+            <field name="price" />
+            <field name="compare_price" />
+            <field name="fixed_price" />
+            <field name="distribution_price" />
+          </group>
+          <group string="Log" modifiers="{'invisible':[('log_info','=','')]}">
+            <field name="log_info" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_line_view_search" model="ir.ui.view">
+    <field name="name">product.pricelist.item.import.line.search</field>
+    <field name="model">product.pricelist.item.import.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="pricelist_id" />
+        <field name="market_id" />
+        <field name="variant_sku" />
+        <field name="variant_barcode" />
+        <field name="product_id" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <group expand="0" string="Group By">
+          <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+          <filter
+            string="Market"
+            name="market_group"
+            domain="[]"
+            context="{'group_by':'market_id'}"
+          />
+          <filter
+            string="Pricelist"
+            name="pricelist_group"
+            domain="[]"
+            context="{'group_by':'pricelist_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_import_action" model="ir.actions.act_window">
+    <field name="name">Import Pricelist Items</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.pricelist.item.import</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="product_pricelist_item_import_view_tree" />
+  </record>
+
+  <menuitem
+    id="product_pricelist_item_import_menu"
+    name="Import Pricelist Items"
+    action="product_pricelist_item_import_action"
+    parent="sale.product_menu_catalog"
+    sequence="20"
+  />
+</odoo>

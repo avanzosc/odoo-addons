@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_pricelist_view_form_inherit_hlc_prices" model="ir.ui.view">
+    <field name="name">product.pricelist.form.hlc.prices</field>
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//page[@name='pricelist_rules']//field[@name='price']"
+        position="after"
+      >
+        <field name="pvp_price" optional="show" />
+        <field name="distribution_price" optional="show" />
+        <field name="catalog_ids" widget="many2many_tags" optional="show" />
+      </xpath>
+      <field name="country_group_ids" position="after">
+        <field name="market_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_view_tree_inherit_hlc_market" model="ir.ui.view">
+    <field name="name">product.pricelist.list.hlc.market</field>
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view_tree" />
+    <field name="arch" type="xml">
+      <field name="country_group_ids" position="after">
+        <field name="market_id" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_tree_view_inherit_hlc_prices" model="ir.ui.view">
+    <field name="name">product.pricelist.item.list.hlc.prices</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
+    <field name="arch" type="xml">
+      <field name="price" position="after">
+        <field name="pvp_price" optional="show" />
+        <field name="distribution_price" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record
+    id="product_pricelist_item_tree_from_product_view_inherit_hlc_prices"
+    model="ir.ui.view"
+  >
+    <field name="name">product.pricelist.item.from.product.list.hlc.prices</field>
+    <field name="model">product.pricelist.item</field>
+    <field
+      name="inherit_id"
+      ref="product.product_pricelist_item_tree_view_from_product"
+    />
+    <field name="arch" type="xml">
+      <field name="fixed_price" position="after">
+        <field
+          name="pvp_price"
+          widget="monetary"
+          optional="show"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          widget="monetary"
+          optional="show"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_form_view_inherit_hlc_prices" model="ir.ui.view">
+    <field name="name">product.pricelist.item.form.hlc.prices</field>
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//div[field[@name='fixed_price']]" position="after">
+        <field
+          name="pvp_price"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>
