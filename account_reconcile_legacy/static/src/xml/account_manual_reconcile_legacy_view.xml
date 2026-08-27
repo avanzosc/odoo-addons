@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+  <t
+    t-name="account_reconcile_legacy.LegacyAccountMoveLineReconcileListController"
+    t-inherit="web.ListView"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//Layout" position="attributes">
+      <attribute name="className">
+        (props.className || '') + ' o_legacy_manual_reconcile_view'
+      </attribute>
+    </xpath>
+    <xpath expr="//t[@t-component='props.Renderer']" position="attributes">
+      <attribute name="setSelectedRecord.bind">
+    this.setSelectedRecord
+      </attribute>
+    </xpath>
+    <xpath expr="//t[@t-component='props.Renderer']" position="before">
+      <header class="o_legacy_manual_reconcile_header">
+        <h1>Apuntes contables a conciliar</h1>
+
+        <div class="o_legacy_manual_progress">
+          <span t-out="legacyProgressLabel" />
+        </div>
+      </header>
+    </xpath>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyAccountMoveLineReconcileRows">
+    <t t-if="!list.isGrouped">
+      <t t-set="legacySection" t-value="'standard'" />
+
+      <t t-foreach="list.records" t-as="record" t-key="record.id">
+        <t t-call="{{ constructor.recordRowTemplate }}" />
+      </t>
+    </t>
+
+    <t t-else="">
+      <t t-foreach="list.groups" t-as="group" t-key="group.id">
+        <t t-if="group.count > 0">
+          <t t-call="{{ constructor.groupRowTemplate }}" />
+
+          <!-- Cuenta activa/abierta. -->
+          <t t-if="!group.isFolded">
+            <t t-if="group.list.isGrouped">
+              <t t-call="web.ListRenderer.Rows">
+                <t t-set="list" t-value="group.list" />
+              </t>
+            </t>
+
+            <t t-else="">
+              <t
+                t-set="proposedRecords"
+                t-value="this.getGroupProposedRecords(group)"
+              />
+
+              <t t-if="proposedRecords.length">
+                <t t-foreach="proposedRecords" t-as="record" t-key="record.id">
+                  <t t-set="legacySection" t-value="'proposal'" />
+                  <t t-call="{{ constructor.recordRowTemplate }}" />
+                </t>
+              </t>
+
+              <tr t-else="" class="o_legacy_manual_no_proposal">
+                <td t-att-colspan="nbCols">
+                Seleccione al menos dos apuntes para
+                conciliar.
+                </td>
+              </tr>
+
+              <t
+                t-set="availableRecords"
+                t-value="this.getGroupAvailableRecords(group)"
+              />
+              <t
+                t-set="candidateRecords"
+                t-value="this.getGroupCandidateRecords(group)"
+              />
+
+              <t t-if="availableRecords.length">
+                <tr class="o_legacy_manual_candidate_filter">
+                  <td t-att-colspan="nbCols">
+                    <div class="o_legacy_manual_candidate_search">
+                      <input
+                        type="search"
+                        placeholder="Filtro..."
+                        t-att-value="
+                        legacyUi.candidateFilter
+                      "
+                        t-on-input="updateCandidateFilter"
+                      />
+                      <i class="fa fa-search" aria-hidden="true" />
+                    </div>
+                  </td>
+                </tr>
+
+                <t t-if="candidateRecords.length">
+                  <t t-foreach="candidateRecords" t-as="record" t-key="record.id">
+                    <t t-set="legacySection" t-value="'candidate'" />
+                    <t t-call="{{ constructor.recordRowTemplate }}" />
+                  </t>
+
+                  <tr class="o_legacy_manual_candidate_footer">
+                    <td t-att-colspan="nbCols" />
+                  </tr>
+                </t>
+
+                <tr t-else="" class="o_legacy_manual_no_candidates">
+                  <td t-att-colspan="nbCols">
+                  No hay apuntes que coincidan con el
+                  filtro.
+                  </td>
+                </tr>
+              </t>
+            </t>
+          </t>
+
+          <!-- Pareja propuesta de una cuenta cerrada. -->
+          <t t-elif="this.getFoldedGroupPair(group)">
+            <t t-set="foldedPair" t-value="this.getFoldedGroupPair(group)" />
+
+            <t t-foreach="foldedPair.lines" t-as="line" t-key="line.id">
+              <tr class="o_legacy_manual_folded_pair_row">
+                <td class="o_legacy_manual_compact_cell" t-att-colspan="nbCols">
+                  <div
+                    class="
+                    o_legacy_manual_compact_line
+                    o_legacy_manual_compact_line_readonly
+                  "
+                  >
+                    <span class="o_legacy_manual_line_selector">
+                      <i class="fa fa-minus" aria-hidden="true" />
+                    </span>
+
+                    <span
+                      class="o_legacy_manual_line_date"
+                      t-out="
+                      this.getLegacyFoldedDate(line)
+                    "
+                    />
+
+                    <span
+                      class="
+                      o_legacy_manual_aml_description
+                    "
+                      t-att-title="
+                      this.getLegacyFoldedDescription(
+                        line
+                      )
+                    "
+                      t-out="
+                      this.getLegacyFoldedDescription(
+                        line
+                      )
+                    "
+                    />
+
+                    <span
+                      class="
+                      o_legacy_manual_line_amount
+                    "
+                      t-out="
+                      this.getLegacyFoldedAmount(
+                        line,
+                        'debit'
+                      )
+                    "
+                    />
+
+                    <span
+                      class="
+                      o_legacy_manual_line_amount
+                    "
+                      t-out="
+                      this.getLegacyFoldedAmount(
+                        line,
+                        'credit'
+                      )
+                    "
+                    />
+                  </div>
+                </td>
+              </tr>
+            </t>
+          </t>
+        </t>
+      </t>
+    </t>
+  </t>
+
+  <t
+    t-name="account_reconcile_legacy.LegacyAccountMoveLineReconcileGroupRow"
+    t-inherit="web.ListRenderer.GroupRow"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//tr" position="replace">
+      <tr
+        t-attf-class="
+        {{ group.count > 0 ? 'o_group_has_content' : '' }}
+        o_group_header
+        {{ !group.isFolded ? 'o_group_open' : '' }}
+        cursor-pointer
+      "
+        t-on-click="
+        (ev) => this.onGroupHeaderClicked(ev, group)
+      "
+      >
+        <td class="o_legacy_manual_group_cell" t-att-colspan="nbCols">
+          <t
+            t-set="debitColumn"
+            t-value="
+            getAggregateColumns(group).find(
+              (column) => column.name === 'debit'
+            )
+          "
+          />
+          <t
+            t-set="creditColumn"
+            t-value="
+            getAggregateColumns(group).find(
+              (column) => column.name === 'credit'
+            )
+          "
+          />
+          <t t-set="foldedPair" t-value="this.getFoldedGroupPair(group)" />
+
+          <div class="o_legacy_manual_group_grid">
+            <div class="o_legacy_manual_group_heading">
+              <div
+                class="o_legacy_manual_group_title"
+                t-att-title="
+                getGroupDisplayName(group) +
+                ' (' + group.count + ')'
+              "
+              >
+                <span
+                  t-attf-class="
+                  o_group_caret fa fa-fw
+                  {{ group.isFolded
+                    ? 'fa-caret-right'
+                    : 'fa-caret-down' }}
+                "
+                  t-attf-style="
+                  --o-list-group-level:
+                  {{ getGroupLevel(group) }}
+                "
+                />
+
+                <span
+                  class="o_legacy_manual_group_label"
+                  t-out="
+                  getGroupDisplayName(group) +
+                  ' (' + group.count + ')'
+                "
+                />
+              </div>
+
+              <!-- Conciliación de la cuenta activa. -->
+              <button
+                t-if="!group.isFolded"
+                type="button"
+                class="
+                btn btn-primary
+                o_legacy_manual_reconcile_button
+              "
+                t-att-disabled="
+                !this.canReconcileGroup(group)
+              "
+                t-on-click.stop.prevent="
+                () =>
+                  this.env.reconcileLegacySelection()
+              "
+              >
+              Conciliar
+              </button>
+
+              <!-- Conciliación de una pareja cerrada. -->
+              <button
+                t-elif="foldedPair"
+                type="button"
+                class="
+                btn btn-primary
+                o_legacy_manual_reconcile_button
+              "
+                t-on-click.stop.prevent="
+                () =>
+                  this.env.reconcileLegacyPair(
+                    foldedPair
+                  )
+              "
+              >
+              Conciliar
+              </button>
+
+              <div
+                t-if="showGroupPager(group)"
+                class="o_legacy_manual_group_pager"
+                t-on-click.stop=""
+              >
+                <Pager t-props="getGroupPagerProps(group)" />
+              </div>
+            </div>
+
+            <span
+              class="
+              o_legacy_manual_group_amount
+              o_legacy_manual_group_debit
+            "
+              t-out="
+              debitColumn
+                ? formatAggregateValue(
+                    group,
+                    debitColumn
+                  )
+                : ''
+            "
+            />
+
+            <span
+              class="
+              o_legacy_manual_group_amount
+              o_legacy_manual_group_credit
+            "
+              t-out="
+              creditColumn
+                ? formatAggregateValue(
+                    group,
+                    creditColumn
+                  )
+                : ''
+            "
+            />
+          </div>
+        </td>
+      </tr>
+    </xpath>
+  </t>
+
+  <t
+    t-name="account_reconcile_legacy.LegacyAccountMoveLineReconcileRecordRow"
+    t-inherit="web.ListRenderer.RecordRow"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//tr" position="attributes">
+      <attribute name="t-att-class">
+      getRowClass(record) + ' ' + (
+        legacySection === 'proposal'
+          ? 'o_legacy_manual_proposal_row'
+          : legacySection === 'candidate'
+            ? 'o_legacy_manual_candidate_row'
+            : ''
+      )
+      </attribute>
+    </xpath>
+
+    <xpath expr="//td[@t-if='hasSelectors']" position="before">
+      <td
+        t-if="
+        ['proposal', 'candidate'].includes(
+          legacySection
+        )
+      "
+        class="o_legacy_manual_compact_cell"
+        t-att-colspan="nbCols"
+      >
+        <div
+          class="o_legacy_manual_compact_line"
+          role="button"
+          tabindex="0"
+          t-on-click.stop="
+    () => this.toggleRecordSelection(record)
+  "
+          t-on-keydown="
+    (ev) => this.onLegacyLineKeydown(ev, record)
+  "
+        >
+          <span class="o_legacy_manual_line_selector">
+            <i
+              t-att-class="
+        record.selected
+          ? 'fa fa-minus'
+          : 'fa fa-plus'
+      "
+              aria-hidden="true"
+            />
+          </span>
+
+          <span
+            class="o_legacy_manual_line_date"
+            t-out="this.getLegacyFormattedValue(record, 'date')"
+          />
+
+          <span
+            class="o_legacy_manual_aml_description"
+            t-att-title="this.getLegacyAmlDescription(record)"
+            t-out="this.getLegacyAmlDescription(record)"
+          />
+
+          <span
+            class="o_legacy_manual_line_amount"
+            t-out="this.getLegacyFormattedValue(record, 'debit')"
+          />
+
+          <span
+            class="o_legacy_manual_line_amount"
+            t-out="this.getLegacyFormattedValue(record, 'credit')"
+          />
+        </div>
+      </td>
+    </xpath>
+  </t>
+
+</templates>

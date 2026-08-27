@@ -1,0 +1,648 @@
+.o_avanzosc_account_reconcile_legacy {
+  --legacy-ink: #24384d;
+  --legacy-muted: #667085;
+  --legacy-line: #d9dee3;
+  --legacy-soft: #f3f4f5;
+  --legacy-accent: #00a09d;
+  --legacy-danger: #dc5a5a;
+
+  min-height: 0;
+  height: calc(100vh - 46px);
+  overflow: hidden;
+  background: #f7f7f7;
+  color: var(--legacy-ink);
+
+  // Left-hand statement selector supplied by the standard renderer.
+  .o_kanban_renderer.o_legacy_statement_selector,
+  .o_bank_rec_kanban_div {
+    flex: 0 0 320px;
+    width: 320px;
+    min-width: 280px;
+    padding: 10px;
+    overflow-y: auto;
+    border-right: 1px solid var(--legacy-line);
+    background: #fff;
+  }
+
+  .o_bank_rec_st_line {
+    margin: 0 0 6px;
+    border: 1px solid transparent;
+    border-bottom-color: var(--legacy-line);
+    border-radius: 0;
+    box-shadow: none;
+
+    &.o_bank_rec_selected_st_line {
+      border-color: #9fcfcf;
+      background: #e4f3f3 !important;
+    }
+  }
+
+  .o_legacy_reconciliation_workspace {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    overflow: auto;
+    padding: 12px 16px 40px;
+    overscroll-behavior: contain;
+  }
+
+  .o_legacy_reconciliation_shell {
+    width: 100%;
+    max-width: 1140px;
+    min-height: 100%;
+    margin: 0 auto;
+    padding: 28px 24px 42px;
+    border: 1px solid #cfd6dc;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+
+  .o_legacy_header {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) minmax(240px, 44%);
+    align-items: center;
+    gap: 32px;
+    margin-bottom: 30px;
+
+    h1 {
+      margin: 0;
+      color: #111827;
+      font-size: 28px;
+      font-weight: 400;
+    }
+  }
+
+  .o_legacy_transaction_name {
+    max-width: 560px;
+    margin-top: 5px;
+    color: var(--legacy-muted);
+    font-size: 13px;
+  }
+
+  .o_legacy_progress_bar {
+    min-height: 14px;
+    background: #e9edf1;
+    color: var(--legacy-muted);
+    font-size: 11px;
+    line-height: 14px;
+    text-align: center;
+  }
+
+  .o_legacy_partner_selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .o_legacy_partner_caption {
+    color: var(--legacy-muted);
+    font-size: 12px;
+  }
+
+  .o_legacy_partner_select {
+    min-width: 210px;
+    max-width: 380px;
+    padding: 2px 4px;
+    overflow: hidden;
+    border-bottom: 1px solid #c7cdd3;
+    color: #111827;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .o_input_dropdown,
+    .o-autocomplete,
+    input {
+      width: 100%;
+      border: 0 !important;
+      background: transparent !important;
+      color: #111827;
+      font-weight: 600;
+      box-shadow: none !important;
+    }
+  }
+
+  .o_legacy_validate_button,
+  .o_legacy_reset_button {
+    margin-left: auto;
+  }
+
+  .o_legacy_validate_button:not(:disabled) {
+    border-color: var(--legacy-accent);
+    background: var(--legacy-accent);
+  }
+
+  .o_legacy_statement {
+    margin-bottom: 20px;
+  }
+
+  .o_legacy_statement_title {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    padding: 0 4px 12px;
+    color: #9aa4af;
+    font-size: 13px;
+
+    span:last-child:not(:first-child) {
+      color: var(--legacy-danger);
+    }
+  }
+
+  // Restyle the standard line_ids template instead of reproducing it.
+  .o_legacy_lines {
+    overflow: hidden;
+    border-top: 1px solid #9fa7af;
+    border-bottom: 1px solid var(--legacy-line);
+
+    .o_list_renderer {
+      overflow: auto;
+    }
+
+    .o_bank_rec_lines_widget_table {
+      margin: 0;
+      color: #5b6673;
+      font-size: 13px;
+
+      thead {
+        background: var(--legacy-soft);
+
+        th {
+          padding: 5px 7px;
+          border-color: var(--legacy-line);
+          color: #7a8590;
+          font-weight: 500;
+        }
+      }
+
+      tbody tr {
+        cursor: pointer;
+
+        &.o_bank_rec_expanded_line td {
+          padding: 5px 7px 1px;
+          border-bottom: 0;
+        }
+
+        &.o_bank_rec_second_line td {
+          padding: 0 7px 5px;
+          border-top: 0;
+          border-bottom: 1px solid #e1e5e8;
+        }
+
+        &.o_bank_rec_liquidity_line {
+          background: #f0f0f0;
+        }
+
+        &.o_bank_rec_selected_line {
+          background: #d9edf7 !important;
+        }
+      }
+    }
+  }
+
+  .o_legacy_panel_navigation {
+    display: flex;
+    gap: 4px;
+    margin: 0 0 -1px 12px;
+
+    .btn-link {
+      padding: 6px 12px;
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-radius: 3px 3px 0 0;
+      color: #24476b;
+      text-decoration: none;
+
+      &.active {
+        position: relative;
+        z-index: 1;
+        border-color: var(--legacy-line);
+        background: #fff;
+        color: var(--legacy-accent);
+      }
+    }
+  }
+
+  .o_legacy_match_panel {
+    min-height: 180px;
+    margin-bottom: 14px;
+    padding: 12px;
+    border: 1px solid var(--legacy-line);
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  .o_legacy_candidates_panel {
+    .bank_rec_widget_form_amls_list_anchor,
+    .o_view_controller,
+    .o_list_renderer {
+      min-height: 150px;
+    }
+
+    .o_control_panel {
+      padding: 0 0 8px;
+    }
+
+    .o_list_table {
+      font-size: 13px;
+
+      th,
+      td {
+        padding-top: 4px;
+        padding-bottom: 4px;
+      }
+    }
+  }
+
+  .o_legacy_footer_actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .o_legacy_empty {
+    display: grid;
+    place-content: center;
+    min-height: 420px;
+    color: #7c8792;
+    text-align: center;
+
+    .fa {
+      margin-bottom: 10px;
+      color: var(--legacy-accent);
+      font-size: 42px;
+    }
+  }
+}
+
+@media (max-width: 1100px) {
+  .o_avanzosc_account_reconcile_legacy {
+    .o_kanban_renderer.o_legacy_statement_selector,
+    .o_bank_rec_kanban_div {
+      flex-basis: 260px;
+      width: 260px;
+      min-width: 240px;
+    }
+
+    .o_legacy_header {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .o_avanzosc_account_reconcile_legacy {
+    height: auto;
+    min-height: calc(100vh - 46px);
+    overflow: auto;
+
+    .o_bank_rec_main_div {
+      display: block !important;
+    }
+
+    .o_kanban_renderer.o_legacy_statement_selector,
+    .o_bank_rec_kanban_div {
+      width: 100%;
+      min-width: 0;
+      max-height: 220px;
+      border-right: 0;
+      border-bottom: 1px solid var(--legacy-line);
+    }
+
+    .o_legacy_reconciliation_workspace {
+      height: auto;
+      padding: 8px;
+    }
+
+    .o_legacy_reconciliation_shell {
+      padding: 20px 12px 30px;
+    }
+
+    .o_legacy_partner_selector {
+      flex-wrap: wrap;
+    }
+
+    .o_legacy_validate_button,
+    .o_legacy_reset_button {
+      margin-left: 0;
+    }
+  }
+}
+
+/* Primera aproximación a la disposición vertical de Odoo 12. */
+.o_bank_rec_main_div.o_avanzosc_account_reconcile_legacy {
+  &.o_legacy_overview_mode {
+    height: auto !important;
+    min-height: calc(100vh - 46px);
+    overflow-y: auto !important;
+
+    .o_legacy_reconciliation_workspace {
+      flex: 0 0 auto !important;
+      height: auto !important;
+      min-height: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .o_legacy_overview_shell {
+      height: auto !important;
+      min-height: 0 !important;
+      margin-bottom: 0 !important;
+      padding-top: 28px;
+      padding-bottom: 4px !important;
+      border-bottom: 0;
+      box-shadow: none;
+    }
+
+    .o_legacy_overview_shell .o_legacy_header {
+      margin-bottom: 8px;
+    }
+
+    .o_kanban_renderer.o_legacy_statement_selector,
+    .o_bank_rec_kanban_div {
+      margin-top: 0 !important;
+      padding-top: 8px !important;
+    }
+
+    // Protección por si el formulario de detalle quedó duplicado.
+    .o_legacy_reconciliation_shell:not(.o_legacy_overview_shell) {
+      display: none !important;
+    }
+
+    .o_legacy_match_panel,
+    .o_legacy_panel_navigation,
+    .o_legacy_partner_selector,
+    .o_legacy_statement,
+    .o_legacy_footer_actions {
+      display: none !important;
+    }
+  }
+}
+
+.o_bank_rec_main_div.o_avanzosc_account_reconcile_legacy {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  .o_legacy_reconciliation_workspace {
+    order: 1 !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+
+  .o_kanban_renderer.o_legacy_statement_selector,
+  .o_bank_rec_kanban_div {
+    order: 2 !important;
+    flex: 0 0 auto !important;
+    width: calc(100% - 32px) !important;
+    max-width: 1140px !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    overflow: visible !important;
+  }
+}
+
+.o_avanzosc_account_reconcile_legacy {
+  .o_legacy_line {
+    display: grid;
+    grid-template-columns: 18px 88px 94px minmax(240px, 1fr) 105px 105px 18px;
+    align-items: center;
+    min-height: 27px;
+    padding: 2px 4px;
+    border-bottom: 1px solid #e1e5e8;
+    color: #5b6673;
+    font-size: 13px;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &:not(.o_legacy_line_main) {
+      cursor: pointer;
+
+      &:hover {
+        background: #f7f9fa;
+      }
+    }
+
+    &.o_legacy_line_main {
+      min-height: 48px;
+      background: #f0f0f0;
+    }
+
+    &.o_legacy_selected_line {
+      background: #d9edf7;
+    }
+
+    &.o_legacy_invalid_line {
+      box-shadow: inset 3px 0 0 var(--legacy-danger);
+    }
+  }
+
+  .o_legacy_cog_button,
+  .o_legacy_remove_line {
+    width: 18px;
+    min-width: 18px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: #24476b;
+    line-height: 20px;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+      color: var(--legacy-accent);
+      text-decoration: none;
+    }
+  }
+
+  .o_legacy_account_code,
+  .o_legacy_line_date,
+  .o_legacy_amount_debit,
+  .o_legacy_amount_credit {
+    white-space: nowrap;
+  }
+
+  .o_legacy_account_code {
+    overflow: hidden;
+    color: #536273;
+    text-overflow: ellipsis;
+  }
+
+  .o_legacy_label {
+    min-width: 0;
+    padding-right: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .o_legacy_line_secondary {
+    display: block;
+    overflow: hidden;
+    color: #7d8791;
+    font-size: 12px;
+    font-style: italic;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .o_legacy_amount_debit,
+  .o_legacy_amount_credit {
+    padding-right: 6px;
+    text-align: right;
+  }
+
+  .o_legacy_new_badge {
+    padding: 1px 8px;
+    background: #e2e5e7;
+    color: #111;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .o_legacy_line_info {
+    color: #c5cbd0;
+    text-align: center;
+  }
+}
+
+.o_avanzosc_account_reconcile_legacy {
+  .o_legacy_hint {
+    display: grid;
+    grid-template-columns: 18px 88px 94px minmax(240px, 1fr) 105px 105px 18px;
+    align-items: center;
+    min-height: 27px;
+    padding: 2px 4px;
+    color: #bcc3ca;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: #fafbfb;
+      color: #8e99a3;
+    }
+
+    .o_legacy_toggle_caret {
+      color: #24476b;
+      text-align: center;
+    }
+
+    .o_legacy_hint_label {
+      grid-column: 2 / 5;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .o_legacy_amount_debit,
+    .o_legacy_amount_credit {
+      color: inherit;
+    }
+  }
+}
+
+.o_avanzosc_account_reconcile_legacy {
+  .o_legacy_manual_panel {
+    position: relative;
+    padding: 20px 24px 24px;
+
+    .o_form_view,
+    .o_form_view_container,
+    .o_content,
+    .o_form_nosheet {
+      width: 100%;
+      min-height: 0;
+      height: auto !important;
+      overflow: visible !important;
+      background: transparent;
+    }
+
+    .o_form_nosheet {
+      padding: 0 !important;
+    }
+
+    .bank_rec_widget_manual_operations_anchor {
+      width: 100%;
+    }
+
+    .bank_rec_widget_manual_operations_anchor > .o_group {
+      display: grid !important;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+      gap: 18px 28px;
+      width: 100%;
+      margin: 0 !important;
+    }
+
+    .o_inner_group {
+      width: 100% !important;
+      max-width: none !important;
+      min-width: 0;
+      padding: 0 !important;
+    }
+
+    .o_wrap_field,
+    .o_wrap_label,
+    .o_wrap_input,
+    .o_field_widget {
+      min-width: 0;
+    }
+
+    .o_form_label {
+      color: #606b77;
+      font-weight: 600;
+      white-space: normal;
+    }
+
+    .o_field_widget,
+    .o_field_widget input,
+    .o_field_widget textarea,
+    .o_field_widget select,
+    .o_field_widget .o_input,
+    .o_field_widget .o_input_dropdown,
+    .o_field_widget .o-autocomplete {
+      border: 0 !important;
+      border-color: transparent !important;
+      border-radius: 0;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .o_avanzosc_account_reconcile_legacy {
+    .o_legacy_manual_panel {
+      .bank_rec_widget_manual_operations_anchor > .o_group {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}
+
+.o_bank_rec_main_div.o_avanzosc_account_reconcile_legacy {
+  &:not(.o_legacy_overview_mode) {
+    .o_bank_rec_st_line.o_bank_rec_selected_st_line {
+      display: none !important;
+    }
+  }
+
+  &.o_legacy_overview_mode {
+    .o_bank_rec_st_line.o_bank_rec_selected_st_line {
+      display: block !important;
+      border-color: #9fcfcf;
+      background: #e4f3f3 !important;
+    }
+  }
+}
