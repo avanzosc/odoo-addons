@@ -1,0 +1,15 @@
+<odoo>
+    <template
+    id="custom_portal_tickets_followup_inherit"
+    inherit_id="helpdesk.tickets_followup"
+  >
+        <xpath expr="//div[@id='card_body']/div[1]/span" position="after">
+            <strong class="col-lg-2">Updated on</strong>
+            <span
+        class="col-lg-10"
+        t-field="ticket.date_last_stage_update"
+        t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;hide_seconds&quot;: True}"
+      />
+        </xpath>
+    </template>
+</odoo>

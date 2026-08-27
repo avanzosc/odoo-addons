@@ -1,0 +1,27 @@
+<odoo>
+  <template
+    id="custom_portal_helpdesk_ticket_inherit"
+    inherit_id="helpdesk.portal_helpdesk_ticket"
+  >
+
+    <xpath expr="//thead/tr/th[2]" position="after">
+        <th class="text-end" t-if="groupby != 'date_last_stage_update'">Updated on</th>
+    </xpath>
+
+    <xpath expr="//tbody/tr/th[3]" position="after">
+        <th t-if="groupby == 'date_last_stage_update'" colspan="5">
+            <span t-field="tickets[0].date_last_stage_update" />
+        </th>
+    </xpath>
+
+    <xpath expr="//tbody/../t/tr/td[2]" position="after">
+        <td class="text-end" t-if="groupby != 'date_last_stage_update'">
+            <span
+          t-field="ticket.date_last_stage_update"
+          t-options="{&quot;widget&quot;: &quot;datetime&quot;, &quot;hide_seconds&quot;: True}"
+        />
+        </td>
+    </xpath>
+
+  </template>
+</odoo>
