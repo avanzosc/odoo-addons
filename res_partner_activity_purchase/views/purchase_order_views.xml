@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_purchase_order_filter" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+    <field name="arch" type="xml">
+      <field name="origin" position="after">
+        <field name="supplier_industry_id" />
+        <field name="supplier_principal_activity_id" />
+        <field name="interest_id" />
+        <field name="flowserve_manager_id" />
+        <field name="province_id" />
+        <field name="zip" />
+      </field>
+      <xpath expr="//group/filter[@name='order_date']" position="after">
+        <filter
+          string="Confirmation date"
+          name="date_approve"
+          domain="[]"
+          context="{'group_by': 'date_approve'}"
+        />
+        <filter
+          string="Supplier sector"
+          name="supplier_industry"
+          domain="[]"
+          context="{'group_by': 'supplier_industry_id'}"
+        />
+        <filter
+          string="Supplier Principal Activity"
+          name="supplier_principal_activity"
+          domain="[]"
+          context="{'group_by': 'supplier_principal_activity_id'}"
+        />
+        <separator />
+        <filter
+          string="Interest"
+          name="interest"
+          domain="[]"
+          context="{'group_by': 'interest_id'}"
+        />
+
+        <filter
+          string="Flowserve Manager"
+          name="flowserve_manager"
+          domain="[]"
+          context="{'group_by': 'flowserve_manager_id'}"
+        />
+        <separator />
+        <filter
+          string="Province"
+          name="province"
+          domain="[]"
+          context="{'group_by': 'province_id'}"
+        />
+        <filter
+          string="Zip Code"
+          name="zip"
+          domain="[]"
+          context="{'group_by': 'zip'}"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>
