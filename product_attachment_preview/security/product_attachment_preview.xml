@@ -1,0 +1,88 @@
+<odoo>
+    <record model="ir.module.category" id="module_product_attachments">
+        <field name="name">Product Attachments</field>
+        <field name="sequence">51</field>
+    </record>
+
+    <record id="group_operator_product_attachment_only" model="res.groups">
+        <field name="name">View operator product attachments</field>
+        <field
+      name="category_id"
+      ref="product_attachment_preview.module_product_attachments"
+    />
+    </record>
+
+    <record id="group_tech_ope_product_attachment_only" model="res.groups">
+        <field name="name">View technical and operator product attachments</field>
+        <field
+      name="category_id"
+      ref="product_attachment_preview.module_product_attachments"
+    />
+        <field
+      name="implied_ids"
+      eval="[(4, ref('group_operator_product_attachment_only'))]"
+    />
+    </record>
+
+    <record id="group_attachment_all" model="res.groups">
+        <field name="name">View all attachments</field>
+        <field
+      name="category_id"
+      ref="product_attachment_preview.module_product_attachments"
+    />
+        <field
+      name="implied_ids"
+      eval="[(4, ref('group_tech_ope_product_attachment_only'))]"
+    />
+        <field
+      name="users"
+      eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+    />
+    </record>
+
+    <record id="ir_attachment_rule_operator" model="ir.rule">
+        <field name="name">View operator product attachments</field>
+        <field name="model_id" ref="base.model_ir_attachment" />
+        <field
+      name="groups"
+      eval="[(4, ref('product_attachment_preview.group_operator_product_attachment_only'))]"
+    />
+        <field
+      name="domain_force"
+    >['|', ('res_model', '!=', 'product.product'), ('res_model', '=', 'product.product'), ('is_for_operators', '=', True)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+
+    <record id="ir_attachment_rule_tech_ope" model="ir.rule">
+        <field name="name">View technical and operator product attachments</field>
+        <field name="model_id" ref="base.model_ir_attachment" />
+        <field
+      name="groups"
+      eval="[(4, ref('product_attachment_preview.group_tech_ope_product_attachment_only'))]"
+    />
+        <field
+      name="domain_force"
+    >['|', ('res_model', '!=', 'product.product'), ('res_model', '=', 'product.product'), '|', ('is_for_operators', '=', True), ('is_technical', '=', True)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+
+    <record id="ir_attachment_rule_all" model="ir.rule">
+        <field name="name">View all attachments</field>
+        <field name="model_id" ref="base.model_ir_attachment" />
+        <field
+      name="groups"
+      eval="[(4, ref('product_attachment_preview.group_attachment_all'))]"
+    />
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
+    </record>
+</odoo>
