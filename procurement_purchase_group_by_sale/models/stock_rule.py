@@ -8,13 +8,14 @@ class StockRule(models.Model):
 
     def _make_po_get_domain(self, company_id, values, partner):
         domain = super()._make_po_get_domain(company_id, values, partner)
-        if values.get("sale_origin"):
-            domain += (("origin", "=", values["sale_origin"]),)
-        if (
-            "from_orderpoint" in self.env.context
-            and self.env.context.get("from_orderpoint", False)
-            and "orderpoint_id" in values
-            and values.get("orderpoint_id", False)
-        ):
-            domain += (("origin", "=", "New reordering rule"),)
+        group = values.get("group_id")
+        if group:
+            domain += (("group_id", "=", group.id),)
+        else:
+            cond = [("company_id", "=", company_id.id), ("code", "=", "sale.order")]
+            sequence = self.env["ir.sequence"].search(cond, limit=1)
+            domain += (
+                ("company_id", "=", company_id.id),
+                ("origin", "not ilike", sequence.prefix),
+            )
         return domain
