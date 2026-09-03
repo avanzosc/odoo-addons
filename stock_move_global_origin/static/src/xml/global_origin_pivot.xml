@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+    t-name="web.PivotHeader"
+    t-inherit="web.PivotHeader"
+    t-inherit-mode="extension"
+    owl="1"
+  >
+        <xpath expr="//th" position="attributes">
+            <attribute
+        name="t-att-data-go-indent"
+      >isXAxis ? undefined : cell.indent</attribute>
+            <attribute
+        name="t-att-data-go-title"
+      >isXAxis ? undefined : cell.title</attribute>
+        </xpath>
+    </t>
+</templates>

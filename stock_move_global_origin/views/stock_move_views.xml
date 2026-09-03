@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_move_tree" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="reference" position="after">
+                <field name="global_origin" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_move_search" model="ir.ui.view">
+        <field name="model">stock.move</field>
+        <field name="inherit_id" ref="stock.view_move_search" />
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="global_origin" />
+            </field>
+            <filter name="by_product" position="before">
+                <filter
+          string="Global Origin"
+          name="groupby_global_origin"
+          domain="[]"
+          context="{'group_by': 'global_origin'}"
+        />
+                <filter
+          string="Company"
+          name="groupby_company"
+          domain="[]"
+          context="{'group_by': 'company_id'}"
+        />
+                <filter
+          string="Operation Type"
+          name="groupby_picking_type"
+          domain="[]"
+          context="{'group_by': 'picking_type_sequence_code'}"
+        />
+            </filter>
+            <filter name="ready" position="before">
+                <filter
+          string="Not Cancelled"
+          name="not_cancelled"
+          domain="[('state', '!=', 'cancel')]"
+        />
+                <separator />
+            </filter>
+
+        </field>
+    </record>
+
+    <record id="view_move_pivot_global_origin" model="ir.ui.view">
+        <field name="name">stock.move.pivot.global.origin</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <pivot string="Global Report" sample="1" js_class="global_origin_pivot">
+                <field name="product_uom_qty" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <record id="action_stock_move_global_origin_pivot" model="ir.actions.act_window">
+        <field name="name">Global Report</field>
+        <field name="res_model">stock.move</field>
+        <field name="view_mode">tree,pivot,form</field>
+        <field name="search_view_id" ref="view_move_search" />
+        <field name="domain">[('global_origin', '!=', False)]</field>
+        <field
+      name="context"
+    >{'search_default_not_cancelled': 1, 'search_default_groupby_global_origin': 1, 'search_default_groupby_company': 1, 'search_default_groupby_picking_type': 1, 'search_default_by_product': 1}</field>
+    </record>
+
+    <record id="action_view_global_origin_tree" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="stock.view_move_tree" />
+        <field name="act_window_id" ref="action_stock_move_global_origin_pivot" />
+    </record>
+
+    <record id="action_view_global_origin_pivot" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_move_pivot_global_origin" />
+        <field name="act_window_id" ref="action_stock_move_global_origin_pivot" />
+    </record>
+
+    <menuitem
+    id="menu_global_origin_root"
+    name="Global Origin"
+    sequence="99"
+    web_icon="stock_move_global_origin,static/description/icon.png"
+  />
+
+    <menuitem
+    id="menu_stock_move_global_origin_pivot"
+    name="Global Report"
+    action="action_stock_move_global_origin_pivot"
+    parent="menu_global_origin_root"
+    groups="group_global_origin_viewer,stock.group_stock_user,stock.group_stock_manager"
+    sequence="10"
+  />
+</odoo>
