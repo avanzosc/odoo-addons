@@ -6,37 +6,13 @@ from odoo import api, fields, models
 class TreasuryForecast(models.Model):
     _inherit = "treasury.forecast"
 
-    @api.depends("financing_id", "financing_id.project_id")
-    def _compute_project_id(self):
-        for forecast in self:
-            if forecast.financing_id and forecast.financing_id.project_id:
-                forecast.project_id = forecast.financing_id.project_id.id
-            else:
-                forecast.project_id = False
-
-    @api.depends("financing_id", "financing_id.analytic_account_id")
-    def _compute_analytic_account_id(self):
-        for forecast in self:
-            if forecast.financing_id and forecast.financing_id.analytic_account_id:
-                forecast.analytic_account_id = (
-                    forecast.financing_id.analytic_account_id.id
-                )
-            else:
-                forecast.analytic_account_id = False
-
     project_id = fields.Many2one(
-        comodel_name="project.project",
-        string="Project",
-        compute="_compute_project_id",
-        store=True,
-        readonly=False,
+        comodel_name="project.project", string="Project", compute=False
     )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
-        compute="_compute_analytic_account_id",
-        store=True,
-        readonly=False,
+        compute=False,
     )
 
     @api.onchange("project_id")

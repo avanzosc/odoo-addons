@@ -53,52 +53,50 @@
           </div>
 
           <group>
-            <group>
-              <field name="code" />
+            <group name="general_info">
+              <separator string="General Information" />
               <field name="name" />
-              <field name="journal_id" />
-              <field name="partner_id" />
-              <field name="category_id" />
+              <field name="code" />
               <field name="parent_category_id" />
+              <field name="category_id" />
               <field name="category_type" readonly="1" />
-              <field name="base_product_id" />
-              <field name="interest_product_id" />
             </group>
-
-            <group>
+            <group name="contract_info">
+              <separator string="Contract Information" />
+              <field name="partner_id" />
               <field name="contract_date" />
-              <field name="start_date" />
-              <field name="end_date" />
-              <field name="installment_number" />
-            </group>
-          </group>
-
-          <group>
-            <group>
-              <field name="installment_recurrence" />
-              <field name="interest_review_recurrence" />
-            </group>
-
-            <group>
               <field name="total_amount" />
               <field name="last_forecast_date" />
             </group>
           </group>
-
-          <group string="Installment Details">
-            <group>
+          <group col="8">
+            <separator string="cuotes" colspan="8" />
+            <group name="cuote_info1">
+              <field name="start_date" />
+              <field name="end_date" />
+              <field name="installment_recurrence" />
+            </group>
+            <group name="product_info">
+              <field name="base_product_id" />
+              <field name="interest_product_id" />
+            </group>
+            <group name="cuote_info2">
               <field name="base_installment" />
               <field name="interest_installment" />
-            </group>
-
-            <group>
-              <field name="current_interest_percent" />
               <field name="installment_amount" readonly="1" />
             </group>
+            <group name="cuote_info3">
+              <field name="journal_id" />
+              <field name="installment_number" />
+              <field name="interest_review_recurrence" />
+              <field name="current_interest_percent" />
+            </group>
           </group>
-
-          <group>
-            <field name="interest_conditions" />
+          <group name="conditions">
+            <group name="conditions_info" colspan="4">
+              <separator string="Conditions" colspan="4" />
+              <field name="interest_conditions" colspan="4" nolabel="1" />
+            </group>
           </group>
         </sheet>
       </form>

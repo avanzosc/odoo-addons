@@ -15,11 +15,12 @@
         <span t-field="line.weight_uom_name" class="text-nowrap" />
       </td>
     </td>
-    <xpath expr="//div[@id='total']" position="after">
+    <div id="payment_term" position="before">
       <p t-if="o.total_weight_qty" name="total_weight_qty">
+        <br />
         <strong>Total Weight: </strong>
         <span t-field="o.total_weight_qty" />
       </p>
-    </xpath>
+    </div>
   </template>
 </odoo>
