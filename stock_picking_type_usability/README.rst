@@ -2,13 +2,14 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-============================
-Stock picking type usability
-============================
+=======================
+Stock Picking Usability
+=======================
 
-* * In "Picking Type" object, show "Default Source Location", and "Default
-    Destination Location" fields in tree view.
-
+* With this module, pickings usability is improved, by adding adding a button
+  to access to the detailed operations. Also it makes always visible the
+  detailed operations page.
+* In stock picking form new shortcut to lots.
 
 Bug Tracker
 ===========
@@ -26,5 +27,5 @@ Credits
 Contributors
 ------------
 
+* Berezi Amubieta <bereziamubieta@avanzosc.es>
 * Ana Juaristi <anajuaristi@avanzosc.es>
-* Alfredo de la Fuente <alfredodelafuente@avanzosc.es>
