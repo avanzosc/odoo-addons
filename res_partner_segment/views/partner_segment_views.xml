@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="partner_segment_view_form" model="ir.ui.view">
+    <field name="name">partner.segment.view.form</field>
+    <field name="model">partner.segment</field>
+    <field name="arch" type="xml">
+      <form string="Customer segment">
+        <sheet>
+          <group>
+            <field name="name" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="partner_segment_view_list" model="ir.ui.view">
+    <field name="name">partner.segment.view.list</field>
+    <field name="model">partner.segment</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+      </list>
+    </field>
+  </record>
+
+  <record id="partner_segment_action" model="ir.actions.act_window">
+    <field name="name">Partner Segments</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">partner.segment</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem
+    id="partner_segment_menu_act"
+    parent="contacts.res_partner_menu_config"
+    action="partner_segment_action"
+    sequence="4"
+  />
+</odoo>
