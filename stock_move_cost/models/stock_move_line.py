@@ -10,12 +10,14 @@ class StockMoveLine(models.Model):
         string="Cost Unit Price",
         digits="Product Price",
         copy=False,
+        default=0.0,
     )
     cost = fields.Float(
         digits="Product Price",
         copy=False,
         store=True,
         compute="_compute_cost",
+        default=0.0,
     )
 
     @api.depends("quantity", "price_unit_cost")

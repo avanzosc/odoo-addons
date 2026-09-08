@@ -10,8 +10,8 @@
     "depends": [
         "stock",
         "stock_move_line_force_done",
-        "product_packaging_palet",
         "uom",
+        "sale_order_line_qty_by_packaging",
     ],
     "excludes": [],
     "data": [
