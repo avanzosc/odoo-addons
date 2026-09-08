@@ -42,6 +42,9 @@ class TreasuryForecast(models.Model):
     )
     expense = fields.Monetary(currency_field="currency_id", aggregator="sum")
     income = fields.Monetary(currency_field="currency_id", aggregator="sum")
+    quantity = fields.Float(default=1.0)
+    expense_price = fields.Monetary(currency_field="currency_id")
+    income_price = fields.Monetary(currency_field="currency_id")
     balance = fields.Monetary(
         string="Line Balance",
         compute="_compute_balance",
@@ -103,6 +106,18 @@ class TreasuryForecast(models.Model):
     def _onchange_product_id(self):
         if self.product_id:
             self.name = self.product_id.description or self.product_id.display_name
+            self.expense_price = self.product_id.standard_price
+            self.income_price = self.product_id.lst_price
+            self._onchange_quantity_expense_price()
+            self._onchange_quantity_income_price()
+
+    @api.onchange("quantity", "expense_price")
+    def _onchange_quantity_expense_price(self):
+        self.expense = self.quantity * self.expense_price
+
+    @api.onchange("quantity", "income_price")
+    def _onchange_quantity_income_price(self):
+        self.income = self.quantity * self.income_price
 
     @api.onchange("expense")
     def _onchange_expense(self):

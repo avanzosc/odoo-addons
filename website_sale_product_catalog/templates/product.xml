@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="product_catalog_breadcrumb"
+    inherit_id="website_sale.product"
+    name="Catalog Breadcrumb"
+    priority="99"
+  >
+    <xpath expr="//section[@id='product_detail']" position="before">
+      <div
+        t-if="catalog"
+        t-nocache="catalog back link varies by request param catalog_id"
+        class="container mt-3 mb-0"
+      >
+        <a t-attf-href="/catalog/#{catalog.id}" class="btn btn-link ps-0">
+          <i class="oi oi-chevron-left me-1" role="presentation" />
+          <t t-esc="catalog.name" />
+        </a>
+      </div>
+    </xpath>
+  </template>
+</odoo>

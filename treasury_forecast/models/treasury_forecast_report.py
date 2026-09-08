@@ -26,8 +26,11 @@ class TreasuryForecastReport(models.Model):
     balance = fields.Monetary(currency_field="currency_id")
     residual = fields.Monetary(currency_field="currency_id")
     source = fields.Selection(
-        [("forecast", "Forecast"), ("move_line", "Move Line")],
-        string="Origin",
+        [
+            ("forecast", "Forecast"),
+            ("move_line", "Real"),
+        ],
+        string="Type",
     )
     financing_id = fields.Many2one("treasury.financing", string="Financing")
 

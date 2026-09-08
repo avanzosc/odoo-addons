@@ -78,16 +78,12 @@ class ProjectProject(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id(
             "treasury_forecast.action_treasury_forecast"
         )
-        action["domain"] = expression.AND(
-            [
-                [("project_id", "in", self.ids)],
-                safe_eval(action.get("domain") or "[]"),
-            ]
-        )
+        action["domain"] = [("project_id", "in", self.ids)]
         context = safe_eval(action.get("context") or "{}")
         context.update(
             {
                 "default_project_id": self.id,
+                "hide_project_analytic": False,
             }
         )
         action.update(

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="snippet_options"
+    inherit_id="website_sale.snippet_options"
+    name="Catalog Filter Editor Option"
+  >
+    <xpath
+      expr="//div[@data-js='WebsiteSaleGridLayout']/we-checkbox[@data-customize-website-views='website_sale.search']"
+      position="after"
+    >
+      <we-row string="Catalog Filter" class="o_we_full_row">
+        <we-button
+          string="Left"
+          data-customize-website-views="website_sale_product_catalog.shop_catalog_pills_left"
+          data-name="catalog_opt_left"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-button
+          string="Top"
+          data-customize-website-views="website_sale_product_catalog.shop_catalog_pills_top"
+          data-name="catalog_opt_top"
+          data-no-preview="true"
+          data-reload="/"
+        />
+      </we-row>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_snippet_options"
+    inherit_id="website.snippet_options"
+    name="Catalog Detail Options"
+  >
+    <xpath expr="." position="inside">
+      <div
+        data-page-options="true"
+        groups="website.group_website_designer"
+        data-selector="main:has(.o_catalog_detail_page)"
+        data-no-check="true"
+        data-target="#catalog_products_grid"
+        string="Catalog"
+      >
+        <we-select string="Columns" data-no-preview="true">
+          <we-button
+            data-select-class="row-cols-2 row-cols-md-3 row-cols-lg-4"
+          >4</we-button>
+          <we-button
+            data-select-class="row-cols-2 row-cols-md-2 row-cols-lg-3"
+          >3</we-button>
+          <we-button
+            data-select-class="row-cols-1 row-cols-sm-2 row-cols-lg-2"
+          >2</we-button>
+        </we-select>
+        <we-select string="Spacing">
+          <we-button data-select-class="g-2">Small</we-button>
+          <we-button data-select-class="g-4">Normal</we-button>
+          <we-button data-select-class="g-5">Large</we-button>
+        </we-select>
+        <we-select string="Style">
+          <we-button data-select-class="">Default</we-button>
+          <we-button data-select-class="o_catalog_style_shadow">Shadow</we-button>
+          <we-button data-select-class="o_catalog_style_minimal">Minimal</we-button>
+        </we-select>
+        <we-select string="Image Ratio">
+          <we-button data-select-class="o_catalog_image_4_3">Landscape (4/3)</we-button>
+          <we-button data-select-class="">Square (1/1)</we-button>
+          <we-button data-select-class="o_catalog_image_4_5">Portrait (4/5)</we-button>
+        </we-select>
+        <we-button-group string="Image Fit">
+          <we-button
+            data-select-class=""
+            title="Contain"
+            data-img="/website/static/src/img/snippets_options/content_width_normal.svg"
+          />
+          <we-button
+            data-select-class="o_catalog_image_cover"
+            title="Cover"
+            data-img="/website/static/src/img/snippets_options/content_width_full.svg"
+          />
+        </we-button-group>
+        <we-checkbox
+          string="Search Bar"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_search"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Sorting"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_sort"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Layout Buttons"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_layout_toggle"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Product Description"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_description"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Prices"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_price"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Cart Button"
+          data-customize-website-views="website_sale_product_catalog.catalog_detail_add_to_cart"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-row string="Price Filter" class="o_we_full_row">
+          <we-button
+            string="Left"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_price"
+            data-name="catalog_price_left_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+          <we-button
+            string="Top"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_price_top"
+            data-name="catalog_price_top_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+        </we-row>
+        <we-row string="Categories" class="o_we_full_row">
+          <we-button
+            string="Left"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_categ"
+            data-name="catalog_categ_left_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+          <we-button
+            string="Top"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_categ_top"
+            data-name="catalog_categ_top_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+        </we-row>
+        <we-row string="Attributes" class="o_we_full_row">
+          <we-button
+            string="Left"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_attrib"
+            data-name="catalog_attrib_left_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+          <we-button
+            string="Top"
+            data-customize-website-views="website_sale_product_catalog.catalog_detail_filter_attrib_top"
+            data-name="catalog_attrib_top_opt"
+            data-no-preview="true"
+            data-reload="/"
+          />
+        </we-row>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalogs_snippet_options"
+    inherit_id="website.snippet_options"
+    name="Catalogs Listings Options"
+  >
+    <xpath expr="." position="inside">
+      <div
+        data-page-options="true"
+        groups="website.group_website_designer"
+        data-selector="main:has(.o_catalogs_page)"
+        data-no-check="true"
+        data-target="#catalogs_grid"
+        string="Catalogs"
+      >
+        <we-select string="Columns" data-no-preview="true">
+          <we-button
+            data-select-class="row-cols-2 row-cols-md-3 row-cols-lg-4"
+          >4</we-button>
+          <we-button
+            data-select-class="row-cols-2 row-cols-md-2 row-cols-lg-3"
+          >3</we-button>
+          <we-button
+            data-select-class="row-cols-1 row-cols-sm-2 row-cols-lg-2"
+          >2</we-button>
+        </we-select>
+        <we-checkbox
+          string="Search Bar"
+          data-customize-website-views="website_sale_product_catalog.catalogs_search"
+          data-no-preview="true"
+          data-reload="/"
+        />
+        <we-checkbox
+          string="Layout Buttons"
+          data-customize-website-views="website_sale_product_catalog.catalogs_layout_toggle"
+          data-no-preview="true"
+          data-reload="/"
+        />
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="shop_catalog_pills_top"
+    inherit_id="website_sale.products"
+    active="False"
+    name="Catalog Filter Top"
+  >
+    <xpath expr="//t[@t-call='website_sale.filmstrip_categories']" position="before">
+      <t t-if="shop_catalogs">
+        <t t-set="_cur" t-value="selected_catalog_ids or []" />
+        <t t-set="_selected_catalog_id" t-value="_cur and _cur[0] or False" />
+        <div
+          class="o_wsale_filmstip_container d-flex align-items-stretch mb-2 overflow-hidden"
+        >
+          <div class="o_wsale_filmstip_wrapper pb-1 overflow-auto">
+            <ul
+              class="o_wsale_filmstip d-flex align-items-stretch mb-0 list-unstyled overflow-visible"
+            >
+              <t t-foreach="shop_catalogs" t-as="catalog">
+                <t
+                  t-set="_catalog_value"
+                  t-value="'' if catalog.id == _selected_catalog_id else str(catalog.id)"
+                />
+                <li t-attf-class="d-flex {{'pe-3' if not catalog_last else ''}}">
+                  <a
+                    t-att-href="keep('/shop', catalog_ids=_catalog_value)"
+                    class="text-decoration-none"
+                  >
+                    <div
+                      t-attf-class="d-flex align-items-center h-100 btn px-4 #{catalog.id == _selected_catalog_id and 'btn-primary' or 'btn-' + navClass}"
+                    >
+                      <t t-esc="catalog.name" />
+                    </div>
+                  </a>
+                </li>
+              </t>
+            </ul>
+          </div>
+        </div>
+      </t>
+    </xpath>
+  </template>
+
+  <template
+    id="shop_catalog_pills_left"
+    inherit_id="website_sale.products"
+    active="False"
+    name="Catalog Filter Left"
+  >
+    <xpath expr="//t[@t-set='hasLeftColumn']" position="attributes">
+      <attribute
+        name="t-value"
+      >opt_wsale_categories or opt_wsale_attributes or is_view_active('website_sale_product_catalog.shop_catalog_pills_left')</attribute>
+    </xpath>
+    <xpath expr="//t[@t-set='is_sidebar_collapsible']" position="after">
+      <t t-if="shop_catalogs">
+        <t t-set="_cur" t-value="selected_catalog_ids or []" />
+        <t t-set="_selected_catalog_id" t-value="_cur and _cur[0] or False" />
+        <div class="mb-3">
+          <h6 class="small text-muted fw-bold mb-2">Catalog</h6>
+          <select
+            class="form-select"
+            onchange="window.location.href = this.value;"
+            title="Catalog"
+          >
+            <option t-att-value="keep('/shop', catalog_ids='')">All Catalogs</option>
+            <option
+              t-foreach="shop_catalogs"
+              t-as="catalog"
+              t-att-value="keep('/shop', catalog_ids=str(catalog.id))"
+              t-att-selected="'selected' if catalog.id == _selected_catalog_id else False"
+              t-esc="catalog.name"
+            />
+          </select>
+        </div>
+      </t>
+    </xpath>
+  </template>
+</odoo>
