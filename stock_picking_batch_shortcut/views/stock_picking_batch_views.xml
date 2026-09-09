@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="stock_picking_batch_form" model="ir.ui.view">
-        <field name="model">stock.picking.batch</field>
-        <field
+  <record id="stock_picking_batch_form" model="ir.ui.view">
+    <field name="model">stock.picking.batch</field>
+    <field
       name="inherit_id"
       ref="stock_picking_batch_extended.stock_batch_picking_form"
     />
-        <field name="arch" type="xml">
-            <div name="button_box" position="inside">
-                <button
+    <field name="arch" type="xml">
+      <div name="button_box" position="inside">
+        <button
           name="action_view_sale_orders"
           type="object"
           class="oe_stat_button"
           icon="fa-pencil-square-o"
           attrs="{'invisible': [('count_sale_orders', '=', 0)]}"
         >
-                    <field
-            name="count_sale_orders"
-            widget="statinfo"
-            string="Sale Orders"
-          />
-                </button>
-            </div>
-        </field>
-    </record>
+          <field name="count_sale_orders" widget="statinfo" string="Sale Orders" />
+        </button>
+      </div>
+    </field>
+  </record>
 </odoo>
