@@ -4,6 +4,7 @@
     <field name="model">ir.module.import.line</field>
     <field name="arch" type="xml">
       <search>
+        <field name="migration_category_id" />
         <field name="module_technical_name" />
         <field name="module_last_version" />
         <field name="module_website" />
@@ -30,6 +31,11 @@
         />
         <group expand="0" name="group_by" string="Group By">
           <filter name="group_status" string="Status" context="{'group_by': 'state'}" />
+          <filter
+            string="Migration Category"
+            name="group_migration_category"
+            context="{'group_by': 'migration_category_id'}"
+          />
           <filter
             string="Action"
             name="group_action"
@@ -66,6 +72,7 @@
         <sheet>
           <group>
             <field name="import_id" />
+            <field name="migration_category_id" />
             <field name="import_module_id" />
             <field name="import_module_state" />
             <field name="module_technical_name" />
@@ -109,6 +116,11 @@
           decoration-info="action == 'update'"
           readonly="state == 'done'"
         />
+        <field
+          name="migration_category_id"
+          readonly="state == 'done'"
+          optional="show"
+        />
         <field name="module_technical_name" readonly="state == 'done'" />
         <field name="import_module_id" readonly="state == 'done'" optional="show" />
         <field
@@ -126,6 +138,12 @@
         <field name="module_notes" readonly="state == 'done'" optional="hide" />
         <field name="module_path" optional="hide" />
         <field name="license" optional="hide" />
+        <field
+          name="migration_hours"
+          optional="show"
+          widget="float_time"
+          sum="Total Migration Hours"
+        />
         <field name="state" optional="show" />
         <field name="log_info" readonly="state == 'done'" optional="hide" />
         <button
