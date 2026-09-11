@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_invoice_tree" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_tree" />
+    <field name="arch" type="xml">
+      <field name="invoice_date_due" position="after">
+        <field name="tbai_manual_sent" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_move_form" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+      <notebook position="before">
+        <group name="tbai-manual-send">
+          <group>
+            <field name="tbai_manual_sent" />
+          </group>
+          <group />
+        </group>
+      </notebook>
+    </field>
+  </record>
+
+  <record id="view_account_invoice_filter" model="ir.ui.view">
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter" />
+    <field name="arch" type="xml">
+      <filter name="late" position="after">
+        <separator />
+        <filter
+          name="tbai_manual_sent"
+          string="Tbai Manual Sent"
+          domain="[('tbai_manual_sent','=',True)]"
+        />
+        <filter
+          name="no-tbai_manual_sent"
+          string="NO Tbai Manual Sent"
+          domain="[('tbai_manual_sent','=', False)]"
+        />
+      </filter>
+      <filter name="group_by_company" position="after">
+        <filter
+          string="Tbay manual sent"
+          name="group_tbai_manual_sent"
+          context="{'group_by': 'tbai_manual_sent'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
