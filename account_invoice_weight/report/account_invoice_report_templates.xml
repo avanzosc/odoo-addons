@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="report_invoice_document_weight"
+        inherit_id="account.report_invoice_document"
+    >
+        <xpath expr="//div[@id='total']" position="after">
+            <p t-if="o.type == 'out_invoice'" name="total_weight">
+                <strong>Peso Total aprox.:</strong>
+                <span t-field="o.total_weight"/> KG
+            </p>
+        </xpath>
+    </template>
+</odoo>
