@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_template_view_form_inherit_mould" model="ir.ui.view">
+    <field name="name">product.template.form.mould</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="stock.view_template_property_form" />
+    <field name="arch" type="xml">
+      <field name="tracking" position="after">
+        <field name="is_mould" />
+      </field>
+    </field>
+  </record>
+</odoo>
