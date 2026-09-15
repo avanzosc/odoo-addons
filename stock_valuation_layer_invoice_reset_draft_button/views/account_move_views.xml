@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="action_put_invoice_to_draft" model="ir.actions.server">
+    <field name="name">Convert draft to invoice</field>
+    <field name="type">ir.actions.server</field>
+    <field name="state">code</field>
+    <field name="model_id" ref="account.model_account_move" />
+    <field name="binding_model_id" ref="account.model_account_move" />
+    <field name="code">
+            for record in records:
+                record.button_draft()
+        </field>
+  </record>
+</odoo>
