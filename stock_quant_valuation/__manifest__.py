@@ -11,6 +11,7 @@
     "depends": [
         "purchase_last_price_info",
         "stock_production_lot_purchase_cost",
+        "stock_move_in_out_qty",
     ],
     "data": ["views/stock_quant_view.xml", "views/stock_production_lot_view.xml"],
     "installable": True,
