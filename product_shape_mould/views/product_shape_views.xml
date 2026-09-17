@@ -20,6 +20,8 @@
         <field name="nose_in" optional="hide" />
         <field name="tail_in" optional="hide" />
         <field name="wheelbase_in" optional="hide" />
+        <field name="sale_length" optional="hide" />
+        <field name="sale_width" optional="hide" />
         <field name="symmetric" optional="hide" />
         <field name="company_id" optional="hide" />
       </list>
@@ -50,34 +52,22 @@
               <field name="company_id" />
             </group>
           </group>
-          <notebook>
-            <page name="millimeters" string="Millimeters">
-              <group>
-                <group>
-                  <field name="length_mm" />
-                  <field name="width_mm" />
-                  <field name="wheelbase_mm" />
-                </group>
-                <group>
-                  <field name="nose_mm" />
-                  <field name="tail_mm" />
-                </group>
-              </group>
-            </page>
-            <page name="inches" string="Inches">
-              <group>
-                <group>
-                  <field name="length_in" />
-                  <field name="width_in" />
-                  <field name="wheelbase_in" />
-                </group>
-                <group>
-                  <field name="nose_in" />
-                  <field name="tail_in" />
-                </group>
-              </group>
-            </page>
-          </notebook>
+          <group string="Measurements" col="4">
+            <field name="length_mm" />
+            <field name="length_in" />
+            <field name="width_mm" />
+            <field name="width_in" />
+            <field name="wheelbase_mm" />
+            <field name="wheelbase_in" />
+            <field name="nose_mm" />
+            <field name="nose_in" />
+            <field name="tail_mm" />
+            <field name="tail_in" />
+          </group>
+          <group string="Sale Measurements">
+            <field name="sale_length" />
+            <field name="sale_width" />
+          </group>
           <group string="Features">
             <field name="wheel_well_recesses" />
             <field name="double_wheelbase" />
