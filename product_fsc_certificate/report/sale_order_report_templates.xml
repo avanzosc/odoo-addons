@@ -5,14 +5,18 @@
             <span class="ml-2" t-if="line.product_id.is_fsc_certificate"> *</span>
         </xpath>
         <xpath expr="//div[@t-if='doc.signature']" position="after">
-            <div t-if="doc.company_id.fsc_certificate_image">
-                <img t-att-src="image_data_uri(doc.company_id.fsc_certificate_image)"
-                     style="max-width:80px;"
-                     alt="FSC certificate"/>
-                <p>
-                    [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
-                </p>
-            </div>
+            <t t-if="doc.is_fsc_certificate">
+                <div t-if="doc.company_id.fsc_certificate_number">
+                    <img t-att-src="image_data_uri(doc.company_id.fsc_certificate_image)"
+                         style="max-width:80px;"
+                         alt="FSC certificate"
+                         t-if="doc.company_id.fsc_certificate_image"
+                    />
+                    <p>
+                        [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: <span t-field="doc.company_id.fsc_certificate_number" />
+                    </p>
+                </div>
+            </t>
         </xpath>
     </template>
 </odoo>

@@ -5,14 +5,18 @@
             <span class="ml-2" t-if="move_line.product_id.is_fsc_certificate"> *</span>
         </xpath>
         <xpath expr="//table[@t-if=&quot;o.move_line_ids and o.state=='done'&quot;]" position="after">
-            <div t-if="o.company_id.fsc_certificate_image">
+            <t t-if="o.is_fsc_certificate">
+            <div t-if="o.company_id.fsc_certificate_number">
                 <img t-att-src="image_data_uri(o.company_id.fsc_certificate_image)"
                      style="max-width:80px;"
-                     alt="FSC certificate"/>
+                     alt="FSC certificate"
+                     t-if="o.company_id.fsc_certificate_image"
+                />
                 <p>
-                    [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
+                    [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: <span t-field="o.company_id.fsc_certificate_number" />
                 </p>
             </div>
+            </t>
         </xpath>
     </template>
 
@@ -21,14 +25,17 @@
             <span class="ml-2" t-if="ml.product_id.is_fsc_certificate"> *</span>
         </span>
         <xpath expr="//p[@t-field='o.note']" position="after">
-            <div t-if="o.company_id.fsc_certificate_image">
+            <t t-if="o.is_fsc_certificate">
+            <div t-if="o.company_id.fsc_certificate_number">
                 <img t-att-src="image_data_uri(o.company_id.fsc_certificate_image)"
                      style="max-width:80px;"
-                     alt="FSC certificate"/>
+                     alt="FSC certificate"
+                     t-if="o.company_id.fsc_certificate_image"/>
                 <p>
-                    [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044
+                    [*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: <span t-field="o.company_id.fsc_certificate_number" />
                 </p>
             </div>
+            </t>
         </xpath>
     </template>
 </odoo>
