@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="seasonality_form_view" model="ir.ui.view">
+    <field name="model">seasonality</field>
+    <field name="inherit_id" ref="product_simple_seasonality.seasonality_form_view" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="code" />
+      </field>
+    </field>
+  </record>
+
+  <record id="seasonality_tree_view" model="ir.ui.view">
+    <field name="model">seasonality</field>
+    <field name="inherit_id" ref="product_simple_seasonality.seasonality_tree_view" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="code" />
+      </field>
+    </field>
+  </record>
+
+  <record id="seasonality_search_view" model="ir.ui.view">
+    <field name="model">seasonality</field>
+    <field name="inherit_id" ref="product_simple_seasonality.seasonality_search_view" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="code" />
+      </field>
+    </field>
+  </record>
+
+  <menuitem
+    id="seasonality_menu"
+    name="Seasons"
+    action="product_simple_seasonality.seasonality_act_window"
+    parent="sale.prod_config_main"
+    sequence="21"
+  />
+</odoo>
