@@ -7,6 +7,7 @@
       <list>
         <field name="brand_info" />
         <field name="name" />
+        <field name="attribute_value_count" />
         <field name="mould_id" />
         <field name="template_id" optional="hide" />
         <field name="similar_shape_id" optional="hide" />
@@ -48,6 +49,7 @@
             </group>
             <group>
               <field name="mould_id" readonly="1" />
+              <field name="attribute_value_count" />
               <field name="template_id" />
               <field name="company_id" />
             </group>
@@ -75,6 +77,18 @@
             <field name="drop" />
             <field name="exclusive" />
           </group>
+          <group string="Attribute Mapping">
+            <field name="attribute_mapping_ids" nolabel="1">
+              <list editable="bottom">
+                <field
+                  name="shape_field_id"
+                  domain="[('model', '=', 'product.shape')]"
+                  options="{'no_create': True, 'no_open': True}"
+                />
+                <field name="attribute_id" options="{'no_create': True}" />
+              </list>
+            </field>
+          </group>
           <group string="Comments">
             <field name="comments" nolabel="1" />
           </group>
@@ -92,6 +106,21 @@
         <field name="brand_info" />
         <field name="mould_id" />
         <field name="template_id" />
+        <filter
+          name="without_attribute_values"
+          string="Without Attribute Values"
+          domain="[('attribute_value_count', '=', 0)]"
+        />
+        <filter
+          name="one_attribute_value"
+          string="One Attribute Value"
+          domain="[('attribute_value_count', '=', 1)]"
+        />
+        <filter
+          name="duplicated_attribute_values"
+          string="Duplicated Attribute Values"
+          domain="[('attribute_value_count', '&gt;', 1)]"
+        />
         <group expand="0" string="Group By">
           <filter
             name="group_by_brand_info"
