@@ -91,6 +91,20 @@ class ProductShape(models.Model):
         string="Company",
         default=lambda self: self.env.company,
     )
+    attribute_mapping_ids = fields.One2many(
+        comodel_name="product.shape.attribute.mapping",
+        inverse_name="shape_id",
+        string="Attribute Mapping",
+    )
+    attribute_value_ids = fields.One2many(
+        comodel_name="product.attribute.value",
+        inverse_name="shape_id",
+        string="Attribute Values",
+    )
+    attribute_value_count = fields.Integer(
+        compute="_compute_attribute_value_count",
+        store=True,
+    )
 
     _sql_constraints = [
         (
@@ -116,6 +130,11 @@ class ProductShape(models.Model):
     def _compute_symmetric(self):
         for shape in self:
             shape.symmetric = shape.nose_mm == shape.tail_mm
+
+    @api.depends("attribute_value_ids")
+    def _compute_attribute_value_count(self):
+        for shape in self:
+            shape.attribute_value_count = len(shape.attribute_value_ids)
 
     @api.onchange("length_in")
     def _onchange_length_in(self):

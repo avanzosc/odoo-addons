@@ -3,7 +3,7 @@
 
 {
     "name": "Product Shape Mould",
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.1.0",
     "category": "Manufacturing/Manufacturing",
     "license": "AGPL-3",
     "author": "AvanzOSC",
