@@ -23,6 +23,14 @@ class ProductAttributeValue(models.Model):
         string="Mould",
         store=True,
     )
+    shape_match_state = fields.Selection(
+        selection=[
+            ("ok", "Correct"),
+            ("not_found", "Incorrect: Does Not Exist"),
+            ("duplicated", "Incorrect: Duplicated"),
+        ],
+        string="Shape Match Status",
+    )
 
     @api.onchange("shape_id")
     def _onchange_shape_id(self):
@@ -57,6 +65,27 @@ class ProductAttributeValue(models.Model):
         for value in self:
             super(ProductAttributeValue, value).write(value._prepare_shape_values(vals))
         return True
+
+    def action_link_shape_values(self):
+        shape_attributes = self.env["product.attribute"].search(
+            [("is_shape", "=", True)]
+        )
+        values = self.search([("attribute_id", "in", shape_attributes.ids)])
+        used_shapes = self.env["product.shape"]
+        for value in values:
+            shapes = self.env["product.shape"].search([("name", "=", value.name)])
+            if not shapes:
+                value.shape_match_state = "not_found"
+            elif len(shapes) > 1 or shapes in used_shapes:
+                value.shape_match_state = "duplicated"
+            else:
+                value.write(
+                    {
+                        "shape_id": shapes.id,
+                        "shape_match_state": "ok",
+                    }
+                )
+                used_shapes |= shapes
 
     def _prepare_shape_values(self, vals):
         vals = dict(vals)
