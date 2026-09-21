@@ -130,6 +130,18 @@ msgid "Shape Field"
 msgstr "Campo shape"
 
 #. module: product_shape_mould
+#. odoo-python
+#: code:addons/product_shape_mould/models/product_attribute_value.py:0
+msgid "Shape is required for shape attribute values."
+msgstr "El shape es obligatorio para los valores de atributo shape."
+
+#. module: product_shape_mould
+#. odoo-python
+#: code:addons/product_shape_mould/models/product_attribute_value.py:0
+msgid "This shape is already used by another attribute value."
+msgstr "Este shape ya está usado por otro valor de atributo."
+
+#. module: product_shape_mould
 #: model_terms:ir.ui.view,arch_db:product_shape_mould.product_shape_view_search
 msgid "Duplicated Attribute Values"
 msgstr "Valores de atributo duplicados"
