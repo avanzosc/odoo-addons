@@ -43,6 +43,11 @@
           invisible="not attribute_is_shape"
         />
         <field name="mould_id" readonly="1" invisible="not attribute_is_shape" />
+        <field
+          name="shape_match_state"
+          invisible="not attribute_is_shape"
+          optional="show"
+        />
       </field>
     </field>
   </record>

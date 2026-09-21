@@ -77,6 +77,26 @@ msgid "Attribute Values"
 msgstr ""
 
 #. module: product_shape_mould
+#: model:ir.model.fields.selection,name:product_shape_mould.selection__product_attribute_value__shape_match_state__ok
+msgid "Correct"
+msgstr ""
+
+#. module: product_shape_mould
+#: model:ir.model.fields.selection,name:product_shape_mould.selection__product_attribute_value__shape_match_state__duplicated
+msgid "Incorrect: Duplicated"
+msgstr ""
+
+#. module: product_shape_mould
+#: model:ir.model.fields.selection,name:product_shape_mould.selection__product_attribute_value__shape_match_state__not_found
+msgid "Incorrect: Does Not Exist"
+msgstr ""
+
+#. module: product_shape_mould
+#: model:ir.actions.server,name:product_shape_mould.action_link_shape_values
+msgid "Link Shape Values"
+msgstr ""
+
+#. module: product_shape_mould
 #: model:ir.model.fields,field_description:product_shape_mould.field_product_attribute_value__mould_id
 #: model:ir.model.fields,field_description:product_shape_mould.field_stock_lot__mould_id
 #: model:ir.model.fields,field_description:product_shape_mould.field_product_shape__mould_id
@@ -126,6 +146,11 @@ msgstr ""
 #. module: product_shape_mould
 #: model:ir.model.fields,field_description:product_shape_mould.field_product_shape_attribute_mapping__shape_field_id
 msgid "Shape Field"
+msgstr ""
+
+#. module: product_shape_mould
+#: model:ir.model.fields,field_description:product_shape_mould.field_product_attribute_value__shape_match_state
+msgid "Shape Match Status"
 msgstr ""
 
 #. module: product_shape_mould

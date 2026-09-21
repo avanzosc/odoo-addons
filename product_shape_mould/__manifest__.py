@@ -14,6 +14,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/product_attribute_actions.xml",
         "views/product_attribute_views.xml",
         "views/product_mould_views.xml",
         "views/product_template_views.xml",
