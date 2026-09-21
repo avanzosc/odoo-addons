@@ -8,9 +8,9 @@ class ProductShapeAttributeMapping(models.Model):
     _name = "product.shape.attribute.mapping"
     _description = "Product Shape Attribute Mapping"
 
-    shape_id = fields.Many2one(
-        comodel_name="product.shape",
-        required=True,
+    shape_attribute_id = fields.Many2one(
+        comodel_name="product.attribute",
+        string="Shape Attribute",
         ondelete="cascade",
     )
     shape_field_id = fields.Many2one(
