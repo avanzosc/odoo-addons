@@ -19,6 +19,24 @@
       <field name="create_variant" position="after">
         <field name="is_shape" />
       </field>
+      <page name="attribute_values" position="after">
+        <page
+          string="Attribute Mapping"
+          name="shape_attribute_mapping"
+          invisible="not is_shape"
+        >
+          <field name="shape_attribute_mapping_ids" nolabel="1">
+            <list editable="bottom">
+              <field
+                name="shape_field_id"
+                domain="[('model', '=', 'product.shape')]"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field name="attribute_id" options="{'no_create': True}" />
+            </list>
+          </field>
+        </page>
+      </page>
       <field name="default_extra_price" position="after">
         <field
           name="shape_id"

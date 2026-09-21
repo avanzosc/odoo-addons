@@ -77,18 +77,6 @@
             <field name="drop" />
             <field name="exclusive" />
           </group>
-          <group string="Attribute Mapping">
-            <field name="attribute_mapping_ids" nolabel="1">
-              <list editable="bottom">
-                <field
-                  name="shape_field_id"
-                  domain="[('model', '=', 'product.shape')]"
-                  options="{'no_create': True, 'no_open': True}"
-                />
-                <field name="attribute_id" options="{'no_create': True}" />
-              </list>
-            </field>
-          </group>
           <group string="Comments">
             <field name="comments" nolabel="1" />
           </group>

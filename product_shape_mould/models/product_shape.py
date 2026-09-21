@@ -91,11 +91,6 @@ class ProductShape(models.Model):
         string="Company",
         default=lambda self: self.env.company,
     )
-    attribute_mapping_ids = fields.One2many(
-        comodel_name="product.shape.attribute.mapping",
-        inverse_name="shape_id",
-        string="Attribute Mapping",
-    )
     attribute_value_ids = fields.One2many(
         comodel_name="product.attribute.value",
         inverse_name="shape_id",

@@ -13,10 +13,11 @@ class ProductTemplate(models.Model):
         for template in self:
             if len(template.with_context(active_test=False).product_variant_ids) != 1:
                 continue
-            shape = template._get_attribute_shape()
+            shape_line = template._get_shape_attribute_line()
+            shape = template._get_attribute_shape(shape_line)
             if not shape:
                 continue
-            for mapping in shape.attribute_mapping_ids:
+            for mapping in shape_line.attribute_id.shape_attribute_mapping_ids:
                 value_name = template._get_shape_attribute_value_name(
                     shape, mapping.shape_field_id
                 )
@@ -29,11 +30,15 @@ class ProductTemplate(models.Model):
                     mapping.attribute_id, attribute_value
                 )
 
-    def _get_attribute_shape(self):
+    def _get_shape_attribute_line(self):
         self.ensure_one()
-        shape_values = self.attribute_line_ids.filtered(
+        return self.attribute_line_ids.filtered(
             lambda line: line.attribute_id.is_shape
-        ).value_ids.filtered("shape_id")
+        )[:1]
+
+    def _get_attribute_shape(self, shape_line):
+        self.ensure_one()
+        shape_values = shape_line.value_ids.filtered("shape_id")
         return shape_values[:1].shape_id
 
     def _get_shape_attribute_value_name(self, shape, shape_field):
