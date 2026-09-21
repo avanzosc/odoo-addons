@@ -11,7 +11,7 @@ class StockQuant(models.Model):
         related="product_id.standard_price",
         digits="Product Price",
         groups="stock.group_stock_manager",
-        help=("Standard price of the product " "(product_id.standard_price)."),
+        help=("Standard price of the product (product_id.standard_price)."),
     )
 
     lot_average_unit_price = fields.Float(
@@ -60,13 +60,6 @@ class StockQuant(models.Model):
             "Quant quantity multiplied by the lot purchase cost "
             "(quant.quantity * quant.lot_purchase_cost)."
         ),
-    )
-
-    value = fields.Monetary(
-        string="Value",
-        compute="_compute_value",
-        store=True,
-        groups="stock.group_stock_manager",
     )
 
     @api.depends("lot_id", "product_id")
