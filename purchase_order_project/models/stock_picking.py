@@ -9,7 +9,7 @@ class Picking(models.Model):
 
     account_analytic_purchase_order = fields.Many2one(
         related="purchase_id.analytic_account_id",
-        string="Project",
+        string="Analytic Account",
         store=True,
         readonly=True,
     )
