@@ -2,19 +2,15 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-=========================
-Account Invoice Usability
-=========================
+===============================
+Purchase order abnormal_warning
+===============================
 
-* In Journal Item" new field "Product Internal Reference".
-* Search invoices by product, or line description.
-* Moves the Invoice Origin field after the shipping partner while making it
-  optional in the invoice tree view.
-* If an invoice line has a "Stock Valuation Layer" defined, the "Reset to Draft"
-  button is not displayed on the invoice. In this case, this module defines the
-  "Convert draft to invoice" action for invoices. In this case, the inventory
-  valuation line will need to be modified manually.
-  
+* It calculates alerts for purchase orders in draft, sent, or pending-approval
+  status by comparing them with the history of confirmed orders from the same
+  supplier, company, and currency. It detects if the order date or total amount
+  deviates from typical values ​​based on the mean and standard deviation of
+  historical orders.
 
 Bug Tracker
 ===========
