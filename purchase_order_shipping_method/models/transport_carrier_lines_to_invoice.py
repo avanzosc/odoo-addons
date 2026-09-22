@@ -18,6 +18,7 @@ class TransportCarrierLinesToInvoice(models.Model):
         string="Status",
         compute="_compute_state",
         copy=False,
+        store=True,
     )
     transfer_id = fields.Many2one(string="Transfer", comodel_name="stock.picking")
     transporter_id = fields.Many2one(string="Transporter", comodel_name="res.partner")
@@ -66,6 +67,7 @@ class TransportCarrierLinesToInvoice(models.Model):
         readonly=True,
     )
 
+    @api.depends("supplier_invoice_id")
     def _compute_state(self):
         for line in self:
             line.state = "to_invoice"
