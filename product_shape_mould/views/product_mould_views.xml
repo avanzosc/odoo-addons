@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_mould_view_list" model="ir.ui.view">
+    <field name="name">product.mould.list</field>
+    <field name="model">product.mould</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="group" />
+        <field name="subgroup" />
+        <field name="description" optional="hide" />
+        <field name="type" column_invisible="True" />
+        <field name="mould_id" optional="hide" invisible="type != 'template'" />
+        <field
+          name="manufacturing_year"
+          optional="hide"
+          invisible="type != 'template'"
+        />
+        <field
+          name="modification_year"
+          optional="hide"
+          invisible="type != 'template'"
+        />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_mould_view_form" model="ir.ui.view">
+    <field name="name">product.mould.form</field>
+    <field name="model">product.mould</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="type" invisible="1" />
+            <field name="name" />
+            <field name="group" />
+            <field name="subgroup" />
+            <field name="mould_id" invisible="type != 'template'" />
+            <field name="manufacturing_year" invisible="type != 'template'" />
+            <field name="modification_year" invisible="type != 'template'" />
+          </group>
+          <group string="Description">
+            <field name="description" nolabel="1" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_mould_action" model="ir.actions.act_window">
+    <field name="name">Moulds</field>
+    <field name="res_model">product.mould</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('type', '=', 'mould')]</field>
+    <field name="context">{'default_type': 'mould'}</field>
+  </record>
+
+  <record id="product_shape_template_action" model="ir.actions.act_window">
+    <field name="name">Templates</field>
+    <field name="res_model">product.mould</field>
+    <field name="view_mode">list,form</field>
+    <field name="domain">[('type', '=', 'template')]</field>
+    <field name="context">{'default_type': 'template'}</field>
+  </record>
+
+  <menuitem
+    id="product_mould_template_menu"
+    name="Templates and Moulds"
+    parent="mrp.menu_mrp_configuration"
+    sequence="40"
+  />
+  <menuitem
+    id="product_shape_template_menu"
+    name="Templates"
+    action="product_shape_template_action"
+    parent="product_mould_template_menu"
+    sequence="10"
+  />
+  <menuitem
+    id="product_mould_menu"
+    name="Moulds"
+    action="product_mould_action"
+    parent="product_mould_template_menu"
+    sequence="20"
+  />
+</odoo>
