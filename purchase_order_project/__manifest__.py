@@ -8,13 +8,7 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": [
-        "purchase",
-        "hr_timesheet",
-        "stock",
-        "purchase_stock",
-        "stock_picking_analytic",
-    ],
+    "depends": ["purchase_stock", "project"],
     "data": ["views/purchase_order_views.xml", "views/stock_picking_views.xml"],
     "installable": True,
 }
