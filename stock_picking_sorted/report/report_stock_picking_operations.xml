@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="report_picking_sorted" inherit_id="stock.report_picking">
+    <xpath expr="//table[@class='table table-borderless mt16']/tbody" position="before">
+      <t
+        t-set="sorted_moves"
+        t-value="o.move_line_ids_without_package.sorted(key=lambda ml:(ml.move_id.categ_id.display_name or '', ml.move_id.product_brand_id.name or '', ml.product_id.display_name or ''))"
+      />
+    </xpath>
+    <xpath
+      expr="//tr[@t-foreach='o.move_line_ids_without_package.sorted(lambda ml: (ml.location_id.complete_name, ml.location_dest_id.complete_name))']"
+      position="attributes"
+    >
+      <attribute name="t-foreach">sorted_moves</attribute>
+    </xpath>
+    <xpath expr="//table[@t-else='']/tbody" position="before">
+      <t
+        t-set="sorted_packages"
+        t-value="o.package_level_ids.sorted(key=lambda p:(p.package_id.name or '', p.location_id.display_name or '', p.location_dest_id.display_name or ''))"
+      />
+    </xpath>
+    <xpath
+      expr="//tr[@t-foreach='o.package_level_ids.sorted(key=lambda p: p.package_id.name)']"
+      position="attributes"
+    >
+      <attribute name="t-foreach">sorted_packages</attribute>
+    </xpath>
+  </template>
+</odoo>

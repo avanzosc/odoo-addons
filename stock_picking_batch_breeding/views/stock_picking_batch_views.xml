@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="stock_picking_batch_form" model="ir.ui.view">
+    <field name="model">stock.picking.batch</field>
+    <field name="inherit_id" ref="stock_warehouse_farm.stock_picking_batch_form" />
+    <field name="arch" type="xml">
+      <field name="picking_ids" position="attributes">
+        <attribute
+          name="domain"
+        >[('state', '!=', 'cancel'), ('picking_type_id', '=', picking_type_id)]</attribute>
+      </field>
+
+      <field name="name" position="attributes">
+        <attribute name="readonly">0</attribute>
+      </field>
+      <field name="location_id" position="attributes">
+        <attribute name="domain">[('location_id_computed', '=', batch_type)]</attribute>
+      </field>
+      <field name="picking_type_id" position="attributes">
+        <attribute name="invisible">batch_type != 'other'</attribute>
+      </field>
+      <xpath expr="//sheet/notebook/page[1]" position="before">
+        <page name="breeding" string="Breeding" invisible="batch_type != 'breeding'">
+          <group>
+            <group name="details" string="Breeding Details">
+              <field name="seq_name" invisible="1" />
+              <field name="warehouse_id" />
+              <field name="feed_family" />
+            </group>
+            <group name="dates" string="Dates">
+              <label for="entry_date" />
+              <div class="o_row">
+                <field name="entry_date" />
+                <field name="entry_week" />
+              </div>
+              <label for="cleaned_date" />
+              <div class="o_row">
+                <field name="cleaned_date" />
+                <field name="cleaned_week" />
+              </div>
+              <label for="liquidation_date" />
+              <div class="o_row">
+                <field name="liquidation_date" />
+                <field name="liquidation_week" />
+              </div>
+              <label for="billing_date" />
+              <div class="o_row">
+                <field name="billing_date" />
+                <field name="billing_week" />
+              </div>
+            </group>
+          </group>
+          <group string="Growth Rate">
+            <field name="lineage_percentage_ids" nolabel="1">
+              <list editable="bottom">
+                <field name="lineage_id" />
+                <field name="percentage" />
+              </list>
+            </field>
+          </group>
+          <group string="Mother/Lineage">
+            <field name="mother_lineage_ids" nolabel="1" />
+          </group>
+          <button
+            name="action_load_growth_rates"
+            string="Load Growth Rates"
+            type="object"
+            invisible="1"
+          />
+          <group string="Estimated Weights">
+            <field
+              name="estimate_weight_ids"
+              nolabel="1"
+              context="{'default_batch_id': id}"
+            >
+              <list editable="bottom" limit="57">
+                <field name="batch_id" invisible="1" />
+                <field name="day" optional="show" />
+                <field name="date" optional="show" />
+                <field name="unit" optional="show" />
+                <field name="casualties" optional="show" />
+                <field name="saca_casualties" optional="show" />
+                <field name="estimate_weight" optional="show" />
+                <field name="weight_uom_id" optional="show" />
+                <field name="growth" optional="show" />
+                <field name="weight_uom_id" optional="show" />
+                <field name="product_id" optional="show" />
+                <field name="estimate_week_weight" optional="show" />
+                <field name="weight_uom_id" optional="show" />
+                <field name="real_weight" optional="show" />
+                <field name="weight_uom_id" optional="show" />
+                <field name="total_weight" optional="show" />
+                <field name="total_weight_uom_id" optional="show" />
+              </list>
+            </field>
+          </group>
+        </page>
+      </xpath>
+      <xpath expr="//sheet/group" position="after">
+        <group>
+          <field name="description" />
+          <field name="observation" />
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="picking_batch_breeding_tree_view">
+    <field name="name">stock.picking.batch.list.view</field>
+    <field name="model">stock.picking.batch</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" decoration-bf="1" string="Name" />
+        <field name="batch_type" invisible="1" />
+        <field name="user_id" optional="hide" />
+        <field name="company_id" optional="hide" />
+        <field name="location_id" />
+        <field name="warehouse_id" />
+        <field name="feed_family" optional="hide" />
+        <field name="entry_date" optional="show" />
+        <field name="entry_week" optional="show" />
+        <field name="cleaned_date" optional="show" />
+        <field name="cleaned_week" optional="show" />
+        <field name="stage_id" optional="show" widget="badge" decoration-info="1" />
+      </list>
+    </field>
+  </record>
+
+  <record id="action_breeding_view" model="ir.actions.act_window">
+    <field name="name">Breeding</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">stock.picking.batch</field>
+    <field name="view_mode">list,kanban,form</field>
+    <field
+      name="view_id"
+      ref="stock_picking_batch_breeding.picking_batch_breeding_tree_view"
+    />
+    <field name="context">{
+            "search_default_draft" : True,
+            "search_default_in_progress" : True,
+            "default_company_id": allowed_company_ids[0],
+            "default_batch_type": 'breeding'
+        }</field>
+    <field name="domain">[('batch_type','=','breeding')]</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+            Create a new breeding
+          </p>
+    </field>
+  </record>
+
+  <menuitem
+    action="action_breeding_view"
+    id="breeding_menu"
+    parent="stock.menu_stock_warehouse_mgmt"
+    sequence="11"
+  />
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_order_form" model="ir.ui.view">
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='order_line']/list/field[@name='product_uom_qty']"
+        position="after"
+      >
+        <field
+          name="palet_id"
+          invisible="not product_packaging_id"
+          groups="product.group_stock_packaging"
+          optional="show"
+        />
+        <field
+          name="palet_qty"
+          invisible="not product_packaging_id"
+          groups="product.group_stock_packaging"
+          optional="show"
+        />
+        <field name="no_update_palet_qty" invisible="1" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

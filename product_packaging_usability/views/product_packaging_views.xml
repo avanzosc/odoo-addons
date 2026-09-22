@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_packaging_view_search" model="ir.ui.view">
+    <field name="name">product.packaging.view.search.usability</field>
+    <field name="model">product.packaging</field>
+    <field name="inherit_id" ref="product.product_packaging_search_view" />
+    <field name="arch" type="xml">
+      <search position="inside">
+        <group>
+          <filter
+            string="Product"
+            name="product"
+            context="{'group_by': 'product_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+</odoo>

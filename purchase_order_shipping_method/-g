@@ -1,0 +1,14 @@
+models/stock_move_line.py:20:    @api.onchange("qty_done", "product_id", "picking_id")
+models/stock_move_line.py:24:            self.shipping_cost = self.qty_done * weight * self.picking_id.shipping_cost
+models/stock_picking.py:34:        "move_line_ids_without_package", "move_line_ids_without_package.qty_done"
+models/stock_picking.py:41:                    picking.move_line_ids_without_package.mapped("qty_done")
+models/stock_picking.py:67:                    "product_qty": line.quantity_done,
+models/stock_picking.py:70:                    "total_price": (self.shipping_cost * line.quantity_done),
+views/stock_picking_view.xml:10:          attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}"
+views/stock_picking_view.xml:19:            attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+views/transport_carrier_lines_to_invoice_view.xml:7:            <tree editable="bottom">
+views/transport_carrier_lines_to_invoice_view.xml:132:        <field name="view_mode">tree</field>
+views/stock_move_line_view.xml:15:          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+views/stock_move_line_view.xml:25:            <field name="qty_done" position="after">
+views/stock_move_line_view.xml:29:          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"
+views/stock_move_line_view.xml:36:          attrs="{'readonly': [('state', 'in', ('done', 'cancel')), ('is_locked', '=', True)]}"

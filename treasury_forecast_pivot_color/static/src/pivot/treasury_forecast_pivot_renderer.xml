@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+    t-name="treasury_forecast_pivot_color.PivotRenderer"
+    t-inherit="web.PivotRenderer"
+    t-inherit-mode="primary"
+  >
+    <!--
+            Sólo se toca el div numérico (el que pinta getFormattedValue(cell)).
+            El o_variation (modo comparación) y el div booleano se dejan tal cual
+            para no romper el comportamiento del core.
+
+            Si en el futuro piden colorear sólo una medida concreta,
+            añadir cell.measure === '<nombre_campo>' a la condición.
+            Para semáforo/rangos, sustituir las comparaciones > 0 / < 0
+            por los umbrales que correspondan.
+        -->
+    <xpath expr="//div[@t-esc='getFormattedValue(cell)']" position="attributes">
+      <attribute name="t-att-class">{
+                'text-success': cell.value &gt; 0,
+                'text-danger': cell.value &lt; 0,
+            }</attribute>
+    </xpath>
+  </t>
+
+</templates>

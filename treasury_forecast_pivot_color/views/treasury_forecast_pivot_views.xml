@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_pivot_color" model="ir.ui.view">
+    <field name="name">treasury.forecast.pivot.color</field>
+    <field name="model">treasury.forecast</field>
+    <field name="inherit_id" ref="treasury_forecast.view_treasury_forecast_pivot" />
+    <field name="arch" type="xml">
+      <xpath expr="//pivot" position="attributes">
+        <attribute name="js_class">treasury_forecast_pivot_color</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_treasury_forecast_report_pivot_color" model="ir.ui.view">
+    <field name="name">treasury.forecast.report.pivot.color</field>
+    <field name="model">treasury.forecast.report</field>
+    <field
+      name="inherit_id"
+      ref="treasury_forecast.view_treasury_forecast_report_pivot"
+    />
+    <field name="arch" type="xml">
+      <xpath expr="//pivot" position="attributes">
+        <attribute name="js_class">treasury_forecast_pivot_color</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>

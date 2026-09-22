@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <field name="function" position="before">
+        <field name="contact_type_id" />
+      </field>
+      <xpath
+        expr="//field[@name='child_ids']/form/sheet/group/group[2]/field[@name='mobile']"
+        position="after"
+      >
+        <field name="contact_type_id" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="view_partner_simple_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_simple_form" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <field name="phone" position="before">
+        <field name="contact_type_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_tree" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <field name="complete_name" position="after">
+        <field name="contact_type_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_res_partner_filter" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="contact_type_id" />
+      </field>
+      <filter name="salesperson" position="before">
+        <filter
+          name="contactype"
+          string="Contact type"
+          domain="[]"
+          context="{'group_by' : 'contact_type_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+
+  <record id="res_partner_kanban_view" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.res_partner_kanban_view" />
+    <field name="priority" eval="99" />
+    <field name="arch" type="xml">
+      <kanban position="inside">
+        <field name="contact_type_id" />
+      </kanban>
+      <field name="email" position="after">
+        <div t-if="record.contact_type_id.raw_value">
+          <field name="contact_type_id" />
+        </div>
+      </field>
+    </field>
+  </record>
+</odoo>

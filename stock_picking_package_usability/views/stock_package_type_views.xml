@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="stock_package_type_tree_inherit_base_weight" model="ir.ui.view">
+    <field name="name">stock.package.type.tree.inherit.base.weight</field>
+    <field name="model">stock.package.type</field>
+    <field name="inherit_id" ref="stock.stock_package_type_tree" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='max_weight']" position="before">
+        <field name="base_weight" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

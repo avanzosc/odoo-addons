@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="crossovered_budget_view_tree" model="ir.ui.view">
+    <field name="model">crossovered.budget</field>
+    <field name="inherit_id" ref="account_budget_oca.crossovered_budget_view_tree" />
+    <field name="arch" type="xml">
+      <field name="state" position="after">
+        <button
+          name="button_recompute_practical_amount"
+          type="object"
+          icon="fa-refresh"
+          title="Refresh Practical Amount"
+          invisible="state == 'cancel'"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="crossovered_budget_view_form" model="ir.ui.view">
+    <field name="model">crossovered.budget</field>
+    <field name="inherit_id" ref="account_budget_oca.crossovered_budget_view_form" />
+    <field name="arch" type="xml">
+      <field name="state" position="before">
+        <button
+          name="button_recompute_practical_amount"
+          type="object"
+          icon="fa-refresh"
+          string="Refresh Practical Amount"
+          invisible="state == 'cancel'"
+        />
+      </field>
+      <xpath
+        expr="//field[@name='crossovered_budget_line_ids']/list//field[@name='practical_amount']"
+        position="after"
+      >
+        <button
+          name="button_recompute_practical_amount"
+          type="object"
+          icon="fa-refresh"
+          title="Refresh Practical Amount"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>

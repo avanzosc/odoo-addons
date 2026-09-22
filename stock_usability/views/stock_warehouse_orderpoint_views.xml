@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
+    <field name="arch" type="xml">
+      <button name="action_product_forecast_report" position="before">
+        <field name="virtual_available" optional="show" />
+      </button>
+      <button name="action_product_forecast_report" position="after">
+        <field name="incoming_qty" optional="hide" />
+        <field name="outgoing_qty" optional="hide" />
+        <field name="incoming_qty2" optional="hide" />
+        <field name="outgoing_qty2" optional="hide" />
+        <field name="future_virtual_available" optional="hide" />
+      </button>
+    </field>
+  </record>
+</odoo>

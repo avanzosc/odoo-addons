@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="migration_category_tree_view" model="ir.ui.view">
+    <field name="name">migration_category_tree_view</field>
+    <field name="model">migration.category</field>
+    <field name="arch" type="xml">
+      <list multi_edit="1" editable="top" duplicate="false">
+        <field name="name" />
+      </list>
+    </field>
+  </record>
+
+  <menuitem
+    id="module_config_import_management_menu"
+    name="Configuration Compare Module to Install"
+    parent="base.menu_management"
+    sequence="110"
+  />
+
+  <menuitem
+    id="module_config_import_menu"
+    name="Configuration Compare Module to Install"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
+
+  <record id="migration_category_action" model="ir.actions.act_window">
+    <field name="name">Migration categories</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">migration.category</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="migration_category_tree_view" />
+  </record>
+
+  <menuitem
+    id="migration_category_menu"
+    action="migration_category_action"
+    parent="module_config_import_menu"
+    sequence="10"
+  />
+
+  <menuitem
+    id="migration_category_management_menu"
+    action="migration_category_action"
+    parent="module_config_import_management_menu"
+    sequence="10"
+  />
+</odoo>

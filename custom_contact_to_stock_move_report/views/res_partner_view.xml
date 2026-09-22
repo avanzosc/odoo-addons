@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <div name="button_box" position="inside">
+        <button
+          class="o_stat_button"
+          icon="fa-exchange"
+          type="object"
+          name="action_view_move_line_report"
+          string="Entry/Output Report"
+        />
+      </div>
+    </field>
+  </record>
+</odoo>

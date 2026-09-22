@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_project_report_search" model="ir.ui.view">
+    <field name="name">treasury.forecast.project.report.search</field>
+    <field name="model">treasury.forecast.project.report</field>
+    <field name="arch" type="xml">
+      <search string="Treasury Analysis">
+        <field name="date" />
+        <field name="partner_id" />
+        <field name="product_id" />
+        <field name="product_category_id" />
+        <field name="journal_id" />
+        <field name="project_id" />
+        <field name="analytic_account_id" />
+        <field name="estimated_journal_id" />
+        <field name="source" />
+        <field name="name" />
+        <field name="financing_id" />
+        <separator />
+
+        <filter string="Incomes" name="filter_income" domain="[('debit','&gt;',0)]" />
+        <filter
+          string="Expenses"
+          name="filter_expense"
+          domain="[('credit','&gt;',0)]"
+        />
+        <filter
+          string="Forecast"
+          name="filter_forecast"
+          domain="[('source','=','forecast')]"
+        />
+        <filter
+          string="Project"
+          name="filter_project"
+          domain="[('source','=','project')]"
+        />
+        <filter
+          string="Customers"
+          name="filter_customers"
+          domain="[('partner_id','!=',False)]"
+        />
+        <filter
+          string="Products"
+          name="filter_products"
+          domain="[('product_id','!=',False)]"
+        />
+        <filter
+          string="Products Categories"
+          name="filter_products-categ"
+          domain="[('product_category_id','!=',False)]"
+        />
+        <filter
+          string="Journals"
+          name="filter_journals"
+          domain="[('journal_id','!=',False)]"
+        />
+        <filter
+          string="Projects"
+          name="filter_projects"
+          domain="[('project_id','!=',False)]"
+        />
+        <filter
+          string="Analytic Accounts"
+          name="filter_analytic-account"
+          domain="[('analytic_account_id','!=',False)]"
+        />
+        <filter
+          string="Estimated journals"
+          name="filter_estimated_journals"
+          domain="[('estimated_journal_id','!=',False)]"
+        />
+        <filter
+          string="Category"
+          name="filter_category"
+          domain="[('category_id','!=',False)]"
+        />
+        <filter
+          string="Parent Category"
+          name="filter_parent_category"
+          domain="[('parent_category_id','!=',False)]"
+        />
+        <filter name="filter_date" date="date" />
+        <separator />
+        <group expand="0" string="Group By">
+          <filter string="Date" name="group_date" context="{'group_by': 'date'}" />
+          <filter
+            string="Partner"
+            name="group_partner"
+            context="{'group_by': 'partner_id'}"
+          />
+          <filter
+            string="Product"
+            name="group_product"
+            context="{'group_by': 'product_id'}"
+          />
+          <filter
+            string="Product Category"
+            name="group_product-categ"
+            context="{'group_by': 'product_category_id'}"
+          />
+          <filter
+            string="Journal"
+            name="group_journal"
+            context="{'group_by': 'journal_id'}"
+          />
+          <filter
+            string="Project"
+            name="group_project"
+            context="{'group_by': 'project_id'}"
+          />
+          <filter
+            string="Analytic Account"
+            name="group_analytic-account"
+            context="{'group_by': 'analytic_account_id'}"
+          />
+          <filter
+            string="Estimated Journal"
+            name="group_estimated_journal"
+            context="{'group_by': 'estimated_journal_id'}"
+          />
+          <filter
+            string="Origin"
+            name="group_source"
+            context="{'group_by': 'source'}"
+          />
+          <filter
+            string="Category"
+            name="group_category"
+            context="{'group_by': 'category_id'}"
+          />
+          <filter
+            string="Parent Category"
+            name="group_parent_category"
+            context="{'group_by': 'parent_category_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_treasury_forecast_project_report_pivot" model="ir.ui.view">
+    <field name="name">treasury.forecast.project.report.pivot</field>
+    <field name="model">treasury.forecast.project.report</field>
+    <field name="arch" type="xml">
+      <pivot string="Cash flow forecast + Project">
+        <field name="debit" type="measure" operator="sum" />
+        <field name="credit" type="measure" operator="sum" />
+        <field name="balance" type="measure" operator="sum" />
+        <field name="product_category_id" type="row" />
+        <field name="source" type="row" />
+        <field name="date" type="column" interval="month" />
+      </pivot>
+    </field>
+  </record>
+
+  <record
+    id="action_treasury_forecast_project_report_pivot"
+    model="ir.actions.act_window"
+  >
+    <field name="name">Cash flow forecast + Project</field>
+    <field name="res_model">treasury.forecast.project.report</field>
+    <field name="view_mode">pivot</field>
+    <field name="view_id" ref="view_treasury_forecast_project_report_pivot" />
+    <field name="search_view_id" ref="view_treasury_forecast_project_report_search" />
+  </record>
+
+  <menuitem
+    id="menu_treasury_forecast_project_report_pivot"
+    name="Cash flow forecast + Project"
+    parent="treasury_forecast.menu_treasury_forecast_root"
+    action="action_treasury_forecast_project_report_pivot"
+    sequence="3"
+  />
+</odoo>

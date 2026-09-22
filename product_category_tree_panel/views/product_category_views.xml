@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_category_search_tree_panel" model="ir.ui.view">
+    <field name="name">product.category.search.tree.panel</field>
+    <field name="model">product.category</field>
+    <field name="inherit_id" ref="product.product_category_search_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//search" position="inside">
+        <searchpanel>
+          <field
+            name="parent_id"
+            string="Categorías padre"
+            icon="fa-sitemap"
+            select="one"
+            hierarchize="1"
+            enable_counters="0"
+            limit="0"
+          />
+        </searchpanel>
+      </xpath>
+    </field>
+  </record>
+</odoo>

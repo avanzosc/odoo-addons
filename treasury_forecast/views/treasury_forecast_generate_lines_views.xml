@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_generate_lines_form" model="ir.ui.view">
+    <field name="name">treasury.forecast.generate.lines.form</field>
+    <field name="model">treasury.forecast.generate.lines</field>
+    <field name="arch" type="xml">
+      <form string="Generate Treasury Lines">
+        <group>
+          <field name="date_limit" />
+        </group>
+        <footer>
+          <button
+            name="action_generate"
+            type="object"
+            string="Generate"
+            class="btn-primary"
+          />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="action_treasury_forecast_generate_lines" model="ir.actions.act_window">
+    <field name="name">Generate Treasury Lines</field>
+    <field name="res_model">treasury.forecast.generate.lines</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_treasury_forecast_generate_lines_form" />
+    <field name="target">new</field>
+  </record>
+
+  <record id="treasury_forecast_generate_lines_server_action" model="ir.actions.server">
+    <field name="name">Generate Treasury Lines</field>
+    <field name="model_id" ref="model_treasury_forecast" />
+    <field name="binding_model_id" ref="model_treasury_forecast" />
+    <field name="binding_view_types">list,form</field>
+    <field name="state">code</field>
+    <field name="code">
+action = records.action_open_generate_lines_wizard()
+        </field>
+  </record>
+</odoo>

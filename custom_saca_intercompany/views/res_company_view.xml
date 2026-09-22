@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_company_form" model="ir.ui.view">
+    <field name="model">res.company</field>
+    <field name="inherit_id" ref="base.view_company_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//page[@name='general_info']/group" position="inside">
+        <group string="Intercompany">
+          <field name="paasa" />
+          <field name="tolvasa" />
+          <field name="proalpe" />
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

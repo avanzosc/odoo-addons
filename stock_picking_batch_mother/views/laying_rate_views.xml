@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="laying_rate_view_tree" model="ir.ui.view">
+    <field name="name">laying.rate.tree</field>
+    <field name="model">laying.rate</field>
+    <field name="arch" type="xml">
+      <list editable="top">
+        <field name="mother_id" domain="[('batch_type', '=', 'mother')]" />
+        <field name="lineage_id" domain="[('mother_ids', '=', mother_id)]" />
+        <field name="week" />
+        <field name="laying_start_date" />
+        <field name="percentage_laying" />
+        <field name="estimate_laying" />
+        <field name="real_laying" />
+      </list>
+    </field>
+  </record>
+
+  <record id="laying_rate_view_search" model="ir.ui.view">
+    <field name="name">laying.rate.search</field>
+    <field name="model">laying.rate</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="mother_id" />
+        <field name="lineage_id" />
+        <filter string="Start Date" name="date" date="laying_start_date" />
+        <filter
+          string="Today"
+          name="today"
+          domain="[('laying_start_date', '=', context_today().strftime('%Y-%m-%d'))]"
+        />
+        <filter
+          string="Last Week"
+          name="week"
+          domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%%Y-%%m-%%d'))]"
+        />
+        <filter
+          string="Last Month"
+          name="month"
+          domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%%Y-%%m-%%d'))]"
+        />
+        <filter
+          string="Last Year"
+          name="year"
+          domain="[('laying_start_date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%%Y-%%m-%%d'))]"
+        />
+        <group expand="0" string="Group By">
+          <filter string="Mother" name="mother" context="{'group_by':'mother_id'}" />
+          <filter string="Lineage" name="lineage" context="{'group_by':'lineage_id'}" />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="action_laying_rate_view" model="ir.actions.act_window">
+    <field name="name">Laying Rate</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">laying.rate</field>
+    <field name="view_mode">list</field>
+  </record>
+
+  <menuitem
+    action="action_laying_rate_view"
+    id="menu_view_laying_rate"
+    parent="stock.menu_product_in_config_stock"
+    sequence="7"
+  />
+</odoo>

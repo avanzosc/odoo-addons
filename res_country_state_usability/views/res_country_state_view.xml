@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="res_country_state_view_tree" model="ir.ui.view">
+    <field name="model">res.country.state</field>
+    <field name="inherit_id" ref="base.view_country_state_tree" />
+    <field name="arch" type="xml">
+      <list position="attributes">
+        <attribute name="decoration-muted">not active</attribute>
+      </list>
+      <list position="inside">
+        <field name="active" widget="boolean_toggle" />
+      </list>
+    </field>
+  </record>
+
+  <record id="res_country_state_view_form" model="ir.ui.view">
+    <field name="model">res.country.state</field>
+    <field name="inherit_id" ref="base.view_country_state_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='name']/.." position="before">
+        <widget
+          name="web_ribbon"
+          title="Archived"
+          bg_color="text-bg-danger"
+          invisible="active"
+        />
+      </xpath>
+      <field name="country_id" position="after">
+        <field name="active" invisible="True" />
+      </field>
+    </field>
+  </record>
+
+  <record id="base.action_country_state" model="ir.actions.act_window">
+    <field name="context">{'active_test': False}</field>
+  </record>
+</odoo>

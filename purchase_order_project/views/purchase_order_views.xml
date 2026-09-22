@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_order_tree_inh_project" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="analytic_account_id" />
+      </field>
+    </field>
+  </record>
+  <record id="view_purchase_order_filter_inh_project" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="analytic_account_id" />
+      </field>
+      <filter name="vendor" position="after">
+        <filter
+          string="Analytic Account"
+          name="group_project"
+          domain="[]"
+          context="{'group_by':'analytic_account_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+  <record id="purchase_order_form_inh_project" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <field name="date_order" position="after">
+        <field name="analytic_account_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="action_put_project_from_analytic" model="ir.actions.server">
+    <field name="name">Put project from analytic account</field>
+    <field name="model_id" ref="purchase.model_purchase_order" />
+    <field name="binding_model_id" ref="purchase.model_purchase_order" />
+    <field name="binding_view_types">list,form</field>
+    <field name="state">code</field>
+    <field name="code">
+        for record in records.filtered(lambda x: x.analytic_account_id and not x.project_id):
+            if len(record.analytic_account_id.project_ids) == 1:
+                record.write({'project_id': record.analytic_account_id.project_ids.id,})
+        </field>
+  </record>
+</odoo>

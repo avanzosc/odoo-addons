@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="saca_line_view_form" model="ir.ui.view">
+    <field name="model">saca.line</field>
+    <field name="inherit_id" ref="custom_saca.saca_line_form_view" />
+    <field name="arch" type="xml">
+      <field name="breeding_id" position="after">
+        <field name="rvd_number" invisible="external_supplier" />
+      </field>
+    </field>
+  </record>
+
+  <record id="saca_line_view_tree" model="ir.ui.view">
+    <field name="model">saca.line</field>
+    <field name="inherit_id" ref="custom_saca.saca_line_tree_view" />
+    <field name="arch" type="xml">
+      <field name="breeding_id" position="after">
+        <field name="rvd_number" optional="show" />
+      </field>
+    </field>
+  </record>
+</odoo>

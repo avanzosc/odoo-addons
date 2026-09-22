@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//sheet/group/group[1]" position="inside">
+        <field
+          name="market_id"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
+        />
+
+        <field
+          name="market_sector_id"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
+        />
+
+        <field
+          name="classification_id"
+          invisible="customer_rank == 0 or (customer_rank &gt; 0 and company_type != 'company')"
+          required="customer_rank &gt; 0 and company_type == 'company'"
+        />
+      </xpath>
+      <xpath expr="//field[@name='is_company']" position="after">
+        <group>
+          <field name="make_logo" widget="image" class="oe_avatar" nolabel="1" />
+        </group>
+      </xpath>
+
+      <page name="sales_purchases" position="after">
+        <page
+          name="make-salesperson"
+          string="Makes and salesperson"
+          invisible="customer_rank == 0"
+        >
+          <field
+            name="make_saleperson_ids"
+            nolabel="1"
+            context="{'default_partner_id': id,'default_salesperson_id': user_id}"
+          >
+            <list editable="bottom">
+              <field name="partner_id" column_invisible="True" />
+              <field name="make_id" required="1" />
+              <field name="salesperson_id" required="1" />
+              <field name="commission_id" />
+            </list>
+          </field>
+          <field name="make_amount_ids" invisible="1" />
+          <field name="customer_rank" invisible="1" />
+        </page>
+      </page>
+    </field>
+  </record>
+
+  <record id="view_partner_tree" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree" />
+    <field name="arch" type="xml">
+      <field name="company_id" position="after">
+        <field name="market_id" string="Sale channel" optional="show" />
+        <field name="market_sector_id" string="Market niche" optional="show" />
+        <field name="classification_id" string="Input channel" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_res_partner_filter" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="arch" type="xml">
+      <field name="user_id" position="after">
+        <field name="make_saleperson_ids" />
+        <separator />
+        <field name="tariff_id" />
+        <field name="state_id" string="Province" />
+        <field name="market_id" string="Sale channel" />
+        <field name="market_sector_id" string="Market niche" />
+        <field name="classification_id" string="Input channel" />
+      </field>
+      <filter name="group_country" position="after">
+        <filter
+          name="tariff"
+          string="Tariff"
+          domain="[]"
+          context="{'group_by' : 'tariff_id'}"
+        />
+        <filter
+          name="market"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+        <filter
+          name="market_sector"
+          string="Market niche"
+          domain="[]"
+          context="{'group_by' : 'market_sector_id'}"
+        />
+        <filter
+          name="classification"
+          string="Input channel"
+          domain="[]"
+          context="{'group_by' : 'classification_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>

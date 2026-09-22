@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_barcode_format_form" model="ir.ui.view">
+    <field name="name">barcode.format.form</field>
+    <field name="model">barcode.format</field>
+    <field name="arch" type="xml">
+      <form string="Barcode Format">
+        <sheet>
+          <group>
+            <group>
+              <field name="name" />
+              <field name="model_id" />
+              <field name="company_id" />
+            </group>
+            <group>
+              <field name="type" />
+              <field name="partner_ids" widget="many2many_tags" />
+            </group>
+          </group>
+          <field name="model_name" invisible="1" />
+          <field name="line_ids" invisible="not type">
+            <list editable="bottom">
+              <field name="field_id" domain="[('model', '=', parent.model_name)]" />
+              <field name="start_pos" string="Start Position" />
+              <field name="final_pos" string="End Position" />
+              <field name="gs1_rule_id" string="GS1 Prefix" />
+              <field name="decimals" string="Decimals" />
+              <field name="decimal_position" string="Posición decimal" />
+            </list>
+          </field>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_barcode_format_tree" model="ir.ui.view">
+    <field name="name">barcode.format.tree</field>
+    <field name="model">barcode.format</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="type" />
+        <field name="model_id" />
+        <field name="partner_ids" />
+      </list>
+    </field>
+  </record>
+
+  <record id="view_barcode_format_search" model="ir.ui.view">
+    <field name="name">barcode.format.search</field>
+    <field name="model">barcode.format</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <filter name="type" string="Type" domain="[]" context="{'group_by': 'type'}" />
+        <filter
+          name="model_id"
+          string="Model"
+          domain="[]"
+          context="{'group_by': 'model_id'}"
+        />
+        <filter
+          name="partner_ids"
+          string="Partner"
+          domain="[]"
+          context="{'group_by': 'partner_ids'}"
+        />
+      </search>
+    </field>
+  </record>
+
+  <record id="view_barcode_format_line_tree" model="ir.ui.view">
+    <field name="name">barcode.format.line.tree</field>
+    <field name="model">barcode.format.line</field>
+    <field name="arch" type="xml">
+      <list editable="bottom">
+        <field name="format_id" />
+        <field name="format_type" />
+        <field name="format_model_id" />
+        <field name="field_id" />
+        <field name="start_pos" invisible="format_type != 'fijo'" />
+        <field name="final_pos" invisible="format_type != 'fijo'" />
+        <field name="gs1_rule_id" invisible="format_type != 'variable'" />
+      </list>
+    </field>
+  </record>
+
+  <record id="view_barcode_format_line_search" model="ir.ui.view">
+    <field name="name">barcode.format.line.search</field>
+    <field name="model">barcode.format.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="format_id" />
+        <filter
+          name="format_type"
+          string="Type"
+          domain="[]"
+          context="{'group_by': 'format_type'}"
+        />
+        <filter
+          name="format_model_id"
+          string="Model"
+          domain="[]"
+          context="{'group_by': 'format_model_id'}"
+        />
+      </search>
+    </field>
+  </record>
+
+  <record id="action_barcode_format" model="ir.actions.act_window">
+    <field name="name">Barcode Format</field>
+    <field name="res_model">barcode.format</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="view_barcode_format_search" />
+  </record>
+
+  <record id="action_barcode_format_line" model="ir.actions.act_window">
+    <field name="name">Format Lines</field>
+    <field name="res_model">barcode.format.line</field>
+    <field name="view_mode">list</field>
+    <field name="search_view_id" ref="view_barcode_format_line_search" />
+  </record>
+
+  <menuitem
+    id="menu_barcode_format"
+    name="Barcode Formats"
+    parent="stock.menu_product_in_config_stock"
+    sequence="60"
+  />
+
+  <menuitem
+    id="menu_barcode_format_configuration"
+    name="Format Configuration"
+    parent="menu_barcode_format"
+    action="action_barcode_format"
+  />
+
+  <menuitem
+    id="menu_barcode_format_lines"
+    name="Format lines"
+    parent="menu_barcode_format"
+    action="action_barcode_format_line"
+  />
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_location_search_tree_panel" model="ir.ui.view">
+    <field name="name">stock.location.search.tree.panel</field>
+    <field name="model">stock.location</field>
+    <field name="inherit_id" ref="stock.view_location_search" />
+    <field name="arch" type="xml">
+      <xpath expr="//search" position="inside">
+        <searchpanel>
+          <field
+            name="location_id"
+            string="Ubicaciones padre"
+            icon="fa-sitemap"
+            select="one"
+            hierarchize="1"
+            enable_counters="0"
+            limit="0"
+          />
+        </searchpanel>
+      </xpath>
+    </field>
+  </record>
+</odoo>
