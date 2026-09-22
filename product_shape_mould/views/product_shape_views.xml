@@ -61,6 +61,16 @@
             <field name="width_in" />
             <field name="wheelbase_mm" />
             <field name="wheelbase_in" />
+            <field
+              name="second_wheelbase_mm"
+              invisible="not double_wheelbase"
+              required="double_wheelbase"
+            />
+            <field
+              name="second_wheelbase_in"
+              invisible="not double_wheelbase"
+              required="double_wheelbase"
+            />
             <field name="nose_mm" />
             <field name="nose_in" />
             <field name="tail_mm" />

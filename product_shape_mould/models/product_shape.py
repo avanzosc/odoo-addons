@@ -59,6 +59,9 @@ class ProductShape(models.Model):
     wheelbase_mm = fields.Float(
         string="Wheelbase (mm)",
     )
+    second_wheelbase_mm = fields.Float(
+        string="Second Wheelbase (mm)",
+    )
     length_in = fields.Float(
         string="Length (in)",
         digits=(16, 3),
@@ -77,6 +80,10 @@ class ProductShape(models.Model):
     )
     wheelbase_in = fields.Float(
         string="Wheelbase (in)",
+        digits=(16, 3),
+    )
+    second_wheelbase_in = fields.Float(
+        string="Second Wheelbase (in)",
         digits=(16, 3),
     )
     sale_length = fields.Float(digits=(16, 2))
@@ -143,6 +150,10 @@ class ProductShape(models.Model):
     def _onchange_wheelbase_in(self):
         self.wheelbase_mm = self.wheelbase_in * INCH_TO_MM
 
+    @api.onchange("second_wheelbase_in")
+    def _onchange_second_wheelbase_in(self):
+        self.second_wheelbase_mm = self.second_wheelbase_in * INCH_TO_MM
+
     @api.onchange("nose_in")
     def _onchange_nose_in(self):
         self.nose_mm = self.nose_in * INCH_TO_MM
@@ -202,3 +213,17 @@ class ProductShape(models.Model):
         if vals.get("name"):
             vals["name"] = vals["name"].strip().upper()
         return super().write(vals)
+
+    def copy(self, default=None):
+        default = dict(default or {})
+        default.setdefault("name", self._get_copy_name())
+        return super().copy(default=default)
+
+    def _get_copy_name(self):
+        self.ensure_one()
+        name = f"{self.name} COPY"
+        count = 2
+        while self.search_count([("name", "=", name)]):
+            name = f"{self.name} COPY {count}"
+            count += 1
+        return name
