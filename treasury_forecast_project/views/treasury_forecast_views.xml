@@ -15,9 +15,27 @@
     <field name="model">treasury.forecast</field>
     <field name="inherit_id" ref="treasury_forecast.view_treasury_forecast_form" />
     <field name="arch" type="xml">
-      <field name="journal_id" position="after">
-        <field name="project_id" />
-        <field name="analytic_account_id" />
+      <group name="amounts" position="after">
+        <group
+          name="project-analytic"
+          invisible="context.get('hide_project_analytic', False)"
+        >
+          <group>
+            <separator string="Project" />
+            <field name="project_id" />
+          </group>
+          <group>
+            <separator string="Analytic" />
+            <field name="analytic_account_id" />
+          </group>
+        </group>
+      </group>
+      <field name="financing_id" position="attributes">
+        <attribute name="context">
+              {'default_project_id': project_id,
+               'default_analytic_account_id': analytic_account_id,
+              }
+          </attribute>
       </field>
     </field>
   </record>
@@ -55,5 +73,21 @@
         />
       </filter>
     </field>
+  </record>
+
+  <record id="treasury_forecast.action_treasury_forecast" model="ir.actions.act_window">
+    <field name="name">Treasury Forecast</field>
+    <field name="res_model">treasury.forecast</field>
+    <field name="view_mode">list,form,pivot</field>
+    <field name="domain">[('project_id','=',False)]</field>
+    <field name="context">{'hide_project_analytic': True}</field>
+    <field
+      name="view_ids"
+      eval="[
+        (ref('treasury_forecast.view_treasury_forecast_tree'), 'list'),
+        (ref('treasury_forecast.view_treasury_forecast_form'), 'form'),
+        (ref('treasury_forecast.view_treasury_forecast_pivot'), 'pivot')
+    ]"
+    />
   </record>
 </odoo>

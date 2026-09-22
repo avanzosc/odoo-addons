@@ -1,0 +1,778 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="catalog_detail" name="Catalog Detail">
+    <t t-call="website.layout">
+      <t t-set="additional_title" t-value="catalog.name" />
+      <div id="wrap" class="o_catalog_detail_page">
+        <div class="oe_structure oe_empty" id="oe_structure_catalog_detail_header" />
+
+        <section class="pt-5 pb-3">
+          <div class="container">
+            <a href="/catalogs" class="btn btn-link ps-0 mb-3">← Catalogs</a>
+            <h1 class="mb-2" t-field="catalog.name" />
+            <div class="text-muted mb-4" t-field="catalog.description" />
+          </div>
+        </section>
+
+        <div
+          class="oe_structure oe_empty"
+          id="oe_structure_catalog_detail_above_products"
+        />
+
+        <section class="py-4">
+          <div class="container">
+            <t
+              t-set="show_filter_price_top"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_price_top')"
+            />
+            <t
+              t-set="show_filter_categ_top"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_categ_top')"
+            />
+            <t
+              t-set="show_filter_attrib_top"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_attrib_top')"
+            />
+            <t
+              t-set="show_filter_price_left"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_price')"
+            />
+            <t
+              t-set="show_filter_categ_left"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_categ')"
+            />
+            <t
+              t-set="show_filter_attrib_left"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_filter_attrib')"
+            />
+            <t
+              t-set="show_search"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_search')"
+            />
+            <t
+              t-set="show_sort"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_sort')"
+            />
+            <t
+              t-set="show_layout"
+              t-value="is_view_active('website_sale_product_catalog.catalog_detail_layout_toggle')"
+            />
+            <t
+              t-set="show_filters_left"
+              t-value="show_filter_price_left or show_filter_categ_left or show_filter_attrib_left"
+            />
+            <t
+              t-set="show_filters_top"
+              t-value="show_filter_price_top or show_filter_categ_top or show_filter_attrib_top"
+            />
+
+            <div
+              t-if="show_filters_top"
+              id="catalog_filters_top"
+              t-attf-class="mb-4 #{show_filters_left and 'o_catalog_top_with_sidebar' or ''}"
+            >
+              <div t-if="has_filters" class="mb-2 text-end">
+                <a
+                  t-attf-href="/catalog/#{catalog.id}"
+                  class="btn btn-sm btn-outline-secondary"
+                >
+                                    <i class="fa fa-times me-1" />Clear Filters
+                                </a>
+              </div>
+              <form
+                t-if="show_filter_categ_top or show_filter_attrib_top"
+                method="get"
+                t-attf-action="/catalog/#{catalog.id}"
+              >
+                <input
+                  t-if="filter_min is not None"
+                  type="hidden"
+                  name="min_price"
+                  t-att-value="filter_min"
+                />
+                <input
+                  t-if="filter_max is not None"
+                  type="hidden"
+                  name="max_price"
+                  t-att-value="filter_max"
+                />
+                <input t-if="search" type="hidden" name="search" t-att-value="search" />
+                <input t-if="order" type="hidden" name="order" t-att-value="order" />
+                <t t-if="not show_filter_categ_top">
+                  <input
+                    t-foreach="sel_categ_ids"
+                    t-as="categ_id"
+                    type="hidden"
+                    name="categ_id"
+                    t-att-value="categ_id"
+                  />
+                </t>
+                <t t-if="not show_filter_attrib_top">
+                  <input
+                    t-foreach="sel_attrib_ids"
+                    t-as="attrib_id"
+                    type="hidden"
+                    name="attrib"
+                    t-att-value="attrib_id"
+                  />
+                </t>
+                <div id="catalog_filter_categ_top_wrap" t-if="show_filter_categ_top" />
+                <div
+                  id="catalog_filter_attrib_top_wrap"
+                  t-if="show_filter_attrib_top"
+                />
+              </form>
+              <div id="catalog_filter_price_top_wrap" t-if="show_filter_price_top" />
+            </div>
+
+            <div class="row" id="catalog_products_layout">
+              <div t-if="show_filters_left" class="col-12 col-lg-3 mb-4">
+                <div t-if="has_filters" class="mb-3">
+                  <a
+                    t-attf-href="/catalog/#{catalog.id}"
+                    class="btn btn-sm btn-outline-secondary w-100"
+                  >
+                                        <i class="fa fa-times me-1" />Clear Filters
+                                    </a>
+                </div>
+
+                <div id="catalog_filter_price_wrap" t-if="show_filter_price_left" />
+
+                <form
+                  t-if="show_filter_categ_left or show_filter_attrib_left"
+                  method="get"
+                  t-attf-action="/catalog/#{catalog.id}"
+                >
+                  <input
+                    t-if="filter_min is not None"
+                    type="hidden"
+                    name="min_price"
+                    t-att-value="filter_min"
+                  />
+                  <input
+                    t-if="filter_max is not None"
+                    type="hidden"
+                    name="max_price"
+                    t-att-value="filter_max"
+                  />
+                  <input
+                    t-if="search"
+                    type="hidden"
+                    name="search"
+                    t-att-value="search"
+                  />
+                  <input t-if="order" type="hidden" name="order" t-att-value="order" />
+                  <t t-if="not show_filter_categ_left">
+                    <input
+                      t-foreach="sel_categ_ids"
+                      t-as="categ_id"
+                      type="hidden"
+                      name="categ_id"
+                      t-att-value="categ_id"
+                    />
+                  </t>
+                  <t t-if="not show_filter_attrib_left">
+                    <input
+                      t-foreach="sel_attrib_ids"
+                      t-as="attrib_id"
+                      type="hidden"
+                      name="attrib"
+                      t-att-value="attrib_id"
+                    />
+                  </t>
+                  <div id="catalog_filter_categ_wrap" t-if="show_filter_categ_left" />
+                  <div id="catalog_filter_pricelist_wrap" t-if="False" />
+                  <div id="catalog_filter_attrib_wrap" t-if="show_filter_attrib_left" />
+                </form>
+              </div>
+
+              <div t-attf-class="col-12 #{show_filters_left and 'col-lg-9' or ''}">
+                <div
+                  t-if="show_search or show_sort or show_layout"
+                  class="d-flex flex-column flex-md-row gap-2 mb-4"
+                >
+                  <form
+                    t-if="show_search or show_sort"
+                    method="get"
+                    t-attf-action="/catalog/#{catalog.id}"
+                    class="d-flex flex-column flex-md-row gap-2 flex-grow-1"
+                  >
+                    <input
+                      t-if="filter_min is not None"
+                      type="hidden"
+                      name="min_price"
+                      t-att-value="filter_min"
+                    />
+                    <input
+                      t-if="filter_max is not None"
+                      type="hidden"
+                      name="max_price"
+                      t-att-value="filter_max"
+                    />
+                    <input
+                      t-foreach="sel_categ_ids"
+                      t-as="categ_id"
+                      type="hidden"
+                      name="categ_id"
+                      t-att-value="categ_id"
+                    />
+                    <input
+                      t-foreach="sel_attrib_ids"
+                      t-as="attrib_id"
+                      type="hidden"
+                      name="attrib"
+                      t-att-value="attrib_id"
+                    />
+                    <input
+                      t-if="search and not show_search"
+                      type="hidden"
+                      name="search"
+                      t-att-value="search"
+                    />
+                    <input
+                      t-if="order and not show_sort"
+                      type="hidden"
+                      name="order"
+                      t-att-value="order"
+                    />
+                    <div
+                      id="catalog_search_wrap"
+                      t-if="show_search"
+                      class="flex-grow-1"
+                    />
+                    <div id="catalog_sort_wrap" t-if="show_sort" />
+                  </form>
+                  <div id="catalog_layout_wrap" t-if="show_layout" class="ms-md-auto" />
+                </div>
+                <div t-if="items_count" class="text-muted small mb-3">
+                  <t t-esc="items_count" />
+                  <t t-if="items_count == 1"> product</t>
+                  <t t-else=""> products</t>
+                </div>
+                <t t-if="items">
+                  <div
+                    id="products_grid"
+                    data-ppr="4"
+                    t-att-data-default-sort="order or 'website_sequence asc'"
+                  >
+                    <div
+                      id="catalog_products_grid"
+                      t-attf-class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4 #{layout_mode == 'list' and 'o_catalog_layout_list' or ''}"
+                    >
+                      <t t-foreach="items" t-as="item">
+                        <t
+                          t-set="item_product_tmpl"
+                          t-value="item.product_id.product_tmpl_id if item.product_id else item.product_tmpl_id"
+                        />
+                        <t
+                          t-set="item_ribbon"
+                          t-value="item_product_tmpl.website_ribbon_id"
+                        />
+                        <div
+                          class="col oe_product o_catalog_product_item"
+                          t-att-data-colspan="item_product_tmpl.website_size_x or 1"
+                          t-att-data-rowspan="item_product_tmpl.website_size_y or 1"
+                          t-att-data-ribbon-id="item_ribbon.id"
+                          t-attf-style="--catalog-size-x: #{item_product_tmpl.website_size_x or 1}; --catalog-size-y: #{item_product_tmpl.website_size_y or 1};"
+                        >
+                          <span
+                            class="d-none"
+                            data-oe-model="product.template"
+                            t-att-data-oe-id="item_product_tmpl.id"
+                          />
+                          <t t-if="item.product_id">
+                            <t
+                              t-set="variant_name"
+                              t-value="item.product_id.with_context(display_default_code=False).display_name"
+                            />
+                            <div class="card h-100 position-relative">
+                              <span
+                                t-attf-class="o_ribbon o_not_editable #{item_ribbon._get_position_class() if item_ribbon else 'o_ribbon_left'}"
+                                t-attf-style="#{item_ribbon.text_color and ('color: %s;' % item_ribbon.text_color)} #{item_ribbon.bg_color and ('background-color: %s;' % item_ribbon.bg_color)}"
+                                t-out="item_ribbon.name or ''"
+                              />
+                              <a
+                                t-attf-href="#{item.product_id.product_tmpl_id.website_url}?catalog_id=#{catalog.id}"
+                                class="o_catalog_product_link text-decoration-none d-flex flex-column flex-grow-1"
+                              >
+                                <img
+                                  t-attf-src="/web/image/product.product/#{item.product_id.id}/image_256"
+                                  class="card-img-top"
+                                  t-att-alt="variant_name"
+                                />
+                                <div class="card-body pb-1">
+                                  <h6 class="card-title mb-1" t-esc="variant_name" />
+                                </div>
+                              </a>
+                              <div
+                                class="o_catalog_cart_variant
+                                                                    card-footer bg-transparent border-0 px-3 pb-3"
+                              />
+                            </div>
+                          </t>
+                          <t t-else="">
+                            <div class="card h-100 position-relative">
+                              <span
+                                t-attf-class="o_ribbon o_not_editable #{item_ribbon._get_position_class() if item_ribbon else 'o_ribbon_left'}"
+                                t-attf-style="#{item_ribbon.text_color and ('color: %s;' % item_ribbon.text_color)} #{item_ribbon.bg_color and ('background-color: %s;' % item_ribbon.bg_color)}"
+                                t-out="item_ribbon.name or ''"
+                              />
+                              <a
+                                t-attf-href="#{item.product_tmpl_id.website_url}?catalog_id=#{catalog.id}"
+                                class="o_catalog_product_link text-decoration-none d-flex flex-column flex-grow-1"
+                              >
+                                <img
+                                  t-attf-src="/web/image/product.template/#{item.product_tmpl_id.id}/image_256"
+                                  class="card-img-top"
+                                  t-att-alt="item.product_tmpl_id.name"
+                                />
+                                <div class="card-body pb-1">
+                                  <h6
+                                    class="card-title mb-1"
+                                    t-esc="item.product_tmpl_id.name"
+                                  />
+                                </div>
+                              </a>
+                              <div
+                                class="o_catalog_cart_tmpl
+                                                                    card-footer bg-transparent border-0 px-3 pb-3"
+                              />
+                            </div>
+                          </t>
+                        </div>
+                      </t>
+                    </div>
+                  </div>
+                  <div
+                    t-if="pager and pager['page_count'] &gt; 1"
+                    class="products_pager d-flex justify-content-center pt-5 pb-3"
+                  >
+                    <t t-call="website.pager" />
+                  </div>
+                </t>
+                <t t-else="">
+                  <p class="text-muted">No products in this catalog.</p>
+                </t>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="oe_structure oe_empty" id="oe_structure_catalog_detail_footer" />
+      </div>
+    </t>
+  </template>
+
+  <template
+    id="catalog_detail_price"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Show Prices"
+  >
+    <xpath expr="//h6[hasclass('card-title')]" position="after">
+      <p class="catalog-price card-text text-primary fw-bold mb-0">
+        <t
+          t-esc="item.fixed_price"
+          t-options='{"widget": "monetary", "display_currency": item.currency_id}'
+        />
+      </p>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_add_to_cart"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Add to Cart Button"
+  >
+    <xpath expr="//div[hasclass('o_catalog_cart_variant')]" position="inside">
+      <form action="/shop/cart/update" method="post">
+        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+        <input type="hidden" name="product_id" t-att-value="item.product_id.id" />
+        <input type="hidden" name="catalog_id" t-att-value="catalog.id" />
+        <input type="hidden" name="add_qty" value="1" />
+        <button type="submit" class="btn btn-primary btn-sm w-100">
+                    <i class="fa fa-shopping-cart me-1" />Add to Cart
+                </button>
+      </form>
+    </xpath>
+    <xpath expr="//div[hasclass('o_catalog_cart_tmpl')]" position="inside">
+      <t
+        t-if="item.product_tmpl_id.product_variant_count == 1 and item.product_tmpl_id.product_variant_id"
+      >
+        <form action="/shop/cart/update" method="post">
+          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+          <input
+            type="hidden"
+            name="product_id"
+            t-att-value="item.product_tmpl_id.product_variant_id.id"
+          />
+          <input type="hidden" name="catalog_id" t-att-value="catalog.id" />
+          <input type="hidden" name="add_qty" value="1" />
+          <button type="submit" class="btn btn-primary btn-sm w-100">
+                        <i class="fa fa-shopping-cart me-1" />Add to Cart
+                    </button>
+        </form>
+      </t>
+      <t t-else="">
+        <a
+          t-attf-href="#{item.product_tmpl_id.website_url}?catalog_id=#{catalog.id}"
+          class="btn btn-outline-primary btn-sm w-100"
+        >
+                    <i class="fa fa-eye me-1" />View Product
+                </a>
+      </t>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_description"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Product Description"
+  >
+    <xpath expr="//h6[hasclass('card-title')]" position="after">
+      <t
+        t-set="catalog_product_tmpl"
+        t-value="item.product_id.product_tmpl_id if item.product_id else item.product_tmpl_id"
+      />
+      <div
+        t-if="catalog_product_tmpl.description_sale"
+        class="o_catalog_product_description small text-muted mt-2"
+        t-field="catalog_product_tmpl.description_sale"
+      />
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_search"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Catalog Search"
+  >
+    <xpath expr="//div[@id='catalog_search_wrap']" position="inside">
+      <div class="input-group">
+        <input
+          type="search"
+          name="search"
+          class="form-control"
+          placeholder="Search products…"
+          t-att-value="search"
+        />
+        <button type="submit" class="btn btn-outline-primary" title="Search">
+          <i class="fa fa-search" />
+          <span class="visually-hidden">Search</span>
+        </button>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_sort"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Catalog Sorting"
+  >
+    <xpath expr="//div[@id='catalog_sort_wrap']" position="inside">
+      <select
+        name="order"
+        class="form-select w-auto"
+        title="Sort products"
+        onchange="this.form.submit()"
+      >
+        <option value="" t-att-selected="not order">Catalog Order</option>
+        <option value="name_asc" t-att-selected="order == 'name_asc'">Name: A-Z</option>
+        <option
+          value="name_desc"
+          t-att-selected="order == 'name_desc'"
+        >Name: Z-A</option>
+        <option
+          value="price_asc"
+          t-att-selected="order == 'price_asc'"
+        >Price: Low to High</option>
+        <option
+          value="price_desc"
+          t-att-selected="order == 'price_desc'"
+        >Price: High to Low</option>
+      </select>
+    </xpath>
+  </template>
+
+  <template id="catalog_layout_buttons" name="Catalog Layout Buttons">
+    <t t-set="_activeClasses" t-translation="off">active</t>
+    <div
+      t-attf-class="o_catalog_apply_layout btn-group #{_classes or ''}"
+      t-att-data-active-classes="_activeClasses"
+      t-att-data-layout-target="layout_target"
+      t-att-data-layout-page="layout_page"
+    >
+      <input
+        type="radio"
+        class="btn-check"
+        t-att-name="layout_input_name"
+        t-att-id="layout_grid_id"
+        t-att-checked="'checked' if layout_mode != 'list' else None"
+        value="grid"
+      />
+      <label
+        t-attf-class="btn btn-light #{_activeClasses if layout_mode != 'list' else None}"
+        t-att-title="grid_title"
+        t-att-aria-label="grid_title"
+        t-att-for="layout_grid_id"
+      >
+        <i class="fa fa-th-large" />
+        <span class="visually-hidden" t-out="grid_title" />
+      </label>
+      <input
+        type="radio"
+        class="btn-check"
+        t-att-name="layout_input_name"
+        t-att-id="layout_list_id"
+        t-att-checked="'checked' if layout_mode == 'list' else None"
+        value="list"
+      />
+      <label
+        t-attf-class="btn btn-light #{_activeClasses if layout_mode == 'list' else None}"
+        t-att-title="list_title"
+        t-att-aria-label="list_title"
+        t-att-for="layout_list_id"
+      >
+        <i class="oi oi-view-list" />
+        <span class="visually-hidden" t-out="list_title" />
+      </label>
+    </div>
+  </template>
+
+  <template
+    id="catalog_detail_layout_toggle"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Layout Buttons"
+  >
+    <xpath expr="//div[@id='catalog_layout_wrap']" position="inside">
+      <t t-call="website_sale_product_catalog.catalog_layout_buttons">
+        <t t-set="_classes" t-value="''" />
+        <t t-set="layout_target" t-value="'#catalog_products_grid'" />
+        <t t-set="layout_page" t-value="'catalog_detail'" />
+        <t t-set="layout_input_name" t-value="'catalog_products_layout'" />
+        <t t-set="layout_grid_id" t-value="'o_catalog_products_apply_grid'" />
+        <t t-set="layout_list_id" t-value="'o_catalog_products_apply_list'" />
+        <t t-set="grid_title">Grid</t>
+        <t t-set="list_title">List</t>
+      </t>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filters_top"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Catalog Filters Top"
+  >
+    <xpath expr="//div[@id='catalog_products_layout']" position="inside">
+      <t t-if="False" />
+    </xpath>
+  </template>
+  <record id="catalog_detail_filters_top" model="ir.ui.view">
+    <field name="active" eval="False" />
+  </record>
+
+  <template
+    id="catalog_detail_filter_price"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Filter: Price"
+  >
+    <xpath expr="//div[@id='catalog_filter_price_wrap']" position="inside">
+      <div t-if="price_max_all &gt; price_min_all" class="mb-4">
+        <t t-set="available_min_price" t-value="price_min_all" />
+        <t t-set="available_max_price" t-value="price_max_all" />
+        <t t-set="min_price" t-value="filter_min or price_min_all" />
+        <t t-set="max_price" t-value="filter_max or price_max_all" />
+        <t t-set="is_sidebar_collapsible" t-value="False" />
+        <t t-call="website_sale.filter_products_price" />
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filter_price_top"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Filter: Price Top"
+  >
+    <xpath expr="//div[@id='catalog_filter_price_top_wrap']" position="inside">
+      <div
+        t-if="price_max_all &gt; price_min_all"
+        class="o_catalog_top_price mt-3 pt-3 border-top"
+      >
+        <t t-set="available_min_price" t-value="price_min_all" />
+        <t t-set="available_max_price" t-value="price_max_all" />
+        <t t-set="min_price" t-value="filter_min or price_min_all" />
+        <t t-set="max_price" t-value="filter_max or price_max_all" />
+        <div class="position-relative">
+          <label class="h6 m-0">
+            <b>Price Range</b>
+          </label>
+          <input
+            type="range"
+            multiple="multiple"
+            class="form-range range-with-input"
+            t-att-data-currency="website.currency_id.symbol"
+            t-att-data-currency-position="website.currency_id.position"
+            t-att-step="website.currency_id.rounding"
+            t-att-min="'%f' % available_min_price"
+            t-att-max="'%f' % available_max_price"
+            t-att-value="'%f,%f' % (min_price, max_price)"
+          />
+        </div>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filter_categ"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Filter: Category"
+  >
+    <xpath expr="//div[@id='catalog_filter_categ_wrap']" position="inside">
+      <div t-if="len(categs) &gt;= 1" class="mb-4">
+        <h6 class="text-uppercase small fw-bold text-muted mb-2">Category</h6>
+        <select name="categ_id" class="form-select" onchange="this.form.submit()">
+          <option value="">All Categories</option>
+          <option
+            t-foreach="categs"
+            t-as="categ"
+            t-att-value="categ.id"
+            t-att-selected="'selected' if categ.id in sel_categ_ids else False"
+            t-esc="categ.name"
+          />
+        </select>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filter_categ_top"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Filter: Category Top"
+  >
+    <xpath expr="//div[@id='catalog_filter_categ_top_wrap']" position="inside">
+      <div
+        t-if="categs"
+        class="o_catalog_filter_filmstrip_scroll d-flex gap-3 overflow-auto pb-2"
+      >
+        <t t-foreach="categs" t-as="categ">
+          <div class="flex-shrink-0">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="categ_id"
+              t-att-value="categ.id"
+              t-att-id="'catalog_top_categ_%s' % categ.id"
+              t-att-checked="'checked' if categ.id in sel_categ_ids else False"
+              onchange="this.form.submit()"
+            />
+            <label
+              class="o_catalog_filter_pill btn btn-light border-0 d-flex align-items-center gap-2 px-2 py-2"
+              t-att-for="'catalog_top_categ_%s' % categ.id"
+            >
+              <img
+                t-attf-src="/web/image/product.public.category/#{categ.id}/image_128"
+                class="o_catalog_filter_pill_image rounded"
+                t-att-alt="categ.name"
+              />
+              <span t-esc="categ.name" />
+            </label>
+          </div>
+        </t>
+      </div>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filter_pricelist"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Filter: Pricelist"
+  >
+    <xpath expr="//div[@id='catalog_filter_pricelist_wrap']" position="inside">
+      <t t-if="False" />
+    </xpath>
+  </template>
+  <record id="catalog_detail_filter_pricelist" model="ir.ui.view">
+    <field name="active" eval="False" />
+  </record>
+
+  <template
+    id="catalog_detail_filter_attrib"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="True"
+    name="Filter: Attributes"
+  >
+    <xpath expr="//div[@id='catalog_filter_attrib_wrap']" position="inside">
+      <t t-foreach="attributes" t-as="attr_group">
+        <div class="mb-4">
+          <h6 class="text-uppercase small fw-bold text-muted mb-2">
+            <t t-esc="attr_group['attr'].name" />
+          </h6>
+          <select name="attrib" class="form-select" onchange="this.form.submit()">
+            <option value="">
+              All
+              <t t-esc="attr_group['attr'].name" />
+            </option>
+            <option
+              t-foreach="attr_group['values']"
+              t-as="val"
+              t-att-value="val.id"
+              t-att-selected="'selected' if val.id in sel_attrib_ids else False"
+              t-esc="val.name"
+            />
+          </select>
+        </div>
+      </t>
+    </xpath>
+  </template>
+
+  <template
+    id="catalog_detail_filter_attrib_top"
+    inherit_id="website_sale_product_catalog.catalog_detail"
+    active="False"
+    name="Filter: Attributes Top"
+  >
+    <xpath expr="//div[@id='catalog_filter_attrib_top_wrap']" position="inside">
+      <t t-foreach="attributes" t-as="attr_group">
+        <div class="mt-3 pt-3 border-top">
+          <div
+            class="small fw-bold text-uppercase text-muted mb-2"
+            t-esc="attr_group['attr'].name"
+          />
+          <div
+            class="o_catalog_filter_filmstrip_scroll d-flex gap-2 overflow-auto pb-2"
+          >
+            <t t-foreach="attr_group['values']" t-as="val">
+              <div class="flex-shrink-0">
+                <input
+                  type="checkbox"
+                  class="btn-check"
+                  name="attrib"
+                  t-att-value="val.id"
+                  t-att-id="'catalog_top_attrib_%s_%s' % (attr_group['attr'].id, val.id)"
+                  t-att-checked="'checked' if val.id in sel_attrib_ids else False"
+                  onchange="this.form.submit()"
+                />
+                <label
+                  class="o_catalog_filter_pill btn btn-light border-0 px-3 py-2"
+                  t-att-for="'catalog_top_attrib_%s_%s' % (attr_group['attr'].id, val.id)"
+                  t-esc="val.name"
+                />
+              </div>
+            </t>
+          </div>
+        </div>
+      </t>
+    </xpath>
+  </template>
+</odoo>
