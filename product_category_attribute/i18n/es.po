@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-18 00:00+0000\n"
-"PO-Revision-Date: 2026-09-18 00:00+0000\n"
+"POT-Creation-Date: 2026-09-23 00:00+0000\n"
+"PO-Revision-Date: 2026-09-23 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -17,9 +17,46 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_category_attribute
-#: model:ir.model.fields,field_description:product_category_attribute.field_product_category__allowed_attribute_ids
-msgid "Allowed Attributes"
-msgstr "Atributos permitidos"
+#: model:ir.model.fields,field_description:product_category_attribute.field_product_category__attribute_profile_id
+msgid "Attribute Profile"
+msgstr "Perfil de atributos"
+
+#. module: product_category_attribute
+#: model:ir.actions.act_window,name:product_category_attribute.product_category_attribute_profile_action
+#: model:ir.ui.menu,name:product_category_attribute.menu_product_category_attribute_profile
+msgid "Attribute Profiles"
+msgstr "Perfiles de atributos"
+
+#. module: product_category_attribute
+#: model:ir.model.fields,field_description:product_category_attribute.field_product_category_attribute_profile__attribute_ids
+msgid "Attributes"
+msgstr "Atributos"
+
+#. module: product_category_attribute
+#: model:ir.model.fields,field_description:product_category_attribute.field_product_category_attribute_profile__category_ids
+#: model_terms:ir.ui.view,arch_db:product_category_attribute.product_category_attribute_profile_view_form
+msgid "Included Categories"
+msgstr "Categorías incluidas"
+
+#. module: product_category_attribute
+#: model_terms:ir.ui.view,arch_db:product_category_attribute.product_category_view_search
+msgid "Category"
+msgstr "Categoría"
+
+#. module: product_category_attribute
+#: model_terms:ir.ui.view,arch_db:product_category_attribute.product_category_view_search
+msgid "Displayed Name"
+msgstr "Nombre mostrado"
+
+#. module: product_category_attribute
+#: model_terms:ir.ui.view,arch_db:product_category_attribute.product_category_view_search
+msgid "Parent Category"
+msgstr "Categoría padre"
+
+#. module: product_category_attribute
+#: model:ir.model,name:product_category_attribute.model_product_category_attribute_profile
+msgid "Product Category Attribute Profile"
+msgstr "Perfil de atributos de categorías de producto"
 
 #. module: product_category_attribute
 #: model:ir.model,name:product_category_attribute.model_product_category
