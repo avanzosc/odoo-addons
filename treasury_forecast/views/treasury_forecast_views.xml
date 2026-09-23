@@ -13,7 +13,7 @@
         />
         <field name="date" optional="show" />
         <field name="partner_id" optional="show" />
-        <field name="company_id" optional="hide" />
+        <field name="company_id" optional="show" />
         <field name="financing_id" optional="show" />
         <field name="parent_category_id" optional="hide" />
         <field name="category_id" optional="hide" />
@@ -243,6 +243,11 @@
             name="group_account"
             context="{'group_by': 'account_id'}"
           />
+          <filter
+            string="Company"
+            name="group_company"
+            context="{'group_by': 'company_id'}"
+          />
         </group>
       </search>
     </field>
@@ -260,6 +265,7 @@
         <field name="journal_id" type="row" />
         <field name="estimated_journal_id" type="row" />
         <field name="financing_id" type="row" />
+        <field name="company_id" type="row" />
         <field name="date" type="column" interval="month" />
       </pivot>
     </field>

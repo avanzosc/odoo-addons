@@ -8,7 +8,13 @@ Account Invoice Usability
 
 * In Journal Item" new field "Product Internal Reference".
 * Search invoices by product, or line description.
-* Moves the Invoice Origin field after the shipping partner while making it optional in the invoice tree view.
+* Moves the Invoice Origin field after the shipping partner while making it
+  optional in the invoice tree view.
+* If an invoice line has a "Stock Valuation Layer" defined, the "Reset to Draft"
+  button is not displayed on the invoice. In this case, this module defines the
+  "Convert draft to invoice" action for invoices. In this case, the inventory
+  valuation line will need to be modified manually.
+  
 
 Bug Tracker
 ===========

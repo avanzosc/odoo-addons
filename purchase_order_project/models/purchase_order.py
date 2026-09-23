@@ -8,7 +8,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     analytic_account_id = fields.Many2one(
-        string="Project", comodel_name="account.analytic.account"
+        string="Analytic Account", comodel_name="account.analytic.account"
     )
 
     @api.onchange("analytic_account_id")
@@ -26,7 +26,7 @@ class PurchaseOrder(models.Model):
             ):
                 order.with_context(
                     from_change_analytic_account=True
-                ).project_id = order.analytic_account_id.project_ids[0].id
+                ).project_id = order.analytic_account_id.project_ids[0]
 
     @api.onchange("project_id")
     def _onchange_project_id_(self):
@@ -36,3 +36,16 @@ class PurchaseOrder(models.Model):
                     order.with_context(
                         from_change_project=True
                     ).analytic_account_id = order.project_id.account_id.id
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("analytic_account_id", False) and not vals.get(
+                "project_id", False
+            ):
+                analytic = self.env["account.analytic.account"].browse(
+                    vals.get("analytic_account_id")
+                )
+                if len(analytic.project_ids) == 1:
+                    vals["project_id"] = analytic.project_ids.id
+        return super().create(vals_list)
