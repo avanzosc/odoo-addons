@@ -6,9 +6,14 @@
 Product Category Attribute
 ==========================
 
-This module adds allowed product attributes on product categories.
+This module adds reusable attribute profiles for product categories.
 
-The field only defines the relation between categories and attributes.
+Each profile defines the attributes required by a family of product
+categories. Multiple product categories can use the same profile, avoiding
+duplicated attribute configuration.
+
+The profiles only define the structure. They do not validate products or
+implement product import rules.
 
 
 Bug Tracker

@@ -1,16 +1,104 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+  <record id="product_category_attribute_profile_view_list" model="ir.ui.view">
+    <field name="name">product.category.attribute.profile.list</field>
+    <field name="model">product.category.attribute.profile</field>
+    <field name="arch" type="xml">
+      <list multi_edit="1">
+        <field name="name" />
+        <field name="attribute_ids" widget="many2many_tags" />
+        <field name="category_ids" widget="many2many_tags" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_category_attribute_profile_view_form" model="ir.ui.view">
+    <field name="name">product.category.attribute.profile.form</field>
+    <field name="model">product.category.attribute.profile</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <div class="oe_title">
+            <label for="name" />
+            <h1>
+              <field name="name" placeholder="e.g. DECK" />
+            </h1>
+          </div>
+          <group>
+            <field
+              name="attribute_ids"
+              widget="many2many_tags"
+              options="{'no_create': True}"
+            />
+          </group>
+          <field name="category_ids">
+            <list editable="bottom">
+              <field name="name" string="Included Categories" />
+            </list>
+          </field>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_category_attribute_profile_action" model="ir.actions.act_window">
+    <field name="name">Attribute Profiles</field>
+    <field name="res_model">product.category.attribute.profile</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
   <record id="product_category_view_form" model="ir.ui.view">
     <field name="model">product.category</field>
     <field name="inherit_id" ref="product.product_category_form_view" />
     <field name="arch" type="xml">
       <field name="parent_id" position="after">
-        <field
-          name="allowed_attribute_ids"
-          widget="many2many_tags"
-          options="{'no_create': True}"
-        />
+        <field name="attribute_profile_id" />
       </field>
     </field>
   </record>
+
+  <record id="product_category_view_list" model="ir.ui.view">
+    <field name="model">product.category</field>
+    <field name="inherit_id" ref="product.product_category_list_view" />
+    <field name="arch" type="xml">
+      <list position="attributes">
+        <attribute name="multi_edit">1</attribute>
+      </list>
+      <field name="display_name" position="after">
+        <field name="attribute_profile_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_category_view_search" model="ir.ui.view">
+    <field name="model">product.category</field>
+    <field name="inherit_id" ref="product.product_category_search_view" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="display_name" string="Displayed Name" />
+      </field>
+      <search position="inside">
+        <group expand="0" string="Group By">
+          <filter
+            name="group_by_category"
+            string="Category"
+            context="{'group_by': 'name'}"
+          />
+          <filter
+            name="group_by_parent_category"
+            string="Parent Category"
+            context="{'group_by': 'parent_id'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <menuitem
+    id="menu_product_category_attribute_profile"
+    name="Attribute Profiles"
+    parent="stock.menu_product_in_config_stock"
+    action="product_category_attribute_profile_action"
+    sequence="3"
+  />
 </odoo>
