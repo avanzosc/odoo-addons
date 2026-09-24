@@ -1,9 +1,21 @@
 # Copyright 2023 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import logging
+import operator as py_operator
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from odoo.osv import expression
+
+OPERATORS = {
+    "<": py_operator.lt,
+    ">": py_operator.gt,
+    "<=": py_operator.le,
+    ">=": py_operator.ge,
+    "=": py_operator.eq,
+    "!=": py_operator.ne,
+}
+
 
 _logger = logging.getLogger(__name__)
 
@@ -66,6 +78,12 @@ class StockWarehouseOrderpoint(models.Model):
         "In a context with a single Stock Location, this includes "
         "goods stored in this location, or any of its children.",
     )
+    forecaster_distinct_forecast = fields.Boolean(
+        string="Virtual Available Distinct Forecast",
+        compute="_compute_forecaster_distinct_forecast",
+        search="_search_forecaster_distinct_forecast",
+        readonly=True,
+    )
 
     @api.depends("product_id", "location_id")
     def _compute_location_quantities(self):
@@ -107,6 +125,35 @@ class StockWarehouseOrderpoint(models.Model):
                     "virtual_draft_available": virtual_draft_available,
                 }
             )
+
+    def _compute_forecaster_distinct_forecast(self):
+        for orderpoint in self:
+            orderpoint.forecaster_distinct_forecast = (
+                True
+                if orderpoint.virtual_available != orderpoint.qty_forecast
+                else False
+            )
+
+    def _search_forecaster_distinct_forecast(self, operator, value):
+        # TDE FIXME: should probably clean the search methods
+        return self._search_orderpoint_forecaster_distinct_forecast(
+            operator, value, "forecaster_distinct_forecast"
+        )
+
+    def _search_orderpoint_forecaster_distinct_forecast(self, operator, value, field):
+        if field not in ("forecaster_distinct_forecast",):
+            raise UserError(_("Invalid domain left operand %s", field))
+        if operator not in ("<", ">", "=", "!=", "<=", ">="):
+            raise UserError(_("Invalid domain operator %s", operator))
+        if not isinstance(value, float | int):
+            raise UserError(_("Invalid domain right operand %s", value))
+        ids = []
+        for orderpoint in self.with_context(prefetch_fields=False).search(
+            [], order="id"
+        ):
+            if OPERATORS[operator](orderpoint[field], value):
+                ids.append(orderpoint.id)
+        return [("id", "in", ids)]
 
     @api.model
     def _name_search(
