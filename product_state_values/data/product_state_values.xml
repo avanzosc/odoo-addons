@@ -1,0 +1,70 @@
+<odoo noupdate="1">
+  <record
+    id="product_state.product_state_draft"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_sellable"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_end"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_obsolete"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record id="product_state_sample" model="product.state">
+    <field name="code">sample</field>
+    <field name="name">Sample</field>
+    <field name="sequence">10</field>
+  </record>
+
+  <record id="product_state_mto" model="product.state">
+    <field name="code">mto</field>
+    <field name="name">Make To Order</field>
+    <field name="sequence">20</field>
+  </record>
+
+  <record id="product_state_stock" model="product.state">
+    <field name="code">stock</field>
+    <field name="name">Stock</field>
+    <field name="sequence">30</field>
+    <field name="default">True</field>
+  </record>
+
+  <record id="product_state_clearance" model="product.state">
+    <field name="code">clearance</field>
+    <field name="name">Clearance</field>
+    <field name="sequence">40</field>
+  </record>
+
+  <record id="product_state_discontinued" model="product.state">
+    <field name="code">discontinued</field>
+    <field name="name">Discontinued</field>
+    <field name="sequence">50</field>
+  </record>
+
+  <record id="product_state_inproject" model="product.state">
+    <field name="code">inproject</field>
+    <field name="name">Inproject</field>
+    <field name="sequence">60</field>
+  </record>
+</odoo>
