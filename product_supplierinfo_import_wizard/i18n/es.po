@@ -1,0 +1,656 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_supplierinfo_import_wizard
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-06 12:09+0000\n"
+"PO-Revision-Date: 2026-07-06 12:09+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "'{}' is inactive."
+msgstr "'{}' está inactivo."
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Cantidad mínima</code>: this will fill <b>Minimal Quantity.</b>"
+msgstr "<code>Cantidad mínima</code>: esto rellenará <b>Cantidad Mínima.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid ""
+"<code>Código de producto del proveedor</code>: this will fill <b>Vendor "
+"Product Code.</b>"
+msgstr ""
+"<code>Código de producto del proveedor</code>: esto rellenará <b>Código de "
+"Producto del Proveedor.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Código de producto</code>: this will fill <b>Product Code.</b>"
+msgstr "<code>Código de producto</code>: esto rellenará <b>Código del producto.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Fecha de inicio</code>: this will fill <b>Start Date.</b>"
+msgstr "<code>Fecha de inicio</code>: esto rellenará <b>Fecha de inicio.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Fecha finalización</code>: this will fill <b>End Date.</b>"
+msgstr "<code>Fecha finalización</code>: esto rellenará <b>Fecha de fin.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Moneda</code>: this will fill <b>Currency.</b>"
+msgstr "<code>Moneda</code>: esto rellenará <b>Moneda.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid ""
+"<code>Nombre del producto del proveedor</code>: this will fill <b>Vendor "
+"Product Name.</b>"
+msgstr ""
+"<code>Nombre del producto del proveedor</code>: esto rellenará <b>Nombre del "
+"Producto del Proveedor.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Precio</code>: this will fill <b>Price.</b>"
+msgstr "<code>Precio</code>: esto rellenará <b>Precio.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Producto</code>: this will fill <b>Product.</b>"
+msgstr "<code>Producto</code>: esto rellenará <b>Producto.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Proveedor</code>: this will fill <b>Supplier Name.</b>"
+msgstr "<code>Proveedor</code>: esto rellenará <b>Nombre del proveedor.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Secuencia</code>: this will fill <b>Sequence.</b>"
+msgstr "<code>Secuencia</code>: esto rellenará <b>Secuencia.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid ""
+"<code>Tiempo inicial entrega</code>: this will fill <b>Delivery Lead "
+"Time.</b>"
+msgstr ""
+"<code>Tiempo inicial entrega</code>: esto rellenará <b>Plazo de "
+"Entrega.</b>"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__action
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "Action"
+msgstr "Acción"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decoración de excepción de actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_state
+msgid "Activity State"
+msgstr "Estado de actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icono de tipo de actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__sequence
+msgid "Assigns the priority to the list of product vendor."
+msgstr "Asigna la prioridad a la lista de proveedor del producto."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_attachment_count
+msgid "Attachment Count"
+msgstr "Número de adjuntos"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields.selection,name:product_supplierinfo_import_wizard.selection__product_supplierinfo_import_line__action__create
+msgid "Create"
+msgstr "Crear"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__create_uid
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__create_date
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__currency_code
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__delay
+msgid "Delivery Lead Time"
+msgstr "Plazo de entrega"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__display_name
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "Do Nothing"
+msgstr "No hacer nada"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_end
+msgid "End Date"
+msgstr "Fecha de fin"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_end
+msgid "End date for this vendor price"
+msgstr "Fecha de fin para este precio de proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_search
+msgid "Error"
+msgstr "Error"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Error Log"
+msgstr "Registro de errores"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__data
+msgid "File"
+msgstr "Archivo"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__filename
+msgid "Filename"
+msgstr "Nombre del archivo"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icono Font Awesome, ej. fa-tasks"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_search
+msgid "Group By"
+msgstr "Agrupar por"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__has_message
+msgid "Has Message"
+msgstr "Tiene mensaje"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Help"
+msgstr "Ayuda"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Help with Excel column names"
+msgstr "Ayuda con nombres de columnas de Excel"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__id
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_exception_icon
+msgid "Icon"
+msgstr "Icono"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icono para indicar una actividad de excepción."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, los nuevos mensajes requieren su atención."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Import"
+msgstr "Importar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__file_date
+msgid "Import Date"
+msgstr "Fecha de importación"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Import Lines"
+msgstr "Líneas a importar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.actions.act_window,name:product_supplierinfo_import_wizard.product_supplierinfo_import_line_action
+msgid "Import Product Variant Lines"
+msgstr "Importar líneas de variante de producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.actions.act_window,name:product_supplierinfo_import_wizard.product_supplierinfo_import_action
+#: model:ir.ui.menu,name:product_supplierinfo_import_wizard.product_supplierinfo_import_menu
+msgid "Import Supplier Pricelists"
+msgstr "Importar listas de precios de proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__import_id
+msgid "Import Wizard"
+msgstr "Asistente de importación"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Imported Lines"
+msgstr "Líneas importadas"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_barcode
+msgid "International Article Number used for product identification."
+msgstr "Número de artículo internacional utilizado para la identificación del producto."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__write_uid
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__write_date
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__delay
+msgid ""
+"Lead time in days between the confirmation of the purchase order and the "
+"receipt of the products in your warehouse. Used by the scheduler for "
+"automatic computation of the purchase order planning."
+msgstr ""
+"Tiempo de entrega en días entre la confirmación del pedido de compra y la "
+"recepción de los productos en su almacén. Utilizado por el planificador para "
+"el cálculo automático de la planificación del pedido de compra."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__import_line_ids
+msgid "Lines to Import"
+msgstr "Líneas a importar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__log_info
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__log_info
+msgid "Log Info"
+msgstr "Información de registro"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de entrega de mensaje"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_ids
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__min_qty
+msgid "Minimal Quantity"
+msgstr "Cantidad mínima"
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "More than one product already exist."
+msgstr "Ya existe más de un producto."
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "More than one supplier with name {} already exist."
+msgstr "Ya existe más de un proveedor con el nombre {}."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Mi fecha límite de actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Fecha límite de próxima actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de próxima actividad"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo de próxima actividad"
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "No currency found with code '{}'."
+msgstr "No se encontró ninguna moneda con el código '{}'."
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "No product found."
+msgstr "No se encontró ningún producto."
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "No supplier found with name {}."
+msgstr "No se encontró ningún proveedor con el nombre {}."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_has_error_counter
+msgid "Number of errors"
+msgstr "Número de errores"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Número de mensajes que requieren acción"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de entrega"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_search
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__price
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_tree
+msgid "Price"
+msgstr "Precio"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.actions.server,name:product_supplierinfo_import_wizard.action_process_line
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_tree
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Process"
+msgstr "Procesar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_id
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_name
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_code
+msgid "Product Code"
+msgstr "Código del producto"
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "Product Code added as Product Name"
+msgstr "Código de producto añadido como nombre de producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_supplierinfo_id
+msgid "Product Supplierinfo"
+msgstr "Información de proveedor del producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_tmpl_id
+msgid "Product Tmpl"
+msgstr "Plantilla de producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__split_size
+msgid "Split Size"
+msgstr "Tamaño de división"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_start
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_start
+msgid "Start date for this vendor price"
+msgstr "Fecha de inicio para este precio de proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__state
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__state
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Estado basado en actividades\n"
+"Vencida: La fecha de vencimiento ya ha pasado\n"
+"Hoy: La fecha de actividad es hoy\n"
+"Planificada: Actividades futuras."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_id
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_name
+msgid "Supplier Name"
+msgstr "Nombre del proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__supplierinfo_count
+msgid "Supplierinfo Count"
+msgstr "Conteo de información de proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__min_qty
+msgid ""
+"The minimal quantity to purchase from this vendor, expressed in the vendor "
+"Product Unit of Measure if not any, in the default unit of measure of the "
+"product otherwise."
+msgstr ""
+"La cantidad mínima para comprar a este proveedor, expresada en la unidad de "
+"medida del producto del proveedor si la hay, o en la unidad de medida "
+"predeterminada del producto en caso contrario."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__price
+msgid "The price to purchase a product"
+msgstr "El precio para comprar un producto"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_code
+msgid ""
+"This vendor's product code will be used when printing a request for "
+"quotation. Keep empty to use the internal one."
+msgstr ""
+"El código de producto de este proveedor se utilizará al imprimir una "
+"solicitud de cotización. Manténgalo vacío para usar el interno."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_name
+msgid ""
+"This vendor's product name will be used when printing a request for "
+"quotation. Keep empty to use the internal one."
+msgstr ""
+"El nombre de producto de este proveedor se utilizará al imprimir una "
+"solicitud de cotización. Manténgalo vacío para usar el interno."
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "To Create"
+msgstr "Para crear"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
+msgid "To Update"
+msgstr "Para actualizar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo de actividad de excepción en el registro."
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.actions.server,name:product_supplierinfo_import_wizard.action_validate_line
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_form
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_tree
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "Validate"
+msgstr "Validar"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_code
+msgid "Vendor Product Code"
+msgstr "Código de producto del proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_name
+msgid "Vendor Product Name"
+msgstr "Nombre del producto del proveedor"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "You must use this column names in order to fill the table:"
+msgstr "Debe usar estos nombres de columna para llenar la tabla:"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model,name:product_supplierinfo_import_wizard.model_product_supplierinfo_import
+msgid "product.supplierinfo.import"
+msgstr "product.supplierinfo.import"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model,name:product_supplierinfo_import_wizard.model_product_supplierinfo_import_line
+msgid "product.supplierinfo.import.line"
+msgstr "product.supplierinfo.import.line"
