@@ -6,19 +6,6 @@
     <field name="arch" type="xml">
       <button name="action_picking_move_tree" position="before">
         <button
-          name="action_picking_move_line_tree"
-          class="oe_stat_button"
-          icon="fa-arrows-v"
-          type="object"
-          help="List view of detailed operations"
-          groups="base.group_no_one"
-          context="{'picking_type_code': picking_type_code, 'default_picking_id': id, 'form_view_ref':'stock.view_move_line_form', 'address_in_id': partner_id, 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}"
-        >
-          <div class="o_form_field o_stat_info">
-            <span class="o_stat_text">Detailed Operations</span>
-          </div>
-        </button>
-        <button
           name="action_picking_stock_production_lot_tree"
           class="oe_stat_button"
           icon="fa-arrows-v"
@@ -32,23 +19,6 @@
           </div>
         </button>
       </button>
-    </field>
-  </record>
-
-  <record id="stock_picking_detailed_view_form" model="ir.ui.view">
-    <field name="model">stock.picking</field>
-    <field name="inherit_id" ref="stock_picking_usability.stock_picking_view_form" />
-    <field name="arch" type="xml">
-      <button name="action_picking_move_line_tree" position="attributes">
-        <attribute
-          name="groups"
-        >stock_picking_usability.group_detailed_operations_visible</attribute>
-      </button>
-      <button name="action_picking_stock_production_lot_tree" position="attributes">
-        <attribute
-          name="groups"
-        >stock_picking_usability.group_detailed_operations_visible</attribute>
-      </button>
       <page name="operations" position="after">
         <page
           string="Detailed Operations"
@@ -58,7 +28,7 @@
           <field
             name="move_line_ids_without_package"
             readonly="state == 'done' and is_locked"
-            context="{'tree_view_ref': 'stock.view_stock_move_line_detailed_operation_tree', 'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
+            context="{'tree_view_ref': 'view_stock_move_line_detailed_operation_tree_editable', 'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id, 'default_company_id': company_id}"
           />
           <field
             name="package_level_ids_details"
