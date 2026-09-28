@@ -1,0 +1,29 @@
+# Copyright 2023 Berezi Amubieta - AvanzOSC
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+from odoo import _, fields, models
+
+
+class ResPartner(models.Model):
+    _inherit = "res.partner"
+
+    partner_rappel_ids = fields.One2many(
+        string="Partner Rappel",
+        comodel_name="res.partner.rappel",
+        inverse_name="partner_id",
+    )
+    invoice_rappel_product = fields.Many2one(comodel_name="product.product")
+
+    def action_view_rappel(self):
+        self.ensure_one()
+        return {
+            "name": _("Rappels"),
+            "view_mode": "list",
+            "res_model": "account.move.line",
+            "domain": [
+                ("partner_rappel_id", "!=", False),
+                ("partner_id", "=", self.id),
+            ],
+            "type": "ir.actions.act_window",
+            "views": [[self.env.ref("res_partner_rappel.rappel_view_tree").id, "list"]],
+            "context": self.env.context,
+        }
