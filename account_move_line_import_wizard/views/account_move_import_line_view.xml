@@ -74,23 +74,31 @@
         <sheet>
           <group>
             <group>
-              <field name="account_code" />
-              <field name="name" />
-              <field name="partner_ref" />
-              <field name="partner_name" />
-              <field name="debit" />
-              <field name="credit" />
+              <field name="account_code" readonly="state == 'done'" />
+              <field name="name" readonly="state == 'done'" />
+              <field name="partner_ref" readonly="state == 'done'" />
+              <field name="partner_name" readonly="state == 'done'" />
+              <field name="debit" readonly="state == 'done'" />
+              <field name="credit" readonly="state == 'done'" />
             </group>
             <group>
-              <field name="account_id" options="{'no_create': True, 'no_open': True}" />
-              <field name="partner_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="account_id"
+                options="{'no_create': True, 'no_open': True}"
+                readonly="state == 'done'"
+              />
+              <field
+                name="partner_id"
+                options="{'no_create': True, 'no_open': True}"
+                readonly="state == 'done'"
+              />
               <field
                 name="account_move_id"
                 options="{'no_create': True, 'no_open': True}"
               />
             </group>
           </group>
-          <field name="log_info" />
+          <field name="log_info" readonly="state == 'done'" />
         </sheet>
       </form>
     </field>
