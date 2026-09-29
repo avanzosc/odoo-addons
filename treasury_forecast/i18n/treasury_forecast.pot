@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-10 11:38+0000\n"
-"PO-Revision-Date: 2026-08-10 11:38+0000\n"
+"POT-Creation-Date: 2026-08-20 06:59+0000\n"
+"PO-Revision-Date: 2026-08-20 06:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,6 @@ msgid "Account Type Filter"
 msgstr ""
 
 #. module: treasury_forecast
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_form
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_form
 msgid "Accounting"
 msgstr ""
@@ -84,6 +83,10 @@ msgstr ""
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__company_id
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__company_id
+#: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__company_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_report_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_search
 msgid "Company"
 msgstr ""
 
@@ -109,7 +112,7 @@ msgstr ""
 
 #. module: treasury_forecast
 #: model:ir.actions.server,name:treasury_forecast.treasury_financing_generate_lines_server_action
-msgid "Crear previsiones"
+msgid "Create forecasts"
 msgstr ""
 
 #. module: treasury_forecast
@@ -408,11 +411,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast__product_category_id
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_forecast_report__product_category_id
 msgid "Product Category"
-msgstr ""
-
-#. module: treasury_forecast
-#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_form
-msgid "Product Information"
 msgstr ""
 
 #. module: treasury_forecast

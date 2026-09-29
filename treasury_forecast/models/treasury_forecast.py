@@ -9,6 +9,7 @@ class TreasuryForecast(models.Model):
     _name = "treasury.forecast"
     _description = "Treasury Forecast"
     _order = "date desc, id desc"
+    _check_company_auto = True
 
     name = fields.Char(string="Description", required=True, copy=True)
     date = fields.Date(required=True, default=fields.Date.context_today)
@@ -22,7 +23,9 @@ class TreasuryForecast(models.Model):
         readonly=True,
     )
     journal_id = fields.Many2one(
-        comodel_name="account.journal", domain="[('type', 'in', ('bank', 'cash'))]"
+        comodel_name="account.journal",
+        domain="[('type', 'in', ('bank', 'cash'))]",
+        check_company=True,
     )
     estimated_journal_id = fields.Many2one(
         "account.journal",
@@ -75,6 +78,7 @@ class TreasuryForecast(models.Model):
     account_id = fields.Many2one(
         "account.account",
         string="Account",
+        check_company=True,
     )
 
     account_type_filter = fields.Char(
@@ -96,6 +100,7 @@ class TreasuryForecast(models.Model):
     def _onchange_financing_id(self):
         if self.financing_id:
             self.category_id = self.financing_id.category_id
+            self.company_id = self.financing_id.company_id
 
     @api.depends("income", "expense")
     def _compute_balance(self):
