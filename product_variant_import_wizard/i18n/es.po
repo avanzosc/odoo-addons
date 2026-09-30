@@ -1039,6 +1039,38 @@ msgid "Wizard to import product variants"
 msgstr "Asistente para importar variantes de productos"
 
 #. module: product_variant_import_wizard
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_variant_import_line__top_graphic
+msgid "Top Graphic"
+msgstr "Gráfico superior"
+
+#. module: product_variant_import_wizard
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_variant_import_line__bottom_graphic
+msgid "Bottom Graphic"
+msgstr "Gráfico inferior"
+
+#. module: product_variant_import_wizard
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_variant_import_line__top_transfer_product_id
+msgid "Top Transfer Product"
+msgstr "Producto transfer superior"
+
+#. module: product_variant_import_wizard
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_variant_import_line__bottom_transfer_product_id
+msgid "Bottom Transfer Product"
+msgstr "Producto transfer inferior"
+
+#. module: product_variant_import_wizard
+#: code:addons/product_variant_import_wizard/models/product_variant_import.py:0
+#, python-format
+msgid "The transfer category is required."
+msgstr "Es obligatorio indicar la categoría del transfer."
+
+#. module: product_variant_import_wizard
+#: code:addons/product_variant_import_wizard/models/product_variant_import.py:0
+#, python-format
+msgid "More than one transfer product named '%(transfer_name)s' found."
+msgstr "Se ha encontrado más de un producto transfer llamado '%(transfer_name)s'."
+
+#. module: product_variant_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_variant_import_wizard.product_variant_import_wizard_view_form
 msgid "You must use this column names in order to fill the table:"
 msgstr "Debe usar los siguientes nombres de columnas para rellenar la tabla:"
