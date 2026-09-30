@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_import_line_view_form" model="ir.ui.view">
+    <field name="model">product.import.line</field>
+    <field
+      name="inherit_id"
+      ref="product_import_wizard.product_import_line_view_form"
+    />
+    <field name="arch" type="xml">
+      <field name="category_name" position="after">
+        <field name="season_name" readonly="state == 'done'" />
+      </field>
+      <field name="category_id" position="after">
+        <field
+          name="season_id"
+          readonly="state == 'done'"
+          options="{'no_create': True, 'no_open': True}"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_import_line_view_tree" model="ir.ui.view">
+    <field name="model">product.import.line</field>
+    <field
+      name="inherit_id"
+      ref="product_import_wizard.product_import_line_view_tree"
+    />
+    <field name="arch" type="xml">
+      <field name="category_name" position="after">
+        <field name="season_name" readonly="state == 'done'" />
+      </field>
+      <field name="category_id" position="after">
+        <field
+          name="season_id"
+          readonly="state == 'done'"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>

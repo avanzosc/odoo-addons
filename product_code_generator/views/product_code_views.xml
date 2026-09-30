@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_code_view_form" model="ir.ui.view">
+    <field name="name">product.code.form</field>
+    <field name="model">product.code</field>
+    <field name="arch" type="xml">
+      <form>
+        <sheet>
+          <group>
+            <field name="name" readonly="1" />
+            <field name="brand_id" />
+            <field name="family_id" />
+            <field name="sub_family_id" />
+            <field name="season_id" />
+            <field name="sequence_id" />
+            <field name="sequence_number_next" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_code_view_tree" model="ir.ui.view">
+    <field name="name">product.code.tree</field>
+    <field name="model">product.code</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="brand_id" />
+        <field name="family_id" />
+        <field name="sub_family_id" />
+        <field name="season_id" />
+        <field name="sequence_number_next" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_code_action" model="ir.actions.act_window">
+    <field name="name">Product Codes</field>
+    <field name="res_model">product.code</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem
+    id="product_code_menu"
+    name="Product Codes"
+    action="product_code_action"
+    parent="sale.prod_config_main"
+    sequence="20"
+  />
+</odoo>
