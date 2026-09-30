@@ -13,6 +13,18 @@
       <field name="categ_id" position="after">
         <field name="profile_product_id" invisible="is_profile" />
         <field name="requires_transfer" />
+        <field
+          name="transfer_category_id"
+          invisible="not is_profile or not requires_transfer"
+        />
+        <field
+          name="top_transfer_product_id"
+          invisible="is_profile or not requires_transfer"
+        />
+        <field
+          name="bottom_transfer_product_id"
+          invisible="is_profile or not requires_transfer"
+        />
       </field>
     </field>
   </record>
