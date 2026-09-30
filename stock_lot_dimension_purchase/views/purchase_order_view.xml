@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="purchase_order_form" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='order_line']//field[@name='name']" position="after">
+        <field name="purchase_weight" optional="hide" force_save="1" />
+        <field name="purchase_weight_uom_id" optional="hide" force_save="1" string="" />
+        <field name="purchase_length" optional="hide" force_save="1" />
+        <field name="purchase_length_uom_id" optional="hide" force_save="1" string="" />
+        <field name="pricing_method" optional="hide" />
+        <field name="dimension_qty" optional="show" />
+        <field name="product_length" optional="hide" />
+        <field name="product_height" optional="hide" />
+        <field name="product_width" optional="hide" />
+        <field
+          name="dimensional_uom_id"
+          readonly="1"
+          force_save="1"
+          optional="hide"
+          string=""
+        />
+        <field name="volume" optional="hide" />
+        <field name="product_weight" optional="hide" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
