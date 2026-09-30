@@ -1,0 +1,1007 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+  <t
+    t-name="account_reconcile_legacy.LegacyBankRecKanbanController"
+    t-inherit="account.BankRecoKanbanController"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//Layout" position="attributes">
+      <attribute
+        name="className"
+      >'o_bank_rec_main_div o_avanzosc_account_reconcile_legacy d-flex flex-column overflow-auto' + (legacyUi.showOverview ? ' o_legacy_overview_mode' : '')</attribute>
+    </xpath>
+
+    <xpath expr="//div[contains(@class, 'o_bank_rec_right_div')]" position="replace">
+      <main
+        class="
+    o_legacy_reconciliation_workspace
+    order-1
+    w-100
+    flex-shrink-0
+"
+      >
+        <section
+          class="
+      o_legacy_reconciliation_shell
+      o_legacy_overview_shell
+      o_legacy_global_header
+  "
+        >
+          <header class="o_legacy_header">
+            <h1>Conciliación bancaria</h1>
+
+            <div class="o_legacy_header_status">
+              <div class="o_legacy_progress_bar">
+                <span t-out="legacyProgressLabel" />
+              </div>
+            </div>
+          </header>
+        </section>
+
+        <t
+          t-if="
+    !legacyUi.showOverview
+    and !legacyUi.openingRecord
+    and state.bankRecStLineId
+    and this.bankRecModel
+    and state.bankRecRecordData
+    and legacyUi.inlinePortalReady
+    and legacyActiveRecordId
+"
+        >
+          <t
+            t-portal="
+        '#o_legacy_inline_bank_rec_lines_' +
+        legacyActiveRecordId
+      "
+          >
+            <t t-set="data" t-value="state.bankRecRecordData" />
+            <t t-call="account_reconcile_legacy.LegacyBankRecSelectedLines" />
+          </t>
+
+          <t
+            t-portal="
+        '#o_legacy_inline_bank_rec_details_' +
+        legacyActiveRecordId
+      "
+          >
+            <t t-call="account_reconcile_legacy.LegacyBankRecInlineDetails" />
+          </t>
+        </t>
+      </main>
+    </xpath>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecRecordForm">
+    <t t-set="record" t-value="this.bankRecModel.root" />
+    <t t-set="data" t-value="state.bankRecRecordData" />
+    <t t-set="areAllLinesValid" t-value="this.checkBankRecLinesInvalidFields(data)" />
+    <t
+      t-set="liquidityLine"
+      t-value="data.line_ids.records.find(
+        (line) => line.data.flag === 'liquidity'
+    )"
+    />
+
+    <section class="o_legacy_reconciliation_shell">
+      <header class="o_legacy_header">
+        <div>
+          <h1>Conciliación bancaria</h1>
+          <div
+            class="o_legacy_transaction_name text-truncate"
+            t-att-title="data.st_line_name or data.st_line_reference or ''"
+          >
+            <t t-out="data.st_line_name or data.st_line_reference or ''" />
+          </div>
+        </div>
+        <div class="o_legacy_header_status">
+          <div class="o_legacy_progress_bar">
+            <span t-out="legacyProgressLabel" />
+          </div>
+        </div>
+      </header>
+
+      <section class="o_legacy_statement">
+        <div class="o_legacy_statement_title">
+          <span>Operación y contrapartidas</span>
+          <span
+            t-if="data.state === 'invalid'"
+          >Existen datos obligatorios pendientes</span>
+        </div>
+
+        <div class="o_legacy_lines">
+          <t t-call="account_reconcile_legacy.LegacyBankRecLineIds" />
+        </div>
+      </section>
+
+      <nav
+        t-if="['valid', 'invalid'].includes(data.state)"
+        class="o_legacy_panel_navigation"
+        aria-label="Opciones de conciliación"
+      >
+        <button
+          type="button"
+          class="btn btn-link"
+          t-att-class="{'active': state.bankRecNotebookPage === 'amls_tab' or !state.bankRecNotebookPage}"
+          t-on-click="() => this.onPageUpdate('amls_tab')"
+        >
+                    Contrapartidas existentes
+        </button>
+        <button
+          t-if="hasGroupReadOnly"
+          type="button"
+          class="btn btn-link"
+          t-att-class="{'active': state.bankRecNotebookPage === 'manual_operations_tab'}"
+          t-on-click="() => this.onPageUpdate('manual_operations_tab')"
+        >
+                    Operación manual
+        </button>
+      </nav>
+
+      <section
+        t-if="['valid', 'invalid'].includes(data.state)"
+        class="o_legacy_match_panel"
+      >
+        <div
+          t-if="
+        state.bankRecNotebookPage === 'manual_operations_tab'
+        and hasGroupReadOnly
+    "
+          class="o_legacy_manual_panel"
+        >
+          <div class="o_xxl_form_view o_view_controller o_form_view">
+            <div class="o_form_view_container">
+              <div class="o_content">
+                <div
+                  class="
+                    o_form_nosheet
+                    o_form_editable
+                    d-block
+                "
+                >
+                  <t
+                    t-call="account_accountant.BankRecRecordNotebookManualOperations"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div t-else="" class="o_legacy_candidates_panel">
+          <t t-call="account_reconcile_legacy.LegacyBankRecRecordNotebookAmls" />
+        </div>
+      </section>
+
+      <footer class="o_legacy_footer_actions">
+        <button
+          t-if="data.st_line_checked and areAllLinesValid"
+          type="button"
+          class="btn btn-secondary"
+          t-on-click="() => this.actionToCheck()"
+        >
+                    Para revisar
+        </button>
+        <button
+          t-if="!data.st_line_checked"
+          type="button"
+          class="btn btn-secondary"
+          t-on-click="() => this.actionSetAsChecked()"
+        >
+                    Marcar como revisada
+        </button>
+      </footer>
+    </section>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecLineIds">
+    <t
+      t-set="autoBalanceLine"
+      t-value="data.line_ids.records.find(
+            (line) => line.data.flag === 'auto_balance'
+        )"
+    />
+
+    <t
+      t-foreach="data.line_ids.records.filter(
+            (line) => line.data.flag !== 'auto_balance'
+        )"
+      t-as="line"
+      t-key="line.data.index"
+    >
+      <t t-set="isLiquidity" t-value="line.data.flag === 'liquidity'" />
+      <t
+        t-set="accountDisplay"
+        t-value="line.data.account_id
+                and line.data.account_id[1] or ''"
+      />
+      <t
+        t-set="partnerDisplay"
+        t-value="line.data.partner_id
+                and line.data.partner_id[1] or ''"
+      />
+      <t t-set="invalidFields" t-value="this.getBankRecLineInvalidFields(line)" />
+
+      <div
+        class="o_legacy_line"
+        t-att-class="{
+                'o_legacy_line_main': isLiquidity,
+                'o_legacy_selected_line':
+                    line.data.index === data.form_index
+                    and state.bankRecNotebookPage ===
+                        'manual_operations_tab',
+                'o_legacy_invalid_line': invalidFields.length,
+            }"
+        t-on-click="(ev) => this.handleLineClicked(ev, line)"
+      >
+        <button
+          t-if="isLiquidity"
+          type="button"
+          class="btn btn-link fa fa-cog o_legacy_cog_button"
+          title="Mostrar todos los extractos"
+          t-on-click.stop="() => this.toggleLegacyOverview()"
+        />
+
+        <button
+          t-elif="['valid', 'invalid'].includes(data.state)
+                    and !['tax_line'].includes(line.data.flag)"
+          type="button"
+          class="btn btn-link fa fa-minus o_legacy_remove_line"
+          title="Quitar contrapartida"
+          t-on-click.prevent.stop="
+                    () => this.actionRemoveLine(line)
+                "
+        />
+
+        <span t-else="" />
+
+        <span
+          class="o_legacy_account_code"
+          t-att-title="accountDisplay"
+          t-out="accountDisplay.split(' ')[0]"
+        />
+
+        <span class="o_legacy_line_date">
+          <span
+            t-if="[
+                        'manual',
+                        'early_payment',
+                        'tax_line'
+                    ].includes(line.data.flag)"
+            class="o_legacy_new_badge"
+          >
+                    Nuevo
+          </span>
+
+          <t t-else="" t-out="formatDateField(line.data.date)" />
+        </span>
+
+        <span
+          class="o_legacy_label"
+          t-att-title="
+        isLiquidity
+            ? (line.data.name or '')
+            : (partnerDisplay or line.data.name or '')
+    "
+        >
+          <t t-if="isLiquidity" t-out="line.data.name or ''" />
+
+          <t t-else="">
+            <span
+              class="o_legacy_label"
+              t-att-title="line.data.name or partnerDisplay or ''"
+            >
+              <t t-out="line.data.name or partnerDisplay or ''" />
+            </span>
+          </t>
+        </span>
+
+        <span
+          class="o_legacy_amount_debit"
+          t-out="isMonetaryZero(
+                    line.data.debit,
+                    line.data.company_currency_id[0]
+                ) ? '' : formatMonetaryField(
+                    line.data.debit,
+                    line.data.company_currency_id[0]
+                )"
+        />
+
+        <span
+          class="o_legacy_amount_credit"
+          t-out="isMonetaryZero(
+                    line.data.credit,
+                    line.data.company_currency_id[0]
+                ) ? '' : formatMonetaryField(
+                    line.data.credit,
+                    line.data.company_currency_id[0]
+                )"
+        />
+
+        <span
+          class="fa fa-info-circle o_legacy_line_info"
+          t-att-title="accountDisplay"
+        />
+      </div>
+    </t>
+
+    <div
+      t-if="autoBalanceLine"
+      class="o_legacy_hint o_legacy_toggle_hint"
+      title="Ir a operación manual"
+      t-on-click="
+         () => this.onPageUpdate('manual_operations_tab')
+     "
+    >
+      <span class="fa fa-caret-right o_legacy_toggle_caret" />
+
+      <span class="o_legacy_hint_label">
+            Seleccione contrapartida o cree un descuadre
+      </span>
+
+      <span
+        class="o_legacy_amount_debit"
+        t-out="isMonetaryZero(
+                autoBalanceLine.data.debit,
+                autoBalanceLine.data.company_currency_id[0]
+            ) ? '' : formatMonetaryField(
+                autoBalanceLine.data.debit,
+                autoBalanceLine.data.company_currency_id[0]
+            )"
+      />
+
+      <span
+        class="o_legacy_amount_credit"
+        t-out="isMonetaryZero(
+                autoBalanceLine.data.credit,
+                autoBalanceLine.data.company_currency_id[0]
+            ) ? '' : formatMonetaryField(
+                autoBalanceLine.data.credit,
+                autoBalanceLine.data.company_currency_id[0]
+            )"
+      />
+
+      <span />
+    </div>
+  </t>
+  <t t-name="account_reconcile_legacy.LegacyBankRecKanbanRenderer">
+    <div
+      class="
+            o_kanban_renderer
+            o_renderer
+            o_legacy_statement_selector
+            o_legacy_compact_statements
+        "
+      t-ref="root"
+    >
+      <t
+        t-foreach="getGroupsOrRecords()"
+        t-as="groupOrRecord"
+        t-key="groupOrRecord.key"
+      >
+        <t t-if="groupOrRecord.group">
+          <t t-set="group" t-value="groupOrRecord.group" />
+
+          <t t-if="!group.isFolded">
+            <t t-foreach="group.list.records" t-as="record" t-key="record.id">
+              <t t-call="account_reconcile_legacy.LegacyBankRecStatementSlot" />
+            </t>
+          </t>
+        </t>
+
+        <t t-else="">
+          <t t-set="record" t-value="groupOrRecord.record" />
+
+          <t t-call="account_reconcile_legacy.LegacyBankRecStatementSlot" />
+        </t>
+      </t>
+    </div>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecCompactStatement">
+    <div
+      class="o_legacy_compact_statement"
+      t-on-click.stop="() => this.openLegacyRecord(record)"
+    >
+      <div class="o_legacy_compact_statement_line">
+        <button
+          type="button"
+          class="
+        btn
+        btn-link
+        fa
+        fa-cog
+        o_legacy_cog_button
+    "
+          title="Abrir / cerrar extracto"
+          t-on-click.stop="
+        () => this.toggleLegacyRecord(record)
+    "
+        />
+        <span
+          class="o_legacy_account_code"
+          t-out="this.getLegacyStatementCode(record)"
+        />
+
+        <span
+          class="o_legacy_line_date"
+          t-out="this.formatLegacyStatementDate(record)"
+        />
+
+        <span
+          class="o_legacy_label"
+          t-att-title="this.getLegacyStatementLabel(record)"
+          t-out="this.getLegacyStatementLabel(record)"
+        />
+
+        <span
+          class="o_legacy_amount_debit"
+          t-out="this.getLegacyStatementDebit(record)"
+        />
+
+        <span
+          class="o_legacy_amount_credit"
+          t-out="this.getLegacyStatementCredit(record)"
+        />
+
+        <span class="fa fa-info-circle o_legacy_line_info" />
+      </div>
+      <t t-set="proposal" t-value="
+      this.getLegacyProposal(record)
+    " />
+
+      <div
+        t-if="proposal"
+        class="o_legacy_proposal_line"
+        t-on-click.stop="
+    () => this.openLegacyRecord(record)
+  "
+      >
+        <span class="
+    fa
+    fa-minus
+    o_legacy_remove_line
+  " />
+
+        <span class="o_legacy_account_code" t-out="proposal.account_code" />
+
+        <span class="o_legacy_line_date" t-out="proposal.date" />
+
+        <span
+          class="o_legacy_label"
+          t-att-title="
+        proposal.name
+      "
+          t-out="
+        proposal.name
+      "
+        />
+
+        <span
+          class="o_legacy_amount_debit"
+          t-out="
+        this.formatLegacyProposalAmount(
+          proposal,
+          'debit'
+        )
+      "
+        />
+
+        <span
+          class="o_legacy_amount_credit"
+          t-out="
+        this.formatLegacyProposalAmount(
+          proposal,
+          'credit'
+        )
+      "
+        />
+
+        <span
+          class="
+        fa
+        fa-info-circle
+        o_legacy_line_info
+      "
+        />
+      </div>
+      <div
+        t-if="this.isLegacyActiveRecord(record)"
+        class="o_legacy_inline_selected_lines_anchor"
+        t-att-id="
+      'o_legacy_inline_bank_rec_lines_' +
+      record.resId
+    "
+      />
+
+      <div class="o_legacy_compact_statement_hint">
+        <span class="fa fa-caret-right o_legacy_toggle_caret" />
+
+        <span class="o_legacy_hint_label">
+        Seleccione contrapartida o cree un descuadre
+        </span>
+
+        <span
+          class="
+      o_legacy_amount_debit
+      o_legacy_hint_amount
+    "
+          t-out="
+      this.getLegacyHintDebit(record)
+    "
+        />
+
+        <span
+          class="
+      o_legacy_amount_credit
+      o_legacy_hint_amount
+    "
+          t-out="
+      this.getLegacyHintCredit(record)
+    "
+        />
+
+        <span />
+      </div>
+    </div>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecRecordNotebookAmls">
+    <div
+      t-if="this.state.bankRecEmbeddedViewsData"
+      class="bank_rec_widget_form_amls_list_anchor"
+    >
+      <BankRecViewEmbedder
+        viewProps="this.notebookAmlsListViewProps()"
+        t-key="legacyAmlListKey"
+      />
+    </div>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecStatementSlot">
+    <t
+      t-set="activeData"
+      t-value="
+    this.isLegacyActiveRecord(record)
+    and this.legacyController.state.bankRecStLineId == record.resId
+    ? this.legacyController.state.bankRecRecordData
+    : false
+  "
+    />
+    <t t-set="proposal" t-value="
+  this.getLegacyProposal(record)
+" />
+    <t
+      t-set="preparedData"
+      t-value="
+    this.getLegacyPreparedState(
+      record
+    )
+  "
+    />
+
+    <t
+      t-set="areAllLinesValid"
+      t-value="
+    activeData
+    ? this.legacyController.checkBankRecLinesInvalidFields(
+        activeData
+      )
+    : false
+  "
+    />
+    <t
+      t-set="activeHasCounterpart"
+      t-value="
+  activeData
+  and activeData.line_ids.records.some(
+    (line) =>
+      line.data.flag !== 'liquidity'
+      and line.data.flag !== 'auto_balance'
+  )
+"
+    />
+    <t
+      t-set="activeAutoBalanceLine"
+      t-value="
+  activeData
+  and activeData.line_ids.records.find(
+    (line) =>
+      line.data.flag === 'auto_balance'
+  )
+"
+    />
+
+    <t
+      t-set="activeIsBalanced"
+      t-value="
+  !activeAutoBalanceLine
+  or (
+    !activeAutoBalanceLine.data.debit
+    and !activeAutoBalanceLine.data.credit
+  )
+"
+    />
+    <t
+      t-set="canValidate"
+      t-value="
+  (
+    activeData
+    and activeData.state === 'valid'
+    and areAllLinesValid
+    and activeHasCounterpart
+    and activeIsBalanced
+  )
+  or (
+    !activeData
+    and proposal
+  )
+"
+    />
+
+    <div class="o_legacy_compact_partner" t-on-click.stop="">
+      <div class="o_legacy_compact_partner_field">
+        <Many2OneField
+          name="'partner_id'"
+          record="record"
+          update="
+            (changes) =>
+              this.updateLegacyStatementPartner(
+                record,
+                changes
+              )
+          "
+          canQuickCreate="false"
+          canOpen="false"
+          placeholder="'Seleccione un partner'"
+          domain="[
+            [
+              'company_id',
+              'in',
+              [false, record.data.company_id[0]]
+            ],
+            '|',
+            ['parent_id', '=', false],
+            ['is_company', '=', true]
+          ]"
+        />
+      </div>
+
+      <button
+        t-if="canValidate"
+        type="button"
+        accesskey="v"
+        class="
+    btn
+    btn-primary
+    o_legacy_validate_button
+  "
+        t-on-click.stop="
+    () =>
+      this.validateLegacyRecord(
+        record
+      )
+  "
+      >
+  Validar
+      </button>
+
+      <button
+        t-elif="
+    this.isLegacyActiveRecord(record)
+  "
+        type="button"
+        class="
+    btn
+    btn-primary
+    o_legacy_validate_button
+  "
+        disabled="disabled"
+      >
+  Validar
+      </button>
+
+      <span t-elif="!record.data.partner_id" class="o_legacy_compact_partner_warning">
+  Seleccione un asociado o elija una contrapartida
+      </span>
+    </div>
+
+    <t t-call="account_reconcile_legacy.LegacyBankRecCompactStatement" />
+
+    <div
+      t-if="this.isLegacyActiveRecord(record)"
+      class="o_legacy_inline_bank_rec_anchor"
+      t-att-id="
+      'o_legacy_inline_bank_rec_details_' +
+      record.resId
+    "
+    />
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecInlineDetails">
+    <t t-set="record" t-value="this.bankRecModel.root" />
+    <t t-set="data" t-value="state.bankRecRecordData" />
+    <t
+      t-set="autoBalanceLine"
+      t-value="
+        data.line_ids.records.find(
+            (line) =>
+                line.data.flag === 'auto_balance'
+        )
+    "
+    />
+    <div class="o_legacy_inline_details">
+      <nav
+        t-if="['valid', 'invalid'].includes(data.state)"
+        class="o_legacy_panel_navigation"
+      >
+        <button
+          type="button"
+          class="btn btn-link"
+          t-att-class="{
+            'active':
+              state.bankRecNotebookPage === 'amls_tab'
+              or !state.bankRecNotebookPage
+          }"
+          t-on-click="
+            () => this.onPageUpdate('amls_tab')
+          "
+        >
+        Contrapartidas existentes
+        </button>
+
+        <button
+          t-if="hasGroupReadOnly"
+          type="button"
+          class="btn btn-link"
+          t-att-class="{
+        'active':
+            state.bankRecNotebookPage ===
+            'manual_operations_tab'
+    }"
+          t-on-click="
+        () =>
+            autoBalanceLine
+                ? this.actionMountLineInEdit(
+                    autoBalanceLine
+                  )
+                : this.onPageUpdate(
+                    'manual_operations_tab'
+                  )
+    "
+        >
+    Operación manual
+        </button>
+      </nav>
+
+      <section
+        t-if="['valid', 'invalid'].includes(data.state)"
+        class="o_legacy_match_panel"
+      >
+        <div
+          t-if="
+              state.bankRecNotebookPage ===
+                'manual_operations_tab'
+              and hasGroupReadOnly
+          "
+          class="o_legacy_manual_panel"
+        >
+          <div
+            class="
+            o_xxl_form_view
+            o_view_controller
+            o_form_view
+        "
+          >
+            <div class="o_form_view_container">
+              <div class="o_content">
+                <div
+                  class="
+                  o_form_nosheet
+                  o_form_editable
+                  d-block
+              "
+                >
+                  <t
+                    t-call="account_accountant.BankRecRecordNotebookManualOperations"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div t-else="" class="o_legacy_candidates_panel">
+          <t t-call="account_reconcile_legacy.LegacyBankRecRecordNotebookAmls" />
+        </div>
+      </section>
+    </div>
+  </t>
+
+  <t t-name="account_reconcile_legacy.LegacyBankRecSelectedLines">
+    <t
+      t-foreach="data.line_ids.records.filter(
+      (line) =>
+          line.data.flag !== 'liquidity'
+          and (
+              line.data.flag !== 'auto_balance'
+              or (
+                  line.data.flag === 'auto_balance'
+                  and line.data.index === data.form_index
+                  and state.bankRecNotebookPage ===
+                      'manual_operations_tab'
+              )
+          )
+  )"
+      t-as="line"
+      t-key="line.data.index"
+    >
+      <t
+        t-set="accountDisplay"
+        t-value="
+            line.data.account_id
+            and line.data.account_id[1]
+            or ''
+        "
+      />
+
+      <t
+        t-set="partnerDisplay"
+        t-value="
+            line.data.partner_id
+            and line.data.partner_id[1]
+            or ''
+        "
+      />
+
+      <t
+        t-set="invalidFields"
+        t-value="
+            this.getBankRecLineInvalidFields(line)
+        "
+      />
+
+      <div
+        class="o_legacy_line"
+        t-att-class="{
+            'o_legacy_selected_line':
+                line.data.index === data.form_index
+                and state.bankRecNotebookPage ===
+                    'manual_operations_tab',
+            'o_legacy_invalid_line':
+                invalidFields.length,
+        }"
+        t-on-click="
+            (ev) =>
+                this.handleLineClicked(
+                    ev,
+                    line
+                )
+        "
+      >
+        <button
+          t-if="
+    ['valid', 'invalid'].includes(
+        data.state
+    )
+    and ![
+        'tax_line',
+        'auto_balance'
+    ].includes(
+        line.data.flag
+    )
+"
+          type="button"
+          class="
+              btn
+              btn-link
+              fa
+              fa-minus
+              o_legacy_remove_line
+          "
+          title="Quitar contrapartida"
+          t-on-click.prevent.stop="
+              () => this.actionRemoveLine(line)
+          "
+        />
+
+        <span t-else="" />
+
+        <span
+          class="o_legacy_account_code"
+          t-att-title="accountDisplay"
+          t-out="
+              accountDisplay.split(' ')[0]
+          "
+        />
+
+        <span class="o_legacy_line_date">
+          <span
+            t-if="
+        [
+            'manual',
+            'early_payment',
+            'tax_line'
+        ].includes(line.data.flag)
+        or (
+            line.data.flag === 'auto_balance'
+            and line.data.index === data.form_index
+            and state.bankRecNotebookPage ===
+                'manual_operations_tab'
+        )
+    "
+            class="o_legacy_new_badge"
+          >
+    Nuevo
+          </span>
+
+          <t
+            t-else=""
+            t-out="
+                formatDateField(
+                    line.data.date
+                )
+            "
+          />
+        </span>
+
+        <span
+          class="o_legacy_label"
+          t-att-title="
+      line.data.name
+      or partnerDisplay
+      or ''
+    "
+        >
+          <t
+            t-out="
+        line.data.name
+        or partnerDisplay
+        or ''
+      "
+          />
+        </span>
+
+        <span
+          class="o_legacy_amount_debit"
+          t-out="
+              isMonetaryZero(
+                  line.data.debit,
+                  line.data.company_currency_id[0]
+              )
+              ? ''
+              : formatMonetaryField(
+                  line.data.debit,
+                  line.data.company_currency_id[0]
+              )
+          "
+        />
+
+        <span
+          class="o_legacy_amount_credit"
+          t-out="
+              isMonetaryZero(
+                  line.data.credit,
+                  line.data.company_currency_id[0]
+              )
+              ? ''
+              : formatMonetaryField(
+                  line.data.credit,
+                  line.data.company_currency_id[0]
+              )
+          "
+        />
+
+        <span
+          class="
+              fa
+              fa-info-circle
+              o_legacy_line_info
+          "
+          t-att-title="accountDisplay"
+        />
+      </div>
+    </t>
+  </t>
+
+</templates>
