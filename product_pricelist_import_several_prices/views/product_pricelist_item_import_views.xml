@@ -60,17 +60,23 @@
                   <h3>Help with Excel column names</h3>
                   <p>The Shopify file must include these columns:</p>
                   <ul>
-                    <li><code
+                    <li>
+                      <code
                     >Variant SKU</code>: used to search products by internal reference.</li>
-                    <li><code
+                    <li>
+                      <code
                     >Variant Barcode</code>: used to search products by barcode.</li>
-                    <li><code
+                    <li>
+                      <code
                     >Included / Market</code>: optional column to decide if the product is imported for that market.</li>
-                    <li><code
-                    >Price / Market</code>: imported as distribution price.</li>
-                    <li><code
+                    <li>
+                      <code>Price / Market</code>: imported as distribution price.</li>
+                    <li>
+                      <code
                     >Compare At Price / Market</code>: optional column imported as fixed price when filled.</li>
                   </ul>
+                  <p
+                  >To ensure that the file is read correctly, keep in mind that the markets must be loaded and that the pricelits must have a market assigned to them.</p>
                 </div>
               </group>
             </page>

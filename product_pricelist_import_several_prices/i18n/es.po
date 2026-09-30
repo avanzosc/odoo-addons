@@ -84,6 +84,11 @@ msgid "Activity Type Icon"
 msgstr "Tipo de icono de la actividad"
 
 #. module: product_pricelist_import_several_prices
+#: model:ir.model.fields.selection,name:product_pricelist_import_several_prices.selection__product_pricelist_item_import_line__action__add_catalog
+msgid "Add Catalog"
+msgstr "Añadir catálogo"
+
+#. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item_import__message_attachment_count
 msgid "Attachment Count"
 msgstr "Contador de adjuntos"
@@ -148,6 +153,14 @@ msgstr ""
 msgid "Error Log"
 msgstr "Registro de errores"
 
+#. module: product_pricelist_import_several_prices
+#. odoo-python
+#: code:addons/product_pricelist_import_several_prices/models/product_pricelist_item_import.py:0
+msgid ""
+"Error: More than one active pricelist item exists for this pricelist, "
+"product and catalog."
+msgstr ""
+"Error: Existe más de una línea de tarifa activa para esta tarifa, producto y catálogo."
 #. module: product_pricelist_import_several_prices
 #. odoo-python
 #: code:addons/product_pricelist_import_several_prices/models/product_pricelist_item_import.py:0
@@ -502,6 +515,15 @@ msgstr ""
 msgid "The Shopify file must include these columns:"
 msgstr "El archivo debe incluir estas columnas:"
 
+#. module: product_pricelist_import_several_prices
+#: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
+msgid ""
+"To ensure that the file is read correctly, keep in mind that the markets "
+"must be loaded and that the pricelits must have a market assigned to them."
+msgstr ""
+"Para garantizar que el archivo se lea correctamente, hay qye tener en "
+"cuenta que los mercados deben estar cargados y que a las listas de precios "
+"debe haberles sido asignado un mercado."
 #. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,help:product_pricelist_import_several_prices.field_product_pricelist_item_import__activity_exception_decoration
 msgid "Type of the exception activity on record."
