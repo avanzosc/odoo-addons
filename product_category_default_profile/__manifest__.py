@@ -17,6 +17,7 @@
     "data": [
         "views/product_category_attribute_profile_views.xml",
         "views/product_category_views.xml",
+        "views/product_product_views.xml",
         "views/product_template_views.xml",
     ],
     "installable": True,
