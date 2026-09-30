@@ -60,7 +60,7 @@
               <field name="product_count" widget="statinfo" />
             </button>
           </div>
-          <group>
+          <group readonly="state == 'done'">
             <group>
               <field name="filename" />
               <field name="data" widget="binary" filename="filename" />

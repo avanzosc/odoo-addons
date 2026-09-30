@@ -40,6 +40,8 @@ field_column_dict = {
     "volume": "Volumen",
     "route_name": "Ruta",
     "serie_name": "Serie",
+    "top_graphic": "Top Graphic",
+    "bottom_graphic": "Bottom Graphic",
 }
 
 
@@ -60,24 +62,20 @@ class ProductVariantImport(models.Model):
     product_type = fields.Selection(
         selection="_get_selection_product_type",
         string="Default Product Type",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_is_storable = fields.Boolean(
         string="Default Track Inventory",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     uom_id = fields.Many2one(
         string="Default Unit of Measure",
         comodel_name="uom.uom",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     route_id = fields.Many2one(
         string="Default Inventory Route",
         comodel_name="stock.route",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_count = fields.Integer(
@@ -89,19 +87,16 @@ class ProductVariantImport(models.Model):
         comodel_name="res.company",
         required=True,
         default=lambda self: self.env.company.id,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_found_reference = fields.Boolean(
         string="Found Product Only By Internal Reference",
         default=False,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_found_barcode = fields.Boolean(
         string="Found Product Only By Barcode",
         default=False,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -194,6 +189,8 @@ class ProductVariantImport(models.Model):
             volume = row_values.get(field_column_dict.get("volume"), "")
             route_name = row_values.get(field_column_dict.get("route_name"), "")
             serie_name = row_values.get(field_column_dict.get("serie_name"), "")
+            top_graphic = row_values.get(field_column_dict.get("top_graphic"), "")
+            bottom_graphic = row_values.get(field_column_dict.get("bottom_graphic"), "")
             attributes = {}
             attribute_columns = [
                 i for i in row_values.keys() if i not in non_attribute_colnames
@@ -228,6 +225,8 @@ class ProductVariantImport(models.Model):
                     "volume": volume,
                     "route_name": route_name,
                     "serie_name": serie_name,
+                    "top_graphic": top_graphic,
+                    "bottom_graphic": bottom_graphic,
                     "attributes_name": attributes,
                 }
             )
@@ -373,32 +372,26 @@ class ProductImportLine(models.Model):
             ("create", "Create"),
         ],
         ondelete={"create": "set default"},
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_name = fields.Char(
         required=True,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_default_code = fields.Char(
         string="Internal Reference",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_barcode = fields.Char(
         string="Barcode",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     description = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_type = fields.Selection(
@@ -406,88 +399,72 @@ class ProductImportLine(models.Model):
         selection="_get_selection_product_type",
         default=default_product_type,
         required=True,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     sale_ok = fields.Boolean(
         string="Can be Sold",
         default=default_sale_ok,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_ok = fields.Boolean(
         string="Can be Purchased",
         default=default_purchase_ok,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_is_storable = fields.Boolean(
         string="Track Inventory",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     category_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     category_id = fields.Many2one(
         string="Category",
         comodel_name="product.category",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_uom = fields.Char(
         string="UoM Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_uom_id = fields.Many2one(
         string="UoM",
         comodel_name="uom.uom",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_uom_name = fields.Char(
         string="Purchase UoM Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_uom_id = fields.Many2one(
         string="Purchase UoM",
         comodel_name="uom.uom",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_income = fields.Char(
         string="Income Account Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_income_id = fields.Many2one(
         string="Income Account",
         comodel_name="account.account",
         domain=ACCOUNT_DOMAIN,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_expense = fields.Char(
         string="Expense Account Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     property_account_expense_id = fields.Many2one(
         string="Expense Account",
         comodel_name="account.account",
         domain=ACCOUNT_DOMAIN,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     list_price = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     standard_price = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     product_tracking = fields.Selection(
@@ -495,107 +472,100 @@ class ProductImportLine(models.Model):
         selection="_get_selection_product_tracking",
         default=default_product_tracking,
         required=True,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     customer_tax = fields.Char(
         string="Customer Tax Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     customer_tax_id = fields.Many2one(
         string="Customer Tax",
         comodel_name="account.tax",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     invoice_policy = fields.Selection(
         selection="_get_selection_invoice_policy",
         default=default_invoice_policy,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     purchase_method = fields.Selection(
         selection="_get_selection_purchase_method",
         default=default_purchase_method,
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     description_purchase = fields.Text(
         string="Purchase Description",
-        states={"done": [("readonly", True)]},
+        copy=False,
+    )
+    top_graphic = fields.Char(
+        copy=False,
+    )
+    bottom_graphic = fields.Char(
+        copy=False,
+    )
+    top_transfer_product_id = fields.Many2one(
+        comodel_name="product.product",
+        copy=False,
+    )
+    bottom_transfer_product_id = fields.Many2one(
+        comodel_name="product.product",
         copy=False,
     )
     internal_category_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     internal_category_id = fields.Many2one(
         string="Internal Category",
         comodel_name="internal.product.category",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     brand_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     brand_id = fields.Many2one(
         string="Brand",
         comodel_name="product.brand",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     family_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     family_id = fields.Many2one(
         string="Family",
         comodel_name="product.category",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     subfamily_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     subfamily_id = fields.Many2one(
         string="Subfamily",
         comodel_name="product.category",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     season_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     season_id = fields.Many2one(
         string="Season",
         comodel_name="product.season",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     serie_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     serie_id = fields.Many2one(
         string="Serie",
         comodel_name="product.series",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     weight = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     volume = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     attributes_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     attribute_ids = fields.Many2many(
@@ -607,13 +577,11 @@ class ProductImportLine(models.Model):
     )
     route_name = fields.Char(
         string="Inventory Route Name",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     route_id = fields.Many2one(
         string="Inventory Route",
         comodel_name="stock.route",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 
@@ -632,6 +600,30 @@ class ProductImportLine(models.Model):
         category, log_info_category = self._check_category(product=product)
         if log_info_category:
             log_infos.append(log_info_category)
+        top_transfer = bottom_transfer = False
+        if category:
+            profile_product = self._get_category_profile_product(category)
+            if profile_product.requires_transfer:
+                transfer_category = profile_product.transfer_category_id
+                if not transfer_category:
+                    log_infos.append(_("The transfer category is required."))
+                else:
+                    if self.top_graphic:
+                        top_transfer, log_info_top_transfer = (
+                            self._check_transfer_product(
+                                self.top_graphic, transfer_category
+                            )
+                        )
+                        if log_info_top_transfer:
+                            log_infos.append(log_info_top_transfer)
+                    if self.bottom_graphic:
+                        bottom_transfer, log_info_bottom_transfer = (
+                            self._check_transfer_product(
+                                self.bottom_graphic, transfer_category
+                            )
+                        )
+                        if log_info_bottom_transfer:
+                            log_infos.append(log_info_bottom_transfer)
         uom, log_info_uom = self._check_sale_uom(product=product)
         if log_info_uom:
             log_infos.append(log_info_uom)
@@ -699,6 +691,8 @@ class ProductImportLine(models.Model):
             {
                 "product_id": product and product.id,
                 "category_id": category and category.id,
+                "top_transfer_product_id": top_transfer and top_transfer.id,
+                "bottom_transfer_product_id": bottom_transfer and bottom_transfer.id,
                 "product_uom_id": uom and uom.id,
                 "purchase_uom_id": purchase_uom and purchase_uom.id,
                 "customer_tax_id": tax and tax.id,
@@ -729,6 +723,8 @@ class ProductImportLine(models.Model):
             product, log_info = self._create_product()
             if product and hasattr(product, "generate_code"):
                 product.generate_code()
+            if product and not log_info:
+                self._process_transfers(product)
         state = "error" if log_info else "done"
         action = "nothing" if log_info else "create"
         update_values.update(
@@ -740,6 +736,64 @@ class ProductImportLine(models.Model):
             }
         )
         return update_values
+
+    def _get_category_profile_product(self, category):
+        return (
+            category.attribute_profile_id.default_profile_product_id
+            or category.default_profile_product_id
+        )
+
+    def _check_transfer_product(self, transfer_name, transfer_category):
+        products = self.env["product.product"].search(
+            [
+                ("name", "=", transfer_name),
+                ("categ_id", "=", transfer_category.id),
+                "|",
+                ("company_id", "=", self.import_id.company_id.id),
+                ("company_id", "=", False),
+            ]
+        )
+        if len(products) > 1:
+            return False, _(
+                "More than one transfer product named '%(transfer_name)s' found."
+            ) % {"transfer_name": transfer_name}
+        return products, ""
+
+    def _process_transfers(self, product):
+        profile_product = self._get_category_profile_product(product.categ_id)
+        if not profile_product.requires_transfer:
+            return
+        transfer_category = profile_product.transfer_category_id
+        transfer_values = {}
+        for graphic_field, line_product_field, product_field in (
+            ("top_graphic", "top_transfer_product_id", "top_transfer_product_id"),
+            (
+                "bottom_graphic",
+                "bottom_transfer_product_id",
+                "bottom_transfer_product_id",
+            ),
+        ):
+            transfer_name = self[graphic_field]
+            if not transfer_name:
+                continue
+            transfer_product = self[line_product_field]
+            if not transfer_product:
+                transfer_product, __ = self._check_transfer_product(
+                    transfer_name, transfer_category
+                )
+            if not transfer_product:
+                transfer_product = self.env["product.product"].create(
+                    {
+                        "name": transfer_name,
+                        "categ_id": transfer_category.id,
+                        "company_id": self.import_id.company_id.id,
+                    }
+                )
+                if hasattr(transfer_product, "generate_code"):
+                    transfer_product.generate_code()
+            transfer_values[product_field] = transfer_product.id
+        if transfer_values:
+            product.write(transfer_values)
 
     def _check_product(self):
         self.ensure_one()

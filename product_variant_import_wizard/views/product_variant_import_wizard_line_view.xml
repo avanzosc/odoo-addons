@@ -22,7 +22,7 @@
           <field name="state" widget="statusbar" />
         </header>
         <sheet>
-          <group>
+          <group readonly="state == 'done'">
             <group>
               <field name="product_name" />
               <field name="product_default_code" />
@@ -44,6 +44,8 @@
               <field name="invoice_policy" />
               <field name="purchase_method" />
               <field name="description_purchase" />
+              <field name="top_graphic" />
+              <field name="bottom_graphic" />
               <field name="internal_category_name" />
               <field name="brand_name" />
               <field name="family_name" />
@@ -95,6 +97,14 @@
               <field name="serie_id" options="{'no_create': True, 'no_open': True}" />
               <field name="route_id" options="{'no_create': True, 'no_open': True}" />
               <field name="attribute_ids" widget="many2many_tags" />
+              <field
+                name="top_transfer_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="bottom_transfer_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
             </group>
           </group>
           <field name="log_info" />
@@ -112,58 +122,118 @@
         decoration-it="log_info"
         editable="top"
       >
-        <field name="action" />
-        <field name="product_name" />
-        <field name="product_default_code" />
-        <field name="product_id" options="{'no_create': True}" />
-        <field name="product_barcode" />
-        <field name="description" />
-        <field name="product_type" />
-        <field name="product_is_storable" />
-        <field name="sale_ok" />
-        <field name="purchase_ok" />
-        <field name="category_name" />
-        <field name="category_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="product_uom" />
-        <field name="product_uom_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="purchase_uom_name" />
-        <field name="purchase_uom_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="property_account_income" />
+        <field readonly="state == 'done'" name="action" />
+        <field readonly="state == 'done'" name="product_name" />
+        <field readonly="state == 'done'" name="product_default_code" />
         <field
+          readonly="state == 'done'"
+          name="product_id"
+          options="{'no_create': True}"
+        />
+        <field readonly="state == 'done'" name="product_barcode" />
+        <field readonly="state == 'done'" name="description" />
+        <field readonly="state == 'done'" name="product_type" />
+        <field readonly="state == 'done'" name="product_is_storable" />
+        <field readonly="state == 'done'" name="sale_ok" />
+        <field readonly="state == 'done'" name="purchase_ok" />
+        <field readonly="state == 'done'" name="category_name" />
+        <field
+          readonly="state == 'done'"
+          name="category_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="product_uom" />
+        <field
+          readonly="state == 'done'"
+          name="product_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="purchase_uom_name" />
+        <field
+          readonly="state == 'done'"
+          name="purchase_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="property_account_income" />
+        <field
+          readonly="state == 'done'"
           name="property_account_income_id"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="property_account_expense" />
+        <field readonly="state == 'done'" name="property_account_expense" />
         <field
+          readonly="state == 'done'"
           name="property_account_expense_id"
           options="{'no_create': True, 'no_open': True}"
         />
-        <field name="list_price" />
-        <field name="standard_price" />
-        <field name="product_tracking" />
-        <field name="customer_tax" />
-        <field name="customer_tax_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="invoice_policy" />
-        <field name="purchase_method" />
-        <field name="description_purchase" />
-        <field name="internal_category_name" />
-        <field name="internal_category_id" options="{'no_open': True}" />
-        <field name="brand_name" />
-        <field name="brand_id" options="{'no_open': True}" />
-        <field name="family_name" />
-        <field name="family_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="subfamily_name" />
-        <field name="subfamily_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="season_name" />
-        <field name="season_id" options="{'no_open': True}" />
-        <field name="serie_name" />
-        <field name="serie_id" options="{'no_open': True}" />
-        <field name="weight" />
-        <field name="volume" />
-        <field name="route_name" />
-        <field name="route_id" options="{'no_create': True, 'no_open': True}" />
-        <field name="attributes_name" />
-        <field name="attribute_ids" widget="many2many_tags" />
+        <field readonly="state == 'done'" name="list_price" />
+        <field readonly="state == 'done'" name="standard_price" />
+        <field readonly="state == 'done'" name="product_tracking" />
+        <field readonly="state == 'done'" name="customer_tax" />
+        <field
+          readonly="state == 'done'"
+          name="customer_tax_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="invoice_policy" />
+        <field readonly="state == 'done'" name="purchase_method" />
+        <field readonly="state == 'done'" name="description_purchase" />
+        <field readonly="state == 'done'" name="top_graphic" />
+        <field readonly="state == 'done'" name="bottom_graphic" />
+        <field
+          readonly="state == 'done'"
+          name="top_transfer_product_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field
+          readonly="state == 'done'"
+          name="bottom_transfer_product_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="internal_category_name" />
+        <field
+          readonly="state == 'done'"
+          name="internal_category_id"
+          options="{'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="brand_name" />
+        <field readonly="state == 'done'" name="brand_id" options="{'no_open': True}" />
+        <field readonly="state == 'done'" name="family_name" />
+        <field
+          readonly="state == 'done'"
+          name="family_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="subfamily_name" />
+        <field
+          readonly="state == 'done'"
+          name="subfamily_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="season_name" />
+        <field
+          readonly="state == 'done'"
+          name="season_id"
+          options="{'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="serie_name" />
+        <field readonly="state == 'done'" name="serie_id" options="{'no_open': True}" />
+        <field readonly="state == 'done'" name="weight" />
+        <field readonly="state == 'done'" name="volume" />
+        <field readonly="state == 'done'" name="route_name" />
+        <field
+          readonly="state == 'done'"
+          name="route_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="attributes_name" />
+        <field
+          readonly="state == 'done'"
+          name="attribute_ids"
+          widget="many2many_tags"
+        />
         <field name="state" readonly="1" />
         <field name="log_info" readonly="1" />
       </list>

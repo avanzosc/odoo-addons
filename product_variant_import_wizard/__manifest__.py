@@ -12,6 +12,7 @@
         "base_import_wizard",
         "product",
         "product_brand",
+        "product_category_default_profile",
         "sale",
         "stock",
         "account",
