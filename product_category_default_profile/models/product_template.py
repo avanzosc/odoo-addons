@@ -14,6 +14,18 @@ class ProductTemplate(models.Model):
         domain="[('is_profile', '=', True)]",
     )
     requires_transfer = fields.Boolean()
+    transfer_category_id = fields.Many2one(
+        comodel_name="product.category",
+        string="Transfer Category",
+    )
+    top_transfer_product_id = fields.Many2one(
+        related="product_variant_id.top_transfer_product_id",
+        readonly=False,
+    )
+    bottom_transfer_product_id = fields.Many2one(
+        related="product_variant_id.bottom_transfer_product_id",
+        readonly=False,
+    )
 
     @api.model
     def _get_profile_field_names(self):
@@ -68,3 +80,16 @@ class ProductTemplate(models.Model):
                 profile_values = self._get_product_default_values(profile_product_id)
                 values.update(profile_values)
         return super().create(vals_list)
+
+
+class ProductProduct(models.Model):
+    _inherit = "product.product"
+
+    top_transfer_product_id = fields.Many2one(
+        comodel_name="product.product",
+        string="Top Transfer Product",
+    )
+    bottom_transfer_product_id = fields.Many2one(
+        comodel_name="product.product",
+        string="Bottom Transfer Product",
+    )
