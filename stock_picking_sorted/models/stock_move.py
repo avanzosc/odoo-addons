@@ -15,6 +15,7 @@ class StockMove(models.Model):
     product_brand_id = fields.Many2one(
         comodel_name="product.brand",
         compute="_compute_product_brand_id",
+        compute_sudo=True,
         store=True,
     )
 
