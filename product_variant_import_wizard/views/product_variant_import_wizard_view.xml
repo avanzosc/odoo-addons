@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_variant_import_view_tree" model="ir.ui.view">
+    <field name="model">product.variant.import</field>
+    <field name="arch" type="xml">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+        <field name="name" />
+        <field name="file_date" />
+        <field name="state" />
+        <field name="company_id" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_variant_import_view_form" model="ir.ui.view">
+    <field name="model">product.variant.import</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ('draft', '2validate', 'pass', 'error')"
+          />
+          <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ('2validate', 'pass', 'error')"
+          />
+          <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ('pass', 'error')"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              invisible="not import_line_ids"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+            <button
+              type="object"
+              name="button_open_product"
+              invisible="product_count == 0"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+              <field name="product_count" widget="statinfo" />
+            </button>
+          </div>
+          <group readonly="state == 'done'">
+            <group>
+              <field name="filename" />
+              <field name="data" widget="binary" filename="filename" />
+              <field name="file_date" />
+              <field name="company_id" />
+            </group>
+            <group>
+              <field name="product_type" />
+              <field name="product_is_storable" />
+              <field
+                name="uom_id"
+                options="{'no_create': True, 'no_create_edit': True}"
+              />
+              <field
+                name="route_id"
+                options="{'no_create': True, 'no_create_edit': True}"
+              />
+              <field name="product_found_reference" />
+              <field name="product_found_barcode" />
+            </group>
+          </group>
+          <notebook>
+            <page string="Imported Lines">
+              <field name="import_line_ids" />
+            </page>
+            <page string="Error Log" invisible="not log_info">
+              <field name="log_info" />
+            </page>
+            <page string="Help" invisible="state == 'done'">
+              <group>
+                <div name="help" style="margin-top: 4px;">
+                  <h3>Help with Excel column names</h3>
+                  <p>You must use this column names in order to fill the table:</p>
+                  <ul>
+                    <li><code>Nombre</code>: this will fill <b>Product Name.</b></li>
+                    <li><code>Referencia interna</code>: this will fill <b
+                    >Product Reference.</b></li>
+                    <li><code>Código de barras</code>: this will fill <b
+                    >Product Barcode.</b></li>
+                    <li><code>Descripción</code>: this will fill <b
+                    >Product Description.</b></li>
+                    <li><code>Tipo</code>: this will fill <b
+                    >Product Type.</b>The field must be:
+                                            <ul>
+                      <li><code>consu</code> for <b>Consumable</b></li>
+                      <li><code>service</code> for <b>Service</b></li>
+                      <li><code>product</code> for <b
+                      >Storable Product</b> (imported as <code>consu</code> with <b
+                      >Track Inventory</b>)</li>
+                    </ul>
+                                        </li>
+                    <li><code>Puede ser vendido</code>: this will fill <b
+                    >Sale OK. </b>The field must be:
+                                            <ul>
+                      <li><code>1</code> for <b>True</b></li>
+                      <li><code>0</code> for <b>False</b></li>
+                    </ul>
+                                        </li>
+                    <li><code>Puede ser comprado</code>: this will fill <b
+                    >Purchase OK. </b>The field must be:
+                                            <ul>
+                      <li><code>1</code> for <b>True</b></li>
+                      <li><code>0</code> for <b>False</b></li>
+                    </ul>
+                                        </li>
+                    <li><code>Categoría</code>: this will fill <b
+                    >Product Category.</b></li>
+                    <li><code>Unidad de medida</code>: this will fill <b
+                    >Product Unit of Measure.</b></li>
+                    <li><code>Unidad de medida de compra</code>: this will fill <b
+                    >Purchase Unit of Measure.</b></li>
+                    <li><code>Cuenta Contable Venta</code>: this will fill <b
+                    >Property Account Income.</b></li>
+                    <li><code>Cuenta Contable Compra</code>: this will fill <b
+                    >Property Account Expense.</b></li>
+                    <li><code>Precio de venta</code>: this will fill <b
+                    >List Price.</b></li>
+                    <li><code>Costo</code>: this will fill <b>Standard Price.</b></li>
+                    <li><code>Seguimiento</code>: this will fill <b
+                    >Product Tracking.</b> The field must be:
+                                            <ul>
+                      <li><code>serial</code> for <b>By Unique Serial Number</b></li>
+                      <li><code>lot</code> for <b>By Lot</b></li>
+                      <li><code>none</code> for <b>No Tracking</b></li>
+                    </ul>
+                                        </li>
+                    <li><code>Impuestos</code>: this will fill <b
+                    >Product Taxes. </b></li>
+                    <li><code>Política de Facturación</code>: this will fill <b
+                    >Invoicing Policy.</b> The field must be:
+                                            <ul>
+                      <li><code>order</code> for <b>Ordered Quantities</b></li>
+                      <li><code>delivery</code> for <b>Delivered Quantities</b></li>
+                    </ul>
+                                        </li>
+                    <li><code>Política de Control</code>: this will fill <b
+                    >Purchase Method. </b>The field must be:
+                                            <ul>
+                      <li><code>purchase</code> for <b>On Prdered Quantities</b></li>
+                      <li><code>receive</code> for <b>On Received Quantities</b></li>
+                    </ul></li>
+                    <li><code>Descripción para proveedores</code>: this will fill <b
+                    >Description Purchase. </b></li>
+                    <li><code>Categoría interna</code>: this will fill <b
+                    >Product Internal Gategory. </b></li>
+                    <li><code>Marca</code>: this will fill <b>Product Brand. </b></li>
+                    <li><code>Familia</code>: this will fill <b
+                    >Product Family. </b></li>
+                    <li><code>Subfamilia</code>: this will fill <b
+                    >Product Subfamily. </b></li>
+                    <li><code>Temporada</code>: this will fill <b
+                    >Product Season. </b></li>
+                    <li><code>Peso</code>: this will fill <b>Product Weight. </b></li>
+                    <li><code>Volumen</code>: this will fill <b
+                    >Product Volume. </b></li>
+                    <li><code>Ruta</code>: this will fill <b
+                    >Inventory Route Name</b>.</li>
+                    <li>
+                      <b>For Product Variants: </b>
+                      <ul>
+                        <li><code>Attibute Name</code> in the column.</li>
+                        <li><code>Attribute Value</code> in the row.</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_variant_import_view_search" model="ir.ui.view">
+    <field name="model">product.variant.import</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <group expand="0" string="Group By">
+          <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_variant_import_action" model="ir.actions.act_window">
+    <field name="name">Import Product Variants</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.variant.import</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="product_variant_import_view_tree" />
+  </record>
+
+  <menuitem
+    id="product_variant_import_menu"
+    action="product_variant_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="10"
+  />
+
+  <menuitem
+    id="product_variant_import_inventory_menu"
+    action="product_variant_import_action"
+    parent="stock.menu_product_in_config_stock"
+    sequence="100"
+  />
+</odoo>
