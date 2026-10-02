@@ -13,6 +13,7 @@
         "product",
         "product_brand",
         "product_category_default_profile",
+        "product_shape_mould",
         "sale",
         "stock",
         "account",

@@ -672,17 +672,27 @@ class ProductImportLine(models.Model):
             if log_info_route:
                 log_infos.append(log_info_route)
         attributes = []
-        if self.attributes_name:
-            attribute = safe_eval(self.attributes_name)
-            for col in attribute:
-                if attribute[col]:
-                    attr, log_info_attr = self._check_variant(
-                        name=col, value=attribute[col]
-                    )
-                    if log_info_attr:
-                        log_infos.append(log_info_attr)
-                    if attr and not log_info_attr:
-                        attributes.append(attr.id)
+        attribute = safe_eval(self.attributes_name) if self.attributes_name else {}
+        if category and self._category_requires_shape(category):
+            shape_value = next(
+                (
+                    value
+                    for name, value in attribute.items()
+                    if name.strip().upper() == "SHAPE"
+                ),
+                False,
+            )
+            if not shape_value:
+                log_infos.append(_("Shape is required for DECK products."))
+        for col in attribute:
+            if attribute[col]:
+                attr, log_info_attr = self._check_variant(
+                    name=col, value=attribute[col]
+                )
+                if log_info_attr:
+                    log_infos.append(log_info_attr)
+                if attr and not log_info_attr:
+                    attributes.append(attr.id)
         state = "error" if log_infos else "pass"
         action = "nothing"
         if state != "error":
@@ -724,6 +734,7 @@ class ProductImportLine(models.Model):
             if product and hasattr(product, "generate_code"):
                 product.generate_code()
             if product and not log_info:
+                product.product_tmpl_id.action_unify_shape_attributes()
                 self._process_transfers(product)
         state = "error" if log_info else "done"
         action = "nothing" if log_info else "create"
@@ -742,6 +753,10 @@ class ProductImportLine(models.Model):
             category.attribute_profile_id.default_profile_product_id
             or category.default_profile_product_id
         )
+
+    def _category_requires_shape(self, category):
+        profile_name = (category.attribute_profile_id.name or "").strip().upper()
+        return profile_name in ("DECK", "DECKS")
 
     def _check_transfer_product(self, transfer_name, transfer_category):
         products = self.env["product.product"].search(
