@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="stock_picking_batch_form" model="ir.ui.view">
+    <field name="model">stock.picking.batch</field>
+    <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//sheet//field[@name='company_id']" position="after">
+        <field
+          name="public_url"
+          readonly="1"
+          widget="CopyClipboardURL"
+          attrs="{'invisible': [('public_url', '=', False)]}"
+        />
+        <field
+          name="pdf_sha256"
+          readonly="1"
+          attrs="{'invisible': [('pdf_sha256', '=', False)]}"
+        />
+        <field name="pdf_attachment_id" invisible="1" />
+      </xpath>
+      <xpath expr="//page[3]" position="after">
+        <page name="cmr" string="CMR">
+          <group name="loader">
+              <separator string="Loader" colspan="4" />
+              <group>
+                  <field name="cmr_loader_id" />
+                  <field name="cmr_loader_vat" />
+              </group>
+              <group>
+                  <field name="cmr_loader_address" />
+              </group>
+          </group>
+          <group name="transportation">
+              <separator string="Transportation" colspan="4" />
+              <group>
+                  <field name="cmr_transportation_id" />
+                  <field name="cmr_transportation_vat" />
+              </group>
+              <group>
+                  <field name="cmr_driver_id" force_save="1" />
+                  <field name="cmr_second_driver_id" />
+              </group>
+          </group>
+          <group name="vehicle">
+              <separator string="Vehicle" colspan="4" />
+              <group>
+                  <field name="cmr_tractor_id" force_save="1" />
+                  <field name="cmr_tractor_license_plate" force_save="1" />
+              </group>
+              <group>
+                  <field name="cmr_semi_trailer_id" force_save="1" />
+                  <field name="cmr_semi_trailer_license_plate" force_save="1" />
+              </group>
+              <separator string="Special Authorization" colspan="4" />
+              <group>
+                  <field
+                name="cmr_special_traffic_authorization"
+                attrs="{'readonly': [('deca_state', '!=', 'draft')]}"
+              />
+              </group>
+              <group />
+          </group>
+          <group name="cmr-observations">
+              <separator string="CRM Observations" colspan="4" />
+              <field name="cmr_observations" nolabel="1" colspan="4" />
+          </group>
+        </page>
+        <page
+          string="DECA Change History"
+          attrs="{'invisible': [('deca_change_ids', '=', False)]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_user"
+        >
+            <field name="deca_change_ids">
+                <tree create="false" delete="false">
+                    <field name="change_date" />
+                    <field name="field_label" />
+                    <field name="old_value" />
+                    <field name="new_value" />
+                    <field name="reason" />
+                    <field name="user_id" />
+                </tree>
+            </field>
+        </page>
+        <page
+          string="DECA Access Log"
+          attrs="{'invisible': [('deca_access_log_ids', '=', False)]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_user"
+        >
+            <field name="deca_access_log_ids">
+                <tree create="false" delete="false" edit="false">
+                    <field name="access_date" />
+                    <field name="ip_address" />
+                    <field name="method" />
+                    <field
+                name="status_code"
+                widget="badge"
+                decoration-success="status_code == 200"
+                decoration-danger="status_code != 200"
+              />
+                </tree>
+            </field>
+        </page>
+      </xpath>
+      <field name="scheduled_date" position="after">
+          <field name="deca_state" readonly="1" />
+          <field name="transport_date" readonly="1" />
+          <field name="deca_can_cancel" invisible="1" />
+      </field>
+      <button name="action_view_reception_report" position="after">
+        <button
+          name="action_view_pdf"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-file-pdf-o"
+          attrs="{'invisible': [('pdf_attachment_id', '=', False)]}"
+        >
+            <div class="o_stat_info">
+                <span class="o_stat_text">PDF</span>
+            </div>
+        </button>
+      </button>
+      <button name="action_cancel" position="after">
+          <button
+          name="action_issue_deca"
+          type="object"
+          string="Issue DeCA"
+          class="oe_highlight"
+          attrs="{'invisible': [('deca_state', '!=', 'draft')]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_manager"
+        />
+          <button
+          name="action_open_modify_wizard"
+          type="object"
+          string="DeCA Register Modification"
+          attrs="{'invisible': [('deca_state', 'not in', ('issued', 'modified'))]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_manager"
+        />
+          <button
+          name="action_open_cancel_wizard"
+          type="object"
+          string="Cancel DeCA"
+          attrs="{'invisible': [('deca_can_cancel', '=', False)]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_manager"
+        />
+          <button
+          name="action_deca_send_email"
+          type="object"
+          string="DeCA Send by Email"
+          attrs="{'invisible': [('deca_state', '=', 'draft')]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_manager"
+        />
+          <button
+          name="action_deca_verify_integrity"
+          type="object"
+          string="DeCA Verify Integrity"
+          attrs="{'invisible': [('deca_state', '=', 'draft')]}"
+          groups="stock_picking_batch_cmr_deca.group_deca_manager"
+        />
+      </button>
+    </field>
+  </record>
+</odoo>

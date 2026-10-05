@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_deca_document">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                <div class="page">
+                        <h2>Documento de Control Administrativo (DeCA)</h2>
+                        <h4 t-out="o.name" />
+                        <p class="text-muted" style="font-size: 12px;">
+                            Contenido conforme al artículo 6 de la Orden FOM/2861/2012, de 13 de diciembre (BOE-A-2013-154).
+                        </p>
+
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <h3>(a) Cargador contractual</h3>
+                                <p>
+                                    <span t-out="o.cmr_loader_id.display_name" /><br />
+                                    NIF: <span t-out="o.cmr_loader_vat" /><br />
+                                    <span
+                    t-out="o.cmr_loader_address"
+                    style="white-space: pre-line;"
+                  />
+                                </p>
+                                <t t-if="o.qr_attachment_id">
+                                    <h3>Verificación</h3>
+                                    <img
+                    t-att-src="image_data_uri(o.qr_attachment_id.datas)"
+                    style="width:120px;height:120px;"
+                  />
+                                    <!-- The real clickable link, not the footer's:
+                                         wkhtmltopdf computes a header/footer <a>'s
+                                         PDF link annotation once and stamps the same
+                                         Rect on every page, so it lands wherever the
+                                         footer's own isolated render happened to put
+                                         it, floating in the middle of the page
+                                         content instead of on the visible footer
+                                         text (confirmed by inspecting the actual
+                                         /Annots rects). A link inside the normal
+                                         page body doesn't have that problem. -->
+                                    <p><small><a
+                        t-att-href="o.public_url"
+                        style="word-break:break-all;"
+                        t-out="o.public_url"
+                      /></small></p>
+                                </t>
+                            </div>
+                            <div class="col-6">
+                                <h3>(b) Transportista efectivo</h3>
+                                <p>
+                                    <span
+                    t-out="o.cmr_transportation_id.display_name"
+                  /><br />
+                                    NIF: <span t-out="o.cmr_transportation_vat" />
+                                </p>
+                                <h3>(g) Vehículo</h3>
+                                <p>
+                                    Matrícula tractora: <span
+                    t-out="o.cmr_tractor_license_plate"
+                  /><br />
+                                    Matrícula remolque: <span
+                    t-out="o.cmr_semi_trailer_license_plate"
+                  />
+                                    <t t-if="o.special_auth">
+                                        <br />(e) Autorización especial: <span
+                      t-out="o.cmr_special_traffic_authorization"
+                    />
+                                    </t>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Full width and a real table, not a col-6 list of
+                             lines: at col-6 width a delivery with many lines
+                             overflowed onto following pages while its col-6
+                             sibling ran out of content, leaving those pages
+                             half blank; wkhtmltopdf doesn't keep a
+                             Bootstrap row's two columns in sync once one of
+                             them spans more than a page. A table paginates
+                             cleanly on its own instead.
+
+                             One row per (delivery, product): Origen/Destino/
+                             Fecha live on each line now (ap. Sexto.1 grouped
+                             DeCA), not on the record as a whole. A rowspan
+                             across pages doesn't repeat in wkhtmltopdf
+                             (tried it, left Origen/Destino blank on every
+                             continuation page), so rows sharing the same
+                             delivery just repeat those three values instead
+                             of spanning. Origen/Destino are comma-joined
+                             single lines (_format_address_inline), not the
+                             multi-line contact_address, precisely so this
+                             repetition stays cheap. -->
+                        <div class="row mt-3" t-if="o.move_line_ids">
+                            <t t-set="is_grouped" t-value="len(o.picking_ids) &gt; 1" />
+                            <div class="col-12">
+                                <h3>Envío</h3>
+                                <p
+                  class="text-muted"
+                  style="font-size: 12px;"
+                  t-if="is_grouped"
+                >
+                                    Varios envíos agrupados en este mismo DeCA (ap. Sexto.1 de
+                                    la Resolución). El orden en que aparecen no implica ningún
+                                    orden de ejecución.
+                                </p>
+                                <!-- Not grouped: the Envío column would repeat the exact same
+                                     single delivery on every row, wasting a whole column's
+                                     width for no distinguishing information. Its display_name
+                                     is still the only place in this document that ties the
+                                     printed DeCA back to the actual picking record though, so
+                                     it moves up here as a one-line caption instead of just
+                                     disappearing. -->
+                                <p
+                  class="text-muted"
+                  style="font-size: 12px;"
+                  t-if="not is_grouped"
+                >
+                                    Envío: <span
+                    t-out="o.picking_ids[:1].display_name"
+                  />
+                                </p>
+                                <table class="table table-sm table-bordered mt-1">
+                                    <thead>
+                                        <tr>
+                                            <th t-if="is_grouped">Envío</th>
+                                            <th>(c) Origen</th>
+                                            <th>(c) Destino</th>
+                                            <th>(d) Naturaleza</th>
+                                            <th>(d) Peso/Magnitud</th>
+                                            <th>(f) Fecha</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.move_ids" t-as="move">
+                                            <td
+                        t-if="is_grouped"
+                        t-out="move.picking_id.display_name"
+                      />
+                                            <td t-esc="move._get_origin_location()" />
+                                            <td
+                        t-esc="move._get_destination_location()"
+                      />
+                                            <td t-out="move.product_id.display_name" />
+                                            <td><span
+                          t-out="move.quantity_done"
+                        /> <span t-out="move.product_uom.name" /></td>
+                                            <td
+                        t-out="move.picking_id.scheduled_date"
+                      />
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="mt-3" t-if="o.cmr_observations">
+                            <h3>(h) Observaciones</h3>
+                            <p t-out="o.cmr_observations" />
+                        </div>
+
+                        <div
+              class="mt-4"
+              t-if="o.deca_change_ids"
+              style="page-break-before: always;"
+            >
+                            <h3>Historial de modificaciones (Método A)</h3>
+                            <table class="table table-sm table-bordered mt-1">
+                                <thead>
+                                    <tr>
+                                        <th>Dato</th>
+                                        <th>Valor anterior</th>
+                                        <th>Valor nuevo</th>
+                                        <th>Motivo</th>
+                                        <th>Fecha</th>
+                                        <th>Usuario</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr
+                    t-foreach="o.deca_change_ids.sorted('change_date')"
+                    t-as="change"
+                  >
+                                        <td t-out="change.field_label" />
+                                        <td><span
+                        style="text-decoration: line-through;"
+                        t-out="change.old_value"
+                      /></td>
+                                        <td t-out="change.new_value" />
+                                        <td t-out="change.reason" />
+                                        <td t-out="change.change_date" />
+                                        <td t-out="change.user_id.display_name" />
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+            </t>
+    </template>
+
+    <!-- Replaces the standard footer's two zones for this report alone
+         (o._name check, so this company's other documents, like invoices,
+         keep the stock company-address/page-count footer untouched):
+         page count on the left, the public URL on the right as plain
+         text, each with its own dedicated half instead of sharing the
+         narrow text-end column it used to be squeezed into. Deliberately
+         plain text, not a real <a>: wkhtmltopdf computes a header/footer
+         link's PDF annotation once and stamps that same Rect on every
+         page, so it ends up floating wherever the footer's own isolated
+         render happened to put it, not aligned with the visible text on
+         any actual page (confirmed by inspecting the PDF's own /Annots).
+         The one real, reliably-positioned clickable link lives in the
+         page body instead, next to the QR under Cargador contractual. -->
+    <!--
+    <template id="external_layout_standard_deca_footer" inherit_id="web.external_layout_standard">
+        <xpath expr="//div[hasclass('o_footer_content')]/div[hasclass('text-start')]" position="replace">
+            <div t-if="o and o._name == 'l10n.es.deca'" class="flex-grow-1 text-start me-2 text-nowrap">
+                <t t-if="report_type == 'pdf'">Página <span class="page"/> / <span class="topage"/></t>
+            </div>
+            <div t-else="1" class="flex-grow-1 text-start me-2" t-field="company.report_footer"/>
+        </xpath>
+        <xpath expr="//div[hasclass('o_footer_content')]/div[hasclass('text-end')]" position="replace">
+            <div t-if="o and o._name == 'l10n.es.deca'" class="text-end text-nowrap">
+                <t t-out="o.public_url"/>
+            </div>
+            <div t-else="1" class="text-end text-muted">
+                <div t-if="report_type == 'pdf' and display_name_in_footer" t-out="o.name">(document name)</div>
+                <div t-if="report_type == 'pdf'" class="text-nowrap">Page <span class="page"/> / <span class="topage"/></div>
+            </div>
+        </xpath>
+    </template>
+    -->
+    <template
+    id="external_layout_standard_deca_footer"
+    inherit_id="web.external_layout_standard"
+    priority="100"
+  >
+        <xpath
+      expr="//div[@t-field='company.report_footer']/parent::ul/parent::div"
+      position="replace"
+    >
+            <div class="text-center" style="border-top: 1px solid black;">
+                <!-- Footer específico DeCA -->
+                <div t-if="o and o._name == 'stock.picking.batch'" class="row">
+                    <div class="col-6 text-start">
+                        <t t-if="report_type == 'pdf'">
+                            Página <span class="page" /> / <span class="topage" />
+                        </t>
+                    </div>
+                    <div class="col-6 text-end">
+                        <span t-out="o.public_url" />
+                    </div>
+                </div>
+                <!-- Footer estándar -->
+                <div t-else="1">
+                    <ul class="list-inline mb4">
+                        <div t-field="company.report_footer" />
+                    </ul>
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page: <span class="page" /> / <span class="topage" />
+                    </div>
+                    <div
+            t-if="report_type == 'pdf' and display_name_in_footer"
+            class="text-muted"
+          >
+                        <span t-field="o.name" />
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <record id="action_report_deca" model="ir.actions.report">
+        <field name="name">DeCA</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+      name="report_name"
+    >stock_picking_batch_cmr_deca.report_deca_document</field>
+        <field
+      name="report_file"
+    >stock_picking_batch_cmr_deca.report_deca_document</field>
+        <field name="print_report_name">object.name</field>
+        <field
+      name="binding_model_id"
+      ref="stock_picking_batch.model_stock_picking_batch"
+    />
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
