@@ -1,13 +1,32 @@
 # Copyright 2026 AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     is_mould = fields.Boolean(string="Is a Mould")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        templates = super().create(vals_list)
+        templates._auto_unify_shape_attributes()
+        return templates
+
+    def write(self, vals):
+        result = super().write(vals)
+        if "attribute_line_ids" in vals:
+            self._auto_unify_shape_attributes()
+        return result
+
+    def _auto_unify_shape_attributes(self):
+        if self.env.context.get("skip_shape_attribute_unification"):
+            return
+        self.with_context(
+            skip_shape_attribute_unification=True
+        ).action_unify_shape_attributes()
 
     def action_unify_shape_attributes(self):
         for template in self:
