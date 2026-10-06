@@ -51,7 +51,7 @@ class TreasuryForecastProjectReport(models.Model):
         self._cr.execute(f"CREATE OR REPLACE VIEW {self._table} AS ({self._query()});")
 
     def _query(self, with_=None, select=None, join=None, group_by=None):
-        return "\n".join(
+        query = "\n".join(
             [
                 self._with_clause(*(with_ or [])),
                 self._select_clause(*(select or [])),
@@ -59,6 +59,14 @@ class TreasuryForecastProjectReport(models.Model):
                 self._group_by_clause(*(group_by or [])),
             ]
         )
+        additional_queries = [
+            f"SELECT {select_} FROM {from_} WHERE {where_}"
+            for select_, from_, where_ in self._query_parts()
+        ]
+        return "\nUNION ALL\n".join([query, *additional_queries])
+
+    def _query_parts(self):
+        return []
 
     def _with_clause(self, *with_):
         # Extra clauses formatted as `cte1 AS (SELECT ...)`, `cte2 AS (SELECT ...)`...
