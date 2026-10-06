@@ -6,7 +6,7 @@
 Stock Move Line Cost
 ====================
 
-If the picking is internal, product standard cost and amount field in pickings moves and move lines.
+* Do not use this module; use "stock_move_cost".
 
 Bug Tracker
 ===========
