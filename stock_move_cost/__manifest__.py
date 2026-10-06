@@ -10,6 +10,7 @@
     "depends": [
         "stock_lot_purchase_info",
         "purchase_last_price_info",
+        "product_cost_security_read_permission",
     ],
     "data": [
         "views/stock_move_line_views.xml",
