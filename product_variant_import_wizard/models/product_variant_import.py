@@ -42,6 +42,7 @@ field_column_dict = {
     "serie_name": "Serie",
     "top_graphic": "Top Graphic",
     "bottom_graphic": "Bottom Graphic",
+    "composition": "Composition",
 }
 
 
@@ -191,6 +192,7 @@ class ProductVariantImport(models.Model):
             serie_name = row_values.get(field_column_dict.get("serie_name"), "")
             top_graphic = row_values.get(field_column_dict.get("top_graphic"), "")
             bottom_graphic = row_values.get(field_column_dict.get("bottom_graphic"), "")
+            composition = row_values.get(field_column_dict.get("composition"), "")
             attributes = {}
             attribute_columns = [
                 i for i in row_values.keys() if i not in non_attribute_colnames
@@ -227,6 +229,7 @@ class ProductVariantImport(models.Model):
                     "serie_name": serie_name,
                     "top_graphic": top_graphic,
                     "bottom_graphic": bottom_graphic,
+                    "composition": convert2str(composition),
                     "attributes_name": attributes,
                 }
             )
@@ -503,6 +506,9 @@ class ProductImportLine(models.Model):
     bottom_graphic = fields.Char(
         copy=False,
     )
+    composition = fields.Char(
+        copy=False,
+    )
     top_transfer_product_id = fields.Many2one(
         comodel_name="product.product",
         copy=False,
@@ -693,6 +699,12 @@ class ProductImportLine(models.Model):
                     log_infos.append(log_info_attr)
                 if attr and not log_info_attr:
                     attributes.append(attr.id)
+        if self.composition:
+            composition_attributes, log_info_composition = self._check_composition()
+            if log_info_composition:
+                log_infos.append(log_info_composition)
+            else:
+                attributes.extend(composition_attributes.ids)
         state = "error" if log_infos else "pass"
         action = "nothing"
         if state != "error":
@@ -731,11 +743,15 @@ class ProductImportLine(models.Model):
             self = self.with_company(self.import_id.company_id)
         if self.action == "create":
             product, log_info = self._create_product()
-            if product and hasattr(product, "generate_code"):
-                product.generate_code()
             if product and not log_info:
-                product.product_tmpl_id.action_unify_shape_attributes()
-                self._process_transfers(product)
+                template = product.product_tmpl_id
+                template.action_unify_shape_attributes()
+                template._create_variant_ids()
+                product = self._get_or_create_template_variant(template)
+                if product and hasattr(product, "generate_code"):
+                    product.generate_code()
+                if product:
+                    self._process_transfers(product)
         state = "error" if log_info else "done"
         action = "nothing" if log_info else "create"
         update_values.update(
@@ -748,6 +764,25 @@ class ProductImportLine(models.Model):
         )
         return update_values
 
+    def _get_or_create_template_variant(self, template):
+        attribute_lines = template.valid_product_template_attribute_line_ids
+        attribute_lines = attribute_lines._without_no_variant_attributes()
+        combination = attribute_lines.mapped(
+            "product_template_value_ids"
+        )._only_active()
+        product = template.product_variant_ids.filtered(
+            lambda variant: (
+                set(variant.product_template_attribute_value_ids.ids)
+                == set(combination.ids)
+            )
+        )
+        product = product[:1]
+        if not product:
+            product = self.env["product.product"].create(
+                template._prepare_variant_values(combination)
+            )
+        return product
+
     def _get_category_profile_product(self, category):
         return (
             category.attribute_profile_id.default_profile_product_id
@@ -757,6 +792,55 @@ class ProductImportLine(models.Model):
     def _category_requires_shape(self, category):
         profile_name = (category.attribute_profile_id.name or "").strip().upper()
         return profile_name in ("DECK", "DECKS")
+
+    def _check_composition(self):
+        composition = self.composition.strip().upper()
+        if len(composition) not in (22, 26):
+            return self.env["product.attribute.value"], _(
+                "Composition '%(composition)s' has an invalid format."
+            ) % {"composition": self.composition}
+        parts = {
+            "Top": ("T", composition[0:3]),
+            "M2": ("M2", composition[3:7]),
+            "M3": ("M3", composition[7:11]),
+            "M4": ("M4", composition[11:15]),
+            "M5": ("M5", composition[15:19]),
+        }
+        if len(composition) == 26:
+            parts["M6"] = ("M6", composition[19:23])
+            parts["Bottom"] = ("B", composition[23:26])
+        else:
+            parts["Bottom"] = ("B", composition[19:22])
+        attribute_values = self.env["product.attribute.value"]
+        for attribute_name, (prefix, part) in parts.items():
+            short_code = part[len(prefix) :]
+            if not part.startswith(prefix) or not short_code.isdigit():
+                return self.env["product.attribute.value"], _(
+                    "Composition '%(composition)s' has an invalid format."
+                ) % {"composition": self.composition}
+            attributes = self.env["product.attribute"].search(
+                [("name", "=ilike", attribute_name)]
+            )
+            if len(attributes) != 1:
+                return self.env["product.attribute.value"], _(
+                    "A unique attribute named '%(attribute)s' was not found."
+                ) % {"attribute": attribute_name}
+            values = self.env["product.attribute.value"].search(
+                [
+                    ("attribute_id", "=", attributes.id),
+                    ("code", "=", short_code.zfill(3)),
+                ]
+            )
+            if len(values) != 1:
+                return self.env["product.attribute.value"], _(
+                    "A unique value with code '%(code)s' was not found for "
+                    "attribute '%(attribute)s'."
+                ) % {
+                    "code": short_code.zfill(3),
+                    "attribute": attribute_name,
+                }
+            attribute_values |= values
+        return attribute_values, ""
 
     def _check_transfer_product(self, transfer_name, transfer_category):
         products = self.env["product.product"].search(

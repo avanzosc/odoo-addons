@@ -1074,6 +1074,30 @@ msgid "Shape is required for DECK products."
 msgstr ""
 
 #. module: product_variant_import_wizard
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_product__composition
+#: model:ir.model.fields,field_description:product_variant_import_wizard.field_product_variant_import_line__composition
+msgid "Composition"
+msgstr ""
+
+#. module: product_variant_import_wizard
+#: code:addons/product_variant_import_wizard/models/product_variant_import.py:0
+#, python-format
+msgid "Composition '%(composition)s' has an invalid format."
+msgstr ""
+
+#. module: product_variant_import_wizard
+#: code:addons/product_variant_import_wizard/models/product_variant_import.py:0
+#, python-format
+msgid "A unique attribute named '%(attribute)s' was not found."
+msgstr ""
+
+#. module: product_variant_import_wizard
+#: code:addons/product_variant_import_wizard/models/product_variant_import.py:0
+#, python-format
+msgid "A unique value with code '%(code)s' was not found for attribute '%(attribute)s'."
+msgstr ""
+
+#. module: product_variant_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_variant_import_wizard.product_variant_import_wizard_view_form
 msgid "You must use this column names in order to fill the table:"
 msgstr ""

@@ -21,21 +21,18 @@
             name="action_import_file"
             string="Import"
             type="object"
-            class="oe_read_only"
             invisible="state not in ('draft', '2validate', 'pass', 'error')"
           />
           <button
             name="action_validate"
             string="Validate"
             type="object"
-            class="oe_read_only"
             invisible="state not in ('2validate', 'pass', 'error')"
           />
           <button
             name="action_process"
             string="Process"
             type="object"
-            class="oe_read_only"
             invisible="state not in ('pass', 'error')"
           />
           <field name="state" widget="statusbar" />
@@ -178,6 +175,8 @@
                     >Product Volume. </b></li>
                     <li><code>Ruta</code>: this will fill <b
                     >Inventory Route Name</b>.</li>
+                    <li><code>Composition</code>: this will fill the <b
+                    >Top, M2, M3, M4, M5, M6 and Bottom attributes</b>.</li>
                     <li>
                       <b>For Product Variants: </b>
                       <ul>

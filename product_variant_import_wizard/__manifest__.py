@@ -23,6 +23,7 @@
         "data/ir_sequence_data.xml",
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
+        "views/product_product_views.xml",
         "views/product_variant_import_wizard_view.xml",
         "views/product_variant_import_wizard_line_view.xml",
     ],
