@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record model="ir.ui.view" id="cleaning_database_form_view">
+    <field name="name">cleaning.database.form.view</field>
+    <field name="model">cleaning.database</field>
+    <field name="arch" type="xml">
+      <form string="Cleaning Database">
+        <sheet>
+          <!-- ================================================== -->
+          <!-- COMPLETE CLEANUP                                   -->
+          <!-- ================================================== -->
+
+          <div class="alert alert-danger" role="alert">
+            <h3>Database Operations Cleanup</h3>
+
+            <p>
+                            This operation permanently deletes transactional data.
+                        </p>
+
+            <p>
+                            <strong>Recommended:</strong>
+                            use "Cleaning All Operations" so the objects are
+                            deleted in the correct dependency order.
+                        </p>
+
+            <p>
+                            <strong>Note:</strong>
+                            Stock Lots are not included in the complete cleanup
+                            and must be deleted separately if required.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="Cleaning All Operations"
+              class="btn-danger"
+              context="{'default_object_to_delete': 'all'}"
+            />
+          </div>
+
+          <!-- ================================================== -->
+          <!-- INDIVIDUAL OPERATIONS                              -->
+          <!-- ================================================== -->
+
+          <separator string="Individual Cleaning Operations" colspan="4" />
+
+          <div class="alert alert-info" role="alert">
+            <p>
+                            If the operations are cleaned individually,
+                            execute them in the order shown below.
+                        </p>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <h4>Inventory Operations</h4>
+
+            <p>
+                            Deletes, in order:
+                            Stock Move Line,
+                            Stock Valuation Layer,
+                            Stock Quant,
+                            Stock Move and
+                            Stock Picking.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="1. Cleaning Stock Operations"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'stock'}"
+            />
+          </div>
+
+          <div style="margin-top: 16px;">
+            <h4>Accounting Operations</h4>
+
+            <p>
+                            Deletes, in dependency order:
+                            Account Partial Reconcile,
+                            Account Payment Line,
+                            Account Move Line,
+                            Account Move,
+                            Account Bank Statement and
+                            Account Payment Order.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="2. Cleaning Accounting Operations"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'accounting'}"
+            />
+          </div>
+
+          <div style="margin-top: 16px;">
+            <h4>Purchase Operations</h4>
+
+            <p>
+                            Deletes Purchase Order Lines first and
+                            Purchase Orders afterwards.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="3. Cleaning Purchase Operations"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'purchase'}"
+            />
+          </div>
+
+          <div style="margin-top: 16px;">
+            <h4>Sales Operations</h4>
+
+            <p>
+                            Deletes Sale Order Lines first and
+                            Sale Orders afterwards.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="4. Cleaning Sale Operations"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'sale'}"
+            />
+          </div>
+
+          <separator
+            name="special_cleaning_operations_separator"
+            string="Special Cleaning Operations"
+            colspan="4"
+          />
+
+          <div class="alert alert-warning" role="alert">
+            <h4>Stock Lots</h4>
+
+            <p>
+                            Stock Lots are intentionally excluded from
+                            "Cleaning All Operations".
+                        </p>
+
+            <p>
+                            Lots may be referenced by other business objects.
+                            Delete them only when those dependencies have been
+                            reviewed and the lots are no longer required.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="Cleaning Stock Lots"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'lot'}"
+            />
+          </div>
+
+          <div class="alert alert-warning" role="alert">
+            <h4>Sequences</h4>
+
+            <p>
+                            Reset company sequences after the transactional
+                            operations have been deleted.
+                        </p>
+
+            <button
+              name="action_open_delete_warning"
+              type="object"
+              string="5. Reset Sequences"
+              class="oe_highlight"
+              context="{'default_object_to_delete': 'sequences'}"
+            />
+          </div>
+
+          <!-- ================================================== -->
+          <!-- COMPANIES                                         -->
+          <!-- ================================================== -->
+
+          <separator string="Companies" colspan="4" />
+
+          <field name="company_ids" nolabel="1" colspan="4" required="1">
+            <list delete="0" create="0" editable="top">
+              <field name="name" readonly="1" />
+            </list>
+          </field>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="cleaning_database_tre_view">
+    <field name="name">cleaning.database.list.view</field>
+    <field name="model">cleaning.database</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+      </list>
+    </field>
+  </record>
+
+  <record id="action_cleaning_database_view" model="ir.actions.act_window">
+    <field name="name">Cleaning Database</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">cleaning.database</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem
+    name="Cleaning Database"
+    id="cleaning_database"
+    sequence="100"
+    web_icon="cleaning_database_operations,static/description/boom_icon.png"
+  />
+
+  <menuitem
+    action="action_cleaning_database_view"
+    id="menu_view_cleaning_database"
+    parent="cleaning_database"
+    sequence="1"
+  />
+</odoo>

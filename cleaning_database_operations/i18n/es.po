@@ -1,0 +1,476 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* cleaning_database_operations
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-02 11:14+0000\n"
+"PO-Revision-Date: 2026-10-02 11:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid "%(table)s completed. %(deleted)s records deleted."
+msgstr "Se han completado %(table)s. Se han eliminado %(deleted)s registros."
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid ""
+"%(table)s: %(deleted)s deleted. %(remaining)s remaining (%(percentage)s%% "
+"completed)."
+msgstr ""
+"%(table)s: se han eliminado %(deleted)s. Quedan %(remaining)s "
+"(se ha completado el %(percentage)s%%)."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "1. Cleaning Stock Operations"
+msgstr "Borrado de operaciones de stock"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "2. Cleaning Accounting Operations"
+msgstr "Borrado de operaciones de contabilidad"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "3. Cleaning Purchase Operations"
+msgstr "Borrado de operaciones de compra"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "4. Cleaning Sale Operations"
+msgstr "Borrado de operaciones de venta"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "5. Reset Sequences"
+msgstr "Reiniciar secuencias"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"<strong>Note:</strong>\n"
+"                            Stock Lots are not included in the complete cleanup\n"
+"                            and must be deleted separately if required."
+msgstr ""
+"<strong>Nota:</strong>\n"
+"                            Los lotes no se incluyen en la limpieza completa\n"
+"                            y deben eliminarse por separado si es necesario."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"<strong>Recommended:</strong>\n"
+"                            use \"Cleaning All Operations\" so the objects are\n"
+"                            deleted in the correct dependency order."
+msgstr ""
+"<strong>Recomendado:</strong>\n"
+"                            utiliza \"Limpieza de todas las operaciones\" para que los objetos\n"
+"                            se eliminen en el orden correcto de dependencias."
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__accounting
+msgid "Accounting"
+msgstr "Contabilidad"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Accounting Operations"
+msgstr "Operaciones de contabilidad"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__all
+msgid "All Operations"
+msgstr "Todas las operaciones"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid "Are you sure you want to continue? This operation is irreversible."
+msgstr "¿Estás seguro de que quieres continuar? Esta operación es irreversible."
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning All Operations"
+msgstr "Limpieza de todas las operaciones"
+
+#. module: cleaning_database_operations
+#: model:ir.actions.act_window,name:cleaning_database_operations.action_cleaning_database_view
+#: model:ir.ui.menu,name:cleaning_database_operations.cleaning_database
+#: model:ir.ui.menu,name:cleaning_database_operations.menu_view_cleaning_database
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Database"
+msgstr "Limpieza en base de datos"
+
+#. module: cleaning_database_operations
+#: model:ir.model,name:cleaning_database_operations.model_cleaning_database
+msgid "Cleaning Database Operations"
+msgstr "Limpieza de operaciones en base de datos"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid "Cleaning Database Warning"
+msgstr "Alerta borrado de base de datos"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid "Cleaning Database record not found."
+msgstr "No se ha encontrado el registro de la base de datos de limpieza."
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning Stock Lots"
+msgstr "Limpieza de lotes"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__company_ids
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "Continue"
+msgstr "Continuar"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__create_uid
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__create_date
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid "Creation date: {}"
+msgstr "Fecha de creación: {}"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid "Database Cleanup"
+msgstr "Limpieza de la base de datos"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Database Operations Cleanup"
+msgstr "Limpieza de operaciones de la base de datos"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes Purchase Order Lines first and\n"
+"                            Purchase Orders afterwards."
+msgstr ""
+"Elimina primero las Purchase Order Lines y\n"
+"                            después las Purchase Orders."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes Sale Order Lines first and\n"
+"                            Sale Orders afterwards."
+msgstr ""
+"Elimina primero las Sale Order Lines y\n"
+"                            luego los Sale Orders."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes, in dependency order:\n"
+"                            Account Partial Reconcile,\n"
+"                            Account Payment Line,\n"
+"                            Account Move Line,\n"
+"                            Account Move,\n"
+"                            Account Bank Statement and\n"
+"                            Account Payment Order."
+msgstr ""
+"Elimina, por orden de dependencia:\n"
+"                            Account Partial Reconcile,\n"
+"                            Account Payment Line,\n"
+"                            Account Move Line,\n"
+"                            Account Move,\n"
+"                            Account Bank Statement and\n"
+"                            Account Payment Order."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Deletes, in order:\n"
+"                            Stock Move Line,\n"
+"                            Stock Valuation Layer,\n"
+"                            Stock Quant,\n"
+"                            Stock Move and\n"
+"                            Stock Picking."
+msgstr ""
+"Elimina, en este orden:\n"
+"                            Stock Move Line,\n"
+"                            Stock Valuation Layer,\n"
+"                            Stock Quant,\n"
+"                            Stock Move and\n"
+"                            Stock Picking."
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__name
+msgid "Description"
+msgstr "Descripción"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__display_name
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__id
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"If the operations are cleaned individually,\n"
+"                            execute them in the order shown below."
+msgstr ""
+"Si las operaciones se limpian una por una,\n"
+"                            ejecútalas en el orden que se indica a continuación."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Individual Cleaning Operations"
+msgstr "Operaciones de limpieza individuales"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Inventory Operations"
+msgstr "Operaciones de inventario"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__write_uid
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database__write_date
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__write_date
+msgid "Last Updated on"
+msgstr "Actualizado el"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__lot
+msgid "Lot"
+msgstr "Lote"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Lots may be referenced by other business objects.\n"
+"                            Delete them only when those dependencies have been\n"
+"                            reviewed and the lots are no longer required."
+msgstr ""
+"Otros objetos de negocio pueden hacer referencia a los lotes.\n"
+"                            Elimínelos únicamente cuando se hayan revisado dichas dependencias\n"
+"                            y los lotes ya no sean necesarios."
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__object_to_delete
+msgid "Object To Delete"
+msgstr "Objeto que se va a eliminar"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__purchase
+msgid "Purchase"
+msgstr "Compra"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Purchase Operations"
+msgstr "Operaciones de compra"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Reset company sequences after the transactional\n"
+"                            operations have been deleted."
+msgstr ""
+"Restablecer las secuencias de la empresa una vez que\n"
+"                            se hayan eliminado las operaciones transaccionales."
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__sale
+msgid "Sale"
+msgstr "Venta"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Sales Operations"
+msgstr "Operaciones de ventas"
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__sequences
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Sequences"
+msgstr "Secuencias"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Special Cleaning Operations"
+msgstr "Operaciones especiales de limpieza"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+msgid "Starting %(table)s. %(total)s records to delete."
+msgstr "Se van a eliminar %(total)s registros de %(table)s."
+
+#. module: cleaning_database_operations
+#: model:ir.model.fields.selection,name:cleaning_database_operations.selection__cleaning_database_warning_wizard__object_to_delete__stock
+msgid "Stock"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Stock Lots"
+msgstr "Lotes"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"Stock Lots are intentionally excluded from\n"
+"                            \"Cleaning All Operations\"."
+msgstr ""
+"Los lotes de existencias se excluyen deliberadamente de\n"
+"                            \«Limpieza de todas las operaciones\"."
+#. module: cleaning_database_operations
+#: model:ir.model.fields,field_description:cleaning_database_operations.field_cleaning_database_warning_wizard__text
+msgid "Text"
+msgstr "Texto"
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "This operation permanently deletes transactional data."
+msgstr "Esta operación elimina de forma definitiva los datos transaccionales."
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid "Unknown cleaning operation: %s"
+msgstr "Operación de limpieza desconocida: %s"
+
+#. module: cleaning_database_operations
+#: model:ir.model,name:cleaning_database_operations.model_cleaning_database_warning_wizard
+msgid "Wizard for warning when cleaning database operations"
+msgstr "Asistente para alertar al limpiar las operaciones de la base de datos"
+
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete Purchase Order Lines and Purchase Orders for the selected companies.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar Purchase Order Line y Purchase Order de las empresas seleccionadas.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete Sale Order Lines and Sale Orders for the selected companies.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar líneas de Sale Order Line y Sale Order de las empresas seleccionadas.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete Stock Lots for the selected companies.\n"
+"\n"
+"Stock operations should be deleted before deleting lots.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar los lotes de las empresas seleccionadas.\n"
+"\n"
+"Las operaciones de existencias deben eliminarse antes de eliminar los lotes.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete accounting operations for the selected companies.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar las operaciones contables de las empresas seleccionadas.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete all configured operational data for the selected companies.\n"
+"\n"
+"The cleanup will be performed in dependency order using batched DELETE operations.\n"
+"\n"
+"Stock Lots are NOT included in this cleanup and must be deleted separately if required.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar todos los datos operativos para las empresas seleccionadas.\n"
+"\n"
+"La limpieza se llevará a cabo por orden de dependencia mediante operaciones DELETE por lotes.\n"
+"\n"
+"Los lotes NO se incluyen en esta limpieza y deben eliminarse por separado si es necesario.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to delete stock operations for the selected companies.\n"
+"\n"
+"The following objects will be deleted in dependency order: Stock Move Lines, Stock Valuation Layers, Stock Quants, Stock Moves and Stock Pickings.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de eliminar operaciones de Stock de las empresas seleccionadas.\n"
+"\n"
+"Se eliminarán los siguientes objetos por orden de dependencia:  Stock Move Lines, Stock Valuation Layers, Stock Quants, Stock Moves and Stock Pickings.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#. odoo-python
+#: code:addons/cleaning_database_operations/wizards/cleaning_database_warning_wizard.py:0
+msgid ""
+"You are about to reset the sequences for the selected companies.\n"
+"\n"
+"This operation is irreversible."
+msgstr ""
+"Estás a punto de restablecer las secuencias de las empresas seleccionadas.\n"
+"\n"
+"Esta operación es irreversible."
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_warning_wizard_view_form
+msgid "or"
+msgstr "o"
