@@ -10,7 +10,7 @@
       <field name="last_purchase_price" position="before">
         <field
           name="last_purchase_price_company_currency"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
           invisible="not show_last_purchase_price_currency"
         />
       </field>
@@ -33,16 +33,16 @@
         <field
           name="average_price_value"
           optional="show"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
         <field
           name="last_purchase_price_company_currency"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
         <field
           name="last_purchase_value"
           optional="show"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
       </field>
     </field>
@@ -59,7 +59,7 @@
         <field
           name="net_purchase_price"
           optional="show"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
         <field name="last_purchase_currency_id" string="Currency" optional="show" />
       </field>
