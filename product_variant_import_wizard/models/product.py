@@ -6,6 +6,16 @@ from functools import reduce
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+COMPOSITION_ATTRIBUTES = (
+    ("Top", "T"),
+    ("M2", "M2"),
+    ("M3", "M3"),
+    ("M4", "M4"),
+    ("M5", "M5"),
+    ("M6", "M6"),
+    ("Bottom", "B"),
+)
+
 
 class InternalProductCategory(models.Model):
     _name = "internal.product.category"
@@ -213,6 +223,36 @@ class ProductTemplate(models.Model):
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
+
+    composition = fields.Char(
+        compute="_compute_composition",
+        store=True,
+    )
+
+    @api.depends(
+        "product_template_attribute_value_ids.product_attribute_value_id",
+        "product_template_attribute_value_ids.product_attribute_value_id.code",
+    )
+    def _compute_composition(self):
+        attribute_obj = self.env["product.attribute"]
+        attributes = {
+            name: attribute_obj.search([("name", "=ilike", name)], limit=1)
+            for name, __ in COMPOSITION_ATTRIBUTES
+        }
+        for product in self:
+            values = (
+                product.product_template_attribute_value_ids.product_attribute_value_id
+            )
+            composition_parts = []
+            for attribute_name, prefix in COMPOSITION_ATTRIBUTES:
+                value = values.filtered(
+                    lambda attribute_value, name=attribute_name: (
+                        attribute_value.attribute_id == attributes[name]
+                    )
+                )[:1]
+                if value and value.code:
+                    composition_parts.append(f"{prefix}{value.code[-2:]}")
+            product.composition = "".join(composition_parts)
 
     def generate_code(self):
         for product in self:

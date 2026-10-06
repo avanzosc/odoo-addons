@@ -46,6 +46,7 @@
               <field name="description_purchase" />
               <field name="top_graphic" />
               <field name="bottom_graphic" />
+              <field name="composition" />
               <field name="internal_category_name" />
               <field name="brand_name" />
               <field name="family_name" />
@@ -180,6 +181,7 @@
         <field readonly="state == 'done'" name="description_purchase" />
         <field readonly="state == 'done'" name="top_graphic" />
         <field readonly="state == 'done'" name="bottom_graphic" />
+        <field readonly="state == 'done'" name="composition" />
         <field
           readonly="state == 'done'"
           name="top_transfer_product_id"
