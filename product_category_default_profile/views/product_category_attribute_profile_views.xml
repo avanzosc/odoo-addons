@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_category_attribute_profile_view_list" model="ir.ui.view">
+    <field name="model">product.category.attribute.profile</field>
+    <field
+      name="inherit_id"
+      ref="product_category_attribute.product_category_attribute_profile_view_list"
+    />
+    <field name="arch" type="xml">
+      <field name="attribute_ids" position="after">
+        <field name="default_profile_product_id" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_category_attribute_profile_view_form" model="ir.ui.view">
+    <field name="model">product.category.attribute.profile</field>
+    <field
+      name="inherit_id"
+      ref="product_category_attribute.product_category_attribute_profile_view_form"
+    />
+    <field name="arch" type="xml">
+      <field name="attribute_ids" position="after">
+        <field name="default_profile_product_id" />
+      </field>
+    </field>
+  </record>
+</odoo>
