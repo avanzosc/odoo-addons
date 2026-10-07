@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_import_existing_lots
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-11 09:11+0000\n"
+"PO-Revision-Date: 2026-09-11 09:11+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: zh_CN\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: stock_import_existing_lots
+#. odoo-python
+#: code:addons/stock_import_existing_lots/models/stock_move.py:0
+msgid "No product found to generate Serials/Lots for."
+msgstr "未找到可生成序列号/批次的产品。"
+
+#. module: stock_import_existing_lots
+#: model:ir.model,name:stock_import_existing_lots.model_stock_move
+msgid "Stock Move"
+msgstr "库存移动"
+
+#. module: stock_import_existing_lots
+#. odoo-python
+#: code:addons/stock_import_existing_lots/models/stock_move.py:0
+msgid "The following lots/serial numbers do not exist for this product: %s"
+msgstr "该产品不存在以下批号/序列号：%s"
+
+#. module: stock_import_existing_lots
+#. odoo-python
+#: code:addons/stock_import_existing_lots/models/stock_move.py:0
+msgid "The quantity per lot should always be a positive value."
+msgstr "每批次数量应始终为正值。"

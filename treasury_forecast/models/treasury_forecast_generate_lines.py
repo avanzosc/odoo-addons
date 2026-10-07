@@ -106,6 +106,7 @@ class TreasuryForecastGenerateLines(models.TransientModel):
         product = product_tmpl.product_variant_id if product_tmpl else False
         account = False
         if product:
+            product = product.with_company(financing.company_id)
             if financing.category_type == "income":
                 account = product.property_account_income_id
             else:

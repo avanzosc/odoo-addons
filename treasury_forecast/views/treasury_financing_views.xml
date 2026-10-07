@@ -7,6 +7,7 @@
       <list>
         <field name="code" optional="show" />
         <field name="name" optional="show" />
+        <field name="company_id" optional="show" />
         <field name="journal_id" optional="show" />
         <field name="partner_id" optional="show" />
         <field name="category_id" optional="show" />
@@ -57,6 +58,7 @@
               <separator string="General Information" />
               <field name="name" />
               <field name="code" />
+              <field name="company_id" />
               <field name="parent_category_id" />
               <field name="category_id" />
               <field name="category_type" readonly="1" />
@@ -118,7 +120,7 @@
     id="treasury_financing_generate_lines_server_action"
     model="ir.actions.server"
   >
-    <field name="name">Crear previsiones</field>
+    <field name="name">Create forecasts</field>
     <field name="model_id" ref="model_treasury_financing" />
     <field name="binding_model_id" ref="model_treasury_financing" />
     <field name="binding_view_types">list,form</field>
@@ -135,6 +137,7 @@ action = records.action_open_generate_lines_wizard()
       <search string="Financing">
         <field name="code" />
         <field name="name" />
+        <field name="company_id" />
         <field name="partner_id" />
         <field name="journal_id" />
         <field name="category_id" />
@@ -214,6 +217,11 @@ action = records.action_open_generate_lines_wizard()
             string="Journal"
             name="group_journal"
             context="{'group_by':'journal_id'}"
+          />
+          <filter
+            string="Company"
+            name="group_company"
+            context="{'group_by':'company_id'}"
           />
 
           <filter

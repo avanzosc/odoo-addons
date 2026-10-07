@@ -16,6 +16,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/treasury_forecast_security.xml",
         "views/treasury_forecast_views.xml",
         "views/treasury_forecast_report_views.xml",
         "views/treasury_forecast_menu.xml",
