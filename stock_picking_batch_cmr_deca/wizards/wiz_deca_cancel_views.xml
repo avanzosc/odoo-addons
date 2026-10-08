@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="wiz_deca_cancel_form_view" model="ir.ui.view">
+    <field name="name">wiz.deca.cancel.form.view</field>
+    <field name="model">wiz.deca.cancel</field>
+    <field name="arch" type="xml">
+      <form>
+        <field name="batch_id" invisible="1" />
+        <div class="alert alert-danger" role="alert">
+                    This is not one of the Resolución's own modification methods
+                    (Método A/B are for an ongoing or completed service) -- it's for
+                    voiding a DeCA whose service never starts at all. The PDF and
+                    token are kept for the retention requirement, but the public
+                    link stops serving the file immediately. This cannot be undone.
+                </div>
+        <group>
+          <field name="reason" placeholder="Why this service is being called off..." />
+        </group>
+        <footer>
+          <button
+            name="action_confirm"
+            type="object"
+            string="Cancel DeCA"
+            class="btn-primary"
+          />
+          <button string="Close" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
