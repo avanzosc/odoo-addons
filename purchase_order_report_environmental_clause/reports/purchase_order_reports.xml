@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="report_purchaseorder_document"
+    inherit_id="purchase.report_purchaseorder_document"
+  >
+    <span t-field="o.payment_term_id" position="after">
+      <br />
+      <br />
+      <span
+        t-esc="env['ir.config_parameter'].sudo().get_param('environmental_clause_text', '')"
+        style="white-space: pre-line;"
+      />
+    </span>
+  </template>
+
+  <template
+    id="report_purchasequotation_document"
+    inherit_id="purchase.report_purchasequotation_document"
+  >
+    <p t-field="o.notes" position="after">
+      <br />
+      <span
+        t-esc="env['ir.config_parameter'].sudo().get_param('environmental_clause_text', '')"
+        style="white-space: pre-line;"
+      />
+    </p>
+  </template>
+</odoo>
