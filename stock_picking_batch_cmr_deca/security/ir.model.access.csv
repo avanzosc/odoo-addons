@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_picking_batch_deca_access_log_read_only,stock.picking.batch.deca.access.log.read.only,model_stock_picking_batch_deca_access_log,stock_picking_batch_cmr_deca.group_deca_user,1,0,0,0
+access_stock_picking_batch_deca_change_read_only,stock.picking.batch.deca.change.read.only,model_stock_picking_batch_deca_change,stock_picking_batch_cmr_deca.group_deca_read_only,1,0,0,0
+access_stock_picking_batch_deca_change_user,stock.picking.batch.deca.change.user,model_stock_picking_batch_deca_change,stock_picking_batch_cmr_deca.group_deca_user,1,0,1,0
+access_stock_picking_batch_deca_change_manager,stock.picking.batch.deca.change.manager,model_stock_picking_batch_deca_change,stock_picking_batch_cmr_deca.group_deca_manager,1,1,1,1
+access_wiz_deca_modify,wiz.deca.modify.access,model_wiz_deca_modify,stock_picking_batch_cmr_deca.group_deca_manager,1,1,1,1
+access_wiz_deca_cancel,wiz.deca.cancel.access,model_wiz_deca_cancel,stock_picking_batch_cmr_deca.group_deca_manager,1,1,1,1
