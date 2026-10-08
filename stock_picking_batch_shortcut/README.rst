@@ -6,8 +6,8 @@
 Stock picking batch shortcut
 ============================
 
-* In form view of object "Batch Transfer", two new shorcuts to: "Delivery" and
-  "Sale Orders".
+* Do not use this module; its logic has been moved to the
+ "stock_picking_batch_usability" module.
 
 Bug Tracker
 ===========
