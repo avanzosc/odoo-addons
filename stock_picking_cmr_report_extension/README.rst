@@ -6,7 +6,8 @@
 Stock picking CMR report Extension
 ==================================
 
-* New "CMR" tag in pickings and contacts.
+* The programming for this module has been incorporated into the
+  "stock_picking_cmr" module.
 
 Bug Tracker
 ===========
