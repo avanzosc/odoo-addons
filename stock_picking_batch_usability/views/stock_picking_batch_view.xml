@@ -4,6 +4,18 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
         <field name="arch" type="xml">
+            <field name="user_id" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="picking_type_id" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="scheduled_date" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+            <field name="picking_ids" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
             <field name="scheduled_date" position="after">
                 <field name="num_pickings_confirmed" />
                 <field name="num_pickings_assigned" />
