@@ -6,7 +6,8 @@
 Stock picking CMR report
 ========================
 
-* New "CMR" tag in pickings, and new report.
+* The programming for this module has been incorporated into the
+  "stock_picking_cmr" module.
 
 Bug Tracker
 ===========
