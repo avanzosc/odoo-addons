@@ -12,6 +12,6 @@
         "stock_picking_batch_extended",
     ],
     "data": ["views/stock_picking_batch_views.xml"],
-    "installable": True,
-    "auto_install": True,
+    "installable": False,
+    "auto_install": False,
 }
