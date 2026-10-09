@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_delivery_carrier_form" model="ir.ui.view">
+    <field name="model">delivery.carrier</field>
+    <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+    <field name="arch" type="xml">
+      <group name="content" position="after">
+        <group name="partner_categories" string="Customers">
+          <field
+            name="partner_category_ids"
+            widget="many2many_tags"
+            placeholder="Leave empty to make available to every customer."
+            options="{'color_field': 'color'}"
+          />
+        </group>
+      </group>
+    </field>
+  </record>
+</odoo>
