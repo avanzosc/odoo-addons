@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
   <record id="product_template_form_view" model="ir.ui.view">
-    <field name="name">product.template.form.additional.info</field>
     <field name="model">product.template</field>
-    <field name="inherit_id" ref="product.product_template_form_view" />
+    <field name="inherit_id" ref="website_sale.product_template_form_view" />
     <field name="arch" type="xml">
-      <page name="general_information" position="inside">
+      <group name="ecom_description" position="after">
         <group
           name="website_sale_additional_info"
           string="eCommerce Additional Information"
@@ -23,7 +22,7 @@
             <field name="website_matte_finish" />
           </group>
         </group>
-      </page>
+      </group>
     </field>
   </record>
 </odoo>
