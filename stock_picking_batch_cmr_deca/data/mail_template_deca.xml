@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="mail_template_deca" model="mail.template">
+    <field name="name">DeCA: send document</field>
+    <field name="model_id" ref="stock_picking_batch.model_stock_picking_batch" />
+    <field name="subject">DeCA {{ object.name }}</field>
+    <field
+      name="partner_to"
+    >{{ object.cmr_loader_id.id or '' }},{{ object.cmr_transportation_id.id or '' }}</field>
+    <field name="report_template_ids" eval="[(6, 0, [ref('action_report_deca')])]" />
+    <field name="body_html" type="html">
+      <div>
+        <p>Se adjunta el Documento de Control Administrativo (DeCA) <strong
+          t-out="object.name"
+        /> correspondiente a <span
+          t-out="', '.join(object.picking_ids.mapped('display_name'))"
+        />.</p>
+        <p>También puede descargarse en todo momento desde: <a
+          t-att-href="object.public_url"
+          t-out="object.public_url"
+        /></p>
+      </div>
+    </field>
+  </record>
+</odoo>
