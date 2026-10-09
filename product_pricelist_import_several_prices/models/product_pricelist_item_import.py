@@ -228,10 +228,12 @@ class ProductPricelistItemImportLine(models.Model):
         selection_add=[
             ("create", "Create"),
             ("update", "Update"),
+            ("add_catalog", "Add Catalog"),
         ],
         ondelete={
             "create": "set default",
             "update": "set default",
+            "add_catalog": "set default",
         },
     )
     row_number = fields.Integer(
@@ -296,47 +298,92 @@ class ProductPricelistItemImportLine(models.Model):
 
     def _action_validate(self):
         update_values = super()._action_validate()
+
         log_infos = []
-        product = self._find_product()
         current_items = self.env["product.pricelist.item"]
+        action = "nothing"
+        product = self._find_product()
         if not product:
             log_infos.append(_("Error: Product not found."))
         else:
-            current_items = self._find_pricelist_items_to_update(product)
+            active_items = self._find_active_pricelist_items(product)
+
+            # 1. Buscar tarifa + producto + catálogo
+            catalog_items = self._find_catalog_pricelist_items(active_items)
+            current_items = catalog_items
+
+            if len(catalog_items) > 1:
+                log_infos.append(
+                    _(
+                        "Error: More than one active pricelist item "
+                        "exists for this pricelist, product and catalog."
+                    )
+                )
+
+            elif catalog_items:
+                if any(not self._same_price(item) for item in catalog_items):
+                    action = "update"
+                else:
+                    action = "nothing"
+
+            else:
+                # No existe tarifa + producto + catálogo.
+
+                # 3. Buscar tarifa + producto con el mismo precio,
+                # aunque todavía no tenga este catálogo.
+                same_price_items = self._find_same_price_pricelist_items(active_items)
+
+                if same_price_items and self.catalog_ids:
+                    current_items = same_price_items
+                    action = "add_catalog"
+                else:
+                    # No hay ninguna línea.
+                    action = "create"
+
         state = "error" if log_infos else "pass"
-        action = "nothing"
-        if state == "pass":
-            action = self._get_import_action(current_items)
+
         update_values.update(
             {
                 "product_id": product and product.id,
                 "pricelist_item_ids": [(6, 0, current_items.ids)],
                 "log_info": "\n".join(log_infos),
                 "state": state,
-                "action": action,
+                "action": action if state == "pass" else "nothing",
             }
         )
+
         return update_values
 
     def _action_process(self):
         update_values = super()._action_process()
         log_info = ""
+
         if self.action == "update":
             self._update_pricelist_items()
+
+        elif self.action == "add_catalog":
+            self._add_catalogs_to_pricelist_item()
+
         elif self.action == "create":
             product = self.product_id or self._find_product()
+
             if product:
                 self.env["product.pricelist.item"].create(
-                    self._pricelist_item_values(product=product, create=True)
+                    self._pricelist_item_values(
+                        product=product,
+                        create=True,
+                    )
                 )
             else:
                 log_info = _("Error: Product not found.")
+
         update_values.update(
             {
                 "state": "error" if log_info else "done",
                 "log_info": log_info,
             }
         )
+
         return update_values
 
     def _find_product(self):
@@ -354,19 +401,6 @@ class ProductPricelistItemImportLine(models.Model):
                 return product
         return product_obj
 
-    @staticmethod
-    def _get_import_action(current_items):
-        return "update" if current_items else "create"
-
-    def _find_pricelist_items_to_update(self, product):
-        active_items = self._find_active_pricelist_items(product)
-        catalog_items = self._find_catalog_pricelist_items(active_items)
-        if catalog_items:
-            return catalog_items
-        if self.catalog_ids:
-            return self._find_same_price_pricelist_items(active_items)
-        return catalog_items
-
     def _find_active_pricelist_items(self, product):
         self.ensure_one()
         items = self.env["product.pricelist.item"].search(
@@ -379,15 +413,19 @@ class ProductPricelistItemImportLine(models.Model):
         )
         today = fields.Date.context_today(self)
         return items.filtered(
-            lambda item: not item.date_end
-            or fields.Date.to_date(item.date_end) >= today
+            lambda item: (
+                (not item.date_start or fields.Date.to_date(item.date_start) <= today)
+                and (not item.date_end or fields.Date.to_date(item.date_end) >= today)
+            )
         )
 
     def _find_catalog_pricelist_items(self, items):
         self.ensure_one()
+
         if not self.catalog_ids:
             return items.filtered(lambda item: not item.catalog_ids)
-        return items.filtered(lambda item: item.catalog_ids & self.catalog_ids)
+
+        return items.filtered(lambda item: not (self.catalog_ids - item.catalog_ids))
 
     def _find_same_price_pricelist_items(self, items):
         self.ensure_one()
@@ -414,24 +452,17 @@ class ProductPricelistItemImportLine(models.Model):
 
     def _update_pricelist_items(self):
         self.ensure_one()
+
         items = self.pricelist_item_ids
         if not items:
             return
+
         items.write(
             {
                 "fixed_price": self.fixed_price,
                 "distribution_price": self.distribution_price,
             }
         )
-        if self.catalog_ids:
-            missing_catalogs = self.catalog_ids - items.catalog_ids
-            items[:1].write(
-                {
-                    "catalog_ids": [
-                        (4, catalog_id) for catalog_id in missing_catalogs.ids
-                    ]
-                }
-            )
 
     def _pricelist_item_values(self, product=False, create=False):
         self.ensure_one()
@@ -451,3 +482,22 @@ class ProductPricelistItemImportLine(models.Model):
                 }
             )
         return values
+
+    def _add_catalogs_to_pricelist_item(self):
+        self.ensure_one()
+
+        item = self.pricelist_item_ids[:1]
+
+        if not item:
+            return
+
+        missing_catalogs = self.catalog_ids - item.catalog_ids
+
+        if missing_catalogs:
+            item.write(
+                {
+                    "catalog_ids": [
+                        (4, catalog_id) for catalog_id in missing_catalogs.ids
+                    ]
+                }
+            )
