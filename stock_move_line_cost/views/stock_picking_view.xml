@@ -12,11 +12,13 @@
           name="standard_price"
           force_save="1"
           optional="show"
+          groups="product_cost_security.group_product_cost"
           column_invisible="parent.picking_type_code not in ['internal', 'incoming']"
         />
         <field
           name="amount"
           optional="show"
+          groups="product_cost_security.group_product_cost"
           force_save="1"
           sum="Total Amount"
           column_invisible="parent.picking_type_code not in ['internal', 'incoming']"
