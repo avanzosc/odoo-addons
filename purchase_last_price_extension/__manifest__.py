@@ -3,14 +3,13 @@
 
 {
     "name": "Purchase Last Price Extension",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Purchase",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "purchase_last_price_info",
-        "purchase_order_line_input",
     ],
     "data": [
         "views/purchase_order_line_view.xml",
