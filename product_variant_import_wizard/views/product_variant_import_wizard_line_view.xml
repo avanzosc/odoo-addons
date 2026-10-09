@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_variant_import_line_view_form" model="ir.ui.view">
+    <field name="model">product.variant.import.line</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="button_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ('2validate', 'error', 'pass')"
+          />
+          <button
+            name="button_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ('error', 'pass')"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <group readonly="state == 'done'">
+            <group>
+              <field name="product_name" />
+              <field name="product_default_code" />
+              <field name="product_barcode" />
+              <field name="description" />
+              <field name="product_type" />
+              <field name="product_is_storable" />
+              <field name="sale_ok" />
+              <field name="purchase_ok" />
+              <field name="category_name" />
+              <field name="product_uom" />
+              <field name="purchase_uom_name" />
+              <field name="property_account_income" />
+              <field name="property_account_expense" />
+              <field name="list_price" />
+              <field name="standard_price" />
+              <field name="product_tracking" />
+              <field name="customer_tax" />
+              <field name="invoice_policy" />
+              <field name="purchase_method" />
+              <field name="description_purchase" />
+              <field name="top_graphic" />
+              <field name="bottom_graphic" />
+              <field name="composition" />
+              <field name="internal_category_name" />
+              <field name="brand_name" />
+              <field name="family_name" />
+              <field name="subfamily_name" />
+              <field name="season_name" />
+              <field name="serie_name" />
+              <field name="weight" />
+              <field name="volume" />
+              <field name="route_name" />
+              <field name="attributes_name" />
+            </group>
+            <group>
+              <field name="product_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="category_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="product_uom_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="purchase_uom_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="property_account_income_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="property_account_expense_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="customer_tax_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="internal_category_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field name="brand_id" options="{'no_create': True, 'no_open': True}" />
+              <field name="family_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="subfamily_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field name="season_id" options="{'no_create': True, 'no_open': True}" />
+              <field name="serie_id" options="{'no_create': True, 'no_open': True}" />
+              <field name="route_id" options="{'no_create': True, 'no_open': True}" />
+              <field name="attribute_ids" widget="many2many_tags" />
+              <field
+                name="top_transfer_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="bottom_transfer_product_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+            </group>
+          </group>
+          <field name="log_info" />
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_variant_import_line_view_tree" model="ir.ui.view">
+    <field name="model">product.variant.import.line</field>
+    <field name="arch" type="xml">
+      <list
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+        <field readonly="state == 'done'" name="action" />
+        <field readonly="state == 'done'" name="product_name" />
+        <field readonly="state == 'done'" name="product_default_code" />
+        <field
+          readonly="state == 'done'"
+          name="product_id"
+          options="{'no_create': True}"
+        />
+        <field readonly="state == 'done'" name="product_barcode" />
+        <field readonly="state == 'done'" name="description" />
+        <field readonly="state == 'done'" name="product_type" />
+        <field readonly="state == 'done'" name="product_is_storable" />
+        <field readonly="state == 'done'" name="sale_ok" />
+        <field readonly="state == 'done'" name="purchase_ok" />
+        <field readonly="state == 'done'" name="category_name" />
+        <field
+          readonly="state == 'done'"
+          name="category_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="product_uom" />
+        <field
+          readonly="state == 'done'"
+          name="product_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="purchase_uom_name" />
+        <field
+          readonly="state == 'done'"
+          name="purchase_uom_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="property_account_income" />
+        <field
+          readonly="state == 'done'"
+          name="property_account_income_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="property_account_expense" />
+        <field
+          readonly="state == 'done'"
+          name="property_account_expense_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="list_price" />
+        <field readonly="state == 'done'" name="standard_price" />
+        <field readonly="state == 'done'" name="product_tracking" />
+        <field readonly="state == 'done'" name="customer_tax" />
+        <field
+          readonly="state == 'done'"
+          name="customer_tax_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="invoice_policy" />
+        <field readonly="state == 'done'" name="purchase_method" />
+        <field readonly="state == 'done'" name="description_purchase" />
+        <field readonly="state == 'done'" name="top_graphic" />
+        <field readonly="state == 'done'" name="bottom_graphic" />
+        <field readonly="state == 'done'" name="composition" />
+        <field
+          readonly="state == 'done'"
+          name="top_transfer_product_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field
+          readonly="state == 'done'"
+          name="bottom_transfer_product_id"
+          optional="hide"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="internal_category_name" />
+        <field
+          readonly="state == 'done'"
+          name="internal_category_id"
+          options="{'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="brand_name" />
+        <field readonly="state == 'done'" name="brand_id" options="{'no_open': True}" />
+        <field readonly="state == 'done'" name="family_name" />
+        <field
+          readonly="state == 'done'"
+          name="family_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="subfamily_name" />
+        <field
+          readonly="state == 'done'"
+          name="subfamily_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="season_name" />
+        <field
+          readonly="state == 'done'"
+          name="season_id"
+          options="{'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="serie_name" />
+        <field readonly="state == 'done'" name="serie_id" options="{'no_open': True}" />
+        <field readonly="state == 'done'" name="weight" />
+        <field readonly="state == 'done'" name="volume" />
+        <field readonly="state == 'done'" name="route_name" />
+        <field
+          readonly="state == 'done'"
+          name="route_id"
+          options="{'no_create': True, 'no_open': True}"
+        />
+        <field readonly="state == 'done'" name="attributes_name" />
+        <field
+          readonly="state == 'done'"
+          name="attribute_ids"
+          widget="many2many_tags"
+        />
+        <field name="state" readonly="1" />
+        <field name="log_info" readonly="1" />
+      </list>
+    </field>
+  </record>
+
+  <record id="product_variant_import_line_view_search" model="ir.ui.view">
+    <field name="model">product.variant.import.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="product_name" />
+        <field name="product_default_code" />
+        <field name="product_barcode" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <separator />
+        <filter
+          string="To Update"
+          name="2update"
+          domain="[('action', '=', 'update')]"
+        />
+        <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+        <filter
+          string="Do Nothing"
+          name="do_nothing"
+          domain="[('action', '=', 'nothing')]"
+        />
+        <group expand="0" string="Group By">
+          <filter
+            string="Product"
+            name="product_group"
+            domain="[]"
+            context="{'group_by':'product_id'}"
+          />
+          <filter
+            string="Product Type"
+            name="type_group"
+            domain="[]"
+            context="{'group_by':'product_type'}"
+          />
+          <filter
+            string="Category"
+            name="category_group"
+            domain="[]"
+            context="{'group_by':'category_id'}"
+          />
+          <filter
+            string="Barcode"
+            name="barcode_group"
+            domain="[]"
+            context="{'group_by':'product_barcode'}"
+          />
+          <filter
+            string="Tracking"
+            name="tracking_group"
+            domain="[]"
+            context="{'group_by':'product_tracking'}"
+          />
+          <separator />
+          <filter name="group_status" string="Status" context="{'group_by': 'state'}" />
+          <filter string="Action" name="group_action" context="{'group_by':'action'}" />
+          <filter
+            string="Log Info"
+            name="group_log_info"
+            context="{'group_by':'log_info'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="product_variant_import_line_action" model="ir.actions.act_window">
+    <field name="name">Import Product Variant Lines</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">product.variant.import.line</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="product_variant_import_line_view_tree" />
+  </record>
+
+  <record id="action_validate_line" model="ir.actions.server">
+    <field name="name">Validate</field>
+    <field name="model_id" ref="model_product_variant_import_line" />
+    <field name="binding_model_id" ref="model_product_variant_import_line" />
+    <field name="state">code</field>
+    <field name="code">
+            for record in records:
+                record.button_validate()
+        </field>
+  </record>
+
+  <record id="action_process_line" model="ir.actions.server">
+    <field name="name">Process</field>
+    <field name="model_id" ref="model_product_variant_import_line" />
+    <field name="binding_model_id" ref="model_product_variant_import_line" />
+    <field name="state">code</field>
+    <field name="code">
+            for record in records:
+                record.button_process()
+        </field>
+  </record>
+</odoo>
