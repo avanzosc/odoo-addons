@@ -5,25 +5,23 @@
     <field name="inherit_id" ref="stock_account.view_stock_quant_tree_inherit" />
     <field name="arch" type="xml">
       <field name="value" position="attributes">
-        <attribute
-          name="groups"
-        >purchase_last_price_info_discount_visible.group_product_cost_visible</attribute>
+        <attribute name="groups">product_cost_security.group_product_cost</attribute>
       </field>
       <field name="value" position="before">
         <field
           name="standard_price"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
       </field>
       <field name="value" position="after">
         <field
           name="last_purchase_price_company_currency"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
         <field
           name="purchase_value"
           string="Last purchase price value"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
       </field>
     </field>
@@ -37,25 +35,23 @@
     />
     <field name="arch" type="xml">
       <field name="value" position="attributes">
-        <attribute
-          name="groups"
-        >purchase_last_price_info_discount_visible.group_product_cost_visible</attribute>
+        <attribute name="groups">product_cost_security.group_product_cost</attribute>
       </field>
       <field name="value" position="before">
         <field
           name="standard_price"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
       </field>
       <field name="value" position="after">
         <field
           name="last_purchase_price_company_currency"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
         <field
           name="purchase_value"
           string="Last purchase price value"
-          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+          groups="product_cost_security.group_product_cost"
         />
       </field>
       <field name="value" position="attributes">
