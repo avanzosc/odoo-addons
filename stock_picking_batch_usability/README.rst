@@ -6,7 +6,9 @@
 Stock Picking Batch Usability
 =============================
 
-In picking batches, you can also enter done transfers.
+* In picking batches, you can also enter done transfers.
+* In form view of object "Batch Transfer", two new shorcuts to: "Delivery" and
+  "Sale Orders".
 
 Bug Tracker
 ===========
