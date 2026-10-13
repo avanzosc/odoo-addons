@@ -10,6 +10,7 @@
     "license": "AGPL-3",
     "depends": [
         "account",
+        "mrp",
         "product_category_attribute",
         "purchase",
         "stock",
