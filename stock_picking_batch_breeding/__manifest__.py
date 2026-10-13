@@ -2,14 +2,14 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Batch Breeding",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "depends": [
         "stock_warehouse_farm",
         "stock_picking_batch_mother",
-        "stock_move_line_cost",
+        "stock_move_cost",
     ],
     "data": [
         "security/ir.model.access.csv",
