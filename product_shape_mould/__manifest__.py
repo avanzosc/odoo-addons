@@ -3,7 +3,7 @@
 
 {
     "name": "Product Shape Mould",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "category": "Manufacturing/Manufacturing",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -14,6 +14,8 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/product_shape_style_data.xml",
+        "data/product_shape_concave_data.xml",
         "data/product_attribute_actions.xml",
         "data/product_template_actions.xml",
         "views/product_attribute_views.xml",

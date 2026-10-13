@@ -138,6 +138,31 @@ msgid "Shape"
 msgstr "Shape"
 
 #. module: product_shape_mould
+#: model:ir.model.fields,field_description:product_shape_mould.field_product_shape__style_id
+#: model_terms:ir.ui.view,arch_db:product_shape_mould.product_shape_view_search
+msgid "Style"
+msgstr "Estilo"
+
+#. module: product_shape_mould
+#: model:ir.actions.act_window,name:product_shape_mould.product_shape_style_action
+#: model:ir.ui.menu,name:product_shape_mould.product_shape_style_menu
+msgid "Styles"
+msgstr "Estilos"
+
+#. module: product_shape_mould
+#: model:ir.model.fields,field_description:product_shape_mould.field_product_mould__concave_id
+#: model:ir.model.fields,field_description:product_shape_mould.field_product_shape__concave_id
+#: model_terms:ir.ui.view,arch_db:product_shape_mould.product_shape_view_search
+msgid "Concave"
+msgstr "Cóncavo"
+
+#. module: product_shape_mould
+#: model:ir.actions.act_window,name:product_shape_mould.product_shape_concave_action
+#: model:ir.ui.menu,name:product_shape_mould.product_shape_concave_menu
+msgid "Concaves"
+msgstr "Cóncavos"
+
+#. module: product_shape_mould
 #: model:ir.actions.act_window,name:product_shape_mould.product_shape_action
 #: model:ir.ui.menu,name:product_shape_mould.product_shape_menu
 msgid "Shapes"

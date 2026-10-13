@@ -9,6 +9,8 @@
         <field name="name" />
         <field name="attribute_value_count" />
         <field name="mould_id" />
+        <field name="style_id" optional="show" />
+        <field name="concave_id" optional="show" />
         <field name="template_id" optional="hide" />
         <field name="similar_shape_id" optional="hide" />
         <field name="length_mm" />
@@ -45,6 +47,8 @@
             <group>
               <field name="brand_info" />
               <field name="similar_shape_id" />
+              <field name="style_id" />
+              <field name="concave_id" />
               <field name="customer_table_ref" />
             </group>
             <group>
@@ -103,6 +107,8 @@
         <field name="name" />
         <field name="brand_info" />
         <field name="mould_id" />
+        <field name="style_id" />
+        <field name="concave_id" />
         <field name="template_id" />
         <filter
           name="without_attribute_values"
@@ -131,6 +137,16 @@
             context="{'group_by': 'mould_id'}"
           />
           <filter
+            name="group_by_style"
+            string="Style"
+            context="{'group_by': 'style_id'}"
+          />
+          <filter
+            name="group_by_concave"
+            string="Concave"
+            context="{'group_by': 'concave_id'}"
+          />
+          <filter
             name="group_by_company"
             string="Company"
             context="{'group_by': 'company_id'}"
@@ -147,11 +163,37 @@
     <field name="search_view_id" ref="product_shape_view_search" />
   </record>
 
+  <record id="product_shape_style_action" model="ir.actions.act_window">
+    <field name="name">Styles</field>
+    <field name="res_model">product.shape.style</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <record id="product_shape_concave_action" model="ir.actions.act_window">
+    <field name="name">Concaves</field>
+    <field name="res_model">product.shape.concave</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
   <menuitem
     id="product_shape_menu"
     name="Shapes"
     action="product_shape_action"
     parent="product_mould_template_menu"
     sequence="30"
+  />
+  <menuitem
+    id="product_shape_style_menu"
+    name="Styles"
+    action="product_shape_style_action"
+    parent="product_mould_template_menu"
+    sequence="40"
+  />
+  <menuitem
+    id="product_shape_concave_menu"
+    name="Concaves"
+    action="product_shape_concave_action"
+    parent="product_mould_template_menu"
+    sequence="50"
   />
 </odoo>
