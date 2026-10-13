@@ -18,14 +18,6 @@ class ProductTemplate(models.Model):
         comodel_name="product.category",
         string="Transfer Category",
     )
-    top_transfer_product_id = fields.Many2one(
-        related="product_variant_id.top_transfer_product_id",
-        readonly=False,
-    )
-    bottom_transfer_product_id = fields.Many2one(
-        related="product_variant_id.bottom_transfer_product_id",
-        readonly=False,
-    )
 
     @api.model
     def _get_profile_field_names(self):
@@ -93,3 +85,56 @@ class ProductProduct(models.Model):
         comodel_name="product.product",
         string="Bottom Transfer Product",
     )
+
+    def copy_profile_boms(self):
+        for product in self:
+            profile_product = product.profile_product_id
+            if not profile_product:
+                continue
+            profile_boms = profile_product.product_tmpl_id.bom_ids.filtered(
+                lambda bom, profile_product=profile_product: (
+                    not bom.product_id or bom.product_id == profile_product
+                )
+            )
+            product_boms = product.product_tmpl_id.bom_ids.filtered(
+                lambda bom, product=product: (
+                    not bom.product_id or bom.product_id == product
+                )
+            )
+            if product_boms:
+                continue
+            for profile_bom in profile_boms:
+                bom = profile_bom.copy(
+                    {
+                        "product_tmpl_id": product.product_tmpl_id.id,
+                        "product_id": product.id,
+                        "company_id": product.company_id.id or False,
+                    }
+                )
+                bom.bom_line_ids.bom_product_template_attribute_value_ids = False
+                bom.operation_ids.bom_product_template_attribute_value_ids = False
+                bom.byproduct_ids.bom_product_template_attribute_value_ids = False
+
+    def add_transfer_bom_lines(self):
+        for product in self:
+            transfer_products = (
+                product.top_transfer_product_id | product.bottom_transfer_product_id
+            )
+            if not transfer_products:
+                continue
+            product_boms = product.product_tmpl_id.bom_ids.filtered(
+                lambda bom, product=product: (
+                    not bom.product_id or bom.product_id == product
+                )
+            )
+            for bom in product_boms:
+                existing_products = bom.bom_line_ids.product_id
+                for transfer_product in transfer_products - existing_products:
+                    self.env["mrp.bom.line"].create(
+                        {
+                            "bom_id": bom.id,
+                            "product_id": transfer_product.id,
+                            "product_qty": 1.0,
+                            "product_uom_id": transfer_product.uom_id.id,
+                        }
+                    )
