@@ -93,3 +93,32 @@ class ProductProduct(models.Model):
         comodel_name="product.product",
         string="Bottom Transfer Product",
     )
+
+    def copy_profile_boms(self):
+        for product in self:
+            profile_product = product.profile_product_id
+            if not profile_product:
+                continue
+            profile_boms = profile_product.product_tmpl_id.bom_ids.filtered(
+                lambda bom, profile_product=profile_product: (
+                    not bom.product_id or bom.product_id == profile_product
+                )
+            )
+            product_boms = product.product_tmpl_id.bom_ids.filtered(
+                lambda bom, product=product: (
+                    not bom.product_id or bom.product_id == product
+                )
+            )
+            if product_boms:
+                continue
+            for profile_bom in profile_boms:
+                bom = profile_bom.copy(
+                    {
+                        "product_tmpl_id": product.product_tmpl_id.id,
+                        "product_id": product.id,
+                        "company_id": product.company_id.id or False,
+                    }
+                )
+                bom.bom_line_ids.bom_product_template_attribute_value_ids = False
+                bom.operation_ids.bom_product_template_attribute_value_ids = False
+                bom.byproduct_ids.bom_product_template_attribute_value_ids = False
