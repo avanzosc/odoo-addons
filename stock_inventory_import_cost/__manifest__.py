@@ -3,14 +3,14 @@
 
 {
     "name": "Stock Inventory Import Cost",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
         "stock_inventory_import_wizard",
-        "stock_move_line_cost",
+        "stock_move_cost",
     ],
     "data": [
         "views/stock_inventory_import_view.xml",
