@@ -599,6 +599,8 @@ class ProductImportLine(models.Model):
         product, log_info_product = self._check_product()
         if log_info_product:
             log_infos.append(log_info_product)
+        elif product:
+            log_infos.append(_("The product already exists."))
         if self.product_barcode:
             log_info_barcode = self._check_barcode()
             if log_info_barcode:
@@ -751,6 +753,7 @@ class ProductImportLine(models.Model):
                 if product and hasattr(product, "generate_code"):
                     product.generate_code()
                 if product:
+                    product.copy_profile_boms()
                     self._process_transfers(product)
         state = "error" if log_info else "done"
         action = "nothing" if log_info else "create"
@@ -888,8 +891,6 @@ class ProductImportLine(models.Model):
                         "company_id": self.import_id.company_id.id,
                     }
                 )
-                if hasattr(transfer_product, "generate_code"):
-                    transfer_product.generate_code()
             transfer_values[product_field] = transfer_product.id
         if transfer_values:
             product.write(transfer_values)
