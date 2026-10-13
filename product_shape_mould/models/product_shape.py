@@ -42,6 +42,15 @@ class ProductShape(models.Model):
         comodel_name="product.shape",
         string="Similar To",
     )
+    style_id = fields.Many2one(
+        comodel_name="product.shape.style",
+        string="Style",
+    )
+    concave_id = fields.Many2one(
+        related="mould_id.concave_id",
+        string="Concave",
+        store=True,
+    )
     customer_table_ref = fields.Char(string="Customer Table Reference")
     comments = fields.Text()
     length_mm = fields.Float(
