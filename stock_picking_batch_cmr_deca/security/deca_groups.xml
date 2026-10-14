@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- A category of our own, child of the real top-level "Inventory"
+         category (base.module_category_inventory), so it shows up as its
+         own row right next to Inventory's own User/Administrator row in
+         Settings > Users, under the same "Inventory" section header,
+         without sharing base.module_category_inventory_inventory itself.
+
+         That category is the one stock's own User/Administrator groups
+         use directly: reusing it here (as an earlier version of this file
+         did) merges our 3 groups into that exact same selection. Since the
+         5 combined groups don't form one total implication order, Odoo's
+         get_groups_by_application() falls back to rendering the whole lot
+         as loose checkboxes filed under the generic "Other" section
+         instead of a clean dropdown under "Inventory", burying DeCA's own
+         access levels where nobody would think to look, and breaking
+         Inventory's own clean selector in the process.
+
+         v18's res.groups has category_id directly (a plain Many2one to
+         ir.module.category); the privilege_id indirection through a
+         separate res.groups.privilege model (used on 19.0 for the same
+         purpose, via res_groups_privilege_l10n_es_deca) is a v19-only
+         restructuring, so this deliberately differs from the 19.0 branch's
+         version of this file. -->
+    <record id="module_category_deca" model="ir.module.category">
+        <field name="name">DeCA España</field>
+        <field name="parent_id" ref="base.module_category_inventory" />
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="group_deca_read_only" model="res.groups">
+        <field name="name">DeCA - Read-only</field>
+        <field name="category_id" ref="module_category_deca" />
+        <field
+      name="comment"
+    >Can see DeCAs, their PDFs and their history, but cannot generate, issue, modify or reissue one.</field>
+    </record>
+
+    <record id="group_deca_user" model="res.groups">
+        <field name="name">DeCA - User</field>
+        <field name="category_id" ref="module_category_deca" />
+        <field name="implied_ids" eval="[(4, ref('group_deca_read_only'))]" />
+        <field
+      name="comment"
+    >Day-to-day operation: generate, issue, register modifications (Método A) and reissue (Método B).</field>
+    </record>
+
+    <record id="group_deca_manager" model="res.groups">
+        <field name="name">DeCA - Manager</field>
+        <field name="category_id" ref="module_category_deca" />
+        <field name="implied_ids" eval="[(4, ref('group_deca_user'))]" />
+        <field
+      name="comment"
+    >Everything a User can do, plus deleting a draft and any manager-only action (e.g. cancelling a DeCA before its service starts).</field>
+    </record>
+
+    <!-- Every internal user gets at least read-only DeCA visibility by
+         default, same as they'd see any other app's records they haven't
+         been given write access to. Write/delete access (User/Manager)
+         stays an explicit opt-in per user, from Settings > Users, like any
+         other app's access rights.
+
+         base.group_user is noupdate="1" in its own module, so a plain
+         record tag here would silently no-op on every subsequent load;
+         a function call runs unconditionally instead. Self-cleaning on
+         uninstall: removing this module deletes group_l10n_es_deca_read_only,
+         and Odoo cascades that deletion out of implied_ids on its own. -->
+    <function
+    model="res.groups"
+    name="write"
+    eval="[[ref('base.group_user')], {'implied_ids': [(4, ref('group_deca_read_only'))]}]"
+  />
+</odoo>
