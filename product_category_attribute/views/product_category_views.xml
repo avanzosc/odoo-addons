@@ -7,7 +7,6 @@
       <list multi_edit="1">
         <field name="name" />
         <field name="attribute_ids" widget="many2many_tags" />
-        <field name="category_ids" widget="many2many_tags" />
       </list>
     </field>
   </record>
@@ -65,7 +64,10 @@
         <attribute name="multi_edit">1</attribute>
       </list>
       <field name="display_name" position="after">
+        <field name="product_count" optional="show" />
         <field name="attribute_profile_id" />
+        <field name="name" optional="hide" />
+        <field name="parent_id" optional="hide" />
       </field>
     </field>
   </record>
@@ -74,7 +76,7 @@
     <field name="model">product.category</field>
     <field name="inherit_id" ref="product.product_category_search_view" />
     <field name="arch" type="xml">
-      <field name="name" position="after">
+      <field name="name" position="before">
         <field name="display_name" string="Displayed Name" />
       </field>
       <search position="inside">
