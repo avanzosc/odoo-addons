@@ -78,6 +78,14 @@ def convert2str(value):
         return value.strip(" \n\t")
 
 
+def convert2bool(value, default=False):
+    if value in (None, ""):
+        return default
+    if isinstance(value, str):
+        return value.strip().lower() not in ("0", "false", "f", "no", "n")
+    return bool(value)
+
+
 def convert2date(value, datemode=0, timezone_name="UTC"):
     try:
         date_value = xlrd.xldate.xldate_as_datetime(value, datemode)

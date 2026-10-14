@@ -214,38 +214,30 @@ class AccountMoveImportLine(models.Model):
         store=True,
     )
     account_code = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
         required=True,
     )
     name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     debit = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     credit = fields.Float(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_ref = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_name = fields.Char(
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     account_id = fields.Many2one(
         comodel_name="account.account",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
     partner_id = fields.Many2one(
         comodel_name="res.partner",
-        states={"done": [("readonly", True)]},
         copy=False,
     )
 

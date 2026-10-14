@@ -1,9 +1,20 @@
 # Copyright 2023 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import logging
+import operator as py_operator
 
 from odoo import api, fields, models
 from odoo.osv import expression
+
+OPERATORS = {
+    "<": py_operator.lt,
+    ">": py_operator.gt,
+    "<=": py_operator.le,
+    ">=": py_operator.ge,
+    "=": py_operator.eq,
+    "!=": py_operator.ne,
+}
+
 
 _logger = logging.getLogger(__name__)
 
@@ -66,6 +77,10 @@ class StockWarehouseOrderpoint(models.Model):
         "In a context with a single Stock Location, this includes "
         "goods stored in this location, or any of its children.",
     )
+    forecaster_distinct_forecast = fields.Boolean(
+        string="Virtual Available Distinct Forecast",
+        readonly=True,
+    )
 
     @api.depends("product_id", "location_id")
     def _compute_location_quantities(self):
@@ -81,6 +96,9 @@ class StockWarehouseOrderpoint(models.Model):
                         "outgoing_draft_qty": 0.0,
                         "virtual_draft_available": 0.0,
                     }
+                )
+                record._calculate_virtual_available_distinct_forecast(
+                    virtual_available=0.0
                 )
                 continue
             location_product = record.product_id.with_context(
@@ -107,6 +125,14 @@ class StockWarehouseOrderpoint(models.Model):
                     "virtual_draft_available": virtual_draft_available,
                 }
             )
+            record._calculate_virtual_available_distinct_forecast(
+                virtual_available=virtual_available
+            )
+
+    def _calculate_virtual_available_distinct_forecast(self, virtual_available):
+        self.forecaster_distinct_forecast = (
+            True if virtual_available != self.qty_forecast else False
+        )
 
     @api.model
     def _name_search(
