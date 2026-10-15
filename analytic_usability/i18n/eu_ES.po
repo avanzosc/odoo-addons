@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 10:53+0000\n"
-"PO-Revision-Date: 2021-07-21 10:53+0000\n"
+"POT-Creation-Date: 2026-11-17 13:47+0000\n"
+"PO-Revision-Date: 2026-11-17 13:47+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 
 #. module: analytic_usability
 #: model:ir.model,name:analytic_usability.model_account_analytic_account
+#: model_terms:ir.ui.view,arch_db:analytic_usability.view_account_analytic_line_filter
 msgid "Analytic Account"
 msgstr "Kontu analitikoa"
 
@@ -43,7 +44,6 @@ msgid "Cost/Revenue"
 msgstr ""
 
 #. module: analytic_usability
-#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__account_move_id
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Invoice"
 msgstr "Faktura"
@@ -71,6 +71,11 @@ msgid "Invoice Vendor Reference"
 msgstr ""
 
 #. module: analytic_usability
+#: model:ir.model.fields,field_description:analytic_usability.field_account_analytic_line__account_move_id
+msgid "Related Invoice"
+msgstr ""
+
+#. module: analytic_usability
 #: model:ir.model.fields.selection,name:analytic_usability.selection__account_analytic_line__amount_type__revenue
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_analytic_line_view_search
 msgid "Revenue"
@@ -91,14 +96,4 @@ msgstr ""
 #. module: analytic_usability
 #: model_terms:ir.ui.view,arch_db:analytic_usability.account_config_settings_form_view
 msgid "Show related invoice data in analytic entries."
-msgstr ""
-
-#. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__invoice_user_id
-msgid "Technical field used to fit the generic behavior in mail templates."
-msgstr ""
-
-#. module: analytic_usability
-#: model:ir.model.fields,help:analytic_usability.field_account_analytic_line__account_move_id
-msgid "The move of this entry line."
 msgstr ""
