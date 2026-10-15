@@ -6,13 +6,17 @@
         <field name="arch" type="xml">
             <field name="date" position="before">
                 <field name="quality_manager_id" />
+                <field name="person_performs_inspection_id" />
+            </field>
+            <field name="date" position="after">
+                <field name="measurement_date" />
             </field>
             <xpath
         expr="//field[@name='inspection_lines']/tree/field[@name='question_type']"
         position="before"
       >
-                <field name="person_performs_inspection_id" />
-                <field name="measurement_date" />
+                <field name="person_performs_inspection_id" force_save="1" />
+                <field name="measurement_date" force_save="1" />
             </xpath>
         </field>
     </record>
