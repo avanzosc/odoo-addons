@@ -45,6 +45,12 @@ class AccountAnalyticLine(models.Model):
         related="move_line_id.move_id.user_id",
         store=True,
     )
+    account_analytic_parent_id = fields.Many2one(
+        string="Account Analytic Parent",
+        comodel_name="account.analytic.account",
+        related="account_id.parent_id",
+        store=True,
+    )
 
     @api.depends("amount")
     def _compute_amount_type(self):
