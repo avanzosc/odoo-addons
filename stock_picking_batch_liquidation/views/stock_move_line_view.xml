@@ -28,8 +28,11 @@
         <field name="type_category_id" optional="show" />
       </field>
       <field name="quantity" position="after">
-        <field name="standard_price" />
-        <field name="amount" />
+        <field
+          name="price_unit_cost"
+          groups="product_cost_security.group_product_cost"
+        />
+        <field name="cost" groups="product_cost_security.group_product_cost" />
       </field>
     </field>
   </record>
