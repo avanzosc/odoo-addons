@@ -78,16 +78,12 @@ class AccountAnalyticAccount(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id(
             "treasury_forecast.action_treasury_forecast"
         )
-        action["domain"] = expression.AND(
-            [
-                [("analytic_account_id", "in", self.ids)],
-                safe_eval(action.get("domain") or "[]"),
-            ]
-        )
+        action["domain"] = [("analytic_account_id", "in", self.ids)]
         context = safe_eval(action.get("context") or "{}")
         context.update(
             {
                 "default_analytic_account_id": self.id,
+                "hide_project_analytic": False,
             }
         )
         action.update(

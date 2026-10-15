@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-17 13:37+0000\n"
-"PO-Revision-Date: 2026-03-17 13:37+0000\n"
+"POT-Creation-Date: 2026-09-08 05:45+0000\n"
+"PO-Revision-Date: 2026-09-08 05:45+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,11 @@ msgstr ""
 #. module: stock_picking_usability
 #: model_terms:ir.ui.view,arch_db:stock_picking_usability.stock_picking_view_form
 msgid "<span class=\"o_stat_text\">Lots</span>"
+msgstr ""
+
+#. module: stock_picking_usability
+#: model:ir.actions.server,name:stock_picking_usability.action_cancel_stock_picking_list
+msgid "Cancel"
 msgstr ""
 
 #. module: stock_picking_usability
@@ -81,6 +86,18 @@ msgid "Show Always Detailed Operations"
 msgstr ""
 
 #. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_picking_internal_search
+msgid ""
+"State not in 'cancel', 'done' and deadline or expected date earlier than "
+"today"
+msgstr ""
+
+#. module: stock_picking_usability
 #: model:ir.model,name:stock_picking_usability.model_stock_picking
 msgid "Transfer"
+msgstr ""
+
+#. module: stock_picking_usability
+#: model_terms:ir.ui.view,arch_db:stock_picking_usability.view_stock_move_line_kanban
+msgid "X"
 msgstr ""
