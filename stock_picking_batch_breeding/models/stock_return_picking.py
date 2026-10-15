@@ -14,6 +14,6 @@ class StockReturnPicking(models.TransientModel):
                 new_picking.batch_id = active.batch_id.id
                 new_picking.custom_date_done = fields.Datetime.now()
         for line in new_picking.move_line_ids_without_package:
-            if line.move_id and line.move_id.standard_price:
-                line.standard_price = line.move_id.standard_price
+            if line.move_id and line.move_id.price_unit_cost:
+                line.price_unit_cost = line.move_id.price_unit_cost
         return new_picking
