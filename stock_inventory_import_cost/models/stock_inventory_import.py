@@ -70,5 +70,5 @@ class StockInventoryImportLine(models.Model):
             limit=1,
         )
         if line:
-            line.standard_price = self.inventory_product_cost
+            line.price_unit_cost = self.inventory_product_cost
         return result
