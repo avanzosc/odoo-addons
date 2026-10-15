@@ -259,12 +259,6 @@ class StockPickingBatch(models.Model):
                 )
             )
 
-    @api.onchange("cmr_driver_id")
-    def _onchange_cmr_driver_id(self):
-        for picking in self:
-            if picking.cmr_driver_id:
-                picking.cmr_loader_id = picking.cmr_driver_id.parent_id.id
-
     def action_issue_deca(self):
         self.ensure_one()
         if self.deca_state != "draft":
