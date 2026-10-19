@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="stock_lot_view_form_inherit_mould" model="ir.ui.view">
+    <field name="name">stock.lot.form.mould</field>
+    <field name="model">stock.lot</field>
+    <field name="inherit_id" ref="stock.view_production_lot_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='main_group']" position="after">
+        <field name="is_mould" invisible="1" />
+        <group string="Mould" invisible="not is_mould">
+          <group>
+            <field name="mould_id" />
+            <field name="manufacturing_year" />
+            <field name="modification_year" />
+            <field name="mould_length_mm" />
+            <field name="mould_width_mm" />
+          </group>
+          <group>
+            <field name="press_piston_pressure" />
+            <field name="mould_area_cm2" />
+            <field name="piston_area_cm2" />
+            <field name="pressure_kg_cm2" />
+          </group>
+        </group>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="stock_lot_view_list_inherit_mould" model="ir.ui.view">
+    <field name="name">stock.lot.list.mould</field>
+    <field name="model">stock.lot</field>
+    <field name="inherit_id" ref="stock.view_production_lot_tree" />
+    <field name="arch" type="xml">
+      <field name="product_id" position="after">
+        <field name="is_mould" column_invisible="True" />
+        <field name="mould_id" optional="hide" invisible="not is_mould" />
+        <field name="manufacturing_year" optional="hide" invisible="not is_mould" />
+        <field name="modification_year" optional="hide" invisible="not is_mould" />
+      </field>
+    </field>
+  </record>
+</odoo>

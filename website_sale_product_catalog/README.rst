@@ -37,8 +37,9 @@ Key features
 * **Catalog breadcrumb on product detail** — when a visitor navigates from a
   catalog to a product page (``/shop/product/<slug>?catalog_id=<id>``), the
   breadcrumb replaces "All Products" with a back-link to that catalog.
-* **Catalog filter on /shop** — customers can filter the product grid by one
-  catalog at a time; leaving the filter empty shows all products.
+* **Catalog filter on /shop** — customers can combine compatible catalogs;
+  selecting an incompatible catalog replaces the current selection. Leaving
+  the filter empty shows all products.
 * **Two filter layout modes**, toggled from the website editor panel:
 
   * **Left** — dropdown in the left sidebar, alongside existing category and
