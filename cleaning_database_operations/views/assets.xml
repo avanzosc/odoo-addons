@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template
+    id="assets_backend"
+    name="Cleaning Database Assets"
+    inherit_id="web.assets_backend"
+  >
+        <xpath expr="." position="inside">
+            <script
+        type="text/javascript"
+        src="/cleaning_database_operations/static/src/js/cleanup_progress.js"
+      />
+        </xpath>
+    </template>
+
+</odoo>

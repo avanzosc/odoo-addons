@@ -8,6 +8,8 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "web",
+        "bus",
         "stock",
         "sale",
         "purchase",
@@ -21,6 +23,7 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "views/assets.xml",
         "views/cleaning_database_view.xml",
     ],
     "installable": True,
