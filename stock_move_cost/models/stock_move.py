@@ -12,20 +12,22 @@ class StockMove(models.Model):
         store=True,
         copy=False,
         compute="_compute_price_unit_cost",
+        default=0.0,
     )
     cost = fields.Float(
         digits="Product Price",
         store=True,
         copy=False,
         compute="_compute_price_unit_cost",
+        default=0.0,
     )
 
     @api.depends("quantity", "move_line_ids", "move_line_ids.cost")
     def _compute_price_unit_cost(self):
         for move in self:
-            cost = sum(move.move_line_ids.mapped("cost"))
+            cost = sum(move.mapped("move_line_ids.cost"))
             move.cost = cost
             if cost and move.quantity:
                 move.price_unit_cost = cost / move.quantity
             else:
-                move.price_unit_cost = 0
+                move.price_unit_cost = 0.0

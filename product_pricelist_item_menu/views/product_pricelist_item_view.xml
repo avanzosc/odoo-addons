@@ -4,6 +4,12 @@
     <field name="model">product.pricelist.item</field>
     <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
     <field name="arch" type="xml">
+      <list position="attributes">
+        <attribute
+          name="decoration-muted"
+        >(date_start and date_start &gt; current_date) or (date_end and date_end &lt; current_date)</attribute>
+        <!--<attribute name="decoration-danger">(product_tmpl_id and not product_tmpl_id.active) or (product_id and not product_id.active)</attribute>-->
+      </list>
       <field name="date_end" position="after">
         <field name="base" optional="hide" />
         <field name="price_discount" optional="hide" />
@@ -12,82 +18,66 @@
       </field>
     </field>
   </record>
+
   <record id="product_pricelist_item_view_search" model="ir.ui.view">
     <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_view_search" />
     <field name="arch" type="xml">
-      <search>
-        <field name="pricelist_id" />
+      <field name="pricelist_id" position="after">
         <separator />
         <field name="product_id" />
         <field name="product_tmpl_id" />
         <field name="categ_id" />
         <separator />
         <field name="base" />
-        <group expand="0" string="Group By">
-          <filter
-            string="Pricelist"
-            name="group-pricelist"
-            domain="[]"
-            context="{'group_by':'pricelist_id'}"
-          />
-          <filter
-            string="Based on"
-            name="group-base"
-            domain="[]"
-            context="{'group_by':'base'}"
-          />
-          <filter
-            string="Apply On"
-            name="group-applied"
-            domain="[]"
-            context="{'group_by':'applied_on'}"
-          />
-          <filter
-            string="Compute Price"
-            name="group-compute-price"
-            domain="[]"
-            context="{'group_by':'compute_price'}"
-          />
-          <separator />
-          <filter
-            string="Product"
-            name="group-product"
-            domain="[]"
-            context="{'group_by':'product_id'}"
-          />
-          <filter
-            string="Product Template"
-            name="group-product-tmpl"
-            domain="[]"
-            context="{'group_by':'product_tmpl_id'}"
-          />
-          <filter
-            string="Product Category"
-            name="group-categ"
-            domain="[]"
-            context="{'group_by':'categ_id'}"
-          />
-          <filter
-            string="Other Pricelist"
-            name="group-base-pricelist"
-            domain="[]"
-            context="{'group_by':'base_pricelist_id'}"
-          />
-        </group>
-      </search>
+      </field>
+      <filter name="visible" position="after">
+        <filter
+          string="Active Products"
+          name="active_products"
+          domain="[
+            '&amp;',
+            '|', ('product_tmpl_id', '=', None), ('product_tmpl_id.active', '=', True),
+            '|', ('product_id', '=', None), ('product_id.active', '=', True),
+          ]"
+          context="{}"
+        />
+      </filter>
+      <filter name="groupby_product_variant" position="after">
+        <filter
+          string="Product Category"
+          name="groupby_category"
+          domain="[]"
+          context="{'group_by':'categ_id'}"
+        />
+      </filter>
+      <filter name="groupby_vendor" position="after">
+        <separator />
+        <filter
+          string="Based on"
+          name="groupby_base"
+          domain="[]"
+          context="{'group_by':'base'}"
+        />
+        <filter
+          string="Apply On"
+          name="groupby_applied"
+          domain="[]"
+          context="{'group_by':'applied_on'}"
+        />
+        <filter
+          string="Compute Price"
+          name="groupby_compute_price"
+          domain="[]"
+          context="{'group_by':'compute_price'}"
+        />
+        <filter
+          string="Other Pricelist"
+          name="groupby_base_pricelist"
+          domain="[]"
+          context="{'group_by':'base_pricelist_id'}"
+        />
+      </filter>
     </field>
   </record>
-  <record id="product_pricelist_item_menu_action" model="ir.actions.act_window">
-    <field name="name">Pricelist Items</field>
-    <field name="type">ir.actions.act_window</field>
-    <field name="res_model">product.pricelist.item</field>
-    <field name="view_mode">list,form</field>
-  </record>
-  <menuitem
-    id="menu_product_pricelist_item_action"
-    action="product_pricelist_item_menu.product_pricelist_item_menu_action"
-    parent="sale.product_menu_catalog"
-    groups="sales_team.group_sale_manager"
-    sequence="10"
-  />
 </odoo>

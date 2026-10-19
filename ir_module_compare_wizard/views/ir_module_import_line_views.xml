@@ -119,7 +119,7 @@
         <field
           name="migration_category_id"
           readonly="state == 'done'"
-          optional="show"
+          optional="hide"
         />
         <field name="module_technical_name" readonly="state == 'done'" />
         <field name="import_module_id" readonly="state == 'done'" optional="show" />
@@ -140,7 +140,7 @@
         <field name="license" optional="hide" />
         <field
           name="migration_hours"
-          optional="show"
+          optional="hide"
           widget="float_time"
           sum="Total Migration Hours"
         />
@@ -170,7 +170,7 @@
         <field
           name="module_author_generic"
           readonly="state == 'done'"
-          optional="show"
+          optional="hide"
         />
         <field name="migrate_module" readonly="state == 'done'" optional="hide" />
         <field name="install_module" readonly="state == 'done'" optional="hide" />
@@ -225,6 +225,21 @@
     <field name="code">
             if records:
                 records.button_validate()
+        </field>
+  </record>
+
+  <record id="action_button_open_modules" model="ir.actions.server">
+    <field name="name">Open Modules</field>
+    <field name="model_id" ref="ir_module_compare_wizard.model_ir_module_import_line" />
+    <field
+      name="binding_model_id"
+      ref="ir_module_compare_wizard.model_ir_module_import_line"
+    />
+    <field name="type">ir.actions.server</field>
+    <field name="state">code</field>
+    <field name="code">
+            if records:
+                action = records.button_open_modules()
         </field>
   </record>
 </odoo>

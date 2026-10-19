@@ -3,37 +3,18 @@
 
 import logging
 
+from odoo.tools.sql import column_exists, table_exists
+
 _logger = logging.getLogger(__name__)
-
-
-def _table_exists(cr, name):
-    cr.execute(
-        "SELECT EXISTS (SELECT FROM information_schema.tables WHERE table_name = %s)",
-        (name,),
-    )
-    return cr.fetchone()[0]
-
-
-def _column_exists(cr, table, column):
-    cr.execute(
-        """
-        SELECT EXISTS (
-            SELECT FROM information_schema.columns
-             WHERE table_name = %s AND column_name = %s
-        )
-        """,
-        (table, column),
-    )
-    return cr.fetchone()[0]
 
 
 def post_init_hook(env):
     cr = env.cr
 
-    if not _table_exists(cr, "product_catalog_web"):
+    if not table_exists(cr, "product_catalog_web"):
         return
 
-    if not _column_exists(cr, "product_catalog_web", "visible_slider"):
+    if not column_exists(cr, "product_catalog_web", "visible_slider"):
         return
 
     _logger.info(

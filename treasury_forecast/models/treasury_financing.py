@@ -7,13 +7,18 @@ from odoo.exceptions import ValidationError
 class TreasuryFinancing(models.Model):
     _name = "treasury.financing"
     _description = "Financing"
+    _check_company_auto = True
 
     code = fields.Char(required=True)
     name = fields.Char(required=True)
     partner_id = fields.Many2one(
         "res.partner",
     )
-    journal_id = fields.Many2one("account.journal", domain=[("type", "=", "bank")])
+    journal_id = fields.Many2one(
+        "account.journal",
+        domain=[("type", "=", "bank")],
+        check_company=True,
+    )
 
     display_name = fields.Char(
         compute="_compute_display_name",

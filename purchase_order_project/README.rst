@@ -7,6 +7,7 @@ Purchase order project
 ======================
 
 * This module put the analytic account in purchase orders.
+* New action sever "Put project from analytic account" in purchase orders.
 * This module shows the analytical account in the IN/OUT pickings.
 
 Bug Tracker
