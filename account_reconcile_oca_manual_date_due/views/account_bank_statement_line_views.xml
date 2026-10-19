@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="bank_statement_line_form_reconcile_inherit" model="ir.ui.view">
+    <field name="name">account.bank.statement.line.reconcile.inherit</field>
+    <field name="model">account.bank.statement.line</field>
+    <field
+      name="inherit_id"
+      ref="account_reconcile_oca.bank_statement_line_form_reconcile_view"
+    />
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='analytic_distribution']" position="after">
+            <field
+          name="manual_date_due"
+          string="Expiration Date (Manual)"
+          attrs="{'readonly': ['|', ('manual_reference', '=', False), ('is_reconciled', '=', True)]}"
+        />
+        </xpath>
+    </field>
+  </record>
+</odoo>

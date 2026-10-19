@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="cleaning_database_form_view" model="ir.ui.view">
+        <field name="model">cleaning.database</field>
+        <field
+      name="inherit_id"
+      ref="cleaning_database_operations.cleaning_database_form_view"
+    />
+        <field name="arch" type="xml">
+            <div position="inside">
+                <p>Assets: Account Asset Line and Account Asset.</p>
+                <p>
+                    <button
+            name="action_open_delete_warning"
+            type="object"
+            string="Cleaning Asset Operations"
+            class="oe_highlight"
+            context="{'default_object_to_delete':'asset'}"
+          />
+                </p>
+            </div>
+        </field>
+    </record>
+</odoo>

@@ -2,15 +2,6 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
-PURCHASE_REQUISITION_STATES = [
-    ("draft", "Draft"),
-    ("ongoing", "Ongoing"),
-    ("in_progress", "Confirmed"),
-    ("open", "Bid Selection"),
-    ("done", "Closed"),
-    ("cancel", "Cancelled"),
-]
-
 
 class PurchaseRequisitionLine(models.Model):
     _inherit = "purchase.requisition.line"
@@ -48,7 +39,6 @@ class PurchaseRequisitionLine(models.Model):
         copy=False,
     )
     state = fields.Selection(
-        PURCHASE_REQUISITION_STATES,
         string="Status",
         related="requisition_id.state",
         store=True,

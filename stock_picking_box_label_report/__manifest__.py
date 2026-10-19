@@ -7,13 +7,18 @@
     "category": "Inventory",
     "license": "AGPL-3",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": ["stock", "product_supplierinfo_for_customer"],
+    "depends": [
+        "stock",
+        "product_supplierinfo_for_customer",
+        "delivery_package_number",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "data/paperformat.xml",
         "wizard/wiz_picking_box_label_views.xml",
         "reports/layout.xml",
         "reports/picking_box_label_report.xml",
+        "reports/picking_all_box_label_report.xml",
     ],
     "installable": True,
 }

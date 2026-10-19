@@ -3,33 +3,44 @@
     <template
     id="product_nutrition_information_view"
     inherit_id="product_nutrition_allergen.product_nutrition_information"
+    priority="99"
   >
-        <xpath expr="//a[@id='show_nutrition']" position="attributes">
-            <attribute name="t-if">False</attribute>
+
+        <xpath expr="//div[@id='nutritional_info']" position="attributes">
+            <attribute name="t-if">
+                product.ingredients_information or product.allergy_information
+            </attribute>
         </xpath>
-        <xpath expr="//a[@id='show_nutrition']" position="after">
+
+        <xpath expr="//a[@id='show_nutrition']" position="replace">
             <a id="show_nutrition" href="#">Ingredientes y Alérgenos</a>
         </xpath>
+
         <xpath expr="//button[@id='button_nutrition']" position="attributes">
             <attribute name="t-if">False</attribute>
         </xpath>
-        <xpath expr="//button[@id='button_ingredients']" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </xpath>
-        <xpath expr="//button[@id='button_ingredients']" position="after">
+
+        <xpath expr="//button[@id='button_ingredients']" position="replace">
             <button
+        t-if="product.ingredients_information"
         type="button"
         id="button_ingredients"
         class="btn btn-primary"
-      >Ingredientes
+      >
+                Ingredientes
             </button>
         </xpath>
-        <xpath expr="//button[@id='button_allergy']" position="attributes">
-            <attribute name="t-if">False</attribute>
-        </xpath>
-        <xpath expr="//button[@id='button_allergy']" position="after">
-            <button type="button" id="button_allergy" class="btn btn-primary">Alérgenos
+
+        <xpath expr="//button[@id='button_allergy']" position="replace">
+            <button
+        t-if="product.allergy_information"
+        type="button"
+        id="button_allergy"
+        class="btn btn-primary"
+      >
+                Alérgenos
             </button>
         </xpath>
+
     </template>
 </odoo>

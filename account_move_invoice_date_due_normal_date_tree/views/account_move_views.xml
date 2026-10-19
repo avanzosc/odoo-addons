@@ -5,9 +5,15 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree" />
         <field name="arch" type="xml">
-            <field name="invoice_date_due" position="attributes">
+            <xpath expr="//field[@name='invoice_date_due']" position="attributes">
                 <attribute name="widget" />
-            </field>
+                <attribute
+          name="decoration-danger"
+        >invoice_date_due &lt; today</attribute>
+                <attribute
+          name="decoration-success"
+        >invoice_date_due &gt;= today</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

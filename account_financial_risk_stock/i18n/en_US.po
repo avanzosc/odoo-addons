@@ -1,0 +1,66 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_financial_risk_stock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-23 10:26+0000\n"
+"PO-Revision-Date: 2025-06-23 10:26+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_financial_risk_stock
+#: model:ir.model.fields,field_description:account_financial_risk_stock.field_res_partner__block_picking_risk
+#: model:ir.model.fields,field_description:account_financial_risk_stock.field_res_users__block_picking_risk
+msgid "Block picking in case of exceeded risk"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model:ir.model,name:account_financial_risk_stock.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model_terms:ir.ui.view,arch_db:account_financial_risk_stock.res_partner_view_risk
+msgid "In Picking"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model:ir.model.fields,help:account_financial_risk_stock.field_stock_picking__risk_exception
+msgid "It Indicate if partner risk exceeded"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model:ir.model.fields,field_description:account_financial_risk_stock.field_stock_picking__risk_exception
+msgid "Risk Exception"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#. odoo-python
+#: code:addons/account_financial_risk_stock/models/stock_picking.py:0
+#, python-format
+msgid ""
+"The client: %(customer_name)s has blocked the issuance of delivery notes due"
+" to risk limits. Contact with administration."
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model:ir.model,name:account_financial_risk_stock.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model_terms:ir.ui.view,arch_db:account_financial_risk_stock.view_picking_internal_search
+msgid "With Risk Exception"
+msgstr ""
+
+#. module: account_financial_risk_stock
+#: model_terms:ir.ui.view,arch_db:account_financial_risk_stock.view_picking_internal_search
+msgid "Without Risk Exception"
+msgstr ""

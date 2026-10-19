@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="make_amount_tree_view" model="ir.ui.view">
+        <field name="name">make.amount.tree.view</field>
+        <field name="model">make.amount</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="company_id" invisible="1" />
+                <field name="partner_name" invisible="1" />
+                <field name="partner_id" optional="show" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          optional="show"
+        />
+                <field name="relation_id" optional="show" />
+                <field name="purchase_group_id" optional="show" />
+                <field name="sale_warn_msg" optional="show" />
+                <field name="category_ids" widget="many2many_tags" optional="show" />
+                <field name="tariff_id" optional="show" />
+                <field name="make_id" optional="show" />
+                <field name="debit" sum="Total amount" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="make_amount_tree_filter" model="ir.ui.view">
+        <field name="name">make.amount.tree.filter</field>
+        <field name="model">make.amount</field>
+        <field name="arch" type="xml">
+            <search string="Search amounts by makes and customers">
+                <field name="partner_id" />
+                <field name="tariff_id" />
+                <field name="classification_id" string="Input channel" />
+                <field name="relation_id" />
+                <field name="purchase_group_id" />
+                <field name="make_id" />
+                <field name="partner_state_id" />
+                <field name="commercial_id" />
+                <field name="sale_warn_msg" />
+                <group expand="0" string="Group By">
+                    <filter
+            name="state"
+            string="State"
+            domain="[]"
+            context="{'group_by':'partner_state_id'}"
+          />
+                    <filter
+            name="commercial"
+            string="Commercial"
+            domain="[]"
+            context="{'group_by':'commercial_id'}"
+          />
+                    <filter
+            string="Customer"
+            name="customer"
+            domain="[]"
+            context="{'group_by':'partner_id'}"
+          />
+                    <filter
+            string="Tariff"
+            name="tariff"
+            domain="[]"
+            context="{'group_by':'tariff_id'}"
+          />
+                    <filter
+            string="Classification"
+            name="Input channel"
+            domain="[]"
+            context="{'group_by':'classification_id'}"
+          />
+                    <filter
+            string="Relation"
+            name="relation"
+            domain="[]"
+            context="{'group_by':'relation_id'}"
+          />
+                    <filter
+            name="purchase-group"
+            string="Purchase group"
+            domain="[]"
+            context="{'group_by':'purchase_group_id'}"
+          />
+                    <filter
+            name="make"
+            string="Make"
+            domain="[]"
+            context="{'group_by':'make_id'}"
+          />
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="make_amount_action" model="ir.actions.act_window">
+        <field name="name">Amounts by makes and customers</field>
+        <field name="res_model">make.amount</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem
+    action="make_amount_action"
+    id="menu_make_amount_group"
+    name="Amounts by makes and customers"
+    parent="contacts.res_partner_menu_config"
+    groups="product_make.make_amount_user"
+    sequence="4"
+  />
+</odoo>

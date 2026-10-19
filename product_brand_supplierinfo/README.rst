@@ -2,12 +2,15 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-Product brand supplierinfo
-==========================
+============================
+Product brand supplierinfo 1
+============================
 
 * In "Product Brand" new field "Code".
-* In "Supplier Pricelist" new fields "Brand", and "Brand Code".
+* New objects "Brand Products Footprint" and "Brand Products".
+* In "Supplier Pricelist" new fields "Brand Product, "Brand", and "Brand Code".
+* New group "Brands Manager" for "Product Brand", "Brand Products Footprint"
+  and "Brand Products"
 
 
 Bug Tracker

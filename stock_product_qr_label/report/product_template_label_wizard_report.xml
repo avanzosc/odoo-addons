@@ -1,99 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="product_template_label_wizard_document">
-        <t t-call="stock_product_qr_label.external_layout_product_label_wizard">
+        <t t-call="stock_product_qr_label.external_layout_quant_product_label">
             <div
         class="page"
-        style="font-size: 19px !important; font-family: ubuntu condensed; page-break-after: always; margin-top: -50px !important;"
+        style="font-size: 12px !important; font-family: ubuntu condensed; page-break-after: always; padding-top: 5px;  margin-right: -10px; margin-left: -10px; margin-bottom: -10px; margin-top: 10px;"
       >
-                <!-- Referencia interna y fecha -->
                 <div class="row">
-                    <div class="col-6" style="text-align: left;">
-                        <b>
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
+                    <div class="col-6" style="text-align: left !important;">
+                        <b><span
                 t-field="doc.wizard_id.template_id.default_code"
-              />
-                        </b>
+                style="font-size: 18px !important;"
+              /></b>
                     </div>
-                    <div class="col-6" style="text-align: right;">
-                        <b>
-                            <span
-                t-field="doc.wizard_id.report_date"
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                t-options='{"widget": "date"}'
-              />
-                        </b>
+                    <div
+            class="col-6"
+            t-if="doc.lot_id.name"
+            style="text-align: right !important;"
+          >
+                        <b><span
+                t-field="doc.lot_id.name"
+                style="font-size: 18px !important;"
+              /></b>
+                    </div>
+                </div>
+                <div class="row" t-if="doc.location_id">
+                    <div class="col-12" style="text-align: left !important;">
+                        <b><span
+                t-field="doc.location_id.name"
+                style="font-size: 18px !important;"
+              /></b>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <b>
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                t-esc="doc.wizard_id.template_id.name[0:40]"
-              />
-                        </b>
+                        <b><span
+                t-esc="doc.wizard_id.template_id.name_for_labels"
+              /></b>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-8" style="text-align: left;">
+                    <div class="col-8" style="padding-right: 30px;">
                         <b>
+                            <span>Bin: </span>
+                            <span t-field="doc.wizard_id.bin" />
+                            <br />
+                            <span>Qty.: </span>
+                            <span t-esc="int(doc.product_qty)" />
+                            <br />
+                            <span>Date: </span>
                             <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-              >Lot:</span>
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                t-field="doc.lot_id.name"
+                t-field="doc.wizard_id.report_date"
+                t-options="{&quot;widget&quot;: &quot;date&quot;}"
               />
-                        </b>
-                        <br />
-                        <b>
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-              >Qty.:</span>
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                t-esc="int(doc.product_qty)"
-              />
-                        </b>
-                        <t t-if="doc.wizard_id.bin">
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-              >
-                                <br />
-                                <b>
-                                    <span
-                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                  >Bin: </span>
-                                    <span
-                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                    t-field="doc.wizard_id.bin"
-                  />
-                                </b>
-                            </span>
-                        </t>
-                        <t t-if="doc.location_id">
-                            <span
-                style="margin: 0; padding: 0; line-height: 1.2 !important;"
-              >
-                                <br />
-                                <b>
-                                    <span
-                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                  >Loc: </span>
-                                    <span
-                    style="margin: 0; padding: 0; line-height: 1.2 !important;"
-                    t-field="doc.location_id.name"
-                  />
-                                </b>
-                            </span>
-                        </t>
+                            </b>
                     </div>
-                    <div class="col-4" style="text-align: left !important;">
+                    <div class="col-4">
                         <img
-              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', doc.qr_code, 85, 90)"
-              style="margin-top: 0.3cm;"
+              style="margin-left: 5px;"
+              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', doc.qr_code, 80, 80)"
             />
                     </div>
                 </div>

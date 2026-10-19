@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+          class="oe_stat_button"
+          name="open_purchase_requisition_line"
+          icon="fa-list-ul"
+          type="object"
+        >
+                    <field
+            string="Amount agreement"
+            name="purchase_requisition_line_qty"
+            widget="statinfo"
+          />
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

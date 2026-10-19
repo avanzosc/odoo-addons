@@ -9,6 +9,7 @@
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Sales",
     "data": [
+        "security/ir.model.access.csv",
         "data/ir_sequence_data.xml",
         "views/product_product_view.xml",
         "wizard/wiz_generate_alternative_sale_code_view.xml",

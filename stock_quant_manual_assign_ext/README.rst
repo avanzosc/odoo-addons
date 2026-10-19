@@ -8,6 +8,7 @@ Stock quant manual assign ext
 
 * When reserving quants manually, delete the old move lines, those that have no
   quantities left.
+* Allow reserving larger quantity than required.
 
 Bug Tracker
 ===========

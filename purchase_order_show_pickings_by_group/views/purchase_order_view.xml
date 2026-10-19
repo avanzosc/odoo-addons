@@ -1,0 +1,33 @@
+<odoo>
+    <record id="purchase_order_form" model="ir.ui.view">
+        <field name="model">purchase.order</field>
+        <field
+      name="inherit_id"
+      ref="purchase_stock.purchase_order_view_form_inherit"
+    />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button
+          type="object"
+          name="action_view_group_picking"
+          class="oe_stat_button"
+          icon="fa-truck"
+          attrs="{'invisible': [('group_picking_count', '=', 0)]}"
+          groups="stock.group_stock_user"
+        >
+                    <field
+            name="group_picking_count"
+            widget="statinfo"
+            string="Pickings"
+          />
+                </button>
+            </xpath>
+            <xpath
+        expr="//div[@name='button_box']/button[@name='action_view_picking']"
+        position="attributes"
+      >
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

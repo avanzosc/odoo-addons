@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-16 06:34+0000\n"
-"PO-Revision-Date: 2024-12-16 06:34+0000\n"
+"POT-Creation-Date: 2025-05-30 06:48+0000\n"
+"PO-Revision-Date: 2025-05-30 06:48+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_picking_box_label_report
+#: model:ir.actions.report,print_report_name:stock_picking_box_label_report.action_picking_all_box_label_report
+msgid "('All Box Labels For Picking - %s' % (object.name))"
+msgstr ""
+
+#. module: stock_picking_box_label_report
 #: model:ir.actions.report,print_report_name:stock_picking_box_label_report.action_picking_box_label_report
 msgid "('Box Labels For Picking - %s' % (object.picking_id.name))"
+msgstr ""
+
+#. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
+msgid ""
+"<span style=\"font-size: 14px;\">BOX:</span>\n"
+"                                      <br/>\n"
+"                                      <span style=\"font-size: 14px;\">PICKING:</span>"
 msgstr ""
 
 #. module: stock_picking_box_label_report
@@ -29,8 +42,16 @@ msgid ""
 msgstr ""
 
 #. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
 #: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_box_label_report_document
 msgid "<span style=\"font-size: 14px;\">CUST. ARTICLE:</span>"
+msgstr ""
+
+#. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
+msgid ""
+"<span style=\"font-size: 14px;\">CUST. ORDER:</span>\n"
+"                                        <br/>"
 msgstr ""
 
 #. module: stock_picking_box_label_report
@@ -41,10 +62,30 @@ msgid ""
 msgstr ""
 
 #. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
+msgid ""
+"<span style=\"font-size: 14px;\">DESCRIPTION:</span>\n"
+"                                      <br/>"
+msgstr ""
+
+#. module: stock_picking_box_label_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_box_label_report_document
 msgid ""
 "<span style=\"font-size: 14px;\">DESCRIPTION:</span>\n"
 "                          <br/>"
+msgstr ""
+
+#. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
+msgid ""
+"<span style=\"font-size: 14px;\">ORDER:</span>\n"
+"                                      <br/>\n"
+"                                      <span style=\"font-size: 14px;\">Nº LOT:</span>\n"
+"                                      <br/>\n"
+"                                      <span style=\"font-size: 14px;\">ARTICLE:</span>\n"
+"                                      <br/>\n"
+"                                      <span style=\"font-size: 14px;\">QUANTITY:</span>\n"
+"                                      <br/>"
 msgstr ""
 
 #. module: stock_picking_box_label_report
@@ -61,13 +102,24 @@ msgid ""
 msgstr ""
 
 #. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
 #: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_box_label_report_document
 msgid "<span><b>PHONE: </b></span>"
 msgstr ""
 
 #. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
 #: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_box_label_report_document
 msgid "<span><b>VAT: </b></span>"
+msgstr ""
+
+#. module: stock_picking_box_label_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_box_label_report.picking_all_box_label_report_document
+msgid ""
+"<strong>\n"
+"                                        <span style=\"font-size: 14px;\">CUST. PRODUCT REF.:</span>\n"
+"                                      </strong>\n"
+"                                      <br/>"
 msgstr ""
 
 #. module: stock_picking_box_label_report
@@ -164,6 +216,11 @@ msgstr ""
 #. module: stock_picking_box_label_report
 #: model:ir.model.fields,field_description:stock_picking_box_label_report.field_wiz_picking_box_label__picking_id
 msgid "Picking"
+msgstr ""
+
+#. module: stock_picking_box_label_report
+#: model:ir.actions.report,name:stock_picking_box_label_report.action_picking_all_box_label_report
+msgid "Picking All Box Labels"
 msgstr ""
 
 #. module: stock_picking_box_label_report

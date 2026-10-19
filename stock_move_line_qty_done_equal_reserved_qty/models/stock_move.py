@@ -11,7 +11,7 @@ class StockMove(models.Model):
         vals = super()._prepare_move_line_vals(
             quantity=quantity, reserved_quant=reserved_quant
         )
-        if "reserved_uom_qty" in vals and vals.get("reserved_uom_qty", 0):
+        if vals.get("reserved_uom_qty", False):
             vals["qty_done"] = vals.get("reserved_uom_qty")
         return vals
 
@@ -21,5 +21,5 @@ class StockMove(models.Model):
             lambda x: not x.reserved_uom_qty and x.qty_done
         )
         if lines:
-            lines.write({"qty_done": 0})
+            lines.unlink()
         return result

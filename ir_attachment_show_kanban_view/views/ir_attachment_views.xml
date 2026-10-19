@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_document_file_kanban" model="ir.ui.view">
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="mail.view_document_file_kanban" />
+        <field name="arch" type="xml">
+            <div class="o_kanban_details" position="before">
+                <div class="o_kanban_image">
+                    <t
+            t-set="binaryPreviewable"
+            t-value="new RegExp('(image|video|application/pdf|text)').test(record.mimetype.value) &amp;&amp; record.type.raw_value === 'binary'"
+          />
+                    <div
+            t-attf-class="o_kanban_image_wrapper #{(webimage or binaryPreviewable) ? 'o_kanban_previewer' : ''}"
+          >
+                        <a
+              t-if="record.id"
+              t-attf-href="/web/content/#{record.id.raw_value}?download=false"
+              target="_blank"
+              title="View Document"
+              class="o_attachment_view_button"
+            >
+                            <i
+                class="fa fa-search fa-lg"
+                style="position: absolute; top: 5px; right: 5px; color: #666;"
+              />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

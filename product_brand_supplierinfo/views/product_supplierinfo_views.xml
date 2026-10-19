@@ -7,7 +7,16 @@
             <field name="product_code" position="after">
                 <field name="product_brand_id" optional="show" />
                 <field name="brand_code" optional="show" />
-                <field name="brand_marking" optional="show" readonly="1" />
+            </field>
+            <field name="partner_id" position="after">
+                <field name="product_tmpl_id" invisible="1" />
+                <field name="company_id" invisible="1" />
+                <field
+          name="brand_product_id"
+          options="{'no_create': True}"
+          domain="[('product_tmpl_id','=', product_tmpl_id),
+                   ('state', '=', 'homologation')]"
+        />
             </field>
         </field>
     </record>
@@ -17,9 +26,15 @@
         <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='delay']/.." position="after">
+
+                <field
+          name="brand_product_id"
+          options="{'no_create': True}"
+          domain="[('product_tmpl_id','=', product_tmpl_id),
+                   ('state', '=', 'homologation')]"
+        />
                 <field name="product_brand_id" />
                 <field name="brand_code" />
-                <field name="brand_marking" readonly="1" />
             </xpath>
         </field>
     </record>
@@ -31,7 +46,6 @@
             <field name="product_tmpl_id" position="after">
                 <field name="product_brand_id" />
                 <field name="brand_code" />
-                <field name="brand_marking" />
             </field>
             <filter name="groupby_vendor" position="after">
                 <filter
@@ -49,4 +63,12 @@
             </filter>
         </field>
     </record>
+
+    <menuitem
+    name="Vendor Pricelist"
+    id="menu_stock_product_supplierinfo"
+    action="product.product_supplierinfo_type_action"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="40"
+  />
 </odoo>

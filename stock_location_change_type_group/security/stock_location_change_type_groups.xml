@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="group_stock_location_change_type" model="res.groups">
+        <field name="name">Allow change of location type in locations</field>
+        <field
+      name="users"
+      eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+    />
+    </record>
+</odoo>

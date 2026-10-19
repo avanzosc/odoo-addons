@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_timesheet_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="project_info_id" />
+                <field name="project_type_id" readonly="1" />
+                <field name="project_manager_id" readonly="1" />
+                <field name="allow_billable" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
+        <field name="arch" type="xml">
+            <field name="date" position="after">
+                <field name="project_info_id" />
+                <field name="project_type_id" readonly="1" />
+                <field name="project_manager_id" readonly="1" />
+                <field name="allow_billable" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="project_info_id" readonly="1" optional="show" />
+                <field name="project_type_id" readonly="1" optional="show" />
+                <field name="project_manager_id" readonly="1" optional="show" />
+                <field name="allow_billable" readonly="1" optional="show" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter" />
+        <field name="arch" type="xml">
+            <field name="plan_id" position="after">
+                <field name="project_info_id" />
+                <field name="project_type_id" />
+                <field name="project_manager_id" />
+                <field name="allow_billable" />
+            </field>
+            <filter name="group_date" position="before">
+                <filter
+          string="Project Info"
+          name="project-info"
+          context="{'group_by': 'project_info_id'}"
+        />
+                <filter
+          string="Project type"
+          name="project-type"
+          context="{'group_by': 'project_type_id'}"
+        />
+                <filter
+          string="Project Manager"
+          name="project-manager"
+          context="{'group_by': 'project_manager_id'}"
+        />
+                <filter
+          string="Billable"
+          name="allow_billable"
+          context="{'group_by': 'allow_billable'}"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>

@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-08 12:25+0000\n"
-"PO-Revision-Date: 2024-08-08 12:25+0000\n"
+"POT-Creation-Date: 2025-03-20 07:59+0000\n"
+"PO-Revision-Date: 2025-03-20 07:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__installed_module_count
+msgid "# Additional Modules"
+msgstr "# Modulos adicionales"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__module_count
@@ -97,6 +102,11 @@ msgid "Activity Type Icon"
 msgstr "Ícono de tipo de actvidad"
 
 #. module: ir_module_compare_wizard
+#: model_terms:ir.ui.view,arch_db:ir_module_compare_wizard.ir_module_import_view_form
+msgid "Additional Installed"
+msgstr "Instalados adicionales"
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__message_attachment_count
 msgid "Attachment Count"
 msgstr "Nº de archivos adjuntos"
@@ -130,6 +140,7 @@ msgstr "Líneas para comparar modulos"
 
 #. module: ir_module_compare_wizard
 #: model:ir.ui.menu,name:ir_module_compare_wizard.module_import_management_menu
+#: model:ir.ui.menu,name:ir_module_compare_wizard.module_import_menu
 msgid "Compare Module to Install"
 msgstr "Comparador de modulos a instalar"
 
@@ -310,6 +321,11 @@ msgid "Installed Version"
 msgstr "Versión instalada"
 
 #. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__is_enterprise
+msgid "Is Enterprise"
+msgstr "Enterprise"
+
+#. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__message_is_follower
 msgid "Is Follower"
 msgstr "Es un seguidor"
@@ -343,6 +359,11 @@ msgstr "Última versión"
 #, python-format
 msgid "Latest Version"
 msgstr "Última versión"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import_line__license
+msgid "License"
+msgstr "Licencia"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__import_line_ids
@@ -384,7 +405,6 @@ msgstr "Migrar Módulo"
 
 #. module: ir_module_compare_wizard
 #. odoo-python
-#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #, python-format
 msgid "Module %(module_name)s not installable"
@@ -431,7 +451,6 @@ msgstr "Siguiente tipo de actividad"
 
 #. module: ir_module_compare_wizard
 #. odoo-python
-#: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #: code:addons/ir_module_compare_wizard/models/ir_module_compare.py:0
 #, python-format
 msgid "No module %(module_name)s found."
@@ -501,7 +520,7 @@ msgstr "Revisar"
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__split_size
 msgid "Split Size"
-msgstr ""
+msgstr "Tamaño a dividir"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__state
@@ -563,6 +582,16 @@ msgstr "Validar"
 #, python-format
 msgid "Website"
 msgstr "Sitio web"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,field_description:ir_module_compare_wizard.field_ir_module_import__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: ir_module_compare_wizard
+#: model:ir.model.fields,help:ir_module_compare_wizard.field_ir_module_import__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicación del sitio web"
 
 #. module: ir_module_compare_wizard
 #: model:ir.model,name:ir_module_compare_wizard.model_ir_module_import_line

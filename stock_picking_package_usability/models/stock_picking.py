@@ -45,13 +45,20 @@ class StockPicking(models.Model):
         string="# Packages", compute="_compute_packages_qty_weight", store=True
     )
     qty_packages = fields.Integer(string="Number of Packages")
-    packages_weight = fields.Float(compute="_compute_packages_weight", store=True)
-    packages_volume = fields.Float(compute="_compute_packages_volume", store=True)
+    packages_weight = fields.Float(
+        compute="_compute_packages_weight", store=True, readonly=False
+    )
+    packages_volume = fields.Float(
+        compute="_compute_packages_volume", store=True, readonly=False
+    )
     volume_uom_name = fields.Char(
         string="Volume UOM", compute="_compute_volume_uom_name", store=True
     )
     packages_qty = fields.Integer(
-        string="Packages Quantity", compute="_compute_packages_qty", store=True
+        string="Packages Quantity",
+        compute="_compute_packages_qty",
+        store=True,
+        readonly=False,
     )
 
     def action_view_package(self):

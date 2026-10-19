@@ -16,19 +16,3 @@ class ProductTemplate(models.Model):
     last_supplier_move_id = fields.Many2one(
         comodel_name="res.partner", string="Last supplier move"
     )
-
-    def set_product_template_last_purchase_move(
-        self,
-        last_supplier_move_date,
-        last_supplier_move_price,
-        last_supplier_move_id,
-    ):
-        return self.write(
-            {
-                "last_supplier_move_date": last_supplier_move_date,
-                "last_supplier_move_price": last_supplier_move_price,
-                "last_supplier_move_id": (
-                    last_supplier_move_id.id if last_supplier_move_id else False
-                ),
-            }
-        )

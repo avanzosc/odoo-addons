@@ -40,13 +40,23 @@
               attrs="{'invisible':[('import_line_ids', '=', [])]}"
               class="oe_stat_button"
               icon="fa-bars"
-            />      <button
+            />
+                        <button
               type="object"
               name="button_open_modules"
               class="oe_stat_button"
               icon="fa-bars"
             >
             <field name="module_count" widget="statinfo" />
+            </button>
+                        <button
+              string="Additional Installed"
+              type="object"
+              name="button_open_additional_modules"
+              class="oe_stat_button"
+              icon="fa-bars"
+            >
+            <field name="installed_module_count" widget="statinfo" />
             </button>
                     </div>
                         <group>

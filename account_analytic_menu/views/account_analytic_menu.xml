@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<odoo>
+    <menuitem
+    id="menu_account_analytic"
+    name="Analytic"
+    parent="account.menu_finance"
+    groups="account.group_account_readonly,account.group_account_invoice"
+    sequence="15"
+  />
+    <menuitem
+    id="menu_account_analytic_account"
+    parent="menu_account_analytic"
+    action="analytic.action_account_analytic_account_form"
+    sequence="10"
+  />
+</odoo>

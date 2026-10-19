@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_order_product_search" model="ir.ui.view">
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_search" />
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="make_id" />
+            </field>
+            <filter name="country_id" position="after">
+                <filter string="Make" name="make" context="{'group_by':'make_id'}" />
+            </filter>
+        </field>
+    </record>
+</odoo>

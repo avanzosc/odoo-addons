@@ -15,7 +15,7 @@
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_move_line_form" />
         <field name="arch" type="xml">
-            <field name="location_dest_id" position="after">
+            <field name="product_id" position="after">
                 <field name="price_unit_cost" />
                 <field name="cost" optional="show" />
             </field>

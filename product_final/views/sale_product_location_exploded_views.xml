@@ -5,19 +5,67 @@
       <field name="name">sale.product.location.exploded.tree.view</field>
       <field name="model">product.location.exploded</field>
       <field name="arch" type="xml">
-        <tree editable="bottom">
-          <field name="product_final_id" />
-          <field name="position" />
-          <field name="product_id" />
+        <tree>
+          <field name="product_final_id" optional="show" />
+          <field name="view_version_id" optional="show" />
+          <field name="product_list_version_id" optional="show" />
+          <field name="product_id" optional="show" />
+          <field name="alternative_sales_code" readonly="1" optional="show" />
+          <field name="description_sale_es" readonly="1" optional="show" />
+          <field name="description_sale_cat" readonly="1" optional="show" />
+          <field name="description_sale_en" readonly="1" optional="show" />
+          <field name="position" optional="show" />
+          <field name="initial_sn" optional="show" />
+          <field name="final_sn" optional="show" />
+          <field name="observations" optional="show" />
+          <field name="internal_note" optional="show" />
         </tree>
       </field>
+    </record>
+    <record model="ir.ui.view" id="product_location_exploded_form_view">
+        <field name="name">product.location.exploded.form.view</field>
+        <field name="model">product.location.exploded</field>
+        <field name="arch" type="xml">
+            <form string="Product exploded location">
+                <sheet>
+                    <group name="product_explodet_location_header">
+                        <group>
+                            <field name="active" />
+                            <field name="product_final_id" />
+                            <field name="view_version_id" />
+                            <field name="product_list_version_id" />
+                            <field name="position" />
+                        </group>
+                        <group>
+                            <field name="product_id" />
+                            <field name="alternative_sales_code" readonly="1" />
+                            <field name="description_sale_es" readonly="1" />
+                            <field name="description_sale_cat" readonly="1" />
+                            <field name="description_sale_en" readonly="1" />
+                        </group>
+                    </group>
+                    <group name="product_explodet_location_body">
+                        <group string="Initial S/N">
+                            <field name="initial_sn" nolabel="1" />
+                        </group>
+                        <group string="Final S/N">
+                            <field name="final_sn" nolabel="1" />
+                        </group>
+                    </group>
+                    <separator string="Observations" colspan="4" />
+                    <field name="observations" colspan="4" nolabel="1" />
+                    <separator string="Internal Note" colspan="4" />
+                    <field name="internal_note" colspan="4" nolabel="1" />
+                </sheet>
+            </form>
+        </field>
     </record>
 
     <!-- Action for Menu item "Inventory/Settings/Products/Final Product" -->
     <record id="action_sale_product_final" model="ir.actions.act_window">
         <field name="name">Products exploded location</field>
         <field name="res_model">product.location.exploded</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
         <field name="view_id" ref="sale_product_location_exploded_tree_view" />
     </record>
 
@@ -25,21 +73,36 @@
 	<menuitem
     id="sale_product_final_menu"
     name="Products exploded location"
-    sequence="10"
-    parent="sale.product_menu_catalog"
+    sequence="150"
+    parent="stock.menu_stock_inventory_control"
     action="action_sale_product_final"
   />
 
     <!-- Filter & Group by (product, product final, position) -->
     <record id="view_product_final_filter" model="ir.ui.view">
         <field name="name">Final Product Filters</field>
-	    <field name="model">product.location.exploded</field>
-	    <field name="arch" type="xml">
-	        <search>
-	            <field name="product_final_id" />
-                <field name="position" />
+        <field name="model">product.location.exploded</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="product_final_id" />
                 <field name="product_id" />
-	            <group expand="0" string="Group By">
+                <field name="alternative_sales_code" />
+                <field name="view_version_id" />
+                <field name="product_list_version_id" />
+                <field name="position" />
+                <separator />
+                <filter
+          string="Archived"
+          name="inactive"
+          domain="[('active','=',False)]"
+        />
+                <group expand="0" string="Group By">
+                    <filter
+            name="filter_product_final"
+            string="Product Final"
+            domain="[]"
+            context="{'group_by': 'product_final_id'}"
+          />
                     <filter
             name="filter_product"
             string="Product"
@@ -47,10 +110,16 @@
             context="{'group_by': 'product_id'}"
           />
                     <filter
-            name="filter_product_final"
-            string="Product Final"
+            name="filter_view_version"
+            string="View version"
             domain="[]"
-            context="{'group_by': 'product_final_id'}"
+            context="{'group_by': 'view_version_id'}"
+          />
+                    <filter
+            name="filter_product_list_version"
+            string="Product List Version"
+            domain="[]"
+            context="{'group_by': 'product_list_version_id'}"
           />
                     <filter
             name="filter_position"

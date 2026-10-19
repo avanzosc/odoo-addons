@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="res_partner_market_form_view" model="ir.ui.view">
+        <field name="name">res.partner.market.form.view</field>
+        <field name="model">res.partner.market</field>
+        <field name="arch" type="xml">
+            <form string="Market">
+                <sheet>
+                    <group name="head" colspan="4">
+                        <field name="name" colspan="4" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_partner_market_action" model="ir.actions.act_window">
+        <field name="name">Market</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.market</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    id="res_partner_market_menu"
+    name="Market"
+    action="res_partner_market_action"
+    parent="product_make.menu_customer_classification"
+    sequence="1"
+    groups="base.group_erp_manager"
+  />
+</odoo>

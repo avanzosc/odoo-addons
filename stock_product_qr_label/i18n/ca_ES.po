@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-09 05:21+0000\n"
-"PO-Revision-Date: 2025-05-09 05:21+0000\n"
+"POT-Creation-Date: 2025-10-16 09:49+0000\n"
+"PO-Revision-Date: 2025-10-16 09:49+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,7 +57,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_product_qr_label.picking_product_qr_label_document
 msgid ""
 "<br/>\n"
-"                                <span>Loc.: </span>"
+"                                <span>Date: </span>"
 msgstr ""
 
 #. module: stock_product_qr_label
@@ -75,6 +75,13 @@ msgid ""
 msgstr ""
 
 #. module: stock_product_qr_label
+#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
+msgid ""
+"<br/>\n"
+"                            <span>Date: </span>"
+msgstr ""
+
+#. module: stock_product_qr_label
 #: model_terms:ir.ui.view,arch_db:stock_product_qr_label.stock_product_qr_label_document
 msgid ""
 "<br/>\n"
@@ -82,6 +89,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_product_qr_label
+#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
 #: model_terms:ir.ui.view,arch_db:stock_product_qr_label.stock_product_qr_label_document
 msgid ""
 "<br/>\n"
@@ -90,41 +98,22 @@ msgstr ""
 
 #. module: stock_product_qr_label
 #: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
-msgid ""
-"<span style=\"margin: 0; padding: 0; line-height: 1.2 !important;\">Bin: "
-"</span>"
+msgid "<span>Bin: </span>"
 msgstr ""
 
 #. module: stock_product_qr_label
-#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
-msgid ""
-"<span style=\"margin: 0; padding: 0; line-height: 1.2 !important;\">Loc: "
-"</span>"
-msgstr ""
-
-#. module: stock_product_qr_label
-#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
-msgid ""
-"<span style=\"margin: 0; padding: 0; line-height: 1.2 "
-"!important;\">Lot:</span>"
-msgstr ""
-
-#. module: stock_product_qr_label
-#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.product_template_label_wizard_document
-msgid ""
-"<span style=\"margin: 0; padding: 0; line-height: 1.2 "
-"!important;\">Qty.:</span>"
-msgstr ""
-
-#. module: stock_product_qr_label
-#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.picking_product_qr_label_document
 #: model_terms:ir.ui.view,arch_db:stock_product_qr_label.stock_product_qr_label_document
 msgid "<span>Lot.: </span>"
 msgstr ""
 
 #. module: stock_product_qr_label
+#: model_terms:ir.ui.view,arch_db:stock_product_qr_label.picking_product_qr_label_document
+msgid "<span>Picking.: </span>"
+msgstr ""
+
+#. module: stock_product_qr_label
 #: model:ir.model.fields,field_description:stock_product_qr_label.field_product_template_label_wizard__allowed_lot_ids
-msgid "Allowed lots"
+msgid "Allowed Lot"
 msgstr ""
 
 #. module: stock_product_qr_label
@@ -296,6 +285,7 @@ msgstr ""
 
 #. module: stock_product_qr_label
 #. odoo-python
+#: code:addons/stock_product_qr_label/wizard/product_template_label_wizard.py:0
 #: code:addons/stock_product_qr_label/wizard/product_template_label_wizard.py:0
 #, python-format
 msgid "You must enter a line to print the label."

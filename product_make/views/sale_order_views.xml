@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <field name="team_id" position="replace" />
+            <xpath
+        expr="//field[@name='order_line']/form//group//field[@name='product_id']"
+        position="after"
+      >
+                <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+                <field
+          name="make_id"
+          domain="[('id','in',allowed_make_ids)]"
+          attrs="{'required': [('display_type', '=', False)] }"
+        />
+            </xpath>
+            <xpath
+        expr="//field[@name='order_line']/tree/field[@name='name']"
+        position="after"
+      >
+                <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+                <field
+          name="make_id"
+          domain="[('id','in',allowed_make_ids)]"
+          attrs="{'required': [('display_type', '=', False)] }"
+        />
+            </xpath>
+            <field name="partner_shipping_id" position="after">
+                <field name="makes_in_orders" invisible="1" />
+                <field name="allowed_commercial_make_ids" invisible="1" />
+                <field name="num_allowed_commercial_make" invisible="1" />
+                <field
+          name="commercial_make_id"
+          domain="[('id','in',allowed_commercial_make_ids)]"
+          attrs="{'invisible':[('num_allowed_commercial_make', '=', 1)], 'required':[('num_allowed_commercial_make', '!=', 1)]}"
+        />
+                <field name="team_id" string="Division" />
+            </field>
+            <button name="action_unlock" position="after">
+                <button
+          name="action_makes_in_lines"
+          type="object"
+          string="Reload marks on lines without marks"
+        />
+            </button>
+            <field name="order_line" position="attributes">
+                <attribute
+          name="context"
+        >{'default_sequence': max_line_sequence, 'commercial_make_id': commercial_make_id}</attribute>
+            </field>
+            <field name="payment_term_id" position="after">
+                <field name="market_id" string="Sale channel" invisible="1" />
+                <field name="market_sector_id" string="Market niche" invisible="1" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          readonly="1"
+          invisible="1"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_order_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="makes_in_orders" optional="hide" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          optional="hide"
+        />
+            </field>
+            <field name="amount_total" position="before">
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_quotation_tree" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="makes_in_orders" optional="hide" />
+                <field
+          name="classification_id"
+          string="Input channel"
+          optional="hide"
+        />
+            </field>
+            <field name="amount_total" position="before">
+                <field name="market_id" string="Sale channel" optional="hide" />
+                <field name="market_sector_id" string="Market niche" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_sales_order_filter" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_sales_order_filter" />
+        <field name="arch" type="xml">
+            <field name="user_id" position="after">
+                <field name="makes_in_orders" />
+                <field name="classification_id" string="Input channel" />
+            </field>
+            <field name="order_line" position="after">
+                <field name="market_id" string="Sale channel" />
+                <field name="market_sector_id" string="Market niche" />
+            </field>
+            <filter name="order_month" position="after">
+                <filter
+          name="market"
+          string="Sale channel"
+          domain="[]"
+          context="{'group_by' : 'market_id'}"
+        />
+                <filter
+          name="market_sector"
+          string="Market niche"
+          domain="[]"
+          context="{'group_by' : 'market_sector_id'}"
+        />
+                <filter
+          name="classification"
+          string="Input channel"
+          domain="[]"
+          context="{'group_by' : 'classification_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_put_commercial_make_in_sales" model="ir.actions.server">
+        <field name="name">Put Commercial Make</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="model_sale_order" />
+        <field name="binding_model_id" ref="model_sale_order" />
+        <field name="code">
+            if records:
+                records.action_put_commercial_make_in_sales()
+        </field>
+    </record>
+</odoo>

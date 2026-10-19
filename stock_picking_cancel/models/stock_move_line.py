@@ -20,11 +20,8 @@ class StockMoveLine(models.Model):
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", location.id),
         ]
-        if location.company_id:
-            cond.append(("company_id", "=", location.company_id.id))
-        if self.lot_id:
-            cond.append(("lot_id", "=", self.lot_id.id))
-        if self.package_id:
-            cond.append(("package_id", "=", self.package_id.id))
+        cond.append(("company_id", "=", location.company_id.id))
+        cond.append(("lot_id", "=", self.lot_id.id))
+        cond.append(("package_id", "=", self.package_id.id))
         cond.append(("owner_id", "=", self.owner_id.id))
         return cond

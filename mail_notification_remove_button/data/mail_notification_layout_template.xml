@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+    id="mail_notification_layout_remove_button_block"
+    inherit_id="mail.mail_notification_layout"
+    priority="99"
+  >
+
+        <xpath
+      expr="//tr[.//a[@t-att-href=&quot;button_access['url']&quot;]]"
+      position="replace"
+    />
+
+    </template>
+</odoo>

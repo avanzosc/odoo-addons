@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Tree view for "Final Product" -->
+    <record model="ir.ui.view" id="product_final_view_version_tree_view">
+      <field name="name">product.final.view.version.tree.view</field>
+      <field name="model">product.final.view.version</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="code" />
+          <field name="name" />
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_product_final_view_version" model="ir.actions.act_window">
+        <field name="name">Views Version</field>
+        <field name="res_model">product.final.view.version</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="product_final_view_version_tree_view" />
+    </record>
+
+    <menuitem
+    id="product_final_view_version_menu"
+    name="Views Version"
+    sequence="61"
+    parent="stock.menu_product_in_config_stock"
+    action="action_product_final_view_version"
+  />
+</odoo>

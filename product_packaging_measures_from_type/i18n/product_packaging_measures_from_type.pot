@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_packaging_measures_from_type
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-25 06:41+0000\n"
+"PO-Revision-Date: 2026-08-25 06:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model.fields,help:product_packaging_measures_from_type.field_stock_package_type__qty_per_layer
+msgid ""
+"Number of packages of this type that fit in a single layer when stacked on a"
+" pallet. Used to estimate the height of a pallet from the number of inner "
+"packages it contains."
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model.fields,field_description:product_packaging_measures_from_type.field_product_packaging__package_type_id
+msgid "Package Type"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model,name:product_packaging_measures_from_type.model_product_packaging
+msgid "Product Packaging"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model,name:product_packaging_measures_from_type.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model.fields,field_description:product_packaging_measures_from_type.field_stock_package_type__qty_per_layer
+msgid "Quantity per Layer"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.actions.server,name:product_packaging_measures_from_type.ir_actions_server_recalculate_packaging_weight_height
+msgid "Recalculate Packaging Weight and Height"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#: model:ir.model,name:product_packaging_measures_from_type.model_stock_package_type
+msgid "Stock package type"
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#. odoo-python
+#: code:addons/product_packaging_measures_from_type/models/stock_package_type.py:0
+#, python-format
+msgid "The empty weight of package type '%s' must be greater than zero."
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#. odoo-python
+#: code:addons/product_packaging_measures_from_type/models/stock_package_type.py:0
+#, python-format
+msgid "The height of package type '%s' must be greater than zero."
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#. odoo-python
+#: code:addons/product_packaging_measures_from_type/models/stock_package_type.py:0
+#, python-format
+msgid "The length of package type '%s' must be greater than zero."
+msgstr ""
+
+#. module: product_packaging_measures_from_type
+#. odoo-python
+#: code:addons/product_packaging_measures_from_type/models/stock_package_type.py:0
+#, python-format
+msgid "The width of package type '%s' must be greater than zero."
+msgstr ""

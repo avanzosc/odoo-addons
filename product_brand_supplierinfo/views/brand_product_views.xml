@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="brand_product_tree_view" model="ir.ui.view">
+        <field name="name">brand.product.tree.view</field>
+        <field name="model">brand.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="product_tmpl_id" optional="show" />
+                <field name="brand_id" optional="show" />
+                <field name="brand_code" optional="show" />
+                <field name="marking" optional="show" />
+                <field name="homologation_date" optional="show" />
+                <field name="dehomologation_date" optional="show" />
+                <field name="responsible_id" optional="show" />
+                <field name="state" optional="show" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="brand_product_form_view" model="ir.ui.view">
+        <field name="name">brand.product.form.view</field>
+        <field name="model">brand.product</field>
+        <field name="arch" type="xml">
+            <form string="Product Brand">
+                <header>
+                <button
+            name="action_set_homologation"
+            type="object"
+            string="Set to Homologation"
+            attrs="{'invisible': [('state','=','homologation')]}"
+            class="btn-primary"
+          />
+                <button
+            name="action_set_dehomologation"
+            type="object"
+            string="Set to Dehomologation"
+            attrs="{'invisible': [('state','=','dehomologation')]}"
+            class="btn-secondary"
+          />
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" />
+                        </h1>
+                    </div>
+                    <group name="brand_product_header">
+                        <group>
+                            <field name="product_tmpl_id" />
+                            <field name="brand_id" />
+                            <field name="responsible_id" />
+                            <field name="brand_code" />
+                            <field name="marking" />
+                        </group>
+                        <group>
+                            <field name="footprint_id" />
+                            <field name="homologation_date" />
+                            <field name="dehomologation_date" />
+                        </group>
+                    </group>
+                    <separator string="Dehomologation Reason" colspan="4" />
+                    <field name="dehomologation_reason" nolabel="1" />
+                    <separator string="Observations" colspan="4" />
+                    <field name="observations" nolabel="1" />
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="brand_product_filter_view" model="ir.ui.view">
+        <field name="name">brand.product.filter.view</field>
+        <field name="model">brand.product</field>
+        <field name="arch" type="xml">
+            <search string="Search Product Brands">
+                <field name="name" />
+                <field name="product_tmpl_id" />
+                <field name="brand_id" />
+                <field name="brand_code" />
+                <field name="homologation_date" />
+                <field name="dehomologation_date" />
+                <field name="responsible_id" />
+                <field name="footprint_id" />
+                <field name="state" />
+                <group expand="0" string="Group By">
+                    <filter
+            string="Product"
+            name="group_product"
+            domain="[]"
+            context="{'group_by': 'product_tmpl_id'}"
+          />
+                    <filter
+            string="Product"
+            name="group_brand"
+            domain="[]"
+            context="{'group_by': 'brand_id'}"
+          />
+                    <filter
+            string="Responsible"
+            name="group_responsible"
+            domain="[]"
+            context="{'group_by': 'responsible_id'}"
+          />
+                    <filter
+            string="Footprint"
+            name="group_footprint"
+            domain="[]"
+            context="{'group_by': 'footprint_id'}"
+          />
+                    <filter
+            string="Status"
+            name="group_state"
+            domain="[]"
+            context="{'group_by': 'state'}"
+          />
+                    <filter
+            string="Homologation Date"
+            name="group_homologation_date"
+            domain="[]"
+            context="{'group_by': 'homologation_date'}"
+          />
+                    <filter
+            string="Dehomologation Date"
+            name="group_dehomologation_date"
+            domain="[]"
+            context="{'group_by': 'dehomologation_date'}"
+          />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="brand_product_action" model="ir.actions.act_window">
+        <field name="name">Product Brands</field>
+        <field name="res_model">brand.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="brand_product_tree_view" />
+        <field name="context" />
+    </record>
+
+    <menuitem
+    name="Product Brands"
+    id="menu_brand_product"
+    action="brand_product_action"
+    parent="purchase.menu_product_in_config_purchase"
+    sequence="30"
+  />
+
+    <menuitem
+    name="Product Brands"
+    id="menu_stock_brand_product"
+    action="brand_product_action"
+    parent="product_brand_supplierinfo.stock_brand_menu"
+    sequence="30"
+  />
+</odoo>

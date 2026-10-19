@@ -8,23 +8,29 @@
           style="font-size: 12px !important; font-family: ubuntu condensed; page-break-after: always; padding-top: 5px;  margin-right: -10px; margin-left: -10px; margin-bottom: -10px; margin-top: 10px;"
         >
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-6" style="text-align: left !important;">
                             <b><span
                   t-field="line.product_id.code"
-                  style="text-align: left;"
-                /></b>
+                  style="font-size: 18px !important;"
+                />
+                             </b>
                         </div>
-                        <div class="col-5">
+                        <div class="col-6" style="text-align: right !important;">
                             <b><span
-                  t-field="line.picking_id.name"
-                  style="text-align: left;"
-                /></b>
+                  t-field="line.lot_id.name"
+                  style="font-size: 18px !important;"
+                />
+                            </b>
                         </div>
-                        <div class="col-4" style="text-align: right;">
-                            <b><span
-                  t-field="line.picking_id.date_done"
-                  t-options="{&quot;widget&quot;: &quot;date&quot;}"
-                /></b>
+                    </div>
+                    <div class="row">
+                        <div class="col-12" style="text-align: left !important;">
+                            <b>
+                                <span
+                  t-field="line.location_dest_id.name"
+                  style="font-size: 18px !important;"
+                />
+                            </b>
                         </div>
                     </div>
                     <div class="row">
@@ -35,23 +41,26 @@
                     <div class="row">
                         <div class="col-8" style="padding-right: 30px;">
                             <b>
-                                <span>Lot.: </span>
-                                <span t-field="line.lot_id.name" />
+                                <span>Picking.: </span>
+                                <span t-field="line.picking_id.name" />
                                 <br />
                                 <span>Bin: </span>
                                 <span t-field="line.lot_id.ref" />
                                 <br />
-                                <span>Loc.: </span>
-                                <span t-field="line.location_dest_id.name" />
-                                <br />
                                 <span>Qty.: </span>
                                 <span t-esc="int(line.qty_done)" />
+                                <br />
+                                <span>Date: </span>
+                                <span
+                  t-field="line.picking_id.date_done"
+                  t-options="{&quot;widget&quot;: &quot;date&quot;}"
+                />
                             </b>
                         </div>
                         <div class="col-4">
                             <img
-                style="margin-left: -30px;"
-                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', line.qr_code, 115, 115)"
+                style="margin-left: 5px;"
+                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', line.qr_code, 80, 80)"
               />
                         </div>
                     </div>

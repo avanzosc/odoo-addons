@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_quant_package_form" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.view_quant_package_form" />
+        <field name="arch" type="xml">
+            <div class="oe_button_box" name="button_box" position="inside">
+                <button
+          name="action_view_move_lines_from_package"
+          type="object"
+          class="oe_stat_button"
+          icon="fa-pencil-square-o"
+          attrs="{'invisible': [('move_lines_count', '=', 0)]}"
+        >
+                    <field
+            name="move_lines_count"
+            widget="statinfo"
+            string="Move Lines"
+          />
+                 </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="quant_package_search_view" model="ir.ui.view">
+        <field name="model">stock.quant.package</field>
+        <field name="inherit_id" ref="stock.quant_package_search_view" />
+        <field name="arch" type="xml">
+            <group position="before">
+                <separator />
+                <filter
+          string="Empty"
+          name="empty_filter"
+          domain="[('move_lines_count', '=', 0),
+                             ('all_quant_ids', '=', False)]"
+        />
+                <filter
+          string="Without Performing"
+          name="without_performing_filter"
+          domain="[('without_performing_move_lines_count', '>', 0)]"
+        />
+            </group>
+        </field>
+    </record>
+</odoo>
