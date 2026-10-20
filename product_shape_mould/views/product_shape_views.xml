@@ -65,16 +65,8 @@
             <field name="width_in" />
             <field name="wheelbase_mm" />
             <field name="wheelbase_in" />
-            <field
-              name="second_wheelbase_mm"
-              invisible="not double_wheelbase"
-              required="double_wheelbase"
-            />
-            <field
-              name="second_wheelbase_in"
-              invisible="not double_wheelbase"
-              required="double_wheelbase"
-            />
+            <field name="doblewheelbase_mm" />
+            <field name="doblewheelbase_in" />
             <field name="nose_mm" />
             <field name="nose_in" />
             <field name="tail_mm" />
@@ -86,7 +78,6 @@
           </group>
           <group string="Features">
             <field name="wheel_well_recesses" />
-            <field name="double_wheelbase" />
             <field name="symmetric" readonly="1" />
             <field name="drop" />
             <field name="exclusive" />
