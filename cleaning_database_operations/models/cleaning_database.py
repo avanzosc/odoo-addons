@@ -25,6 +25,8 @@ CLEANUP_TABLE_LABELS = {
     "account_partial_reconcile": "Partial Reconciliations",
     "account_payment_order": "Payment Orders",
     "account_payment_line": "Payment Lines",
+    "l10n_es_aeat_mod347_move_record": "AEAT 347 Move Records",
+    "l10n_es_aeat_mod349_partner_record_detail": ("AEAT 349 Partner Record Details"),
     "account_move_line": "Journal Items",
     "account_move": "Journal Entries",
     "account_bank_statement": "Bank Statements",
@@ -974,9 +976,11 @@ class CleaningDatabase(models.Model):
 
         self._delete_company_table("account_payment_line")
 
-        # Important:
-        # move lines and moves are deleted before assets.
+        self._delete_aeat_349_partner_record_details()
+
         self._delete_company_table("account_move_line")
+
+        self._delete_aeat_347_move_records()
 
         self._delete_company_table("account_move")
 
@@ -1087,3 +1091,69 @@ class CleaningDatabase(models.Model):
         values["name"] = _("Creation date: %s") % fields.Datetime.now()
 
         return super().create(values)
+
+    def _delete_aeat_349_partner_record_details(self):
+        self.ensure_one()
+
+        self.env.cr.execute(
+            """
+            SELECT to_regclass(
+                'public.l10n_es_aeat_mod349_partner_record_detail'
+            )
+            """
+        )
+
+        if not self.env.cr.fetchone()[0]:
+            return 0
+
+        if self._is_full_database_cleanup():
+            return self._delete_in_batches(
+                "l10n_es_aeat_mod349_partner_record_detail",
+                "TRUE",
+                (),
+            )
+
+        return self._delete_in_batches(
+            "l10n_es_aeat_mod349_partner_record_detail",
+            """
+            move_line_id IN (
+                SELECT id
+                FROM account_move_line
+                WHERE company_id = ANY(%s)
+            )
+            """,
+            (self.company_ids.ids,),
+        )
+
+    def _delete_aeat_347_move_records(self):
+        self.ensure_one()
+
+        self.env.cr.execute(
+            """
+            SELECT to_regclass(
+                'public.l10n_es_aeat_mod347_move_record'
+            )
+            """
+        )
+
+        if not self.env.cr.fetchone()[0]:
+            return 0
+
+        if self._is_full_database_cleanup():
+            return self._delete_in_batches(
+                "l10n_es_aeat_mod347_move_record",
+                "TRUE",
+                (),
+            )
+
+        return self._delete_in_batches(
+            "l10n_es_aeat_mod347_move_record",
+            """
+            move_id IN (
+                SELECT id
+                FROM account_move
+                WHERE company_id = ANY(%s)
+            )
+            """,
+            (self.company_ids.ids,),
+        )
