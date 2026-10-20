@@ -181,7 +181,7 @@ class CleaningDatabase(models.Model):
         )
 
     # pylint: disable=invalid-commit
-    def _prepare_cleanup_indexes(self, min_estimated_rows=1000):
+    def _prepare_cleanup_indexes(self, min_estimated_rows=0):
         """Create missing FK indexes useful for the cleanup.
 
         Only single-column foreign keys pointing to cleanup tables are
