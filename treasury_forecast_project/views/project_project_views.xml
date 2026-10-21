@@ -4,6 +4,9 @@
     <field name="model">project.project</field>
     <field name="inherit_id" ref="project.edit_project" />
     <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="target_margin" />
+      </field>
       <div name="button_box" position="inside">
         <button
           class="oe_stat_button"

@@ -209,6 +209,11 @@ msgid "Journals"
 msgstr "Diarios"
 
 #. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__margin
+msgid "Margin (%)"
+msgstr "Margen (%)"
+
+#. module: treasury_forecast_project
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__source
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Origin"
@@ -219,6 +224,14 @@ msgstr "Origen"
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Parent Category"
 msgstr "Categoría padre"
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__project_partner_id
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__project_partner_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_search
+msgid "Partner Project"
+msgstr "Cliente del proyecto"
 
 #. module: treasury_forecast_project
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__partner_id
@@ -265,6 +278,11 @@ msgstr "Proyecto"
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Projects"
 msgstr "Proyectos"
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_project_project__target_margin
+msgid "Target Margin (%)"
+msgstr "Margen objetivo (%)"
 
 #. module: treasury_forecast_project
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
