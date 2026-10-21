@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="cleaning_database_form_view">
+        <field name="name">cleaning.database.form.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <form string="Cleaning Database">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="date_limit" />
+                        </group>
+                        <group string="Companies">
+                            <field
+                name="company_ids"
+                nolabel="1"
+                colspan="4"
+                required="1"
+              >
+                                <tree delete="0" create="0" editable="top">
+                                    <field name="name" readonly="1" />
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Sales">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul><li>Sale Order Line
+                                </li><li> Sale Order</li></ul>
+                                <p>
+                                    <button
+                    name="action_delete_sale_operations"
+                    type="object"
+                    string="Cleaning Sale Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                            </div>
+                        </group>
+                        <group string="Purchases">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul><li>Purchase Order Line
+                                </li><li> Purchase Order</li></ul>
+                                <p>
+                                    <button
+                    name="action_delete_purchase_operations"
+                    type="object"
+                    string="Cleaning Purchase Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                            </div>
+                        </group>
+                        <group string="Accounting">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul><li>Account Analytic Line</li>
+                                    <li>Account Partial Reconcile</li>
+                                    <li>Account Move Line</li>
+                                    <li>Account Move</li>
+                                    <li>Account Payment Order</li></ul>
+                                <p>
+                                    <button
+                    name="action_delete_analytic_operations"
+                    type="object"
+                    string="Cleaning Accounting Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                            </div>
+                        </group>
+                        <group string="Manufacturing:">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul><li>MRP Workorder</li>
+                                    <li>MRP Production</li></ul>
+                                <p><button
+                    name="action_delete_mrp_operations"
+                    type="object"
+                    string="Cleaning MRP Operations"
+                    class="oe_highlight"
+                  /></p>
+                            </div>
+                        </group>
+                        <group string="Point of Sale:">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul><li>Pos Quotation Line</li>
+                                    <li>Pos Quotation</li></ul>
+                                <p><button
+                    name="action_delete_pos_quotation_operations"
+                    type="object"
+                    string="Cleaning PoS Quotations"
+                    class="oe_highlight"
+                  /></p>
+                                <ul><li>Pos Order Line</li>
+                                    <li>Pos Order</li></ul>
+                                <p><button
+                    name="action_delete_pos_operations"
+                    type="object"
+                    string="Cleaning PoS Operations"
+                    class="oe_highlight"
+                  /></p>
+                            </div>
+                        </group>
+                        <group string="Inventory:">
+                            <div style="margin-top: 4px;">
+                                <p>This will delete the following objects</p>
+                                <ul>
+                                    <li>Stock Valuation Layer</li>
+                                </ul>
+                                <p>
+                                    <button
+                    name="action_delete_stock_valuation_operations"
+                    type="object"
+                    string="Cleaning Valuation Layers"
+                    class="oe_highlight"
+                  />
+                                </p>
+                                <ul>
+                                    <li>Stock Move Line</li>
+                                    <li>Stock Move</li>
+                                    <li>Stock Picking</li>
+                                </ul>
+                                <p>
+                                    <button
+                    name="action_delete_stock_operations"
+                    type="object"
+                    string="Cleaning Stock Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                                <ul>
+                                    <li>Stock Inventory</li>
+                                </ul>
+                                <p>
+                                    <button
+                    name="action_delete_inventory_operations"
+                    type="object"
+                    string="Cleaning Inventory Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                                <ul>
+                                    <li>Stock Production Lot</li>
+                                </ul>
+                                <p>
+                                    <button
+                    name="action_delete_stock_production_lot"
+                    type="object"
+                    string="Cleaning Lots"
+                    class="oe_highlight"
+                  />
+                                </p>
+                                <ul>
+                                    <li>Stock Quant</li>
+                                </ul>
+                                <p>
+                                    <button
+                    name="action_delete_quant"
+                    type="object"
+                    string="Cleaning Quants"
+                    class="oe_highlight"
+                  />
+                                </p>
+                            </div>
+                        </group>
+                        <group string="Others:">
+                            <div style="margin-top: 4px;">
+                                <p>Others</p>
+                                <p>Transport Carrier Lines To Invoice</p>
+                                <p>
+                                    <button
+                    name="action_delete_transport_operations"
+                    type="object"
+                    string="Cleaning Transport Operations"
+                    class="oe_highlight"
+                  />
+                                </p>
+                                <p>Squence</p>
+                                <p>Reset sequences</p>
+                                <p>
+                                    <button
+                    name="action_delete_sequance_operations"
+                    type="object"
+                    string="Cleaning Sequences"
+                    class="oe_highlight"
+                  />
+                                </p>
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cleaning_database_tre_view">
+        <field name="name">cleaning.database.tree.view</field>
+        <field name="model">cleaning.database</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="company_ids" widget="many2many_tags" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_cleaning_database_view" model="ir.actions.act_window">
+        <field name="name">Cleaning Database</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">cleaning.database</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+    name="Cleaning Database"
+    id="cleaning_database"
+    sequence="100"
+    web_icon="cleaning_database_operations,static/description/boom_icon.png"
+  />
+
+    <menuitem
+    action="action_cleaning_database_view"
+    id="menu_view_cleaning_database"
+    parent="cleaning_database"
+    sequence="1"
+  />
+</odoo>
