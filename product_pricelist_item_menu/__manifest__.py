@@ -9,6 +9,7 @@
         "sale",
         "sales_team",
         "product",
+        "product_pricelist_item_list_view",
     ],
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",

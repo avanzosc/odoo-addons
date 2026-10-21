@@ -14,6 +14,7 @@
         <field name="base" optional="hide" />
         <field name="price_discount" optional="hide" />
         <field name="applied_on" optional="show" />
+        <field name="categ_id" optional="show" />
         <field name="compute_price" optional="show" />
       </field>
     </field>
@@ -80,16 +81,4 @@
       </filter>
     </field>
   </record>
-
-  <record id="product.product_pricelist_item_action" model="ir.actions.act_window">
-    <field name="context">{'search_default_active_products': 1}</field>
-  </record>
-
-  <menuitem
-    id="menu_product_pricelist_item_action"
-    action="product.product_pricelist_item_action"
-    parent="sale.product_menu_catalog"
-    groups="sales_team.group_sale_manager"
-    sequence="31"
-  />
 </odoo>
