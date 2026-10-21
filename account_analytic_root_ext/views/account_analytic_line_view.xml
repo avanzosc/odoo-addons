@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_analytic_line_filter" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_filter" />
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="root_analytic_account_id" />
+            </field>
+            <filter name="group_date" position="before">
+                <filter
+          string="Top Parent Analytic Account"
+          name="group_root_analytic_account"
+          context="{'group_by': 'root_analytic_account_id'}"
+        />
+            </filter>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_line_tree" model="ir.ui.view">
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree" />
+        <field name="arch" type="xml">
+            <field name="account_id" position="after">
+                <field name="root_analytic_account_id" optional="hide" />
+            </field>
+        </field>
+    </record>
+</odoo>
