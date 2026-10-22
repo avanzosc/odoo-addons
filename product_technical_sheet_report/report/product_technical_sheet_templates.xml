@@ -19,17 +19,17 @@
         .technical-sheet .section-title { background: #242021; color: #ef202d; font-size: 17px; font-weight: bold; padding: 7px 10px; }
         .technical-sheet .design-cell { width: 29%; border-right: 4px solid #242021; vertical-align: top; }
         .technical-sheet .info-cell { width: 42%; vertical-align: top; }
-        .technical-sheet .transfer-name { height: 26px; padding: 6px 10px; color: #ef202d; font-weight: bold; overflow-wrap: anywhere; }
-        .technical-sheet .design-image-box { height: 508px; padding: 8px; text-align: center; }
-        .technical-sheet .design-image { max-width: 96%; max-height: 493px; object-fit: contain; }
+        .technical-sheet .transfer-name { min-height: 52px; padding: 6px 10px; color: #ef202d; font-weight: bold; overflow-wrap: anywhere; }
+        .technical-sheet .design-image-box { height: 622px; padding: 8px; text-align: center; }
+        .technical-sheet .design-image { max-width: 96%; max-height: 607px; object-fit: contain; }
         .technical-sheet .deck-info { min-height: 170px; padding: 10px 14px; }
         .technical-sheet .feature-table { margin-top: 12px; }
         .technical-sheet .feature-table td { padding: 2px 0; }
         .technical-sheet .plies { min-height: 330px; padding: 10px 14px; border-bottom: 4px solid #242021; }
         .technical-sheet .ply-image { width: 170px; height: 15px; object-fit: cover; vertical-align: middle; }
         .technical-sheet .ply-row td { padding: 1px 3px; }
-        .technical-sheet .sample { min-height: 260px; padding: 12px; text-align: center; }
-        .technical-sheet .sample-image { max-width: 90%; max-height: 235px; object-fit: contain; }
+        .technical-sheet .sample { min-height: 400px; padding: 12px; text-align: center; }
+        .technical-sheet .sample-image { max-width: 90%; max-height: 375px; object-fit: contain; }
         .technical-sheet .collateral { width: 58%; border-right: 4px solid #242021; }
         .technical-sheet .collateral-content { height: 180px; padding: 8px; }
         .technical-sheet .collateral-image { max-width: 95%; max-height: 145px; object-fit: contain; }
@@ -48,8 +48,8 @@
             class="blue"
             t-esc="doc.product_brand_id.name or ''"
           /></td>
-          <td style="width: 30%; text-align: right; font-size: 13px;">
-            <span class="red">SEASON:</span>
+          <td style="width: 30%; text-align: right;">
+            <span>SEASON:</span>
             <span class="blue" t-esc="doc.get_technical_sheet_season()" />
           </td>
         </tr>
@@ -169,12 +169,17 @@
               <table t-if="shape" class="feature-table">
                 <tr t-if="shape.wheelbase_in">
                   <td>WHEELBASE</td>
-                  <td class="blue">
-                    <span t-esc="('%g&quot;' % shape.wheelbase_in)" />
-                    <t t-if="shape.doblewheelbase_in">
-                      x <span t-esc="('%g&quot;' % shape.doblewheelbase_in)" />
-                    </t>
-                  </td>
+                  <td
+                    class="blue"
+                    t-esc="doc.get_technical_sheet_wheelbase('wheelbase_in')"
+                  />
+                </tr>
+                <tr t-if="shape.doblewheelbase_in &gt; 0">
+                  <td>DOBLE WHEELBASE</td>
+                  <td
+                    class="blue"
+                    t-esc="doc.get_technical_sheet_wheelbase('doblewheelbase_in')"
+                  />
                 </tr>
                 <tr>
                   <td>Rebajes WW</td>
