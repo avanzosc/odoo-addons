@@ -1,0 +1,100 @@
+<odoo noupdate="1">
+  <record
+    id="product_state.product_state_draft"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_sellable"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_end"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record
+    id="product_state.product_state_obsolete"
+    model="product.state"
+    forcecreate="False"
+  >
+    <field name="active">False</field>
+  </record>
+
+  <record id="product_state_sample" model="product.state">
+    <field name="code">sample</field>
+    <field name="name">Sample</field>
+    <field name="sequence">10</field>
+  </record>
+
+  <record id="product_state_mto" model="product.state">
+    <field name="code">mto</field>
+    <field name="name">Make To Order</field>
+    <field name="sequence">20</field>
+  </record>
+
+  <record id="product_state_stock" model="product.state">
+    <field name="code">stock</field>
+    <field name="name">Stock</field>
+    <field name="sequence">30</field>
+    <field name="default">True</field>
+  </record>
+
+  <record id="product_state_clearance" model="product.state">
+    <field name="code">clearance</field>
+    <field name="name">Clearance</field>
+    <field name="sequence">40</field>
+  </record>
+
+  <record id="product_state_discontinued" model="product.state">
+    <field name="code">discontinued</field>
+    <field name="name">Discontinued</field>
+    <field name="sequence">50</field>
+  </record>
+
+  <record id="product_state_inproject" model="product.state">
+    <field name="code">inproject</field>
+    <field name="name">In Project</field>
+    <field name="sequence">60</field>
+  </record>
+
+  <record id="product_state_rstock" model="product.state">
+    <field name="code">rstock</field>
+    <field name="name">Reserved stock</field>
+    <field name="sequence">70</field>
+  </record>
+
+  <record id="product_state_sttock_cw" model="product.state">
+    <field name="code">sttock_cw</field>
+    <field name="name">Stock Catalog / Web</field>
+    <field name="sequence">80</field>
+  </record>
+
+  <record id="product_state_wstock" model="product.state">
+    <field name="code">wstock</field>
+    <field name="name">Web Stock</field>
+    <field name="sequence">90</field>
+  </record>
+
+  <record id="product_state_available_oo" model="product.state">
+    <field name="code">available_oo</field>
+    <field name="name">Available to Order Online</field>
+    <field name="sequence">100</field>
+  </record>
+
+  <record id="product_state_catalog" model="product.state">
+    <field name="code">catalog</field>
+    <field name="name">Catalog - Available on Request</field>
+    <field name="sequence">110</field>
+  </record>
+</odoo>
