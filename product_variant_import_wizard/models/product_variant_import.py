@@ -554,7 +554,7 @@ class ProductImportLine(models.Model):
     )
     season_id = fields.Many2one(
         string="Season",
-        comodel_name="product.season",
+        comodel_name="seasonality",
         copy=False,
     )
     serie_name = fields.Char(
@@ -755,6 +755,7 @@ class ProductImportLine(models.Model):
                 if product:
                     product.copy_profile_boms()
                     self._process_transfers(product)
+                    product.add_transfer_bom_lines()
         state = "error" if log_info else "done"
         action = "nothing" if log_info else "create"
         update_values.update(
@@ -1036,8 +1037,12 @@ class ProductImportLine(models.Model):
         log_info = ""
         if self.season_id:
             return self.season_id, log_info
-        season_obj = self.env["product.season"]
-        search_domain = [("name", "ilike", self.season_name)]
+        season_obj = self.env["seasonality"]
+        search_domain = [
+            "|",
+            ("code", "=ilike", self.season_name),
+            ("name", "=ilike", self.season_name),
+        ]
         seasons = season_obj.search(search_domain)
         if not seasons:
             log_info = _("Season not found.")
@@ -1292,7 +1297,7 @@ class ProductImportLine(models.Model):
             "product_brand_id": self.brand_id.id,
             "family_id": self.family_id.id,
             "sub_family_id": self.subfamily_id.id,
-            "season_id": self.season_id.id,
+            "seasonality_ids": [(6, 0, self.season_id.ids)],
             "serie_id": self.serie_id.id,
             "volume": self.volume,
             "weight": self.weight,

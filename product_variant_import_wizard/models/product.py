@@ -47,23 +47,21 @@ class ProductSeries(models.Model):
     ]
 
 
-class ProductSeason(models.Model):
-    _name = "product.season"
-    _description = "Product seasons"
-    _order = "name"
+class Seasonality(models.Model):
+    _inherit = "seasonality"
 
-    name = fields.Char(size=3, required=True)
+    code = fields.Char(size=3, required=True)
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("name"):
-                vals["name"] = vals["name"].rjust(3, "0")
+            code = vals.get("code") or vals.get("name") or "000"
+            vals["code"] = code.rjust(3, "0")
         return super().create(vals_list)
 
     def write(self, vals):
-        if vals.get("name"):
-            vals["name"] = vals["name"].rjust(3, "0")
+        if vals.get("code"):
+            vals["code"] = vals["code"].rjust(3, "0")
         return super().write(vals)
 
 
@@ -76,7 +74,7 @@ class ProductCode(models.Model):
     family_id = fields.Many2one(comodel_name="product.category", string="Family")
     brand_id = fields.Many2one(comodel_name="product.brand", string="Brand")
     sub_family_id = fields.Many2one(comodel_name="product.category", string="Subfamily")
-    season_id = fields.Many2one(comodel_name="product.season", string="Season")
+    season_id = fields.Many2one(comodel_name="seasonality", string="Season")
     sequence_id = fields.Many2one(
         comodel_name="ir.sequence", string="Sequence", required=True
     )
@@ -122,7 +120,7 @@ class ProductCode(models.Model):
                 self.env["product.category"].browse(vals["sub_family_id"]).code
             )
         if vals.get("season_id"):
-            season_code = self.env["product.season"].browse(vals["season_id"]).name
+            season_code = self.env["seasonality"].browse(vals["season_id"]).code
         return (
             f"{brand_code or '00'}{family_code or '00'}"
             f"{sub_family_code or '00'}{season_code or '000'}"
@@ -205,7 +203,6 @@ class ProductTemplate(models.Model):
     internal_category_id = fields.Many2one(
         comodel_name="internal.product.category", string="Internal Category"
     )
-    season_id = fields.Many2one(comodel_name="product.season", string="Season")
     serie_id = fields.Many2one(comodel_name="product.series", string="Product serie")
     sub_family_id = fields.Many2one(comodel_name="product.category", string="Subfamily")
 
@@ -267,6 +264,7 @@ class ProductProduct(models.Model):
 
     def _get_next_default_code(self):
         self.ensure_one()
+        season = self.seasonality_ids[:1]
         product_code_model = self.env["product.code"]
         prefix = self._get_default_code_prefix()
         product_code = product_code_model.search([("name", "=", prefix)], limit=1)
@@ -277,7 +275,7 @@ class ProductProduct(models.Model):
                     "family_id": self.family_id.id,
                     "brand_id": self.product_brand_id.id,
                     "sub_family_id": self.sub_family_id.id,
-                    "season_id": self.season_id.id,
+                    "season_id": season.id,
                 }
             )
         return product_code.sequence_id.with_context(
@@ -289,7 +287,7 @@ class ProductProduct(models.Model):
         family_code = self.family_id.code or "00"
         brand_code = self.product_brand_id.code or "00"
         sub_family_code = self.sub_family_id.code or "00"
-        season_code = self.season_id.name or "000"
+        season_code = self.seasonality_ids[:1].code or "000"
         return f"{brand_code}{family_code}{sub_family_code}{season_code}"
 
     def _get_attributes_code(self):
