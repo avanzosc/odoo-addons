@@ -8,6 +8,8 @@ from odoo.tools.safe_eval import safe_eval
 class ProjectProject(models.Model):
     _inherit = "project.project"
 
+    target_margin = fields.Integer(string="Target Margin (%)")
+
     def _compute_project_forecast_count(self):
         for project in self:
             cond = [("project_id", "=", project.id)]
