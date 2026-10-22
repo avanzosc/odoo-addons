@@ -9,6 +9,10 @@ PLY_ATTRIBUTE_NAMES = ("Top", "M2", "M3", "M4", "M5", "M6", "Bottom")
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    @staticmethod
+    def _format_technical_sheet_measure(value):
+        return f"{value:.2f}".rstrip("0").rstrip(".")
+
     def get_technical_sheet_attribute_value(self, attribute_name):
         self.ensure_one()
         values = self.product_template_attribute_value_ids.product_attribute_value_id
@@ -41,14 +45,26 @@ class ProductProduct(models.Model):
         shape = self.get_technical_sheet_shape()
         if not shape or not shape.width_mm or not shape.length_mm:
             return ""
-        return f"{shape.width_mm:g} x {shape.length_mm:g} mm"
+        width = self._format_technical_sheet_measure(shape.width_mm)
+        length = self._format_technical_sheet_measure(shape.length_mm)
+        return f"{width} x {length} mm"
 
     def get_technical_sheet_dimensions_in(self):
         self.ensure_one()
         shape = self.get_technical_sheet_shape()
         if not shape or not shape.width_in or not shape.length_in:
             return ""
-        return f'{shape.width_in:g}" x {shape.length_in:g}"'
+        width = self._format_technical_sheet_measure(shape.width_in)
+        length = self._format_technical_sheet_measure(shape.length_in)
+        return f'{width}" x {length}"'
+
+    def get_technical_sheet_wheelbase(self, field_name):
+        self.ensure_one()
+        shape = self.get_technical_sheet_shape()
+        value = shape[field_name] if shape else 0.0
+        if not value:
+            return ""
+        return f'{self._format_technical_sheet_measure(value)}"'
 
     def get_technical_sheet_season(self):
         self.ensure_one()
