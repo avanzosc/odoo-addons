@@ -64,7 +64,37 @@
 
   <record id="product_state_inproject" model="product.state">
     <field name="code">inproject</field>
-    <field name="name">Inproject</field>
+    <field name="name">In Project</field>
     <field name="sequence">60</field>
+  </record>
+
+  <record id="product_state_rstock" model="product.state">
+    <field name="code">rstock</field>
+    <field name="name">Reserved stock</field>
+    <field name="sequence">70</field>
+  </record>
+
+  <record id="product_state_sttock_cw" model="product.state">
+    <field name="code">sttock_cw</field>
+    <field name="name">Stock Catalog / Web</field>
+    <field name="sequence">80</field>
+  </record>
+
+  <record id="product_state_wstock" model="product.state">
+    <field name="code">wstock</field>
+    <field name="name">Web Stock</field>
+    <field name="sequence">90</field>
+  </record>
+
+  <record id="product_state_available_oo" model="product.state">
+    <field name="code">available_oo</field>
+    <field name="name">Available to Order Online</field>
+    <field name="sequence">100</field>
+  </record>
+
+  <record id="product_state_catalog" model="product.state">
+    <field name="code">catalog</field>
+    <field name="name">Catalog - Available on Request</field>
+    <field name="sequence">110</field>
   </record>
 </odoo>

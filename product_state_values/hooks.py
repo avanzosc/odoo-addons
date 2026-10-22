@@ -53,3 +53,33 @@ def post_init_hook(env):
     products = env["product.template"].search(cond)
     if products:
         products.product_state_id = state_inproject.id
+
+    state_rstock = env.ref("product_state_values.product_state_rstock")
+    cond = [("state", "=", "rstock")]
+    products = env["product.template"].search(cond)
+    if products:
+        products.product_state_id = state_rstock.id
+
+    state_sttock_cw = env.ref("product_state_values.product_state_sttock_cw")
+    cond = [("state", "=", "sttock_cw")]
+    products = env["product.template"].search(cond)
+    if products:
+        products.product_state_id = state_sttock_cw.id
+
+    state_wstock = env.ref("product_state_values.product_state_wstock")
+    cond = [("state", "=", "wstock")]
+    products = env["product.template"].search(cond)
+    if products:
+        products.product_state_id = state_wstock.id
+
+    state_available_oo = env.ref("product_state_values.product_state_available_oo")
+    cond = [("state", "=", "available_oo")]
+    products = env["product.template"].search(cond)
+    if products:
+        products.product_state_id = state_available_oo.id
+
+    state_catalog = env.ref("product_state_values.product_state_catalog")
+    cond = [("state", "=", "catalog")]
+    products = env["product.template"].search(cond)
+    if products:
+        products.product_state_id = state_catalog.id
