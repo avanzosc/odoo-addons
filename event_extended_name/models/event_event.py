@@ -65,9 +65,7 @@ class EventEvent(models.Model):
                 if dt
             ]
             dates = sorted(set(dates))
-            result.append(
-                (event.id, "%s (%s)" % (event.extended_name, " - ".join(dates)))
-            )
+            result.append((event.id, f"{event.extended_name} ({' - '.join(dates)})"))
         return result
 
     @api.model
