@@ -23,34 +23,34 @@ class EventEvent(models.Model):
     )
     def _compute_extended_name(self):
         for event in self:
-            name = "{}".format(event.id)
+            name = f"{event.id}"
             if event.name:
-                name = "{} - {}".format(name, event.name)
+                name = f"{name} - {event.name}"
             if event.resource_calendar_id:
-                name = "{} - {}".format(name, event.resource_calendar_id.name)
+                name = f"{name} - {event.resource_calendar_id.name}"
             if event.customer_id:
-                name = "{} - {}".format(name, event.customer_id.name)
+                name = f"{name} - {event.customer_id.name}"
             if event.address_id and (
                 not event.customer_id
                 or event.customer_id
                 and event.customer_id != event.address_id
             ):
-                name = "{} - {}".format(name, event.address_id.name)
+                name = f"{name} - {event.address_id.name}"
             if event.address_id and (
                 event.address_id.street
                 or event.address_id.street2
                 or event.address_id.zip
                 or event.address_id.city
             ):
-                name = "{} -".format(name)
+                name = f"{name} -"
                 if event.address_id.street:
-                    name = "{} {}".format(name, event.address_id.street)
+                    name = f"{name} {event.address_id.street}"
                 if event.address_id.street2:
-                    name = "{} {}".format(name, event.address_id.street2)
+                    name = f"{name} {event.address_id.street2}"
                 if event.address_id.zip:
-                    name = "{} {}".format(name, event.address_id.zip)
+                    name = f"{name} {event.address_id.zip}"
                 if event.address_id.city:
-                    name = "{} {}".format(name, event.address_id.city)
+                    name = f"{name} {event.address_id.city}"
             event.extended_name = name
 
     @api.depends("name", "date_begin", "date_end")

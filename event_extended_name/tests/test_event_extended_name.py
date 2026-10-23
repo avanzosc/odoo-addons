@@ -15,32 +15,32 @@ class TestEventExtendedName(common.SavepointCase):
         )
 
     def test_event_extenden_name(self):
-        name = "{}".format(self.event.id)
+        name = f"{self.event.id}"
         if self.event.name:
-            name = "{} - {}".format(name, self.event.name)
+            name = f"{name} - {self.event.name}"
         if self.event.resource_calendar_id:
-            name = "{} - {}".format(name, self.event.resource_calendar_id.name)
+            name = f"{name} - {self.event.resource_calendar_id.name}"
         if self.event.customer_id:
-            name = "{} - {}".format(name, self.event.customer_id.name)
+            name = f"{name} - {self.event.customer_id.name}"
         if self.event.address_id and (
             not self.event.customer_id
             or self.event.customer_id
             and self.event.customer_id != self.event.address_id
         ):
-            name = "{} - {}".format(name, self.event.address_id.name)
+            name = f"{name} - {self.event.address_id.name}"
         if self.event.address_id and (
             self.event.address_id.street
             or self.event.address_id.street2
             or self.event.address_id.zip
             or self.event.address_id.city
         ):
-            name = "{} -".format(name)
+            name = f"{name} -"
             if self.event.address_id.street:
-                name = "{} {}".format(name, self.event.address_id.street)
+                name = f"{name} {self.event.address_id.street}"
             if self.event.address_id.street2:
-                name = "{} {}".format(name, self.event.address_id.street2)
+                name = f"{name} {self.event.address_id.street2}"
             if self.event.address_id.zip:
-                name = "{} {}".format(name, self.event.address_id.zip)
+                name = f"{name} {self.event.address_id.zip}"
             if self.event.address_id.city:
-                name = "{} {}".format(name, self.event.address_id.city)
+                name = f"{name} {self.event.address_id.city}"
         self.assertEqual(self.event.extended_name, name)
