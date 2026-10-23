@@ -33,7 +33,7 @@ class EventEvent(models.Model):
     resource_calendar_id = fields.Many2one(
         string="Event Schedule", comodel_name="resource.calendar"
     )
-    days = fields.Char(string="Days", compute="_compute_days", store=True)
+    days = fields.Char(compute="_compute_days", store=True)
     copy_main_responsible = fields.Boolean(
         string="Copy main responsible",
         default=False,
