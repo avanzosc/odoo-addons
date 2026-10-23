@@ -91,7 +91,7 @@
                 <td class="design-cell" style="width: 50%;">
                   <div
                     class="transfer-name"
-                    t-esc="doc.bottom_transfer_product_id.name or ''"
+                    t-esc="('[%s] %s' % (doc.bottom_transfer_product_id.default_code, doc.bottom_transfer_product_id.name)) if doc.bottom_transfer_product_id.default_code else (doc.bottom_transfer_product_id.name or '')"
                   />
                   <div class="design-image-box">
                     <img
@@ -104,7 +104,7 @@
                 <td style="width: 50%; vertical-align: top;">
                   <div
                     class="transfer-name"
-                    t-esc="doc.top_transfer_product_id.name or ''"
+                    t-esc="('[%s] %s' % (doc.top_transfer_product_id.default_code, doc.top_transfer_product_id.name)) if doc.top_transfer_product_id.default_code else (doc.top_transfer_product_id.name or '')"
                   />
                   <div class="design-image-box">
                     <img
