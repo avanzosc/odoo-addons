@@ -40,7 +40,9 @@ class EventEvent(models.Model):
         n = 1
         while date_start <= date_end:
             day = date_start.weekday()
-            lines = calendar.attendance_ids.filtered(lambda x: x.dayofweek == str(day))
+            lines = calendar.attendance_ids.filtered(
+                lambda x, day=day: x.dayofweek == str(day) and x.day_period != "lunch"
+            )
             for line in lines:
                 track_vals = self.catch_values_for_track(line, date_start, n)
                 n = n + 1
@@ -49,7 +51,7 @@ class EventEvent(models.Model):
 
     def catch_values_for_track(self, line, date_start, n):
         my_hours = "{:02.0f}:{:02.0f}".format(*divmod(line.hour_from * 60, 60))
-        my_date = "{} {}:00".format(date_start, my_hours)
+        my_date = f"{date_start} {my_hours}:00"
         my_date = fields.Datetime.from_string(my_date)
         timezone = pytz.timezone(self._context.get("tz") or "UTC")
         my_date = timezone.localize(my_date).astimezone(pytz.UTC)
