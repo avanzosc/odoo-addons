@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_purchase_order_wizard_form" model="ir.ui.view">
+    <field name="name">treasury.forecast.purchase.order.wizard.form</field>
+    <field name="model">treasury.forecast.purchase.order.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Create Purchase Quotations">
+        <group>
+          <field name="forecast_line_ids" invisible="1" />
+        </group>
+        <footer>
+          <button
+            name="button_create_purchase_orders"
+            type="object"
+            string="Create Purchase Quotations"
+            class="btn-primary"
+          />
+          <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record
+    id="action_treasury_forecast_purchase_order_wizard"
+    model="ir.actions.act_window"
+  >
+    <field name="name">Create Purchase Quotations</field>
+    <field name="res_model">treasury.forecast.purchase.order.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="view_treasury_forecast_purchase_order_wizard_form" />
+    <field name="target">new</field>
+    <field name="binding_model_id" ref="treasury_forecast.model_treasury_forecast" />
+    <field name="binding_view_types">list,form</field>
+  </record>
+</odoo>

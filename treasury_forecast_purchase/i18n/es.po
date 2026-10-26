@@ -10,10 +10,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. module: treasury_forecast_purchase
+#. odoo-python
+#: code:addons/treasury_forecast_purchase/models/treasury_forecast.py:0
+#, python-format
+msgid "All cost lines must have a supplier assigned."
+msgstr "Todas las líneas de coste deben tener un proveedor asignado."
+
+#. module: treasury_forecast_purchase
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_purchase.view_treasury_forecast_purchase_order_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: treasury_forecast_purchase
 #: model:ir.model.fields.selection,name:treasury_forecast_purchase.selection__treasury_forecast_project_report__source__committed_purchase
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_purchase.view_treasury_forecast_project_report_search_purchase
 msgid "Committed Purchase"
 msgstr "Comprometido compra"
+
+#. module: treasury_forecast_purchase
+#: model:ir.actions.act_window,name:treasury_forecast_purchase.action_treasury_forecast_purchase_order_wizard
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_purchase.view_treasury_forecast_purchase_order_wizard_form
+msgid "Create Purchase Quotations"
+msgstr "Crear presupuestos de compra"
+
+#. module: treasury_forecast_purchase
+#: model:ir.model,name:treasury_forecast_purchase.model_treasury_forecast_purchase_order_wizard
+msgid "Create Purchase Quotations from Treasury Forecast"
+msgstr "Crear presupuestos de compra desde la previsión de tesorería"
 
 #. module: treasury_forecast_purchase
 #: model:ir.model.fields,field_description:treasury_forecast_purchase.field_purchase_order_line__product_category_id
@@ -21,9 +44,25 @@ msgid "Product Category"
 msgstr "Categoría de producto"
 
 #. module: treasury_forecast_purchase
+#: model:ir.model.fields,field_description:treasury_forecast_purchase.field_purchase_order_line__project_id
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: treasury_forecast_purchase
 #: model:ir.model,name:treasury_forecast_purchase.model_purchase_order_line
+#: model:ir.model.fields,field_description:treasury_forecast_purchase.field_treasury_forecast__purchase_line_id
 msgid "Purchase Order Line"
 msgstr "Línea de pedido de compra"
+
+#. module: treasury_forecast_purchase
+#: model:ir.model,name:treasury_forecast_purchase.model_treasury_forecast
+msgid "Treasury Forecast"
+msgstr "Previsión de tesorería"
+
+#. module: treasury_forecast_purchase
+#: model:ir.model.fields,field_description:treasury_forecast_purchase.field_treasury_forecast_purchase_order_wizard__forecast_line_ids
+msgid "Treasury Forecast Lines"
+msgstr "Líneas de previsión de tesorería"
 
 #. module: treasury_forecast_purchase
 #: model:ir.model,name:treasury_forecast_purchase.model_treasury_forecast_project_report
