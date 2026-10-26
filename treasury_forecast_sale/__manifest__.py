@@ -3,7 +3,7 @@
 
 {
     "name": "Treasury Forecast Sale",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.1.0",
     "category": "Accounting",
     "summary": "Add project sale commitments to treasury forecasts",
     "author": "AvanzOSC",
@@ -14,6 +14,8 @@
         "sale_project",
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "wizard/treasury_forecast_sale_order_wizard_views.xml",
         "views/treasury_forecast_sale_report_views.xml",
         "views/sale_order_line_views.xml",
     ],

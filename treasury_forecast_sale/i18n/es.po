@@ -28,6 +28,7 @@ msgstr "Categoría de Producto"
 
 #. module: treasury_forecast_sale
 #: model:ir.model,name:treasury_forecast_sale.model_sale_order_line
+#: model:ir.model.fields,field_description:treasury_forecast_sale.field_treasury_forecast__sale_line_id
 msgid "Sale Order Line"
 msgstr "Línea pedido de venta"
 
@@ -40,3 +41,39 @@ msgstr "Informe de previsión de tesorería del proyecto"
 #: model:ir.actions.act_window,name:treasury_forecast.action_treasury_forecast_report_pivot
 msgid "Treasury forecast + Real"
 msgstr "Previsión de tesorería + Real"
+
+#. module: treasury_forecast_sale
+msgid "A sales quotation cannot be created because no customer has been assigned."
+msgstr "No se puede crear un presupuesto de venta porque no se ha asignado ningún cliente."
+
+#. module: treasury_forecast_sale
+msgid "All selected treasury lines must belong to one project."
+msgstr "Todas las líneas de tesorería seleccionadas deben pertenecer al mismo proyecto."
+
+#. module: treasury_forecast_sale
+msgid "All selected treasury lines must have a project."
+msgstr "Todas las líneas de tesorería seleccionadas deben tener un proyecto."
+
+#. module: treasury_forecast_sale
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: treasury_forecast_sale
+msgid "Create Sales Quotation"
+msgstr "Crear presupuesto de venta"
+
+#. module: treasury_forecast_sale
+msgid "Create Sales Quotation from Treasury Forecast"
+msgstr "Crear presupuesto de venta desde previsión de tesorería"
+
+#. module: treasury_forecast_sale
+msgid "Partner Project"
+msgstr "Cliente del proyecto"
+
+#. module: treasury_forecast_sale
+msgid "Sales Quotation"
+msgstr "Presupuesto de venta"
+
+#. module: treasury_forecast_sale
+msgid "Treasury Forecast Lines"
+msgstr "Líneas de previsión de tesorería"

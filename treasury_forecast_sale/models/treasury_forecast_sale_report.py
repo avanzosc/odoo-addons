@@ -38,6 +38,7 @@ class TreasuryForecastProjectReport(models.Model):
             ({pending_subtotal}) * analytic.percentage / 100 AS balance,
             NULL AS journal_id,
             linked_project.id AS project_id,
+            linked_project.partner_id AS project_partner_id,
             analytic.account_id AS analytic_account_id,
             NULL AS estimated_journal_id,
             sol.currency_id AS currency_id,
