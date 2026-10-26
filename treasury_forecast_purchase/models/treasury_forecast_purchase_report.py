@@ -1,4 +1,4 @@
-# Copyright 2026 AvanzOSC
+# Copyright 2026 Ane Gurruchaga - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
 
@@ -39,6 +39,7 @@ class TreasuryForecastProjectReport(models.Model):
                 * distribution.percentage / 100 AS balance,
             NULL AS journal_id,
             linked_project.id AS project_id,
+            linked_project.partner_id AS project_partner_id,
             distribution.account_id AS analytic_account_id,
             NULL AS estimated_journal_id,
             pol.currency_id AS currency_id,

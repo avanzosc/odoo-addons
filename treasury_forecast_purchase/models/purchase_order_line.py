@@ -6,6 +6,10 @@ from odoo import fields, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
+    project_id = fields.Many2one(
+        comodel_name="project.project",
+        string="Project",
+    )
     product_category_id = fields.Many2one(
         comodel_name="product.category",
         string="Product Category",
