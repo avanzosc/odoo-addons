@@ -39,10 +39,7 @@
     <field name="inherit_id" ref="event_sale.event_registration_ticket_view_form" />
     <field name="arch" type="xml">
       <field name="sale_order_line_id" position="after">
-        <field
-          name="contract_line_id"
-          attrs="{'readonly': [('sale_order_line_id', '!=', False)]}"
-        />
+        <field name="contract_line_id" readonly="sale_order_line_id != False" />
         <field name="contract_id" readonly="1" />
       </field>
     </field>

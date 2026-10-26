@@ -4,7 +4,7 @@ from odoo.tests import common, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestEventRegistationSaleLineContract(common.SavepointCase):
+class TestEventRegistationSaleLineContract(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -12,11 +12,10 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
         cls.registration_obj = cls.env["event.registration"]
         cls.uom_unit = cls.env.ref("uom.product_uom_unit")
         cls.event = cls.env.ref("event.event_0")
-        cls.company = cls.env["res.company"]._company_default_get("sale.order")
+        cls.company = cls.env.company
         cls.partner = cls.env["res.partner"].create(
             {
                 "name": "Partner sale order line contract",
-                "user_id": cls.env.ref("base.user_admin").id,
             }
         )
         cls.product = cls.env["product.product"].create(
@@ -39,8 +38,6 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
         }
         sale_vals = {
             "partner_id": cls.partner.id,
-            "partner_invoice_id": cls.partner.id,
-            "partner_shipping_id": cls.partner.id,
             "company_id": cls.company.id,
             "order_line": [(0, 0, sale_line_vals)],
         }
@@ -49,10 +46,16 @@ class TestEventRegistationSaleLineContract(common.SavepointCase):
     def test_event_registration_sale_line_contract(self):
         self.sale1._action_confirm()
         self.assertEqual(self.sale1.count_contracts, 1)
-        self.assertEqual(len(self.sale1.contract_ids[0].contract_line_ids), 1)
+        self.assertEqual(
+            len(self.sale1.contract_ids[0].contract_line_ids),
+            1,
+        )
         registration_vals = {
             "event_id": self.event.id,
             "sale_order_line_id": self.sale1.order_line[0].id,
         }
         registration1 = self.registration_obj.create(registration_vals)
-        self.assertEqual(registration1.contract_id, self.sale1.contract_ids[0])
+        self.assertEqual(
+            registration1.contract_id,
+            self.sale1.contract_ids[0],
+        )
