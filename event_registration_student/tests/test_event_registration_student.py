@@ -1,6 +1,5 @@
 # Copyright (c) 2021 Berezi Amubieta - Avanzosc S.L.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 import calendar
 
 from odoo import fields
@@ -8,7 +7,7 @@ from odoo.tests import common, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestEventRegistrationStudent(common.SavepointCase):
+class TestEventRegistrationStudent(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -51,24 +50,23 @@ class TestEventRegistrationStudent(common.SavepointCase):
         self.assertEqual(self.registration.email, self.partner.email)
         self.assertEqual(self.registration.phone, self.partner.phone)
         self.assertEqual(self.registration.mobile, self.partner.mobile)
-        self.registration.student_id = self.student.id
+        self.registration.student_id = self.student
         self.registration._onchange_student_id()
         self.assertEqual(self.registration.name, self.student.name)
         self.assertEqual(self.registration.email, self.student.email)
         self.assertEqual(self.registration.phone, self.student.phone)
         self.assertEqual(self.registration.mobile, self.student.mobile)
         self.registration.action_confirm()
-        self.assertEqual(self.registration.real_date_start, fields.Date.today())
+        today = fields.Date.today()
+        self.assertEqual(self.registration.real_date_start, today)
         self.assertEqual(self.registration.date_start.day, 1)
-        last_month_day = calendar.monthrange(
-            fields.Date.today().year, fields.Date.today().month
-        )[1]
-        date_end = fields.Date.today().replace(day=last_month_day)
+        last_month_day = calendar.monthrange(today.year, today.month)[1]
+        date_end = today.replace(day=last_month_day)
         self.registration.action_cancel()
-        self.assertEqual(self.registration.real_date_end, fields.Date.today())
+        self.assertEqual(self.registration.real_date_end, today)
         self.assertEqual(self.registration.date_end, date_end)
         self.registration.action_set_done()
-        self.assertEqual(self.registration.real_date_end, fields.Date.today())
+        self.assertEqual(self.registration.real_date_end, today)
         self.assertEqual(self.registration.date_end, date_end)
         self.registration.action_set_draft()
         self.assertEqual(self.registration.real_date_start, False)

@@ -9,9 +9,11 @@
         <field name="education_center_id" />
         <field name="customer_id" />
       </field>
-      <field name="date_open" position="after">
+      <field name="create_date" position="after">
         <field name="real_date_start" />
         <field name="date_start" readonly="0" />
+      </field>
+      <field name="date_closed" position="after">
         <field name="real_date_end" />
         <field name="date_end" readonly="0" />
       </field>

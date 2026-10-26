@@ -80,7 +80,7 @@ class EventRegistration(models.Model):
             registration.date_end = date_end
 
     def action_confirm(self):
-        super().action_confirm()
+        result = super().action_confirm()
         for registration in self:
             event_begin = registration.event_id.date_begin.date()
             today = fields.Date.context_today(self)
@@ -89,22 +89,26 @@ class EventRegistration(models.Model):
                     event_begin if today < event_begin else today
                 )
                 registration._onchange_real_date_start()
+        return result
 
     def action_cancel(self):
-        super().action_cancel()
+        result = super().action_cancel()
         self._update_real_date_end()
         self.cancel_registration_contract()
+        return result
 
     def action_set_done(self):
-        super().action_set_done()
+        result = super().action_set_done()
         self._update_real_date_end()
         self.cancel_registration_contract()
+        return result
 
     def action_set_draft(self):
-        super().action_set_draft()
+        result = super().action_set_draft()
         self.write({"real_date_start": None, "real_date_end": None})
         self._onchange_real_date_start()
         self._onchange_real_date_end()
+        return result
 
     def _update_real_date_end(self):
         for registration in self.filtered(lambda x: not x.real_date_end):
