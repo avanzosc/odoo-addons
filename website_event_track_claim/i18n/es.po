@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-29 09:11+0000\n"
-"PO-Revision-Date: 2021-07-29 09:11+0000\n"
+"POT-Creation-Date: 2026-10-27 06:10+0000\n"
+"PO-Revision-Date: 2026-10-27 06:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,9 +79,6 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: website_event_track_claim
-#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__display_name
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__display_name
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__display_name
 #: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__display_name
 msgid "Display Name"
 msgstr "Nombre para mostrar"
@@ -95,15 +92,26 @@ msgid "Event"
 msgstr "Evento"
 
 #. module: website_event_track_claim
+#: model:ir.model,name:website_event_track_claim.model_event_registration
+msgid "Event Registration"
+msgstr "Inscripción al evento"
+
+#. module: website_event_track_claim
 #: model:ir.model,name:website_event_track_claim.model_event_track
 msgid "Event Track"
 msgstr "Sesión del evento"
 
 #. module: website_event_track_claim
+#. odoo-python
 #: code:addons/website_event_track_claim/models/event_event.py:0
-#, python-format
 msgid "Event claims"
 msgstr "Reclamaciones evento"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__event_responsible_id
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
+msgid "Event responsible"
+msgstr "Responsable evento"
 
 #. module: website_event_track_claim
 #: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__event_track_id
@@ -118,20 +126,9 @@ msgid "From session"
 msgstr "Desde sesión"
 
 #. module: website_event_track_claim
-#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__id
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event__id
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track__id
 #: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__id
 msgid "ID"
 msgstr "Identificador"
-
-#. module: website_event_track_claim
-#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim____last_update
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_event____last_update
-#: model:ir.model.fields,field_description:website_event_track_claim.field_event_track____last_update
-#: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
 
 #. module: website_event_track_claim
 #: model:ir.model.fields,field_description:website_event_track_claim.field_wiz_event_participant_create_claim__write_uid
@@ -149,21 +146,34 @@ msgid "Participants"
 msgstr "Participantes"
 
 #. module: website_event_track_claim
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
-msgid "Partner"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
+msgid "Session cancel"
+msgstr "Cancelar sesión"
 
 #. module: website_event_track_claim
+#. odoo-python
 #: code:addons/website_event_track_claim/models/event_track.py:0
-#, python-format
 msgid "Session claims"
-msgstr "Reclamaciones sesión"
+msgstr "Reclamaciones sessión"
 
 #. module: website_event_track_claim
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
+msgid "Session done"
+msgstr "Sesión realizada"
+
+#. module: website_event_track_claim
+#. odoo-python
 #: code:addons/website_event_track_claim/models/event_track.py:0
-#, python-format
 msgid "Session participants"
-msgstr "Participantes sesión"
+msgstr "Participantes sessión"
+
+#. module: website_event_track_claim
+#: model:ir.model.fields,field_description:website_event_track_claim.field_event_registration__student_id
+#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_registration_search
+msgid "Student"
+msgstr "Estudiante"
 
 #. module: website_event_track_claim
 #: model:ir.model,name:website_event_track_claim.model_wiz_event_participant_create_claim
@@ -174,22 +184,3 @@ msgstr "Asistente para crear reclamación participante"
 #: model_terms:ir.ui.view,arch_db:website_event_track_claim.wiz_event_participant_create_claim_form
 msgid "or"
 msgstr "o"
-
-#. module: website_event_track_claim
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
-msgid "Session done"
-msgstr "Sesión realizada"
-
-#. module: website_event_track_claim
-#: model:ir.model.fields,field_description:website_event_track_claim.field_crm_claim__event_responsible_id
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_crm_case_claims_filter
-msgid "Event responsible"
-msgstr "Responsable evento"
-
-#. module: website_event_track_claim
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_form
-#: model_terms:ir.ui.view,arch_db:website_event_track_claim.view_event_track_tree
-msgid "Session cancel"
-msgstr "Cancelar sesión"
-

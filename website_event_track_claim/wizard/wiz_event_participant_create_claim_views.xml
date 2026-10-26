@@ -10,7 +10,8 @@
           <field name="name" required="1" />
           <field
             name="event_track_id"
-            attrs="{'invisible': [('from_session','=',True)], 'required': [('from_session','=',False)]}"
+            invisible="from_session"
+            required="not from_session"
           />
           <field name="from_session" invisible="1" />
         </group>

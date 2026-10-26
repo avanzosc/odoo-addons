@@ -23,7 +23,7 @@ class EventEvent(models.Model):
                 "name": _("Event claims"),
                 "type": "ir.actions.act_window",
                 "view_type": "form",
-                "view_mode": "tree,form",
+                "view_mode": "list,form",
                 "res_model": "crm.claim",
                 "context": context,
                 "domain": [("id", "in", self.crm_claim_ids.ids)],

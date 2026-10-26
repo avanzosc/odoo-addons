@@ -3,7 +3,7 @@
 from odoo.tests import common
 
 
-class TestWebsiteEventTrackClaim(common.SavepointCase):
+class TestWebsiteEventTrackClaim(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -24,7 +24,10 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         cls.registration.write(vals)
         cond = [("event_id", "=", cls.registration.event_id.id)]
         cls.registration.student_id.write(
-            {"phone": "99999999999", "email": "9999@avanzosc.es"}
+            {
+                "phone": "99999999999",
+                "email": "9999@avanzosc.es",
+            }
         )
         cls.track = cls.env["event.track"].search(cond, limit=1)
         vals = {
@@ -34,7 +37,10 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
             "partner_id": cls.track.partner_id.id,
         }
         cls.user = cls.env["res.users"].create(vals)
-        vals = {"name": cls.track.partner_id.name, "user_id": cls.user.id}
+        vals = {
+            "name": cls.track.partner_id.name,
+            "user_id": cls.user.id,
+        }
         cls.env["hr.employee"].create(vals)
 
     def test_website_event_track_claim(self):
@@ -67,4 +73,7 @@ class TestWebsiteEventTrackClaim(common.SavepointCase):
         self.track.button_session_done()
         self.assertEqual(self.track.stage_id.id, self.state_done.id)
         self.track.button_session_cancel()
-        self.assertEqual(self.track.stage_id.id, self.state_canceled.id)
+        self.assertEqual(
+            self.track.stage_id.id,
+            self.state_canceled.id,
+        )

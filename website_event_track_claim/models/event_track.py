@@ -18,14 +18,8 @@ class EventTrack(models.Model):
 
     def _compute_count_registrations(self):
         for track in self:
-            date = track.date.date()
             registrations = track.sudo().event_id.registration_ids.filtered(
                 lambda x: x.student_id
-                and x.real_date_start
-                and date >= x.real_date_start
-                and (
-                    not x.real_date_end or (x.real_date_end and date <= x.real_date_end)
-                )
             )
             track.count_registrations = len(registrations)
 
@@ -34,13 +28,7 @@ class EventTrack(models.Model):
             track.count_claims = len(track.crm_claim_ids)
 
     def button_show_registrations(self):
-        date = self.date.date()
-        registrations = self.event_id.registration_ids.filtered(
-            lambda x: x.student_id
-            and x.real_date_start
-            and date >= x.real_date_start
-            and (not x.real_date_end or (x.real_date_end and date <= x.real_date_end))
-        )
+        registrations = self.event_id.registration_ids.filtered(lambda x: x.student_id)
         context = self.env.context.copy()
         context.update({"event_track_id": self.id, "from_session": True})
         if registrations:
@@ -49,7 +37,7 @@ class EventTrack(models.Model):
                 "name": _("Session participants"),
                 "type": "ir.actions.act_window",
                 "view_type": "form",
-                "view_mode": "tree,form",
+                "view_mode": "list,form",
                 "res_model": "res.partner",
                 "context": context,
                 "domain": [("id", "in", partners.ids)],
@@ -68,7 +56,7 @@ class EventTrack(models.Model):
                 "name": _("Session claims"),
                 "type": "ir.actions.act_window",
                 "view_type": "form",
-                "view_mode": "tree,form",
+                "view_mode": "list,form",
                 "res_model": "crm.claim",
                 "context": context,
                 "domain": [("id", "in", self.crm_claim_ids.ids)],
