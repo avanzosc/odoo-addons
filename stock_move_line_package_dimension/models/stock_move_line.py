@@ -12,9 +12,9 @@ class StockMoveLine(models.Model):
         related="result_package_id.packaging_id",
         store=True,
     )
-    height = fields.Float(string="Height", related="packaging_id.height", store=True)
-    width = fields.Float(string="Width", related="packaging_id.width", store=True)
-    packaging_length = fields.Float(
+    height = fields.Integer(string="Height", related="packaging_id.height", store=True)
+    width = fields.Integer(string="Width", related="packaging_id.width", store=True)
+    packaging_length = fields.Integer(
         string="Packaging Length", related="packaging_id.packaging_length", store=True
     )
     volume = fields.Float(string="Volume", related="packaging_id.volume", store=True)
