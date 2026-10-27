@@ -10,9 +10,6 @@ class StockQuantPackage(models.Model):
     max_weight = fields.Float(
         string="Maximum Weight", related="packaging_id.max_weight", store=True
     )
-    pack_length = fields.Float(string="Pack Length")
-    width = fields.Float(string="Pack Width")
-    height = fields.Float(string="Pack Height")
     partner_id = fields.Many2one(
         string="Delivery Address",
         comodel_name="res.partner",
