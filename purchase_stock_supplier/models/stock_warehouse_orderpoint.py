@@ -13,9 +13,8 @@ class StockWarehouseOrderpoint(models.Model):
             self.get_default_supplier()
         return result
 
-    @api.model
-    def create(self, vals):
-        orderpoints = super().create(vals)
+    def create(self, vals_list):
+        orderpoints = super().create(vals_list)
         for orderpoint in orderpoints.filtered(lambda z: not z.supplier_id):
             orderpoint.get_default_supplier()
         return orderpoints
