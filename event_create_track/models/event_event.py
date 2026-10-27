@@ -20,6 +20,10 @@ class EventEvent(models.Model):
         return res
 
     def _create_tracks(self):
+        stage_published = self.env.ref("website_event_track.event_track_stage3")
+        tracks = self.track_ids.filtered(lambda x: x.stage_id != stage_published)
+        if tracks:
+            tracks.unlink()
         timezone = pytz.timezone(self.date_tz or "UTC")
         if "rep_date_begin" in self.env.context:
             date_start = self.env.context.get("rep_date_begin")
@@ -46,7 +50,17 @@ class EventEvent(models.Model):
             for line in lines:
                 track_vals = self.catch_values_for_track(line, date_start, n)
                 n = n + 1
-                self.env["event.track"].create(track_vals)
+
+                existing_track = self.env["event.track"].search(
+                    [
+                        ("event_id", "=", self.id),
+                        ("date", "=", track_vals["date"]),
+                    ],
+                    limit=1,
+                )
+
+                if not existing_track:
+                    self.env["event.track"].create(track_vals)
             date_start = date_start + relativedelta(days=1)
 
     def catch_values_for_track(self, line, date_start, n):
