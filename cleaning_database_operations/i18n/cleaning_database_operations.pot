@@ -6,14 +6,38 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-16 09:59+0000\n"
-"PO-Revision-Date: 2024-05-16 09:59+0000\n"
+"POT-Creation-Date: 2026-10-19 12:05+0000\n"
+"PO-Revision-Date: 2026-10-19 12:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: cleaning_database_operations
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid ""
+"%(table)s\n"
+"%(deleted)s / %(total)s deleted\n"
+"%(percentage)s%% completed\n"
+"%(remaining)s remaining"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid ""
+"%(table)s\n"
+"%(deleted)s records deleted..."
+msgstr ""
+
+#. module: cleaning_database_operations
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "%(table)s completed. %(deleted)s records deleted."
+msgstr ""
 
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
@@ -30,6 +54,11 @@ msgstr ""
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Cleaning Accounting Operations"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid "Cleaning All"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -103,9 +132,20 @@ msgstr ""
 
 #. module: cleaning_database_operations
 #: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "Creation date: %s"
+msgstr ""
+
+#. module: cleaning_database_operations
 #: code:addons/cleaning_database_operations/models/cleaning_database.py:0
 #, python-format
 msgid "Creation date: {}"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: code:addons/cleaning_database_operations/models/cleaning_database.py:0
+#, python-format
+msgid "Database Cleanup"
 msgstr ""
 
 #. module: cleaning_database_operations
@@ -203,4 +243,11 @@ msgstr ""
 #. module: cleaning_database_operations
 #: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
 msgid "Transport Carrier Lines To Invoice"
+msgstr ""
+
+#. module: cleaning_database_operations
+#: model_terms:ir.ui.view,arch_db:cleaning_database_operations.cleaning_database_form_view
+msgid ""
+"WARNING: This operation will delete ALL operational data for the selected "
+"companies. This operation cannot be undone. Do you want to continue?"
 msgstr ""
