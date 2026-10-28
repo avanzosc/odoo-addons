@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+    t-name="purchase_product_configurator.PurchaseProductField"
+    t-inherit="account.ProductLabelSectionAndNoteField"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//Many2XAutocomplete" position="after">
+      <button
+        t-if="hasConfigurationButton"
+        type="button"
+        class="btn btn-secondary fa fa-pencil px-2 ms-1"
+        tabindex="-1"
+        draggable="false"
+        aria-label="Edit Configuration"
+        data-tooltip="Edit Configuration"
+        t-on-click="onEditConfiguration"
+      />
+    </xpath>
+  </t>
+
+</templates>
