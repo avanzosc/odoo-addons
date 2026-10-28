@@ -1,0 +1,37 @@
+<odoo>
+  <menuitem
+    id="menu_event_training_sepe_root"
+    name="Formación SEPE"
+    sequence="45"
+    groups="base.group_user"
+    web_icon="event_training_sepa,static/description/sepe.jpg"
+  />
+  <menuitem
+    id="menu_event_training_funding"
+    name="Expedientes"
+    parent="menu_event_training_sepe_root"
+    action="action_event_training_funding"
+    sequence="10"
+  />
+  <menuitem
+    id="menu_event_training_action"
+    name="Acciones formativas"
+    parent="menu_event_training_sepe_root"
+    action="action_event_training_action"
+    sequence="20"
+  />
+  <menuitem
+    id="menu_event_training_courses"
+    name="Eventos / Cursos"
+    parent="menu_event_training_sepe_root"
+    action="event.action_event_view"
+    sequence="30"
+  />
+  <menuitem
+    id="menu_grant_program"
+    name="Línea Subvencional"
+    parent="menu_event_training_sepe_root"
+    action="action_grant_program"
+    sequence="40"
+  />
+</odoo>

@@ -1,0 +1,103 @@
+<odoo>
+  <record id="view_event_training_action_list" model="ir.ui.view">
+    <field name="name">event.training.action.list</field>
+    <field name="model">event.training.action</field>
+    <field name="arch" type="xml">
+      <list string="Acciones formativas">
+        <field name="code" />
+        <field name="name" />
+        <field name="funding_id" />
+        <field name="modality" />
+        <field name="total_hours" />
+        <field name="planned_groups" />
+        <field name="allocated_amount" />
+        <field name="currency_id" column_invisible="True" />
+        <field name="state" />
+      </list>
+    </field>
+  </record>
+  <record id="view_event_training_action_form" model="ir.ui.view">
+    <field name="name">event.training.action.form</field>
+    <field name="model">event.training.action</field>
+    <field name="arch" type="xml">
+      <form string="Acción formativa">
+        <header>
+          <field
+            name="state"
+            widget="statusbar"
+            statusbar_visible="draft,approved,running,finished,closed"
+          />
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="code" />
+              <field name="name" />
+              <field name="funding_id" />
+              <field name="year" />
+              <field name="state" invisible="1" />
+            </group>
+            <group>
+              <field name="funder_id" />
+              <field name="customer_id" />
+              <field name="payer_id" />
+              <field name="execution_deadline" />
+            </group>
+          </group>
+          <notebook>
+            <page string="Datos académicos">
+              <group>
+                <group>
+                  <field name="specialty_id" />
+                  <field name="specialty_code" />
+                  <field name="professional_family" />
+                  <field name="professional_area" />
+                  <field name="modality" />
+                  <field name="grant_program_id" />
+                </group>
+                <group>
+                  <field name="total_hours" />
+                  <field name="classroom_hours" />
+                  <field name="online_hours" />
+                  <field name="planned_attendees" />
+                  <field name="planned_groups" />
+                </group>
+              </group>
+              <group>
+                <field name="objectives" />
+                <field name="contents" />
+                <field name="entry_requirements" />
+                <field name="target_audience" />
+              </group>
+            </page>
+            <page string="Financiación">
+              <group>
+                <field name="allocated_amount" />
+                <field name="currency_id" />
+              </group>
+            </page>
+            <page string="Eventos / Cursos">
+              <field name="event_ids" context="{'default_training_action_id': id}">
+                <list>
+                  <field name="name" />
+                  <field name="date_begin" />
+                  <field name="date_end" />
+                  <field name="training_action_code" />
+                </list>
+              </field>
+            </page>
+            <page string="Descripción">
+              <field name="description" />
+            </page>
+          </notebook>
+        </sheet>
+        <chatter />
+      </form>
+    </field>
+  </record>
+  <record id="action_event_training_action" model="ir.actions.act_window">
+    <field name="name">Acciones formativas</field>
+    <field name="res_model">event.training.action</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>
