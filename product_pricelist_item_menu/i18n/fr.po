@@ -4,16 +4,38 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-16 14:06+0000\n"
-"PO-Revision-Date: 2026-10-16 14:06+0000\n"
+"POT-Creation-Date: 2026-10-28 12:59+0000\n"
+"PO-Revision-Date: 2026-10-28 12:59+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_form
+msgid ""
+"<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
+"                        Rules\n"
+"                    </span>\n"
+"                    <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"                        Rule\n"
+"                    </span>"
+msgstr ""
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_form
+msgid ""
+"<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
+"                    Pricelists\n"
+"                </span>\n"
+"                <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"                    Pricelist\n"
+"                </span>"
+msgstr ""
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
@@ -48,19 +70,23 @@ msgstr "Nombre d'éléments de la liste de prix"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Fixed Price"
+msgstr ""
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Formula"
+msgstr ""
+
+#. module: product_pricelist_item_menu
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Other Pricelist"
 msgstr "Autre liste de prix"
 
 #. module: product_pricelist_item_menu
-#: model:ir.ui.menu,name:product_pricelist_item_menu.menu_product_pricelist_item_action
-msgid "Price Rules"
-msgstr "Règles de prix"
-
-#. module: product_pricelist_item_menu
-#: model:ir.actions.act_window,name:product_pricelist_item_menu.product_pricelist_item_menu_action
-#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_form
-msgid "Pricelist Items"
-msgstr "Éléments de la liste de prix"
+#: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
+msgid "Percentage"
+msgstr ""
 
 #. module: product_pricelist_item_menu
 #: model:ir.model,name:product_pricelist_item_menu.model_product_pricelist_item
