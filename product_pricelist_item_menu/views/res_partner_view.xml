@@ -9,13 +9,26 @@
           class="oe_stat_button"
           type="object"
           name="button_show_partner_pricelist_items"
+          groups="product.group_product_pricelist"
           icon="fa-usd"
         >
-          <field
-            string="Pricelist Items"
-            name="count_pricelists_item"
-            widget="statinfo"
-          />
+          <div class="o_field_widget o_stat_info">
+            <span class="o_stat_value o_row">
+              <field name="count_pricelists_item" />
+              <span class="o_stat_text" invisible="count_pricelists_item == 1">
+                        Rules
+                    </span>
+              <span class="o_stat_text" invisible="count_pricelists_item != 1">
+                        Rule
+                    </span>
+            </span>
+            <span class="o_stat_text" invisible="count_pricelists_item == 1">
+                    Pricelists
+                </span>
+            <span class="o_stat_text" invisible="count_pricelists_item != 1">
+                    Pricelist
+                </span>
+          </div>
         </button>
       </div>
     </field>
