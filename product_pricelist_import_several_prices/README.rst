@@ -47,9 +47,9 @@ Backend
 8. Review possible errors in the import lines or error log.
 9. Click **Process** to create/update the pricelist rules.
 10. Check the pricelist rules. ``Compare At Price / Market`` is imported as the
-   fixed price when it has a value, and ``Price / Market`` is imported as
-   distribution price. If ``Compare At Price / Market`` is empty, both fields
-   receive ``Price / Market``.
+    fixed price when it has a value, and ``Price / Market`` is imported as
+    distribution price. If ``Compare At Price / Market`` is empty, both fields
+    receive ``Price / Market``.
 
 Bug Tracker
 ===========
