@@ -9,8 +9,6 @@
     "license": "AGPL-3",
     "depends": ["sale_purchase_inter_company_rules", "mrp"],
     "data": [
-        "security/global_origin_security.xml",
-        "security/ir.model.access.csv",
         "views/stock_move_line_views.xml",
         "views/stock_move_views.xml",
         "views/sale_order_views.xml",
