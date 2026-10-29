@@ -222,10 +222,16 @@
   </record>
 
   <menuitem
-    id="product_pricelist_item_import_menu"
-    name="Import Pricelist Items"
+    id="product_pricelist_item_sale_import_menu"
     action="product_pricelist_item_import_action"
-    parent="sale.product_menu_catalog"
+    parent="sale.menu_sale_config"
+    sequence="11"
+  />
+
+  <menuitem
+    id="product_pricelist_item_import_menu"
+    action="product_pricelist_item_import_action"
+    parent="base_import_wizard.base_import_menu"
     sequence="20"
   />
 </odoo>

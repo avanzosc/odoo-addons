@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Pricelist Several Prices Import",
-    "version": "18.0.1.0.0",
+    "version": "18.0.2.0.0",
     "category": "Sales/Sales",
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
@@ -19,6 +19,6 @@
         "views/product_pricelist_market_views.xml",
         "views/product_pricelist_item_import_views.xml",
     ],
+    "post_init_hook": "post_init_hook",
     "installable": True,
-    "application": False,
 }
