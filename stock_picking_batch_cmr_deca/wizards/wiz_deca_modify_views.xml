@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="wiz_deca_modify_form" model="ir.ui.view">
+    <field name="name">wiz.deca.modifyform</field>
+    <field name="model">wiz.deca.modify</field>
+    <field name="arch" type="xml">
+      <form>
+        <div class="alert alert-warning" role="alert">
+                    This is Método A (Resolución of 5 June 2026, BOE-A-2026-12784,
+                    ap. Quinto.1): the new data is added to the existing PDF and the
+                    old value stays visible in the document's own change history --
+                    same token, same URL, same QR. Use "Reissue DeCA" (Método B)
+                    instead for a fundamental change this method doesn't cover --
+                    e.g. the shipper itself, not just a plate or a remark.
+                </div>
+        <group>
+          <field name="batch_id" invisible="1" />
+          <field name="carrier_partner_id" invisible="1" />
+          <field name="field_to_change" />
+          <field
+            name="new_value_char"
+            invisible="field_to_change in ('cmr_transportation_id', 'cmr_tractor_id', 'cmr_tractor_license_plate', 'cmr_semi_trailer_id', 'cmr_semi_trailer_license_plate')"
+          />
+          <field
+            name="new_carrier_partner_id"
+            invisible="field_to_change != 'cmr_transportation_id'"
+          />
+
+          <field
+            name="new_plate_tractor_id"
+            invisible="field_to_change != 'cmr_tractor_id'"
+          />
+          <field
+            name="new_tractor_license_plate"
+            invisible="field_to_change != 'cmr_tractor_license_plate'"
+          />
+          <field
+            name="new_plate_trailer_id"
+            invisible="field_to_change != 'cmr_semi_trailer_id'"
+          />
+          <field
+            name="new_semi_trailer_license_plate"
+            invisible="field_to_change != 'cmr_semi_trailer_license_plate'"
+          />
+          <field name="reason" />
+        </group>
+        <footer>
+          <button
+            name="action_apply"
+            type="object"
+            string="Apply"
+            class="btn-primary"
+          />
+          <button string="Cancel" special="cancel" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
