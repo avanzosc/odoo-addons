@@ -1,0 +1,87 @@
+<odoo>
+  <record id="view_event_training_funding_list" model="ir.ui.view">
+    <field name="name">event.training.funding.list</field>
+    <field name="model">event.training.funding</field>
+    <field name="arch" type="xml">
+      <list string="Expedientes">
+        <field name="code" />
+        <field name="name" />
+        <field name="contract_type" />
+        <field name="year" />
+        <field name="funder_id" />
+        <field name="payer_id" />
+        <field name="amount_awarded" />
+        <field name="currency_id" column_invisible="True" />
+        <field name="state" />
+      </list>
+    </field>
+  </record>
+  <record id="view_event_training_funding_form" model="ir.ui.view">
+    <field name="name">event.training.funding.form</field>
+    <field name="model">event.training.funding</field>
+    <field name="arch" type="xml">
+      <form string="Expediente de formación">
+        <header>
+          <field
+            name="state"
+            widget="statusbar"
+            statusbar_visible="draft,submitted,awarded,running,justified,closed"
+          />
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="code" />
+              <field name="name" />
+              <field name="contract_type" />
+              <field name="year" />
+              <field name="official_reference" />
+            </group>
+            <group>
+              <field name="funder_id" />
+              <field name="customer_id" />
+              <field name="payer_id" />
+              <field name="beneficiary_id" />
+            </group>
+          </group>
+          <group string="Fechas e importe">
+            <group>
+              <field name="amount_awarded" />
+              <field name="currency_id" />
+            </group>
+            <group>
+              <field name="award_date" />
+              <field name="date_start" />
+              <field name="date_end" />
+              <field name="justification_deadline" />
+            </group>
+          </group>
+          <notebook>
+            <page string="Acciones formativas">
+              <field name="action_ids" context="{'default_funding_id': id}">
+                <list>
+                  <field name="code" />
+                  <field name="name" />
+                  <field name="modality" />
+                  <field name="total_hours" />
+                  <field name="allocated_amount" />
+                  <field name="currency_id" column_invisible="True" />
+                  <field name="state" />
+                </list>
+              </field>
+            </page>
+            <page string="Descripción">
+              <field name="description" />
+            </page>
+          </notebook>
+        </sheet>
+        <chatter />
+      </form>
+    </field>
+  </record>
+  <record id="action_event_training_funding" model="ir.actions.act_window">
+    <field name="name">Expedientes</field>
+    <field name="res_model">event.training.funding</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>
