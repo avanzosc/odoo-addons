@@ -7,6 +7,13 @@
         <field name="arch" type="xml">
             <form string="Cleaning Database">
                 <header>
+                    <button
+            name="action_delete_all_operations"
+            type="object"
+            string="Cleaning All"
+            class="oe_highlight"
+            confirm="WARNING: This operation will delete ALL operational data for the selected companies. This operation cannot be undone. Do you want to continue?"
+          />
                 </header>
                 <sheet>
                     <div class="oe_title">
