@@ -16,23 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_move_global_origin
-#: model:res.groups,comment:stock_move_global_origin.group_global_origin_viewer
-msgid ""
-"\n"
-"            Read-only access to the moves that are part of a tracked\n"
-"            Global Origin cycle, without any of the regular Inventory\n"
-"            app access groups. Meant for users who need to check the\n"
-"            Global Origin Cycle report but have no other reason to\n"
-"            access Inventory.\n"
-"        "
-msgstr ""
-"\n"
-"            对属于被追踪全局来源周期的移动的只读访问权限,不包含任何常规\n"
-"            库存应用访问组。适用于需要查看全局来源周期报表,\n"
-"            但没有其他理由访问库存应用的用户。\n"
-"        "
-
-#. module: stock_move_global_origin
 #: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__picking_type_sequence_code
 msgid "Code"
 msgstr "代码"
@@ -62,11 +45,6 @@ msgstr "显示名称"
 #: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
 msgid "Global Origin"
 msgstr "全局来源"
-
-#. module: stock_move_global_origin
-#: model:res.groups,name:stock_move_global_origin.group_global_origin_viewer
-msgid "Global Origin Viewer"
-msgstr "全局来源查看者"
 
 #. module: stock_move_global_origin
 #: model:ir.actions.act_window,name:stock_move_global_origin.action_stock_move_global_origin_pivot

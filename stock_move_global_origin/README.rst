@@ -41,12 +41,6 @@ the search bar:
 
 Clicking on any row in the list opens the standard stock move form.
 
-This report is also available to users without Inventory access (via the
-**Global Origin Viewer** permission group), so sales or customer service
-can check where an order stands without needing full Inventory permissions.
-Those users only see moves that belong to a tracked cycle and have
-read-only access.
-
 Bug Tracker
 ===========
 
