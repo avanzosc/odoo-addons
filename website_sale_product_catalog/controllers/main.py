@@ -1,6 +1,7 @@
 # Copyright 2026 Lucía Echeverría - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 import logging
+from urllib.parse import urlencode
 
 import werkzeug.exceptions
 
@@ -388,6 +389,69 @@ class WebsiteCatalog(http.Controller):
 
 
 class WebsiteSaleCatalog(WebsiteSale):
+    @http.route()
+    def shop(
+        self,
+        page=0,
+        category=None,
+        search="",
+        min_price=0.0,
+        max_price=0.0,
+        ppg=False,
+        **post,
+    ):
+        selected_catalog_ids = _parse_catalog_ids(request.params)
+        previous_catalog_ids = request.session.get("website_sale_catalog_ids", [])
+        incompatible_selection = False
+        if (
+            "catalog_ids" in request.params
+            and previous_catalog_ids
+            and set(previous_catalog_ids) != set(selected_catalog_ids)
+        ):
+            catalogs = request.env["product.catalog"].sudo()
+            previous_catalogs = catalogs.browse(previous_catalog_ids).exists()
+            selected_catalogs = catalogs.browse(selected_catalog_ids).exists()
+            incompatible_selection = any(
+                previous.catalog_type_id
+                in selected.catalog_type_id.incompatible_type_ids
+                or selected.catalog_type_id
+                in previous.catalog_type_id.incompatible_type_ids
+                for previous in previous_catalogs
+                for selected in selected_catalogs
+                if previous.catalog_type_id and selected.catalog_type_id
+            )
+
+        if "catalog_ids" in request.params:
+            request.session["website_sale_catalog_ids"] = selected_catalog_ids
+
+        if post.pop("catalog_clear_cart", None) or incompatible_selection:
+            order = request.website.sale_get_order()
+            if order and order.website_order_line:
+                order.order_line.unlink()
+                request.session["website_sale_cart_quantity"] = 0
+                request.session["catalog_cart_cleared"] = True
+
+            query_args = request.httprequest.args.to_dict(flat=False)
+            query_args.pop("catalog_clear_cart", None)
+            query_string = urlencode(query_args, doseq=True)
+            redirect_url = request.httprequest.base_url
+            if query_string:
+                redirect_url = f"{redirect_url}?{query_string}"
+            return request.redirect(redirect_url)
+
+        if "catalog_ids" in request.params:
+            request.session["post_values"] = post.copy()
+
+        return super().shop(
+            page=page,
+            category=category,
+            search=search,
+            min_price=min_price,
+            max_price=max_price,
+            ppg=ppg,
+            **post,
+        )
+
     @http.route(
         ["/shop/cart/update"],
         type="http",
@@ -459,6 +523,22 @@ class WebsiteSaleCatalog(WebsiteSale):
             catalog_tmpl_ids = set(catalogs._get_product_tmpl_ids())
             search_result = search_result.filtered(lambda p: p.id in catalog_tmpl_ids)
             product_count = len(search_result)
+
+            # The standard shop sorts on product.template.list_price, while the
+            # cards show the price computed from the current website pricelist.
+            # Sort the full result by the displayed price before pagination.
+            order = post.get("order", "")
+            if order in ("list_price asc", "list_price desc") and search_result:
+                prices = search_result._get_sales_prices(website)
+                descending = order.endswith(" desc")
+                search_result = search_result.sorted(
+                    key=lambda product: (
+                        -prices[product.id]["price_reduce"]
+                        if descending
+                        else prices[product.id]["price_reduce"],
+                        -product.id,
+                    )
+                )
         return fuzzy_search_term, product_count, search_result
 
     def _shop_get_query_url_kwargs(
@@ -491,10 +571,39 @@ class WebsiteSaleCatalog(WebsiteSale):
         catalogs = (
             request.env["product.catalog"].sudo().search(_website_catalog_domain())
         )
+        selected_catalog_ids = _parse_catalog_ids(request.params)
+        selected_catalogs = catalogs.filtered(
+            lambda catalog: catalog.id in selected_catalog_ids
+        )
+        catalog_selection_values = {}
+        catalog_selection_clears_cart = {}
+        for catalog in catalogs:
+            incompatible = False
+            if catalog in selected_catalogs:
+                new_selection = selected_catalogs - catalog
+            else:
+                incompatible = any(
+                    selected.catalog_type_id
+                    in catalog.catalog_type_id.incompatible_type_ids
+                    or catalog.catalog_type_id
+                    in selected.catalog_type_id.incompatible_type_ids
+                    for selected in selected_catalogs
+                    if catalog.catalog_type_id and selected.catalog_type_id
+                )
+                new_selection = catalog if incompatible else selected_catalogs | catalog
+            catalog_selection_values[catalog.id] = ",".join(
+                str(catalog_id) for catalog_id in new_selection.ids
+            )
+            catalog_selection_clears_cart[catalog.id] = incompatible
         res.update(
             {
                 "shop_catalogs": catalogs,
-                "selected_catalog_ids": _parse_catalog_ids(request.params),
+                "selected_catalog_ids": selected_catalogs.ids,
+                "catalog_selection_values": catalog_selection_values,
+                "catalog_selection_clears_cart": catalog_selection_clears_cart,
+                "catalog_cart_cleared": request.session.pop(
+                    "catalog_cart_cleared", False
+                ),
             }
         )
         return res
