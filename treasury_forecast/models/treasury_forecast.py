@@ -63,14 +63,17 @@ class TreasuryForecast(models.Model):
     )
 
     category_id = fields.Many2one(
-        "treasury.financing.category",
+        "product.category",
         string="Category",
+        related="product_id.categ_id",
+        store=True,
+        readonly=True,
     )
 
     parent_category_id = fields.Many2one(
-        "treasury.financing.category",
+        "product.category",
         string="Parent Category",
-        related="financing_id.parent_category_id",
+        related="category_id.parent_id",
         store=True,
         readonly=True,
     )
@@ -99,7 +102,6 @@ class TreasuryForecast(models.Model):
     @api.onchange("financing_id")
     def _onchange_financing_id(self):
         if self.financing_id:
-            self.category_id = self.financing_id.category_id
             self.company_id = self.financing_id.company_id
 
     @api.depends("income", "expense")

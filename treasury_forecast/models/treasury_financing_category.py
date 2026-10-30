@@ -14,6 +14,7 @@ class TreasuryFinancingCategory(models.Model):
         selection=[
             ("income", "Income"),
             ("expense", "Expense"),
+            ("both", "Both"),
         ],
         string="Type",
         required=True,
