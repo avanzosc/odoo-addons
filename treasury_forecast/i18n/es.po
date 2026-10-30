@@ -50,6 +50,12 @@ msgid "Balance"
 msgstr "Saldo"
 
 #. module: treasury_forecast
+#: model:ir.model.fields.selection,name:treasury_forecast.selection__treasury_financing_category__category_type__both
+#: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_financing_category_search
+msgid "Both"
+msgstr "Ambos"
+
+#. module: treasury_forecast
 #: model_terms:ir.ui.view,arch_db:treasury_forecast.view_treasury_forecast_generate_lines_form
 msgid "Cancel"
 msgstr "Cancelar"
@@ -540,6 +546,7 @@ msgstr "Los valores de gasto e ingreso deben ser positivos."
 #: code:addons/treasury_forecast/models/treasury_financing.py:0
 msgid "You must specify the installment start date."
 msgstr "Debe indicar la fecha inicio cuotas."
+
 
 #. module: treasury_forecast
 #: model:ir.model.fields,field_description:treasury_forecast.field_treasury_financing__installment_amount

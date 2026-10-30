@@ -35,9 +35,15 @@ class TreasuryForecastReport(models.Model):
     )
     financing_id = fields.Many2one("treasury.financing", string="Financing")
 
-    category_id = fields.Many2one("product.category", string="Category")
+    category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="Category",
+    )
 
-    parent_category_id = fields.Many2one("product.category", string="Parent Category")
+    parent_category_id = fields.Many2one(
+        "treasury.financing.category",
+        string="Parent Category",
+    )
 
     def _with(self):
         return ""
