@@ -19,7 +19,7 @@
     <field name="model">treasury.forecast</field>
     <field name="inherit_id" ref="treasury_forecast.view_treasury_forecast_form" />
     <field name="arch" type="xml">
-      <group name="amounts" position="after">
+      <xpath expr="//sheet/group[2]" position="after">
         <group
           name="project-analytic"
           invisible="context.get('hide_project_analytic', False)"
@@ -34,7 +34,7 @@
             <field name="analytic_account_id" />
           </group>
         </group>
-      </group>
+      </xpath>
       <field name="expense_price" position="after">
         <field name="margin" />
       </field>

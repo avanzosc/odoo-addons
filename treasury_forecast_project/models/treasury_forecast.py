@@ -51,6 +51,12 @@ class TreasuryForecast(models.Model):
     def _onchange_margin(self):
         if self.project_id:
             self.income_price = self.expense_price * (1 + self.margin / 100)
+            self._update_project_amounts()
+
+    @api.onchange("category_id")
+    def _onchange_category_id(self):
+        if self.project_id:
+            self._update_project_amounts()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -67,8 +73,30 @@ class TreasuryForecast(models.Model):
         if not self.project_id:
             return super()._onchange_quantity_expense_price()
         self._onchange_margin()
-        self.expense = self.quantity * self.expense_price
-        self.income = self.quantity * self.income_price
+
+    @api.onchange("quantity", "income_price")
+    def _onchange_quantity_income_price(self):
+        if not self.project_id:
+            return super()._onchange_quantity_income_price()
+        self._update_project_amounts()
+
+    def _update_project_amounts(self):
+        category_type = self.category_id.category_type
+        expense = self.quantity * self.expense_price
+        income = self.quantity * self.income_price
+        if category_type == "income":
+            self.expense = 0.0
+            self.income = income
+        elif category_type == "expense":
+            self.expense = expense
+            self.income = 0.0
+        elif category_type == "both":
+            self.expense = expense
+            self.income = income
+        else:
+            # Preserve the existing project behavior when no category is set.
+            self.expense = expense
+            self.income = income
 
     @api.onchange("expense")
     def _onchange_expense(self):
