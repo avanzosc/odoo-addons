@@ -42,6 +42,8 @@ field_column_dict = {
     "serie_name": "Serie",
     "top_graphic": "Top Graphic",
     "bottom_graphic": "Bottom Graphic",
+    "top_laser": "Top Laser",
+    "bottom_laser": "Bottom Laser",
     "composition": "Composition",
 }
 
@@ -192,6 +194,8 @@ class ProductVariantImport(models.Model):
             serie_name = row_values.get(field_column_dict.get("serie_name"), "")
             top_graphic = row_values.get(field_column_dict.get("top_graphic"), "")
             bottom_graphic = row_values.get(field_column_dict.get("bottom_graphic"), "")
+            top_laser = row_values.get(field_column_dict.get("top_laser"), "")
+            bottom_laser = row_values.get(field_column_dict.get("bottom_laser"), "")
             composition = row_values.get(field_column_dict.get("composition"), "")
             attributes = {}
             attribute_columns = [
@@ -229,6 +233,8 @@ class ProductVariantImport(models.Model):
                     "serie_name": serie_name,
                     "top_graphic": top_graphic,
                     "bottom_graphic": bottom_graphic,
+                    "top_laser": convert2str(top_laser) if top_laser else "",
+                    "bottom_laser": convert2str(bottom_laser) if bottom_laser else "",
                     "composition": convert2str(composition),
                     "attributes_name": attributes,
                 }
@@ -504,6 +510,12 @@ class ProductImportLine(models.Model):
         copy=False,
     )
     bottom_graphic = fields.Char(
+        copy=False,
+    )
+    top_laser = fields.Char(
+        copy=False,
+    )
+    bottom_laser = fields.Char(
         copy=False,
     )
     composition = fields.Char(
