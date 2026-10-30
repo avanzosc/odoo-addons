@@ -32,6 +32,7 @@
         <field name="base" />
       </field>
       <filter name="visible" position="after">
+        <separator />
         <filter
           string="Active Products"
           name="active_products"
@@ -41,6 +42,22 @@
             '|', ('product_id', '=', None), ('product_id.active', '=', True),
           ]"
           context="{}"
+        />
+        <separator />
+        <filter
+          name="fixed_price"
+          string="Fixed Price"
+          domain="[('compute_price', '=', 'fixed')]"
+        />
+        <filter
+          name="percentage"
+          string="Percentage"
+          domain="[('compute_price', '=', 'percentage')]"
+        />
+        <filter
+          name="formula"
+          string="Formula"
+          domain="[('compute_price', '=', 'formula')]"
         />
       </filter>
       <filter name="groupby_product_variant" position="after">

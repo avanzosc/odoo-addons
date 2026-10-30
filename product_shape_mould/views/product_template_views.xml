@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-  <record id="product_template_view_form_inherit_mould" model="ir.ui.view">
-    <field name="name">product.template.form.mould</field>
+  <record id="product_template_form_view" model="ir.ui.view">
     <field name="model">product.template</field>
-    <field name="inherit_id" ref="stock.view_template_property_form" />
+    <field name="inherit_id" ref="product.product_template_form_view" />
     <field name="arch" type="xml">
-      <xpath expr="//field[@name='tracking']/.." position="after">
-        <field name="is_mould" />
-      </xpath>
+      <div name="options" position="inside">
+        <span class="d-inline-flex">
+          <field name="is_mould" />
+          <label for="is_mould" />
+        </span>
+      </div>
     </field>
   </record>
 </odoo>

@@ -24,7 +24,7 @@ class ResPartner(models.Model):
     def button_show_partner_pricelist_items(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "product_pricelist_item_menu.product_pricelist_item_menu_action"
+            "product.product_pricelist_item_action"
         )
         domain = expression.AND(
             [
