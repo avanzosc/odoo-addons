@@ -5,7 +5,7 @@
     <field name="model">product.catalog</field>
     <field name="inherit_id" ref="sale_product_catalog.product_catalog_view_form" />
     <field name="arch" type="xml">
-      <field name="active" position="after">
+      <field name="company_id" position="before">
         <field name="visible_slider" />
       </field>
     </field>

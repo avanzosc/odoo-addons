@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_pricelist_view_form" model="ir.ui.view">
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//page[@name='pricelist_rules']//field[@name='price']"
+        position="after"
+      >
+        <field
+          name="rrp_price"
+          invisible="compute_price != 'fixed'"
+          optional="hide"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          invisible="compute_price != 'fixed'"
+          optional="hide"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field name="currency_id" column_invisible="True" />
+      </xpath>
+      <field name="country_group_ids" position="after">
+        <field name="market_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_view_tree" model="ir.ui.view">
+    <field name="model">product.pricelist</field>
+    <field name="inherit_id" ref="product.product_pricelist_view_tree" />
+    <field name="arch" type="xml">
+      <field name="country_group_ids" position="after">
+        <field name="market_id" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_view_tree" model="ir.ui.view">
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_tree_view" />
+    <field name="arch" type="xml">
+      <field name="price" position="after">
+        <field
+          name="rrp_price"
+          invisible="compute_price != 'fixed'"
+          optional="hide"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          invisible="compute_price != 'fixed'"
+          optional="hide"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field name="currency_id" column_invisible="True" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_view_tree_from_product" model="ir.ui.view">
+    <field name="model">product.pricelist.item</field>
+    <field
+      name="inherit_id"
+      ref="product.product_pricelist_item_tree_view_from_product"
+    />
+    <field name="arch" type="xml">
+      <field name="fixed_price" position="after">
+        <field
+          name="rrp_price"
+          optional="hide"
+          invisible="compute_price != 'fixed'"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          optional="hide"
+          invisible="compute_price != 'fixed'"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_pricelist_item_view_form" model="ir.ui.view">
+    <field name="model">product.pricelist.item</field>
+    <field name="inherit_id" ref="product.product_pricelist_item_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//div[field[@name='fixed_price']]" position="after">
+        <field
+          name="rrp_price"
+          invisible="compute_price != 'fixed'"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+        <field
+          name="distribution_price"
+          invisible="compute_price != 'fixed'"
+          widget="monetary"
+          options="{'currency_field': 'currency_id', 'field_digits': True}"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>

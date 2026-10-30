@@ -4,7 +4,15 @@ from odoo import fields, models
 
 
 class ProductCatalog(models.Model):
-    _inherit = "product.catalog"
+    _inherit = [
+        "rating.mixin",
+        "product.catalog",
+        "website.seo.metadata",
+        "website.published.multi.mixin",
+        "website.searchable.mixin",
+    ]
+
+    _name = "product.catalog"
 
     visible_slider = fields.Boolean(string="Visible on Website", default=True)
 

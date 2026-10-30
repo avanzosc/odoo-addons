@@ -6,7 +6,11 @@
     <field name="arch" type="xml">
       <field name="journal_id" position="after">
         <field name="project_id" optional="hide" />
+        <field name="project_partner_id" optional="hide" />
         <field name="analytic_account_id" optional="hide" />
+      </field>
+      <field name="expense_price" position="after">
+        <field name="margin" optional="show" />
       </field>
     </field>
   </record>
@@ -23,6 +27,7 @@
           <group>
             <separator string="Project" />
             <field name="project_id" />
+            <field name="project_partner_id" readonly="1" />
           </group>
           <group>
             <separator string="Analytic" />
@@ -30,6 +35,9 @@
           </group>
         </group>
       </group>
+      <field name="expense_price" position="after">
+        <field name="margin" />
+      </field>
       <field name="financing_id" position="attributes">
         <attribute name="context">
               {'default_project_id': project_id,
@@ -46,6 +54,7 @@
     <field name="arch" type="xml">
       <field name="journal_id" position="after">
         <field name="project_id" />
+        <field name="project_partner_id" />
         <field name="analytic_account_id" />
       </field>
       <filter name="filter_journals" position="after">
@@ -65,6 +74,11 @@
           string="Project"
           name="group_project"
           context="{'group_by':'project_id'}"
+        />
+        <filter
+          string="Partner Project"
+          name="group_project_partner"
+          context="{'group_by':'project_partner_id'}"
         />
         <filter
           string="Analytic Account"

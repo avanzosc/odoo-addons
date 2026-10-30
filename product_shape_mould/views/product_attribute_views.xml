@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="attribute_tree_view" model="ir.ui.view">
+    <field name="name">product.attribute.list</field>
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="product.attribute_tree_view" />
+    <field name="arch" type="xml">
+      <field name="create_variant" position="after">
+        <field name="is_shape" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_attribute_view_form" model="ir.ui.view">
+    <field name="name">product.attribute.form</field>
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="product.product_attribute_view_form" />
+    <field name="arch" type="xml">
+      <field name="create_variant" position="after">
+        <field name="is_shape" />
+      </field>
+      <page name="attribute_values" position="after">
+        <page
+          string="Attribute Mapping"
+          name="shape_attribute_mapping"
+          invisible="not is_shape"
+        >
+          <field name="shape_attribute_mapping_ids" nolabel="1">
+            <list editable="bottom">
+              <field
+                name="shape_field_id"
+                domain="[('model', '=', 'product.shape')]"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field name="attribute_id" options="{'no_create': True}" />
+            </list>
+          </field>
+        </page>
+      </page>
+      <field name="default_extra_price" position="after">
+        <field
+          name="shape_id"
+          options="{'no_create': True}"
+          column_invisible="not parent.is_shape"
+        />
+        <field name="mould_id" readonly="1" column_invisible="not parent.is_shape" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_attribute_value_list" model="ir.ui.view">
+    <field name="name">product.attribute.value.list</field>
+    <field name="model">product.attribute.value</field>
+    <field name="inherit_id" ref="product.product_attribute_value_list" />
+    <field name="arch" type="xml">
+      <field name="default_extra_price" position="after">
+        <field name="attribute_is_shape" column_invisible="1" />
+        <field
+          name="shape_id"
+          options="{'no_create': True}"
+          invisible="not attribute_is_shape"
+        />
+        <field name="mould_id" readonly="1" invisible="not attribute_is_shape" />
+        <field
+          name="shape_match_state"
+          invisible="not attribute_is_shape"
+          optional="show"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>

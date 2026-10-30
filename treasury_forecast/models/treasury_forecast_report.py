@@ -21,6 +21,7 @@ class TreasuryForecastReport(models.Model):
         string="Estimated Journal",
     )
     currency_id = fields.Many2one("res.currency", string="Currency")
+    company_id = fields.Many2one("res.company", string="Company")
     debit = fields.Monetary(string="Income", currency_field="currency_id")
     credit = fields.Monetary(string="Expense", currency_field="currency_id")
     balance = fields.Monetary(currency_field="currency_id")
@@ -75,6 +76,7 @@ class TreasuryForecastReport(models.Model):
             tf.journal_id AS journal_id,
             tf.journal_id AS estimated_journal_id,
             tf.currency_id AS currency_id,
+            tf.company_id AS company_id,
             tf.financing_id AS financing_id,
             tf.category_id AS category_id,
             tf.parent_category_id AS parent_category_id,
@@ -112,6 +114,7 @@ class TreasuryForecastReport(models.Model):
             aml.journal_id AS journal_id,
             am.estimated_journal_id AS estimated_journal_id,
             aml.currency_id AS currency_id,
+            aml.company_id AS company_id,
             NULL AS financing_id,
             NULL AS category_id,
             NULL AS parent_category_id,
