@@ -48,7 +48,11 @@
           name="filter_expense"
           domain="[('category_type','=','expense')]"
         />
-
+        <filter
+          string="Both"
+          name="filter_both"
+          domain="[('category_type','=','both')]"
+        />
         <separator />
         <group expand="0" string="Group By">
           <filter
