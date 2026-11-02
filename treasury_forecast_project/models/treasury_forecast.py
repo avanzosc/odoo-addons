@@ -16,7 +16,15 @@ class TreasuryForecast(models.Model):
         store=True,
         readonly=True,
     )
-    margin = fields.Float(string="Margin (%)")
+    expense_price = fields.Monetary(
+        currency_field="currency_id",
+        aggregator=False,
+    )
+    margin = fields.Float(string="Margin (%)", aggregator=False)
+    income_price = fields.Monetary(
+        currency_field="currency_id",
+        aggregator=False,
+    )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
@@ -50,13 +58,17 @@ class TreasuryForecast(models.Model):
     @api.onchange("margin")
     def _onchange_margin(self):
         if self.project_id:
-            self.income_price = self.expense_price * (1 + self.margin / 100)
+            if self.category_id.category_type == "both":
+                self.income_price = self.expense_price * (1 + self.margin / 100)
             self._update_project_amounts()
 
     @api.onchange("category_id")
     def _onchange_category_id(self):
         if self.project_id:
-            self._update_project_amounts()
+            if self.category_id.category_type == "both":
+                self._onchange_margin()
+            else:
+                self._update_project_amounts()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
