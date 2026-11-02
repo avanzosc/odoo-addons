@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 12:59+0000\n"
-"PO-Revision-Date: 2026-10-28 12:59+0000\n"
+"POT-Creation-Date: 2026-11-02 12:56+0000\n"
+"PO-Revision-Date: 2026-11-02 12:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,10 +21,16 @@ msgid ""
 "<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
 "                        Rules\n"
 "                    </span>\n"
-"                    <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"              <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
 "                        Rule\n"
 "                    </span>"
 msgstr ""
+"<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
+"                        Règles\n"
+"                    </span>\n"
+"              <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"                        Règle\n"
+"                    </span>"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.res_partner_view_form
@@ -32,10 +38,16 @@ msgid ""
 "<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
 "                    Pricelists\n"
 "                </span>\n"
-"                <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"            <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
 "                    Pricelist\n"
 "                </span>"
 msgstr ""
+"<span class=\"o_stat_text\" invisible=\"count_pricelists_item == 1\">\n"
+"                    Listes de prix\n"
+"                </span>\n"
+"            <span class=\"o_stat_text\" invisible=\"count_pricelists_item != 1\">\n"
+"                    Liste de prix\n"
+"                </span>"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
@@ -71,12 +83,12 @@ msgstr "Nombre d'éléments de la liste de prix"
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Fixed Price"
-msgstr ""
+msgstr "Prix fixe"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Formula"
-msgstr ""
+msgstr "Formule"
 
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
@@ -86,7 +98,7 @@ msgstr "Autre liste de prix"
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Percentage"
-msgstr ""
+msgstr "Pourcentage"
 
 #. module: product_pricelist_item_menu
 #: model:ir.model,name:product_pricelist_item_menu.model_product_pricelist_item
@@ -96,4 +108,4 @@ msgstr "Élément de la liste de prix"
 #. module: product_pricelist_item_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_item_menu.product_pricelist_item_view_search
 msgid "Product Category"
-msgstr "Product category"
+msgstr "Catégorie de produit"
