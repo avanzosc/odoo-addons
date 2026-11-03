@@ -25,6 +25,11 @@ class TreasuryForecast(models.Model):
         currency_field="currency_id",
         aggregator=False,
     )
+    category_type = fields.Selection(
+        related="category_id.category_type",
+        store=True,
+        readonly=True,
+    )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
