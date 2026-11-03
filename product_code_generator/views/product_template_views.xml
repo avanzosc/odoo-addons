@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_template_form_view" model="ir.ui.view">
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='sale_ok']/.." position="before">
+        <field name="family_id" placeholder="Family" />
+        <field
+          name="sub_family_id"
+          placeholder="Subfamily"
+          domain="[('parent_id', '=', family_id)]"
+        />
+        <field name="season_id" placeholder="Season" />
+        <button
+          name="generate_code"
+          type="object"
+          string="Generate Code"
+          class="btn-secondary"
+          invisible="default_code"
+        />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="product_template_search_view" model="ir.ui.view">
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_search_view" />
+    <field name="arch" type="xml">
+      <field name="name" position="after">
+        <field name="family_id" />
+        <field name="sub_family_id" />
+        <field name="season_id" />
+        <filter
+          string="Family"
+          name="groupby_family"
+          domain="[]"
+          context="{'group_by': 'family_id'}"
+        />
+        <filter
+          string="Subfamily"
+          name="groupby_sub_family"
+          domain="[]"
+          context="{'group_by': 'sub_family_id'}"
+        />
+        <filter
+          string="Season"
+          name="groupby_season"
+          domain="[]"
+          context="{'group_by': 'season_id'}"
+        />
+        <separator />
+      </field>
+    </field>
+  </record>
+</odoo>
