@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-03 06:40+0000\n"
-"PO-Revision-Date: 2026-09-03 06:40+0000\n"
+"POT-Creation-Date: 2026-11-03 11:02+0000\n"
+"PO-Revision-Date: 2026-11-03 11:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,23 +16,9 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_move_global_origin
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__picking_type_sequence_code
-msgid "Code"
-msgstr "Código"
-
-#. module: stock_move_global_origin
 #: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
 msgid "Company"
 msgstr "Compañía"
-
-#. module: stock_move_global_origin
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__display_name
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order__display_name
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__display_name
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__display_name
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line__display_name
-msgid "Display Name"
-msgstr "Nombre mostrado"
 
 #. module: stock_move_global_origin
 #: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__global_origin
@@ -54,27 +40,14 @@ msgid "Global Report"
 msgstr "Informe global"
 
 #. module: stock_move_global_origin
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production__id
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order__id
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__id
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__id
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line__id
-msgid "ID"
-msgstr "ID"
-
-#. module: stock_move_global_origin
 #: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order__global_origin_initial
 msgid "Initial"
 msgstr "Inicial"
 
 #. module: stock_move_global_origin
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_mrp_production____last_update
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_purchase_order____last_update
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_sale_order____last_update
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move____last_update
-#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move_line____last_update
-msgid "Last Modified on"
-msgstr "Última modificación el"
+#: model:ir.model,name:stock_move_global_origin.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Orden de fabricación"
 
 #. module: stock_move_global_origin
 #: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
@@ -82,9 +55,10 @@ msgid "Not Cancelled"
 msgstr "No canceladas"
 
 #. module: stock_move_global_origin
+#: model:ir.model.fields,field_description:stock_move_global_origin.field_stock_move__picking_type_sequence_code
 #: model_terms:ir.ui.view,arch_db:stock_move_global_origin.view_move_search
-msgid "Operation Type"
-msgstr "Tipo de operación"
+msgid "Operation Code"
+msgstr "Código de operación"
 
 #. module: stock_move_global_origin
 #: model:ir.model,name:stock_move_global_origin.model_stock_move_line
@@ -92,14 +66,14 @@ msgid "Product Moves (Stock Move Line)"
 msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: stock_move_global_origin
-#: model:ir.model,name:stock_move_global_origin.model_mrp_production
-msgid "Production Order"
-msgstr "Orden de producción"
-
-#. module: stock_move_global_origin
 #: model:ir.model,name:stock_move_global_origin.model_purchase_order
 msgid "Purchase Order"
 msgstr "Pedido de compra"
+
+#. module: stock_move_global_origin
+#: model:ir.actions.server,name:stock_move_global_origin.action_recompute_global_origin
+msgid "Recompute Global Origin"
+msgstr "Recalcular origen global"
 
 #. module: stock_move_global_origin
 #: model:ir.model,name:stock_move_global_origin.model_sale_order
@@ -107,20 +81,16 @@ msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: stock_move_global_origin
+#: model:ir.model.fields,help:stock_move_global_origin.field_sale_order__global_origin_initial
+msgid ""
+"Start of a chain to track: every purchase, manufacturing order and stock "
+"move that serves this order, in any company, gets its name as Global Origin."
+msgstr ""
+"Inicio de una cadena a seguir: todas las compras, órdenes de fabricación y "
+"movimientos de stock que sirven a este pedido, en cualquier compañía, toman "
+"su nombre como origen global."
+
+#. module: stock_move_global_origin
 #: model:ir.model,name:stock_move_global_origin.model_stock_move
 msgid "Stock Move"
 msgstr "Movimiento de existencias"
-
-#. module: stock_move_global_origin
-#. openerp-web
-#: code:addons/stock_move_global_origin/static/src/xml/global_origin_pivot.xml:0
-#, python-format
-msgid "isXAxis ? undefined : cell.indent"
-msgstr ""
-
-#. module: stock_move_global_origin
-#. openerp-web
-#: code:addons/stock_move_global_origin/static/src/xml/global_origin_pivot.xml:0
-#, python-format
-msgid "isXAxis ? undefined : cell.title"
-msgstr ""
