@@ -5,7 +5,7 @@
 ====================
 Product Cost Visible
 ====================
-
+Module replaced by "product_purchase_visible".
 Two new groups created to avoid by default the view of purchasing data:
 
 * Show purchase tab in products, if this group is not selected user won't be able to
