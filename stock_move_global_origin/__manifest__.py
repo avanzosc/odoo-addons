@@ -2,21 +2,29 @@
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 {
     "name": "Stock Move Global Origin",
-    "version": "14.0.1.0.0",
+    "version": "18.0.1.0.0",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "category": "Inventory",
     "license": "AGPL-3",
-    "depends": ["sale_purchase_inter_company_rules", "mrp"],
+    "depends": [
+        "sale_purchase_stock",
+        "sale_purchase_stock_inter_company_rules",
+        "mrp",
+    ],
     "data": [
         "views/stock_move_line_views.xml",
         "views/stock_move_views.xml",
         "views/sale_order_views.xml",
         "views/purchase_order_views.xml",
         "views/mrp_production_views.xml",
-        "views/assets.xml",
+        "views/stock_move_global_origin_menu.xml",
     ],
+    "assets": {
+        "web.assets_backend_lazy": [
+            "stock_move_global_origin/static/src/views/global_origin_pivot/**/*",
+        ],
+    },
     "installable": True,
     "pre_init_hook": "pre_init_hook",
-    "qweb": ["static/src/xml/global_origin_pivot.xml"],
 }
