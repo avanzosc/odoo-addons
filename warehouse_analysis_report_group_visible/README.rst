@@ -6,7 +6,7 @@
 Warehouse analysis report group visible
 =======================================
 
-* Only users in the "Visible costs in products" group will be able to see the
+* Only users in the "Visible last purchase info in products" group will be able to see the
   "Warehouse Analysis" menu option.
 
 
