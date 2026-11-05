@@ -6,7 +6,7 @@ from urllib.parse import urlencode
 import werkzeug.exceptions
 
 from odoo import _, fields
-from odoo.http import Controller, request, route
+from odoo.http import Controller, content_disposition, request, route
 from odoo.osv import expression
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -385,6 +385,37 @@ class WebsiteCatalog(Controller):
                     or search
                 ),
             },
+        )
+
+    @route(["/catalog/xlsx/<int:catalog_id>"], type="http", auth="user", website=True)
+    def print_catalog_xlsx(self, catalog_id, access_token=None, **kw):
+        """Download Excel file for picking if user has access"""
+        catalog = request.env["product.catalog"].browse([catalog_id])
+        catalog_sudo = catalog.sudo()
+        partner = request.env.user.sudo().partner_id
+
+        xlsx_content = (
+            request.env["ir.actions.report"]
+            .sudo()
+            ._render_xlsx(
+                "sale_product_catalog.catalog_product_record_xlsx",
+                [catalog_sudo.id],
+                {
+                    "partner_id": partner.id,
+                },
+            )[0]
+        )
+
+        filename = f"{catalog.name}.xlsx"
+        return request.make_response(
+            xlsx_content,
+            headers=[
+                (
+                    "Content-Type",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                ),
+                ("Content-Disposition", content_disposition(filename)),
+            ],
         )
 
 
