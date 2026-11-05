@@ -82,6 +82,16 @@
                           </div>
                         </div>
                       </a>
+                      <div name="catalog_product_record_xlsx">
+                        <t
+                          t-set="catalog_product_record_xlsx_url"
+                          t-value="'/catalog/xlsx/%s?%s' % (catalog.id, keep_query())"
+                        />
+                        <a t-att-href="catalog_product_record_xlsx_url">
+                          <i class="fa fa-fw fa-file-excel-o" />
+                          <span>Download</span>
+                        </a>
+                      </div>
                     </div>
                   </t>
                 </div>

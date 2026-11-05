@@ -9,12 +9,14 @@
     "license": "AGPL-3",
     "author": "AvanzOSC",
     "depends": [
+        "portal",
         "sale_product_catalog",
         "website",
         "website_sale",
     ],
     "data": [
         "views/product_catalog_views.xml",
+        "templates/catalog_portal_templates.xml",
         "templates/catalog_detail.xml",
         "templates/catalogs.xml",
         "templates/shop.xml",
