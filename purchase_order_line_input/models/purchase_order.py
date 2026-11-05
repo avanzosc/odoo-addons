@@ -188,6 +188,18 @@ class PurchaseOrderLine(models.Model):
         store=True,
         copy=False,
     )
+    origin = fields.Char(
+        string="Source Document",
+        related="order_id.origin",
+        store=True,
+        copy=False,
+    )
+    partner_ref = fields.Char(
+        string="Vendor Reference",
+        related="order_id.partner_ref",
+        store=True,
+        copy=False,
+    )
 
     @api.depends("qty_received", "price_unit", "taxes_id")
     def _compute_amount_received(self):
