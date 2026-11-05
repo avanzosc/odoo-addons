@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="stock_debt_transfer_view_form" model="ir.ui.view">
+        <field name="model">stock.debt.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Debt transfer?">
+                <group>
+                    <p>You can not validate picking with pending invoices.</p>
+                </group>
+
+                <field name="pick_ids" invisible="1" />
+
+                <field name="show_transfers" invisible="1" />
+                <field
+          name="debt_transfer_line_ids"
+          nolabel="1"
+          attrs="{'invisible': [('show_transfers', '=', False)]}"
+        >>
+                    <tree create="0" delete="0" editable="top">
+                        <field name="picking_id" />
+                        <field name="to_process" widget="boolean_toggle" />
+                    </tree>
+                </field>
+
+                <footer>
+                    <button
+            name="process_no_debt"
+            string="No Apply (debt)"
+            type="object"
+            class="btn-primary"
+          />
+                    <button
+            name="process"
+            string="Apply W/O Restrictions"
+            type="object"
+            class="btn-secondary"
+          />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

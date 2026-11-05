@@ -12,7 +12,9 @@
         "sale_stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/stock_picking_views.xml",
+        "wizards/stock_debt_transfer_views.xml",
     ],
     "installable": True,
 }
