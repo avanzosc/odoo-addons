@@ -92,3 +92,11 @@ class ProductCatalog(models.Model):
                     self.env["ir.http"]._slug(catalog)
                 )
         return result
+
+    def _catalog_get_portal_domain(self):
+        if self.env.user.has_group("base.group_user"):
+            # Then, he is internal user, and we take the domain for this current user
+            return self.env["ir.rule"]._compute_domain(self._name)
+        return [
+            ("is_published", "=", True),
+        ]
