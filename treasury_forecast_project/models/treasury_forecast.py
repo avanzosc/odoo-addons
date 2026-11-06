@@ -1,6 +1,7 @@
 # Copyright 2026 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class TreasuryForecast(models.Model):
@@ -64,7 +65,7 @@ class TreasuryForecast(models.Model):
     def _onchange_margin(self):
         if self.project_id:
             if self.category_id.category_type == "both":
-                self.income_price = self.expense_price * (1 + self.margin / 100)
+                self.income_price = self._get_income_price_from_margin()
             self._update_project_amounts()
 
     @api.onchange("category_id")
@@ -124,3 +125,31 @@ class TreasuryForecast(models.Model):
     def _onchange_income(self):
         if not self.project_id:
             return super()._onchange_income()
+
+    def _get_income_price_from_margin(self):
+        self.ensure_one()
+
+        margin = self.margin / 100.0
+
+        calculation = (
+            self.project_id.treasury_margin_calculation
+            or self.company_id.treasury_margin_calculation
+            or "cost"
+        )
+
+        if calculation == "sale":
+            if margin >= 1:
+                raise ValidationError(
+                    _(
+                        "The margin must be lower than 100% "
+                        "when calculating the sale price."
+                    )
+                )
+            return self.expense_price / (1 - margin)
+
+        return self.expense_price * (1 + margin)
+
+    @api.onchange("company_id")
+    def _onchange_company_margin_calculation(self):
+        if self.project_id and self.category_id.category_type == "both":
+            self._onchange_margin()

@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-10 09:58+0000\n"
-"PO-Revision-Date: 2026-08-10 09:58+0000\n"
+"POT-Creation-Date: 2026-11-06 12:42+0000\n"
+"PO-Revision-Date: 2026-11-06 12:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -68,6 +68,17 @@ msgid ""
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.res_config_settings_view_form
+msgid ""
+"<strong>Margin on Cost Price:</strong>\n"
+"                  Sale Price = Cost Price × (1 + Margin / 100).\n"
+"                  <br/>\n"
+"                  <strong>Margin on Sale Price:</strong>\n"
+"                  Sale Price = Cost Price / (1 - Margin / 100)."
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_financing_form
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_form
 msgid "Analytic"
 msgstr ""
@@ -104,6 +115,54 @@ msgstr ""
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__category_id
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Category"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,help:treasury_forecast_project.field_project_project__treasury_margin_calculation
+msgid ""
+"Choose how the sale price is calculated for this project.\n"
+"\n"
+"Margin on Cost Price:\n"
+"Sale Price = Cost Price * (1 + Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 120.\n"
+"\n"
+"Margin on Sale Price:\n"
+"Sale Price = Cost Price / (1 - Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 125.\n"
+"\n"
+"The default method is taken from the company settings, but it can be changed for each project."
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,help:treasury_forecast_project.field_res_company__treasury_margin_calculation
+msgid ""
+"Choose how the sale price is calculated from the cost price and the margin.\n"
+"\n"
+"Margin on Cost Price:\n"
+"Sale Price = Cost Price * (1 + Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 120.\n"
+"\n"
+"Margin on Sale Price:\n"
+"Sale Price = Cost Price / (1 - Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 125.\n"
+"\n"
+"This calculation applies to treasury forecasts linked to a project when the category type is 'Both'."
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.res_config_settings_view_form
+msgid ""
+"Choose the default method used to calculate sale prices in new projects."
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model,name:treasury_forecast_project.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model,name:treasury_forecast_project.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: treasury_forecast_project
@@ -149,6 +208,11 @@ msgid "Expense"
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__expense_price
+msgid "Expense Price"
+msgstr ""
+
+#. module: treasury_forecast_project
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Expenses"
 msgstr ""
@@ -181,6 +245,11 @@ msgid "Income"
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__income_price
+msgid "Income Price"
+msgstr ""
+
+#. module: treasury_forecast_project
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Incomes"
 msgstr ""
@@ -202,6 +271,23 @@ msgid "Margin (%)"
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.res_config_settings_view_form
+msgid "Margin Calculation"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields.selection,name:treasury_forecast_project.selection__project_project__treasury_margin_calculation__cost
+#: model:ir.model.fields.selection,name:treasury_forecast_project.selection__res_company__treasury_margin_calculation__cost
+msgid "Margin on Cost Price"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields.selection,name:treasury_forecast_project.selection__project_project__treasury_margin_calculation__sale
+#: model:ir.model.fields.selection,name:treasury_forecast_project.selection__res_company__treasury_margin_calculation__sale
+msgid "Margin on Sale Price"
+msgstr ""
+
+#. module: treasury_forecast_project
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__source
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 msgid "Origin"
@@ -214,17 +300,17 @@ msgid "Parent Category"
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__partner_id
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
+msgid "Partner"
+msgstr ""
+
+#. module: treasury_forecast_project
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__project_partner_id
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__project_partner_id
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_search
 msgid "Partner Project"
-msgstr ""
-
-#. module: treasury_forecast_project
-#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__partner_id
-#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
-msgid "Partner"
 msgstr ""
 
 #. module: treasury_forecast_project
@@ -255,6 +341,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__project_id
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast_project_report__project_id
 #: model:ir.model.fields.selection,name:treasury_forecast_project.selection__treasury_forecast_project_report__source__project
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_financing_form
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_financing_search
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_form
 #: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_project_report_search
@@ -268,8 +355,28 @@ msgid "Projects"
 msgstr ""
 
 #. module: treasury_forecast_project
+#: model:ir.model.fields,help:treasury_forecast_project.field_res_config_settings__treasury_margin_calculation
+msgid ""
+"Select the default margin calculation method for new projects.\n"
+"\n"
+"Margin on Cost Price:\n"
+"Sale Price = Cost Price * (1 + Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 120.\n"
+"\n"
+"Margin on Sale Price:\n"
+"Sale Price = Cost Price / (1 - Margin / 100)\n"
+"Example: Cost 100, Margin 20% -> Sale Price 125."
+msgstr ""
+
+#. module: treasury_forecast_project
 #: model:ir.model.fields,field_description:treasury_forecast_project.field_project_project__target_margin
 msgid "Target Margin (%)"
+msgstr ""
+
+#. module: treasury_forecast_project
+#. odoo-python
+#: code:addons/treasury_forecast_project/models/treasury_forecast.py:0
+msgid "The margin must be lower than 100% when calculating the sale price."
 msgstr ""
 
 #. module: treasury_forecast_project
@@ -278,16 +385,25 @@ msgid "Treasury Analysis"
 msgstr ""
 
 #. module: treasury_forecast_project
-#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_search
-msgid "Type"
-msgstr ""
-
-#. module: treasury_forecast_project
 #: model:ir.model,name:treasury_forecast_project.model_treasury_forecast
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.res_config_settings_view_form
 msgid "Treasury Forecast"
 msgstr ""
 
 #. module: treasury_forecast_project
 #: model:ir.model,name:treasury_forecast_project.model_treasury_forecast_project_report
 msgid "Treasury Forecast Project Report"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_project_project__treasury_margin_calculation
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_res_company__treasury_margin_calculation
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_res_config_settings__treasury_margin_calculation
+msgid "Treasury Margin Calculation"
+msgstr ""
+
+#. module: treasury_forecast_project
+#: model:ir.model.fields,field_description:treasury_forecast_project.field_treasury_forecast__category_type
+#: model_terms:ir.ui.view,arch_db:treasury_forecast_project.view_treasury_forecast_search
+msgid "Type"
 msgstr ""
