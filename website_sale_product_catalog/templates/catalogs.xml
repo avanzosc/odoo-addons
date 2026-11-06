@@ -54,7 +54,7 @@
                   <t t-foreach="catalogs" t-as="catalog">
                     <div class="col o_catalog_card_item">
                       <a
-                        t-attf-href="/shop?catalog_ids=#{catalog.id}"
+                        t-att-href="'/catalog/' + slug(catalog)"
                         class="o_catalog_card_link text-decoration-none"
                       >
                         <div class="card h-100 text-center p-3">
