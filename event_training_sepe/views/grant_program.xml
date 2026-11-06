@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_grant_program_list" model="ir.ui.view">
+    <field name="name">grant.program.list</field>
+    <field name="model">grant.program</field>
+    <field name="arch" type="xml">
+      <list string="Líneas subvencionales">
+        <field name="name" />
+      </list>
+    </field>
+  </record>
+
+  <record id="view_grant_program_form" model="ir.ui.view">
+    <field name="name">grant.program.form</field>
+    <field name="model">grant.program</field>
+    <field name="arch" type="xml">
+      <form string="Línea subvencional">
+        <sheet>
+          <group>
+            <field name="name" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="view_grant_program_search" model="ir.ui.view">
+    <field name="name">grant.program.search</field>
+    <field name="model">grant.program</field>
+    <field name="arch" type="xml">
+      <search string="Buscar líneas subvencionales">
+        <field name="name" />
+      </search>
+    </field>
+  </record>
+
+  <record id="action_grant_program" model="ir.actions.act_window">
+    <field name="name">Línea Subvencional</field>
+    <field name="res_model">grant.program</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="view_grant_program_search" />
+  </record>
+</odoo>

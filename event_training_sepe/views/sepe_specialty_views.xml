@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_sepe_specialty_list" model="ir.ui.view">
+    <field name="name">sepe.training.specialty.list</field>
+    <field name="model">sepe.training.specialty</field>
+    <field name="arch" type="xml">
+      <list string="Especialidades formativas SEPE" create="1" import="1">
+        <field name="code" />
+        <field name="name" />
+        <field name="version" optional="show" />
+        <field name="professional_family" optional="show" />
+        <field name="professional_area" optional="show" />
+        <field name="transversal_competence" optional="hide" />
+        <field name="qualification_level" optional="show" />
+        <field name="delivery_modality" optional="show" />
+        <field name="total_duration" optional="show" />
+        <field name="in_person_duration" optional="hide" />
+        <field name="related_occupations" optional="hide" />
+      </list>
+    </field>
+  </record>
+  <record id="view_sepe_specialty_form" model="ir.ui.view">
+    <field name="name">sepe.training.specialty.form</field>
+    <field name="model">sepe.training.specialty</field>
+    <field name="arch" type="xml">
+      <form string="Especialidad formativa SEPE">
+        <sheet>
+          <group>
+            <group>
+              <field name="code" />
+              <field name="name" />
+              <field name="version" />
+              <field name="professional_family" />
+              <field name="professional_area" />
+              <field name="transversal_competence" />
+            </group>
+            <group>
+              <field name="qualification_level" />
+              <field name="delivery_modality" />
+              <field name="total_duration" />
+              <field name="in_person_duration" />
+            </group>
+          </group>
+          <group>
+            <field name="related_occupations" />
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="view_sepe_specialty_search" model="ir.ui.view">
+    <field name="name">sepe.training.specialty.search</field>
+    <field name="model">sepe.training.specialty</field>
+    <field name="arch" type="xml">
+      <search string="Buscar especialidades">
+        <field name="code" />
+        <field name="name" />
+        <field name="professional_family" />
+        <field name="professional_area" />
+        <field name="delivery_modality" />
+        <group expand="0" string="Agrupar por">
+          <filter
+            name="group_family"
+            string="Familia profesional"
+            context="{'group_by':'professional_family'}"
+          />
+          <filter
+            name="group_area"
+            string="Área profesional"
+            context="{'group_by':'professional_area'}"
+          />
+          <filter
+            name="group_modality"
+            string="Modalidad"
+            context="{'group_by':'delivery_modality'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+  <record id="action_sepe_training_specialty" model="ir.actions.act_window">
+    <field name="name">Especialidades formativas</field>
+    <field name="res_model">sepe.training.specialty</field>
+    <field name="view_mode">list,form</field>
+    <field name="search_view_id" ref="view_sepe_specialty_search" />
+  </record>
+  <menuitem
+    id="menu_sepe_specialty"
+    name="Catálogo de especialidades"
+    parent="menu_event_training_sepe_root"
+    action="action_sepe_training_specialty"
+    sequence="40"
+  />
+</odoo>
