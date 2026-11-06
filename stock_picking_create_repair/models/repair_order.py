@@ -14,7 +14,6 @@ class RepairOrder(models.Model):
         comodel_name="res.partner",
         domain="[('parent_id','=',partner_id)]",
         check_company=True,
-        states={"confirmed": [("readonly", True)]},
     )
     created_from_move_line_id = fields.Many2one(
         string="Created from detailed operation",

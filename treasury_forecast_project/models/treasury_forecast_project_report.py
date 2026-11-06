@@ -17,6 +17,9 @@ class TreasuryForecastProjectReport(models.Model):
         comodel_name="project.project",
         string="Project",
     )
+    project_partner_id = fields.Many2one(
+        comodel_name="res.partner", string="Partner Project"
+    )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
@@ -51,7 +54,7 @@ class TreasuryForecastProjectReport(models.Model):
         self._cr.execute(f"CREATE OR REPLACE VIEW {self._table} AS ({self._query()});")
 
     def _query(self, with_=None, select=None, join=None, group_by=None):
-        return "\n".join(
+        query = "\n".join(
             [
                 self._with_clause(*(with_ or [])),
                 self._select_clause(*(select or [])),
@@ -59,6 +62,14 @@ class TreasuryForecastProjectReport(models.Model):
                 self._group_by_clause(*(group_by or [])),
             ]
         )
+        additional_queries = [
+            f"SELECT {select_} FROM {from_} WHERE {where_}"
+            for select_, from_, where_ in self._query_parts()
+        ]
+        return "\nUNION ALL\n".join([query, *additional_queries])
+
+    def _query_parts(self):
+        return []
 
     def _with_clause(self, *with_):
         # Extra clauses formatted as `cte1 AS (SELECT ...)`, `cte2 AS (SELECT ...)`...
@@ -84,6 +95,7 @@ SELECT
     (tf.income - tf.expense) AS balance,
     tf.journal_id AS journal_id,
     tf.project_id As project_id,
+    tf.project_partner_id AS project_partner_id,
     tf.analytic_account_id AS analytic_account_id,
     tf.journal_id AS estimated_journal_id,
     tf.currency_id AS currency_id,
@@ -115,6 +127,10 @@ SELECT
         WHEN proj_count.cnt = 1 THEN pp.id
         ELSE NULL
     END AS project_id,
+    CASE
+        WHEN proj_count.cnt = 1 THEN pp.partner_id
+        ELSE NULL
+    END AS project_partner_id,
     al.account_id AS analytic_account_id,
     am.journal_id  AS estimated_journal_id,
     al.currency_id AS currency_id,

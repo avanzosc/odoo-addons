@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_brand_form_view" model="ir.ui.view">
+    <field name="name">product.brand.form.technical.sheet</field>
+    <field name="model">product.brand</field>
+    <field name="inherit_id" ref="product_brand.view_product_brand_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//notebook" position="inside">
+        <page name="collateral_specs" string="Collateral Specs">
+          <group>
+            <group>
+              <field name="warranty_image" widget="image" />
+            </group>
+            <group>
+              <field name="warranty_location" />
+              <field name="warranty_location_image" widget="image" />
+            </group>
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>

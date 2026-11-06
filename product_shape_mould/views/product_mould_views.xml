@@ -9,6 +9,7 @@
         <field name="group" />
         <field name="subgroup" />
         <field name="description" optional="hide" />
+        <field name="concave_id" optional="show" invisible="type != 'mould'" />
         <field name="type" column_invisible="True" />
         <field name="mould_id" optional="hide" invisible="type != 'template'" />
         <field
@@ -36,6 +37,7 @@
             <field name="name" />
             <field name="group" />
             <field name="subgroup" />
+            <field name="concave_id" invisible="type != 'mould'" />
             <field name="mould_id" invisible="type != 'template'" />
             <field name="manufacturing_year" invisible="type != 'template'" />
             <field name="modification_year" invisible="type != 'template'" />

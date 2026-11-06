@@ -26,10 +26,6 @@ class TreasuryFinancing(models.Model):
     )
 
     category_type = fields.Selection(
-        selection=[
-            ("income", "Income"),
-            ("expense", "Expense"),
-        ],
         string="Type",
         related="category_id.category_type",
         store=True,
