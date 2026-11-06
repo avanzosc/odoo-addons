@@ -305,8 +305,7 @@
                                 </div>
                               </a>
                               <div
-                                class="o_catalog_cart_variant
-                                                                    card-footer bg-transparent border-0 px-3 pb-3"
+                                class="o_catalog_cart_variant card-footer bg-transparent border-0 px-3 pb-3"
                               />
                             </div>
                           </t>
@@ -334,8 +333,7 @@
                                 </div>
                               </a>
                               <div
-                                class="o_catalog_cart_tmpl
-                                                                    card-footer bg-transparent border-0 px-3 pb-3"
+                                class="o_catalog_cart_tmpl card-footer bg-transparent border-0 px-3 pb-3"
                               />
                             </div>
                           </t>
@@ -392,8 +390,8 @@
         <input type="hidden" name="catalog_id" t-att-value="catalog.id" />
         <input type="hidden" name="add_qty" value="1" />
         <button type="submit" class="btn btn-primary btn-sm w-100">
-                    <i class="fa fa-shopping-cart me-1" />Add to Cart
-                </button>
+          <i class="fa fa-shopping-cart me-1" />Add to Cart
+        </button>
       </form>
     </xpath>
     <xpath expr="//div[hasclass('o_catalog_cart_tmpl')]" position="inside">

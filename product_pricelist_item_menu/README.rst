@@ -12,7 +12,7 @@ It allows users to view and directly access the pricelist items related to a spe
 Key Features
 ============
 
-- Adds a **stat button** on the partner form to display the number of pricelist items linked to the partner’s assigned pricelist.  
+- Adds a **button** on the partner form to display the number of pricelist items linked to the partner’s assigned pricelist.
 - Provides a direct shortcut to open and review the corresponding **pricelist items**.  
 - Enhances the `product.pricelist.item` tree view by showing additional optional fields such as:
   - Base
