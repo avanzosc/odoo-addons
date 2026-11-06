@@ -10,6 +10,7 @@
           type="object"
           name="button_show_partner_pricelist_items"
           groups="product.group_product_pricelist"
+          invisible="not is_company and parent_id"
           icon="fa-usd"
         >
           <div class="o_field_widget o_stat_info">
