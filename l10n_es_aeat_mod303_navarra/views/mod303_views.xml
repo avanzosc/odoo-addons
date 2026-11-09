@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 AvanzOSC
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <record id="view_l10n_es_aeat_mod303_report_form_navarra" model="ir.ui.view">
+    <field name="name">l10n.es.aeat.mod303.report.form.navarra</field>
+    <field name="model">l10n.es.aeat.mod303.report</field>
+    <field
+      name="inherit_id"
+      ref="l10n_es_aeat_mod303.view_l10n_es_aeat_mod303_report_form"
+    />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//group[@name='group_result']/following-sibling::notebook"
+        position="inside"
+      >
+        <page
+          string="Navarra (F66/F69)"
+          name="navarra_f66_f69"
+          invisible="not is_tax_agency_navarra"
+        >
+          <div class="alert alert-info" role="alert">
+                        Casillas específicas de la Hacienda Foral de Navarra.
+                        No modifican la exportación oficial del modelo 303.
+                    </div>
+          <group string="Cifra relativa y resultado" name="navarra_resultado">
+            <group>
+              <field
+                name="navarra_cifra_relativa"
+                widget="percentage"
+                readonly="period_type not in ('4T', '12') or state == 'done'"
+              />
+              <field
+                name="navarra_casilla_50"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+              <field
+                name="navarra_casilla_61"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+              <field
+                name="navarra_casilla_62"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+                readonly="state in ('done', 'posted')"
+              />
+            </group>
+            <group>
+              <field
+                name="navarra_casilla_69"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+                readonly="period_type not in ('4T', '12') or state == 'done'"
+              />
+              <field
+                name="navarra_casilla_63"
+                widget="monetary"
+                options="{'currency_field': 'currency_id'}"
+              />
+              <field name="navarra_compensar" readonly="state in ('done', 'posted')" />
+            </group>
+          </group>
+          <group string="Modo de pago" name="navarra_modo_pago">
+            <field name="navarra_modo_pago" readonly="state in ('done', 'posted')" />
+          </group>
+          <group
+            string="Resumen anual de operaciones"
+            name="navarra_resumen_anual"
+            invisible="period_type not in ('4T', '12') and not return_last_period"
+          >
+            <field name="navarra_casilla_164" readonly="state in ('done', 'posted')" />
+            <field name="navarra_casilla_165" readonly="state in ('done', 'posted')" />
+          </group>
+          <group
+            string="Operaciones exentas sin derecho a deducción"
+            name="navarra_exentas"
+          >
+            <field name="navarra_casilla_264" readonly="state in ('done', 'posted')" />
+            <field name="navarra_casilla_265" readonly="state in ('done', 'posted')" />
+          </group>
+        </page>
+      </xpath>
+    </field>
+  </record>
+</odoo>
