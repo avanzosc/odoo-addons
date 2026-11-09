@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Acysos S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <template
+    id="report_saleorder_document"
+    inherit_id="sale.report_saleorder_document"
+    priority="100"
+  >
+    <div
+      t-if="doc.validity_date and doc.state in ['draft', 'sent']"
+      position="replace"
+    />
+    <div t-if="doc.user_id.name" position="after">
+      <div t-if="doc.commitment_date" class="col">
+        <strong>Travel Date</strong>
+        <div t-field="doc.commitment_date" t-options='{"widget": "date"}' />
+      </div>
+    </div>
+    <div id="informations" position="after">
+      <t
+        t-set="show_deca_transport"
+        t-value="bool(doc.carrier_contact_id or doc.tractor_license_plate_id or doc.trailer_license_plate_id or doc.special_authorization)"
+      />
+      <div class="row mb-4" id="transport_informations" t-if="show_deca_transport">
+        <div t-if="doc.carrier_contact_id" class="col">
+          <strong>Carrier</strong>
+          <div t-field="doc.carrier_contact_id" />
+        </div>
+        <div t-if="doc.tractor_license_plate_id" class="col">
+          <strong>Tractor license plate</strong>
+          <div t-field="doc.tractor_license_plate_id" />
+        </div>
+        <div t-if="doc.trailer_license_plate_id" class="col">
+          <strong>Trailer license plate</strong>
+          <div t-field="doc.trailer_license_plate_id" />
+        </div>
+        <div t-if="doc.special_authorization" class="col">
+          <strong>Special traffic authorisation</strong>
+          <div t-field="doc.special_authorization" />
+        </div>
+      </div>
+    </div>
+    <th name="th_description" position="before">
+      <th
+        name="th_upload_date"
+        class="text-end text-nowrap"
+        t-if="show_deca_transport"
+      >Upload Date</th>
+      <th
+        name="th_loading"
+        class="text-end text-nowrap"
+        t-if="show_deca_transport"
+      >Place of loading</th>
+      <th
+        name="th_delivery"
+        class="text-end text-nowrap"
+        t-if="show_deca_transport"
+      >Place of delivery</th>
+    </th>
+    <th name="th_priceunit" position="after">
+      <th
+        name="th_deca_weight"
+        class="text-end text-nowrap"
+        t-if="show_deca_transport"
+      >Deca Weight</th>
+    </th>
+    <td name="td_name" position="before">
+      <td name="td_upload_date" t-if="show_deca_transport">
+        <span t-if="line.upload_date" t-field="line.upload_date" />
+      </td>
+      <td name="td_loading" t-if="show_deca_transport">
+        <t
+          t-set="place_of_loading"
+          t-value="line.place_of_loading_id.with_context(show_city=True)"
+        />
+        <span t-if="place_of_loading" t-field="place_of_loading.display_name" />
+      </td>
+      <td name="td_delivery" t-if="show_deca_transport">
+        <t
+          t-set="place_of_deliveries"
+          t-value="line.place_of_delivery_ids.with_context(show_city=True)"
+        />
+        <span
+          style="white-space: pre-line;"
+          t-esc="'\n'.join(place.display_name for place in place_of_deliveries)"
+        />
+      </td>
+    </td>
+    <td name="td_priceunit" position="after">
+      <td name="td_deca_weight" class="text-end" t-if="show_deca_transport">
+        <span t-if="line.deca_weight" t-field="line.deca_weight" />
+      </td>
+    </td>
+    <th name="th_taxes" position="replace" />
+    <td name="td_taxes" position="replace" />
+  </template>
+</odoo>
