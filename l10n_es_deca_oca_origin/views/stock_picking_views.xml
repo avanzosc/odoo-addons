@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_picking_form_inherit_l10n_es_deca_oca" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field
+      name="inherit_id"
+      ref="l10n_es_deca_oca.view_picking_form_inherit_l10n_es_deca_oca"
+    />
+    <field name="priority">100</field>
+    <field name="arch" type="xml">
+      <page name="deca_info" position="replace">
+        <page string="DeCA" name="deca_info">
+          <group>
+            <group>
+              <field name="l10n_es_show_deca" invisible="1" />
+              <field name="tractor_license_plate_id" required="1" />
+              <field name="trailer_license_plate_id" />
+              <field name="carrier_contact_id" required="1" />
+            </group>
+            <group>
+              <field name="special_authorization" widget="text" />
+              <field name="deca_weight" />
+            </group>
+            <group>
+              <field name="deca_version" />
+            </group>
+          </group>
+          <separator string="DECA Notes" colspan="4" />
+          <field name="deca_notes" colspan="4" nolabel="1" widget="text" />
+        </page>
+      </page>
+      <xpath
+        expr="//field[@name='move_ids_without_package']/list/field[@name='product_id']"
+        position="after"
+      >
+        <field
+          name="place_of_loading_id"
+          optional="show"
+          context="{'show_city': True}"
+        />
+        <field
+          name="place_of_delivery_id"
+          optional="show"
+          context="{'show_city': True}"
+        />
+        <field name="upload_date" widget="date" />
+        <field name="deca_weight" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="vpicktree" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.vpicktree" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field
+          name="carrier_contact_id"
+          optional="show"
+          readonly="1"
+          string="Carrier"
+        />
+        <field
+          name="tractor_license_plate_id"
+          optional="show"
+          readonly="1"
+          string="Tractor"
+        />
+        <field
+          name="trailer_license_plate_id"
+          optional="show"
+          readonly="1"
+          string="Trailer"
+        />
+        <field name="special_authorization" optional="hide" readonly="1" />
+        <field
+          name="deca_weight"
+          optional="show"
+          readonly="1"
+          sum="Total Deca Weight"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_picking_internal_search" model="ir.ui.view">
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_internal_search" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="carrier_contact_id" string="Carrier" />
+        <field
+          name="move_line_ids"
+          string="Place of loading"
+          filter_domain="[('move_line_ids.place_of_loading_id', 'ilike', self)]"
+        />
+        <field
+          name="move_line_ids"
+          string="Place of delivery"
+          filter_domain="[('move_line_ids.place_of_delivery_id', 'ilike', self)]"
+        />
+        <field name="tractor_license_plate_id" string="Tractor" />
+        <field name="trailer_license_plate_id" string="Trailer" />
+      </field>
+      <filter name="status" position="before">
+        <filter
+          name="carrier_contact"
+          string="Carrier"
+          domain="[]"
+          context="{'group_by': 'carrier_contact_id'}"
+        />
+        <filter
+          name="tractor_license_plate"
+          string="Tractor"
+          domain="[]"
+          context="{'group_by': 'tractor_license_plate_id'}"
+        />
+        <filter
+          name="trailer_license_plate"
+          string="Trailer"
+          domain="[]"
+          context="{'group_by': 'trailer_license_plate_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>

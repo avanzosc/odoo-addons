@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Acysos S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <template
+    id="report_deca_document"
+    inherit_id="l10n_es_deca_oca.report_deca_document"
+    priority="100"
+  >
+    <h2 position="before">
+      <br />
+    </h2>
+    <xpath expr="//div[@class='page']/div[4]" position="replace" />
+    <xpath expr="//div[@class='page']/div[3]" position="replace">
+      <br />
+      <div class="row">
+        <div class="col-4">
+		        <strong class="fw-bold">Contractual shipper:</strong>
+		        <t t-set="deca_contractual" t-value="deca['contractual']" />
+		        <br />
+		        <span t-out="deca_contractual['name']" /><br />
+		        <span>NIF: </span>
+		        <span t-out="deca_contractual['vat']" /><br />
+		        <span t-out="deca_contractual['street']" /><br />
+		        <span t-out="deca_contractual['zip']" />
+		        <span t-out="deca_contractual['city']" />,
+		        <span t-out="deca_contractual['state']" />
+		    </div>
+        <div class="col-4">
+          <strong class="fw-bold">Carrier:</strong>
+          <t t-set="carrier_contact" t-value="deca['carrier']" />
+          <div t-if="carrier_contact">
+            <span t-out="carrier_contact['name']" />
+            <br />
+            <span>NIF: </span>
+            <span t-out="carrier_contact['vat']" />
+          </div>
+        </div>
+        <div class="col-4">
+          <strong class="fw-bold">Vehicle:</strong>
+          <br />
+          <span>Tractor license plate: </span>
+          <span t-out="deca['tractor_license_plate']" />
+
+          <t t-if="deca['trailer_license_plate']">
+            <br />
+            <span>Trailer licence plate: </span>
+            <span t-out="deca['trailer_license_plate']" />
+          </t>
+
+          <t t-if="deca['special_authorization']">
+            <br />
+            <span>Special Authorizations: </span>
+            <span t-out="deca['special_authorization']" />
+          </t>
+        </div>
+      </div>
+    </xpath>
+
+    <xpath expr="//div[@class='page']/div[2]" position="replace">
+      <div class="row mt-4">
+        <div class="col-6">
+	            <strong class="fw-bold">Place and date of issue: </strong>
+	            <span t-out="deca['issue_city']" />, <span t-out="deca['issue_date']" />
+    	    </div>
+        <div class="col-6">
+          <strong>Shipping: </strong>
+          <span t-field="o.name" />
+          <strong class="fw-bold">     Date of the trip: </strong>
+          <span t-out="deca['loading_date']" />
+          <br />
+        </div>
+      </div>
+    </xpath>
+
+    <xpath expr="//table/thead//th[1]" position="before">
+      <th>Upload Date</th>
+      <th>Sender/Place of loading</th>
+      <th>Consignee/Place of delivery</th>
+    </xpath>
+
+    <xpath expr="//table/tbody//td[1]" position="before">
+      <td>
+        <span t-out="move['upload_date']" />
+      </td>
+      <td>
+        <span t-out="move['place_of_loading']" />
+      </td>
+      <td>
+        <span t-out="move['place_of_delivery']" />
+      </td>
+    </xpath>
+
+    <table position="after">
+      <t t-set="deca_notes" t-value="deca['deca_notes']" />
+      <t t-if="deca_notes">
+        <div style="white-space: pre-line; margin-top: 4px;">
+          <strong>NOTES:</strong>
+          <div style="margin-top: 0; padding-top: 0;" t-out="deca_notes" />
+        </div>
+      </t>
+    </table>
+
+    <div t-out="deca['share_url']" position="attributes">
+      <attribute
+        name="t-options"
+      >{'widget': 'barcode', 'symbology': 'QR', 'width': 120, 'height': 120}</attribute>
+    </div>
+  </template>
+</odoo>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_move_tree" model="ir.ui.view">
+    <field name="model">stock.move</field>
+    <field name="inherit_id" ref="stock.view_move_tree" />
+    <field name="arch" type="xml">
+      <field name="reference" position="after">
+        <field name="partner_id" optional="show" readonly="1" string="Contact" />
+        <field
+          name="carrier_contact_id"
+          optional="show"
+          readonly="1"
+          string="Carrier"
+        />
+        <field
+          name="tractor_license_plate_id"
+          optional="show"
+          readonly="1"
+          string="Tractor"
+        />
+        <field
+          name="trailer_license_plate_id"
+          optional="show"
+          readonly="1"
+          string="Trailer"
+        />
+        <field name="special_authorization" optional="hide" readonly="1" />
+        <field
+          name="place_of_loading_id"
+          optional="show"
+          context="{'show_city': True}"
+          readonly="1"
+        />
+        <field
+          name="place_of_delivery_id"
+          optional="show"
+          context="{'show_city': True}"
+          readonly="1"
+        />
+        <field
+          name="deca_weight"
+          optional="show"
+          readonly="1"
+          sum="Total Deca Weight"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_move_search" model="ir.ui.view">
+    <field name="model">stock.move</field>
+    <field name="inherit_id" ref="stock.view_move_search" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="carrier_contact_id" string="Carrier" />
+        <field name="place_of_loading_id" string="Place of loading" />
+        <field name="place_of_delivery_id" string="Place of delivery" />
+        <field name="tractor_license_plate_id" string="Tractor" />
+        <field name="trailer_license_plate_id" string="Trailer" />
+        <field name="special_authorization" />
+        <field
+          name="deca_weight"
+          optional="show"
+          readonly="1"
+          sum="Total Deca Weight"
+        />
+      </field>
+      <filter name="by_product" position="before">
+        <filter
+          string="Contact"
+          name="order-partner"
+          domain="[]"
+          context="{'group_by':'partner_id'}"
+        />
+        <filter
+          string="Carrier"
+          name="carrier"
+          domain="[]"
+          context="{'group_by':'carrier_contact_id'}"
+        />
+        <filter
+          string="Place of loading"
+          name="place_of_loading"
+          domain="[]"
+          context="{'group_by':'place_of_loading_id'}"
+        />
+        <filter
+          string="Place of delivery"
+          name="place_of_delivery"
+          domain="[]"
+          context="{'group_by':'place_of_delivery_id'}"
+        />
+        <filter
+          string="Tractor"
+          name="tractor"
+          domain="[]"
+          context="{'group_by':'tractor_license_plate_id'}"
+        />
+        <filter
+          string="Trailer"
+          name="trailerr"
+          domain="[]"
+          context="{'group_by':'trailer_license_plate_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
