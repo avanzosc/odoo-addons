@@ -9,7 +9,10 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "license": "AGPL-3",
-    "depends": ["l10n_es_aeat_mod303"],
+    "depends": [
+        "l10n_es_aeat",
+        "l10n_es_aeat_mod303",
+    ],
     "data": [
         "views/mod303_views.xml",
     ],

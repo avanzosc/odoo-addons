@@ -20,10 +20,9 @@
           invisible="not is_tax_agency_navarra"
         >
           <div class="alert alert-info" role="alert">
-                        Casillas específicas de la Hacienda Foral de Navarra.
-                        No modifican la exportación oficial del modelo 303.
+                        Specific boxes of the Navarra Regional Tax Agency. They do not modify the official export of form 303.
                     </div>
-          <group string="Cifra relativa y resultado" name="navarra_resultado">
+          <group string="Relative figure and result" name="navarra_resultado">
             <group>
               <field
                 name="navarra_cifra_relativa"
@@ -62,11 +61,11 @@
               <field name="navarra_compensar" readonly="state in ('done', 'posted')" />
             </group>
           </group>
-          <group string="Modo de pago" name="navarra_modo_pago">
+          <group string="Payment method" name="navarra_modo_pago">
             <field name="navarra_modo_pago" readonly="state in ('done', 'posted')" />
           </group>
           <group
-            string="Resumen anual de operaciones"
+            string="Annual summary of transactions"
             name="navarra_resumen_anual"
             invisible="period_type not in ('4T', '12') and not return_last_period"
           >
@@ -74,7 +73,7 @@
             <field name="navarra_casilla_165" readonly="state in ('done', 'posted')" />
           </group>
           <group
-            string="Operaciones exentas sin derecho a deducción"
+            string="Exempt transactions without right to deduction"
             name="navarra_exentas"
           >
             <field name="navarra_casilla_264" readonly="state in ('done', 'posted')" />
