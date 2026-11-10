@@ -3,8 +3,8 @@
 
 {
     "name": "AEAT modelo 303 - Navarra (F66/F69)",
-    "summary": "Casillas y cálculos navarros del F66/F69 sobre el modelo 303",
-    "version": "18.0.1.0.0",
+    "summary": "Casillas, cálculos y fichero F66/F69 sobre el modelo 303",
+    "version": "18.0.1.1.0",
     "category": "Accounting/Localizations",
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
