@@ -25,8 +25,13 @@ incluye las siguientes casillas:
 - **[63] Resultado final**: casilla 61 - casilla 62 + regularización anual.
 - **[69] Regularización anual** (mapeada sobre la casilla 68 del 303).
 - **Modo de pago** de Navarra.
+- **[93] Sin actividad**.
 - **[164]/[165] Resumen anual de operaciones**.
 - **[264]/[265] Operaciones exentas sin derecho a deducción**.
+
+Además, el módulo genera el fichero de presentación **F66** (mensual) o
+**F69** (trimestral) con el formato oficial de 250 caracteres por registro,
+incluyendo la relación de casillas, el resumen anual y los datos de contacto.
 
 Configuración
 -------------
@@ -57,14 +62,16 @@ Uso
    164/165 del resumen anual.
 8. Marque la casilla 264 o la 265 de operaciones exentas sin derecho a
    deducción.
+9. Pulse **Generar fichero F66/F69** para descargar el fichero de presentación.
+   El nombre del fichero incluye el modelo, el NIF, el ejercicio y el periodo.
 
 Tests
 -----
 
 El módulo incluye pruebas automáticas que cubren el cálculo de las casillas
 navarras, la compensación de saldos negativos, la cifra relativa de los tres
-primeros trimestres, el modo de pago, el resumen anual y las operaciones
-exentas.
+primeros trimestres, el modo de pago, el resumen anual, las operaciones
+exentas y la generación de los ficheros F66/F69.
 
 Bug Tracker
 ===========
