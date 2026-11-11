@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_partner_daily_mail
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-11 11:28+0000\n"
+"PO-Revision-Date: 2026-11-11 11:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_partner_daily_mail
+#: model:mail.template,body_html:stock_partner_daily_mail.mail_template_partner_stock
+msgid ""
+"<div>\n"
+"    <t t-set=\"company\" t-value=\"user.company_id\"/>\n"
+"    <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family: Verdana, Arial, sans-serif; color: #454748; width: 100%; border-collapse: separate;\">\n"
+"        <tr>\n"
+"            <td align=\"center\">\n"
+"                <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 24px; background-color: white; color: #454748; border-collapse: separate;\">\n"
+"                    <tbody>\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table role=\"presentation\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: white; padding: 0; border-collapse: separate;\">\n"
+"                                    <tr>\n"
+"                                        <td valign=\"middle\">\n"
+"                                            <span style=\"font-size: 10px;\">Daily File</span>\n"
+"                                            <br/>\n"
+"                                            <span style=\"font-size: 20px; font-weight: bold;\">Stock / Availability</span>\n"
+"                                        </td>\n"
+"                                        <td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
+"                                            <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: 48px;\" t-att-alt=\"company.name\"/>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                    <tr>\n"
+"                                        <td colspan=\"2\" style=\"text-align: center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color: rgb(204,204,204); border: medium none; clear: both; display: block; font-size: 0px; min-height: 1px; line-height: 0; margin: 4px 0px 32px 0px;\"/>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td style=\"min-width: 590px; font-size: 14px; line-height: 1.6;\">\n"
+"                                <p style=\"margin: 0px;\">\n"
+"                                    Find attached the file with all our brand's stock/availability\n"
+"                                </p>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px; padding: 0px 8px; font-size: 11px;\">\n"
+"                                <hr width=\"100%\" style=\"background-color: rgb(204,204,204); border: medium none; clear: both; display: block; font-size: 0px; min-height: 1px; line-height: 0; margin: 32px 0px 4px 0px;\"/>\n"
+"                                <b t-out=\"company.name or ''\">YourCompany</b>\n"
+"                                <br/>\n"
+"                                <div style=\"color: #999999;\">\n"
+"                                    <t t-out=\"company.phone or ''\">+1 650-123-4567</t>\n"
+"                                    <t t-if=\"company.email and company.phone\"> |</t>\n"
+"                                    <a t-if=\"company.email\" t-attf-href=\"mailto:{{ company.email }}\" style=\"text-decoration: none; color: #999999;\" t-out=\"company.email or ''\">info@yourcompany.com</a>\n"
+"                                    <t t-if=\"company.website and (company.phone or company.email)\"> |</t>\n"
+"                                    <a t-if=\"company.website\" t-att-href=\"company.website\" style=\"text-decoration: none; color: #999999;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
+"                                </div>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </td>\n"
+"        </tr>\n"
+"    </table>\n"
+"</div>\n"
+"        "
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Brand"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:ir.model,name:stock_partner_daily_mail.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:mail.template,name:stock_partner_daily_mail.mail_template_partner_stock
+msgid "Contact: Daily Stock"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:ir.actions.server,name:stock_partner_daily_mail.ir_cron_send_stock_mail_ir_actions_server
+msgid "Contacts: Send Daily Stock"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:mail.template,subject:stock_partner_daily_mail.mail_template_partner_stock
+msgid "Daily File with MOTS stock"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:ir.model.fields,help:stock_partner_daily_mail.field_res_partner__send_stock
+#: model:ir.model.fields,help:stock_partner_daily_mail.field_res_users__send_stock
+msgid ""
+"Every day this contact receives by email an Excel file with the available "
+"stock."
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Product"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Reference"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Sale Price"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:ir.model.fields,field_description:stock_partner_daily_mail.field_res_partner__send_stock
+#: model:ir.model.fields,field_description:stock_partner_daily_mail.field_res_users__send_stock
+#: model_terms:ir.ui.view,arch_db:stock_partner_daily_mail.view_res_partner_filter
+msgid "Send Stock by Email"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#: model:mail.template,description:stock_partner_daily_mail.mail_template_partner_stock
+msgid "Sent every day to contacts with \"Send Stock by Email\" checked"
+msgstr ""
+
+#. module: stock_partner_daily_mail
+#. odoo-python
+#: code:addons/stock_partner_daily_mail/models/res_partner.py:0
+msgid "Stock"
+msgstr ""
