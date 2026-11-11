@@ -4,6 +4,7 @@ import logging
 from urllib.parse import urlencode
 
 import werkzeug.exceptions
+from werkzeug.urls import url_encode
 
 from odoo import _, fields
 from odoo.http import Controller, content_disposition, request, route
@@ -142,6 +143,10 @@ def _item_matches(
 class WebsiteCatalog(Controller):
     @route("/catalogs", type="http", auth="public", website=True)
     def catalogs(self, search=None, **post):
+        if request.website.is_public_user():
+            return request.redirect(
+                "/web/login?" + url_encode({"redirect": request.httprequest.full_path})
+            )
         search = (search or "").strip()
         domain = _website_catalog_domain()
         if search:
@@ -156,18 +161,14 @@ class WebsiteCatalog(Controller):
                     ),
                 ]
             )
-        show_catalogs = not request.env.user._is_public()
-        catalogs = (
-            request.env["product.catalog"].sudo().search(domain)
-            if show_catalogs
-            else request.env["product.catalog"]
-        )
+        #  show_catalogs = not request.env.user._is_public()
+        catalogs = request.env["product.catalog"].sudo().search(domain)
         layout_mode = _get_catalog_layout_mode(CATALOGS_LAYOUT_SESSION_KEY)
         return request.render(
             "website_sale_product_catalog.catalogs",
             {
                 "catalogs": catalogs,
-                "show_catalogs": show_catalogs,
+                "show_catalogs": True,
                 "search": search,
                 "layout_mode": layout_mode,
             },
