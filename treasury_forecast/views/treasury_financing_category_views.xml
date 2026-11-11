@@ -7,7 +7,8 @@
       <list>
         <field name="name" />
         <field name="parent_id" />
-        <field name="category_type" />
+        <field name="child_ids" column_invisible="True" />
+        <field name="category_type" invisible="child_ids" />
       </list>
     </field>
   </record>
@@ -21,7 +22,8 @@
           <group>
             <field name="name" />
             <field name="parent_id" />
-            <field name="category_type" />
+            <field name="child_ids" invisible="True" />
+            <field name="category_type" invisible="child_ids" />
           </group>
         </sheet>
       </form>
@@ -48,7 +50,11 @@
           name="filter_expense"
           domain="[('category_type','=','expense')]"
         />
-
+        <filter
+          string="Both"
+          name="filter_both"
+          domain="[('category_type','=','both')]"
+        />
         <separator />
         <group expand="0" string="Group By">
           <filter

@@ -17,6 +17,9 @@ class TreasuryForecastProjectReport(models.Model):
         comodel_name="project.project",
         string="Project",
     )
+    project_partner_id = fields.Many2one(
+        comodel_name="res.partner", string="Partner Project"
+    )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
@@ -92,6 +95,7 @@ SELECT
     (tf.income - tf.expense) AS balance,
     tf.journal_id AS journal_id,
     tf.project_id As project_id,
+    tf.project_partner_id AS project_partner_id,
     tf.analytic_account_id AS analytic_account_id,
     tf.journal_id AS estimated_journal_id,
     tf.currency_id AS currency_id,
@@ -123,6 +127,10 @@ SELECT
         WHEN proj_count.cnt = 1 THEN pp.id
         ELSE NULL
     END AS project_id,
+    CASE
+        WHEN proj_count.cnt = 1 THEN pp.partner_id
+        ELSE NULL
+    END AS project_partner_id,
     al.account_id AS analytic_account_id,
     am.journal_id  AS estimated_journal_id,
     al.currency_id AS currency_id,

@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
   <record id="product_catalog_view_form_inherit_website" model="ir.ui.view">
-    <field name="name">product.catalog.view.form.inherit.website</field>
     <field name="model">product.catalog</field>
     <field name="inherit_id" ref="sale_product_catalog.product_catalog_view_form" />
     <field name="arch" type="xml">
+      <div name="button_box" position="inside">
+        <field name="is_published" widget="website_redirect_button" />
+      </div>
       <field name="company_id" position="before">
-        <field name="visible_slider" />
+        <field name="is_published" />
+        <field
+          name="website_id"
+          options="{'no_create': True}"
+          groups="website.group_multi_website"
+          placeholder="All"
+        />
       </field>
     </field>
   </record>
 
   <record id="product_catalog_view_list_inherit_website" model="ir.ui.view">
-    <field name="name">product.catalog.view.list.inherit.website</field>
     <field name="model">product.catalog</field>
     <field name="inherit_id" ref="sale_product_catalog.product_catalog_view_list" />
     <field name="arch" type="xml">
       <field name="inventory_availability" position="after">
-        <field name="visible_slider" />
+        <field name="is_published" />
       </field>
     </field>
   </record>
+
+  <menuitem
+    id="product_catalog_website_menu"
+    name="Catalogs"
+    parent="website_sale.menu_catalog"
+    action="sale_product_catalog.product_catalog_action"
+  />
 </odoo>
