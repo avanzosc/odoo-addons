@@ -1,6 +1,7 @@
 # Copyright 2026 Alfredo de la Fuente - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class TreasuryForecast(models.Model):
@@ -16,7 +17,20 @@ class TreasuryForecast(models.Model):
         store=True,
         readonly=True,
     )
-    margin = fields.Float(string="Margin (%)")
+    expense_price = fields.Monetary(
+        currency_field="currency_id",
+        aggregator=False,
+    )
+    margin = fields.Float(string="Margin (%)", aggregator=False)
+    income_price = fields.Monetary(
+        currency_field="currency_id",
+        aggregator=False,
+    )
+    category_type = fields.Selection(
+        related="category_id.category_type",
+        store=True,
+        readonly=True,
+    )
     analytic_account_id = fields.Many2one(
         comodel_name="account.analytic.account",
         string="Analytic Account",
@@ -50,7 +64,17 @@ class TreasuryForecast(models.Model):
     @api.onchange("margin")
     def _onchange_margin(self):
         if self.project_id:
-            self.income_price = self.expense_price * (1 + self.margin / 100)
+            if self.category_id.category_type == "both":
+                self.income_price = self._get_income_price_from_margin()
+            self._update_project_amounts()
+
+    @api.onchange("category_id")
+    def _onchange_category_id(self):
+        if self.project_id:
+            if self.category_id.category_type == "both":
+                self._onchange_margin()
+            else:
+                self._update_project_amounts()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
@@ -67,8 +91,30 @@ class TreasuryForecast(models.Model):
         if not self.project_id:
             return super()._onchange_quantity_expense_price()
         self._onchange_margin()
-        self.expense = self.quantity * self.expense_price
-        self.income = self.quantity * self.income_price
+
+    @api.onchange("quantity", "income_price")
+    def _onchange_quantity_income_price(self):
+        if not self.project_id:
+            return super()._onchange_quantity_income_price()
+        self._update_project_amounts()
+
+    def _update_project_amounts(self):
+        category_type = self.category_id.category_type
+        expense = self.quantity * self.expense_price
+        income = self.quantity * self.income_price
+        if category_type == "income":
+            self.expense = 0.0
+            self.income = income
+        elif category_type == "expense":
+            self.expense = expense
+            self.income = 0.0
+        elif category_type == "both":
+            self.expense = expense
+            self.income = income
+        else:
+            # Preserve the existing project behavior when no category is set.
+            self.expense = expense
+            self.income = income
 
     @api.onchange("expense")
     def _onchange_expense(self):
@@ -79,3 +125,31 @@ class TreasuryForecast(models.Model):
     def _onchange_income(self):
         if not self.project_id:
             return super()._onchange_income()
+
+    def _get_income_price_from_margin(self):
+        self.ensure_one()
+
+        margin = self.margin / 100.0
+
+        calculation = (
+            self.project_id.treasury_margin_calculation
+            or self.company_id.treasury_margin_calculation
+            or "cost"
+        )
+
+        if calculation == "sale":
+            if margin >= 1:
+                raise ValidationError(
+                    _(
+                        "The margin must be lower than 100% "
+                        "when calculating the sale price."
+                    )
+                )
+            return self.expense_price / (1 - margin)
+
+        return self.expense_price * (1 + margin)
+
+    @api.onchange("company_id")
+    def _onchange_company_margin_calculation(self):
+        if self.project_id and self.category_id.category_type == "both":
+            self._onchange_margin()
