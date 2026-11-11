@@ -54,7 +54,7 @@
                   <t t-foreach="catalogs" t-as="catalog">
                     <div class="col o_catalog_card_item">
                       <a
-                        t-attf-href="/shop?catalog_ids=#{catalog.id}"
+                        t-att-href="'/catalog/' + slug(catalog)"
                         class="o_catalog_card_link text-decoration-none"
                       >
                         <div class="card h-100 text-center p-3">
@@ -82,6 +82,16 @@
                           </div>
                         </div>
                       </a>
+                      <div name="catalog_product_record_xlsx">
+                        <t
+                          t-set="catalog_product_record_xlsx_url"
+                          t-value="'/catalog/xlsx/%s?%s' % (catalog.id, keep_query())"
+                        />
+                        <a t-att-href="catalog_product_record_xlsx_url">
+                          <i class="fa fa-fw fa-file-excel-o" />
+                          <span>Download</span>
+                        </a>
+                      </div>
                     </div>
                   </t>
                 </div>

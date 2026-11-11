@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-24 09:20+0000\n"
-"PO-Revision-Date: 2026-09-24 09:20+0000\n"
+"POT-Creation-Date: 2026-10-28 15:11+0000\n"
+"PO-Revision-Date: 2026-10-28 15:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,7 @@ msgid ""
 msgstr ""
 "<code>Comparar el precio / mercado</code>: columna opcional que se importa "
 "como precio fijo cuando se rellena."
+
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid ""
@@ -31,17 +32,19 @@ msgid ""
 msgstr ""
 "<code>Incluido / Mercado</code>: columna opcional para indicar si el "
 "producto se importa para ese mercado."
+
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid "<code>Price / Market</code>: imported as distribution price."
-msgstr ""
-"<code>Precio / Mercado</code>: importado como precio de distribución."
+msgstr "<code>Precio / Mercado</code>: importado como precio de distribución."
+
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid "<code>Variant Barcode</code>: used to search products by barcode."
 msgstr ""
-"<code>Código de barras de variante</code>: se utiliza para buscar "
-"productos por código de barras."
+"<code>Código de barras de variante</code>: se utiliza para buscar productos "
+"por código de barras."
+
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid ""
@@ -49,6 +52,7 @@ msgid ""
 msgstr ""
 "<code>SKU de variante</code>: se utiliza para buscar productos por "
 "referencia interna."
+
 #. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item_import_line__action
 msgid "Action"
@@ -223,13 +227,17 @@ msgstr "Icono que indica una actividad excepcional."
 #. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,help:product_pricelist_import_several_prices.field_product_pricelist_item_import__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Si está marcada, significa que hay mensajes nuevos que requieren tu atención."
+msgstr ""
+"Si está marcada, significa que hay mensajes nuevos que requieren tu "
+"atención."
 
 #. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,help:product_pricelist_import_several_prices.field_product_pricelist_item_import__message_has_error
 #: model:ir.model.fields,help:product_pricelist_import_several_prices.field_product_pricelist_item_import__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Si está marcada esta casilla, algunos mensajes presentan un error de entrega."
+msgstr ""
+"Si está marcada esta casilla, algunos mensajes presentan un error de "
+"entrega."
 
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
@@ -255,6 +263,7 @@ msgstr "Líneas de importación"
 #. module: product_pricelist_import_several_prices
 #: model:ir.actions.act_window,name:product_pricelist_import_several_prices.product_pricelist_item_import_action
 #: model:ir.ui.menu,name:product_pricelist_import_several_prices.product_pricelist_item_import_menu
+#: model:ir.ui.menu,name:product_pricelist_import_several_prices.product_pricelist_item_sale_import_menu
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid "Import Pricelist Items"
 msgstr "Importar elementos de tarifa"
@@ -378,11 +387,6 @@ msgid "Number of messages with delivery error"
 msgstr "Número de mensajes con error de entrega"
 
 #. module: product_pricelist_import_several_prices
-#: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item__pvp_price
-msgid "PVP"
-msgstr ""
-
-#. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_line_view_search
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_search
 msgid "Pending"
@@ -424,7 +428,7 @@ msgstr "Mercados de listas de precios"
 #. module: product_pricelist_import_several_prices
 #: model:ir.model,name:product_pricelist_import_several_prices.model_product_pricelist_item
 msgid "Pricelist Rule"
-msgstr "Item de Lista de precios"
+msgstr "Regla de la Lista de Precios"
 
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_line_view_form
@@ -441,6 +445,11 @@ msgstr "Procesar"
 #: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item_import_line__product_id
 msgid "Product"
 msgstr "Producto"
+
+#. module: product_pricelist_import_several_prices
+#: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item__rrp_price
+msgid "RRP Price"
+msgstr "Precio PVP"
 
 #. module: product_pricelist_import_several_prices
 #: model:ir.model.fields,field_description:product_pricelist_import_several_prices.field_product_pricelist_item_import__rating_ids
@@ -487,6 +496,7 @@ msgstr ""
 "Vencida: la fecha de vencimiento ya ha pasado\n"
 "Hoy: la fecha de la actividad es hoy\n"
 "Planificada: actividades futuras."
+
 #. module: product_pricelist_import_several_prices
 #: model_terms:ir.ui.view,arch_db:product_pricelist_import_several_prices.product_pricelist_item_import_view_form
 msgid "The Shopify file must include these columns:"
