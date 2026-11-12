@@ -1,6 +1,8 @@
 # Copyright 2024 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import re
+
 from odoo import _, api, fields, models
 from odoo.osv import expression
 from odoo.tools.safe_eval import safe_eval
@@ -8,6 +10,7 @@ from odoo.tools.safe_eval import safe_eval
 from odoo.addons.base_import_wizard.models.base_import import (
     check_number,
     convert2date,
+    convert2str,
 )
 
 
@@ -41,38 +44,51 @@ class ProductSupplierinfoImport(models.Model):
         values = super()._get_line_values(row_values=row_values, datemode=datemode)
         if row_values:
             log_infos = []
-            product_name = row_values.get("Plantilla de producto", "")
-            product_code = row_values.get("Código de producto", "")
+            product_name = self._get_row_value(
+                row_values, _("Product Template"), "Product Template", ""
+            )
+            product_code = self._get_row_value(
+                row_values, _("Internal Reference"), "Internal Reference", ""
+            )
 
             if not product_name and not product_code:
                 return {}
 
-            supplier_name = row_values.get(_("Vendor"), row_values.get("Vendor", ""))
-            supplier_product_name = row_values.get(
-                _("Vendor Product Name"), row_values.get("Vendor Product Name", "")
-            )
-            supplier_product_code = row_values.get(
-                "Código de producto del proveedor", ""
+            product_barcode = self._get_row_value(
+                row_values, _("Barcode"), "Barcode", ""
             )
 
-            date_start = row_values.get("Fecha de inicio", False)
-            date_end = row_values.get("Fecha finalización", False)
+            supplier_name = self._get_row_value(row_values, _("Vendor"), "Vendor", "")
+            supplier_product_name = self._get_row_value(
+                row_values, _("Vendor Product Name"), "Vendor Product Name", ""
+            )
+            supplier_product_code = self._get_row_value(
+                row_values, _("Vendor Product Code"), "Vendor Product Code", ""
+            )
 
-            sequence = row_values.get("Secuencia", "")
-            currency_code = row_values.get("Moneda", "")
-            min_qty = row_values.get("Cantidad mínima", 0.0)
-            price = row_values.get(_("Price"), row_values.get("Price", False))
-            delay = row_values.get(
-                _("Delivery Lead Time"), row_values.get("Delivery Lead Time", False)
+            date_start = self._get_row_value(
+                row_values, _("Start Date"), "Start Date", False
+            )
+            date_end = self._get_row_value(row_values, _("End Date"), "End Date", False)
+
+            sequence = self._get_row_value(row_values, _("Sequence"), "Sequence", "")
+            currency_code = self._get_row_value(
+                row_values, _("Currency"), "Currency", ""
+            )
+            min_qty = self._get_row_value(row_values, _("Quantity"), "Quantity", 0.0)
+            price = self._get_row_value(row_values, _("Price"), "Price", False)
+            delay = self._get_row_value(
+                row_values, _("Delivery Lead Time"), "Delivery Lead Time", False
             )
             values.update(
                 {
-                    "product_code": str(product_code),
-                    "product_name": product_name or str(product_code),
+                    "product_code": convert2str(product_code),
+                    "product_name": product_name or convert2str(product_code),
+                    "product_barcode": convert2str(product_barcode),
                     "sequence": sequence,
-                    "supplier_name": str(supplier_name),
-                    "supplier_product_name": str(supplier_product_name),
-                    "supplier_product_code": str(supplier_product_code),
+                    "supplier_name": convert2str(supplier_name),
+                    "supplier_product_name": convert2str(supplier_product_name),
+                    "supplier_product_code": convert2str(supplier_product_code),
                     "currency_code": currency_code,
                     "min_qty": check_number(min_qty),
                     "date_start": convert2date(date_start, datemode=datemode).date()
@@ -226,7 +242,7 @@ class ProductSupplierinfoImportLine(models.Model):
         copy=False,
     )
     currency_code = fields.Char(
-        default=lambda self: self.env.company.currency_id.code,
+        default=lambda self: self.env.company.currency_id.name,
         copy=False,
     )
     currency_id = fields.Many2one(
@@ -267,6 +283,14 @@ class ProductSupplierinfoImportLine(models.Model):
             record.product_code = record.product_tmpl_id.default_code
             record.product_barcode = record.product_tmpl_id.barcode
 
+    @api.onchange("product_id")
+    def onchange_product_id(self):
+        for record in self:
+            record.product_tmpl_id = record.product_id.product_tmpl_id
+            record.product_name = record.product_id.name
+            record.product_code = record.product_id.default_code
+            record.product_barcode = record.product_id.barcode
+
     @api.onchange("supplier_id")
     def onchange_supplier_id(self):
         for record in self:
@@ -275,8 +299,9 @@ class ProductSupplierinfoImportLine(models.Model):
     def _get_supplier_domain(self):
         self.ensure_one()
         return [
-            ("name", "=", self.supplier_name),
+            ("name", "=ilike", (self.supplier_name or "").strip()),
             ("parent_id", "=", False),
+            ("supplier_rank", ">", 0),
         ]
 
     def _get_product_domain(self):
@@ -287,15 +312,17 @@ class ProductSupplierinfoImportLine(models.Model):
         self.ensure_one()
         log_info = ""
         partner_obj = self.env["res.partner"].with_company(self.import_id.company_id.id)
-        if self.supplier_id:
+        if self.supplier_id and self.supplier_id.exists():
             return self.supplier_id, log_info
-        search_domain = self._get_supplier_domain()
+        if not (self.supplier_name or "").strip():
+            log_info = _("No supplier name provided.")
+            return False, log_info
         search_domain = expression.AND(
             [
                 [
                     ("company_id", "in", (self.import_id.company_id.id, False)),
                 ],
-                search_domain,
+                self._get_supplier_domain(),
             ]
         )
         suppliers = partner_obj.search(search_domain)
@@ -311,54 +338,50 @@ class ProductSupplierinfoImportLine(models.Model):
     def _check_product(self):
         self.ensure_one()
         log_info = ""
-        product_obj = self.env["product.template"].with_company(
+        product_obj = self.env["product.product"].with_company(
             self.import_id.company_id.id
         )
-        if self.product_tmpl_id:
+        if self.product_tmpl_id and self.product_tmpl_id.exists():
             return self.product_tmpl_id, log_info
 
-        if self.product_barcode:
-            search_domain = [
-                ("barcode", "=", self.product_barcode),
-            ]
-        else:
-            search_domain = (
-                [
-                    ("default_code", "=", self.product_code),
-                ]
-                if self.product_code
-                else []
-            )
-        products = product_obj.search(search_domain)
-        name_domain = [
-            ("name", "=", self.product_name),
+        product_name = (self.product_name or "").strip()
+        product_code = (self.product_code or "").strip()
+        name_match = re.search(r"\[(.*?)\]", product_name)
+        if not product_code and name_match:
+            product_code = name_match.group(1).strip()
+        if name_match:
+            product_name = product_name[name_match.end() :].strip()
+
+        company_domain = [
+            ("company_id", "in", (self.import_id.company_id.id, False)),
         ]
-        if not products:
-            search_domain = expression.OR([search_domain, name_domain])
-        elif len(products) > 1:
-            search_domain = expression.OR(
-                [
-                    search_domain,
-                    name_domain,
-                ]
+        products = product_obj.browse()
+        if self.product_barcode:
+            products = product_obj.search(
+                expression.AND(
+                    [company_domain, [("barcode", "=", self.product_barcode)]]
+                )
             )
-        # search_domain = expression.AND(
-        #     [
-        #         [
-        #             "|",
-        #             ("company_id", "=", self.import_id.company_id.id),
-        #             ("company_id", "=", False),
-        #         ],
-        #         search_domain,
-        #     ]
-        # )
-        products = product_obj.search(search_domain)
+        if not products and product_code:
+            products = product_obj.search(
+                expression.AND([company_domain, [("default_code", "=", product_code)]])
+            )
+        if not products and product_name:
+            products = product_obj.search(
+                expression.AND([company_domain, [("name", "=ilike", product_name)]])
+            )
+        if len(products) > 1 and product_name:
+            matching_products = products.filtered(
+                lambda p: (p.name or "").strip().lower() == product_name.lower()
+            )
+            products = matching_products or products
+        templates = products.product_tmpl_id
         if not products:
             log_info = _("No product found.")
-        elif len(products) > 1:
-            products = False
+        elif len(templates) > 1:
+            templates = self.env["product.template"].browse()
             log_info = _("More than one product already exist.")
-        return products and products[:1], log_info
+        return templates[:1], log_info
 
     def _check_currency(self):
         self.ensure_one()
@@ -394,6 +417,8 @@ class ProductSupplierinfoImportLine(models.Model):
             {
                 "supplier_id": supplier and supplier.id,
                 "product_tmpl_id": product and product.id,
+                "product_code": product and product.default_code,
+                "product_barcode": product and product.barcode,
                 "currency_id": currency and currency.id,
                 "log_info": "\n".join(log_infos),
                 "state": state,
@@ -422,10 +447,14 @@ class ProductSupplierinfoImportLine(models.Model):
             "sequence": self.sequence,
             "partner_id": self.supplier_id.id,
             "product_tmpl_id": self.product_tmpl_id.id,
+            "product_id": self.product_id.id,
+            "product_name": self.supplier_product_name,
+            "product_code": self.supplier_product_code,
             "min_qty": self.min_qty,
             "price": self.price,
             "discount": self.discount,
             "currency_id": self.currency_id.id,
+            "company_id": self.import_id.company_id.id,
             "date_start": self.date_start,
             "date_end": self.date_end,
             "delay": self.delay,

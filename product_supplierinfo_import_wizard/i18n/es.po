@@ -6,10 +6,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-12 14:06+0000\n"
+"POT-Creation-Date: 2026-11-12 15:28+0000\n"
 "PO-Revision-Date: 2026-11-12 14:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
@@ -23,69 +24,68 @@ msgstr "'{}' está inactivo."
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Cantidad mínima</code>: this will fill <b>Minimal Quantity.</b>"
-msgstr "<code>Cantidad mínima</code>: esto rellenará <b>Cantidad Mínima.</b>"
+msgid "<code>Barcode</code>: this will fill <b>Barcode.</b>"
+msgstr ""
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid "<code>Currency</code>: this will fill <b>Currency.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
 msgid ""
-"<code>Código de producto del proveedor</code>: this will fill <b>Vendor "
-"Product Code.</b>"
+"<code>Delivery Lead Time</code>: this will fill <b>Delivery Lead Time.</b>"
 msgstr ""
-"<code>Código de producto del proveedor</code>: esto rellenará <b>Código de "
-"Producto del Proveedor.</b>"
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Código de producto</code>: this will fill <b>Product Code.</b>"
+msgid "<code>End Date</code>: this will fill <b>End Date.</b>"
 msgstr ""
-"<code>Código de producto</code>: esto rellenará <b>Código del producto.</b>"
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Fecha de inicio</code>: this will fill <b>Start Date.</b>"
-msgstr "<code>Fecha de inicio</code>: esto rellenará <b>Fecha de inicio.</b>"
+msgid "<code>Internal Reference</code>: this will fill <b>Product Code.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Fecha finalización</code>: this will fill <b>End Date.</b>"
-msgstr "<code>Fecha finalización</code>: esto rellenará <b>Fecha de fin.</b>"
+msgid "<code>Price</code>: this will fill <b>Price.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Moneda</code>: this will fill <b>Currency.</b>"
-msgstr "<code>Moneda</code>: esto rellenará <b>Moneda.</b>"
+msgid "<code>Product Template</code>: this will fill <b>Product Template.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Precio</code>: this will fill <b>Price.</b>"
-msgstr "<code>Precio</code>: esto rellenará <b>Precio.</b>"
+msgid "<code>Quantity</code>: this will fill <b>Quantity.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Producto</code>: this will fill <b>Product.</b>"
-msgstr "<code>Producto</code>: esto rellenará <b>Producto.</b>"
+msgid "<code>Sequence</code>: this will fill <b>Sequence.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "<code>Secuencia</code>: this will fill <b>Sequence.</b>"
-msgstr "<code>Secuencia</code>: esto rellenará <b>Secuencia.</b>"
+msgid "<code>Start Date</code>: this will fill <b>Start Date.</b>"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
 msgid ""
-"<code>Tiempo inicial entrega</code>: this will fill <b>Delivery Lead "
-"Time.</b>"
+"<code>Vendor Product Code</code>: this will fill <b>Vendor Product Code.</b>"
 msgstr ""
-"<code>Tiempo inicial entrega</code>: esto rellenará <b>Plazo de Entrega.</b>"
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
 msgid ""
 "<code>Vendor Product Name</code>: this will fill <b>Vendor Product Name.</b>"
 msgstr ""
-"<code>Nombre del producto del proveedor</code>: esto rellenará <b>Nombre del"
-" Producto del Proveedor.</b>"
+"<code>Nombre del producto del proveedor</code>: esto rellenará <b>Nombre del "
+"Producto del Proveedor.</b>"
 
 #. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
@@ -134,9 +134,18 @@ msgid "Attachment Count"
 msgstr "Número de adjuntos"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_barcode
 msgid "Barcode"
 msgstr "Código de barras"
+
+#. module: product_supplierinfo_import_wizard
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
+msgid ""
+"Column names are matched first in your user language and then in Odoo's base "
+"language (English). These base column names are supported:"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__company_id
@@ -162,6 +171,8 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__currency_id
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_form
 msgid "Currency"
@@ -173,9 +184,16 @@ msgid "Currency Code"
 msgstr "Moneda"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__delay
 msgid "Delivery Lead Time"
 msgstr "Plazo de entrega"
+
+#. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__discount
+msgid "Discount (%)"
+msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__display_name
@@ -195,9 +213,11 @@ msgid "Done"
 msgstr "Hecho"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_end
 msgid "End Date"
-msgstr "Fecha de fin"
+msgstr "Fecha de finalización"
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_end
@@ -288,6 +308,12 @@ msgid "If checked, some messages have a delivery error."
 msgstr "Si está marcado, algunos mensajes tienen un error de entrega."
 
 #. module: product_supplierinfo_import_wizard
+#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_id
+msgid ""
+"If not set, the vendor price will apply to all variants of this product."
+msgstr ""
+
+#. module: product_supplierinfo_import_wizard
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
 msgid "Import"
 msgstr "Importar"
@@ -335,6 +361,12 @@ msgid "Imported Lines"
 msgstr "Líneas importadas"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "Internal Reference"
+msgstr "Referencia interna"
+
+#. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_barcode
 msgid "International Article Number used for product identification."
 msgstr ""
@@ -366,8 +398,8 @@ msgid ""
 "automatic computation of the purchase order planning."
 msgstr ""
 "Tiempo de entrega en días entre la confirmación del pedido de compra y la "
-"recepción de los productos en su almacén. Utilizado por el planificador para"
-" el cálculo automático de la planificación del pedido de compra."
+"recepción de los productos en su almacén. Utilizado por el planificador para "
+"el cálculo automático de la planificación del pedido de compra."
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__import_line_ids
@@ -392,11 +424,6 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__min_qty
-msgid "Minimal Quantity"
-msgstr "Cantidad mínima"
-
-#. module: product_supplierinfo_import_wizard
 #. odoo-python
 #: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 msgid "More than one product already exist."
@@ -417,11 +444,6 @@ msgstr "Mi fecha límite de actividad"
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__name
 msgid "Name"
 msgstr "Nombre"
-
-#. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr ""
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_date_deadline
@@ -457,6 +479,12 @@ msgid "No supplier found with name {}."
 msgstr "No se encontró ningún proveedor con el nombre {}."
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+msgid "No supplier name provided."
+msgstr "No se ha proporcionado el nombre del proveedor."
+
+#. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__message_needaction_counter
 msgid "Number of Actions"
 msgstr "Número de acciones"
@@ -483,6 +511,8 @@ msgid "Pending"
 msgstr "Pendiente"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__price
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_base_view_tree
 msgid "Price"
@@ -497,7 +527,6 @@ msgid "Process"
 msgstr "Procesar"
 
 #. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_id
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_form
 #: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_line_view_search
 msgid "Product"
@@ -525,14 +554,23 @@ msgid "Product Supplierinfo"
 msgstr "Información de proveedor del producto"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_tmpl_id
-msgid "Product Tmpl"
+msgid "Product Template"
 msgstr "Plantilla de producto"
 
 #. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__rating_ids
-msgid "Ratings"
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__product_id
+msgid "Product Variant"
 msgstr ""
+
+#. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
+#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__min_qty
+msgid "Quantity"
+msgstr "Cantidad"
 
 #. module: product_supplierinfo_import_wizard
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__activity_user_id
@@ -540,6 +578,8 @@ msgid "Responsible User"
 msgstr "Usuario responsable"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__sequence
 msgid "Sequence"
 msgstr "Secuencia"
@@ -550,6 +590,8 @@ msgid "Split Size"
 msgstr "Tamaño de división"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__date_start
 msgid "Start Date"
 msgstr "Fecha de inicio"
@@ -666,6 +708,8 @@ msgid "Vendor"
 msgstr "Proveedor"
 
 #. module: product_supplierinfo_import_wizard
+#. odoo-python
+#: code:addons/product_supplierinfo_import_wizard/models/product_supplierinfo_import.py:0
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_code
 msgid "Vendor Product Code"
 msgstr "Código de producto del proveedor"
@@ -676,18 +720,3 @@ msgstr "Código de producto del proveedor"
 #: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import_line__supplier_product_name
 msgid "Vendor Product Name"
 msgstr "Nombre del producto del proveedor"
-
-#. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,field_description:product_supplierinfo_import_wizard.field_product_supplierinfo_import__website_message_ids
-msgid "Website Messages"
-msgstr "Mensajes del sitio web"
-
-#. module: product_supplierinfo_import_wizard
-#: model:ir.model.fields,help:product_supplierinfo_import_wizard.field_product_supplierinfo_import__website_message_ids
-msgid "Website communication history"
-msgstr "Historial de comunicación del sitio web"
-
-#. module: product_supplierinfo_import_wizard
-#: model_terms:ir.ui.view,arch_db:product_supplierinfo_import_wizard.product_supplierinfo_import_view_form
-msgid "You must use this column names in order to fill the table:"
-msgstr "Debe usar estos nombres de columna para llenar la tabla:"

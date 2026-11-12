@@ -188,6 +188,12 @@ class BaseImport(models.AbstractModel):
             }
         return False
 
+    def _get_row_value(self, row_values, column_name, source_name=None, default=False):
+        self.ensure_one()
+        if source_name is None:
+            source_name = column_name
+        return row_values.get(column_name, row_values.get(source_name, default))
+
     def _read_csv(self):
         lines = []
         import_file = BytesIO(base64.decodebytes(self.data))
