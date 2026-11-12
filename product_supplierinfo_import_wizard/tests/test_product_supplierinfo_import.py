@@ -36,18 +36,19 @@ class TestProductSupplierinfoImport(TransactionCase):
     def _create_wizard_with_csv(self, rows, fieldnames=None):
         if not fieldnames:
             fieldnames = [
-                "Proveedor",
-                "Plantilla de producto",
-                "Código de producto",
-                "Nombre del producto del proveedor",
-                "Código de producto del proveedor",
-                "Secuencia",
-                "Moneda",
-                "Cantidad mínima",
-                "Fecha de inicio",
-                "Fecha finalización",
-                "Precio",
-                "Tiempo inicial entrega",
+                "Vendor",
+                "Product Template",
+                "Internal Reference",
+                "Barcode",
+                "Vendor Product Name",
+                "Vendor Product Code",
+                "Sequence",
+                "Currency",
+                "Quantity",
+                "Start Date",
+                "End Date",
+                "Price",
+                "Delivery Lead Time",
             ]
         output = StringIO()
         writer = csv.DictWriter(output, fieldnames=fieldnames)
@@ -94,18 +95,18 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_get_line_values_full(self):
         wizard = self._create_wizard()
         row_values = {
-            "Plantilla de producto": "Test Product",
-            "Código de producto": "TST001",
-            "Proveedor": "Test Supplier",
-            "Nombre del producto del proveedor": "Vendor Name",
-            "Código de producto del proveedor": "VENDOR001",
-            "Secuencia": "5",
-            "Moneda": "USD",
-            "Cantidad mínima": "2",
-            "Fecha de inicio": "2024-01-01",
-            "Fecha finalización": "2024-12-31",
-            "Precio": "25.50",
-            "Tiempo inicial entrega": "3",
+            "Product Template": "Test Product",
+            "Internal Reference": "TST001",
+            "Vendor": "Test Supplier",
+            "Vendor Product Name": "Vendor Name",
+            "Vendor Product Code": "VENDOR001",
+            "Sequence": "5",
+            "Currency": "USD",
+            "Quantity": "2",
+            "Start Date": "2024-01-01",
+            "End Date": "2024-12-31",
+            "Price": "25.50",
+            "Delivery Lead Time": "3",
         }
         result = wizard._get_line_values(row_values=row_values)
         self.assertEqual(result["product_code"], "TST001")
@@ -124,9 +125,9 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_get_line_values_no_product(self):
         wizard = self._create_wizard()
         row_values = {
-            "Plantilla de producto": "",
-            "Código de producto": "",
-            "Proveedor": "Test Supplier",
+            "Product Template": "",
+            "Internal Reference": "",
+            "Vendor": "Test Supplier",
         }
         result = wizard._get_line_values(row_values=row_values)
         self.assertEqual(result, {})
@@ -134,9 +135,9 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_get_line_values_code_only(self):
         wizard = self._create_wizard()
         row_values = {
-            "Plantilla de producto": "",
-            "Código de producto": "TST001",
-            "Proveedor": "Test Supplier",
+            "Product Template": "",
+            "Internal Reference": "TST001",
+            "Vendor": "Test Supplier",
         }
         result = wizard._get_line_values(row_values=row_values)
         self.assertEqual(result["product_code"], "TST001")
@@ -147,10 +148,10 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_get_line_values_with_numeric_price(self):
         wizard = self._create_wizard()
         row_values = {
-            "Plantilla de producto": "Test",
-            "Código de producto": "TST002",
-            "Proveedor": "Supplier",
-            "Precio": 99.99,
+            "Product Template": "Test",
+            "Internal Reference": "TST002",
+            "Vendor": "Supplier",
+            "Price": 99.99,
         }
         result = wizard._get_line_values(row_values=row_values)
         self.assertEqual(result["price"], 99.99)
@@ -158,13 +159,24 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_get_line_values_min_qty_zero(self):
         wizard = self._create_wizard()
         row_values = {
-            "Plantilla de producto": "Test",
-            "Código de producto": "TST003",
-            "Proveedor": "Supplier",
-            "Cantidad mínima": "0",
+            "Product Template": "Test",
+            "Internal Reference": "TST003",
+            "Vendor": "Supplier",
+            "Quantity": "0",
         }
         result = wizard._get_line_values(row_values=row_values)
         self.assertEqual(result["min_qty"], 0)
+
+    def test_get_line_values_with_barcode(self):
+        wizard = self._create_wizard()
+        row_values = {
+            "Product Template": "Test",
+            "Internal Reference": "TST004",
+            "Vendor": "Supplier",
+            "Barcode": 1234567890123,
+        }
+        result = wizard._get_line_values(row_values=row_values)
+        self.assertEqual(result["product_barcode"], "1234567890123")
 
     def test_compute_supplierinfo_count(self):
         line1, wizard = self._create_line()
@@ -214,18 +226,18 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_import_csv_file(self):
         rows = [
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Nombre del producto del proveedor": "Vendor Product",
-                "Código de producto del proveedor": "VCODE001",
-                "Secuencia": "10",
-                "Moneda": "USD",
-                "Cantidad mínima": "1",
-                "Fecha de inicio": "2024-01-01",
-                "Fecha finalización": "2024-12-31",
-                "Precio": "15.00",
-                "Tiempo inicial entrega": "7",
+                "Vendor": "Test Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Vendor Product Name": "Vendor Product",
+                "Vendor Product Code": "VCODE001",
+                "Sequence": "10",
+                "Currency": "USD",
+                "Quantity": "1",
+                "Start Date": "2024-01-01",
+                "End Date": "2024-12-31",
+                "Price": "15.00",
+                "Delivery Lead Time": "7",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -245,18 +257,18 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_full_import_validate_process(self):
         rows = [
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Nombre del producto del proveedor": "Vendor Product",
-                "Código de producto del proveedor": "VCODE001",
-                "Secuencia": "10",
-                "Moneda": "USD",
-                "Cantidad mínima": "1",
-                "Fecha de inicio": "2024-01-01",
-                "Fecha finalización": "2024-12-31",
-                "Precio": "15.00",
-                "Tiempo inicial entrega": "7",
+                "Vendor": "Test Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Vendor Product Name": "Vendor Product",
+                "Vendor Product Code": "VCODE001",
+                "Sequence": "10",
+                "Currency": "USD",
+                "Quantity": "1",
+                "Start Date": "2024-01-01",
+                "End Date": "2024-12-31",
+                "Price": "15.00",
+                "Delivery Lead Time": "7",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -282,11 +294,11 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_import_validate_error_no_supplier(self):
         rows = [
             {
-                "Proveedor": "Non Existent Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Moneda": "USD",
-                "Precio": "10.00",
+                "Vendor": "Non Existent Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Currency": "USD",
+                "Price": "10.00",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -299,11 +311,11 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_import_validate_error_no_product(self):
         rows = [
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Non Existent Product",
-                "Código de producto": "NONEXIST",
-                "Moneda": "USD",
-                "Precio": "10.00",
+                "Vendor": "Test Supplier",
+                "Product Template": "Non Existent Product",
+                "Internal Reference": "NONEXIST",
+                "Currency": "USD",
+                "Price": "10.00",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -316,11 +328,11 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_import_validate_error_no_currency(self):
         rows = [
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Moneda": "__NONEXISTENT__",
-                "Precio": "10.00",
+                "Vendor": "Test Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Currency": "__NONEXISTENT__",
+                "Price": "10.00",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -333,18 +345,18 @@ class TestProductSupplierinfoImport(TransactionCase):
     def test_import_multiple_lines(self):
         rows = [
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Moneda": "USD",
-                "Precio": "10.00",
+                "Vendor": "Test Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Currency": "USD",
+                "Price": "10.00",
             },
             {
-                "Proveedor": "Test Supplier",
-                "Plantilla de producto": "Test Product",
-                "Código de producto": "TST001",
-                "Moneda": "USD",
-                "Precio": "20.00",
+                "Vendor": "Test Supplier",
+                "Product Template": "Test Product",
+                "Internal Reference": "TST001",
+                "Currency": "USD",
+                "Price": "20.00",
             },
         ]
         wizard = self._create_wizard_with_csv(rows)
@@ -397,11 +409,51 @@ class TestProductSupplierinfoImport(TransactionCase):
 
     def test_check_supplier_multiple(self):
         partners = self.env["res.partner"].search([("parent_id", "=", False)], limit=2)
-        partners.write({"name": "Test Supplier"})
+        values = {"name": "Test Supplier"}
+        if "supplier_rank" in partners._fields:
+            values["supplier_rank"] = 0
+        partners.write(values)
         line, _wizard = self._create_line()
         supplier, log_info = line._check_supplier()
         self.assertFalse(supplier)
         self.assertIn("More than one supplier", log_info)
+
+    def test_check_supplier_whitespace_and_case(self):
+        line, _wizard = self._create_line({"supplier_name": "  test supplier  "})
+        supplier, log_info = line._check_supplier()
+        self.assertEqual(supplier, self.supplier)
+        self.assertFalse(log_info)
+
+    def test_check_supplier_empty_name(self):
+        line, _wizard = self._create_line({"supplier_name": "   "})
+        supplier, log_info = line._check_supplier()
+        self.assertFalse(supplier)
+        self.assertIn("No supplier name provided", log_info)
+
+    def test_check_supplier_rank_disambiguation(self):
+        partner_obj = self.env["res.partner"]
+        if "supplier_rank" not in partner_obj._fields:
+            self.skipTest("res.partner.supplier_rank requires the account module")
+        vendor = partner_obj.create(
+            {
+                "name": "Ranked Supplier",
+                "supplier_rank": 1,
+                "parent_id": False,
+                "company_id": self.env.company.id,
+            }
+        )
+        partner_obj.create(
+            {
+                "name": "Ranked Supplier",
+                "supplier_rank": 0,
+                "parent_id": False,
+                "company_id": self.env.company.id,
+            }
+        )
+        line, _wizard = self._create_line({"supplier_name": "Ranked Supplier"})
+        supplier, log_info = line._check_supplier()
+        self.assertEqual(supplier, vendor)
+        self.assertFalse(log_info)
 
     def test_check_product_already_set(self):
         line, _wizard = self._create_line({"product_tmpl_id": self.product_template.id})
@@ -421,6 +473,28 @@ class TestProductSupplierinfoImport(TransactionCase):
             {
                 "product_code": False,
                 "product_barcode": "BARCODE001",
+            }
+        )
+        product, log_info = line._check_product()
+        self.assertEqual(product, self.product_template)
+        self.assertFalse(log_info)
+
+    def test_check_product_found_by_name(self):
+        line, _wizard = self._create_line(
+            {
+                "product_code": False,
+                "product_name": "Test Product",
+            }
+        )
+        product, log_info = line._check_product()
+        self.assertEqual(product, self.product_template)
+        self.assertFalse(log_info)
+
+    def test_check_product_found_by_display_name(self):
+        line, _wizard = self._create_line(
+            {
+                "product_code": False,
+                "product_name": "[TST001] Test Product",
             }
         )
         product, log_info = line._check_product()
