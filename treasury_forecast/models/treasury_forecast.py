@@ -70,7 +70,7 @@ class TreasuryForecast(models.Model):
     parent_category_id = fields.Many2one(
         "treasury.financing.category",
         string="Parent Category",
-        related="financing_id.parent_category_id",
+        related="category_id.parent_id",
         store=True,
         readonly=True,
     )

@@ -8,9 +8,13 @@ class AccountInvoiceReport(models.Model):
     _inherit = "account.invoice.report"
 
     current_user_id = fields.Many2one(
-        comodel_name="res.users", string="Current Salesperson", readonly=True
+        comodel_name="res.users",
+        string="Current Salesperson",
+        readonly=True,
     )
 
     @api.model
     def _select(self):
-        return SQL("%s, move.current_user_id as current_user_id", super()._select())
+        return SQL(
+            "%s, commercial_partner.user_id as current_user_id", super()._select()
+        )
