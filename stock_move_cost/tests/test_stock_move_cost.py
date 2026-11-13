@@ -56,7 +56,6 @@ class TestStockMoveCost(TransactionCase):
         po.button_confirm()
         for line in po.order_line:
             line.qty_received = 1.0
-        cls.purchase_product.invalidate_recordset(["last_purchase_line_id"])
         picking_type = cls.env.ref("stock.picking_type_in")
         location = cls.env["stock.location"].search(
             [("usage", "=", "supplier")], limit=1
@@ -109,16 +108,6 @@ class TestStockMoveCost(TransactionCase):
         self.assertEqual(line.cost, 60.0)
         line.price_unit_cost = 25.0
         self.assertEqual(line.cost, 75.0)
-
-    def test_onchange_product_id_sets_cost_from_last_purchase(self):
-        line = self.env["stock.move.line"].new(
-            {
-                "product_id": self.purchase_product.id,
-                "product_uom_id": self.purchase_product.uom_id.id,
-            }
-        )
-        line._onchange_product_id()
-        self.assertEqual(line.price_unit_cost, 35.0)
 
     def test_onchange_product_id_fallback_standard_price(self):
         line = self.env["stock.move.line"].new(

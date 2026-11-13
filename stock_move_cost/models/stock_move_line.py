@@ -28,11 +28,10 @@ class StockMoveLine(models.Model):
     @api.onchange("product_id", "product_uom_id")
     def _onchange_product_id(self):
         if self.product_id:
-            self.price_unit_cost = (
-                self.product_id.last_purchase_price
-                if self.product_id.last_purchase_price
-                else self.product_id.standard_price
-            )
+            if self.move_id.purchase_line_id:
+                self.price_unit_cost = self.move_id.purchase_line_id.price_unit
+            else:
+                self.price_unit_cost = self.product_id.standard_price
         return super()._onchange_product_id()
 
     @api.onchange("lot_name", "lot_id")
@@ -60,7 +59,5 @@ class StockMoveLine(models.Model):
         if self.lot_id and self.lot_id.purchase_price:
             self._onchange_serial_number()
         else:
-            if self.price_unit_cost == 0 and (
-                self.product_id.standard_price or self.product_id.last_purchase_price
-            ):
+            if self.price_unit_cost == 0 and self.product_id.standard_price:
                 self._onchange_product_id()
