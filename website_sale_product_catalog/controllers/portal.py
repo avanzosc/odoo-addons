@@ -1,9 +1,12 @@
 # Copyright 2026 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from operator import itemgetter
 
 from odoo import _, http
 from odoo.http import request
+from odoo.osv.expression import AND
+from odoo.tools import groupby as groupbyelem
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
 from odoo.addons.portal.controllers.portal import pager as portal_pager
@@ -22,6 +25,30 @@ class CustomerPortal(CustomerPortal):
 
         return values
 
+    def _get_catalog_searchbar_inputs(self):
+        values = {
+            "name": {"input": "name", "label": _("Catalog Name"), "sequence": 10},
+            "catalog_type_id": {
+                "input": "catalog_type_id",
+                "label": _("Catalog Type"),
+                "sequence": 20,
+            },
+        }
+        return values
+
+    def _get_catalog_search_domain(self, search_in, search):
+        if search_in == "catalog_type_id":
+            catalog_type_ids = (
+                request.env["product.catalog.type"]
+                .sudo()
+                .search([("name", "ilike", search)])
+            )
+            return [("catalog_type_id", "in", catalog_type_ids.ids)]
+        elif search_in in self._get_catalog_searchbar_inputs():
+            return [(search_in, "ilike", search)]
+        else:
+            return ["|", ("name", "ilike", search), ("id", "ilike", search)]
+
     def _get_catalog_searchbar_sortings(self):
         return {
             "sequence": {"label": _("Sequence"), "order": "sequence asc"},
@@ -37,11 +64,10 @@ class CustomerPortal(CustomerPortal):
 
     def _get_catalog_searchbar_filters(self, project_domain=None, task_domain=None):
         searchbar_filters = {
-            "all": {"label": _("All"), "domain": [("is_pubished", "=", True)]},
+            "all": {"label": _("All"), "domain": []},
             "prebook": {
                 "label": _("Prebook"),
                 "domain": [
-                    ("is_published", "=", True),
                     ("catalog_type_id.is_prebook", "=", True),
                 ],
             },
@@ -51,15 +77,26 @@ class CustomerPortal(CustomerPortal):
     def _prepare_catalog_portal_rendering_values(
         self,
         page=1,
-        date_begin=None,
-        date_end=None,
         sortby=None,
-        groupby=None,
-        quotation_page=False,
-        **kwargs,
+        filterby=None,
+        search=None,
+        search_in="all",
+        groupby="none",
+        **kw,
     ):
         Catalog = request.env["product.catalog"]
+        domain = Catalog._catalog_get_portal_domain()
+        Catalog_sudo = Catalog.sudo()
 
+        values = self._prepare_portal_layout_values()
+        _items_per_page = 15
+
+        searchbar_sortings = self._get_catalog_searchbar_sortings()
+        searchbar_filters = self._get_catalog_searchbar_filters()
+        searchbar_groupby = self._get_catalog_searchbar_groupby()
+        searchbar_inputs = self._get_catalog_searchbar_inputs()
+
+        # default sort by value
         if not sortby:
             sortby = "sequence"
 
@@ -67,61 +104,61 @@ class CustomerPortal(CustomerPortal):
         if not groupby:
             groupby = "none"
 
-        searchbar_filters = self._get_catalog_searchbar_filters()
-        searchbar_groupby = self._get_catalog_searchbar_groupby()
-        searchbar_sortings = self._get_catalog_searchbar_sortings()
+        # default filter by value
+        if not filterby:
+            filterby = "all"
+        domain = AND([domain, searchbar_filters[filterby]["domain"]])
 
-        # partner = request.env.user.partner_id
-        values = self._prepare_portal_layout_values()
-        _items_per_page = 15
+        if search and search_in:
+            domain = AND([domain, self._get_catalog_search_domain(search_in, search)])
 
-        url = "/my/catalogs"
-        domain = Catalog._catalog_get_portal_domain()
+        catalog_count = Catalog_sudo.search_count(domain)
 
-        sort_order = searchbar_sortings[sortby]["order"]
-
-        if date_begin and date_end:
-            domain += [
-                ("create_date", ">", date_begin),
-                ("create_date", "<=", date_end),
-            ]
-
-        url_args = {"date_begin": date_begin, "date_end": date_end}
-
-        if len(searchbar_sortings) > 1:
-            url_args["sortby"] = sortby
-
-        pager_values = portal_pager(
-            url=url,
-            total=Catalog.search_count(domain) if Catalog.has_access("read") else 0,
+        pager = portal_pager(
+            url="/my/catalogs",
+            url_args={
+                "sortby": sortby,
+                "search_in": search_in,
+                "search": search,
+                "filterby": filterby,
+                "groupby": groupby,
+            },
+            total=catalog_count,
             page=page,
             step=_items_per_page,
-            url_args=url_args,
-        )
-        catalogs = (
-            Catalog.search(
-                domain,
-                order=sort_order,
-                limit=_items_per_page,
-                offset=pager_values["offset"],
-            )
-            if Catalog.has_access("read")
-            else Catalog
         )
 
+        def get_catalogs():
+            field = None if groupby == "none" else groupby
+            orderby = f"{field}, {sortby}" if field else sortby
+            catalogs = Catalog_sudo.search(
+                domain, order=orderby, limit=_items_per_page, offset=pager["offset"]
+            )
+
+            if groupby != "none":
+                grouped_catalogs = [
+                    Catalog_sudo.concat(*g)
+                    for k, g in groupbyelem(catalogs, itemgetter(groupby))
+                ]
+            else:
+                grouped_catalogs = [catalogs] if catalogs else []
+            return catalogs, grouped_catalogs
+
+        catalogs, grouped_catalogs = get_catalogs()
         values.update(
             {
-                "date": date_begin,
-                "catalogs": catalogs.sudo(),
+                "catalogs": catalogs,
+                "grouped_catalogs": grouped_catalogs,
                 "page_name": "catalog",
-                "pager": pager_values,
-                "default_url": url,
-                "searchbar_filters": searchbar_filters,
-                "searchbar_groupby": searchbar_groupby,
-                # 'searchbar_inputs': searchbar_inputs,
-                # 'search_in': search_in,
-                # 'search': search,
+                "pager": pager,
+                "default_url": "/my/catalogs",
+                "search_in": search_in,
+                "search": search,
                 "groupby": groupby,
+                "filterby": filterby,
+                "searchbar_inputs": searchbar_inputs,
+                "searchbar_groupby": searchbar_groupby,
+                "searchbar_filters": searchbar_filters,
             }
         )
 
@@ -132,7 +169,6 @@ class CustomerPortal(CustomerPortal):
                     "searchbar_sortings": searchbar_sortings,
                 }
             )
-
         return values
 
     @http.route(

@@ -28,10 +28,86 @@
         <!--                <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>-->
         <t t-set="title">Catalogs</t>
         <t t-set="url" t-value="'/my/catalogs'" />
-        <!--                <t t-set="text"></t>-->
+        <t t-set="text">Download product catalogs in excel format</t>
         <t t-set="placeholder_count" t-value="'catalog_count'" />
       </t>
     </div>
+  </template>
+
+  <template id="portal_catalog_list" name="Catalogs List">
+    <t t-if="grouped_catalogs">
+      <t t-call="portal.portal_table">
+        <thead>
+          <tr>
+            <!-- Allows overrides in modules -->
+            <t t-set="group_by_in_header_list" t-value="['catalog_type_id']" />
+            <t t-set="number_of_header" t-value="5" />
+            <!-- Computes the right colspan once and use it everywhere -->
+            <t
+              t-set="grouped_catalogs_colspan"
+              t-value="number_of_header - 1 if groupby in group_by_in_header_list else number_of_header"
+            />
+            <th>Catalog Name</th>
+            <th t-if="groupby != 'catalog_type_id'">Catalog Type</th>
+            <th class="text-end">Start date</th>
+            <th class="text-end">End date</th>
+            <th />
+          </tr>
+        </thead>
+        <t t-foreach="grouped_catalogs" t-as="catalogs">
+          <tbody t-if="catalogs">
+            <tr t-if="not groupby == 'none'" class="table-light">
+              <th
+                t-if="groupby == 'catalog_type_id'"
+                t-attf-colspan="{{grouped_catalogs_colspan}}"
+              >
+                <span
+                  class="text-truncate"
+                  t-field="catalogs[0].sudo().catalog_type_id.name"
+                />
+              </th>
+            </tr>
+          </tbody>
+          <tbody t-if="catalogs">
+            <t t-foreach="catalogs" t-as="catalog">
+              <tr>
+                <td class="text-start">
+                  <a t-att-href="catalog.website_url" t-if="catalog.is_published">
+                    <span t-att-title="catalog.name" t-field="catalog.name" />
+                  </a>
+                  <t t-else="">
+                    <span t-att-title="catalog.name" t-field="catalog.name" />
+                  </t>
+                </td>
+                <td t-if="groupby != 'catalog_type_id'">
+                  <span
+                    class="fw-normal o_text_overflow"
+                    t-attf-title="#{catalog.catalog_type_id.name}"
+                    t-out="catalog.catalog_type_id.name"
+                  />
+                </td>
+                <td class="text-end">
+                  <span t-field="catalog.date_start" />
+                </td>
+                <td class="text-end">
+                  <span t-field="catalog.date_end" />
+                </td>
+                <td class="text-end lh-1">
+                  <t
+                    t-set="catalog_product_record_xlsx_url"
+                    t-value="'/catalog/xlsx/%s' % (catalog.id)"
+                  />
+                  <a t-att-href="catalog_product_record_xlsx_url">
+                    <i class="fa fa-fw fa-file-excel-o" />
+                    <span>Download</span>
+                  </a>
+                </td>
+              </tr>
+            </t>
+          </tbody>
+        </t>
+      </t>
+    </t>
   </template>
 
   <template id="portal_my_catalogs" name="My Catalogs">
@@ -41,47 +117,12 @@
       <t t-call="portal.portal_searchbar">
         <t t-set="title">Catalogs</t>
       </t>
-      <div t-if="not catalogs" class="alert alert-warning" role="alert">
-                There are currently no catalogs for your account.
-            </div>
-      <t t-if="catalogs" t-call="portal.portal_table">
-        <thead>
-          <tr class="active">
-            <th>Catalog Name</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th />
-          </tr>
-        </thead>
-        <t t-foreach="catalogs" t-as="catalog">
-          <tr>
-            <td>
-              <a t-att-href="catalog.website_url" t-if="catalog.is_published">
-                <t t-out="catalog.name" />
-              </a>
-              <t t-else="">
-                <t t-out="catalog.name" />
-              </t>
-            </td>
-            <td class="text-end">
-              <t t-out="catalog.date_start" />
-            </td>
-            <td class="text-end">
-              <t t-out="catalog.date_end" />
-            </td>
-            <td>
-              <t
-                t-set="catalog_product_record_xlsx_url"
-                t-value="'/catalog/xlsx/%s?%s' % (catalog.id, keep_query())"
-              />
-              <a t-att-href="catalog_product_record_xlsx_url">
-                <i class="fa fa-fw fa-file-excel-o" />
-                <span>Download</span>
-              </a>
-            </td>
-          </tr>
-        </t>
+      <t t-if="not grouped_catalogs">
+        <div class="alert alert-warning" role="alert">
+                    There are no catalogs.
+                </div>
       </t>
+      <t t-call="website_sale_product_catalog.portal_catalog_list" />
     </t>
   </template>
 </odoo>
