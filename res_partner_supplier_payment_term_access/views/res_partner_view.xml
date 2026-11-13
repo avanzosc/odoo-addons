@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record
+    id="view_partner_property_form_supplier_payment_term_access"
+    model="ir.ui.view"
+  >
+    <field name="name">res.partner.property.form.supplier.payment.term.access</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="account.view_partner_property_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//group[@name='purchase']/field[@name='property_supplier_payment_term_id']"
+        position="attributes"
+      >
+        <attribute
+          name="groups"
+        >account.group_account_invoice,account.group_account_readonly,res_partner_supplier_payment_term_access.group_view_supplier_payment_term</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>
