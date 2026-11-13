@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="sale_order_import_view_tree" model="ir.ui.view">
+    <field name="model">sale.order.import</field>
+    <field name="arch" type="xml">
+      <list decoration-muted="state == 'done'" decoration-bf="state == 'pass'">
+        <field name="name" />
+        <field name="file_date" />
+        <field name="company_id" groups="base.group_multi_company" />
+        <field name="state" />
+      </list>
+    </field>
+  </record>
+
+  <record id="sale_order_import_view_form" model="ir.ui.view">
+    <field name="model">sale.order.import</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="action_import_file"
+            string="Import"
+            type="object"
+            invisible="state == 'done'"
+          />
+          <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            invisible="state not in ('2validate','error')"
+          />
+          <button
+            name="action_process"
+            string="Process"
+            type="object"
+            invisible="state not in ('2validate','pass','error')"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <div class="oe_button_box" name="button_box">
+            <button
+              string="Import Lines"
+              type="object"
+              name="button_open_import_line"
+              invisible="not import_line_ids"
+              class="oe_stat_button"
+              icon="fa-bars"
+            />
+            <button
+              type="object"
+              name="button_open_sale_order"
+              invisible="sale_order_count == 0"
+              class="oe_stat_button"
+              icon="fa-folder-open"
+            >
+              <field name="sale_order_count" widget="statinfo" />
+            </button>
+          </div>
+          <group>
+            <group>
+              <field name="filename" />
+              <field name="data" filename="filename" />
+              <field name="file_date" />
+            </group>
+            <group>
+              <field name="warehouse_id" />
+              <field
+                name="company_id"
+                groups="base.group_multi_company"
+                options="{'no_create': True}"
+              />
+            </group>
+          </group>
+          <notebook>
+            <page string="Imported Lines">
+              <field name="import_line_ids" />
+            </page>
+            <page string="Error Log" invisible="not log_info">
+              <field name="log_info" />
+            </page>
+            <page string="Help" name="help_page" invisible="state == 'done'">
+              <group>
+                <div style="margin-top: 4px;">
+                  <h3>Help with Excel column names</h3>
+                  <p>You must use this column names in order to fill the table:</p>
+                  <ul name="tutorial">
+                    <li><code>FechaViaje</code>: this will fill <b
+                    >Date Order and Delivery Date</b></li>
+                    <li><code>FechaCarga</code>: this will fill <b>Upload Date</b></li>
+                    <li><code>Transportista</code>: this will fill <b>Carrier</b></li>
+                    <li><code>MatTractor</code>: this will fill <b
+                    >Tractor License Plate</b></li>
+                    <li><code>MatRemolque</code>: this will fill <b
+                    >Trailer License Plate</b></li>
+                    <li><code>Pagador</code>: this will fill <b>Payer</b></li>
+                    <li><code>PuntoCarga</code>: this will fill <b
+                    >Charging Point</b></li>
+                    <li><code>RefFactura</code>: this will fill <b
+                    >Customer Order Reference</b></li>
+                    <li><code>Producto</code>: this will fill <b>Product</b></li>
+                    <li><code>Cantidad</code>: this will fill <b>Quantity</b></li>
+                    <li><code>Ocupacion</code>: this will fill <b>Occupation</b></li>
+                    <li><code>Peso</code>: this will fill <b>Weight</b></li>
+                    <li><code>Destinatario</code>: this will fill <b>Addressee</b></li>
+                    <li><code>PrecioUnitario</code>: this will fill <b
+                    >Price Unit</b></li>
+                    <li><code>AutorizacionEspecial</code>: this will fill <b
+                    >Special Authorization</b></li>
+                    <li><code>DecaNotas</code>: this will fill <b>Deca Notes</b></li>
+                  </ul>
+                </div>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="sale_order_import_view_search" model="ir.ui.view">
+    <field name="model">sale.order.import</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="file_date" />
+        <filter name="pending" string="Pending" domain="[('state', '!=', 'done')]" />
+        <filter name="finished" string="Done" domain="[('state', '=', 'done')]" />
+        <filter name="errored" string="Error" domain="[('state', '=', 'error')]" />
+        <group expand="0" string="Group By">
+          <filter
+            string="Status"
+            name="state_group"
+            domain="[]"
+            context="{'group_by':'state'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="sale_order_deca_import_action" model="ir.actions.act_window">
+    <field name="name">Import DECA Sale Orders</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">sale.order.import</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="sale_order_import_view_tree" />
+  </record>
+
+  <menuitem
+    id="sale_order_deca_import_menu"
+    action="sale_order_deca_import_action"
+    parent="base_import_wizard.base_import_menu"
+    sequence="20"
+  />
+
+  <menuitem
+    id="sale_order_deca_import_menu2"
+    action="sale_order_deca_import_action"
+    parent="sale.menu_sale_config"
+    sequence="10"
+  />
+</odoo>

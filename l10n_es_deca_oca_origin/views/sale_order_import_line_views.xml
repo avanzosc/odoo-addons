@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="sale_order_import_line_view_search" model="ir.ui.view">
+    <field name="model">sale.order.import.line</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="product_id" />
+        <field name="customer_id" />
+        <field name="carrier_id" />
+        <field name="tractor_vehicle_id" />
+        <field name="remolque_vehicle_id" />
+        <separator />
+        <filter string="Errored" name="error" domain="[('state', '=', 'error')]" />
+        <separator />
+        <filter
+          string="To Create"
+          name="2create"
+          domain="[('action', '=', 'create')]"
+        />
+        <group expand="0" name="group_by" string="Group By">
+          <filter
+            name="group_product"
+            string="Product"
+            context="{'group_by': 'product_id'}"
+          />
+          <filter
+            name="group_sale_customer_id"
+            string="Customer"
+            context="{'group_by': 'customer_id'}"
+          />
+          <filter
+            name="group_tractor_vehicle"
+            string="Tractor Vehicle"
+            context="{'group_by': 'tractor_vehicle_id'}"
+          />
+          <filter
+            name="group_remolque_vehicle"
+            string="Remolque Vehicle"
+            context="{'group_by': 'remolque_vehicle_id'}"
+          />
+          <separator />
+          <filter name="group_status" string="Status" context="{'group_by': 'state'}" />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="sale_order_import_line_view_form" model="ir.ui.view">
+    <field name="model">sale.order.import.line</field>
+    <field name="arch" type="xml">
+      <form>
+        <header>
+          <button
+            name="action_validate"
+            string="Validate"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ['2validate','error']"
+          />
+          <button
+            name="action_process"
+            string="Process"
+            type="object"
+            class="oe_read_only"
+            invisible="state not in ['error','pass']"
+          />
+          <field name="state" widget="statusbar" />
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="date_order" readonly="state == 'done'" />
+              <field name="carrier_name" readonly="state == 'done'" />
+              <field name="tractor_licence_plate" readonly="state == 'done'" />
+              <field name="remolque_licence_plate" readonly="state == 'done'" />
+              <field name="upload_date" readonly="state == 'done'" />
+              <field name="customer_name" readonly="state == 'done'" />
+              <field name="charging_point_name" readonly="state == 'done'" />
+              <field name="charging_city" readonly="state == 'done'" />
+              <field name="client_order_ref" readonly="state == 'done'" />
+              <field name="product_name" readonly="state == 'done'" />
+              <field name="quantity" readonly="state == 'done'" />
+              <field name="occupation" readonly="state == 'done'" />
+              <field name="weight" readonly="state == 'done'" />
+              <field name="addressee_name" readonly="state == 'done'" />
+              <field name="addressee_city" readonly="state == 'done'" />
+              <field name="price_unit" readonly="state == 'done'" />
+              <field name="special_authorization" readonly="state == 'done'" />
+              <field name="deca_notes" readonly="state == 'done'" />
+              <field name="state" />
+            </group>
+            <group>
+              <field name="product_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="customer_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="tractor_vehicle_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field name="carrier_id" options="{'no_create': True, 'no_open': True}" />
+              <field
+                name="remolque_vehicle_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="charging_point_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+              <field
+                name="addressee_id"
+                options="{'no_create': True, 'no_open': True}"
+              />
+            </group>
+          </group>
+          <field name="log_info" />
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="sale_order_import_line_view_tree" model="ir.ui.view">
+    <field name="model">sale.order.import.line</field>
+    <field name="arch" type="xml">
+      <list
+        decoration-danger="state == 'error'"
+        decoration-muted="state == 'done'"
+        decoration-it="log_info"
+        editable="top"
+      >
+        <field name="action" readonly="state == 'done'" />
+        <field name="date_order" readonly="state == 'done'" optional="show" />
+        <field name="carrier_name" readonly="state == 'done'" optional="show" />
+        <field name="carrier_id" readonly="state == 'done'" optional="show" />
+        <field
+          name="tractor_licence_plate"
+          readonly="state == 'done'"
+          optional="show"
+        />
+        <field name="tractor_vehicle_id" readonly="state == 'done'" optional="show" />
+        <field
+          name="remolque_licence_plate"
+          readonly="state == 'done'"
+          optional="show"
+        />
+        <field name="remolque_vehicle_id" readonly="state == 'done'" optional="show" />
+        <field name="upload_date" readonly="state == 'done'" optional="show" />
+        <field name="customer_name" readonly="state == 'done'" optional="show" />
+        <field name="customer_id" readonly="state == 'done'" optional="show" />
+        <field name="charging_point_name" readonly="state == 'done'" optional="show" />
+        <field name="charging_city" readonly="state == 'done'" optional="show" />
+        <field name="charging_point_id" readonly="state == 'done'" optional="show" />
+        <field name="client_order_ref" readonly="state == 'done'" optional="show" />
+        <field name="product_name" readonly="state == 'done'" optional="show" />
+        <field name="product_id" readonly="state == 'done'" optional="show" />
+        <field name="quantity" readonly="state == 'done'" optional="show" />
+        <field name="occupation" readonly="state == 'done'" optional="show" />
+        <field name="weight" readonly="state == 'done'" optional="show" />
+        <field name="addressee_name" readonly="state == 'done'" optional="show" />
+        <field name="addressee_city" readonly="state == 'done'" optional="show" />
+        <field name="addressee_id" readonly="state == 'done'" optional="show" />
+        <field name="price_unit" readonly="state == 'done'" optional="show" />
+        <field
+          name="special_authorization"
+          readonly="state == 'done'"
+          optional="show"
+        />
+        <field name="deca_notes" readonly="state == 'done'" optional="show" />
+        <field name="state" optional="hide" />
+        <field name="log_info" optional="show" />
+        <field name="sale_order_id" column_invisible="1" />
+      </list>
+    </field>
+  </record>
+
+  <record id="sale_order_import_line_action" model="ir.actions.act_window">
+    <field name="name">Import Sale Order Lines</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">sale.order.import.line</field>
+    <field name="view_mode">list,form</field>
+    <field name="view_id" ref="sale_order_import_line_view_tree" />
+  </record>
+</odoo>
