@@ -6,5 +6,5 @@ from odoo import fields, models
 class ProductPricelistItem(models.Model):
     _inherit = "product.pricelist.item"
 
-    pvp_price = fields.Float(string="PVP")
-    distribution_price = fields.Float()
+    rrp_price = fields.Monetary(string="RRP Price")
+    distribution_price = fields.Monetary()

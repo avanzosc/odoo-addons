@@ -11,6 +11,7 @@
         <field name="product_category_id" />
         <field name="journal_id" />
         <field name="project_id" />
+        <field name="project_partner_id" />
         <field name="analytic_account_id" />
         <field name="estimated_journal_id" />
         <field name="source" />
@@ -107,6 +108,11 @@
             string="Project"
             name="group_project"
             context="{'group_by': 'project_id'}"
+          />
+          <filter
+            string="Partner Project"
+            name="group_project_partner"
+            context="{'group_by': 'project_partner_id'}"
           />
           <filter
             string="Analytic Account"
