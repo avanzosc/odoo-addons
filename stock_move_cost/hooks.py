@@ -12,22 +12,16 @@ def install_stock_move_line__price_unit_cost(env):
         UPDATE stock_move_line ml
         SET price_unit_cost = CASE
             WHEN ml.lot_id IS NOT NULL THEN
-                (SELECT purchase_price FROM stock_lot l WHERE l.id = ml.lot_id)
+                (SELECT purchase_price
+                 FROM stock_lot l
+                 WHERE l.id = ml.lot_id)
             ELSE
                 COALESCE(
-                    NULLIF(
-                        (SELECT pol.price_unit
-                         FROM purchase_order_line pol
-                         JOIN purchase_order po ON po.id = pol.order_id
-                         WHERE pol.product_id = ml.product_id
-                           AND pol.state IN ('purchase', 'done')
-                         ORDER BY po.date_order DESC, pol.id DESC
-                         LIMIT 1),
-                        0),
                     (SELECT (pp.standard_price ->> ml.company_id::text)::numeric
                      FROM product_product pp
                      WHERE pp.id = ml.product_id),
-                    0)
+                    0
+                )
         END
         WHERE ml.lot_id IS NOT NULL
            OR (ml.lot_id IS NULL AND ml.product_id IS NOT NULL);
