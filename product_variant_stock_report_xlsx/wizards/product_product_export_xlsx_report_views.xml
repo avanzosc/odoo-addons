@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_export_form" model="ir.ui.view">
+    <field name="model">report.stock.product_xlsx.export</field>
+    <field name="arch" type="xml">
+      <form>
+        <group>
+          <field name="company_id" options="{'no_create': True}" />
+          <field
+            name="family_id"
+            domain="[('parent_id','=',False)]"
+            options="{'no_create': True}"
+          />
+          <field
+            name="sub_family_id"
+            domain="[('parent_id','=',family_id)]"
+            context="{'parent_id':family_id, 'default_parent_id':family_id}"
+            options="{'no_create': True}"
+          />
+          <field name="internal_category_id" options="{'no_create': True}" />
+          <field name="product_brand_id" options="{'no_create': True}" />
+        </group>
+        <footer>
+          <button
+            name="export_xls"
+            string="Export Product Excel"
+            type="object"
+            class="oe_highlight"
+          />
+          <button special="cancel" string="Close" class="oe_link" />
+        </footer>
+      </form>
+    </field>
+  </record>
+
+  <record id="product_export_action" model="ir.actions.act_window">
+    <field name="name">Export Product XLSX List</field>
+    <field name="res_model">report.stock.product_xlsx.export</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+  </record>
+
+  <menuitem
+    id="product_export_menu"
+    parent="stock.menu_stock_inventory_control"
+    action="product_export_action"
+    sequence="150"
+  />
+</odoo>
