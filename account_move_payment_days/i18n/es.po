@@ -1,0 +1,84 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_move_payment_days
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-18 11:27+0000\n"
+"PO-Revision-Date: 2026-11-18 11:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_payment_mode__payment_days_basis
+msgid "Calculate Average Using"
+msgstr "Calcular utilizando la media"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,help:account_move_payment_days.field_account_payment_mode__payment_days_basis
+msgid "Date used to calculate the number of days since the accounting date."
+msgstr "Fecha utilizada para calcular el número de días transcurridos desde la fecha contable."
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_bank_statement_line__days_until_payment
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_invoice_report__days_until_payment
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_move__days_until_payment
+#: model_terms:ir.ui.view,arch_db:account_move_payment_days.view_account_invoice_report_pivot_payment_days
+msgid "Days Until Payment"
+msgstr "Días hasta el pago"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields.selection,name:account_move_payment_days.selection__account_payment_mode__payment_days_basis__due
+#: model_terms:ir.ui.view,arch_db:account_move_payment_days.view_move_form_supplier_payment_days
+msgid "Due Date"
+msgstr "Fecha de vencimiento"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,help:account_move_payment_days.field_account_bank_statement_line__days_until_payment_available
+#: model:ir.model.fields,help:account_move_payment_days.field_account_move__days_until_payment_available
+msgid ""
+"Indicates whether the invoice has valid dates for calculating payment days."
+msgstr ""
+"Indica si la factura tiene fechas válidas para calcular los días de pago."
+#. module: account_move_payment_days
+#: model:ir.model,name:account_move_payment_days.model_account_invoice_report
+msgid "Invoices Statistics"
+msgstr "Estadísticas de facturas"
+
+#. module: account_move_payment_days
+#: model:ir.model,name:account_move_payment_days.model_account_move
+msgid "Journal Entry"
+msgstr "Entrada contable"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,help:account_move_payment_days.field_account_bank_statement_line__days_until_payment
+#: model:ir.model.fields,help:account_move_payment_days.field_account_move__days_until_payment
+msgid ""
+"Number of days between the accounting date and the payment or due date, "
+"depending on the payment mode. Negative values are considered zero."
+msgstr ""
+"Número de días entre la fecha contable y la fecha de pago o de "
+"vencimiento, en función de la forma de pago. Los valores negativos "
+"se consideran cero."
+#. module: account_move_payment_days
+#: model:ir.model.fields.selection,name:account_move_payment_days.selection__account_payment_mode__payment_days_basis__payment
+msgid "Payment Date"
+msgstr "Fecha de pago"
+
+#. module: account_move_payment_days
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_bank_statement_line__days_until_payment_available
+#: model:ir.model.fields,field_description:account_move_payment_days.field_account_move__days_until_payment_available
+#: model_terms:ir.ui.view,arch_db:account_move_payment_days.view_account_invoice_filter_supplier_payment_days
+msgid "Payment Days Available"
+msgstr "Días de pago disponible"
+
+#. module: account_move_payment_days
+#: model:ir.model,name:account_move_payment_days.model_account_payment_mode
+msgid "Payment Modes"
+msgstr "Modos de pago"
