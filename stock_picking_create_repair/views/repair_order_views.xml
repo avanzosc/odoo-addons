@@ -38,6 +38,11 @@
     <field name="inherit_id" ref="repair.view_repair_order_form" />
     <field name="priority">100</field>
     <field name="arch" type="xml">
+      <button name="action_create_sale_order" position="attributes">
+        <attribute
+          name="groups"
+        >stock_picking_create_repair.group_create_sale_order_from_repair</attribute>
+      </button>
       <field name="user_id" position="after">
         <field name="created_from_picking_id" />
         <field name="purchase_order_id" />
