@@ -14,6 +14,8 @@
         "l10n_es_aeat_mod303",
     ],
     "data": [
+        "data/aeat.model.export.config.csv",
+        "data/aeat.model.export.config.line.csv",
         "views/mod303_views.xml",
     ],
     "installable": True,

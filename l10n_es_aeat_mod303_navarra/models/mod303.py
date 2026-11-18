@@ -194,6 +194,20 @@ NAVARRA_MARKER_CASILLAS = {
 }
 
 
+class NavarraCasillaChunk(list):
+    """Chunk de casillas que delega el resto de atributos al informe."""
+
+    def __init__(self, report, items):
+        super().__init__(items)
+        self._report = report
+
+    def __getattr__(self, name):
+        report = self.__dict__.get("_report")
+        if report is None:
+            raise AttributeError(name)
+        return getattr(report, name)
+
+
 class L10nEsAeatMod303Report(models.Model):
     _inherit = "l10n.es.aeat.mod303.report"
 
@@ -329,6 +343,25 @@ class L10nEsAeatMod303Report(models.Model):
             report.is_tax_agency_navarra = bool(
                 navarra_agency and report.company_id.tax_agency_id == navarra_agency
             )
+
+    def _get_navarra_export_config(self):
+        model = (
+            self.env["ir.model"].sudo().search([("model", "=", self._name)], limit=1)
+        )
+        return self.env["aeat.model.export.config"].search(
+            [
+                ("navarra_export", "=", True),
+                ("model_id", "=", model.id),
+            ],
+            limit=1,
+        )
+
+    def _get_export_config(self, date):
+        if self.is_tax_agency_navarra:
+            config = self._get_navarra_export_config()
+            if config:
+                return config
+        return super()._get_export_config(date)
 
     def _get_navarra_previous_year_report(self):
         """Devuelve la última declaración del ejercicio anterior."""
@@ -605,6 +638,11 @@ class L10nEsAeatMod303Report(models.Model):
             account = re.sub(r"\D", "", self.partner_bank_id.acc_number)
         return account[-20:].rjust(20, "0")
 
+    def _get_navarra_previous_number(self):
+        self.ensure_one()
+        previous_number = re.sub(r"\D", "", self.previous_number or "")
+        return previous_number[-13:].rjust(13, "0")
+
     def _get_navarra_common_header(self):
         self.ensure_one()
         return (
@@ -758,6 +796,15 @@ class L10nEsAeatMod303Report(models.Model):
             items.append(f"{code:04d}{self._format_navarra_amount(amount, decimals)}")
         return items
 
+    def _get_navarra_casilla_chunks(self):
+        self.ensure_one()
+        items = self._get_navarra_casilla_items()
+        chunks = [items[index : index + 10] for index in range(0, len(items), 10)]
+        return [
+            NavarraCasillaChunk(self, chunk + [""] * (10 - len(chunk)))
+            for chunk in chunks
+        ]
+
     def _get_navarra_email(self):
         self.ensure_one()
         email = (self.contact_email or "").strip()
@@ -769,50 +816,24 @@ class L10nEsAeatMod303Report(models.Model):
 
     def _generate_navarra_file(self):
         self.ensure_one()
-        model = self._get_navarra_model_number()
-        common = self._get_navarra_common_header()
-        name = self._navarra_ascii(self.company_id.name, 40)
-        contact = self._navarra_ascii(self.contact_name, 40)
-        phone = self._get_navarra_phone()
-        items = self._get_navarra_casilla_items()
-        chunks = [items[index : index + 10] for index in range(0, len(items), 10)]
-        email = self._get_navarra_email()
-        type3_count = 1 if email else 0
-        counters = "".join(
-            f"{count:08d}" for count in (1, len(chunks), type3_count, 0, 0, 0)
-        )
-        record0 = (
-            f"0{model}{self.year:04d}{self._get_navarra_nif()}"
-            f"{name}{' ' * 52}{counters}T{phone}{contact}{' ' * 30}{' ' * 13}"
-        )
-        previous_number = re.sub(r"\D", "", self.previous_number or "")
-        statement = "S" if self.statement_type in ("C", "S") else " "
-        record1 = (
-            f"1{common}{name}{'0' * 14}T{phone}{contact}{'0' * 13} "
-            f"{statement}{previous_number[-13:].rjust(13, '0')}"
-            f"{self._get_navarra_bank_account()}"
-            f"{self.navarra_modo_pago or '0'}{' ' * 22}{'0' * 8}{' ' * 28}{' ' * 13}"
-        )
-        records = [record0, record1]
-        for chunk in chunks:
-            slots = "".join(chunk)
-            slots = slots.ljust(200)
-            records.append(f"2{common}{slots}{' ' * 24}")
-        if email:
-            records.append(f"3{common}3003{email.ljust(50)}{' ' * 108}{' ' * 62}")
-        for record in records:
-            if len(record) != 250:
-                raise UserError(_("The generated Navarra record has an invalid size."))
-        return ("\r\n".join(records) + "\r\n").encode("latin-1")
+        config = self._get_navarra_export_config()
+        if not config:
+            raise UserError(_("No Navarra export configuration found."))
+        export_obj = self.env["l10n.es.aeat.report.export_to_boe"].new({})
+        return export_obj._export_config(self, config)
 
-    def button_navarra_export(self):
+    def _get_navarra_export_filename(self):
         self.ensure_one()
-        data = self._generate_navarra_file()
-        filename = (
+        return (
             f"{self._get_navarra_model_number()}_"
             f"{self._get_navarra_nif()}_{self.year}_"
             f"{self._get_navarra_period_code()}.txt"
         )
+
+    def button_navarra_export(self):
+        self.ensure_one()
+        data = self._generate_navarra_file()
+        filename = self._get_navarra_export_filename()
         self.write(
             {
                 "navarra_export_file": base64.b64encode(data),
