@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <!-- Invoice form -->
+  <record id="view_move_form_supplier_payment_days" model="ir.ui.view">
+    <field name="name">account.move.form.supplier.payment.days</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form" />
+    <field name="arch" type="xml">
+      <!-- Show due date when payment terms hide the standard field -->
+      <xpath expr="//div[@name='due_date']" position="after">
+        <field
+          name="invoice_date_due"
+          string="Due Date"
+          readonly="1"
+          invisible="not invoice_payment_term_id or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')"
+        />
+        <field
+          name="days_until_payment"
+          readonly="1"
+          invisible="move_type != 'in_invoice'"
+        />
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Invoice list -->
+  <record id="view_invoice_tree_supplier_payment_days" model="ir.ui.view">
+    <field name="name">account.invoice.list.supplier.payment.days</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_invoice_tree" />
+    <field name="arch" type="xml">
+      <!-- Always display due date -->
+      <xpath expr="//field[@name='invoice_date_due']" position="attributes">
+        <attribute name="invisible">False</attribute>
+        <attribute name="widget">date</attribute>
+      </xpath>
+      <xpath expr="//field[@name='invoice_date_due']" position="after">
+        <field name="days_until_payment" optional="hide" />
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Invoice search filters -->
+  <record id="view_account_invoice_filter_supplier_payment_days" model="ir.ui.view">
+    <field name="name">account.move.search.supplier.payment.days</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_account_invoice_filter" />
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='due_date']" position="after">
+        <filter
+          name="supplier_days_valid"
+          string="Payment Days Available"
+          domain="[('days_until_payment_available', '=', True)]"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>
