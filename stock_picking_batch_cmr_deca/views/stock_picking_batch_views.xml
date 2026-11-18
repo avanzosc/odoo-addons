@@ -37,7 +37,11 @@
                   <field name="cmr_transportation_vat" />
               </group>
               <group>
-                  <field name="cmr_driver_id" force_save="1" />
+                  <field
+                name="cmr_driver_id"
+                force_save="1"
+                domain="[('parent_id', '=', cmr_transportation_id)]"
+              />
                   <field name="cmr_second_driver_id" />
               </group>
           </group>
