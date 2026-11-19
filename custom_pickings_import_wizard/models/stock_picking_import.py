@@ -327,7 +327,7 @@ class StockPickingImportLine(models.Model):
                         log_info = ""
                         picking = same_origin.picking_id
                         lot, log_info = line._check_lot(product=line.picking_product_id)
-                        if not lot and line.import_id.lot_create:
+                        if not lot and line.import_id.lot_create and line.picking_lot:
                             log_info = ""
                             lot = self.env["stock.lot"].create(
                                 {
@@ -346,7 +346,7 @@ class StockPickingImportLine(models.Model):
                                 {
                                     "product_id": line.picking_product_id.id,
                                     "lot_id": line.picking_lot_id.id,
-                                    "qty_done": line.picking_qty_done,
+                                    "quantity": line.picking_qty_done,
                                     "product_uom_id": (
                                         line.picking_product_id.uom_id.id
                                     ),
@@ -642,7 +642,7 @@ class StockPickingImportLine(models.Model):
                 if not log_info:
                     if product.tracking != "none":
                         lot, log_info = self._check_lot(product=product)
-                        if not lot and self.import_id.lot_create:
+                        if not lot and self.import_id.lot_create and self.picking_lot:
                             log_info = ""
                             lot = self.env["stock.lot"].create(
                                 {
@@ -651,10 +651,16 @@ class StockPickingImportLine(models.Model):
                                     "company_id": self.import_id.company_id.id,
                                 }
                             )
-                        if lot:
-                            self.picking_lot_id = lot.id
-                            if self.mother_id:
-                                lot.batch_id = self.mother_id.id
+                        if not lot:
+                            if not log_info:
+                                log_info = _(
+                                    "Error: Product requires a lot but none was "
+                                    "provided."
+                                )
+                            return False, log_info
+                        self.picking_lot_id = lot.id
+                        if self.mother_id:
+                            lot.batch_id = self.mother_id.id
                     picking_obj = self.env["stock.picking"]
                     values = self._picking_values()
                     picking = picking_obj.create(values)
@@ -684,7 +690,7 @@ class StockPickingImportLine(models.Model):
                     {
                         "product_id": self.picking_product_id.id,
                         "lot_id": self.picking_lot_id.id,
-                        "qty_done": self.picking_qty_done,
+                        "quantity": self.picking_qty_done,
                         "product_uom_id": self.picking_product_id.uom_id.id,
                         "location_id": self.picking_type_id.default_location_src_id.id,
                         "location_dest_id": location.id,
