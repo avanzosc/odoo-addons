@@ -1,0 +1,1261 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_batch_cmr_deca
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 12:34+0000\n"
+"PO-Revision-Date: 2026-10-07 12:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"%(field)s changed: %(old)s → %(new)s. Reason: %(reason)s. SHA-256: %(hash)s."
+" Public URL: %(url)s"
+msgstr ""
+"%(field)s modificado: %(old)s → %(new)s. Motivo: %(reason)s. SHA-256: "
+"%(hash)s. URL pública: %(url)s"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "%(name)s is issued and cannot be deleted."
+msgstr "%(name)s está emitido y no se puede eliminar."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"%(name)s is issued and immutable: register a modification instead of editing"
+" it directly."
+msgstr ""
+"%(name)s está emitido y es inmutable: registre una modificación en lugar de "
+"editarlo directamente."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/controllers/main.py:0
+#, python-format
+msgid ""
+"%(name)s is no longer the current document for this shipment. A new DeCA was"
+" issued to replace it:"
+msgstr ""
+"%(name)s ya no es el documento vigente para este envío. Se ha emitido un "
+"DeCA nuevo para sustituirlo:"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/controllers/main.py:0
+#, python-format
+msgid ""
+"%(name)s was cancelled before its transport service started and is no longer"
+" valid for this shipment."
+msgstr ""
+"%(name)s fue cancelado antes de que empezara su servicio de transporte y ya "
+"no es válido para este envío."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(a) Cargador contractual"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(b) Transportista efectivo"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(c) Destino"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(c) Origen"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(d) Naturaleza"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(d) Peso/Magnitud"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "(empty)"
+msgstr "(vacío)"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(f) Fecha"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(g) Vehículo"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "(h) Observaciones"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid ""
+"<br/>\n"
+"                                    Matrícula remolque:"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid ""
+"<br/>\n"
+"                                    NIF:"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "<br/>(e) Autorización especial:"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:mail.template,body_html:stock_picking_batch_cmr_deca.mail_template_deca
+msgid ""
+"<div>\n"
+"                <p>Se adjunta el Documento de Control Administrativo (DeCA) <strong t-out=\"object.name\"></strong> correspondiente a <span t-out=\"', '.join(object.picking_ids.mapped('display_name'))\"></span>.</p>\n"
+"                <p>También puede descargarse en todo momento desde: <a t-att-href=\"object.public_url\" t-out=\"object.public_url\"></a></p>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "<span class=\"o_stat_text\">PDF</span>"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Added to DeCA %(name)s, grouped together with: %(others)s (ap. Sexto.1)."
+msgstr ""
+"Añadido al DeCA %(name)s, agrupado junto con: %(others)s (ap. Sexto.1)."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Added to DeCA %(name)s."
+msgstr "Añadido al DeCA %(name)s."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_modify_form
+msgid "Apply"
+msgstr "Aplicar"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_ir_attachment
+msgid "Attachment"
+msgstr "Archivo adjunto"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__batch_id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__batch_id
+msgid "Batch"
+msgstr "Lote"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_stock_picking_batch
+msgid "Batch Transfer"
+msgstr "Traslado por lote"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "CMR"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "CRM Observations"
+msgstr "CMR Observaciones"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,comment:stock_picking_batch_cmr_deca.group_deca_read_only
+msgid ""
+"Can see DeCAs, their PDFs and their history, but cannot generate, issue, "
+"modify or reissue one."
+msgstr ""
+"Puede ver los DeCA, sus PDF y su historial, pero no generar, emitir, "
+"modificar ni reemitir ninguno."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_modify_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_cancel_form_view
+#, python-format
+msgid "Cancel DeCA"
+msgstr "Cancelar DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_wiz_deca_cancel
+msgid "Cancel a DeCA Before Its Service Starts"
+msgstr "Cancelar un DeCA antes de que empiece su servicio"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__cancelled
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Cancelled before the service started. Reason: %(reason)s"
+msgstr "Cancelado antes de que empezara el servicio. Motivo: %(reason)s"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_transportation_id
+#, python-format
+msgid "Carrier"
+msgstr "Transportista"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Carrier VAT"
+msgstr "NIF del transportista"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__change_date
+msgid "Change Date"
+msgstr "Fecha del cambio"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__deca_change_ids
+msgid "Change History"
+msgstr "Historial de cambios"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_cancel_form_view
+msgid "Close"
+msgstr "Cerrar"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__closed
+msgid "Closed"
+msgstr "Cerrado"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Complete these fields before issuing the DeCA: %(fields)s"
+msgstr "Complete estos campos antes de emitir el DeCA: %(fields)s"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid ""
+"Contenido conforme al artículo 6 de la Orden FOM/2861/2012, de 13 de "
+"diciembre (BOE-A-2013-154)."
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Could not render the DeCA as a PDF document."
+msgstr "No se pudo generar el DeCA como documento PDF."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__create_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__create_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "DECA Access Log"
+msgstr "DeCA Registro de accesos"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "DECA Change History"
+msgstr "DeCA Historial de cambios"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__access_date
+msgid "Date"
+msgstr "Fecha"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Dato"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,comment:stock_picking_batch_cmr_deca.group_deca_user
+msgid ""
+"Day-to-day operation: generate, issue, register modifications (Método A) and"
+" reissue (Método B)."
+msgstr ""
+"Operativa del día a día: generar, emitir, registrar modificaciones (Método "
+"A) y reemitir (Método B)."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.actions.report,name:stock_picking_batch_cmr_deca.action_report_deca
+#, python-format
+msgid "DeCA"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "DeCA %(name)s generated for this delivery."
+msgstr "DeCA %(name)s generado para esta entrega."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"DeCA %(name)s generated, grouping this delivery together with: %(others)s "
+"(ap. Sexto.1)."
+msgstr ""
+"DeCA %(name)s generado, agrupando esta entrega junto con: %(others)s (ap. "
+"Sexto.1)."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,name:stock_picking_batch_cmr_deca.group_deca_manager
+msgid "DeCA - Manager"
+msgstr "Administrador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,name:stock_picking_batch_cmr_deca.group_deca_read_only
+msgid "DeCA - Read-only"
+msgstr "Solo lectura"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,name:stock_picking_batch_cmr_deca.group_deca_user
+msgid "DeCA - User"
+msgstr "Usuario"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.module.category,name:stock_picking_batch_cmr_deca.module_category_deca
+msgid "DeCA España"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_stock_picking_batch_deca_change
+msgid "DeCA In-Route Change (Método A)"
+msgstr "Cambio en ruta del DeCA (Método A)"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_stock_picking_batch_deca_access_log
+msgid "DeCA Public Access Log"
+msgstr "Registro de accesos públicos del DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "DeCA Register Modification"
+msgstr "DeCA Registrar modificación"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "DeCA Send by Email"
+msgstr "DeCA Enviar por correo electrónico"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "DeCA Verify Integrity"
+msgstr "DeCA Verificar integridad"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "DeCA issued. SHA-256: %(hash)s. Public URL: %(url)s"
+msgstr "DeCA emitido. SHA-256: %(hash)s. URL pública: %(url)s"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:mail.template,subject:stock_picking_batch_cmr_deca.mail_template_deca
+msgid "DeCA {{ object.name }}"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:mail.template,name:stock_picking_batch_cmr_deca.mail_template_deca
+msgid "DeCA: send document"
+msgstr "DeCA: enviar documento"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__deca_access_log_ids
+msgid "Deca Access Logs"
+msgstr "DeCA registors de accesso"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__deca_can_cancel
+msgid "Deca Can Cancel"
+msgstr "DeCA e puede cancelar"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__deca_state
+msgid "Deca State"
+msgstr "DeCA Estado"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_destination_id
+msgid "Destination"
+msgstr "Destino"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__display_name
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__display_name
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Documento de Control Administrativo (DeCA)"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__draft
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_driver_id
+msgid "Driver"
+msgstr "Conductor"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#, python-format
+msgid "Enter the new value."
+msgstr "Introduzca el nuevo valor."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Envío"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Envío:"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:res.groups,comment:stock_picking_batch_cmr_deca.group_deca_manager
+msgid ""
+"Everything a User can do, plus deleting a draft and any manager-only action "
+"(e.g. cancelling a DeCA before its service starts)."
+msgstr ""
+"Todo lo que puede hacer un Usuario, además de borrar un borrador y cualquier"
+" acción exclusiva de administrador (p. ej. cancelar un DeCA antes de que "
+"empiece el servicio)."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Fecha"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__field_label
+msgid "Field Label"
+msgstr "Etiqueta del campo"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__field_to_change
+msgid "Field To Change"
+msgstr "Campo a modificar"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Historial de modificaciones (Método A)"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__ip_address
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Integrity check FAILED: the stored PDF no longer matches its recorded "
+"SHA-256. Recorded: %(expected)s. Current: %(actual)s."
+msgstr ""
+"Verificación de integridad FALLIDA: el PDF guardado ya no coincide con su "
+"SHA-256 registrado. Registrado: %(expected)s. Actual: %(actual)s."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Integrity check failed: the PDF attachment does not match its recorded "
+"SHA-256. See the chatter for details."
+msgstr ""
+"Verificación de integridad FALLIDA: el PDF guardado ya no coincide con su "
+"SHA-256 registrado. Registrado: %(expected)s. Actual: %(actual)s."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Integrity verified"
+msgstr "Integridad verificada"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Integrity verified: the stored PDF matches its recorded SHA-256 (%(hash)s)."
+msgstr ""
+"Integridad verificada: el PDF guardado coincide con su SHA-256 registrado "
+"(%(hash)s)."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "Issue DeCA"
+msgstr "Emitir DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__issued
+msgid "Issued"
+msgstr "Emitido"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__issued_on
+msgid "Issued On"
+msgstr "Emitido el"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__last_modified_on
+msgid "Last Modified On"
+msgstr "Última modificación el"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel____last_update
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__write_uid
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__write_date
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "Loader"
+msgstr "Cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_loader_address
+msgid "Loader Address"
+msgstr "Dirección cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_loader_vat
+msgid "Loader VAT"
+msgstr "NIF Cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,help:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__reason
+msgid ""
+"Mandatory justification for the change, kept for traceability as required by"
+" the Resolución's Método A (ap. Quinto)."
+msgstr ""
+"Justificación obligatoria del cambio, conservada para la trazabilidad según "
+"exige el Método A de la Resolución (ap. Quinto)."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Matrícula tractora:"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__method
+msgid "Method"
+msgstr "Método"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__modified
+msgid "Modified"
+msgstr "Modificado"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Motivo"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_carrier_partner_id
+msgid "New Carrier"
+msgstr "Nuevo transportista"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_semi_trailer_license_plate
+msgid "New Semi-trailer Plate"
+msgstr "Nueva matrícula Semi-trailer"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_plate_tractor_id
+msgid "New Tractor"
+msgstr "Nueva Tractora"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_plate_trailer_id
+msgid "New Trailer"
+msgstr "Nuevo Trailer"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__new_value
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_value_char
+msgid "New Value"
+msgstr "Nuevo valor"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_observations
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_observations
+#, python-format
+msgid "Observations"
+msgstr "Observaciones"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__old_value
+msgid "Old Value"
+msgstr "Valor anterior"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Only a DeCA Manager can cancel a DeCA."
+msgstr "Solo un Administrador de DeCA puede cancelar un DeCA."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Only a draft DeCA can be issued."
+msgstr "Solo se puede emitir un DeCA en borrador."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Only an issued DeCA can be cancelled."
+msgstr "Solo se puede cancelar un DeCA ya emitido."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Only an issued DeCA can be modified."
+msgstr "Solo se puede modificar un DeCA emitido."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Only an issued DeCA can be reissued."
+msgstr "Solo se puede reemitir un DeCA ya emitido."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__pdf_sha256
+msgid "PDF SHA-256"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.external_layout_standard_deca_footer
+msgid "Page: <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr "Página: <span class=\"page\"/> / <span class=\"topage\"/>"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__pdf_attachment_id
+msgid "Pdf Attachment"
+msgstr "Adjunto PDF"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__picking_batch_id
+msgid "Picking Batch"
+msgstr "Agrupación de albaranes"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__public_url
+msgid "Public Url"
+msgstr "URL pública"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.external_layout_standard_deca_footer
+msgid "Página <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__qr_attachment_id
+msgid "Qr Attachment"
+msgstr "Adjunto QR"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__reason
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_cancel__reason
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__reason
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Register DeCA Modification"
+msgstr "Registrar modificación del DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Reissue DeCA"
+msgstr "Reemitir DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Reissue started (Método B): %(new)s will replace this document once issued. "
+"Reason: %(reason)s"
+msgstr ""
+"Reemisión iniciada (Método B): %(new)s sustituirá a este documento en cuanto"
+" se emita. Motivo: %(reason)s"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Reissued from %(old)s (Método B). Reason: %(reason)s"
+msgstr "Reemitido desde %(old)s (Método B). Motivo: %(reason)s"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,help:stock_picking_batch_cmr_deca.field_stock_picking_batch__pdf_sha256
+msgid ""
+"SHA-256 of the PDF attachment's exact bytes, recomputed every time the PDF "
+"is (re)generated. Verify Integrity recomputes the hash of the attachment as "
+"stored right now and compares it against this value, to prove the file an "
+"inspector would open hasn't been swapped or corrupted since it was last "
+"issued or modified."
+msgstr ""
+"Hash SHA-256 de los bytes exactos del adjunto PDF, recalculado cada vez que "
+"el PDF se (re)genera. Verificar integridad recalcula el hash del adjunto tal"
+" como está guardado ahora y lo compara con este valor, para demostrar que el"
+" archivo que abriría un inspector no se ha intercambiado ni corrompido desde"
+" la última emisión o modificación."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_second_driver_id
+msgid "Second Driver"
+msgstr "Segundo conductor"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#, python-format
+msgid "Select the new carrier."
+msgstr "Seleccione el nuevo transportista."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#, python-format
+msgid "Select the new tractor."
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#, python-format
+msgid "Select the new trailer plate."
+msgstr "Seleccione la nueva matrícula remolque."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/wizards/wiz_deca_modify.py:0
+#, python-format
+msgid "Select the new trailer."
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_semi_trailer_id
+msgid "Semi-Trailer"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_semi_trailer_license_plate
+msgid "Semi-trailer license plate"
+msgstr "Matrícula semiremolque"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Send DeCA"
+msgstr "Enviar DeCA"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Shipper"
+msgstr "Cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "Shipper VAT"
+msgstr "NIF Cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__site_date_info
+msgid "Site and date info"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "Special Authorization"
+msgstr "Autorización especial"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__special_auth
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_special_traffic_authorization
+#, python-format
+msgid "Special Circulation Authorization"
+msgstr "Autorización especial de circulación"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_special_traffic_authorization
+msgid "Special Traffic Authorization"
+msgstr "Autorización especial de circulación"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_access_log__status_code
+msgid "Status"
+msgstr "Estado"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de stock"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__stock_picking_batch__deca_state__superseded
+msgid "Superseded"
+msgstr "Sustituido"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"Superseded by %(new)s (Método B). Reason: %(reason)s. The original PDF and "
+"token are preserved for traceability but no longer served publicly."
+msgstr ""
+"Sustituido por %(new)s (Método B). Motivo: %(reason)s. El PDF y el token "
+"originales se conservan a efectos de trazabilidad, pero ya no se sirven "
+"públicamente."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__supersedes_id
+msgid "Supersedes"
+msgstr "Sustituye a"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "The PDF matches its recorded SHA-256 hash."
+msgstr "El PDF coincide con su hash SHA-256 registrado."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "The generated DeCA PDF exceeds the 5 MB limit set by the Resolución."
+msgstr ""
+"El PDF del DeCA generado supera el límite de 5 MB establecido por la "
+"Resolución."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid ""
+"The new value is the same as the current one; there is nothing to register."
+msgstr "El valor nuevo es igual al actual; no hay nada que registrar."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,help:stock_picking_batch_cmr_deca.field_stock_picking_batch__supersedes_id
+msgid ""
+"The previous DeCA this one replaced (Método B, ap. Quinto.2): set only when "
+"this record was created by reissuing an earlier one under a brand-new "
+"token/URL/QR, as opposed to a fresh DeCA for a delivery that never had one."
+msgstr ""
+"El DeCA anterior al que este sustituye (Método B, ap. Quinto.2): solo se "
+"establece cuando este registro se creó reemitiendo uno anterior bajo un "
+"token/URL/QR completamente nuevos, a diferencia de un DeCA nuevo para una "
+"entrega que nunca tuvo uno."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "There is no issued PDF to verify yet."
+msgstr "Todavía no hay un PDF emitido que verificar"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "These are not valid Spanish NIF/NIE/CIF numbers: %(fields)s"
+msgstr "Estos no son números de NIF/NIE/CIF españoles válidos: %(fields)s"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "This DeCA cannot be cancelled once its transport date has arrived."
+msgstr ""
+"Este DeCA no se puede cancelar una vez ha llegado su fecha de transporte."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/controllers/main.py:0
+#, python-format
+msgid "This DeCA has been cancelled"
+msgstr "Este DeCA ha sido cancelado"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/controllers/main.py:0
+#, python-format
+msgid "This DeCA has been superseded"
+msgstr "Este DeCA ha sido sustituido"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "This DeCA has no PDF yet."
+msgstr "Este DeCA todavía no tiene PDF."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.constraint,message:stock_picking_batch_cmr_deca.constraint_stock_picking_batch_token_unique
+msgid "This DeCA token collided with an existing one -- issue the DeCA again."
+msgstr ""
+"El token de este DeCA colisionó con uno existente -- emita el DeCA de nuevo."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "This field cannot be modified this way."
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/ir_attachment.py:0
+#, python-format
+msgid "This file belongs to an issued DeCA and cannot be deleted."
+msgstr "Este campo no se puede modificar de esta forma."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/ir_attachment.py:0
+#, python-format
+msgid ""
+"This file belongs to an issued DeCA and cannot be edited directly: register "
+"a modification on the DeCA instead."
+msgstr ""
+"Este archivo pertenece a un DeCA emitido y no se puede editar directamente: "
+"registre una modificación en el DeCA en su lugar."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_modify_form
+msgid ""
+"This is Método A (Resolución of 5 June 2026, BOE-A-2026-12784,\n"
+"                    ap. Quinto.1): the new data is added to the existing PDF and the\n"
+"                    old value stays visible in the document's own change history --\n"
+"                    same token, same URL, same QR. Use \"Reissue DeCA\" (Método B)\n"
+"                    instead for a fundamental change this method doesn't cover --\n"
+"                    e.g. the shipper itself, not just a plate or a remark."
+msgstr ""
+"Este es el Método A (Resolución de 5 de junio de 2026, BOE-A-2026-12784, "
+"apartado Quinto.1): el nuevo dato se añade al PDF existente y el valor "
+"anterior queda visible en el propio historial de cambios del documento -- "
+"mismo token, misma URL, mismo QR. Usa \"Reemitir DeCA\" (Método B) en su "
+"lugar para un cambio fundamental que este método no cubra -- por ejemplo, el"
+" propio cargador, no solo una matrícula o una observación."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_cancel_form_view
+msgid ""
+"This is not one of the Resolución's own modification methods\n"
+"                    (Método A/B are for an ongoing or completed service) -- it's for\n"
+"                    voiding a DeCA whose service never starts at all. The PDF and\n"
+"                    token are kept for the retention requirement, but the public\n"
+"                    link stops serving the file immediately. This cannot be undone."
+msgstr ""
+"Esto no es uno de los métodos de modificación propios de la Resolución (el "
+"Método A/B son para un servicio en curso o ya finalizado) -- es para anular "
+"un DeCA cuyo servicio nunca llega a empezar. El PDF y el token se conservan "
+"por la obligación de retención, pero el enlace público deja de servir el "
+"archivo de inmediato. Esto no se puede deshacer."
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "To generate DeCA, all pickings must be in the 'Done' state."
+msgstr "Para generar DeCA, todos los albaranes deben de estar en estado 'Hecho'"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__token
+msgid "Token"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_tractor_id
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_tractor_id
+#, python-format
+msgid "Tractor"
+msgstr "Tractora"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_tractor_license_plate
+#, python-format
+msgid "Tractor Plate"
+msgstr "Matrícula tractora"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_tractor_license_plate
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__new_tractor_license_plate
+msgid "Tractor license plate"
+msgstr "Matrícula tractora"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_semi_trailer_id
+#, python-format
+msgid "Trailer"
+msgstr "Matrícula remolque"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#: model:ir.model.fields.selection,name:stock_picking_batch_cmr_deca.selection__wiz_deca_modify__field_to_change__cmr_semi_trailer_license_plate
+#, python-format
+msgid "Trailer Plate"
+msgstr "Matrícula remolque"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__transport_date
+msgid "Transport Date"
+msgstr "Fecha de transporte"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "Transportation"
+msgstr "Transportista"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_transportation_vat
+msgid "Transportation VAT"
+msgstr "NIF Transportista"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_transportation_id
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_wiz_deca_modify__carrier_partner_id
+msgid "Transportations"
+msgstr "Transportistas"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,help:stock_picking_batch_cmr_deca.field_stock_picking_batch__token
+msgid ""
+"Unguessable identifier used to build the public download URL. Generated "
+"once, on issue (see _generate_token), enforced unique at the database level "
+"(token_unique): it is the only access control on the public PDF, so it must "
+"never be sequential or derived from record data."
+msgstr ""
+"Identificador no adivinable usado para construir la URL pública de descarga."
+" Se genera una única vez, al emitir (ver _generate_token), y se garantiza "
+"único a nivel de base de datos (token_unique): es el único control de acceso"
+" al PDF público, por lo que nunca debe ser secuencial ni derivarse de los "
+"datos del registro."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch_deca_change__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Usuario"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Valor anterior"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Valor nuevo"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid ""
+"Varios envíos agrupados en este mismo DeCA (ap. Sexto.1 de\n"
+"                                    la Resolución). El orden en que aparecen no implica ningún\n"
+"                                    orden de ejecución."
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.stock_picking_batch_form
+msgid "Vehicle"
+msgstr "Vehículo"
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.report_deca_document
+msgid "Verificación"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_way_out_id
+msgid "Way out"
+msgstr "Salida"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,help:stock_picking_batch_cmr_deca.field_stock_picking_batch__deca_can_cancel
+msgid ""
+"Whether cancelling is even on the table right now: issued or modified, and "
+"the transport hasn't started yet. Not a Resolución requirement (unlike "
+"Método A/B) -- once a service may already be underway, calling it off isn't "
+"a thing the same way; that's what Método A/B are for instead."
+msgstr ""
+"Si cancelar es siquiera una opción ahora mismo: emitido o modificado, y que "
+"el transporte todavía no haya empezado. No es un requisito de la Resolución "
+"(a diferencia del Método A/B) -- una vez el servicio puede estar ya en "
+"marcha, cancelarlo deja de tener el mismo sentido; para eso están el Método "
+"A/B."
+
+#. module: stock_picking_batch_cmr_deca
+#: model_terms:ir.ui.view,arch_db:stock_picking_batch_cmr_deca.wiz_deca_cancel_form_view
+msgid "Why this service is being called off..."
+msgstr "Por qué se cancela este servicio..."
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model,name:stock_picking_batch_cmr_deca.model_wiz_deca_modify
+msgid "Wizard for Register a DeCA In-Route Modification (Método A)"
+msgstr "Asistente para registrar una modificación en ruta del DeCA (Método A)"
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.model.fields,field_description:stock_picking_batch_cmr_deca.field_stock_picking_batch__cmr_loader_id
+msgid "loader"
+msgstr "Cargador"
+
+#. module: stock_picking_batch_cmr_deca
+#. odoo-python
+#: code:addons/stock_picking_batch_cmr_deca/models/stock_picking_batch.py:0
+#, python-format
+msgid "move_ids"
+msgstr ""
+
+#. module: stock_picking_batch_cmr_deca
+#: model:ir.actions.report,print_report_name:stock_picking_batch_cmr_deca.action_report_deca
+msgid "object.name"
+msgstr ""
