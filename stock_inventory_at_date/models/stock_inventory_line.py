@@ -14,6 +14,10 @@ class StockInventoryLine(models.Model):
             if "inventory_id" in group:
                 inventory = self.env["stock.inventory"].browse(group["inventory_id"])
                 today = date.today()
+                if "product_id" not in group:
+                    default_product_id = self.env.context.get("default_product_id")
+                    if default_product_id:
+                        group["product_id"] = default_product_id
                 if (
                     inventory
                     and (inventory.accounting_date)
