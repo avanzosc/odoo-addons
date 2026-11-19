@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <field name="arch" type="xml">
+            <widget name="web_ribbon" position="after">
+                <widget
+          name="web_ribbon"
+          title="Sale Generation Error"
+          bg_color="bg-danger"
+          attrs="{'invisible': [('sale_generation_exception', '=', False)]}"
+        />
+            </widget>
+            <button name="action_contract_send" position="after">
+                <button
+          name="action_reset_sale_generation_exception"
+          type="object"
+          string="Mark as Resolved"
+          class="oe_highlight"
+          attrs="{'invisible': [('sale_generation_exception', '=', False)]}"
+        />
+            </button>
+            <group name="main" position="after">
+                <group
+          name="sale_generation_exception_group"
+          string="Generation Error"
+          attrs="{'invisible': [('sale_generation_exception', '=', False)]}"
+        >
+                    <field name="sale_generation_exception" invisible="1" />
+                    <field name="sale_generation_exception_date" />
+                    <field name="sale_generation_exception_message" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <record id="contract_contract_search_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_search_view" />
+        <field name="arch" type="xml">
+            <filter name="not_finished" position="after">
+                <filter
+          name="sale_generation_exception"
+          string="In Generation Error"
+          domain="[('sale_generation_exception', '=', True)]"
+        />
+            </filter>
+        </field>
+    </record>
+</odoo>
