@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_quant_form_editable" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_form_editable" />
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field
+          name="lot_product_id"
+          readonly="1"
+          groups="stock.group_production_lot"
+        />
+                <field
+          name="lot_create_date"
+          readonly="1"
+          groups="stock.group_production_lot"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree_editable" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable" />
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field
+          name="lot_product_id"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+                <field
+          name="lot_create_date"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree_inventory_editable" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable" />
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field
+          name="lot_product_id"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+                <field
+          name="lot_create_date"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="view_stock_quant_tree" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree" />
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field
+          name="lot_product_id"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+                <field
+          name="lot_create_date"
+          readonly="1"
+          groups="stock.group_production_lot"
+          invisible="context.get('hide_lot', False)"
+        />
+            </field>
+        </field>
+    </record>
+
+    <record id="quant_search_view" model="ir.ui.view">
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.quant_search_view" />
+        <field name="arch" type="xml">
+            <filter name="internal_loc" position="before">
+                <filter
+          name="product-quant-different-product-lot"
+          string="Product quant different product lot"
+          domain="[('different_products','=', True)]"
+        />
+                <separator />
+            </filter>
+        </field>
+    </record>
+
+    <record id="action_stock_quant_fix_lot" model="ir.actions.server">
+        <field name="name">Fix Lot With a Different Product</field>
+        <field name="model_id" ref="stock.model_stock_quant" />
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records.filtered(lambda x: x.different_products):
+                name = ("%(lot_name)s-%(product_name)s-BAD") % {
+                    "lot_name": record.lot_id.name,
+                    "product_name": record.product_id.name,
+                }
+                cond = [("name", "=", name),
+                        ("product_id", "=", record.product_id.id)
+                ]
+                lot = env["stock.lot"].search(cond, limit=1)
+                if not lot:
+                        values = {"name": name,
+                                  "product_id": record.product_id.id}
+                        lot = env["stock.lot"].create(values)
+                cond = [("lot_id", "=", record.lot_id.id),
+                        ("product_id", "=", record.product_id.id)]
+                move_lines = env["stock.move.line"].search(cond)
+                for line in move_lines:
+                    env.cr.execute(
+                        """
+                        UPDATE stock_move_line
+                        SET lot_id = %s.
+                        WHERE id = %s;
+                        """,
+                        (
+                            lot.id,
+                            line.id,
+                        ),
+                    )
+#                record.lot_id = lot.id
+#                record.update({"lot_id":  lot.id})
+# COMO LO DE ARRIBA VA A DAR ERROR LO SIGUIENTE SERIA HACER ESTO:
+                env.cr.execute(
+                    """
+                    UPDATE stock_quant
+                    SET lot_id = %s,
+                        lot_product_id = %s,
+                        lot_create_date =  %s,
+                        different_products = False
+                    WHERE id = %s;
+                    """,
+                    (
+                        lot.id,
+                        lot.product_id.id,
+                        lot.create_date,
+                        record.id,
+                    ),
+                )
+        </field>
+    </record>
+</odoo>
