@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="action_sale_order_ticket" model="ir.actions.report">
+    <field name="name">Sale Order Ticket</field>
+    <field name="model">sale.order</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">batch_liquidation_report.sale_order_ticket_report</field>
+    <field name="print_report_name">'Ticket - %s' % (object.name)</field>
+    <field name="binding_model_id" ref="sale.model_sale_order" />
+    <field name="binding_type">report</field>
+    <field
+      name="paperformat_id"
+      ref="batch_liquidation_report.paperformat_custom_ticket"
+    />
+  </record>
+
+  <template id="sale_order_ticket_report_document">
+    <t t-call="web.basic_layout">
+      <div class="page">
+        <t
+          t-set="lines"
+          t-value="o.order_line.filtered(lambda line: not line.display_type)"
+        />
+        <t t-set="company" t-value="o.company_id.partner_id" />
+        <div class="page">
+          <h6 id="company_info">
+            <div
+              class="col-12"
+              t-if="company._fields.get('comercial') and company.comercial"
+            >
+              <span t-field="company.comercial" />
+            </div>
+            <div class="col-12" t-if="company">
+              <span t-field="company.name" />
+            </div>
+            <div class="col-12" t-if="company.street">
+              <span t-field="company.street" />
+            </div>
+            <div class="col-12" t-if="company.zip">
+              <span t-field="company.zip" />
+            </div>
+            <div class="col-12" t-if="company.state_id">
+              <span t-field="company.state_id" />
+            </div>
+            <div class="col-12" t-if="company.vat or company.phone">
+              <span t-if="company.vat" t-field="company.vat" />
+              <strong>
+                &#160;
+              </strong>
+              <span t-if="company.phone" t-field="company.phone" />
+            </div>
+            <div class="col-12" t-if="o.company_id.company_registry">
+              <span t-field="o.company_id.company_registry" />
+            </div>
+            <div class="col-12" t-if="company.website">
+              <span t-field="company.website" />
+            </div>
+          </h6>
+          <h6 class="col-14">
+            <hr class="mb-1" style="border-bottom: 1px solid black;" />
+            <br />
+          </h6>
+          <h6 id="sale_info">
+            <div class="col-12" t-if="o.name">
+              <span>Picking Nº:</span>
+              <span t-field="o.name" />
+            </div>
+            <div class="col-12" t-if="o.date_order">
+              <span>Date:</span>
+              <span t-field="o.date_order" />
+            </div>
+          </h6>
+          <br />
+          <h6 id="partner_info">
+            <div class="col-12" t-if="o.partner_id">
+              <span t-field="o.partner_id.display_name" />
+            </div>
+            <div class="col-12" t-if="o.partner_id.street">
+              <span t-field="o.partner_id.street" />
+            </div>
+            <div class="col-12" t-if="o.partner_id.city or o.partner_id.state_id">
+              <span t-if="o.partner_id.city" t-field="o.partner_id.city" />
+              <strong>
+                &#160;
+              </strong>
+              <span t-if="o.partner_id.state_id" t-field="o.partner_id.state_id.name" />
+            </div>
+            <div class="col-12" t-if="o.partner_id.vat">
+              <span t-field="o.partner_id.vat" />
+            </div>
+          </h6>
+          <br />
+          <table class="table table-sm" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th class="text-left">
+                  <span>Product</span>
+                </th>
+                <th class="text-center">
+                  <span>Quantity</span>
+                </th>
+                <th class="text-center">
+                  <span>Price</span>
+                </th>
+                <th class="text-center">
+                  <span>Subtotal</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr t-foreach="lines" t-as="line">
+                <td>
+                  <span t-field="line.product_id.name" />
+                  <t t-if="line.lot_id">
+                    <br />
+                    <span t-if="line.lot_id"> LT: </span>
+                  </t>
+                  <span t-field="line.lot_id.name" />
+                </td>
+                <td class="text-center">
+                  <span t-field="line.product_uom_qty" />
+                </td>
+                <td class="text-center">
+                  <span
+                    t-out="line.price_unit"
+                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                  />
+                </td>
+                <td class="text-center">
+                  <span
+                    t-field="line.price_subtotal"
+                    t-options='{"widget": "monetary", "display_currency": o.currency_id}'
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="clearfix" name="so_total_summary">
+            <div id="total" class="row" name="total">
+              <div
+                t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto"
+              >
+                <table class="table table-sm">
+                  <tr class="border-black o_subtotal" style="">
+                    <td name="td_amount_untaxed_label">
+                      <strong>Subtotal</strong>
+                    </td>
+                    <td name="td_amount_untaxed" class="text-right">
+                      <span t-field="o.amount_untaxed" />
+                    </td>
+                  </tr>
+                  <t t-set="tax_totals" t-value="o.tax_totals or {}" />
+                  <t
+                    t-if="tax_totals"
+                    t-foreach="tax_totals.get('subtotals', [])"
+                    t-as="subtotal"
+                  >
+                    <t t-foreach="subtotal.get('tax_groups', [])" t-as="tax_group">
+                      <tr style="">
+                        <t
+                          t-if="tax_totals.get('same_tax_base') or tax_group.get('display_base_amount_currency') is None"
+                        >
+                          <td name="td_amount_by_group_label_3">
+                            <span t-out="tax_group['group_name']" />
+                          </td>
+                          <td
+                            name="td_amount_by_group_3"
+                            class="text-right o_price_total"
+                          >
+                            <span
+                              t-out="tax_group['tax_amount_currency']"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                            />
+                          </td>
+                        </t>
+                        <t t-else="">
+                          <td name="td_amount_by_group_label">
+                            <span t-out="tax_group['group_name']" />
+                            <span>&amp;nbsp;<span>on</span>&amp;nbsp;<span
+                              t-out="tax_group['display_base_amount_currency']"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                            /></span>
+                          </td>
+                          <td
+                            name="td_amount_by_group"
+                            class="text-right o_price_total"
+                          >
+                            <span
+                              t-out="tax_group['tax_amount_currency']"
+                              t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: o.currency_id}"
+                            />
+                          </td>
+                        </t>
+                      </tr>
+                    </t>
+                  </t>
+                  <tr class="border-black o_total">
+                    <td name="td_amount_total_label">
+                      <strong>Total</strong>
+                    </td>
+                    <td name="td_amount_total" class="text-right">
+                      <span t-field="o.amount_total" />
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <img
+            t-if="o.company_id.sanitary_image"
+            t-att-src="image_data_uri(o.company_id.sanitary_image)"
+            style="max-height: 48px;"
+            alt="Logo"
+          />
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <template id="sale_order_ticket_report">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="o">
+        <t
+          t-call="batch_liquidation_report.sale_order_ticket_report_document"
+          t-lang="user.lang"
+        />
+      </t>
+    </t>
+  </template>
+</odoo>
