@@ -1,0 +1,27 @@
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <page name="inventory" position="after">
+                <page string="All attachment" name="tab-all-attachment">
+                    <field
+            name="attachment_ids"
+            context="{'default_res_model': 'product.product'}"
+          >
+                        <tree editable="bottom">
+                            <field name="is_technical" />
+                            <field name="is_for_operators" />
+                            <field name="name" />
+                            <field name="res_model" invisible="1" />
+                            <field name="res_id" invisible="1" />
+                            <field name="type" invisible="1" />
+                            <field name="mimetype" invisible="1" />
+                            <field name="datas" filename="name" />
+                        </tree>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>
