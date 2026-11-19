@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-21 10:03+0000\n"
-"PO-Revision-Date: 2025-07-21 10:03+0000\n"
+"POT-Creation-Date: 2025-10-13 10:19+0000\n"
+"PO-Revision-Date: 2025-10-13 10:19+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_res_config_settings
 msgid "Config Settings"
-msgstr "Ajustes de configuración"
+msgstr "Opciones de configuración"
 
 #. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
@@ -34,7 +34,8 @@ msgstr "Dividir en"
 #. module: stock_move_line_divide
 #: model_terms:ir.ui.view,arch_db:stock_move_line_divide.res_config_settings_view_form
 msgid "Enable automatic naming of packages based on reference."
-msgstr "Activar el nombrado automático de los paquetes en función de la referencia."
+msgstr ""
+"Activar el nombrado automático de los paquetes en función de la referencia."
 
 #. module: stock_move_line_divide
 #: model:ir.model.fields,field_description:stock_move_line_divide.field_uom_uom__is_unit
@@ -47,13 +48,43 @@ msgid "Name packages by reference"
 msgstr "Nombrar paquetes por referencia"
 
 #. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_stock_quant_package
+msgid "Packages"
+msgstr "Paquetes"
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_stock_quant_package__partner_id
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_quant_package_tree_partner
+msgid "Partner"
+msgstr "Dirección de entrega"
+
+#. module: stock_move_line_divide
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_stock_move_line__partner_id
+#: model:ir.model.fields,field_description:stock_move_line_divide.field_stock_quant__partner_id
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_detailed_operation_tree
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_move_line_operation_tree
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_quant_tree_editable_partner_on_package
+#: model_terms:ir.ui.view,arch_db:stock_move_line_divide.view_stock_quant_tree_partner_on_package
+msgid "Partner (package)"
+msgstr "Cliente"
+
+#. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Movimientos de producto (línea de movimiento de stock)"
+msgstr "Movimientos de Producto (Stock Move Line)"
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_uom_uom
+msgid "Product Unit of Measure"
+msgstr "Unidad de medida del producto"
+
+#. module: stock_move_line_divide
+#: model:ir.model,name:stock_move_line_divide.model_stock_quant
+msgid "Quants"
+msgstr ""
 
 #. module: stock_move_line_divide
 #. odoo-python
-#: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #: code:addons/stock_move_line_divide/models/stock_move_line.py:0
 #, python-format
 msgid "The dividing amount or done quantity can not be 0."
@@ -62,4 +93,4 @@ msgstr "El importe de la división o la cantidad hecha no puedes ser 0."
 #. module: stock_move_line_divide
 #: model:ir.model,name:stock_move_line_divide.model_stock_picking
 msgid "Transfer"
-msgstr "Traslado"
+msgstr "Transferir"

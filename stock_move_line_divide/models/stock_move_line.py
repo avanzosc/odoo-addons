@@ -10,6 +10,16 @@ class StockMoveLine(models.Model):
 
     divide = fields.Integer(string="Divide in", default=1)
 
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Partner (package)",
+        related="result_package_id.partner_id",
+    )
+
+    def _get_partner_from_mo(self):
+        production = self.move_id.production_id
+        return getattr(production, "manual_partner_id", False)
+
     def _get_default_dest_location(self):
         if self.location_dest_id != self.move_id.location_dest_id:
             return self.location_dest_id
@@ -42,8 +52,31 @@ class StockMoveLine(models.Model):
             name = f"{prefix} - {next_seq:03}"
             pack_vals.update({"name": name})
 
-        package = self.env["stock.quant.package"].create(pack_vals)
-        return package
+        partner = self._get_partner_from_mo()
+        if partner and self.move_id.picking_type_id.code != "incoming":
+            pack_vals["partner_id"] = partner.id
+
+        return self.env["stock.quant.package"].create(pack_vals)
+
+    def _ensure_partner_on_packages(self, packages):
+        partner = self._get_partner_from_mo()
+        if (
+            partner
+            and packages
+            and all(
+                picking.picking_type_id.code != "incoming"
+                for picking in self.mapped("move_id.picking_id")
+            )
+        ):
+            packages.filtered(lambda p: p and not p.partner_id).write(
+                {"partner_id": partner.id}
+            )
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "result_package_id" in vals:
+            self._ensure_partner_on_packages(self.mapped("result_package_id"))
+        return res
 
     def action_divide(self):
         self.ensure_one()
@@ -84,9 +117,12 @@ class StockMoveLine(models.Model):
             self.result_package_id.name if self.result_package_id else self.reference
         )
 
+        created_packages = []
+
         first_qty = qty_quantities.pop(0)
         first_packaging_qty = packaging_qty_quantities.pop(0)
         first_package = self.action_create_package(base_prefix=base_prefix)
+        created_packages.append(first_package)
 
         self.write(
             {
@@ -102,6 +138,7 @@ class StockMoveLine(models.Model):
 
         for i, qty in enumerate(qty_quantities):
             package = self.action_create_package(base_prefix=base_prefix)
+            created_packages.append(package)
             new_vals = self.copy_data()[0]
             new_vals.update(
                 {
@@ -117,6 +154,10 @@ class StockMoveLine(models.Model):
             self.env["stock.move.line"].with_context(from_action_divide=True).create(
                 new_vals
             )
+
+        self._ensure_partner_on_packages(
+            self.env["stock.quant.package"].browse([p.id for p in created_packages])
+        )
 
     @api.onchange("product_packaging_id")
     def _onchange_product_packaging_id(self):
@@ -136,6 +177,27 @@ class StockMoveLine(models.Model):
         else:
             self.product_packaging_qty = 0
             self.qty_done = 1
+
+    @api.onchange("result_package_id")
+    def _onchange_result_package_id_set_partner(self):
+        for line in self:
+            pkg = line.result_package_id
+            if not pkg:
+                continue
+            picking = line.move_id.picking_id
+            picking_code = (
+                picking.picking_type_code
+                or (picking.picking_type_id and picking.picking_type_id.code)
+                or False
+            )
+
+            if picking_code == "incoming":
+                if pkg.partner_id:
+                    pkg.sudo().write({"partner_id": False})
+                continue
+            partner = line._get_partner_from_mo()
+            if partner and not pkg.partner_id:
+                pkg.sudo().write({"partner_id": partner.id})
 
     @api.model_create_multi
     def create(self, vals_list):
