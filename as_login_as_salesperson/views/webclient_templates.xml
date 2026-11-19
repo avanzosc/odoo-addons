@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="my_account_sales_person" inherit_id="portal.my_account_link">
+    <xpath expr="//a[@href='/my/home']" position="after">
+      <a
+        href="/my/customers"
+        role="menuitem"
+        class="dropdown-item"
+        id="my_customers"
+        t-if="not user_id._is_public() and user_id.is_login_saleperson==True"
+      >My Customers</a>
+    </xpath>
+  </template>
+  <template id="portal_my_customers" name="My Customers">
+    <t t-call="portal.portal_layout">
+      <t t-set="breadcrumbs_searchbar" t-value="True" />
+      <div class="col-12 row">
+        <form
+          class="mt8 float-right"
+          role="search"
+          t-attf-action="/my/customers"
+          method="get"
+        >
+          <t t-call="website.website_search_box" />
+        </form>
+      </div>
+      <t t-call="portal.portal_searchbar">
+        <t t-set="title">Customers</t>
+      </t>
+      <t t-if="not users">
+        <p>There are currently no Customers for your account.</p>
+      </t>
+      <div class="as_sale_person">
+        <t t-if="users" t-call="portal.portal_table">
+          <thead>
+            <tr class="active">
+              <th>Customer Name</th>
+              <th>Email</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <t t-foreach="users" t-as="user">
+              <tr>
+                <td>
+                  <strong t-esc="user.name" />
+                </td>
+                <td>
+                  <span t-esc="user.login" />
+                </td>
+                <td>
+                  <form
+                    class="mt32 js_website_submit_form"
+                    t-attf-action="/web/login/login_as_another?user_id=#{user.id}"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <input
+                      type="hidden"
+                      name="csrf_token"
+                      t-att-value="request.csrf_token()"
+                    />
+                    <div class="form-group row o_form_buttons">
+                      <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
+                        <button
+                          type="button"
+                          class="btn btn-primary login_as_another_btn"
+                          t-att-data-login="user.name"
+                        >Login</button>
+                      </div>
+                    </div>
+                  </form>
+                </td>
+              </tr>
+            </t>
+          </tbody>
+        </t>
+      </div>
+    </t>
+  </template>
+</odoo>

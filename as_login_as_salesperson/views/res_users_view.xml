@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_sale_person_main_form" model="ir.ui.view">
+    <field name="name">res.users.form.saleperson</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//div[hasclass('oe_title')]//field[@name='partner_id']"
+        position="after"
+      >
+        <field name="is_login_saleperson" />
+      </xpath>
+      <xpath expr="//notebook" position="inside">
+        <page
+          string="Access Users"
+          name="access_user_list"
+          modifiers="{'invisible':[('is_login_saleperson','!=',True)]}"
+        >
+          <field name="available_portal_user_ids">
+            <list editable="bottom">
+              <field name="user_id" />
+              <field name="login" />
+            </list>
+            <form>
+              <group>
+                <field name="user_id" />
+                <field name="login" />
+              </group>
+            </form>
+          </field>
+        </page>
+      </xpath>
+    </field>
+  </record>
+  <record id="view_sale_person_tree" model="ir.ui.view">
+    <field name="name">res.users.tree.saleperson</field>
+    <field name="model">res.users</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="active" />
+        <field name="name" />
+        <!-- <field name="available_portal_user_ids" widget="many2many_tags"/> -->
+      </list>
+    </field>
+  </record>
+
+  <record id="res_users_form_view_salesteams" model="ir.actions.act_window">
+    <field name="name">Sales Person</field>
+    <field name="res_model">res.users</field>
+    <field name="view_mode">list,form</field>
+    <field
+      name="domain"
+      eval="['|', ('groups_id', '=',ref('sales_team.group_sale_salesman')),('groups_id', '=',ref('base.group_portal')),('is_login_saleperson','=',True)]"
+    />
+    <field
+      name="view_ids"
+      eval="[(5, 0, 0),
+                      (0, 0, {'view_mode': 'list', 'view_id': ref('view_sale_person_tree')}),
+                      (0, 0, {'view_mode': 'form', 'view_id': ref('base.view_users_form')})]"
+    />
+  </record>
+
+  <menuitem
+    id="sales_person_menu"
+    name="Sales Person"
+    parent="sale.menu_sale_config"
+    action="res_users_form_view_salesteams"
+    sequence="4"
+  />
+</odoo>
