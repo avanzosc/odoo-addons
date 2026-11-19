@@ -9,8 +9,11 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "base_setup",
         "purchase_sale_inter_company",
     ],
-    "data": [],
+    "data": [
+        "views/res_config_views.xml",
+    ],
     "installable": True,
 }
