@@ -45,23 +45,28 @@ class PurchaseOrderLine(models.Model):
         return result
 
     def _treatment_seller_ids(self):
-        seller = self.env["product.supplierinfo"]
+        seller_ids = self.env["product.supplierinfo"]
         if self.product_id.seller_ids:
-            seller = self.product_id.seller_ids.filtered(
-                lambda x: x.partner_id == self.order_id.partner_id and x.min_qty == 0
+            seller_ids = self.product_id.seller_ids.filtered(
+                lambda x: x.partner_id == self.order_id.partner_id
+                and (x.min_qty == 0 or x.min_qty == 1)
+                and (
+                    not x.date_start or x.date_start <= fields.Date.context_today(self)
+                )
+                and (not x.date_end or x.date_end >= fields.Date.context_today(self))
             )
-        if not seller:
+        if not seller_ids:
             self._create_new_seller_from_purchase_line()
         else:
-            if len(seller) > 1:
-                seller = min(seller, key=lambda x: x.sequence)
+            seller = min(seller_ids, key=lambda x: x.sequence)
+            seller_ids.write({"date_end": fields.Date.context_today(self)})
             self._modify_seller_from_purchase_line(seller)
 
     def _create_new_seller_from_purchase_line(self):
         vals = {
             "product_id": self.product_id.id,
             "product_tmpl_id": self.product_id.product_tmpl_id.id,
-            "min_qty": 0,
+            "min_qty": 1,
             "partner_id": self.order_id.partner_id.id,
             "price": self.price_unit,
             "discount": self.discount,
