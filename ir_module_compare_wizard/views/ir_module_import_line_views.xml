@@ -84,6 +84,15 @@
             <field name="migrate_module" />
             <field name="install_module" />
             <field name="priority" />
+            <field name="replaced_by" />
+            <field name="available_version_ids" widget="many2many_tags" />
+            <field name="included_in_core" />
+            <field
+              name="core_version_ids"
+              widget="many2many_tags"
+              invisible="not included_in_core"
+            />
+            <field name="technical_description" />
           </group>
           <field name="log_info" />
         </sheet>
@@ -175,6 +184,25 @@
         <field name="migrate_module" readonly="state == 'done'" optional="hide" />
         <field name="install_module" readonly="state == 'done'" optional="hide" />
         <field name="priority" readonly="state == 'done'" optional="hide" />
+        <field name="replaced_by" readonly="state == 'done'" optional="hide" />
+        <field
+          name="available_version_ids"
+          widget="many2many_tags"
+          readonly="state == 'done'"
+          optional="hide"
+        />
+        <field name="included_in_core" readonly="state == 'done'" optional="hide" />
+        <field
+          name="core_version_ids"
+          widget="many2many_tags"
+          readonly="state == 'done'"
+          optional="hide"
+        />
+        <field
+          name="technical_description"
+          readonly="state == 'done'"
+          optional="hide"
+        />
       </list>
     </field>
   </record>

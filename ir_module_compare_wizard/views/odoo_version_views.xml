@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="odoo_version_view_tree" model="ir.ui.view">
+    <field name="name">odoo.version.list</field>
+    <field name="model">odoo.version</field>
+    <field name="arch" type="xml">
+      <list multi_edit="1" editable="bottom">
+        <field name="sequence" widget="handle" />
+        <field name="name" />
+      </list>
+    </field>
+  </record>
+
+  <record id="odoo_version_view_search" model="ir.ui.view">
+    <field name="name">odoo.version.search</field>
+    <field name="model">odoo.version</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+      </search>
+    </field>
+  </record>
+
+  <record id="odoo_version_action" model="ir.actions.act_window">
+    <field name="name">Odoo Versions</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">odoo.version</field>
+    <field name="view_mode">list</field>
+    <field name="view_id" ref="odoo_version_view_tree" />
+  </record>
+
+  <menuitem
+    id="odoo_version_menu"
+    action="odoo_version_action"
+    parent="module_config_import_menu"
+    sequence="20"
+  />
+
+  <menuitem
+    id="odoo_version_management_menu"
+    action="odoo_version_action"
+    parent="module_config_import_management_menu"
+    sequence="20"
+  />
+</odoo>
