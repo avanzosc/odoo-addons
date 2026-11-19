@@ -2,12 +2,11 @@
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 
-============================
-Stock picking batch shortcut
-============================
+=================================
+Stock picking batch sale shortcut
+=================================
 
-* In form view of object "Batch Transfer", two new shorcuts to: "Delivery" and
-  "Sale Orders".
+* In form view of object "Batch Transfer", new shorcuts to: "Sale Orders".
 
 Bug Tracker
 ===========
