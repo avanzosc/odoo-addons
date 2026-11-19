@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="purchase_order_form_product_configurator" model="ir.ui.view">
+    <field name="name">purchase.order.form.product.configurator</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='order_line']/list/field[@name='product_id']"
+        position="attributes"
+      >
+        <attribute name="widget">purchase_product_configurator_many2one</attribute>
+      </xpath>
+
+      <xpath
+        expr="//field[@name='order_line']/list/field[@name='product_id']"
+        position="after"
+      >
+        <field name="configurator_product_tmpl_id" column_invisible="True" />
+        <field name="product_template_attribute_value_ids" column_invisible="True" />
+        <field name="product_no_variant_attribute_value_ids" column_invisible="True" />
+        <field name="is_configurable_product" column_invisible="True" />
+        <field name="configurator_pricelist_id" column_invisible="True" />
+        <field name="configurator_currency_id" column_invisible="True" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
