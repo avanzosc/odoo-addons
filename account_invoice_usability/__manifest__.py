@@ -7,10 +7,9 @@
     "license": "AGPL-3",
     "author": "Avanzosc",
     "website": "https://github.com/avanzosc/odoo-addons",
-    "depends": [
-        "account",
-    ],
+    "depends": ["account", "stock_account"],
     "data": [
+        "security/ir.model.access.csv",
         "views/account_move_views.xml",
     ],
     "installable": True,

@@ -14,6 +14,7 @@ Account Invoice Usability
   button is not displayed on the invoice. In this case, this module defines the
   "Convert draft to invoice" action for invoices. In this case, the inventory
   valuation line will need to be modified manually.
+* In invoice form new shortcut "Stock Valuation Layer".
   
 
 Bug Tracker

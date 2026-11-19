@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_invoice_usability
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-21 05:55+0000\n"
+"PO-Revision-Date: 2026-09-21 05:55+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_invoice_usability
+#: model:ir.actions.server,name:account_invoice_usability.action_put_invoice_to_draft
+msgid "Convert draft to invoice"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model:ir.model,name:account_invoice_usability.model_account_move
+msgid "Journal Entry"
+msgstr "Pièce comptable"
+
+#. module: account_invoice_usability
+#: model:ir.model,name:account_invoice_usability.model_account_move_line
+msgid "Journal Item"
+msgstr "Écriture comptable"
+
+#. module: account_invoice_usability
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_bank_statement_line__count_stock_valuation_layer
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_move__count_stock_valuation_layer
+msgid "Num. Stock Valuation Layer"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_bank_statement_line__invoice_origin
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_move__invoice_origin
+msgid "Origin"
+msgstr "Origine"
+
+#. module: account_invoice_usability
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_move_line__product_default_code
+msgid "Product Internal Reference"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_account_invoice_filter
+msgid "Product/Line description"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_move_form
+msgid "Stock Valuation Layer"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model:ir.model.fields,help:account_invoice_usability.field_account_bank_statement_line__invoice_origin
+#: model:ir.model.fields,help:account_invoice_usability.field_account_move__invoice_origin
+msgid "The document(s) that generated the invoice."
+msgstr "Le(s) document(s) qui a (ont) généré la facture."
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_account_invoice_filter
+msgid "With Stock Valuation"
+msgstr ""
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_account_invoice_filter
+msgid "Without Stock Valuation"
+msgstr ""

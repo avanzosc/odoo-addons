@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 11:05+0000\n"
-"PO-Revision-Date: 2024-03-04 11:05+0000\n"
+"POT-Creation-Date: 2026-09-21 05:55+0000\n"
+"PO-Revision-Date: 2026-09-21 05:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,9 +16,14 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: account_invoice_usability
+#: model:ir.actions.server,name:account_invoice_usability.action_put_invoice_to_draft
+msgid "Convert draft to invoice"
+msgstr "Pasar a borrador la factura"
+
+#. module: account_invoice_usability
 #: model:ir.model,name:account_invoice_usability.model_account_move
 msgid "Journal Entry"
-msgstr "Asiento contable"
+msgstr "Entrada diaria"
 
 #. module: account_invoice_usability
 #: model:ir.model,name:account_invoice_usability.model_account_move_line
@@ -26,9 +31,14 @@ msgid "Journal Item"
 msgstr "Apunte contable"
 
 #. module: account_invoice_usability
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_bank_statement_line__count_stock_valuation_layer
+#: model:ir.model.fields,field_description:account_invoice_usability.field_account_move__count_stock_valuation_layer
+msgid "Num. Stock Valuation Layer"
+msgstr "Num. Valoración Stock"
+
+#. module: account_invoice_usability
 #: model:ir.model.fields,field_description:account_invoice_usability.field_account_bank_statement_line__invoice_origin
 #: model:ir.model.fields,field_description:account_invoice_usability.field_account_move__invoice_origin
-#: model:ir.model.fields,field_description:account_invoice_usability.field_account_payment__invoice_origin
 msgid "Origin"
 msgstr "Origen"
 
@@ -43,8 +53,22 @@ msgid "Product/Line description"
 msgstr "Producto/Descripción línea"
 
 #. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_move_form
+msgid "Stock Valuation Layer"
+msgstr "Valoración de stock"
+
+#. module: account_invoice_usability
 #: model:ir.model.fields,help:account_invoice_usability.field_account_bank_statement_line__invoice_origin
 #: model:ir.model.fields,help:account_invoice_usability.field_account_move__invoice_origin
-#: model:ir.model.fields,help:account_invoice_usability.field_account_payment__invoice_origin
 msgid "The document(s) that generated the invoice."
-msgstr "El/Los documento/s que generaron esta factura"
+msgstr "El documento o documentos que generaron esta factura"
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_account_invoice_filter
+msgid "With Stock Valuation"
+msgstr "Con valoración de stock"
+
+#. module: account_invoice_usability
+#: model_terms:ir.ui.view,arch_db:account_invoice_usability.view_account_invoice_filter
+msgid "Without Stock Valuation"
+msgstr "Sin valoración de stock"

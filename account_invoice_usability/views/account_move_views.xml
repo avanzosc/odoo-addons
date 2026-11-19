@@ -15,6 +15,21 @@
       <field name="partner_shipping_id" position="after">
         <field name="invoice_origin" />
       </field>
+      <button name="open_created_caba_entries" position="after">
+        <button
+          name="action_view_stock_valuation_layer"
+          type="object"
+          class="oe_stat_button"
+          invisible="count_stock_valuation_layer == 0"
+          icon="fa-tasks"
+        >
+          <field
+            name="count_stock_valuation_layer"
+            widget="statinfo"
+            string="Stock Valuation Layer"
+          />
+        </button>
+      </button>
     </field>
   </record>
 
@@ -43,6 +58,19 @@
           filter_domain="['|', ('invoice_line_ids.product_id', 'ilike', self), ('invoice_line_ids.name', 'ilike', self)]"
         />
       </field>
+      <filter name="out_refund" position="after">
+        <separator />
+        <filter
+          name="with_stock_valuation_layer"
+          string="With Stock Valuation"
+          domain="[('count_stock_valuation_layer', '>', 0)]"
+        />
+        <filter
+          name="without_stock_valuation_layer"
+          string="Without Stock Valuation"
+          domain="[('count_stock_valuation_layer', '=', 0)]"
+        />
+      </filter>
     </field>
   </record>
 
