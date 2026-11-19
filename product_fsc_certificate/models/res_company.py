@@ -6,3 +6,4 @@ class ResCompany(models.Model):
     _inherit = "res.company"
     
     fsc_certificate_image = fields.Binary(string="FSC Certificate Logo")
+    fsc_certificate_number = fields.Char(string="FSC Certificate Number")

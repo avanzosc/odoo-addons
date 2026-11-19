@@ -7,8 +7,9 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="FSC Certificate" name="fsc_certificate">
-                    <group string="Logo FSC">
-                        <field name="fsc_certificate_image" widget="image" class="oe_avatar"/>
+                    <group string="FSC Certification">
+                        <field name="fsc_certificate_image" widget="image" />
+                        <field name="fsc_certificate_number" />
                     </group>
                 </page>
             </xpath>

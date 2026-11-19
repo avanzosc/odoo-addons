@@ -6,7 +6,7 @@
                 <div class="col-10">
                     <div t-field="company.report_footer"/>
                 </div>
-                <div class="col-2" t-if="o.company_id.fsc_certificate_image">
+                <div class="col-2" t-if="o.is_fsc_certificate">
                     <img t-if="o.company_id.fsc_certificate_image"
      t-att-src="image_data_uri(o.company_id.fsc_certificate_image)"
      style="max-width:80px;"

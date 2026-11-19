@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-29 13:14+0000\n"
-"PO-Revision-Date: 2024-02-29 13:14+0000\n"
+"POT-Creation-Date: 2026-09-17 10:34+0000\n"
+"PO-Revision-Date: 2026-09-17 10:34+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: product_fsc_certificate
+#: model:ir.model,name:product_fsc_certificate.model_res_company
+msgid "Companies"
+msgstr "Compañías"
 
 #. module: product_fsc_certificate
 #: model:ir.model.fields,field_description:product_fsc_certificate.field_account_invoice__is_fsc_certificate
@@ -23,13 +28,37 @@ msgid "Contains FSC certificate"
 msgstr "Contiene certificado FSC"
 
 #. module: product_fsc_certificate
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.view_company_form_fsc_certificate
+msgid "FSC Certificate"
+msgstr "Certificado FSC"
+
+#. module: product_fsc_certificate
+#: model:ir.model.fields,field_description:product_fsc_certificate.field_res_company__fsc_certificate_image
+msgid "FSC Certificate Logo"
+msgstr "Logo del certificado FSC"
+
+#. module: product_fsc_certificate
+#: model:ir.model.fields,field_description:product_fsc_certificate.field_res_company__fsc_certificate_number
+msgid "FSC Certificate Number"
+msgstr "Número de certificado FSC"
+
+#. module: product_fsc_certificate
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.view_company_form_fsc_certificate
+msgid "FSC Certification"
+msgstr "Certificación FSC"
+
+#. module: product_fsc_certificate
 #: model:ir.actions.server,name:product_fsc_certificate.product_template_fsc_order_update
 msgid "FSC Update Orders"
-msgstr ""
+msgstr "Actualizar pedidos FSC"
 
 #. module: product_fsc_certificate
 #: model:ir.model.fields,field_description:product_fsc_certificate.field_sale_order_line__is_fsc_certificate
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.external_layout_background
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_delivery_document
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_invoice_document
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_picking
+#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_sale_payment_mode
 msgid "FSC certificate"
 msgstr "Certificado FSC"
 
@@ -38,7 +67,7 @@ msgstr "Certificado FSC"
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.view_account_invoice_filter
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.view_picking_internal_search
 msgid "FSC certificated"
-msgstr ""
+msgstr "Certificado FSC"
 
 #. module: product_fsc_certificate
 #: model:ir.model,name:product_fsc_certificate.model_account_invoice
@@ -77,15 +106,10 @@ msgid "Transfer"
 msgstr "Transferir"
 
 #. module: product_fsc_certificate
-#: model_terms:ir.ui.view,arch_db:product_fsc_certificate.product_template_form_view
-msgid "Update Sale Orders"
-msgstr "Actualizar Pedidos de Venta"
-
-#. module: product_fsc_certificate
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_invoice_document
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_picking
 #: model_terms:ir.ui.view,arch_db:product_fsc_certificate.report_sale_payment_mode
-msgid "[*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number: BMC-COC-010044"
-msgstr "[*] Solo los productos que se identifican como tal en este documento son FSC ® MIX Certificados. Nº certificado FSC: BMC-COC-010044"
+msgid "[*] Only the products that are identified as such in this document are FSC ® MIX Certified. FSC certificate number:"
+msgstr "[*] Solo los productos que se identifican como tal en este documento son FSC ® MIX Certificados. Nº certificado FSC:"
 
