@@ -7,23 +7,23 @@
             <field name="value" position="attributes">
                 <attribute
           name="groups"
-        >product_cost_visible.group_product_cost_visible</attribute>
+        >product_cost_purchase_last_price_info.group_visible_last_purchase_info</attribute>
             </field>
             <field name="value" position="before">
                 <field
           name="standard_price"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
             </field>
             <field name="value" position="after">
                 <field
           name="last_purchase_price_company_currency"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
                 <field
           name="purchase_value"
           string="Last purchase price value"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
             </field>
         </field>
@@ -44,18 +44,18 @@
             <field name="value" position="before">
                 <field
           name="standard_price"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
             </field>
             <field name="value" position="after">
                 <field
           name="last_purchase_price_company_currency"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
                 <field
           name="purchase_value"
           string="Last purchase price value"
-          groups="product_cost_visible.group_product_cost_visible"
+          groups="product_cost_purchase_last_price_info.group_visible_last_purchase_info"
         />
             </field>
             <field name="value" position="attributes">
