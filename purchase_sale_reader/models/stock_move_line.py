@@ -83,6 +83,7 @@ class StockMoveLine(models.Model):
                         "for this model and customer was found."
                     )
                 )
+            last_validation_error = False
             for barcode_format in barcode_formats:
                 temp_fields = {}
                 success = True
@@ -109,17 +110,49 @@ class StockMoveLine(models.Model):
                     temp_fields["product_id"] = product.id
 
                     if product.tracking != "none":
-                        lot_line = self.search_format_line(barcode_format, "lot_name")
-                        temp_fields["lot_name"] = self.get_value_from_line(
-                            lot_line, self.reader_ps
+                        lot_field = (
+                            "lot_id"
+                            if self.picking_type_code == "outgoing"
+                            else "lot_name"
                         )
+                        lot_line = self.search_format_line(barcode_format, lot_field)
+                        lot_code = self.get_value_from_line(lot_line, self.reader_ps)
 
+                        if self.picking_type_code == "outgoing":
+                            lot = self.env["stock.production.lot"].search(
+                                [
+                                    ("name", "=", lot_code),
+                                    ("product_id", "=", product.id),
+                                    (
+                                        "company_id",
+                                        "in",
+                                        [False, self.env.company.id],
+                                    ),
+                                ],
+                                limit=1,
+                            )
+                            if not lot:
+                                raise ValidationError(
+                                    _("Lot '%s' was not found for product '%s'.")
+                                    % (lot_code, product.display_name)
+                                )
+                            temp_fields["lot_id"] = lot.id
+                        else:
+                            temp_fields["lot_name"] = lot_code
+
+                except ValidationError as error:
+                    last_validation_error = error
+                    success = False
                 except Exception:
                     success = False
 
                 for line in barcode_format.line_ids:
                     field_name = line.field_id.name
-                    if not field_name or field_name in ["product_id", "lot_name"]:
+                    if not field_name or field_name in [
+                        "product_id",
+                        "lot_name",
+                        "lot_id",
+                    ]:
                         continue
                     try:
                         value = self.get_value_from_line(line, self.reader_ps)
@@ -157,10 +190,14 @@ class StockMoveLine(models.Model):
                 if success:
                     for f, v in temp_fields.items():
                         self[f] = v
+                    last_validation_error = False
                     break
                 else:
                     for f in temp_fields.keys():
                         self[f] = False
+
+            if last_validation_error:
+                raise last_validation_error
 
     @api.model_create_multi
     def create(self, vals_list):
