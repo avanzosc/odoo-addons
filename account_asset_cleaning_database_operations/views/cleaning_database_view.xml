@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="cleaning_database_form_view" model="ir.ui.view">
+    <field name="name">cleaning.database.form.view.asset</field>
+
+    <field name="model">cleaning.database</field>
+
+    <field
+      name="inherit_id"
+      ref="cleaning_database_operations.cleaning_database_form_view"
+    />
+
+    <field name="arch" type="xml">
+      <xpath
+        expr="//separator[@name='special_cleaning_operations_separator']"
+        position="before"
+      >
+        <div style="margin-top: 16px; margin-bottom: 20px;">
+          <h4>Asset Operations</h4>
+
+          <p>
+                        Deletes Asset Lines first and
+                        Assets afterwards.
+                    </p>
+
+          <button
+            name="action_open_delete_warning"
+            type="object"
+            string="Cleaning Asset Operations"
+            class="oe_highlight"
+            context="{'default_object_to_delete': 'asset'}"
+          />
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>
