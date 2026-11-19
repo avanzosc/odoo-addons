@@ -17,14 +17,6 @@ class StockPicking(models.Model):
             lines = picking.move_line_ids.filtered(lambda x: x.lot_id)
             picking.count_lots = 0 if not lines else len(lines.mapped("lot_id"))
 
-    def action_picking_move_line_tree(self):
-        action = self.env["ir.actions.actions"]._for_xml_id(
-            "stock.stock_move_line_action"
-        )
-        action["context"] = self.env.context
-        action["domain"] = [("picking_id", "in", self.ids)]
-        return action
-
     def action_picking_stock_production_lot_tree(self):
         lines = self.move_line_ids.filtered(lambda x: x.lot_id)
         lots = lines.mapped("lot_id")
