@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
+        <field name="arch" type="xml">
+            <field name="qty_on_hand" position="before">
+                <field name="sold" optional="show" readonly="1" />
+                <field name="billed" optional="show" readonly="1" />
+                <field name="forecast_sold" optional="show" readonly="1" />
+                <field name="billed_forecast" optional="show" readonly="1" />
+            </field>
+        </field>
+    </record>
+
+    <record
+    id="model_stock_warehouse_orderpoint_update_forecast"
+    model="ir.actions.server"
+  >
+        <field name="name">Update Forecast</field>
+        <field name="model_id" ref="stock.model_stock_warehouse_orderpoint" />
+        <field name="binding_model_id" ref="stock.model_stock_warehouse_orderpoint" />
+        <field name="binding_view_types">form,list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.update_forecast_info()</field>
+    </record>
+</odoo>
