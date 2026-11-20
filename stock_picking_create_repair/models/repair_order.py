@@ -31,7 +31,11 @@ class RepairOrder(models.Model):
         string="Purchase order", comodel_name="purchase.order", copy=False
     )
     sale_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
+        string="Sale order",
+        comodel_name="sale.order",
+        related="sale_line_id.order_id",
+        store=True,
+        copy=False,
     )
     sale_line_id = fields.Many2one(
         string="Sale line",

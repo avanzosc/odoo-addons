@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 {
     "name": "Stock Picking Create Repair",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.0.1",
     "category": "Inventory/Inventory",
     "license": "AGPL-3",
     "author": "Avanzosc",
@@ -15,12 +15,14 @@
         "stock",
         "sale_stock",
         "repair",
+        "repair_service",
         "sale_order_type",
         "account_move_line_sale_info",
         "sale_line_pending_info",
         "stock_picking_filter_lot",
     ],
     "data": [
+        "security/stock_picking_create_repair_groups.xml",
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
         "views/purchase_order_views.xml",
