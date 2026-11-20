@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t
+    t-name="stock_move_global_origin.PivotRenderer"
+    t-inherit="web.PivotRenderer"
+    t-inherit-mode="primary"
+  >
+    <xpath expr="//div[hasclass('o_pivot')]" position="attributes">
+      <attribute name="class" add="o_global_origin_pivot" separator=" " />
+    </xpath>
+    <xpath expr="//tbody/tr" position="attributes">
+      <attribute name="t-att-class">getStateRowClass(row)</attribute>
+    </xpath>
+  </t>
+</templates>

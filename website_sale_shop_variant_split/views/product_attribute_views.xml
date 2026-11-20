@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="product_attribute_view_form" model="ir.ui.view">
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="website_sale.product_attribute_view_form" />
+    <field name="arch" type="xml">
+      <field name="visibility" position="after">
+        <field name="shop_variant_split" invisible="create_variant == 'no_variant'" />
+      </field>
+    </field>
+  </record>
+  <record id="attribute_tree_view" model="ir.ui.view">
+    <field name="model">product.attribute</field>
+    <field name="inherit_id" ref="website_sale.attribute_tree_view" />
+    <field name="arch" type="xml">
+      <field name="visibility" position="after">
+        <field name="shop_variant_split" optional="hide" />
+      </field>
+    </field>
+  </record>
+</odoo>

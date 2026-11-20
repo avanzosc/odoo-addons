@@ -1,2 +1,2 @@
 from . import models
-from .hooks import _post_install_put_cost_in_move_lines
+from .hooks import _pre_init_stock_move_cost, _post_init_stock_move_cost

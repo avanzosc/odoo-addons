@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.treasury.forecast.project</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="account.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//app[@name='account']" position="inside">
+        <block title="Treasury Forecast" name="treasury_forecast_margin_settings">
+          <setting
+            id="treasury_margin_calculation_setting"
+            string="Margin Calculation"
+            help="Choose the default method used to calculate sale prices in new projects."
+          >
+            <field name="treasury_margin_calculation" />
+
+            <div class="text-muted mt-2">
+                  <strong>Margin on Cost Price:</strong>
+                  Sale Price = Cost Price × (1 + Margin / 100).
+                  <br />
+                  <strong>Margin on Sale Price:</strong>
+                  Sale Price = Cost Price / (1 - Margin / 100).
+              </div>
+          </setting>
+        </block>
+      </xpath>
+    </field>
+  </record>
+</odoo>

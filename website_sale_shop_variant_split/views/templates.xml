@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="products_item" inherit_id="website_sale.products_item" priority="10">
+    <xpath expr="//t[@t-set='product_href']" position="after">
+      <t t-set="split_variant" t-value="product._get_shop_split_variant()" />
+      <t
+        t-set="product_href"
+        t-value="split_variant and '%s#%s' % (product_href.partition('#')[0], split_variant.website_url.partition('#')[2]) or product_href"
+      />
+    </xpath>
+    <xpath expr="//span[@t-field='image_holder.image_1920']" position="before">
+      <span
+        t-if="split_variant"
+        t-field="split_variant.image_1920"
+        t-options="{'widget': 'image', 'preview_image': image_type, 'itemprop': 'image', 'class': 'h-100 w-100 position-absolute object-fit-contain'}"
+        class="oe_product_image_img_wrapper d-flex h-100 justify-content-center align-items-center position-absolute"
+      />
+      <t t-else="" />
+    </xpath>
+    <xpath
+      expr="//span[@t-field='split_variant.image_1920']/following-sibling::t[1]"
+      position="inside"
+    >
+      <xpath expr="//span[@t-field='image_holder.image_1920']" position="move" />
+    </xpath>
+    <xpath expr="//form" position="inside">
+      <div t-if="split_variant" class="js_product d-none">
+        <input
+          t-foreach="split_variant.product_template_attribute_value_ids"
+          t-as="ptav"
+          type="radio"
+          class="js_variant_change"
+          checked="checked"
+          t-att-name="'ptal-%s' % ptav.attribute_line_id.id"
+          t-att-value="ptav.id"
+        />
+      </div>
+    </xpath>
+  </template>
+</odoo>
