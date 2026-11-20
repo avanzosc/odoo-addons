@@ -13,6 +13,11 @@
     "data": [
         "views/account_move_view.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "account_move_personal_name/static/src/scss/personal_name.scss",
+        ],
+    },
     "installable": True,
     "post_init_hook": "post_init_hook",
 }

@@ -11,13 +11,15 @@ class AccountMove(models.Model):
         copy=False,
     )
 
-    def action_post(self):
-        res = super().action_post()
-        for move in self.filtered(lambda m: not m.personal_name):
+    def _post(self, soft=True):
+        posted_moves = super()._post(soft=soft)
+
+        for move in posted_moves.filtered(lambda m: not m.personal_name):
             sequence = self.env["ir.sequence"].with_company(move.company_id)
             seq = sequence.next_by_code(
                 "account.move.personal.name",
                 sequence_date=move.date,
             )
             move.personal_name = f"{move.date.year}{seq}"
-        return res
+
+        return posted_moves

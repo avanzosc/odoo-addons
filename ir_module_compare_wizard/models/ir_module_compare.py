@@ -138,13 +138,7 @@ class IrModuleImport(models.Model):
 
     def button_open_modules(self):
         self.ensure_one()
-        modules = self.mapped("import_line_ids.import_module_id")
-        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
-        action["domain"] = expression.AND(
-            [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
-        )
-        action["context"] = dict(self._context, create=False)
-        return action
+        return self.import_line_ids.button_open_modules()
 
     def button_open_additional_modules(self):
         self.ensure_one()
@@ -177,7 +171,8 @@ class IrModuleImportLine(models.Model):
         comodel_name="ir.module.module",
     )
     migration_category_id = fields.Many2one(
-        string="Migration Category", comodel_name="migration.category"
+        string="Migration Category",
+        comodel_name="migration.category",
     )
     migration_hours = fields.Float(default=10.0)
     import_module_state = fields.Selection(
@@ -317,3 +312,12 @@ class IrModuleImportLine(models.Model):
     def button_install(self):
         self.ensure_one()
         self.import_module_id.button_immediate_install()
+
+    def button_open_modules(self):
+        modules = self.mapped("import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        action["domain"] = expression.AND(
+            [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action
