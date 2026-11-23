@@ -2,27 +2,35 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
 
+from odoo.addons.stock_lot_dimension.models.product_category import (
+    PRICING_METHOD_SELECTION,
+)
+
 
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    product_length = fields.Float(string="Length", digits="Product Unit of Measure")
-    product_weight = fields.Float(string="Weight", digits="Stock Weight")
-    purchase_weight = fields.Float(string="Weight/Unit", readonly=True)
+    product_length = fields.Float(string="Length", digits="Product Dimension")
+    product_weight = fields.Float(string="Weight", digits="Product Dimension Weight")
+    purchase_weight = fields.Float(
+        string="Weight/Unit",
+        digits="Product Dimension Weight",
+        readonly=True,
+    )
     purchase_weight_uom_id = fields.Many2one(comodel_name="uom.uom", readonly=True)
-    purchase_length = fields.Float(string="Length/Unit", readonly=True)
+    purchase_length = fields.Float(
+        string="Length/Unit",
+        digits="Product Dimension",
+        readonly=True,
+    )
     purchase_length_uom_id = fields.Many2one(comodel_name="uom.uom", readonly=True)
     pricing_method = fields.Selection(
-        selection=[
-            ("qty", "Quantity"),
-            ("weight", "Weight"),
-            ("length", "Length"),
-            ("wl", "Weight*Length"),
-        ],
+        selection=PRICING_METHOD_SELECTION,
         default="qty",
     )
     dimension_qty = fields.Float(
         string="Dim. Qty",
+        digits="Product Dimension",
         compute="_compute_dimension_qty",
         store=True,
         readonly=False,
