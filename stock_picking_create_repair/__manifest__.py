@@ -33,6 +33,7 @@
         "views/account_move_views.xml",
         "reports/invoice_report.xml",
         "reports/sale_order_report.xml",
+        "reports/repair_order_report.xml",
     ],
     "installable": True,
     "pre_init_hook": "pre_init_hook",
