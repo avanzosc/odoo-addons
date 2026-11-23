@@ -12,10 +12,11 @@
         "product_dimension",
     ],
     "data": [
+        "data/decimal_precision.xml",
         "views/stock_lot_view.xml",
+        "views/stock_quant_view.xml",
         "views/product_view.xml",
         "views/product_category_view.xml",
-        "views/product_supplierinfo_view.xml",
     ],
     "installable": True,
 }
