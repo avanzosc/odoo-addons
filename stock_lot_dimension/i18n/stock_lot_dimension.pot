@@ -1,0 +1,210 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_lot_dimension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-23 09:34+0000\n"
+"PO-Revision-Date: 2026-11-23 09:34+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,help:stock_lot_dimension.field_product_category__pricing_method
+msgid ""
+"Default pricing method for the products of this category. Changing it "
+"updates the pricing method of all the products of the category."
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_category__dim_order_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__dim_order_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__dim_order_method
+msgid "Dim Order Method"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model_terms:ir.ui.view,arch_db:stock_lot_dimension.view_stock_quant_tree_editable
+msgid "Dim. UoM"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_dimensional_uom_id
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_dimensional_uom_id
+msgid "Dimensional UoM"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_height
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_height
+msgid "Height"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__hlw
+msgid "Height, Length, Width"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__hwl
+msgid "Height, Width, Length"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_length
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_length
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__pricing_method__length
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_template__pricing_method__length
+msgid "Length"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__lhw
+msgid "Length, Height, Width"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__lwh
+msgid "Length, Width, Heigh"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model,name:stock_lot_dimension.model_stock_lot
+msgid "Lot/Serial"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_category__pricing_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__pricing_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__pricing_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__pricing_method
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__pricing_method
+msgid "Pricing Method"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model,name:stock_lot_dimension.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model,name:stock_lot_dimension.model_product_category
+msgid "Product Category"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model_terms:ir.ui.view,arch_db:stock_lot_dimension.view_production_lot_form
+msgid "Product Dimensions"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model,name:stock_lot_dimension.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__pricing_method__qty
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_template__pricing_method__qty
+msgid "Quantity"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model,name:stock_lot_dimension.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,help:stock_lot_dimension.field_product_product__pricing_method
+#: model:ir.model.fields,help:stock_lot_dimension.field_product_template__pricing_method
+#: model:ir.model.fields,help:stock_lot_dimension.field_stock_lot__pricing_method
+#: model:ir.model.fields,help:stock_lot_dimension.field_stock_quant__pricing_method
+msgid ""
+"Taken from the product category. It can be changed for this product, but it "
+"is updated again when the pricing method of the category changes."
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,help:stock_lot_dimension.field_stock_lot__product_dimensional_uom_id
+#: model:ir.model.fields,help:stock_lot_dimension.field_stock_quant__product_dimensional_uom_id
+msgid "UoM for length, height, width"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model_terms:ir.ui.view,arch_db:stock_lot_dimension.view_stock_quant_tree_editable
+msgid "Vol. UoM"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_volume
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_volume
+msgid "Volume"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_volume_uom_name
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_volume_uom_name
+msgid "Volume UoM"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__weight
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__weight
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_weight
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_weight
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__pricing_method__weight
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_template__pricing_method__weight
+msgid "Weight"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_weight_uom_name
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_weight_uom_name
+#: model_terms:ir.ui.view,arch_db:stock_lot_dimension.view_stock_quant_tree_editable
+msgid "Weight UoM"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__pricing_method__wl
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_template__pricing_method__wl
+msgid "Weight*Length"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_lot__product_width
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_stock_quant__product_width
+msgid "Width"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__whl
+msgid "Width, Height, Length"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields.selection,name:stock_lot_dimension.selection__product_category__dim_order_method__wlh
+msgid "Width, Length, Height"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__product_height
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__product_height
+msgid "height"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__product_length
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__product_length
+msgid "length"
+msgstr ""
+
+#. module: stock_lot_dimension
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_product__product_width
+#: model:ir.model.fields,field_description:stock_lot_dimension.field_product_template__product_width
+msgid "width"
+msgstr ""
