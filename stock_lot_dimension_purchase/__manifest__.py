@@ -8,10 +8,15 @@
     "author": "AvanzOSC",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "purchase_stock",
         "stock_lot_dimension",
     ],
     "data": [
+        "views/product_supplierinfo_view.xml",
         "views/purchase_order_view.xml",
+        "views/stock_lot_view.xml",
+        "views/stock_picking_view.xml",
+        "views/stock_quant_view.xml",
     ],
     "installable": True,
 }
