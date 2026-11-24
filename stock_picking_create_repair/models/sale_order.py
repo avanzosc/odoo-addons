@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
     repair_ids = fields.One2many(
         string="Repairs",
         comodel_name="repair.order",
-        inverse_name="sale_order_id",
+        inverse_name="sale_id",
         copy=False,
     )
     repairs_count = fields.Integer(
@@ -91,9 +91,7 @@ class SaleOrder(models.Model):
             count = 0
             if sale.repair_ids:
                 repairs = sale.repair_ids.filtered(
-                    lambda x: not x.invoice_id
-                    and x.invoice_method != "none"
-                    and x.state in ("done", "2binvoiced")
+                    lambda x: not x.invoice_id and x.state == "done"
                 )
                 count = len(repairs)
             sale.count_pending_repairs = count
@@ -230,7 +228,7 @@ class SaleOrder(models.Model):
         for sale in sales:
             if sale.invoice_count == 1:
                 repairs = sale.repair_ids.filtered(
-                    lambda x: x.state in ("done", "2binvoiced") and not x.invoice_id
+                    lambda x: x.state == "done" and not x.invoice_id
                 )
                 if repairs:
                     repairs.write(

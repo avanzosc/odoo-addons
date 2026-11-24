@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="group_create_stock_lot" model="res.groups">
+    <field name="name">Create Lot</field>
+    <field name="category_id" ref="base.module_category_hidden" />
+  </record>
+
+  <record id="access_create_stock_lot" model="ir.model.access">
+    <field name="name">stock_production_lot create_stock_lot_group</field>
+    <field name="model_id" search="[('model','=','stock.lot')]" model="ir.model" />
+    <field name="group_id" ref="stock_lot_create_group.group_create_stock_lot" />
+    <field name="perm_read">True</field>
+    <field name="perm_write">True</field>
+    <field name="perm_create">True</field>
+    <field name="perm_unlink">True</field>
+  </record>
+
+  <data noupdate="1">
+    <function model="ir.model.access" name="init" />
+  </data>
+</odoo>

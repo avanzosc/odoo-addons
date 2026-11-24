@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+    <field name="model">product.supplierinfo</field>
+    <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+    <field name="arch" type="xml">
+      <field name="delay" position="after">
+        <field name="partner_supplierinfo_delivery_delay" optional="show" />
+        <field name="delivery_delay_differs" column_invisible="True" />
+      </field>
+    </field>
+  </record>
+
+  <record id="product_supplierinfo_form_view" model="ir.ui.view">
+    <field name="model">product.supplierinfo</field>
+    <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='delay']/.." position="after">
+        <label for="partner_supplierinfo_delivery_delay" />
+        <div>
+          <field name="partner_supplierinfo_delivery_delay" class="oe_inline" />
+          days
+        </div>
+        <field name="delivery_delay_differs" invisible="1" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="product_supplierinfo_search_view" model="ir.ui.view">
+    <field name="model">product.supplierinfo</field>
+    <field name="inherit_id" ref="product.product_supplierinfo_search_view" />
+    <field name="arch" type="xml">
+      <filter name="archived" position="after">
+        <filter
+          string="Different Vendor Delivery Lead Time"
+          name="delivery_delay_differs"
+          domain="[('delivery_delay_differs', '=', True)]"
+        />
+      </filter>
+    </field>
+  </record>
+
+  <record id="action_assign_partner_delivery_delay" model="ir.actions.server">
+    <field name="name">Assign Vendor Delivery Lead Time</field>
+    <field name="model_id" ref="product.model_product_supplierinfo" />
+    <field name="binding_model_id" ref="product.model_product_supplierinfo" />
+    <field name="state">code</field>
+    <field name="code">
+            if records:
+                records.action_assign_partner_delivery_delay()
+        </field>
+  </record>
+</odoo>

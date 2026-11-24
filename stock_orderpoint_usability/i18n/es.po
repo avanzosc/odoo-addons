@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-20 16:33+0000\n"
-"PO-Revision-Date: 2024-11-20 16:33+0000\n"
+"POT-Creation-Date: 2026-09-24 10:17+0000\n"
+"PO-Revision-Date: 2026-09-24 10:17+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,9 @@ msgstr "Cancelar"
 #. module: stock_orderpoint_usability
 #: model:ir.model.fields,help:stock_orderpoint_usability.field_stock_orderpoint_generator__update
 msgid "Check this if you want just update existing orderpoint rules."
-msgstr "Marcar si únicamente se quiere actualizar las reglas de abastecimiento existentes."
+msgstr ""
+"Marcar si únicamente se quiere actualizar las reglas de abastecimiento "
+"existentes."
 
 #. module: stock_orderpoint_usability
 #: model:ir.actions.act_window,name:stock_orderpoint_usability.action_rule_generation_form
@@ -99,6 +101,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_warehouse_orderpoint__incoming_qty
 msgid "Incoming"
 msgstr "Entrada"
+
+#. module: stock_orderpoint_usability
+#. odoo-python
+#: code:addons/stock_orderpoint_usability/models/stock_warehouse_orderpoint.py:0
+msgid "Invalid domain left operand %s"
+msgstr "Operando izquierdo de dominio no válido: %s"
+
+#. module: stock_orderpoint_usability
+#. odoo-python
+#: code:addons/stock_orderpoint_usability/models/stock_warehouse_orderpoint.py:0
+msgid "Invalid domain operator %s"
+msgstr "Operador de dominio no válido: %s"
+
+#. module: stock_orderpoint_usability
+#. odoo-python
+#: code:addons/stock_orderpoint_usability/models/stock_warehouse_orderpoint.py:0
+msgid "Invalid domain right operand %s"
+msgstr "Operando derecho de dominio no válido: %s"
 
 #. module: stock_orderpoint_usability
 #: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_orderpoint_generator__write_uid
@@ -184,6 +204,12 @@ msgstr "En Ubicación"
 #: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_orderpoint_generator__update
 msgid "Update"
 msgstr "Actualizar"
+
+#. module: stock_orderpoint_usability
+#: model:ir.model.fields,field_description:stock_orderpoint_usability.field_stock_warehouse_orderpoint__forecaster_distinct_forecast
+#: model_terms:ir.ui.view,arch_db:stock_orderpoint_usability.stock_reorder_report_search
+msgid "Virtual Available Distinct Forecast"
+msgstr "Previsto distinto a Pronóstico"
 
 #. module: stock_orderpoint_usability
 #: model:ir.model,name:stock_orderpoint_usability.model_stock_orderpoint_generator

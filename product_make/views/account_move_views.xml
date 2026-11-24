@@ -44,13 +44,13 @@
         expr="//field[@name='invoice_line_ids']/list/field[@name='account_id']"
         position="after"
       >
+        <field name="allowed_make_ids" widget="many2many_tags" column_invisible="1" />
         <field
-          name="allowed_make_ids"
-          widget="many2many_tags"
-          invisible="1"
+          name="make_id"
+          domain="[('id','in',allowed_make_ids)]"
           optional="show"
+          column_invisible="parent.move_type in ('in_invoice', 'in_refund')"
         />
-        <field name="make_id" domain="[('id','in',allowed_make_ids)]" optional="show" />
       </xpath>
 
       <xpath

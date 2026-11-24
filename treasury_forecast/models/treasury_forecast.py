@@ -9,14 +9,23 @@ class TreasuryForecast(models.Model):
     _name = "treasury.forecast"
     _description = "Treasury Forecast"
     _order = "date desc, id desc"
+    _check_company_auto = True
 
     name = fields.Char(string="Description", required=True, copy=True)
     date = fields.Date(required=True, default=fields.Date.context_today)
     active = fields.Boolean(default=True)
     partner_id = fields.Many2one(comodel_name="res.partner", string="Partner")
     product_id = fields.Many2one(comodel_name="product.product", required=True)
+    product_category_id = fields.Many2one(
+        comodel_name="product.category",
+        related="product_id.categ_id",
+        store=True,
+        readonly=True,
+    )
     journal_id = fields.Many2one(
-        comodel_name="account.journal", domain="[('type', 'in', ('bank', 'cash'))]"
+        comodel_name="account.journal",
+        domain="[('type', 'in', ('bank', 'cash'))]",
+        check_company=True,
     )
     estimated_journal_id = fields.Many2one(
         "account.journal",
@@ -36,6 +45,9 @@ class TreasuryForecast(models.Model):
     )
     expense = fields.Monetary(currency_field="currency_id", aggregator="sum")
     income = fields.Monetary(currency_field="currency_id", aggregator="sum")
+    quantity = fields.Float(default=1.0)
+    expense_price = fields.Monetary(currency_field="currency_id")
+    income_price = fields.Monetary(currency_field="currency_id")
     balance = fields.Monetary(
         string="Line Balance",
         compute="_compute_balance",
@@ -52,20 +64,21 @@ class TreasuryForecast(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="Categoría",
+        string="Category",
     )
 
     parent_category_id = fields.Many2one(
         "treasury.financing.category",
         string="Parent Category",
-        related="financing_id.parent_category_id",
+        related="category_id.parent_id",
         store=True,
         readonly=True,
     )
 
     account_id = fields.Many2one(
         "account.account",
-        string="Cuenta contable",
+        string="Account",
+        check_company=True,
     )
 
     account_type_filter = fields.Char(
@@ -87,6 +100,7 @@ class TreasuryForecast(models.Model):
     def _onchange_financing_id(self):
         if self.financing_id:
             self.category_id = self.financing_id.category_id
+            self.company_id = self.financing_id.company_id
 
     @api.depends("income", "expense")
     def _compute_balance(self):
@@ -97,6 +111,18 @@ class TreasuryForecast(models.Model):
     def _onchange_product_id(self):
         if self.product_id:
             self.name = self.product_id.description or self.product_id.display_name
+            self.expense_price = self.product_id.standard_price
+            self.income_price = self.product_id.lst_price
+            self._onchange_quantity_expense_price()
+            self._onchange_quantity_income_price()
+
+    @api.onchange("quantity", "expense_price")
+    def _onchange_quantity_expense_price(self):
+        self.expense = self.quantity * self.expense_price
+
+    @api.onchange("quantity", "income_price")
+    def _onchange_quantity_income_price(self):
+        self.income = self.quantity * self.income_price
 
     @api.onchange("expense")
     def _onchange_expense(self):
@@ -135,7 +161,7 @@ class TreasuryForecast(models.Model):
     def action_open_form(self):
         self.ensure_one()
         return {
-            "name": "Previsión de Tesorería",
+            "name": "Treasury forecast",
             "type": "ir.actions.act_window",
             "res_model": "treasury.forecast",
             "res_id": self.id,

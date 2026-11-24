@@ -33,30 +33,30 @@ class AccountMoveLine(models.Model):
                         x.state in ("done", "2binvoiced") and x.invoice_id == move_id
                     )
                 ):
-                    for operation in repair.operations:
-                        if repair.invoice_method != "none":
-                            price_subtotal = operation.price_subtotal
-                        else:
-                            price_subtotal = 0
-                        products = self._update_array_products(
-                            products,
-                            operation.product_id,
-                            operation.product_uom,
-                            operation.product_uom_qty,
-                            price_subtotal,
-                        )
-                    for fee_line in repair.fees_lines:
-                        if repair.invoice_method != "none":
-                            price_subtotal = fee_line.price_subtotal
-                        else:
-                            price_subtotal = 0
-                        products = self._update_array_products(
-                            products,
-                            fee_line.product_id,
-                            fee_line.product_uom,
-                            fee_line.product_uom_qty,
-                            price_subtotal,
-                        )
+                    # for operation in repair.operations:
+                    #    if repair.invoice_method != "none":
+                    #        price_subtotal = operation.price_subtotal
+                    #    else:
+                    #        price_subtotal = 0
+                    #    products = self._update_array_products(
+                    #        products,
+                    #        operation.product_id,
+                    #        operation.product_uom,
+                    #        operation.product_uom_qty,
+                    #        price_subtotal,
+                    #    )
+                    # for fee_line in repair.fees_lines:
+                    #    if repair.invoice_method != "none":
+                    #        price_subtotal = fee_line.price_subtotal
+                    #    else:
+                    #        price_subtotal = 0
+                    #    products = self._update_array_products(
+                    #        products,
+                    #        fee_line.product_id,
+                    #        fee_line.product_uom,
+                    #        fee_line.product_uom_qty,
+                    #        price_subtotal,
+                    #    )
                     repair.invoice_id = line.move_id.id
                 if not products:
                     line.product_rma_ids = [(6, 0, [])]
@@ -113,21 +113,21 @@ class AccountMoveLine(models.Model):
                 if sale_line.is_repair and sale_line.product_to_repair_id:
                     vals = {
                         "product_id": sale_line.product_to_repair_id.id,
+                        "product_uom_id": sale_line.product_to_repair_id.uom_id.id,
                         "name": sale_line.product_to_repair_id.name,
                     }
-                    repair_vals = {"invoice_id": line.move_id.id}
-                    repairs = sale_line.repair_order_ids.filtered(
-                        lambda x: not x.invoice_id and x.state == "done"
-                    )
-                    if repairs:
-                        repairs.write(repair_vals)
-                    repairs = sale_line.repair_order_ids.filtered(
-                        lambda x: not x.invoice_id and x.state == "2binvoiced"
-                    )
-                    if repairs:
-                        repair_vals["state"] = "done"
-                        repair_vals["invoiced"] = True
-                        repairs.write(repair_vals)
+                    line._put_invoice_in_repair_order(sale_line)
             if vals:
                 line.write(vals)
         return result
+
+    def _put_invoice_in_repair_order(self, sale_line):
+        repairs = self._find_repairs_to_put_invoice(sale_line)
+        if repairs:
+            repairs.write({"invoice_id": self.move_id.id})
+
+    def _find_repairs_to_put_invoice(self, sale_line):
+        repairs = sale_line.repair_order_ids.filtered(
+            lambda x: not x.invoice_id and x.state == "done"
+        )
+        return repairs

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="product_technical_sheet_document">
+    <t t-set="shape" t-value="doc.get_technical_sheet_shape()" />
+    <t t-set="company" t-value="doc.company_id or user.company_id" />
+    <div class="page technical-sheet">
+      <style>
+        .technical-sheet { width: 96%; margin: 0 auto; font-family: Arial, sans-serif; font-size: 11px; color: #242021; }
+        .technical-sheet table { width: 100%; border-collapse: collapse; }
+        .technical-sheet .header td { padding: 4px 8px; font-size: 20px; }
+        .technical-sheet .logo { width: 70px; max-height: 55px; object-fit: contain; }
+        .technical-sheet .blue { color: #53a5de; font-weight: bold; }
+        .technical-sheet .red { color: #ef202d; font-weight: bold; }
+        .technical-sheet .bar { background: #242021; color: white; font-size: 15px; font-weight: bold; padding: 7px 10px; }
+        .technical-sheet .bar .label { color: #ef202d; }
+        .technical-sheet .summary { table-layout: fixed; background: #242021; color: white; font-size: 12px; font-weight: bold; }
+        .technical-sheet .summary td { padding: 7px 5px; vertical-align: middle; overflow-wrap: anywhere; }
+        .technical-sheet .summary .label { color: #ef202d; }
+        .technical-sheet .section-title { background: #242021; color: #ef202d; font-size: 17px; font-weight: bold; padding: 7px 10px; }
+        .technical-sheet .design-cell { width: 29%; border-right: 4px solid #242021; vertical-align: top; }
+        .technical-sheet .info-cell { width: 42%; vertical-align: top; }
+        .technical-sheet .transfer-name { min-height: 52px; padding: 6px 10px; color: #ef202d; font-weight: bold; overflow-wrap: anywhere; }
+        .technical-sheet .design-image-box { height: 622px; padding: 8px; text-align: center; }
+        .technical-sheet .design-image { max-width: 96%; max-height: 607px; object-fit: contain; }
+        .technical-sheet .deck-info { min-height: 170px; padding: 10px 14px; }
+        .technical-sheet .feature-table { margin-top: 12px; }
+        .technical-sheet .feature-table td { padding: 2px 0; }
+        .technical-sheet .plies { min-height: 330px; padding: 10px 14px; border-bottom: 4px solid #242021; }
+        .technical-sheet .ply-image { width: 170px; height: 15px; object-fit: cover; vertical-align: middle; }
+        .technical-sheet .ply-row td { padding: 1px 3px; }
+        .technical-sheet .sample { min-height: 400px; padding: 12px; text-align: center; }
+        .technical-sheet .sample-image { max-width: 90%; max-height: 375px; object-fit: contain; }
+        .technical-sheet .collateral { width: 58%; border-right: 4px solid #242021; }
+        .technical-sheet .collateral-content { height: 180px; padding: 8px; }
+        .technical-sheet .collateral-image { max-width: 95%; max-height: 145px; object-fit: contain; }
+      </style>
+
+      <table class="header">
+        <tr>
+          <td style="width: 12%;">
+            <img
+              t-if="company.logo"
+              t-att-src="image_data_uri(company.logo)"
+              class="logo"
+            />
+          </td>
+          <td style="width: 58%;">BRAND: <span
+            class="blue"
+            t-esc="doc.product_brand_id.name or ''"
+          /></td>
+          <td style="width: 30%; text-align: right;">
+            <span>SEASON:</span>
+            <span class="blue" t-esc="doc.get_technical_sheet_season()" />
+          </td>
+        </tr>
+      </table>
+
+      <table class="summary">
+        <tr>
+          <td style="width: 48%;">
+            <span class="label">NAME:</span>
+            <span class="blue" t-esc="doc.name" />
+          </td>
+          <td style="width: 18%;">
+            <span class="label">STYLE:</span>
+            <span t-esc="shape.style_id.name if shape and shape.style_id else ''" />
+          </td>
+          <td style="width: 12%;">
+            <span class="label">SIZE:</span>
+            <span class="blue" t-esc="doc.get_technical_sheet_size()" />
+          </td>
+          <td style="width: 22%;">
+            <span class="label">REF:</span>
+            <span class="blue" t-esc="doc.default_code or ''" />
+          </td>
+        </tr>
+      </table>
+
+      <table style="table-layout: fixed; page-break-inside: avoid;">
+        <tr>
+          <td style="width: 58%; vertical-align: top; border-right: 4px solid #242021;">
+            <table style="table-layout: fixed;">
+              <tr>
+                <td
+                  class="section-title"
+                  style="width: 50%; border-right: 4px solid white;"
+                >BOTTOM DESIGN</td>
+                <td class="section-title" style="width: 50%;">TOP DESIGN</td>
+              </tr>
+              <tr>
+                <td class="design-cell" style="width: 50%;">
+                  <div
+                    class="transfer-name"
+                    t-esc="doc.bottom_transfer_product_id.name or ''"
+                  />
+                  <div class="design-image-box">
+                    <img
+                      t-if="doc.bottom_transfer_product_id.image_1920"
+                      t-att-src="image_data_uri(doc.bottom_transfer_product_id.image_1920)"
+                      class="design-image"
+                    />
+                  </div>
+                </td>
+                <td style="width: 50%; vertical-align: top;">
+                  <div
+                    class="transfer-name"
+                    t-esc="doc.top_transfer_product_id.name or ''"
+                  />
+                  <div class="design-image-box">
+                    <img
+                      t-if="doc.top_transfer_product_id.image_1920"
+                      t-att-src="image_data_uri(doc.top_transfer_product_id.image_1920)"
+                      class="design-image"
+                    />
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div class="section-title">COLLATERAL SPECS</div>
+            <div class="collateral-content">
+              <table>
+                <tr>
+                  <td style="width: 35%; text-align: center; vertical-align: top;">
+                    <strong>WARRANTY</strong>
+                    <div>
+                      <img
+                        t-if="doc.product_brand_id.warranty_image"
+                        t-att-src="image_data_uri(doc.product_brand_id.warranty_image)"
+                        class="collateral-image"
+                      />
+                    </div>
+                  </td>
+                  <td style="width: 65%; text-align: center; vertical-align: top;">
+                    <strong>PLACEMENT: </strong>
+                    <span t-field="doc.product_brand_id.warranty_location" />
+                    <div>
+                      <img
+                        t-if="doc.product_brand_id.warranty_location_image"
+                        t-att-src="image_data_uri(doc.product_brand_id.warranty_location_image)"
+                        class="collateral-image"
+                      />
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+          <td class="info-cell">
+            <div class="section-title">DECK</div>
+            <div class="deck-info">
+              <div>SIZE / <span
+                class="blue"
+                t-esc="doc.get_technical_sheet_dimensions_mm()"
+              /></div>
+              <div style="padding-left: 31px;">
+                <span class="blue" t-esc="doc.get_technical_sheet_dimensions_in()" />
+              </div>
+              <div t-if="shape">
+                SHAPE / <span class="blue" t-esc="shape.name" />
+              </div>
+              <div t-if="shape and shape.style_id">STYLE / <span
+                class="blue"
+                t-esc="shape.style_id.name"
+              /></div>
+              <div t-if="shape and shape.concave_id">CONCAVE / <span
+                class="blue"
+                t-esc="shape.concave_id.name"
+              /></div>
+              <table t-if="shape" class="feature-table">
+                <tr t-if="shape.wheelbase_in">
+                  <td>WHEELBASE</td>
+                  <td
+                    class="blue"
+                    t-esc="doc.get_technical_sheet_wheelbase('wheelbase_in')"
+                  />
+                </tr>
+                <tr t-if="shape.doblewheelbase_in &gt; 0">
+                  <td>DOBLE WHEELBASE</td>
+                  <td
+                    class="blue"
+                    t-esc="doc.get_technical_sheet_wheelbase('doblewheelbase_in')"
+                  />
+                </tr>
+                <tr>
+                  <td>Rebajes WW</td>
+                  <td t-esc="'Yes' if shape.wheel_well_recesses else 'No'" />
+                </tr>
+                <tr>
+                  <td>Simetrica</td>
+                  <td t-esc="'Yes' if shape.symmetric else 'No'" />
+                </tr>
+                <tr>
+                  <td>Drop</td>
+                  <td t-esc="'Yes' if shape.drop else 'No'" />
+                </tr>
+                <tr>
+                  <td>Exclusivo</td>
+                  <td t-esc="'Yes' if shape.exclusive else 'No'" />
+                </tr>
+              </table>
+            </div>
+            <div class="section-title" style="color: white;">PLIES</div>
+            <div class="plies">
+              <strong>COLOR PLIES:</strong>
+              <table style="margin-top: 10px;">
+                <t t-foreach="doc.get_technical_sheet_plies()" t-as="ply">
+                  <tr class="ply-row">
+                    <td style="width: 18%;" t-esc="ply[0]" />
+                    <td style="width: 58%;">
+                      <img
+                        t-if="ply[1].image"
+                        t-att-src="image_data_uri(ply[1].image)"
+                        class="ply-image"
+                      />
+                    </td>
+                    <td class="blue" t-esc="ply[1].name" />
+                  </tr>
+                </t>
+              </table>
+              <div
+                t-if="doc.get_technical_sheet_attribute_value('FINISH')"
+                style="margin-top: 10px; border-top: 1px solid #bbb; padding-top: 5px;"
+              >
+                <span>FINISH</span>
+                <span
+                  class="blue"
+                  style="float: right;"
+                  t-esc="doc.get_technical_sheet_attribute_value('FINISH').name"
+                />
+              </div>
+            </div>
+            <div class="section-title" style="color: white;">SAMPLE</div>
+            <div class="sample">
+              <img
+                t-if="doc.image_1920"
+                t-att-src="image_data_uri(doc.image_1920)"
+                class="sample-image"
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </template>
+
+  <template id="report_product_technical_sheet">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t t-call="product_technical_sheet_report.product_technical_sheet_document" />
+      </t>
+    </t>
+  </template>
+</odoo>

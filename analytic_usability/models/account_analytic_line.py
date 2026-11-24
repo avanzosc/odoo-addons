@@ -45,6 +45,12 @@ class AccountAnalyticLine(models.Model):
         related="move_line_id.move_id.user_id",
         store=True,
     )
+    product_category_id = fields.Many2one(
+        string="Product Category",
+        comodel_name="product.category",
+        related="product_id.categ_id",
+        store=True,
+    )
 
     @api.depends("amount")
     def _compute_amount_type(self):

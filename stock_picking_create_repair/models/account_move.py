@@ -55,15 +55,6 @@ class AccountMove(models.Model):
         for invoice in self:
             invoice.count_repairs = len(invoice.repairs_ids)
 
-    def unlink(self):
-        repair_obj = self.env["repair.order"]
-        for move in self:
-            cond = [("invoice_id", "=", move.id)]
-            repairs = repair_obj.search(cond)
-            if repairs:
-                repairs.write({"invoice_id": False})
-        return super().unlink()
-
     def action_repairs_from_sale(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(

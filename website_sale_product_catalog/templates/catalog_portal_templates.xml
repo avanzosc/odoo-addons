@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="portal_layout"
+    name="Portal layout: catalog menu entry"
+    inherit_id="portal.portal_breadcrumbs"
+    priority="20"
+  >
+    <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+      <li
+        t-if="page_name == 'catalog' or catalog"
+        t-attf-class="breadcrumb-item #{'active' if not catalog else ''}"
+      >
+        <t>Catalogs</t>
+      </li>
+    </xpath>
+  </template>
+
+  <template
+    id="portal_my_home_sale"
+    name="Catalogss"
+    customize_show="True"
+    inherit_id="portal.portal_my_home"
+    priority="20"
+  >
+    <div id="portal_client_category" position="inside">
+      <t t-call="portal.portal_docs_entry">
+        <!--                <t t-set="icon" t-value="'/sale/static/src/img/bag.svg'"/>-->
+        <t t-set="title">Catalogs</t>
+        <t t-set="url" t-value="'/my/catalogs'" />
+        <!--                <t t-set="text"></t>-->
+        <t t-set="placeholder_count" t-value="'catalog_count'" />
+      </t>
+    </div>
+  </template>
+
+  <template id="portal_my_catalogs" name="My Catalogs">
+    <t t-call="portal.portal_layout">
+      <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+      <t t-call="portal.portal_searchbar">
+        <t t-set="title">Catalogs</t>
+      </t>
+      <div t-if="not catalogs" class="alert alert-warning" role="alert">
+                There are currently no catalogs for your account.
+            </div>
+      <t t-if="catalogs" t-call="portal.portal_table">
+        <thead>
+          <tr class="active">
+            <th>Catalog Name</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th />
+          </tr>
+        </thead>
+        <t t-foreach="catalogs" t-as="catalog">
+          <tr>
+            <td>
+              <a t-att-href="catalog.website_url" t-if="catalog.is_published">
+                <t t-out="catalog.name" />
+              </a>
+              <t t-else="">
+                <t t-out="catalog.name" />
+              </t>
+            </td>
+            <td class="text-end">
+              <t t-out="catalog.date_start" />
+            </td>
+            <td class="text-end">
+              <t t-out="catalog.date_end" />
+            </td>
+            <td>
+              <t
+                t-set="catalog_product_record_xlsx_url"
+                t-value="'/catalog/xlsx/%s?%s' % (catalog.id, keep_query())"
+              />
+              <a t-att-href="catalog_product_record_xlsx_url">
+                <i class="fa fa-fw fa-file-excel-o" />
+                <span>Download</span>
+              </a>
+            </td>
+          </tr>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>

@@ -9,14 +9,15 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     count_pricelists_item = fields.Integer(
-        string="Count Pricelist Items", compute="_compute_count_pricelists_item"
+        string="Count Pricelist Items",
+        compute="_compute_count_pricelists_item",
     )
 
     def _compute_count_pricelists_item(self):
         for partner in self:
             if partner.property_product_pricelist:
                 partner.count_pricelists_item = len(
-                    partner.property_product_pricelist.item_ids
+                    partner.mapped("property_product_pricelist.item_ids")
                 )
             else:
                 partner.count_pricelists_item = 0
@@ -24,11 +25,11 @@ class ResPartner(models.Model):
     def button_show_partner_pricelist_items(self):
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "product_pricelist_item_menu.product_pricelist_item_menu_action"
+            "product.product_pricelist_item_action"
         )
         domain = expression.AND(
             [
-                [("pricelist_id", "=", self.property_product_pricelist.id)],
+                [("id", "in", self.mapped("property_product_pricelist.item_ids").ids)],
                 safe_eval(action.get("domain") or "[]"),
             ]
         )
