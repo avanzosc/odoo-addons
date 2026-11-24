@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="fleet_vehicle_view_form" model="ir.ui.view">
+    <field name="model">fleet.vehicle</field>
+    <field name="inherit_id" ref="fleet.fleet_vehicle_view_form" />
+    <field name="arch" type="xml">
+      <field name="license_plate" position="after">
+        <field name="special_traffic_authorization" />
+      </field>
+    </field>
+  </record>
+
+  <record id="fleet_vehicle_view_tree" model="ir.ui.view">
+    <field name="model">fleet.vehicle</field>
+    <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree" />
+    <field name="arch" type="xml">
+      <field name="acquisition_date" position="after">
+        <field name="special_traffic_authorization" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="fleet_vehicle_view_search" model="ir.ui.view">
+    <field name="model">fleet.vehicle</field>
+    <field name="inherit_id" ref="fleet.fleet_vehicle_view_search" />
+    <field name="arch" type="xml">
+      <field name="license_plate" position="after">
+        <field name="special_traffic_authorization" />
+      </field>
+      <filter name="available" position="before">
+        <separator />
+        <filter
+          string="With Special Traffic Authorization"
+          name="with_special_authorization"
+          domain="[('special_traffic_authorization', '=', True)]"
+        />
+        <filter
+          string="Without Special Traffic Authorization"
+          name="without_special_authorization"
+          domain="[('special_traffic_authorization', '=', False)]"
+        />
+        <separator />
+      </filter>
+    </field>
+  </record>
+</odoo>
