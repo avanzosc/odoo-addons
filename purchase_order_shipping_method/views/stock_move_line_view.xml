@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_stock_move_line_detailed_operation_tree" model="ir.ui.view">
+    <field name="model">stock.move.line</field>
+    <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree" />
+    <field name="arch" type="xml">
+      <field name="product_uom_id" position="after">
+        <field
+          name="shipping_cost"
+          sum="Total Shipping Cost"
+          optional="show"
+          readonly="state in ('done', 'cancel') or is_locked"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_move_line_tree" model="ir.ui.view">
+    <field name="model">stock.move.line</field>
+    <field name="inherit_id" ref="stock.view_move_line_tree" />
+    <field name="arch" type="xml">
+      <field name="quantity" position="after">
+        <field
+          name="picking_shipping_cost"
+          optional="show"
+          readonly="state in ('done', 'cancel') or is_locked"
+        />
+        <field name="is_locked" invisible="1" />
+        <field
+          name="shipping_cost"
+          sum="Total Shipping Cost"
+          optional="show"
+          readonly="state in ('done', 'cancel') or is_locked"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>

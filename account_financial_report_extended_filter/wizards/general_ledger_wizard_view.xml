@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="general_ledger_wizard_view_advance_filter" model="ir.ui.view">
+    <field name="name">general.ledger.report.wizard.advance.filter</field>
+    <field name="model">general.ledger.report.wizard</field>
+    <field name="inherit_id" ref="account_financial_report.general_ledger_wizard" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='payable_accounts_only']" position="after">
+        <field name="advance_accounts_only" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

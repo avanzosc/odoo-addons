@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_account_analytic_account_form" model="ir.ui.view">
+    <field name="model">account.analytic.account</field>
+    <field name="inherit_id" ref="analytic.view_account_analytic_account_form" />
+    <field name="arch" type="xml">
+      <div name="button_box" position="inside">
+        <button
+          class="oe_stat_button"
+          type="object"
+          name="action_view_forecast_project_analytic"
+          icon="fa-dollar"
+        >
+          <div class="o_field_widget o_stat_info">
+            <span class="o_stat_value">
+              <field name="project_forecast_count" nolabel="1" />
+            </span>
+            <span class="o_stat_text">
+                            Cash flow forecast + Project
+                        </span>
+          </div>
+        </button>
+        <button
+          class="oe_stat_button"
+          type="object"
+          name="action_view_treasury_financing"
+          icon="fa-dollar"
+        >
+          <div class="o_field_widget o_stat_info">
+            <span class="o_stat_value">
+              <field name="treasury_financing_count" nolabel="1" />
+            </span>
+            <span class="o_stat_text">
+                             Financing
+                         </span>
+          </div>
+        </button>
+        <button
+          class="oe_stat_button"
+          type="object"
+          name="action_view_treasury_forecast"
+          icon="fa-dollar"
+        >
+          <div class="o_field_widget o_stat_info">
+            <span class="o_stat_value">
+              <field name="treasury_forecast_count" nolabel="1" />
+            </span>
+            <span class="o_stat_text">
+                             Treasury Forecast
+                         </span>
+          </div>
+        </button>
+      </div>
+    </field>
+  </record>
+</odoo>

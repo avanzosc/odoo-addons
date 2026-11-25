@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="sale_order_form_subscription_repair" model="ir.ui.view">
+    <field name="model">sale.order</field>
+    <field name="inherit_id" ref="sale.view_order_form" />
+    <field name="priority" eval="100" />
+    <field name="arch" type="xml">
+      <button id="create_invoice" position="attributes">
+        <attribute
+          name="invisible"
+        >is_repair or (not is_subscription and invoice_status != 'to invoice') or (is_subscription and (state != 'sale' or (next_invoice_date &gt; current_date and invoice_status != 'to invoice')))</attribute>
+      </button>
+      <button id="create_invoice_percentage" position="attributes">
+        <attribute
+          name="invisible"
+        >is_repair or is_subscription or invoice_status != 'no' or state != 'sale'</attribute>
+      </button>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="lineage_view_form" model="ir.ui.view">
+    <field name="name">lineage.form</field>
+    <field name="model">lineage</field>
+    <field name="arch" type="xml">
+      <form string="Lineage">
+        <sheet>
+          <div class="oe_title">
+            <label for="name" class="oe_edit_only" />
+            <h1>
+              <field name="name" />
+            </h1>
+          </div>
+          <group name="main_group">
+            <field name="code" />
+          </group>
+          <notebook>
+            <page string="Birth Rate" name="birth_rate">
+              <field name="birth_rate_ids">
+                <list editable="bottom">
+                  <field name="week" />
+                  <field name="percentage_birth" />
+                </list>
+              </field>
+            </page>
+            <page string="Laying Rate" name="laying_rate">
+              <field name="laying_rate_ids">
+                <list editable="bottom">
+                  <field name="week" />
+                  <field name="percentage_laying" />
+                </list>
+              </field>
+            </page>
+            <page string="Mothers" name="mother">
+              <field name="mother_ids">
+                <list>
+                  <field name="name" />
+                  <field name="lineage_id" optional="show" />
+                  <field name="operating_number" optional="show" />
+                  <field name="location_id" optional="show" />
+                </list>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <record id="lineage_view_tree" model="ir.ui.view">
+    <field name="name">lineage.tree</field>
+    <field name="model">lineage</field>
+    <field name="arch" type="xml">
+      <list>
+        <field name="name" />
+        <field name="code" />
+      </list>
+    </field>
+  </record>
+
+  <record id="lineage_view_search" model="ir.ui.view">
+    <field name="name">lineage.search</field>
+    <field name="model">lineage</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="name" />
+        <field name="code" />
+      </search>
+    </field>
+  </record>
+
+  <record id="action_lineage_view" model="ir.actions.act_window">
+    <field name="name">Lineage</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">lineage</field>
+    <field name="view_mode">list,form</field>
+  </record>
+
+  <menuitem
+    action="action_lineage_view"
+    id="menu_view_lineage"
+    parent="stock.menu_product_in_config_stock"
+    sequence="5"
+  />
+</odoo>

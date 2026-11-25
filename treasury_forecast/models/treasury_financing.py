@@ -7,13 +7,18 @@ from odoo.exceptions import ValidationError
 class TreasuryFinancing(models.Model):
     _name = "treasury.financing"
     _description = "Financing"
+    _check_company_auto = True
 
     code = fields.Char(required=True)
     name = fields.Char(required=True)
     partner_id = fields.Many2one(
         "res.partner",
     )
-    journal_id = fields.Many2one("account.journal", domain=[("type", "=", "bank")])
+    journal_id = fields.Many2one(
+        "account.journal",
+        domain=[("type", "=", "bank")],
+        check_company=True,
+    )
 
     display_name = fields.Char(
         compute="_compute_display_name",
@@ -21,10 +26,6 @@ class TreasuryFinancing(models.Model):
     )
 
     category_type = fields.Selection(
-        selection=[
-            ("income", "Income"),
-            ("expense", "Expense"),
-        ],
         string="Type",
         related="category_id.category_type",
         store=True,
@@ -64,7 +65,7 @@ class TreasuryFinancing(models.Model):
 
     category_id = fields.Many2one(
         "treasury.financing.category",
-        string="Categoría",
+        string="Category",
         required=True,
     )
     parent_category_id = fields.Many2one(
@@ -178,7 +179,7 @@ class TreasuryFinancing(models.Model):
         self.ensure_one()
 
         if not self.start_date:
-            raise ValidationError(_("Debe indicar la fecha inicio cuotas."))
+            raise ValidationError(_("You must specify the installment start date."))
 
         today = fields.Date.context_today(self)
         start_date = fields.Date.to_date(self.start_date)

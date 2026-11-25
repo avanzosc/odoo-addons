@@ -16,7 +16,7 @@
         expr="//field[@name='move_ids_without_package']//field[@name='product_id']"
         position="after"
       >
-        <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+        <field name="allowed_make_ids" widget="many2many_tags" column_invisible="1" />
         <field name="make_id" required="1" />
       </xpath>
 
