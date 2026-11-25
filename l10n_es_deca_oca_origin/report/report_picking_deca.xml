@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2026 Acysos S.L.
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <template
+    id="report_deca_document"
+    inherit_id="l10n_es_deca_oca.report_deca_document"
+    priority="100"
+  >
+    <h2 position="before">
+      <br/>
+    </h2>
+    <xpath expr="//div[hasclass('page')]/div[4]" position="replace" />
+    <xpath expr="//div[hasclass('page')]/div[3]" position="replace">
+      <br />
+      <div class="row">
+        <t t-if="o.carrier_contact_id">
+          <t t-set="deca_contractual" t-value="o.company_id.partner_id" />
+        </t>
+        <t t-else="">
+          <t t-set="deca_contractual" t-value="o.partner_id" />
+        </t>
+        <div class="col-4">
+          <strong class="fw-bold">Contractual shipper:</strong>
+          <br />
+          <span t-out="deca_contractual.name" /><br />
+          <span>NIF: </span>
+          <span t-out="deca_contractual.vat" /><br />
+          <span t-out="deca_contractual.street" /><br />
+          <span t-out="deca_contractual.zip" />
+          <span t-out="deca_contractual.city" />,
+          <span t-out="deca_contractual.state_id" />
+		  </div>
+        <div class="col-4">
+          <strong class="fw-bold">Carrier:</strong>
+
+          <div t-if="o.carrier_contact_id">
+            <span t-out="o.carrier_contact_id.name" />
+            <br />
+            <span>NIF: </span>
+            <span t-out="o.carrier_contact_id.vat" />
+          </div>
+        </div>
+        <div class="col-4">
+          <strong class="fw-bold">Vehicle:</strong>
+          <br />
+          <span>Tractor license plate: </span>
+          <t t-foreach="(o.tractor_license_plate_history or '').splitlines()" t-as="old_plate">
+            <s t-out="old_plate" />
+          </t>
+          <span t-out="o._get_deca_license_plate(o.tractor_license_plate_id)"/>
+          <t t-if="o.trailer_license_plate_id or o.trailer_license_plate_history">
+            <br />
+            <span>Trailer licence plate: </span>
+            <t t-foreach="(o.trailer_license_plate_history or '').splitlines()" t-as="old_plate">
+              <s t-out="old_plate" />
+            </t>
+            <span t-if="o.trailer_license_plate_id" t-out="o._get_deca_license_plate(o.trailer_license_plate_id)"/>
+          </t>
+          <t t-if="o.special_authorization or o.special_authorization_history">
+            <br />
+            <span>Special Authorizations: </span>
+            <t t-foreach="(o.special_authorization_history or '').splitlines()" t-as="old_auth">
+              <s t-out="old_auth" />
+            </t>
+            <span t-out="o.special_authorization" />
+          </t>
+        </div>
+      </div>
+    </xpath>
+
+    <xpath expr="//div[hasclass('page')]/div[2]" position="replace">
+      <div class="row mt-4">
+        <div class="col-6">
+	            <strong class="fw-bold">Place and date of issue: </strong>
+	            <span t-out="o.company_id.city or ''" />, <span t-out="o.create_date" t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}'/>
+    	    </div>
+        <div class="col-6">
+          <strong>Shipping: </strong>
+          <span t-field="o.name" />
+          <strong class="fw-bold">     Date of the trip: </strong>
+          <span t-out="o.date_done or o.scheduled_date" t-options='{"widget": "datetime", "format": "dd/MM/yyyy"}'/>
+          <br />
+        </div>
+      </div>
+    </xpath>
+
+    <xpath expr="//table/thead//th[1]" position="before">
+      <th>Upload Date</th>
+      <th>Sender/Place of loading</th>
+      <th>Consignee/Place of delivery</th>
+    </xpath>
+
+    <xpath expr="//table/tbody//td[1]" position="before">
+      <td>
+        <span t-out="move.upload_date" t-options='{"widget": "date", "format": "dd/MM/yyyy"}'/>
+      </td>
+      <td>
+        <span t-out="move._partner_data_in_char_type(move.place_of_loading_id)"/>
+      </td>
+      <td>
+		<span
+		    t-out="'\n'.join(
+		        move._partner_data_in_char_type(delivery)
+		        for delivery in move.place_of_delivery_ids
+		    )"
+		    style="white-space: pre-line;"
+		/>
+      </td>
+    </xpath>
+
+    <table position="after">
+      <t t-if="o.deca_notes">
+        <div style="white-space: pre-line; margin-top: 4px;">
+          <strong>NOTES:</strong>
+          <div style="margin-top: 0; padding-top: 0;" t-out="o.deca_notes" />
+        </div>
+      </t>
+    </table>
+
+    <div t-out="o._get_share_url()" position="attributes">
+      <attribute
+        name="t-options"
+      >{'widget': 'barcode', 'symbology': 'QR', 'width': 120, 'height': 120}</attribute>
+    </div>
+  </template>
+</odoo>

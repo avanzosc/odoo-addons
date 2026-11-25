@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+access_sale_order_import,sale_order_import internal,sale.order.import,sales_team.group_sale_salesman,crud,
+access_sale_order_import_line,sale_order_import_line internal,sale.order.import.line,sales_team.group_sale_salesman,crud,
+sale_order_deca_import_rule,Sale order deca wizard company rule,sale.order.import,,crud,"['|', ('company_id', 'in', company_ids), ('company_id', '=', False)]"
