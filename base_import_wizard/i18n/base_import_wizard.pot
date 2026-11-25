@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-31 10:23+0000\n"
 "PO-Revision-Date: 2024-10-31 10:23+0000\n"
@@ -272,7 +272,8 @@ msgstr ""
 #. module: base_import_wizard
 #. odoo-python
 #: code:addons/base_import_wizard/models/base_import.py:0
-msgid "Unable to load \"{extension}\" file: requires Python module \"{modname}\""
+#, python-format
+msgid "Unable to load \"%(extension)s\" file: requires Python module \"%(modname)s\""
 msgstr ""
 
 #. module: base_import_wizard
