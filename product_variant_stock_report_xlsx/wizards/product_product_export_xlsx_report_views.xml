@@ -38,12 +38,14 @@
     <field name="res_model">report.stock.product_xlsx.export</field>
     <field name="view_mode">form</field>
     <field name="target">new</field>
+    <field name="groups_id" eval="[(4, ref('stock.group_stock_manager'))]" />
   </record>
 
   <menuitem
     id="product_export_menu"
     parent="stock.menu_stock_inventory_control"
     action="product_export_action"
+    groups="stock.group_stock_manager"
     sequence="150"
   />
 </odoo>

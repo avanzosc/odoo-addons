@@ -3,13 +3,14 @@
 
 {
     "name": "Product Variant Export XLSX",
-    "summary": "",
+    "summary": "Export product variants and their stock data to XLSX",
     "version": "18.0.1.0.0",
     "category": "Product",
     "author": "AvanzOSC",
     "license": "AGPL-3",
     "website": "https://github.com/avanzosc/odoo-addons",
     "depends": [
+        "account",
         "product",
         "product_code_generator",
         "product_brand",

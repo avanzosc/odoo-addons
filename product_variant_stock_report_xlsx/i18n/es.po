@@ -102,6 +102,8 @@ msgid "Family"
 msgstr "Familia"
 
 #. module: product_variant_stock_report_xlsx
+#. odoo-python
+#: code:addons/product_variant_stock_report_xlsx/reports/product_product_xlsx_report.py:0
 #: model:ir.model.fields,field_description:product_variant_stock_report_xlsx.field_report_stock_product_xlsx_export__id
 msgid "ID"
 msgstr ""
@@ -178,11 +180,6 @@ msgstr "Informe XLSX de stock de variantes de producto"
 #: model:ir.model,name:product_variant_stock_report_xlsx.model_report_stock_product_xlsx
 msgid "Product XLSX Report"
 msgstr "Informe XLSX de producto"
-
-#. module: product_variant_stock_report_xlsx
-#: model:ir.model.fields,field_description:product_variant_stock_report_xlsx.field_report_stock_product_xlsx_export__rule_products_domain
-msgid "Productos"
-msgstr ""
 
 #. module: product_variant_stock_report_xlsx
 #. odoo-python
@@ -279,3 +276,9 @@ msgstr "Peso"
 #: model:ir.model,name:product_variant_stock_report_xlsx.model_report_stock_product_xlsx_export
 msgid "Wizard to export products in xlsx"
 msgstr "Asistente para exportar productos a xlsx"
+
+#. module: product_variant_stock_report_xlsx
+#. odoo-python
+#: code:addons/product_variant_stock_report_xlsx/wizards/product_product_export_xlsx_report.py:0
+msgid "You can only export data from an allowed company."
+msgstr "Solo puedes exportar datos de una compañía permitida."
