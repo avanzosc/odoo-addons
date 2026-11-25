@@ -1,7 +1,7 @@
 # Copyright 2022 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-import base64
+import csv
 import logging
 import os
 import threading
@@ -9,7 +9,7 @@ from io import BytesIO, StringIO
 
 import pytz
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.mimetypes import guess_mimetype
 from odoo.tools.misc import split_every
@@ -17,19 +17,14 @@ from odoo.tools.misc import split_every
 _logger = logging.getLogger(__name__)
 
 try:
-    import csv
+    import xlrd
 except ImportError:
-    csv = None
+    xlrd = None
 
 try:
-    import xlrd
-
-    try:
-        from xlrd import xlsx
-    except ImportError:
-        xlsx = None
+    import openpyxl
 except ImportError:
-    xlrd = xlsx = None
+    openpyxl = None
 
 IMPORT_STATUS = [
     ("draft", "Draft"),
@@ -42,15 +37,14 @@ IMPORT_STATUS = [
 FILE_TYPE_DICT = {
     "text/csv": ("csv", True, None),
     "application/vnd.ms-excel": ("xls", xlrd, "xlrd"),
+    # xlrd >= 2.0 no longer reads xlsx files, openpyxl is used instead
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": (
         "xlsx",
-        xlsx,
-        "xlrd >= 1.0.0",
+        openpyxl,
+        "openpyxl",
     ),
 }
-EXTENSIONS = {
-    "." + ext: handler for mime, (ext, handler, req) in FILE_TYPE_DICT.items()
-}
+EXTENSIONS = {"." + info[0]: info for info in FILE_TYPE_DICT.values()}
 
 
 def check_number(number):
@@ -89,7 +83,8 @@ def convert2bool(value, default=False):
 def convert2date(value, datemode=0, timezone_name="UTC"):
     try:
         date_value = xlrd.xldate.xldate_as_datetime(value, datemode)
-    except TypeError:
+    except (TypeError, AttributeError):
+        # value is not an excel float date (or xlrd is not installed)
         try:
             date_value = fields.Datetime.to_datetime(value)
         except ValueError:
@@ -151,34 +146,30 @@ class BaseImport(models.AbstractModel):
         "import_line_ids.state",
     )
     def _compute_state(self):
-        for bom_import in self:
-            lines = bom_import.import_line_ids
+        for file_import in self:
+            lines = file_import.import_line_ids
             line_states = lines.mapped("state")
-            if line_states and any([state == "error" for state in line_states]):
-                bom_import.state = "error"
-            elif line_states and all([state == "done" for state in line_states]):
-                bom_import.state = "done"
+            if line_states and any(state == "error" for state in line_states):
+                file_import.state = "error"
+            elif line_states and all(state == "done" for state in line_states):
+                file_import.state = "done"
             elif line_states and all(
-                [state in ("pass", "done") for state in line_states]
+                state in ("pass", "done") for state in line_states
             ):
-                bom_import.state = "pass"
+                file_import.state = "pass"
             elif lines:
-                bom_import.state = "2validate"
+                file_import.state = "2validate"
             else:
-                bom_import.state = "draft"
+                file_import.state = "draft"
 
     @api.depends(
         "import_line_ids",
         "import_line_ids.log_info",
     )
     def _compute_log_info(self):
-        for bom_import in self:
-            lines = bom_import.import_line_ids
-            logged_lines = lines.filtered("log_info")
-            if logged_lines:
-                bom_import.log_info = "\n".join(logged_lines.mapped("log_info"))
-            else:
-                bom_import.log_info = ""
+        for file_import in self:
+            logged_lines = file_import.import_line_ids.filtered("log_info")
+            file_import.log_info = "\n".join(logged_lines.mapped("log_info"))
 
     def _get_line_values(self, row_values, datemode=False):
         self.ensure_one()
@@ -190,7 +181,7 @@ class BaseImport(models.AbstractModel):
 
     def _read_csv(self):
         lines = []
-        import_file = BytesIO(base64.decodebytes(self.data))
+        import_file = BytesIO(self.data.content)
         file_read = StringIO(import_file.read().decode())
         dialect = csv.Sniffer().sniff(file_read.read(2048))
         file_read.seek(0)
@@ -205,10 +196,8 @@ class BaseImport(models.AbstractModel):
 
     def _read_xls(self):
         lines = []
-        workbook = xlrd.open_workbook(file_contents=base64.decodebytes(self.data))
-        sheet_list = workbook.sheet_names()
-        for sheet_name in sheet_list:
-            sheet = workbook.sheet_by_name(sheet_name)
+        workbook = xlrd.open_workbook(file_contents=self.data.content)
+        for sheet in workbook.sheets():
             if not sheet.nrows:
                 continue
             keys = [c.value for c in sheet.row(0)]
@@ -220,19 +209,37 @@ class BaseImport(models.AbstractModel):
                     lines.append((0, 0, line_data))
         return lines
 
-    # use the same method for xlsx and xls files
-    _read_xlsx = _read_xls
+    def _read_xlsx(self):
+        lines = []
+        workbook = openpyxl.load_workbook(
+            BytesIO(self.data.content), read_only=True, data_only=True
+        )
+        for sheet in workbook.worksheets:
+            rows = sheet.iter_rows(values_only=True)
+            header = next(rows, None)
+            if not header:
+                continue
+            keys = ["" if key is None else key for key in header]
+            for row in rows:
+                # keep xlrd behaviour: empty cells are returned as empty strings
+                row_values = ["" if value is None else value for value in row]
+                if not any(value != "" for value in row_values):
+                    continue
+                values = dict(zip(keys, row_values, strict=False))
+                line_data = self._get_line_values(values, datemode=0)
+                if line_data:
+                    lines.append((0, 0, line_data))
+        workbook.close()
+        return lines
 
-    def _read_file(
-        self,
-    ):
+    def _read_file(self):
         """
         Dispatch to specific method to read file content, according to its mimetype
         or file type
         """
         self.ensure_one()
         # guess mimetype from file content
-        mimetype = guess_mimetype(self.data or b"")
+        mimetype = guess_mimetype(self.data.content)
         (file_extension, handler, req) = FILE_TYPE_DICT.get(
             mimetype, (None, None, None)
         )
@@ -250,24 +257,30 @@ class BaseImport(models.AbstractModel):
         # software setting incorrect mime types, or non-installed software
         # leading to browser not sending mime types)
         if self.filename:
-            p, ext = os.path.splitext(self.filename)
-            ext = ext.lower()
+            ext = os.path.splitext(self.filename)[1].lower()
             if ext in EXTENSIONS:
-                try:
-                    return getattr(self, "_read_" + ext[1:])()
-                except Exception:
-                    _logger.warning(
-                        "Failed to read file '%s' using file extension", self.filename
-                    )
+                (file_extension, handler, req) = EXTENSIONS[ext]
+                if handler:
+                    try:
+                        return getattr(self, "_read_" + file_extension)()
+                    except Exception:
+                        _logger.warning(
+                            "Failed to read file '%s' using file extension",
+                            self.filename,
+                        )
         if req:
             raise UserError(
-                _(
-                    'Unable to load "{extension}" file: requires Python module'
-                    ' "{modname}"'
-                ).format(extension=file_extension, modname=req)
+                self.env._(
+                    'Unable to load "%(extension)s" file: requires Python module'
+                    ' "%(modname)s"',
+                    extension=file_extension,
+                    modname=req,
+                )
             )
         raise UserError(
-            _("Unsupported file format, import only supports CSV, XLS and XLSX")
+            self.env._(
+                "Unsupported file format, import only supports CSV, XLS and XLSX"
+            )
         )
 
     def action_import_file(self):
@@ -276,74 +289,52 @@ class BaseImport(models.AbstractModel):
         lines = self._read_file()
         if not lines:
             raise ValidationError(
-                _("This is not a valid file.\n" "Unable to create wizard lines.")
+                self.env._("This is not a valid file.\nUnable to create wizard lines.")
             )
         self.import_line_ids = lines
         return True
 
-    def action_validate(self):
+    def _write_line_chunks(self, lines, method_name):
+        """Run ``method_name`` on ``lines`` in chunks of ``split_size``,
+        committing after each chunk (except while testing)."""
+        self.ensure_one()
         auto_commit = not getattr(threading.current_thread(), "testing", False)
-        line_obj = self.env[self.import_line_ids._name]
+        for line_chunk in split_every(self.split_size, lines.ids, lines.browse):
+            update_values = getattr(line_chunk, method_name)()
+            self.write({"import_line_ids": update_values})
+            if auto_commit:
+                # Long imports are committed by chunks on purpose so that the
+                # work already done is not lost if a later chunk fails.
+                self.env.cr.commit()  # pylint: disable=invalid-commit
+
+    def action_validate(self):
         for wiz in self:
-            wiz_lines = wiz.mapped("import_line_ids").filtered(
-                lambda wl: wl.state != "done"
+            wiz_lines = wiz.import_line_ids.filtered(lambda wl: wl.state != "done")
+            # draft lines first, then lines in error and finally the rest
+            wiz._write_line_chunks(
+                wiz_lines.filtered(lambda wl: wl.state == "draft"), "action_validate"
             )
-            draft_lines = wiz_lines.filtered(lambda wl: wl.state == "draft")
-            for draft_chunk_ids in split_every(wiz.split_size, draft_lines.ids):
-                update_values = line_obj.browse(draft_chunk_ids).action_validate()
-                wiz.write(
-                    {
-                        "import_line_ids": update_values,
-                    }
-                )
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
-            error_lines = wiz_lines.filtered(lambda wl: wl.state == "error")
-            for error_chunk_ids in split_every(wiz.split_size, error_lines.ids):
-                update_values = line_obj.browse(error_chunk_ids).action_validate()
-                wiz.write(
-                    {
-                        "import_line_ids": update_values,
-                    }
-                )
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
-            rest_lines = wiz_lines.filtered(
-                lambda wl: wl.state not in ("draft", "error")
+            wiz._write_line_chunks(
+                wiz_lines.filtered(lambda wl: wl.state == "error"), "action_validate"
             )
-            for line_chunk_ids in split_every(wiz.split_size, rest_lines.ids):
-                update_values = line_obj.browse(line_chunk_ids).action_validate()
-                wiz.write(
-                    {
-                        "import_line_ids": update_values,
-                    }
-                )
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
+            wiz._write_line_chunks(
+                wiz_lines.filtered(lambda wl: wl.state not in ("draft", "error")),
+                "action_validate",
+            )
         return True
 
     def action_process(self):
-        auto_commit = not getattr(threading.current_thread(), "testing", False)
-        line_obj = self.env[self.import_line_ids._name]
         for wiz in self:
-            wiz_lines = wiz.mapped("import_line_ids").filtered(
-                lambda wl: wl.state == "pass"
+            wiz._write_line_chunks(
+                wiz.import_line_ids.filtered(lambda wl: wl.state == "pass"),
+                "action_process",
             )
-            for line_chunk_ids in split_every(wiz.split_size, wiz_lines.ids):
-                update_values = line_obj.browse(line_chunk_ids).action_process()
-                wiz.write(
-                    {
-                        "import_line_ids": update_values,
-                    }
-                )
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
         return True
 
     def button_open_import_line(self):
         self.ensure_one()
         return {
-            "name": _("Import Lines"),
+            "name": self.env._("Import Lines"),
             "type": "ir.actions.act_window",
             "res_model": self.import_line_ids._name,
             "view_mode": "list,form",
@@ -389,62 +380,45 @@ class BaseImportLine(models.AbstractModel):
         return {}
 
     def action_validate(self):
-        line_values = []
-        for line in self.filtered(lambda ln: ln.state != "done"):
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    line._action_validate(),
-                )
-            )
-        return line_values
+        return [
+            (1, line.id, line._action_validate())
+            for line in self.filtered(lambda ln: ln.state != "done")
+        ]
 
-    def button_validate(self):
+    def _button_run_by_chunks(self, lines, method_name):
         auto_commit = not getattr(threading.current_thread(), "testing", False)
-        pending_lines = self.filtered(lambda ln: ln.state != "done")
-        for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(
+        for import_wiz in lines.import_id:
+            wiz_lines = lines.filtered(
                 lambda ln, import_wiz=import_wiz: ln.import_id == import_wiz
             )
-            for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
-                for line in self.browse(line_chunk_ids):
-                    line.write(line._action_validate())
+            for line_chunk in split_every(
+                import_wiz.split_size, wiz_lines.ids, self.browse
+            ):
+                for line in line_chunk:
+                    line.write(getattr(line, method_name)())
                 if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
+                    # Commit by chunks on purpose, see base.import
+                    self.env.cr.commit()  # pylint: disable=invalid-commit
+
+    def button_validate(self):
+        self._button_run_by_chunks(
+            self.filtered(lambda ln: ln.state != "done"), "_action_validate"
+        )
 
     def _action_process(self):
         self.ensure_one()
         update_values = {}
         if self.action == "nothing":
-            update_values.update(
-                {
-                    "state": "done",
-                }
-            )
+            update_values["state"] = "done"
         return update_values
 
     def action_process(self):
-        line_values = []
-        for line in self.filtered(lambda ln: ln.state == "pass"):
-            line_values.append(
-                (
-                    1,
-                    line.id,
-                    line._action_process(),
-                )
-            )
-        return line_values
+        return [
+            (1, line.id, line._action_process())
+            for line in self.filtered(lambda ln: ln.state == "pass")
+        ]
 
     def button_process(self):
-        auto_commit = not getattr(threading.current_thread(), "testing", False)
-        pending_lines = self.filtered(lambda ln: ln.state == "pass")
-        for import_wiz in self.mapped("import_id"):
-            wiz_lines = pending_lines.filtered(
-                lambda ln, import_wiz=import_wiz: ln.import_id == import_wiz
-            )
-            for line_chunk_ids in split_every(import_wiz.split_size, wiz_lines.ids):
-                for line in self.browse(line_chunk_ids):
-                    line.write(line._action_process())
-                if auto_commit:
-                    self._cr.commit()  # pylint: disable=E8102
+        self._button_run_by_chunks(
+            self.filtered(lambda ln: ln.state == "pass"), "_action_process"
+        )
