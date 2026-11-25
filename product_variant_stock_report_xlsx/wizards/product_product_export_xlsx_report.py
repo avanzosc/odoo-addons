@@ -1,17 +1,19 @@
 # Copyright 2026 Oihane Crucelaegui - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
-class ExportEducationRecordReport(models.TransientModel):
+class ExportProductXlsxReport(models.TransientModel):
     _name = "report.stock.product_xlsx.export"
     _description = "Wizard to export products in xlsx"
 
     company_id = fields.Many2one(
         comodel_name="res.company",
         string="Company",
-        default=lambda self: self.env.user.company_id.id,
+        default=lambda self: self.env.company.id,
+        required=True,
     )
     family_id = fields.Many2one(
         comodel_name="product.category",
@@ -27,8 +29,16 @@ class ExportEducationRecordReport(models.TransientModel):
     )
     product_brand_id = fields.Many2one(comodel_name="product.brand", string="Brand")
 
+    @api.onchange("family_id")
+    def _onchange_family_id(self):
+        if self.sub_family_id and self.sub_family_id.parent_id != self.family_id:
+            self.sub_family_id = False
+
     def export_xls(self):
-        product_domain = []
+        self.ensure_one()
+        if self.company_id not in self.env.companies:
+            raise UserError(_("You can only export data from an allowed company."))
+        product_domain = [("company_id", "in", [False, self.company_id.id])]
         if self.family_id:
             product_domain.append(("family_id", "=", self.family_id.id))
         if self.sub_family_id:
@@ -48,13 +58,7 @@ class ExportEducationRecordReport(models.TransientModel):
             .with_company(self.company_id.id)
             .report_action(
                 products,
-                data={
-                    "force_company_id": self.company_id.id,
-                    "family_id": self.family_id.id,
-                    "sub_family_id": self.sub_family_id.id,
-                    "internal_category_id": self.internal_category_id.id,
-                    "product_brand_id": self.product_brand_id.id,
-                },
+                data={"force_company_id": self.company_id.id},
             )
         )
         return report_action
