@@ -44,12 +44,27 @@ class StockQuant(models.Model):
         message = message or _("Quantity Relocated")
         move_vals = []
         for quant in self:
-            move_vals.append(
-                quant.with_context(inventory_name=message)._get_inventory_move_values(
-                    quant.quantity,
-                    quant.location_id,
-                    location_dest_id or quant.location_id,
-                )
+            vals = quant.with_context(
+                inventory_name=message
+            )._get_inventory_move_values(
+                quant.quantity,
+                quant.location_id,
+                location_dest_id or quant.location_id,
             )
+            # In v16 _get_inventory_move_values() does not accept source and
+            # destination packages, so set them on the move line here.
+            if package_dest_id:
+                result_package = package_dest_id
+            elif unpack:
+                result_package = self.env["stock.quant.package"]
+            else:
+                result_package = quant.package_id
+            vals["move_line_ids"][0][2].update(
+                {
+                    "package_id": quant.package_id.id,
+                    "result_package_id": result_package.id,
+                }
+            )
+            move_vals.append(vals)
         moves = self.env["stock.move"].create(move_vals)
         moves._action_done()
