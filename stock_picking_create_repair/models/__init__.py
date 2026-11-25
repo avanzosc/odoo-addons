@@ -5,6 +5,7 @@ from . import product_rma
 from . import product_template
 from . import purchase_order
 from . import repair_order
+from . import repair_service
 from . import sale_order_line
 from . import sale_order_type
 from . import sale_order

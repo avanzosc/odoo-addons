@@ -77,7 +77,10 @@ class AccountMoveLine(models.Model):
 
     def put_makes_in_line(self):
         commercial_make = False
-        if "commercial_make_id" in self.env.context:
+        if "commercial_make_id" in self.env.context and self.move_id.move_type in (
+            "out_invoice",
+            "out_refund",
+        ):
             if not self.env.context.get("commercial_make_id", False):
                 raise exceptions.ValidationError(
                     _(" You must select a commercial make on the invoice.")
@@ -117,8 +120,5 @@ class AccountMoveLine(models.Model):
             lambda x: not x.make_id and x.display_type == "product"
         ):
             line.put_makes_in_line()
-        for line in lines.filtered(
-            lambda x: not x.make_id and x.display_type == "product"
-        ):
             line.move_id.update_division_in_invoices()
         return lines

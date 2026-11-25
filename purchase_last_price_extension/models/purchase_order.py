@@ -29,7 +29,6 @@ class PurchaseOrderLine(models.Model):
         compute_sudo=True,
     )
     product_category = fields.Many2one(
-        string="Category",
         comodel_name="product.category",
         related="product_id.categ_id",
         readonly=True,

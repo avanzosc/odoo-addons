@@ -88,9 +88,11 @@ class IrModuleImport(models.Model):
                 _("Install Module"), row_values.get("Install Module", True)
             )
             log_info = ""
+            migration_category = self._get_migration_category(module_technical_name)
             values.update(
                 {
-                    "module_technical_name": convert2str(module_technical_name),
+                    "migration_category_id": migration_category.id,
+                    "module_technical_name": module_technical_name,
                     "module_last_version": convert2str(module_last_version),
                     "module_website": convert2str(module_website),
                     "module_author": convert2str(module_author),
@@ -103,6 +105,18 @@ class IrModuleImport(models.Model):
                 }
             )
         return values
+
+    def _get_migration_category(self, module_technical_name):
+        migration_category_obj = self.env["migration.category"]
+        module_technical_name = convert2str(module_technical_name)
+        migration_category_name = module_technical_name.split("_")[0]
+        cond = [("name", "=", migration_category_name)]
+        migration_category = migration_category_obj.search(cond)
+        if not migration_category:
+            migration_category = migration_category_obj.sudo().create(
+                {"name": migration_category_name}
+            )
+        return migration_category
 
     def _compute_module_count(self):
         for record in self:
@@ -124,13 +138,7 @@ class IrModuleImport(models.Model):
 
     def button_open_modules(self):
         self.ensure_one()
-        modules = self.mapped("import_line_ids.import_module_id")
-        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
-        action["domain"] = expression.AND(
-            [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
-        )
-        action["context"] = dict(self._context, create=False)
-        return action
+        return self.import_line_ids.button_open_modules()
 
     def button_open_additional_modules(self):
         self.ensure_one()
@@ -162,6 +170,11 @@ class IrModuleImportLine(models.Model):
         string="Found Module",
         comodel_name="ir.module.module",
     )
+    migration_category_id = fields.Many2one(
+        string="Migration Category",
+        comodel_name="migration.category",
+    )
+    migration_hours = fields.Float(default=10.0)
     import_module_state = fields.Selection(
         string="Database State",
         related="import_module_id.state",
@@ -235,6 +248,11 @@ class IrModuleImportLine(models.Model):
     def _action_validate(self):
         self.ensure_one()
         update_values = super()._action_validate()
+        if not self.migration_category_id:
+            migration_category = self.import_id._get_migration_category(
+                self.module_technical_name
+            )
+            update_values["migration_category_id"] = migration_category.id
         log_infos = []
         module, log_info_module = self._check_module()
         if log_info_module:
@@ -294,3 +312,12 @@ class IrModuleImportLine(models.Model):
     def button_install(self):
         self.ensure_one()
         self.import_module_id.button_immediate_install()
+
+    def button_open_modules(self):
+        modules = self.mapped("import_module_id")
+        action = self.env["ir.actions.actions"]._for_xml_id("base.open_module_tree")
+        action["domain"] = expression.AND(
+            [[("id", "in", modules.ids)], safe_eval(action.get("domain") or "[]")]
+        )
+        action["context"] = dict(self._context, create=False)
+        return action

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_production_lot_form" model="ir.ui.view">
+    <field name="model">stock.lot</field>
+    <field name="inherit_id" ref="stock.view_production_lot_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='main_group']" position="inside">
+        <group name="dimensions" string="Product Dimensions">
+          <field name="pricing_method" />
+          <label for="product_length" />
+          <div class="o_row">
+            <field name="product_length" />
+            <field
+              name="product_dimensional_uom_id"
+              options="{'no_open': True}"
+              readonly="1"
+            />
+          </div>
+          <label for="product_height" />
+          <div class="o_row">
+            <field name="product_height" />
+            <field
+              name="product_dimensional_uom_id"
+              options="{'no_open': True}"
+              readonly="1"
+            />
+          </div>
+          <label for="product_width" />
+          <div class="o_row">
+            <field name="product_width" />
+            <field
+              name="product_dimensional_uom_id"
+              options="{'no_open': True}"
+              readonly="1"
+            />
+          </div>
+          <label for="product_volume" />
+          <div class="o_row">
+            <field name="product_volume" />
+            <field name="product_volume_uom_name" />
+          </div>
+          <label for="product_weight" />
+          <div class="o_row">
+            <field name="product_weight" />
+            <field name="product_weight_uom_name" />
+          </div>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

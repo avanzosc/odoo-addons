@@ -18,13 +18,13 @@ class StockPicking(models.Model):
     team_id = fields.Many2one(
         string="Division",
         comodel_name="crm.team",
-        copy=False,
+        copy=True,
     )
     commercial_make_id = fields.Many2one(
-        string="Commercial Make", comodel_name="product.make", copy=False
+        string="Commercial Make", comodel_name="product.make", copy=True
     )
     allowed_commercial_make_ids = fields.Many2many(
-        string="Allowed Commercial Makes", comodel_name="product.make", copy=False
+        string="Allowed Commercial Makes", comodel_name="product.make", copy=True
     )
     num_allowed_commercial_make = fields.Integer(string="Num Allowed Commercial Makes")
     market_id = fields.Many2one(
@@ -33,7 +33,7 @@ class StockPicking(models.Model):
         compute="_compute_market_id",
         compute_sudo=True,
         store=True,
-        copy=False,
+        copy=True,
         related=False,
     )
     market_sector_id = fields.Many2one(

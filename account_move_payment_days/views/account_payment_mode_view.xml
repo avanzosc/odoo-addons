@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="account_payment_mode_form_payment_days" model="ir.ui.view">
+    <field name="name">account.payment.mode.form.payment.days</field>
+    <field name="model">account.payment.mode</field>
+    <field name="inherit_id" ref="account_payment_mode.account_payment_mode_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='main']//field[@name='payment_type']" position="after">
+        <field name="payment_days_basis" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

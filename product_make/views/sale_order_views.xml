@@ -21,7 +21,7 @@
         expr="//field[@name='order_line']/list/field[@name='name']"
         position="after"
       >
-        <field name="allowed_make_ids" widget="many2many_tags" invisible="1" />
+        <field name="allowed_make_ids" widget="many2many_tags" column_invisible="1" />
         <field
           name="make_id"
           domain="[('id','in',allowed_make_ids)]"
