@@ -14,6 +14,7 @@ class TreasuryFinancingCategory(models.Model):
         selection=[
             ("income", "Income"),
             ("expense", "Expense"),
+            ("both", "Both"),
         ],
         string="Type",
         required=True,
@@ -21,3 +22,7 @@ class TreasuryFinancingCategory(models.Model):
     )
 
     parent_id = fields.Many2one("treasury.financing.category", string="Parent Category")
+    child_ids = fields.One2many(
+        comodel_name="treasury.financing.category",
+        inverse_name="parent_id",
+    )

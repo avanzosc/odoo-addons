@@ -31,7 +31,11 @@ class RepairOrder(models.Model):
         string="Purchase order", comodel_name="purchase.order", copy=False
     )
     sale_id = fields.Many2one(
-        string="Sale order", comodel_name="sale.order", copy=False
+        string="Sale order",
+        comodel_name="sale.order",
+        related="sale_line_id.order_id",
+        store=True,
+        copy=False,
     )
     sale_line_id = fields.Many2one(
         string="Sale line",
@@ -70,14 +74,79 @@ class RepairOrder(models.Model):
         currency_field="currency_id",
         related="invoice_id.amount_untaxed",
     )
+    company_currency_id = fields.Many2one(
+        string="Company Currency", related="company_id.currency_id"
+    )
+    lines_amount_untaxed = fields.Monetary(
+        string="Tax Base",
+        currency_field="company_currency_id",
+        compute="_compute_lines_amounts",
+        store=True,
+    )
+    lines_amount_tax = fields.Monetary(
+        string="Taxes",
+        currency_field="company_currency_id",
+        compute="_compute_lines_amounts",
+        store=True,
+    )
+    lines_amount_total = fields.Monetary(
+        string="Total",
+        currency_field="company_currency_id",
+        compute="_compute_lines_amounts",
+        store=True,
+    )
+
+    @api.depends(
+        "move_ids.price_subtotal",
+        "move_ids.price_tax",
+        "move_ids.repair_line_type",
+        "move_ids.state",
+        "repair_service_ids.price_subtotal",
+        "repair_service_ids.price_tax",
+    )
+    def _compute_lines_amounts(self):
+        for repair in self:
+            lines = repair.move_ids.filtered(
+                lambda x: x.repair_line_type == "add" and x.state != "cancel"
+            )
+            services = repair.repair_service_ids
+            untaxed = sum(lines.mapped("price_subtotal")) + sum(
+                services.mapped("price_subtotal")
+            )
+            tax = sum(lines.mapped("price_tax")) + sum(services.mapped("price_tax"))
+            repair.lines_amount_untaxed = untaxed
+            repair.lines_amount_tax = tax
+            repair.lines_amount_total = untaxed + tax
+
+    def _get_repair_product_taxes(self, product):
+        self.ensure_one()
+        taxes = product.taxes_id._filter_taxes_by_company(self.company_id)
+        if not taxes or not self.partner_id:
+            return taxes
+        fiscal_position = (
+            self.env["account.fiscal.position"]
+            .with_company(self.company_id)
+            ._get_fiscal_position(
+                self.partner_id, delivery=self.address_id or self.partner_id
+            )
+        )
+        return fiscal_position.map_tax(taxes)
 
     @api.depends("sale_id", "sale_id.is_repair")
     def _compute_is_repair(self):
         for repair in self:
             repair.is_repair = repair.sale_id.is_repair if repair.sale_id else False
 
+    def _put_amount_untaxed_in_price_in_sale_budget(self):
+        for repair in self.filtered(
+            lambda x: x.state == "draft" and x.sale_id and x.sale_id.is_repair
+        ):
+            repair.price_in_sale_budget = repair.lines_amount_untaxed
+
     def action_repair_end(self):
         result = super().action_repair_end()
+        for repair in self:
+            repair.price_in_sale_budget = repair.lines_amount_untaxed
         for repair in self.filtered(lambda r: r.sale_id):
             repair.create_out_picking_repair()
         return result

@@ -4,6 +4,9 @@
     "name": "Product Pricelist Item Menu",
     "summary": "Show and access partner's assigned pricelist items easily",
     "version": "18.0.1.0.0",
+    "category": "Sales Management",
+    "website": "https://github.com/avanzosc/odoo-addons",
+    "author": "AvanzOSC",
     "license": "AGPL-3",
     "depends": [
         "sale",
@@ -11,9 +14,6 @@
         "product",
         "product_pricelist_item_list_view",
     ],
-    "author": "AvanzOSC",
-    "website": "https://github.com/avanzosc/odoo-addons",
-    "category": "Sales",
     "data": [
         "views/product_pricelist_item_view.xml",
         "views/res_partner_view.xml",
