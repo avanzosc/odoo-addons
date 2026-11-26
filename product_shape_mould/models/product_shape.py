@@ -53,6 +53,14 @@ class ProductShape(models.Model):
         store=True,
     )
     customer_table_ref = fields.Char(string="Customer Table Reference")
+    sheet_size = fields.Selection(
+        selection=[
+            ("9.5x33.5", '9,5"x33,5"'),
+            ("10x35", '10"x35"'),
+            ("11.02x45", '11,02"x45"'),
+            ("11.5x37", '11,5"x37"'),
+        ],
+    )
     comments = fields.Text()
     length_mm = fields.Float(
         string="Length (mm)",
