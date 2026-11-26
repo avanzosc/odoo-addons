@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_stock_quant_tree_editable" model="ir.ui.view">
+    <field name="model">stock.quant</field>
+    <field name="inherit_id" ref="stock_lot_dimension.view_stock_quant_tree_editable" />
+    <field name="arch" type="xml">
+      <field name="product_weight_uom_name" position="after">
+        <field
+          name="purchase_pricing_method"
+          string="Purch. Pricing Method"
+          optional="hide"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="theoretical_length"
+          string="Theor. Length"
+          optional="hide"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="purchase_length"
+          string="Purch. Length"
+          optional="show"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="purchase_length_uom_id"
+          string="Purch. Length UoM"
+          optional="show"
+          options="{'no_open': True}"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="theoretical_weight"
+          string="Theor. Weight"
+          optional="hide"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="purchase_weight"
+          string="Purch. Weight"
+          optional="show"
+          groups="stock.group_production_lot"
+        />
+        <field
+          name="purchase_weight_uom_id"
+          string="Purch. Weight UoM"
+          optional="show"
+          options="{'no_open': True}"
+          groups="stock.group_production_lot"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>
