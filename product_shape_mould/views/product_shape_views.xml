@@ -7,6 +7,7 @@
       <list>
         <field name="brand_info" />
         <field name="name" />
+        <field name="sheet_size" optional="show" />
         <field name="attribute_value_count" />
         <field name="mould_id" />
         <field name="style_id" optional="show" />
@@ -50,6 +51,7 @@
               <field name="style_id" />
               <field name="concave_id" />
               <field name="customer_table_ref" />
+              <field name="sheet_size" />
             </group>
             <group>
               <field name="mould_id" readonly="1" />
