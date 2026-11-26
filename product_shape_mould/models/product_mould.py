@@ -22,6 +22,10 @@ class ProductMould(models.Model):
     group = fields.Char()
     subgroup = fields.Char()
     description = fields.Text()
+    concave_id = fields.Many2one(
+        comodel_name="product.shape.concave",
+        string="Concave",
+    )
     manufacturing_year = fields.Integer()
     modification_year = fields.Integer()
     mould_id = fields.Many2one(

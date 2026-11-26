@@ -6,8 +6,8 @@
 Stock move line cost visible group
 ==================================
 
-* New group "See costs and amount in moves lines" for show "Standard Cost" and
-  "Amount" fields in moves and move lines.
+* Module not required, its logic has been incorporated into the
+  "stock_move_line_cost" module.
 
 Bug Tracker
 ===========

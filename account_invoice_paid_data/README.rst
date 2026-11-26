@@ -8,15 +8,27 @@ Account invoice paid data
 
 |badge1|
 
-This module extends accounting for Gausark:
+This module extends the accounting invoices with payment information:
 
-* paid date field in invoices tree that is filled when payment state changes to paid
-* payment period field, days between invoice date and paid date
+* Adds a paid date field to invoices, filled in automatically when the
+  payment state changes to paid.
+* Adds a payment period field to invoices, with the number of days between
+  the invoice date and the paid date.
+* Both fields are shown in the invoices tree view.
+* The lines of journal entry templates are copied when the template is
+  duplicated.
 
 **Table of contents**
 
 .. contents::
    :local:
+
+Bug Tracker
+===========
+
+Bugs are tracked on `GitHub Issues
+<https://github.com/avanzosc/odoo-addons/issues>`_. In case of trouble,
+please check there if your issue has already been reported.
 
 Credits
 =======

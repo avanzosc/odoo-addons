@@ -12,6 +12,7 @@ INCH_MM_FIELD_PAIRS = (
     ("length_mm", "length_in"),
     ("width_mm", "width_in"),
     ("wheelbase_mm", "wheelbase_in"),
+    ("doblewheelbase_mm", "doblewheelbase_in"),
     ("nose_mm", "nose_in"),
     ("tail_mm", "tail_in"),
 )
@@ -42,7 +43,24 @@ class ProductShape(models.Model):
         comodel_name="product.shape",
         string="Similar To",
     )
+    style_id = fields.Many2one(
+        comodel_name="product.shape.style",
+        string="Style",
+    )
+    concave_id = fields.Many2one(
+        related="mould_id.concave_id",
+        string="Concave",
+        store=True,
+    )
     customer_table_ref = fields.Char(string="Customer Table Reference")
+    sheet_size = fields.Selection(
+        selection=[
+            ("9.5x33.5", '9,5"x33,5"'),
+            ("10x35", '10"x35"'),
+            ("11.02x45", '11,02"x45"'),
+            ("11.5x37", '11,5"x37"'),
+        ],
+    )
     comments = fields.Text()
     length_mm = fields.Float(
         string="Length (mm)",
@@ -59,8 +77,8 @@ class ProductShape(models.Model):
     wheelbase_mm = fields.Float(
         string="Wheelbase (mm)",
     )
-    second_wheelbase_mm = fields.Float(
-        string="Second Wheelbase (mm)",
+    doblewheelbase_mm = fields.Float(
+        string="Doblewheelbase (mm)",
     )
     length_in = fields.Float(
         string="Length (in)",
@@ -82,13 +100,15 @@ class ProductShape(models.Model):
         string="Wheelbase (in)",
         digits=(16, 3),
     )
-    second_wheelbase_in = fields.Float(
-        string="Second Wheelbase (in)",
+    doblewheelbase_in = fields.Float(
+        string="Doblewheelbase (in)",
         digits=(16, 3),
     )
     sale_length = fields.Float(digits=(16, 2))
     sale_width = fields.Float(digits=(16, 2))
     wheel_well_recesses = fields.Boolean()
+    # Kept for compatibility with existing databases. The second wheelbase is
+    # now represented by the two numeric fields above.
     double_wheelbase = fields.Boolean()
     symmetric = fields.Boolean(compute="_compute_symmetric", store=True)
     drop = fields.Boolean()
@@ -150,9 +170,9 @@ class ProductShape(models.Model):
     def _onchange_wheelbase_in(self):
         self.wheelbase_mm = self.wheelbase_in * INCH_TO_MM
 
-    @api.onchange("second_wheelbase_in")
-    def _onchange_second_wheelbase_in(self):
-        self.second_wheelbase_mm = self.second_wheelbase_in * INCH_TO_MM
+    @api.onchange("doblewheelbase_in")
+    def _onchange_doblewheelbase_in(self):
+        self.doblewheelbase_mm = self.doblewheelbase_in * INCH_TO_MM
 
     @api.onchange("nose_in")
     def _onchange_nose_in(self):

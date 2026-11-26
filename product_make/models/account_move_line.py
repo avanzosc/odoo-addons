@@ -77,7 +77,10 @@ class AccountMoveLine(models.Model):
 
     def put_makes_in_line(self):
         commercial_make = False
-        if "commercial_make_id" in self.env.context:
+        if "commercial_make_id" in self.env.context and self.move_id.move_type in (
+            "out_invoice",
+            "out_refund",
+        ):
             if not self.env.context.get("commercial_make_id", False):
                 raise exceptions.ValidationError(
                     _(" You must select a commercial make on the invoice.")

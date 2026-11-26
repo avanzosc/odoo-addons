@@ -4,9 +4,10 @@ import logging
 from urllib.parse import urlencode
 
 import werkzeug.exceptions
+from werkzeug.urls import url_encode
 
-from odoo import _, fields, http
-from odoo.http import request
+from odoo import _, fields
+from odoo.http import Controller, content_disposition, request, route
 from odoo.osv import expression
 
 from odoo.addons.website_sale.controllers.main import WebsiteSale
@@ -21,7 +22,7 @@ CATALOGS_LAYOUT_SESSION_KEY = "website_sale_product_catalog_catalogs_layout"
 def _website_catalog_domain():
     return [
         ("active", "=", True),
-        ("visible_slider", "=", True),
+        ("is_published", "=", True),
         ("company_id", "=", request.env.company.id),
     ]
 
@@ -80,18 +81,15 @@ def _get_catalog_attributes(attrib_map):
 
 def _get_customer_catalog_items(catalog):
     """Return current customer-pricelist items for the catalog products."""
-    product_ids = catalog.pricelist_item_ids.mapped("product_id").ids
-    if not product_ids:
-        return request.env["product.pricelist.item"]
-
+    pricelist = request.website._get_current_pricelist()
     now = fields.Datetime.now()
     return (
         request.env["product.pricelist.item"]
         .sudo()
         .search(
             [
-                ("pricelist_id", "=", request.website.pricelist_id.id),
-                ("product_id", "in", product_ids),
+                ("pricelist_id", "=", pricelist.id),
+                ("id", "in", catalog.pricelist_item_ids.ids),
                 "|",
                 ("date_start", "=", False),
                 ("date_start", "<=", now),
@@ -142,9 +140,13 @@ def _item_matches(
     return True
 
 
-class WebsiteCatalog(http.Controller):
-    @http.route("/catalogs", type="http", auth="public", website=True)
+class WebsiteCatalog(Controller):
+    @route("/catalogs", type="http", auth="public", website=True)
     def catalogs(self, search=None, **post):
+        if request.website.is_public_user():
+            return request.redirect(
+                "/web/login?" + url_encode({"redirect": request.httprequest.full_path})
+            )
         search = (search or "").strip()
         domain = _website_catalog_domain()
         if search:
@@ -159,24 +161,20 @@ class WebsiteCatalog(http.Controller):
                     ),
                 ]
             )
-        show_catalogs = not request.env.user._is_public()
-        catalogs = (
-            request.env["product.catalog"].sudo().search(domain)
-            if show_catalogs
-            else request.env["product.catalog"]
-        )
+        #  show_catalogs = not request.env.user._is_public()
+        catalogs = request.env["product.catalog"].sudo().search(domain)
         layout_mode = _get_catalog_layout_mode(CATALOGS_LAYOUT_SESSION_KEY)
         return request.render(
             "website_sale_product_catalog.catalogs",
             {
                 "catalogs": catalogs,
-                "show_catalogs": show_catalogs,
+                "show_catalogs": True,
                 "search": search,
                 "layout_mode": layout_mode,
             },
         )
 
-    @http.route(
+    @route(
         "/catalog/save_layout_mode",
         type="json",
         auth="public",
@@ -190,15 +188,18 @@ class WebsiteCatalog(http.Controller):
             request.session[CATALOG_PRODUCTS_LAYOUT_SESSION_KEY] = layout_mode
         return True
 
-    @http.route(
-        ["/catalog/<int:catalog_id>", "/catalog/<int:catalog_id>/page/<int:page>"],
+    @route(
+        [
+            '/catalog/<model("product.catalog"):catalog>',
+            '/catalog/<model("product.catalog"):catalog>/page/<int:page>',
+        ],
         type="http",
         auth="public",
         website=True,
     )
     def catalog_detail(
         self,
-        catalog_id,
+        catalog,
         page=1,
         min_price=None,
         max_price=None,
@@ -210,7 +211,7 @@ class WebsiteCatalog(http.Controller):
             request.env["product.catalog"]
             .sudo()
             .search(
-                _website_catalog_domain() + [("id", "=", catalog_id)],
+                _website_catalog_domain() + [("id", "=", catalog.id)],
                 limit=1,
             )
         )
@@ -387,9 +388,40 @@ class WebsiteCatalog(http.Controller):
             },
         )
 
+    @route(["/catalog/xlsx/<int:catalog_id>"], type="http", auth="user", website=True)
+    def print_catalog_xlsx(self, catalog_id, access_token=None, **kw):
+        """Download Excel file for picking if user has access"""
+        catalog = request.env["product.catalog"].browse([catalog_id])
+        catalog_sudo = catalog.sudo()
+        partner = request.env.user.sudo().partner_id
+
+        xlsx_content = (
+            request.env["ir.actions.report"]
+            .sudo()
+            ._render_xlsx(
+                "sale_product_catalog.catalog_product_record_xlsx",
+                [catalog_sudo.id],
+                {
+                    "partner_id": partner.id,
+                },
+            )[0]
+        )
+
+        filename = f"{catalog.name}.xlsx"
+        return request.make_response(
+            xlsx_content,
+            headers=[
+                (
+                    "Content-Type",
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                ),
+                ("Content-Disposition", content_disposition(filename)),
+            ],
+        )
+
 
 class WebsiteSaleCatalog(WebsiteSale):
-    @http.route()
+    @route()
     def shop(
         self,
         page=0,
@@ -452,13 +484,7 @@ class WebsiteSaleCatalog(WebsiteSale):
             **post,
         )
 
-    @http.route(
-        ["/shop/cart/update"],
-        type="http",
-        auth="public",
-        methods=["POST"],
-        website=True,
-    )
+    @route()
     def cart_update(self, product_id, add_qty=1, set_qty=0, **kwargs):
         result = super().cart_update(
             product_id=product_id, add_qty=add_qty, set_qty=set_qty, **kwargs
