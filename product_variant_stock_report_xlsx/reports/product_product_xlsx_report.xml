@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_product_record_xlsx" model="ir.actions.report">
+    <field name="name">Product Variant Stock XLSX report</field>
+    <field name="model">product.product</field>
+    <field name="report_type">xlsx</field>
+    <field name="report_name">stock.product_xlsx</field>
+    <field
+      name="report_file"
+    >product_variant_stock_report_xlsx.product_product_xlsx</field>
+  </record>
+</odoo>

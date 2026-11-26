@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="group_view_supplier_payment_term" model="res.groups">
+    <field name="name">View Supplier Payment Terms</field>
+    <field name="category_id" eval="False" />
+    <field name="comment">
+            Allow users to view supplier payment terms on contact forms
+            without granting Accounting permissions.
+        </field>
+  </record>
+</odoo>

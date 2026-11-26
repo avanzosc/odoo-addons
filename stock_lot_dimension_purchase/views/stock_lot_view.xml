@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_production_lot_form" model="ir.ui.view">
+    <field name="model">stock.lot</field>
+    <field name="inherit_id" ref="stock_lot_dimension.view_production_lot_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='dimensions']" position="after">
+        <group name="purchase_dimensions" string="Purchase Dimensions">
+          <field name="purchase_pricing_method" />
+          <label for="theoretical_length" />
+          <div class="o_row">
+            <field name="theoretical_length" />
+            <field name="purchase_length_uom_id" options="{'no_open': True}" />
+          </div>
+          <label for="theoretical_weight" />
+          <div class="o_row">
+            <field name="theoretical_weight" />
+            <field name="purchase_weight_uom_id" options="{'no_open': True}" />
+          </div>
+          <label for="purchase_length" />
+          <div class="o_row">
+            <field name="purchase_length" />
+            <field name="purchase_length_uom_id" options="{'no_open': True}" />
+          </div>
+          <label for="purchase_weight" />
+          <div class="o_row">
+            <field name="purchase_weight" />
+            <field name="purchase_weight_uom_id" options="{'no_open': True}" />
+          </div>
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

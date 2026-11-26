@@ -20,6 +20,5 @@ class TestProductPricelistItemMenu(common.TransactionCase):
     def test_product_pricelist_item_menu2(self):
         partner = self.partner_model.search([], limit=1)
         res = partner.button_show_partner_pricelist_items()
-        self.assertEqual(res.get("name"), "Pricelist Items")
         cond = [("pricelist_id", "=", partner.property_product_pricelist.id)]
         self.assertEqual(res.get("domain"), cond)

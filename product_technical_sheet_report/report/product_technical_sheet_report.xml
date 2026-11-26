@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="paperformat_product_technical_sheet" model="report.paperformat">
+    <field name="name">Product Technical Sheet</field>
+    <field name="default" eval="False" />
+    <field name="format">A4</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">4</field>
+    <field name="margin_bottom">4</field>
+    <field name="margin_left">4</field>
+    <field name="margin_right">4</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">0</field>
+    <field name="dpi">90</field>
+  </record>
+
+  <record id="action_product_technical_sheet" model="ir.actions.report">
+    <field name="name">Technical Sheet</field>
+    <field name="model">product.product</field>
+    <field name="report_type">qweb-pdf</field>
+    <field
+      name="report_name"
+    >product_technical_sheet_report.report_product_technical_sheet</field>
+    <field
+      name="report_file"
+    >product_technical_sheet_report.report_product_technical_sheet</field>
+    <field name="print_report_name">'Technical Sheet - %s' % object.display_name</field>
+    <field name="binding_model_id" ref="product.model_product_product" />
+    <field name="binding_type">report</field>
+    <field name="paperformat_id" ref="paperformat_product_technical_sheet" />
+  </record>
+</odoo>
