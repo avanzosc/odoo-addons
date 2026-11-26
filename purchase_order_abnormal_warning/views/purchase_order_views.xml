@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_order_tree" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree" />
+    <field name="arch" type="xml">
+      <field name="amount_total" position="attributes">
+        <attribute name="decoration-warning">abnormal_amount_warning</attribute>
+      </field>
+      <field name="date_order" position="attributes">
+        <attribute name="decoration-warning">abnormal_date_warning</attribute>
+      </field>
+      <field name="activity_exception_decoration" position="after">
+        <field name="abnormal_amount_warning" column_invisible="1" />
+        <field name="abnormal_date_warning" column_invisible="1" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_kpis_tree" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+    <field name="arch" type="xml">
+      <field name="amount_total" position="attributes">
+        <attribute name="decoration-warning">abnormal_amount_warning</attribute>
+      </field>
+      <field name="date_order" position="attributes">
+        <attribute name="decoration-warning">abnormal_date_warning</attribute>
+      </field>
+      <field name="invoice_status" position="after">
+        <field name="abnormal_amount_warning" column_invisible="1" />
+        <field name="abnormal_date_warning" column_invisible="1" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_view_tree" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_view_tree" />
+    <field name="arch" type="xml">
+      <field name="amount_total" position="attributes">
+        <attribute name="decoration-warning">abnormal_amount_warning</attribute>
+      </field>
+      <field name="date_order" position="attributes">
+        <attribute name="decoration-warning">abnormal_date_warning</attribute>
+      </field>
+      <field name="date_planned" position="after">
+        <field name="abnormal_amount_warning" column_invisible="1" />
+        <field name="abnormal_date_warning" column_invisible="1" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_form" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <sheet position="before">
+        <div
+          class="alert alert-warning"
+          role="alert"
+          invisible="not abnormal_amount_warning"
+        >
+          <field name="abnormal_amount_warning" />
+        </div>
+        <div
+          class="alert alert-warning"
+          role="alert"
+          invisible="not abnormal_date_warning"
+        >
+          <field name="abnormal_date_warning" />
+        </div>
+      </sheet>
+    </field>
+  </record>
+</odoo>

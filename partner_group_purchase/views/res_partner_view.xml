@@ -16,7 +16,7 @@
           name="purchase_group2_id"
           placeholder="Purchases Group"
           options='{"no_open": True}'
-          invisible="supplier_rank != 1"
+          invisible="supplier_rank == 0"
         />
       </field>
     </field>
@@ -27,17 +27,9 @@
     <field name="inherit_id" ref="base.view_partner_tree" />
     <field name="arch" type="xml">
       <field name="email" position="after">
-        <field
-          name="purchase_group_id"
-          invisible="is_company == False"
-          optional="show"
-        />
-        <field name="supplier_rank" invisible="1" />
-        <field
-          name="purchase_group2_id"
-          invisible="supplier_rank != 1"
-          optional="show"
-        />
+        <field name="purchase_group_id" optional="hide" />
+        <field name="supplier_rank" optional="hide" />
+        <field name="purchase_group2_id" optional="hide" />
       </field>
     </field>
   </record>

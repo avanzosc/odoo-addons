@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="account_asset_line_view_tree" model="ir.ui.view">
+    <field name="name">account.asset.line.view.list</field>
+    <field name="model">account.asset.line</field>
+    <field name="arch" type="xml">
+      <list
+        decoration-info="(move_check == False) and (init_entry == False)"
+        create="false"
+      >
+        <field name="asset_id" readonly="1" optional="show" />
+        <field name="type" optional="show" />
+        <field name="line_date" optional="show" readonly="move_check" />
+        <field name="line_days" sum="Total Days" optional="show" />
+        <field name="depreciated_value" readonly="1" optional="show" />
+        <field name="amount" optional="show" readonly="move_check" />
+        <field name="remaining_value" readonly="1" optional="show" />
+        <field
+          name="init_entry"
+          string="Init"
+          optional="show"
+          readonly="move_check or type == 'create'"
+        />
+        <field name="move_check" optional="show" />
+        <field name="parent_state" invisible="1" />
+        <field name="currency_id" invisible="1" />
+        <button
+          name="create_move"
+          icon="fa-cog"
+          string="Create Move"
+          type="object"
+          invisible="init_entry or move_check or parent_state != 'open'"
+        />
+        <button
+          name="open_move"
+          icon="fa-folder-open-o"
+          string="View Move"
+          type="object"
+          invisible="not move_check"
+        />
+        <button
+          name="unlink_move"
+          icon="fa-times"
+          string="Delete/Reverse Move"
+          type="object"
+          confirm="Are you sure ?"
+          groups="account.group_account_manager"
+          invisible="not move_check"
+        />
+      </list>
+    </field>
+  </record>
+
+  <record id="account_asset_line_view_filter" model="ir.ui.view">
+    <field name="name">account.asset.line.view.filter</field>
+    <field name="model">account.asset.line</field>
+    <field name="arch" type="xml">
+      <search string="Search Assets Lines">
+        <field name="asset_id" />
+        <field name="type" />
+        <field name="line_date" />
+        <filter name="type_create" string="Create" domain="[('type','=','create')]" />
+        <filter
+          name="type_depreciate"
+          string="Depreciate"
+          domain="[('type','=','depreciate')]"
+        />
+        <filter name="type_remove" string="Remove" domain="[('type','=','remove')]" />
+        <separator />
+        <filter
+          string="Today"
+          name="today"
+          domain="[('line_date','&gt;', (context_today() - datetime.timedelta(days=1)).strftime('%Y-%m-%d')), ('line_date', '&lt;', (context_today()).strftime('%Y-%m-%d'))]"
+        />
+        <filter
+          string="Last Week"
+          name="last_week"
+          domain="[('line_date','&gt;', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d')), ('line_date', '&lt;', (context_today()).strftime('%Y-%m-%d'))]"
+        />
+        <filter
+          string="Last Month"
+          name="last_month"
+          domain="[('line_date','&gt;', (context_today() - datetime.timedelta(days=30)).strftime('%Y-%m-%d')), ('line_date', '&lt;', (context_today()).strftime('%Y-%m-%d'))]"
+        />
+        <filter
+          string="Last Year"
+          name="last_year"
+          domain="[('line_date','&gt;', (context_today() - datetime.timedelta(days=365)).strftime('%Y-%m-%d')), ('line_date', '&lt;', (context_today()).strftime('%Y-%m-%d'))]"
+        />
+        <separator />
+        <filter
+          string="Date"
+          name="line_date_filter"
+          date="line_date"
+          domain="[('line_date', '>=', context_today() - relativedelta(months=1))]"
+        />
+        <group expand="0" string="Group By">
+          <filter
+            string="Asset"
+            name="group-asset"
+            domain="[]"
+            context="{'group_by': 'asset_id'}"
+          />
+          <filter
+            string="Type"
+            name="group-type"
+            domain="[]"
+            context="{'group_by': 'type'}"
+          />
+          <filter
+            string="Date"
+            name="group-line-date"
+            domain="[]"
+            context="{'group_by': 'line_date'}"
+          />
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <record id="view_account_asset_line_pivot_menu" model="ir.ui.view">
+    <field name="name">account.asset.line.pivot.menu</field>
+    <field name="model">account.asset.line</field>
+    <field name="arch" type="xml">
+      <pivot string="Assets Lines">
+        <field name="depreciated_value" type="measure" />
+        <field name="amount" type="measure" />
+        <field name="remaining_value" type="measure" />
+        <field name="asset_id" type="row" />
+      </pivot>
+    </field>
+  </record>
+
+  <record id="account_asset_line_action" model="ir.actions.act_window">
+    <field name="name">Assets Lines</field>
+    <field name="res_model">account.asset.line</field>
+    <field name="view_id" ref="account_asset_line_view_tree" />
+    <field name="view_mode">list,pivot</field>
+    <field name="context">
+{
+    'search_default_type_create': 1,
+    'pivot_column_groupby': ['line_date:year']
+}
+</field>
+  </record>
+
+  <menuitem
+    id="menu_account_asset_line"
+    name="Assets Lines"
+    parent="account_asset_management.menu_finance_assets"
+    action="account_asset_line_menu.account_asset_line_action"
+    sequence="10"
+  />
+</odoo>

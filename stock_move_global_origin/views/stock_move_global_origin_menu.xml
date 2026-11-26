@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <menuitem
+    id="menu_global_origin_root"
+    name="Global Origin"
+    sequence="99"
+    web_icon="stock_move_global_origin,static/description/icon.png"
+  />
+
+  <menuitem
+    id="menu_stock_move_global_origin_pivot"
+    name="Global Report"
+    action="action_stock_move_global_origin_pivot"
+    parent="menu_global_origin_root"
+    groups="stock.group_stock_user,stock.group_stock_manager"
+    sequence="10"
+  />
+</odoo>

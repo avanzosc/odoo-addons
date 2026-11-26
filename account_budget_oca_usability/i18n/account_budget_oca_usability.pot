@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-26 06:41+0000\n"
-"PO-Revision-Date: 2025-08-26 06:41+0000\n"
+"POT-Creation-Date: 2026-02-18 10:28+0000\n"
+"PO-Revision-Date: 2026-02-18 10:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,11 @@ msgid "Analytic account"
 msgstr ""
 
 #. module: account_budget_oca_usability
+#: model:ir.model,name:account_budget_oca_usability.model_crossovered_budget
+msgid "Budget"
+msgstr ""
+
+#. module: account_budget_oca_usability
 #: model:ir.model,name:account_budget_oca_usability.model_crossovered_budget_lines
 msgid "Budget Line"
 msgstr ""
@@ -33,6 +38,11 @@ msgstr ""
 #. module: account_budget_oca_usability
 #: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_pivot
 msgid "Budget Lines"
+msgstr ""
+
+#. module: account_budget_oca_usability
+#: model:ir.actions.server,name:account_budget_oca_usability.ir_cron_recompute_practical_amount_ir_actions_server
+msgid "Budget Lines: Recompute practical amount"
 msgstr ""
 
 #. module: account_budget_oca_usability
@@ -74,6 +84,14 @@ msgstr ""
 #. module: account_budget_oca_usability
 #: model:ir.actions.server,name:account_budget_oca_usability.action_recalculate_result_amount
 msgid "Recalculate Result Amount"
+msgstr ""
+
+#. module: account_budget_oca_usability
+#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.crossovered_budget_line_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.crossovered_budget_view_form
+#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.crossovered_budget_view_tree
+#: model_terms:ir.ui.view,arch_db:account_budget_oca_usability.view_crossovered_budget_line_tree
+msgid "Refresh Practical Amount"
 msgstr ""
 
 #. module: account_budget_oca_usability

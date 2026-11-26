@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="product_qr_label_document">
+    <t t-call="stock_product_qr_label.external_layout_quant_product_label">
+      <div
+        class="page"
+        style="font-size: 12px !important; font-family: ubuntu condensed; page-break-after: always; padding-top: 5px;  margin-right: -10px; margin-left: -10px; margin-bottom: -10px; margin-top: 10px;"
+      >
+        <div class="row">
+          <div class="col-6">
+            <b>
+              <span t-field="doc.default_code" style="text-align: left;" />
+            </b>
+          </div>
+          <div class="col-6" style="text-align: right;">
+            <b>
+              <span
+                t-field="doc.create_date"
+                t-options="{&quot;widget&quot;: &quot;date&quot;}"
+              />
+            </b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <b>
+              <span t-esc="doc.name_for_labels" />
+            </b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8" style="padding-right: 30px;" />
+          <div class="col-4">
+            <img
+              style="margin-left: -30px;"
+              t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', qr_code, 115, 115)"
+            />
+          </div>
+        </div>
+      </div>
+    </t>
+  </template>
+
+  <template id="report_product_qr_label">
+    <t t-call="web.html_container">
+      <t t-set="company" t-value="env.company" />
+      <t t-foreach="docs" t-as="doc">
+        <t t-set="qr_code" t-value="doc.default_code" />
+        <t
+          t-call="stock_product_qr_label.product_qr_label_document"
+          t-lang="company.partner_id.lang"
+        />
+      </t>
+    </t>
+  </template>
+
+  <template id="report_template_qr_label">
+    <t t-call="web.html_container">
+      <t t-set="company" t-value="env.company" />
+      <t t-foreach="docs" t-as="doc">
+        <t t-set="qr_code" t-value="doc.default_code" />
+        <t
+          t-call="stock_product_qr_label.product_qr_label_document"
+          t-lang="company.partner_id.lang"
+        />
+      </t>
+    </t>
+  </template>
+
+  <record id="action_product_qr_label_report" model="ir.actions.report">
+    <field name="name">QR Label</field>
+    <field name="model">product.product</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">stock_product_qr_label.report_product_qr_label</field>
+    <field name="report_file">stock_product_qr_label.report_product_qr_label</field>
+    <field name="print_report_name">'QR Label - %s' % (object.name)</field>
+    <field name="binding_model_id" ref="product.model_product_product" />
+    <field name="binding_type">report</field>
+    <field
+      name="paperformat_id"
+      ref="stock_product_qr_label.paperformat_product_qr_label"
+    />
+  </record>
+
+  <record id="action_template_qr_label_report" model="ir.actions.report">
+    <field name="name">QR Label</field>
+    <field name="model">product.template</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">stock_product_qr_label.report_template_qr_label</field>
+    <field name="report_file">stock_product_qr_label.report_template_qr_label</field>
+    <field name="print_report_name">'QR Label - %s' % (object.name)</field>
+    <field name="binding_model_id" ref="product.model_product_template" />
+    <field name="binding_type">report</field>
+    <field
+      name="paperformat_id"
+      ref="stock_product_qr_label.paperformat_product_qr_label"
+    />
+  </record>
+</odoo>

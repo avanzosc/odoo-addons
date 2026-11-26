@@ -3,7 +3,7 @@
 
 {
     "name": "Module Comparing Wizard",
-    "version": "18.0.1.1.0",
+    "version": "18.0.1.2.0",
     "category": "Hidden/Tools",
     "license": "AGPL-3",
     "author": "AvanzOSC",
@@ -15,6 +15,7 @@
     "data": [
         "views/ir_module_import_views.xml",
         "views/ir_module_import_line_views.xml",
+        "views/migration_category_views.xml",
         "security/ir.model.access.csv",
     ],
     "external_dependencies": {"python": ["xlrd"]},

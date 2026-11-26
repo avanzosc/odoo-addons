@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="view_account_journal_form_inherit_manual" model="ir.ui.view">
+    <field name="name">account.journal.form.manual.inherit</field>
+    <field name="model">account.journal</field>
+    <field name="inherit_id" ref="account.view_account_journal_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='type']" position="after">
+        <field name="allow_manual_entries" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

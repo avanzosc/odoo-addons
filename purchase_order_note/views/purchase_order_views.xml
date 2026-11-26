@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="purchase_order_tree_inh_notes" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_tree" />
+    <field name="arch" type="xml">
+      <field name="currency_id" position="after">
+        <field name="purchase_order_note" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_view_tree" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_view_tree" />
+    <field name="arch" type="xml">
+      <field name="currency_id" position="after">
+        <field name="purchase_order_note" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_kpis_tree" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_kpis_tree" />
+    <field name="arch" type="xml">
+      <field name="currency_id" position="after">
+        <field name="purchase_order_note" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="purchase_order_form_inh_notes" model="ir.ui.view">
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <field name="notes" position="after">
+        <field name="purchase_order_note" />
+      </field>
+    </field>
+  </record>
+</odoo>

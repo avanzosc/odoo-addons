@@ -250,3 +250,9 @@ class SaleOrder(models.Model):
                 sale.team_id = team_id
             sale.picking_ids.write({"team_id": team_id})
             sale.invoice_ids.write({"team_id": team_id})
+
+    def action_open_delivery_wizard(self):
+        result = super().action_open_delivery_wizard()
+        result["context"]["default_make_id"] = self.commercial_make_id.id
+        result["context"]["default_carrier_id"] = False
+        return result

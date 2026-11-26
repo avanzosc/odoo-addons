@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_partner_tree" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_tree" />
+    <field name="arch" type="xml">
+      <field name="street" position="after">
+        <field name="segment_id" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_partner_form" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+      <field name="lang" position="after">
+        <field name="segment_id" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_res_partner_filter" model="ir.ui.view">
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_res_partner_filter" />
+    <field name="arch" type="xml">
+      <field name="user_id" position="after">
+        <field name="segment_id" />
+      </field>
+      <filter name="group_country" position="after">
+        <filter
+          name="group_segment"
+          string="Segment"
+          context="{'group_by': 'segment_id'}"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>

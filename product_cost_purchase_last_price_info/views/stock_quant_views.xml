@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_stock_quant_tree_inherit" model="ir.ui.view">
+    <field name="model">stock.quant</field>
+    <field name="inherit_id" ref="stock_account.view_stock_quant_tree_inherit" />
+    <field name="arch" type="xml">
+      <field name="value" position="attributes">
+        <attribute
+          name="groups"
+        >purchase_last_price_info_discount_visible.group_product_cost_visible</attribute>
+      </field>
+      <field name="value" position="before">
+        <field
+          name="standard_price"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+      </field>
+      <field name="value" position="after">
+        <field
+          name="last_purchase_price_company_currency"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+        <field
+          name="purchase_value"
+          string="Last purchase price value"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_stock_quant_tree_editable_inherit" model="ir.ui.view">
+    <field name="model">stock.quant</field>
+    <field
+      name="inherit_id"
+      ref="stock_account.view_stock_quant_tree_editable_inherit"
+    />
+    <field name="arch" type="xml">
+      <field name="value" position="attributes">
+        <attribute
+          name="groups"
+        >purchase_last_price_info_discount_visible.group_product_cost_visible</attribute>
+      </field>
+      <field name="value" position="before">
+        <field
+          name="standard_price"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+      </field>
+      <field name="value" position="after">
+        <field
+          name="last_purchase_price_company_currency"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+        <field
+          name="purchase_value"
+          string="Last purchase price value"
+          groups="purchase_last_price_info_discount_visible.group_product_cost_visible"
+        />
+      </field>
+      <field name="value" position="attributes">
+        <attribute name="string">Product cost price value</attribute>
+      </field>
+    </field>
+  </record>
+
+  <record id="view_stock_quant_pivot" model="ir.ui.view">
+    <field name="model">stock.quant</field>
+    <field name="inherit_id" ref="stock.view_stock_quant_pivot" />
+    <field name="arch" type="xml">
+      <field name="quantity" position="after">
+        <field name="value_to_pivot" type="measure" string="Product cost price value" />
+        <field
+          name="purchase_value"
+          type="measure"
+          string="Last purchase price value"
+        />
+      </field>
+    </field>
+  </record>
+</odoo>

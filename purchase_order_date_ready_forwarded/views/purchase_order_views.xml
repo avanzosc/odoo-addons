@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_purchase_order_filter" model="ir.ui.view">
+    <field name="name">purchase.order search</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.view_purchase_order_filter" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[last()]" position="inside">
+        <filter
+          string="Date Ready"
+          name="date_ready"
+          context="{'group_by': 'date_ready'}"
+        />
+        <filter
+          string="Date Forwarded"
+          name="date_forwarded"
+          context="{'group_by': 'date_forwarded'}"
+        />
+        <filter
+          string="Delivery Date"
+          name="date_delivery"
+          context="{'group_by': 'date_delivery'}"
+        />
+        <filter
+          string="Arrival Date"
+          name="date_arrival"
+          context="{'group_by': 'date_arrival'}"
+        />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="purchase_order_view_tree_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.tree</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_view_tree" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='date_planned']" position="after">
+        <field name="date_ready" optional="show" />
+        <field name="date_forwarded" optional="show" />
+        <field name="date_delivery" optional="show" />
+        <field name="date_arrival" optional="show" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="purchase_order_form_inherit" model="ir.ui.view">
+    <field name="name">purchase.order.form</field>
+    <field name="model">purchase.order</field>
+    <field name="inherit_id" ref="purchase.purchase_order_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='date_order']" position="after">
+        <field name="date_ready" />
+        <field name="date_forwarded" />
+        <field name="date_delivery" />
+        <field name="date_arrival" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
