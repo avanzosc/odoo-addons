@@ -46,17 +46,17 @@
       <field name="partner_shipping_id" position="after">
         <field name="count_pending_repairs" invisible="1" />
       </field>
-      <xpath expr="//header/button[3]" position="attributes">
+      <button id="create_invoice" position="attributes">
         <attribute
           name="invisible"
         >is_repair or invoice_status != 'to invoice'</attribute>
-      </xpath>
-      <xpath expr="//header/button[4]" position="attributes">
+      </button>
+      <button id="create_invoice_percentage" position="attributes">
         <attribute
           name="invisible"
         >is_repair or invoice_status != 'no' or state != 'sale'</attribute>
-      </xpath>
-      <xpath expr="//header/button[4]" position="after">
+      </button>
+      <button id="create_invoice_percentage" position="after">
         <button
           name="%(sale.action_view_sale_advance_payment_inv)d"
           string="Create Invoice"
@@ -64,7 +64,7 @@
           context="{'from_repair': True}"
           invisible="not is_repair or count_pending_repairs == 0"
         />
-      </xpath>
+      </button>
       <button name="action_view_invoice" position="after">
         <button
           name="action_devolution_picking_repairs_from_sale"

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="action_unify_shape_attributes" model="ir.actions.server">
+    <field name="name">Unify Shape Attributes</field>
+    <field name="model_id" ref="product.model_product_template" />
+    <field name="binding_model_id" ref="product.model_product_template" />
+    <field name="state">code</field>
+    <field name="code">action = records.action_unify_shape_attributes()</field>
+  </record>
+</odoo>

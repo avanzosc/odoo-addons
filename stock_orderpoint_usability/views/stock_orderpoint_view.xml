@@ -5,7 +5,13 @@
     <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable" />
     <field name="arch" type="xml">
       <button name="action_product_forecast_report" position="before">
-        <field name="virtual_available" optional="show" />
+        <field
+          name="virtual_available"
+          readonly="1"
+          optional="show"
+          decoration-danger="forecaster_distinct_forecast"
+        />
+        <field name="forecaster_distinct_forecast" column_invisible="1" />
       </button>
       <button name="action_product_forecast_report" position="after">
         <field name="incoming_qty" optional="hide" />
@@ -38,7 +44,11 @@
           </div>
           <label for="virtual_available" />
           <div class="o_row">
-            <field name="virtual_available" />
+            <field name="forecaster_distinct_forecast" invisible="1" />
+            <field
+              name="virtual_available"
+              decoration-danger="forecaster_distinct_forecast"
+            />
             <field name="product_uom_name" />
           </div>
           <label for="qty_to_order" />
@@ -58,6 +68,21 @@
           </div>
         </group>
       </xpath>
+    </field>
+  </record>
+
+  <record id="stock_reorder_report_search" model="ir.ui.view">
+    <field name="model">stock.warehouse.orderpoint</field>
+    <field name="inherit_id" ref="stock.stock_reorder_report_search" />
+    <field name="arch" type="xml">
+      <filter name="filter_not_snoozed" position="after">
+        <separator />
+        <filter
+          string="Virtual Available Distinct Forecast"
+          name="forecaster-distinct-forecast"
+          domain="[('forecaster_distinct_forecast', '=', True)]"
+        />
+      </filter>
     </field>
   </record>
 </odoo>

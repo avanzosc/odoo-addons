@@ -45,7 +45,12 @@
         position="after"
       >
         <field name="allowed_make_ids" widget="many2many_tags" column_invisible="1" />
-        <field name="make_id" domain="[('id','in',allowed_make_ids)]" optional="show" />
+        <field
+          name="make_id"
+          domain="[('id','in',allowed_make_ids)]"
+          optional="show"
+          column_invisible="parent.move_type in ('in_invoice', 'in_refund')"
+        />
       </xpath>
 
       <xpath
