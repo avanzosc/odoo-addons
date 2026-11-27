@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="product_product_form_view_dim_order" model="ir.ui.view">
+    <field name="name">product.product.form.dim.order</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product_dimension.product_normal_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='categ_id']" position="before">
+        <field name="pricing_method" />
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_length']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_height']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_width']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//group[@name='dimensions']" position="inside">
+        <field name="dim_order_method" invisible="1" />
+
+        <!-- Length, Height, Width -->
+        <field name="product_length" invisible="dim_order_method != 'lhw'" />
+        <field name="product_height" invisible="dim_order_method != 'lhw'" />
+        <field name="product_width" invisible="dim_order_method != 'lhw'" />
+
+        <!-- Length, Width, Height -->
+        <field name="product_length" invisible="dim_order_method != 'lwh'" />
+        <field name="product_width" invisible="dim_order_method != 'lwh'" />
+        <field name="product_height" invisible="dim_order_method != 'lwh'" />
+
+        <!-- Width, Length, Height -->
+        <field name="product_width" invisible="dim_order_method != 'wlh'" />
+        <field name="product_length" invisible="dim_order_method != 'wlh'" />
+        <field name="product_height" invisible="dim_order_method != 'wlh'" />
+
+        <!-- Width, Height, Length -->
+        <field name="product_width" invisible="dim_order_method != 'whl'" />
+        <field name="product_height" invisible="dim_order_method != 'whl'" />
+        <field name="product_length" invisible="dim_order_method != 'whl'" />
+
+        <!-- Height, Length, Width -->
+        <field name="product_height" invisible="dim_order_method != 'hlw'" />
+        <field name="product_length" invisible="dim_order_method != 'hlw'" />
+        <field name="product_width" invisible="dim_order_method != 'hlw'" />
+
+        <!-- Height, Width, Length -->
+        <field name="product_height" invisible="dim_order_method != 'hwl'" />
+        <field name="product_width" invisible="dim_order_method != 'hwl'" />
+        <field name="product_length" invisible="dim_order_method != 'hwl'" />
+      </xpath>
+    </field>
+  </record>
+  <record id="product_product_tree_view" model="ir.ui.view">
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_product_tree_view" />
+    <field name="arch" type="xml">
+      <field name="lst_price" position="before">
+        <field name="pricing_method" optional="show" />
+        <field name="product_width" optional="show" />
+        <field name="product_height" optional="show" />
+        <field name="product_length" optional="show" />
+        <field name="weight" optional="show" />
+      </field>
+      <field name="lst_price" position="before" />
+    </field>
+  </record>
+  <record model="ir.ui.view" id="product_template_only_form_view">
+    <field name="name">product.template.form.custom</field>
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product_dimension.product_template_only_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='categ_id']" position="before">
+        <field name="pricing_method" />
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_length']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_height']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath
+        expr="//group[@name='dimensions']/field[@name='product_width']"
+        position="attributes"
+      >
+        <attribute name="invisible">1</attribute>
+      </xpath>
+      <xpath expr="//group[@name='dimensions']" position="inside">
+        <field name="dim_order_method" invisible="1" />
+
+        <!-- Length, Height, Width -->
+        <field name="product_length" invisible="dim_order_method != 'lhw'" />
+        <field name="product_height" invisible="dim_order_method != 'lhw'" />
+        <field name="product_width" invisible="dim_order_method != 'lhw'" />
+
+        <!-- Length, Width, Height -->
+        <field name="product_length" invisible="dim_order_method != 'lwh'" />
+        <field name="product_width" invisible="dim_order_method != 'lwh'" />
+        <field name="product_height" invisible="dim_order_method != 'lwh'" />
+
+        <!-- Width, Length, Height -->
+        <field name="product_width" invisible="dim_order_method != 'wlh'" />
+        <field name="product_length" invisible="dim_order_method != 'wlh'" />
+        <field name="product_height" invisible="dim_order_method != 'wlh'" />
+
+        <!-- Width, Height, Length -->
+        <field name="product_width" invisible="dim_order_method != 'whl'" />
+        <field name="product_height" invisible="dim_order_method != 'whl'" />
+        <field name="product_length" invisible="dim_order_method != 'whl'" />
+
+        <!-- Height, Length, Width -->
+        <field name="product_height" invisible="dim_order_method != 'hlw'" />
+        <field name="product_length" invisible="dim_order_method != 'hlw'" />
+        <field name="product_width" invisible="dim_order_method != 'hlw'" />
+
+        <!-- Height, Width, Length -->
+        <field name="product_height" invisible="dim_order_method != 'hwl'" />
+        <field name="product_width" invisible="dim_order_method != 'hwl'" />
+        <field name="product_length" invisible="dim_order_method != 'hwl'" />
+      </xpath>
+    </field>
+  </record>
+  <record id="product_template_tree_view" model="ir.ui.view">
+    <field name="model">product.template</field>
+    <field name="inherit_id" ref="product.product_template_tree_view" />
+    <field name="arch" type="xml">
+      <field name="list_price" position="before">
+        <field name="pricing_method" optional="show" />
+        <field name="product_width" optional="show" />
+        <field name="product_height" optional="show" />
+        <field name="product_length" optional="show" />
+        <field name="weight" optional="show" />
+      </field>
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,15 @@
+// Copyright 2026 Lucía Echeverría - AvanzOSC
+// License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+
+$o-personal-name-color: #7b1fa2;
+
+.o_personal_name,
+.o_list_table td.o_data_cell[name="personal_name"] {
+  color: $o-personal-name-color;
+  font-weight: bold;
+}
+
+label.o_personal_name {
+  color: $o-personal-name-color;
+  font-weight: normal;
+}

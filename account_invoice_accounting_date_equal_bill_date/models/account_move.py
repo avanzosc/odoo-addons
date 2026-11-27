@@ -6,7 +6,7 @@ from odoo import api, models
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    @api.depends("invoice_date", "company_id")
+    @api.depends("invoice_date", "company_id", "move_type")
     def _compute_date(self):
         if self.env.context.get("create_bill", False) or self.env.context.get(
             "auditlog_disabled", False
@@ -20,7 +20,11 @@ class AccountMove(models.Model):
         if other_moves:
             result = super(AccountMove, other_moves)._compute_date()
         for move in supplier_moves:
-            move.date = move.invoice_date
+            if move.invoice_date:
+                move.date = move.invoice_date
+            else:
+                result = super(AccountMove, move)._compute_date()
+                move.invoice_date = move.date
         return result
 
     def copy_data(self, default=None):

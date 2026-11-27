@@ -6,10 +6,73 @@
     <field name="arch" type="xml">
       <field name="origin" position="after">
         <field name="qty_ordered" optional="show" />
-        <field name="qty_received" optional="show" />
         <field name="qty_to_receive" optional="show" />
-        <field name="qty_invoiced" optional="show" />
+        <field name="qty_received" optional="show" />
+        <field name="qty_received_manually" optional="show" />
         <field name="qty_to_invoice" optional="show" />
+        <field name="qty_invoiced" optional="show" />
+      </field>
+      <field name="amount_untaxed" position="after">
+        <field
+          name="untaxed_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Receive"
+        />
+        <field
+          name="total_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Receive"
+        />
+        <field
+          name="untaxed_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received"
+        />
+        <field
+          name="total_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received"
+        />
+        <field
+          name="untaxed_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received Manually"
+        />
+        <field
+          name="total_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received manually"
+        />
+        <field
+          name="untaxed_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Invoice"
+        />
+        <field
+          name="total_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Invoice"
+        />
+        <field
+          name="untaxed_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Invoiced"
+        />
+        <field
+          name="total_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Invoiced"
+        />
       </field>
     </field>
   </record>
@@ -20,10 +83,73 @@
     <field name="arch" type="xml">
       <field name="origin" position="after">
         <field name="qty_ordered" optional="show" />
-        <field name="qty_received" optional="show" />
         <field name="qty_to_receive" optional="show" />
-        <field name="qty_invoiced" optional="show" />
+        <field name="qty_received" optional="show" />
+        <field name="qty_received_manually" optional="show" />
         <field name="qty_to_invoice" optional="show" />
+        <field name="qty_invoiced" optional="show" />
+      </field>
+      <field name="amount_untaxed" position="after">
+        <field
+          name="untaxed_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Receive"
+        />
+        <field
+          name="total_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Receive"
+        />
+        <field
+          name="untaxed_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received"
+        />
+        <field
+          name="total_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received"
+        />
+        <field
+          name="untaxed_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received Manually"
+        />
+        <field
+          name="total_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received manually"
+        />
+        <field
+          name="untaxed_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Invoice"
+        />
+        <field
+          name="total_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Invoice"
+        />
+        <field
+          name="untaxed_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Invoiced"
+        />
+        <field
+          name="total_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Invoiced"
+        />
       </field>
     </field>
   </record>
@@ -34,10 +160,73 @@
     <field name="arch" type="xml">
       <field name="origin" position="after">
         <field name="qty_ordered" optional="show" />
-        <field name="qty_received" optional="show" />
         <field name="qty_to_receive" optional="show" />
-        <field name="qty_invoiced" optional="show" />
+        <field name="qty_received" optional="show" />
+        <field name="qty_received_manually" optional="show" />
         <field name="qty_to_invoice" optional="show" />
+        <field name="qty_invoiced" optional="show" />
+      </field>
+      <field name="amount_untaxed" position="after">
+        <field
+          name="untaxed_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Receive"
+        />
+        <field
+          name="total_to_receive"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Receive"
+        />
+        <field
+          name="untaxed_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received"
+        />
+        <field
+          name="total_received"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received"
+        />
+        <field
+          name="untaxed_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Received Manually"
+        />
+        <field
+          name="total_received_manually"
+          widget="monetary"
+          optional="hide"
+          sum="Total Received manually"
+        />
+        <field
+          name="untaxed_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed To Invoice"
+        />
+        <field
+          name="total_to_invoice"
+          widget="monetary"
+          optional="hide"
+          sum="Total To Invoice"
+        />
+        <field
+          name="untaxed_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Untaxed Invoiced"
+        />
+        <field
+          name="total_invoiced"
+          widget="monetary"
+          optional="hide"
+          sum="Total Invoiced"
+        />
       </field>
     </field>
   </record>

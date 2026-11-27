@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_account_reconcile_legacy_writeoff_form" model="ir.ui.view">
+    <field name="name">account.reconcile.legacy.writeoff.form</field>
+
+    <field name="model">account.reconcile.legacy.writeoff</field>
+
+    <field name="arch" type="xml">
+      <form string="Crear descuadre" create="0" delete="0">
+        <field name="line_ids" invisible="1" />
+        <field name="company_id" invisible="1" />
+        <field name="currency_id" invisible="1" />
+        <field name="source_account_id" invisible="1" />
+        <field name="partner_id" invisible="1" />
+        <field name="balance" invisible="1" />
+
+        <div class="o_legacy_writeoff_form_grid">
+          <group>
+            <field
+              name="account_id"
+              required="1"
+              domain="[
+                                ('id', '!=', source_account_id)
+                            ]"
+              options="{
+                                'no_create_edit': True
+                            }"
+            />
+
+            <field name="analytic_distribution" widget="analytic_distribution" />
+          </group>
+
+          <group>
+            <field
+              name="journal_id"
+              domain="[
+                                ('type', '=', 'general')
+                            ]"
+              options="{
+                                'no_create_edit': True
+                            }"
+            />
+
+            <field name="label" />
+
+            <field name="amount" readonly="1" />
+
+            <field name="date" />
+          </group>
+        </div>
+
+        <div class="o_legacy_writeoff_actions">
+          <button
+            name="action_apply"
+            type="object"
+            class="btn btn-link"
+            string="Guardar y conciliar"
+          />
+        </div>
+      </form>
+    </field>
+  </record>
+</odoo>

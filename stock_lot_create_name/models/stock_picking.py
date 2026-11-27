@@ -19,7 +19,7 @@ class StockPicking(models.Model):
                 and ml.product_id.tracking == "lot"
                 and not ml.lot_name
                 and float_compare(
-                    ml.qty_done, 0, precision_rounding=ml.product_uom_id.rounding
+                    ml.quantity, 0, precision_rounding=ml.product_uom_id.rounding
                 )
             ):
                 lname = f"{picking.picking_type_id.lot_code}{picking.name[4:]}"

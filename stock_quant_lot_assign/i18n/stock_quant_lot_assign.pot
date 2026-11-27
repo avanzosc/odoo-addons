@@ -1,0 +1,88 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_quant_lot_assign
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 08:54+0000\n"
+"PO-Revision-Date: 2026-11-26 08:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_quant_lot_assign
+#: model:ir.actions.server,name:stock_quant_lot_assign.action_stock_quant_assign_lot
+msgid "Assign Lot"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#: model:ir.model.fields,field_description:stock_quant_lot_assign.field_res_config_settings__quant_assign_lot_prefix
+#: model_terms:ir.ui.view,arch_db:stock_quant_lot_assign.res_config_settings_view_form
+msgid "Assigned Lot Prefix"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#: model:ir.model,name:stock_quant_lot_assign.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#. odoo-python
+#: code:addons/stock_quant_lot_assign/models/stock_quant.py:0
+msgid "Lot assignment"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#. odoo-python
+#: code:addons/stock_quant_lot_assign/models/stock_quant.py:0
+msgid ""
+"None of the selected quants can be processed. Only quants without lot, with "
+"positive quantity in internal or transit locations, of products tracked by "
+"lots or serial numbers are processed."
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#. odoo-python
+#: code:addons/stock_quant_lot_assign/models/stock_quant.py:0
+msgid "Only inventory administrators can assign lots to quants."
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#: model:ir.model.fields,help:stock_quant_lot_assign.field_res_config_settings__quant_assign_lot_prefix
+msgid ""
+"Prefix of the lots created when assigning a lot to quants without lot. A "
+"sequential number is added after it."
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#: model_terms:ir.ui.view,arch_db:stock_quant_lot_assign.res_config_settings_view_form
+msgid ""
+"Prefix of the lots created with the 'Assign Lot' action on quants without "
+"lot"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#: model:ir.model,name:stock_quant_lot_assign.model_stock_quant
+msgid "Quants"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#. odoo-python
+#: code:addons/stock_quant_lot_assign/models/stock_quant.py:0
+msgid ""
+"The following quants of products tracked by serial numbers do not have a whole quantity, so one serial number per unit cannot be created:\n"
+"%(quants)s"
+msgstr ""
+
+#. module: stock_quant_lot_assign
+#. odoo-python
+#: code:addons/stock_quant_lot_assign/models/stock_quant.py:0
+msgid ""
+"The reservations of the following quants cannot be undone, probably because their operations are already picked. Unpick or process those operations first:\n"
+"%(quants)s"
+msgstr ""

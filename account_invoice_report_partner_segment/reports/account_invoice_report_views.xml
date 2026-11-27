@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="account_invoice_report_view_tree" model="ir.ui.view">
+    <field name="model">account.invoice.report</field>
+    <field name="inherit_id" ref="account.account_invoice_report_view_tree" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="segment_id" optional="show" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_account_invoice_report_search" model="ir.ui.view">
+    <field name="model">account.invoice.report</field>
+    <field name="inherit_id" ref="account.view_account_invoice_report_search" />
+    <field name="arch" type="xml">
+      <field name="partner_id" position="after">
+        <field name="segment_id" />
+      </field>
+      <filter name="partner_id" position="after">
+        <filter string="Segment" name="segment" context="{'group_by': 'segment_id'}" />
+      </filter>
+    </field>
+  </record>
+</odoo>

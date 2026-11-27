@@ -12,8 +12,8 @@
           optional="show"
         />
         <field name="created_from_move_line_id" optional="show" />
-        <field name="sale_order_id" optional="show" />
-        <field name="invoice_ids" widget="many2many_tags" optional="show" />
+        <field name="sale_id" optional="show" />
+        <field name="invoice_id" optional="show" />
       </field>
       <field name="company_id" position="before">
         <field
@@ -38,6 +38,11 @@
     <field name="inherit_id" ref="repair.view_repair_order_form" />
     <field name="priority">100</field>
     <field name="arch" type="xml">
+      <button name="action_create_sale_order" position="attributes">
+        <attribute
+          name="groups"
+        >stock_picking_create_repair.group_create_sale_order_from_repair</attribute>
+      </button>
       <field name="user_id" position="after">
         <field name="created_from_picking_id" />
         <field name="purchase_order_id" />
@@ -46,8 +51,8 @@
       </field>
       <field name="tag_ids" position="after">
         <field name="created_from_move_line_id" />
-        <field name="sale_order_id" />
-        <field name="invoice_ids" widget="many2many_tags" readonly="1" />
+        <field name="sale_id" />
+        <field name="invoice_id" readonly="1" />
       </field>
       <xpath
         expr="//page[@name='page_miscellaneous']//field[@name='picking_type_id']"
@@ -55,17 +60,41 @@
       >
         <field name="from_repair_picking_out_id" readonly="1" />
       </xpath>
+      <xpath
+        expr="//field[@name='move_ids']/list/field[@name='lot_ids']"
+        position="after"
+      >
+        <field
+          name="price_unit"
+          optional="show"
+          readonly="state in ('done', 'cancel')"
+        />
+        <field
+          name="tax_ids"
+          widget="many2many_tags"
+          optional="show"
+          options="{'no_create': True}"
+          domain="[('type_tax_use', '=', 'sale'), ('company_id', 'parent_of', parent.company_id)]"
+          context="{'active_test': True}"
+          readonly="state in ('done', 'cancel')"
+        />
+        <field name="price_subtotal" optional="show" sum="Total" />
+      </xpath>
+      <notebook position="after">
+        <group class="oe_subtotal_footer">
+          <field name="company_currency_id" invisible="1" />
+          <field name="lines_amount_untaxed" />
+          <field name="lines_amount_tax" />
+          <field name="lines_amount_total" class="oe_subtotal_footer_separator" />
+        </group>
+      </notebook>
       <field name="partner_id" position="after">
         <field
           name="partner_invoice_id"
           widget="res_partner_many2one"
-          readonly="sale_order_id"
+          readonly="sale_id"
         />
-        <field
-          name="address_id"
-          widget="res_partner_many2one"
-          readonly="sale_order_id"
-        />
+        <field name="address_id" widget="res_partner_many2one" readonly="sale_id" />
       </field>
     </field>
   </record>
@@ -84,8 +113,8 @@
       <field name="partner_id" position="before">
         <field name="purchase_order_id" />
         <field name="created_from_picking_id" />
-        <field name="sale_order_id" />
-        <field name="invoice_ids" />
+        <field name="sale_id" />
+        <field name="invoice_id" />
       </field>
       <filter name="returned" position="after">
         <separator />
@@ -116,15 +145,15 @@
         />
         <filter
           string="Sale order"
-          name="group-sale-order"
+          name="group-sale-id"
           domain="[]"
-          context="{'group_by': 'sale_order_id'}"
+          context="{'group_by': 'sale_id'}"
         />
         <filter
           string="Invoice"
           name="group-invoice"
           domain="[]"
-          context="{'group_by': 'invoice_ids'}"
+          context="{'group_by': 'invoice_id'}"
         />
       </filter>
       <filter name="partner" position="after">
@@ -209,6 +238,29 @@ if records:
 
   <record id="repair.repair_menu_product_template" model="ir.ui.menu">
     <field name="action" ref="product_template_repair_action" />
+  </record>
+
+  <record id="view_repair_order_form_repair_service" model="ir.ui.view">
+    <field name="model">repair.order</field>
+    <field name="inherit_id" ref="repair_service.view_repair_order_form_inherit" />
+    <field name="priority">10</field>
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='repair_service_ids']/list/field[@name='product_uom_qty']"
+        position="after"
+      >
+        <field name="price_unit" optional="show" />
+        <field
+          name="tax_ids"
+          widget="many2many_tags"
+          optional="show"
+          options="{'no_create': True}"
+          domain="[('type_tax_use', '=', 'sale'), ('company_id', 'parent_of', parent.company_id)]"
+          context="{'active_test': True}"
+        />
+        <field name="price_subtotal" optional="show" sum="Total" />
+      </xpath>
+    </field>
   </record>
 
   <record id="repair.repair_menu_product_product" model="ir.ui.menu">

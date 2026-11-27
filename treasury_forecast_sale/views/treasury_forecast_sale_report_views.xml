@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="view_treasury_forecast_project_report_search_sale" model="ir.ui.view">
+    <field name="name">treasury.forecast.project.report.search.sale</field>
+    <field name="model">treasury.forecast.project.report</field>
+    <field
+      name="inherit_id"
+      ref="treasury_forecast_project.view_treasury_forecast_project_report_search"
+    />
+    <field name="arch" type="xml">
+      <filter name="filter_project" position="after">
+        <filter
+          string="Committed Sale"
+          name="filter_committed_sale"
+          domain="[('source','=','committed_sale')]"
+        />
+      </filter>
+    </field>
+  </record>
+</odoo>
