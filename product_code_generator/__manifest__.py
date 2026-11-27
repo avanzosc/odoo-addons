@@ -13,6 +13,9 @@
         "product_brand",
         "product_category_code",
         "product_simple_seasonality",
+        "product_variant_default_code",
+        "barcodes",
+        "barcodes_generator_product",
     ],
     "data": [
         "security/ir.model.access.csv",

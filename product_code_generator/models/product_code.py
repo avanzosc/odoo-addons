@@ -9,7 +9,11 @@ class ProductCode(models.Model):
     _description = "Product Reference Coding"
     _order = "name"
 
-    name = fields.Char(required=True, copy=False)
+    name = fields.Char(
+        compute="_compute_name",
+        store=True,
+        copy=False,
+    )
     brand_id = fields.Many2one(comodel_name="product.brand")
     family_id = fields.Many2one(comodel_name="product.category")
     sub_family_id = fields.Many2one(comodel_name="product.category", string="Subfamily")
@@ -23,6 +27,25 @@ class ProductCode(models.Model):
         "reference for this combination of brand, family, subfamily and "
         "season.",
     )
+    _sql_constraints = [
+        (
+            "name_uniq",
+            "UNIQUE (brand_id, family_id, sub_family_id, season_id)",
+            "The product code prefix must be unique.",
+        ),
+    ]
+
+    @api.depends(
+        "brand_id.code",
+        "family_id.code",
+        "sub_family_id.code",
+        "season_id.code",
+    )
+    def _compute_name(self):
+        for code in self:
+            code.name = self._build_prefix(
+                code.brand_id, code.family_id, code.sub_family_id, code.season_id
+            )
 
     @api.depends("sequence_id.use_date_range", "sequence_id.number_next_actual")
     def _compute_sequence_number_next(self):
@@ -32,43 +55,62 @@ class ProductCode(models.Model):
 
     def _inverse_sequence_number_next(self):
         for code in self:
-            if code.sequence_id and code.sequence_number_next:
-                sequence = code.sequence_id._get_current_sequence()
+            sequence = (
+                code.sequence_id._get_current_sequence() if code.sequence_id else None
+            )
+            if sequence and code.sequence_number_next:
                 sequence.sudo().number_next = code.sequence_number_next
+                code.invalidate_recordset(["sequence_number_next"])
 
     @api.model
     def _build_prefix(self, brand, family, sub_family, season):
         return "".join(
             [
-                brand.code if brand else "00",
-                family.code if family else "00",
-                sub_family.code if sub_family else "00",
-                season.code if season else "000",
+                (brand.code or "00") if brand else "00",
+                (family.code or "00") if family else "00",
+                (sub_family.code or "00") if sub_family else "00",
+                (season.code or "000") if season else "000",
             ]
         )
 
     @api.model_create_multi
     def create(self, vals_list):
-        for vals in vals_list:
+        vals_list = [dict(vals) for vals in vals_list]
+        prefixes = {}
+        for index, vals in enumerate(vals_list):
+            vals.pop("name", None)
             if vals.get("sequence_id"):
                 continue
             brand = self.env["product.brand"].browse(vals.get("brand_id"))
             family = self.env["product.category"].browse(vals.get("family_id"))
             sub_family = self.env["product.category"].browse(vals.get("sub_family_id"))
             season = self.env["seasonality"].browse(vals.get("season_id"))
-            prefix = self._build_prefix(brand, family, sub_family, season)
-            sequence = self.env["ir.sequence"].search([("name", "=", prefix)], limit=1)
-            if not sequence:
-                sequence = self.env["ir.sequence"].create(
-                    {
-                        "name": prefix,
-                        "code": "product.product",
-                        "implementation": "no_gap",
-                        "prefix": prefix,
-                        "padding": 3,
-                        "use_date_range": False,
-                    }
+            prefixes[index] = self._build_prefix(brand, family, sub_family, season)
+
+        if prefixes:
+            names = list(set(prefixes.values()))
+            sequences = {
+                sequence.name: sequence
+                for sequence in self.env["ir.sequence"].search(
+                    [("code", "=", "product.product"), ("name", "in", names)]
                 )
-            vals["sequence_id"] = sequence.id
-            vals["name"] = prefix
+            }
+            missing = [name for name in names if name not in sequences]
+            if missing:
+                created = self.env["ir.sequence"].create(
+                    [
+                        {
+                            "name": name,
+                            "code": "product.product",
+                            "implementation": "no_gap",
+                            "prefix": name,
+                            "padding": 3,
+                            "use_date_range": False,
+                        }
+                        for name in missing
+                    ]
+                )
+                sequences.update({sequence.name: sequence for sequence in created})
+            for index, prefix in prefixes.items():
+                vals_list[index]["sequence_id"] = sequences[prefix].id
         return super().create(vals_list)

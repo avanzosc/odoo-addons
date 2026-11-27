@@ -3,18 +3,19 @@
 
 from odoo import _, api, models
 from odoo.exceptions import UserError
+from odoo.tools import barcode
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        products = super().create(vals_list)
-        for product, vals in zip(products, vals_list, strict=False):
-            if "barcode" not in vals:
-                product.barcode = product._generate_ean13_barcode()
-        return products
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     products = super().create(vals_list)
+    #     for product, vals in zip(products, vals_list, strict=False):
+    #         if "barcode" not in vals:
+    #             product.barcode = product._generate_ean13_barcode()
+    #     return products
 
     def generate_code(self):
         product_code = self.env["product.code"]
@@ -37,8 +38,8 @@ class ProductProduct(models.Model):
                         }
                     )
                 product.default_code = code.sequence_id.next_by_id()
-            if not product.barcode:
-                product.barcode = product._generate_ean13_barcode()
+            # if not product.barcode:
+            #     product.barcode = product._generate_ean13_barcode()
 
     def _generate_ean13_barcode(self):
         self.ensure_one()
@@ -83,7 +84,8 @@ class ProductProduct(models.Model):
             raise UserError(
                 _("An EAN13 barcode needs exactly 12 digits before the check digit.")
             )
-        odd_position_sum = sum(int(digit) for digit in ean12[::2])
-        even_position_sum = sum(int(digit) for digit in ean12[1::2])
-        check_digit = (10 - (odd_position_sum + even_position_sum * 3) % 10) % 10
+        check_digit = barcode.get_barcode_check_digit(ean12)
+        # odd_position_sum = sum(int(digit) for digit in ean12[::2])
+        # even_position_sum = sum(int(digit) for digit in ean12[1::2])
+        # check_digit = (10 - (odd_position_sum + even_position_sum * 3) % 10) % 10
         return ean12 + str(check_digit)
