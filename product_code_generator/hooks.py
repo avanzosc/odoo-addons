@@ -1,22 +1,15 @@
 # Copyright 2026 Lucía Echeverría - AvanzOSC
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+from openupgradelib import openupgrade
 import logging
 
 _logger = logging.getLogger(__name__)
 
-STALE_INDEXES = [
-    "product_category__property_account_income_categ_id_index",
-]
 
 
 def pre_init_hook(env):
-    from openupgradelib import openupgrade
-
     cr = env.cr
-    for index in STALE_INDEXES:
-        openupgrade.logged_query(cr, f'DROP INDEX IF EXISTS "{index}"')
-
     _migrate_legacy_seasons(cr, openupgrade)
 
 
