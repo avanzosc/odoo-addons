@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <setting id="full_traceability" position="after">
+        <setting
+          id="quant_assign_lot_prefix"
+          string="Assigned Lot Prefix"
+          help="Prefix of the lots created with the 'Assign Lot' action on quants without lot"
+          invisible="not group_stock_production_lot"
+        >
+          <field name="quant_assign_lot_prefix" />
+        </setting>
+      </setting>
+    </field>
+  </record>
+</odoo>
