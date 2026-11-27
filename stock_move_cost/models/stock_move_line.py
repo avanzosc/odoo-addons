@@ -25,13 +25,16 @@ class StockMoveLine(models.Model):
         for line in self:
             line.cost = line.quantity * line.price_unit_cost
 
+    def _get_product_price_unit_cost(self):
+        self.ensure_one()
+        if self.move_id.purchase_line_id:
+            return self.move_id.purchase_line_id.price_unit
+        return self.product_id.standard_price
+
     @api.onchange("product_id", "product_uom_id")
     def _onchange_product_id(self):
         if self.product_id:
-            if self.move_id.purchase_line_id:
-                self.price_unit_cost = self.move_id.purchase_line_id.price_unit
-            else:
-                self.price_unit_cost = self.product_id.standard_price
+            self.price_unit_cost = self._get_product_price_unit_cost()
         return super()._onchange_product_id()
 
     @api.onchange("lot_name", "lot_id")
@@ -56,8 +59,19 @@ class StockMoveLine(models.Model):
         return result
 
     def _put_price_unit_cost_in_line(self):
-        if self.lot_id and self.lot_id.purchase_price:
-            self._onchange_serial_number()
-        else:
-            if self.price_unit_cost == 0 and self.product_id.standard_price:
-                self._onchange_product_id()
+        # Do not call onchange methods here: on stored records they write
+        # other fields (e.g. description_picking), which triggers write()
+        # again and ends in infinite recursion.
+        for line in self:
+            if line.lot_id and line.lot_id.purchase_price:
+                price = line.lot_id.purchase_price
+            elif (
+                not line.price_unit_cost
+                and line.product_id
+                and line.product_id.standard_price
+            ):
+                price = line._get_product_price_unit_cost()
+            else:
+                continue
+            if price != line.price_unit_cost:
+                line.price_unit_cost = price
